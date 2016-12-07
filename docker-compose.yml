@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  npm:
+    image: node:slim
+    entrypoint: npm
+    command: install --unsafe-perm
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+  nginx:
+    image: nginx
+    volumes:
+      - ./webroot:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8000:80"
+
