@@ -5,3 +5,4 @@ aot/
 node_modules/
 typings/
 webroot/static/build.js
+.DS_Store

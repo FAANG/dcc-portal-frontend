@@ -6,10 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { CoreModule }  from './core/core.module';
 import { SharedModule }  from './shared/shared.module';
-import { ExampleChildModule } from './example-child/example-child.module';
+import { SpecimenModule } from './specimen/specimen.module';
 
 @NgModule({
-  imports: [ BrowserModule, CoreModule, AppRoutingModule, SharedModule, ExampleChildModule ],
+  imports: [ BrowserModule, CoreModule, AppRoutingModule, SharedModule, SpecimenModule ],
   declarations: [ AppComponent ],
   bootstrap: [ AppComponent ]
 })
