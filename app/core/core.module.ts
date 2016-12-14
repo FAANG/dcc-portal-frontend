@@ -1,13 +1,12 @@
 import { NgModule, ModuleWithProviders, Optional, SkipSelf }      from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './components/home.component';
 import { DoSomethingService } from './services/do-something.service';
 
 @NgModule({
-  imports: [ SharedModule, CommonModule, RouterModule ],
+  imports: [ SharedModule, CommonModule ],
   providers: [ DoSomethingService ],
   declarations: [ HomeComponent ]
 })
