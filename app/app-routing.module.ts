@@ -9,7 +9,7 @@ const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
   { path: 'home', component: HomeComponent},
   { path: 'specimen', component: SpecimenDetailComponent},
-  { path: 'specimen', component: SpecimenFilesComponent},
+  { path: 'specimen', component: SpecimenFilesComponent}
 ];
 
 @NgModule({
