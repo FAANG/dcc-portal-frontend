@@ -3,10 +3,9 @@ import { Component } from '@angular/core';
 import { DoSomethingService } from '../core/services/do-something.service';
 
 @Component({
-    selector: 'specimen-detail',
-    templateUrl: './specimen-detail.component.html',
+    templateUrl: './organism-table.component.html',
 })
-export class SpecimenDetailComponent{ 
+export class OrganismTableComponent{ 
   constructor(
     public doSomethingService: DoSomethingService
   ){}
