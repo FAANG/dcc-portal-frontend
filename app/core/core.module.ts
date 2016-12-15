@@ -1,11 +1,15 @@
 import { NgModule, ModuleWithProviders, Optional, SkipSelf }      from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpModule } from '@angular/http';
 
 import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './components/home.component';
 
+import { ApiSpecimenService }  from './services/api-specimen.service';
+
 @NgModule({
-  imports: [ SharedModule, CommonModule ],
+  imports: [ SharedModule, CommonModule, HttpModule ],
+  providers: [ ApiSpecimenService ],
   declarations: [ HomeComponent ]
 })
 export class CoreModule { 

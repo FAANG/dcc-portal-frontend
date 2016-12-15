@@ -7,6 +7,8 @@ import 'rxjs/add/operator/switchMap';
 
 import { Specimen } from '../shared/specimen';
 
+import { ApiSpecimenService }  from '../core/services/api-specimen.service';
+
 @Component({
     selector: 'specimen-detail',
     templateUrl: './specimen-detail.component.html',
@@ -24,6 +26,7 @@ export class SpecimenDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private apiSpecimenService: ApiSpecimenService,
   ){ };
 
   ngOnInit() {
@@ -34,6 +37,9 @@ export class SpecimenDetailComponent implements OnInit, OnDestroy {
     this.routeSubscription =
       this.activatedRoute.params.subscribe((params: {biosampleId: string}) => {
         this.biosampleId = params.biosampleId;
+        if (this.biosampleId){
+          this.specimenSource.next(this.apiSpecimenService.get(this.biosampleId));
+        }
       });
   };
 
