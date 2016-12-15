@@ -14,6 +14,6 @@ export class ApiSpecimenService {
   get(biosampleId: string): Observable<Specimen>{
     return this.http
                .get(`http://ves-hx-e4:9200/faang/specimen/${biosampleId}`)
-               .map((r: Response) => r.json().data as Specimen);
+               .map((r: Response) => r.json()._source as Specimen);
   }
 }
