@@ -1,12 +1,11 @@
 import { NgModule, ModuleWithProviders, Optional, SkipSelf }      from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './components/home.component';
 
 @NgModule({
-  imports: [ SharedModule, CommonModule, RouterModule ],
+  imports: [ SharedModule, CommonModule ],
   declarations: [ HomeComponent ]
 })
 export class CoreModule { 
