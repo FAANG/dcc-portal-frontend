@@ -1,6 +1,6 @@
 export class Specimen {
   constructor(
-    readonly biosampleID: string,
+    readonly biosampleId: string,
     readonly name: string,
     readonly description: string,
     readonly standardMet: string,
