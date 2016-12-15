@@ -6,10 +6,12 @@ import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './components/home.component';
 
 import { ApiSpecimenService }  from './services/api-specimen.service';
+import { ApiOrganismService }  from './services/api-organism.service';
+import { ApiFileService }  from './services/api-file.service';
 
 @NgModule({
   imports: [ SharedModule, CommonModule, HttpModule ],
-  providers: [ ApiSpecimenService ],
+  providers: [ ApiSpecimenService, ApiOrganismService, ApiFileService ],
   declarations: [ HomeComponent ]
 })
 export class CoreModule { 
