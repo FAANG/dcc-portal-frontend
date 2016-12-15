@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class OrganismDetailComponent implements OnInit, OnDestroy { 
   // public properties
-  biosampleid: string
+  biosampleId: string
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -19,8 +19,8 @@ export class OrganismDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.routeSubscription =
-      this.activatedRoute.params.subscribe((params: {biosampleid: string}) => {
-        this.biosampleid = params.biosampleid;
+      this.activatedRoute.params.subscribe((params: {biosampleId: string}) => {
+        this.biosampleId = params.biosampleId;
       });
   };
 

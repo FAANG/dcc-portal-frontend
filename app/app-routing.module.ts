@@ -13,9 +13,9 @@ const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
   { path: 'home', component: HomeComponent},
   { path: 'specimen', component: SpecimenTableComponent},
-  { path: 'specimen/:id', component: SpecimenDetailComponent},
+  { path: 'specimen/:biosampleId', component: SpecimenDetailComponent},
   { path: 'organism', component: OrganismTableComponent},
-  { path: 'organism/:id', component: OrganismDetailComponent},
+  { path: 'organism/:biosampleId', component: OrganismDetailComponent},
 ];
 
 @NgModule({
