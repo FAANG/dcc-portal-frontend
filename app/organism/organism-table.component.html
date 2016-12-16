@@ -1,14 +1,14 @@
 <div class="container">
 <h3>FAANG organisms</h3>
+
 <table class="table table-striped table-hover table-responsive">
 <thead><tr>
   <th>BioSample ID</th><th>Name</th>
 </tr></thead>
-<tbody><tr *ngFor="let organism of organismList?.hits;">
-<td>{{organism._source.biosampleId}}</td><td>{{organism._source.name}}</td>
+<tbody><tr *ngFor="let organism of organismList?.hits;"
+  class="clickable" [routerLink]="[organism._source.biosampleId]">
+<td><a>{{organism._source.biosampleId}}</a></td><td><a>{{organism._source.name}}</a></td>
 </tr></tbody>
 </table>
-<nav>
-<a routerLink="/organism/test">Organism detail test</a>
-</nav>
+
 </div>

@@ -5,12 +5,10 @@
 <thead><tr>
   <th>BioSample ID</th><th>Name</th>
 </tr></thead>
-<tbody><tr *ngFor="let specimen of specimenList?.hits;">
-<td>{{specimen._source.biosampleId}}</td><td>{{specimen._source.name}}</td>
+<tbody><tr *ngFor="let specimen of specimenList?.hits;"
+  class="clickable" [routerLink]="[specimen._source.biosampleId]">
+<td><a>{{specimen._source.biosampleId}}</a></td><td><a>{{specimen._source.name}}</a></td>
 </tr></tbody>
 </table>
 
-<nav>
-<a routerLink="/specimen/SAMEA4447536">Specimen detail test</a>
-</nav>
 </div>
