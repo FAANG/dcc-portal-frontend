@@ -39,17 +39,8 @@ export class ApiErrorService {
         console.log('An error occurred', error); // for debugging
 
         let errMsg = ""
-        if (typeof error._body === 'string') {
-          interface ApiErrorResp {
-            message: string
-          }
-          var apiErrorResp:ApiErrorResp = JSON.parse(error._body);
-          if (apiErrorResp.message) {
-            errMsg = ` - ${apiErrorResp.message}`;
-          }
-        }
-        if (!errMsg && error.message) {
-            errMsg = ` - ${error.message}`;
+        if (error.statusText) {
+            errMsg = ` - ${error.statusText}`;
         }
         let errStatus = error.status ? `${error.status}` : "Could not connect";
         errMsg = `API error: ${errStatus}${errMsg}`;
