@@ -1,5 +1,8 @@
 <div class="container">
 <h1 class="text-center">{{biosampleId}}</h1>
-<h3>This is the organism detail component</h3>
+<dl class="dl-horizontal">
+  <dt>Name</dt><dd>{{organism?.name}}</dd>
+  <dt>BioSample ID</dt><dd>{{organism?.biosampleId}}</dd>
+</dl>
 <organism-specimens></organism-specimens>
 </div>

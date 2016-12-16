@@ -14,6 +14,6 @@ export class ApiOrganismService {
   get(biosampleId: string): Observable<Organism>{
     return this.http
                .get(`http://ves-hx-e4:9200/faang/organism/${biosampleId}`)
-               .map((r: Response) => r.json().data as Organism);
+               .map((r: Response) => r.json()._source as Organism);
   }
 }

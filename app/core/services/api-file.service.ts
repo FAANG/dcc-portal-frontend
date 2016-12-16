@@ -14,6 +14,6 @@ export class ApiFileService {
   get(name: string): Observable<File>{
     return this.http
                .get(`http://ves-hx-e4:9200/faang/file/${name}`)
-               .map((r: Response) => r.json().data as File);
+               .map((r: Response) => r.json()._source as File);
   }
 }
