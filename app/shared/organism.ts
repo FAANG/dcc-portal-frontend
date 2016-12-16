@@ -11,5 +11,26 @@ export class Organism {
       readonly text: string,
       readonly ontologyTerms: string,
     },
+    readonly availability: string,
+    readonly organism: {
+      readonly text: string,
+      readonly ontologyTerms: string,
+    },
+    readonly sex: {
+      readonly text: string,
+      readonly ontologyTerms: string,
+    },
+    readonly breed: {
+      readonly text: string,
+      readonly ontologyTerms: string,
+    },
+    readonly birthDate: {
+      readonly text: string,
+      readonly unit: string,
+    },
+    readonly healthStatus: {
+      readonly text: string,
+      readonly ontologyTerms: string,
+    }[],
   ) { }
 }

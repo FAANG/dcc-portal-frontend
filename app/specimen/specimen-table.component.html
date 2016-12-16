@@ -3,11 +3,13 @@
 
 <table class="table table-striped table-hover table-responsive">
 <thead><tr>
-  <th>BioSample ID</th><th>Name</th>
+  <th>BioSample ID</th><th>Name</th><th>Sex</th><th>Organism</th><th>Breed</th>
 </tr></thead>
 <tbody><tr *ngFor="let specimen of specimenList?.hits;"
   class="clickable" [routerLink]="[specimen._source.biosampleId]">
 <td><a>{{specimen._source.biosampleId}}</a></td><td><a>{{specimen._source.name}}</a></td>
+<td>{{specimen._source.organism[0].sex.text}}</td><td>{{specimen._source.organism[0].organism.text}}</td>
+<td>{{specimen._source.organism[0].breed.text}}</td>
 </tr></tbody>
 </table>
 
