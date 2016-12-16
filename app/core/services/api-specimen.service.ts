@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { Specimen } from '../../shared/specimen';
+import { SpecimenList } from '../../shared/specimen-list';
 
 @Injectable()
 export class ApiSpecimenService {
@@ -15,5 +16,10 @@ export class ApiSpecimenService {
     return this.http
                .get(`http://ves-hx-e4:9200/faang/specimen/${biosampleId}`)
                .map((r: Response) => r.json()._source as Specimen);
+  }
+  getAll(): Observable<SpecimenList>{
+    return this.http
+               .get(`http://ves-hx-e4:9200/faang/specimen/_search?q=*:*`)
+               .map((r: Response) => r.json().hits as SpecimenList);
   }
 }
