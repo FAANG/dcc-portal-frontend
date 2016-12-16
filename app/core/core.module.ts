@@ -9,10 +9,11 @@ import { ApiSpecimenService }  from './services/api-specimen.service';
 import { ApiOrganismService }  from './services/api-organism.service';
 import { ApiFileService }  from './services/api-file.service';
 import { ApiTimeoutService }  from './services/api-timeout.service';
+import { ApiErrorService }  from './services/api-error.service';
 
 @NgModule({
   imports: [ SharedModule, CommonModule, HttpModule ],
-  providers: [ ApiSpecimenService, ApiOrganismService, ApiFileService, ApiTimeoutService ],
+  providers: [ ApiSpecimenService, ApiOrganismService, ApiFileService, ApiTimeoutService, ApiErrorService ],
   declarations: [ HomeComponent ]
 })
 export class CoreModule { 
