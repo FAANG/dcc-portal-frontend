@@ -1,6 +1,16 @@
 <div class="container">
-<h3>This is the specimen table component</h3>
+<h3>FAANG specimens</h3>
+
+<table class="table table-striped table-hover table-responsive">
+<thead><tr>
+  <th>BioSample ID</th><th>Name</th>
+</tr></thead>
+<tbody><tr *ngFor="let specimen of specimenList?.hits;">
+<td>{{specimen._source.biosampleId}}</td><td>{{specimen._source.name}}</td>
+</tr></tbody>
+</table>
+
 <nav>
-<a routerLink="/specimen/test">Specimen detail test</a>
+<a routerLink="/specimen/SAMEA4447536">Specimen detail test</a>
 </nav>
 </div>
