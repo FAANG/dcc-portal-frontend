@@ -28,31 +28,30 @@ export class ApiErrorService {
 
   // private methods
 
-  try(observable: Observable<Response>, observer: Observer<Response>) {
-    let service = this;
+  private try(observable: Observable<Response>, observer: Observer<Response>) {
     observable.subscribe(
       (res: Response) => {
         observer.next(res);
         observer.complete();
       },
-      (error: any) => {
-        console.log('An error occurred', error); // for debugging
+      (error: any) => this.onErrorFn(observable, observer, error)
+      );
+  }
 
-        let errMsg = ""
-        if (error.statusText) {
-            errMsg = ` - ${error.statusText}`;
-        }
-        let errStatus = error.status ? `${error.status}` : "Could not connect";
-        errMsg = `API error: ${errStatus}${errMsg}`;
+  private onErrorFn(observable: Observable<Response>, observer: Observer<Response>, error: any) {
+    console.log('An error occurred', error); // for debugging
 
-        let retryFn = function() {
-          service.try(observable, observer);
-        };
+    let errMsg = ""
+    if (error.statusText) {
+        errMsg = ` - ${error.statusText}`;
+    }
+    let errStatus = error.status ? `${error.status}` : "Could not connect";
+    errMsg = `API error: ${errStatus}${errMsg}`;
 
-        service.errorSource.next(new ApiErrorHandle(errMsg, observer, retryFn));
+    let retryFn = () => this.try(observable, observer);
 
-      }
-    );
+    this.errorSource.next(new ApiErrorHandle(errMsg, observer, retryFn));
+
   }
 
 }
