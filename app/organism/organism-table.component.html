@@ -6,10 +6,10 @@
   <th>BioSample ID</th><th>Name</th><th>Sex</th><th>Organism</th><th>Breed</th>
 </tr></thead>
 <tbody><tr *ngFor="let organism of organismList?.hits;"
-  class="clickable" [routerLink]="[organism._source.biosampleId]">
-<td><a>{{organism._source.biosampleId}}</a></td><td><a>{{organism._source.name}}</a></td>
-<td>{{organism._source.sex.text}}</td><td>{{organism._source.organism.text}}</td>
-<td>{{organism._source.breed.text}}</td>
+  class="clickable" [routerLink]="[organism?._source?.biosampleId]">
+<td><a>{{organism?._source?.biosampleId}}</a></td><td><a>{{organism?._source?.name}}</a></td>
+<td>{{organism?._source?.sex?.text}}</td><td>{{organism?._source?.organism?.text}}</td>
+<td>{{organism?._source?.breed?.text}}</td>
 </tr></tbody>
 </table>
 
