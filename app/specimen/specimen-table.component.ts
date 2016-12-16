@@ -15,6 +15,8 @@ import { ApiSpecimenService }  from '../core/services/api-specimen.service';
 export class SpecimenTableComponent implements OnInit, OnDestroy { 
   // public properties
   specimenList: SpecimenList
+  specimenOffset: number
+  pageLimit: number
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -30,12 +32,37 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     this.specimenSubscription = this.specimenSource
         .switchMap((o: Observable<SpecimenList>):Observable<SpecimenList> => o)
         .subscribe((e: SpecimenList) => this.specimenList = e );
-    this.specimenSource.next(this.apiSpecimenService.getAll());
+    this.specimenOffset = 0;
+    this.pageLimit = 10;
+    this.getSpecimenList();
   };
+
+  getSpecimenList() {
+    this.specimenSource.next(this.apiSpecimenService.getAll());
+  }
 
   ngOnDestroy() {
     if (this.specimenSubscription) {
       this.specimenSubscription.unsubscribe();
     }
   };
+
+  tableNext() {
+    if (this.tableHasMore()) {
+      this.specimenOffset += this.pageLimit;
+      this.getSpecimenList();
+    }
+  }
+  tablePrevious() {
+    if (this.specimenList && this.specimenList.hits) {
+      this.specimenOffset = (this.specimenOffset >= this.pageLimit) ? this.specimenOffset - this.pageLimit : 0;
+      this.getSpecimenList();
+    }
+  }
+  tableHasMore():boolean {
+    if (this.specimenList && this.specimenList.total > this.specimenOffset + this.pageLimit) {
+      return true;
+    }
+    return false;
+  }
 };

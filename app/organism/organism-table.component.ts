@@ -15,6 +15,8 @@ import { ApiOrganismService }  from '../core/services/api-organism.service';
 export class OrganismTableComponent implements OnInit, OnDestroy { 
   // public properties
   organismList: OrganismList
+  organismOffset: number
+  pageLimit: number
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -30,12 +32,37 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     this.organismSubscription = this.organismSource
         .switchMap((o: Observable<OrganismList>):Observable<OrganismList> => o)
         .subscribe((e: OrganismList) => this.organismList = e );
-    this.organismSource.next(this.apiOrganismService.getAll());
+    this.organismOffset = 0;
+    this.pageLimit = 10;
+    this.getOrganismList();
   };
+
+  getOrganismList() {
+    this.organismSource.next(this.apiOrganismService.getAll());
+  }
 
   ngOnDestroy() {
     if (this.organismSubscription) {
       this.organismSubscription.unsubscribe();
     }
   };
+
+  tableNext() {
+    if (this.tableHasMore()) {
+      this.organismOffset += this.pageLimit;
+      this.getOrganismList();
+    }
+  }
+  tablePrevious() {
+    if (this.organismList && this.organismList.hits) {
+      this.organismOffset = (this.organismOffset >= this.pageLimit) ? this.organismOffset - this.pageLimit : 0;
+      this.getOrganismList();
+    }
+  }
+  tableHasMore():boolean {
+    if (this.organismList && this.organismList.total > this.organismOffset + this.pageLimit) {
+      return true;
+    }
+    return false;
+  }
 };

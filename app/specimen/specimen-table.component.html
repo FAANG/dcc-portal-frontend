@@ -1,6 +1,13 @@
 <div class="container">
 <h3>FAANG specimens</h3>
 
+<div class="fails-table center-block">
+  <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
+    *ngIf="specimenOffset">Previous</button></div>
+  <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
+    *ngIf="tableHasMore()">Next</button></div>
+  <div class="clearfix"></div>
+
 <table class="table table-striped table-hover table-responsive">
 <thead><tr>
   <th>BioSample ID</th><th>Name</th><th>Sex</th><th>Organism</th><th>Breed</th>
@@ -12,5 +19,12 @@
 <td>{{specimen?._source?.organism?.breed[0]?.text}}</td>
 </tr></tbody>
 </table>
+
+  <div class="clearfix"></div>
+  <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
+    *ngIf="specimenOffset">Previous</button></div>
+  <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
+    *ngIf="tableHasMore()">Next</button></div>
+  <div class="clearfix"></div>
 
 </div>
