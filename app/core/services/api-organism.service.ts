@@ -29,9 +29,9 @@ export class ApiOrganismService {
 
   getAll(): Observable<OrganismList>{
     return this.apiTimeoutService.handleTimeout<OrganismList>(
-      this.http
-         .get(`http://ves-hx-e4:9200/faang/organism/_search?q=*:*`)
-         .map((r: Response) => r.json().hits as OrganismList)
+      this.apiErrorService.handleError(
+        this.http.get(`http://ves-hx-e4:9200/faang/organism/_search?q=*:*`)
+       ).map((r: Response) => r.json().hits as OrganismList)
     );
   }
 }

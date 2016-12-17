@@ -5,7 +5,7 @@ import { ApiTimeoutService } from '../../core/services/api-timeout.service';
 
 @Component({
     selector: 'api-slow-response',
-    template: `<h3 *ngIf="numSlowResponses > 0" class="text-center">Page loading....</h3>`,
+    templateUrl: './api-slow-response.component.html',
 })
 export class ApiSlowResponseComponent implements OnInit{
 
