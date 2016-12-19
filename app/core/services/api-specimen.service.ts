@@ -29,7 +29,16 @@ export class ApiSpecimenService {
   getAll(specimenOffset: number): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(
-        this.http.get(`http://ves-hx-e4:9200/faang/specimen/_search?q=*:*&sort=biosampleId:desc&from=${specimenOffset}`)
+        this.http.post(`http://ves-hx-e4:9200/faang/specimen/_search`, {
+          query:
+          {
+            match_all: {}
+          },
+          sort: [
+            {biosampleId: "desc"}
+          ],
+          from: specimenOffset
+        })
       ).map((r: Response) => r.json().hits as SpecimenList)
     );
   }
