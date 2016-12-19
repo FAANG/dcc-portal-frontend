@@ -26,10 +26,10 @@ export class ApiSpecimenService {
        ).map((r: Response) => r.json()._source as Specimen)
     );
   }
-  getAll(): Observable<SpecimenList>{
+  getAll(specimenOffset: number): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(
-        this.http.get(`http://ves-hx-e4:9200/faang/specimen/_search?q=*:*`)
+        this.http.get(`http://ves-hx-e4:9200/faang/specimen/_search?q=*:*&sort=biosampleId:desc&from=${specimenOffset}`)
       ).map((r: Response) => r.json().hits as SpecimenList)
     );
   }

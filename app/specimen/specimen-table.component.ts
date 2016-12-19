@@ -38,7 +38,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   };
 
   getSpecimenList() {
-    this.specimenSource.next(this.apiSpecimenService.getAll());
+    this.specimenSource.next(this.apiSpecimenService.getAll(this.specimenOffset));
   }
 
   ngOnDestroy() {

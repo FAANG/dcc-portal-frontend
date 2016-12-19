@@ -38,7 +38,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   };
 
   getOrganismList() {
-    this.organismSource.next(this.apiOrganismService.getAll());
+    this.organismSource.next(this.apiOrganismService.getAll(this.organismOffset));
   }
 
   ngOnDestroy() {
