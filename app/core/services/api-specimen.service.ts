@@ -23,22 +23,13 @@ export class ApiSpecimenService {
     return this.apiTimeoutService.handleTimeout<Specimen>(
       this.apiErrorService.handleError(
         this.http.get(`http://ves-hx-e4:9200/faang/specimen/${biosampleId}`)
-       ).map((r: Response) => r.json()._source as Specimen)
+      ).map((r: Response) => r.json()._source as Specimen)
     );
   }
-  getAll(specimenOffset: number): Observable<SpecimenList>{
+  getAll(query: any): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
-      this.apiErrorService.handleError(
-        this.http.post(`http://ves-hx-e4:9200/faang/specimen/_search`, {
-          query:
-          {
-            match_all: {}
-          },
-          sort: [
-            {biosampleId: "desc"}
-          ],
-          from: specimenOffset
-        })
+      this.apiErrorService.handleError(                                                    
+        this.http.post(`http://ves-hx-e4:9200/faang/specimen/_search`, query)
       ).map((r: Response) => r.json().hits as SpecimenList)
     );
   }

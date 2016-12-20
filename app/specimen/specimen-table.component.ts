@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from'@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -22,8 +23,10 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription = null;
   private specimenSource: Subject<Observable<SpecimenList>>;
   private specimenSubscription: Subscription = null;
+  private query: {[term: string]: any} = {};
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private apiSpecimenService: ApiSpecimenService,
   ){ };
 
@@ -35,27 +38,48 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     this.specimenOffset = 0;
     this.pageLimit = 10;
     this.getSpecimenList();
+    this.routeSubscription =
+      this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string}) => {
+        this.specimenOffset = 0;
+        this.query['from'] = this.specimenOffset
+        this.query['sort'] = [{biosampleId: "desc"}]
+        if (queryParams.sex || queryParams.organism) {
+          this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
+          if (queryParams.sex){
+            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'organism.sex.text' :queryParams.sex}})
+          }
+          if (queryParams.organism){
+            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'organism.organism.text' :queryParams.organism}}) 
+          }
+        }
+        this.getSpecimenList();
+      });
   };
 
   getSpecimenList() {
-    this.specimenSource.next(this.apiSpecimenService.getAll(this.specimenOffset));
+    this.specimenSource.next(this.apiSpecimenService.getAll(this.query));
   }
 
   ngOnDestroy() {
     if (this.specimenSubscription) {
       this.specimenSubscription.unsubscribe();
     }
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
   };
 
   tableNext() {
     if (this.tableHasMore()) {
       this.specimenOffset += this.pageLimit;
+      this.query['from'] = this.specimenOffset
       this.getSpecimenList();
     }
   }
   tablePrevious() {
     if (this.specimenList && this.specimenList.hits) {
       this.specimenOffset = (this.specimenOffset >= this.pageLimit) ? this.specimenOffset - this.pageLimit : 0;
+      this.query['from'] = this.specimenOffset
       this.getSpecimenList();
     }
   }
