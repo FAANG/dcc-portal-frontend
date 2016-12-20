@@ -27,19 +27,10 @@ export class ApiOrganismService {
     );
   }
 
-  getAll(organismOffset: number): Observable<OrganismList>{
+  getAll(query: any): Observable<OrganismList>{
     return this.apiTimeoutService.handleTimeout<OrganismList>(
       this.apiErrorService.handleError(
-        this.http.post(`http://ves-hx-e4:9200/faang/organism/_search`, {
-          query:
-          {
-            match_all: {}
-          },
-          sort: [
-            {biosampleId: "desc"}
-          ],
-          from: organismOffset
-        })
+        this.http.post(`http://ves-hx-e4:9200/faang/organism/_search`, query)
       ).map((r: Response) => r.json().hits as OrganismList)      
     );
   }

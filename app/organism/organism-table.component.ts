@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from'@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -22,8 +23,10 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription = null;
   private organismSource: Subject<Observable<OrganismList>>;
   private organismSubscription: Subscription = null;
+  private query: {[term: string]: any} = {};
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private apiOrganismService: ApiOrganismService,
   ){ };
 
@@ -35,27 +38,50 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     this.organismOffset = 0;
     this.pageLimit = 10;
     this.getOrganismList();
+    this.routeSubscription =
+      this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string}) => {
+        this.organismOffset = 0;
+        this.query['from'] = this.organismOffset
+        this.query['sort'] = [{biosampleId: "desc"}]
+        console.log(queryParams)
+        if (queryParams.sex || queryParams.organism) {
+          this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
+          if (queryParams.sex){
+            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'sex.text' :queryParams.sex}})
+          }
+          if (queryParams.organism){
+            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'organism.text' :queryParams.organism}}) 
+          }
+        }
+        console.log(this.activatedRoute)
+        this.getOrganismList();
+      });
   };
 
   getOrganismList() {
-    this.organismSource.next(this.apiOrganismService.getAll(this.organismOffset));
+    this.organismSource.next(this.apiOrganismService.getAll(this.query));
   }
 
   ngOnDestroy() {
     if (this.organismSubscription) {
       this.organismSubscription.unsubscribe();
     }
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
   };
 
   tableNext() {
     if (this.tableHasMore()) {
       this.organismOffset += this.pageLimit;
+      this.query['from'] = this.organismOffset
       this.getOrganismList();
     }
   }
   tablePrevious() {
     if (this.organismList && this.organismList.hits) {
       this.organismOffset = (this.organismOffset >= this.pageLimit) ? this.organismOffset - this.pageLimit : 0;
+      this.query['from'] = this.organismOffset
       this.getOrganismList();
     }
   }
