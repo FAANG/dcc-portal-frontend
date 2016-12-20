@@ -42,4 +42,24 @@ export class ApiSpecimenService {
       ).map((r: Response) => r.json().hits as SpecimenList)
     );
   }
+  getOrganismsSpecimens(biosampleId: string, specimenOffset: number): Observable<SpecimenList>{
+    return this.apiTimeoutService.handleTimeout<SpecimenList>(
+      this.apiErrorService.handleError(
+        this.http.post(`http://ves-hx-e4:9200/faang/specimen/_search`, {
+          "query": {
+            "filtered" : {
+              "filter" : {
+                "term" : {"organism.biosampleId" : biosampleId}
+              }
+            }
+          },
+          sort: [
+            {biosampleId: "desc"}
+          ],
+          from: specimenOffset
+        })
+      ).map((r: Response) => r.json().hits as SpecimenList)
+    );
+  }
+
 }
