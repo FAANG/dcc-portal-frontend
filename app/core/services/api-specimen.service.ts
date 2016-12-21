@@ -22,7 +22,7 @@ export class ApiSpecimenService {
   get(biosampleId: string): Observable<Specimen>{
     return this.apiTimeoutService.handleTimeout<Specimen>(
       this.apiErrorService.handleError(
-        this.http.get(`http://http://test.faang.org/api/specimen/${biosampleId}`)
+        this.http.get(`http://test.faang.org/api/specimen/${biosampleId}`)
       ).map((r: Response) => r.json()._source as Specimen)
     );
   }
