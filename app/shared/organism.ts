@@ -6,7 +6,6 @@ export class Organism {
     readonly standardMet: string,
     readonly project: string,
     readonly sameAs: string[],
-    readonly specimens: string[],
     readonly material: {
       readonly text: string,
       readonly ontologyTerms: string,
@@ -32,5 +31,30 @@ export class Organism {
       readonly text: string,
       readonly ontologyTerms: string,
     }[],
+    readonly birthLocation: string,
+    readonly birthLocationLongitude: {
+      readonly text: string,
+      readonly unit: string,
+    },
+    readonly birthLocationLatitude: {
+      readonly text: string,
+      readonly unit: string,
+    },
+    readonly birthWeight: {
+      readonly text: number,
+      readonly unit: string,
+    },
+    readonly placentalWeight: {
+      readonly text: number,
+      readonly unit: string,
+    },
+    readonly pregnancyLength: {
+      readonly text: number,
+      readonly unit: string,
+    },
+    readonly deliveryTiming: string,
+    readonly deliveryEase: string,
+    readonly childOf: string[],
+    readonly pedigree: string,
   ) { }
 }
