@@ -8,6 +8,23 @@
   <dt>Sex</dt><dd>{{organism?.sex?.text}}</dd>
   <dt>Organism</dt><dd><a href="{{organism?.organism?.ontologyTerms}}">{{organism?.organism?.text}}</a></dd>
   <dt>Breed</dt><dd><a href="{{organism?.breed?.ontologyTerms}}">{{organism?.breed?.text}}</a></dd>
+  <dt>Material</dt><dd><a href="{{organism?.material?.ontologyTerms}}">{{organism?.material?.text}}</a></dd>
+  <dt>Project</dt><dd>{{organism?.project}}</dd>
+  <dt>Availability</dt><dd>{{organism?.availability}}</dd>
+  <dt>Pedigree</dt><dd>{{organism?.pedigree}}</dd>
+  <dt>Description</dt><dd>{{organism?.description}}</dd>
+  <dt>Relationships</dt>
+  <dt>Same as</dt><dd>{{organism?.sameAs}}</dd>
+  <dt>Child of</dt><dd>{{organism?.childOf}}</dd>
+  <dt>Birth date</dt><dd>{{organism?.birthDate.text}}</dd>
+  <dt>Birth location</dt><dd>{{organism?.birthLocation}}</dd>
+  <dt>Birth longitude</dt><dd>{{organism?.birthLocationLongitude?.text}} {{organism?.birthLocationLongitude.unit}}</dd>
+  <dt>Birth latitude</dt><dd>{{organism?.birthLocationLatitude?.text}} {{organism?.birthLocationLatitude?.unit}}</dd>
+  <dt>Birth weight</dt><dd>{{organism?.birthWeight?.text}} {{organism?.birthWeight?.unit}}</dd>
+  <dt>Placental weight</dt><dd>{{organism?.placentalWeight?.text}} {{organism?.placentalWeight?.unit}}</dd>
+  <dt>Pregnancy length</dt><dd>{{organism?.pregnancyLength?.text}} {{organism?.pregnancyLength?.unit}}</dd>
+  <dt>Delivery timing</dt><dd>{{organism?.deliveryTiming}}</dd>
+  <dt>Delivery ease</dt><dd>{{organism?.deliveryEase}}</dd>
 </dl>
 <organism-specimens [biosampleId]="biosampleId"></organism-specimens>
 </div>
