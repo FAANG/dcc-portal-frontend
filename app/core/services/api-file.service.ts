@@ -19,7 +19,7 @@ export class ApiFileService {
   get(name: string): Observable<File>{
     return this.apiTimeoutService.handleTimeout<File>(
       this.http
-       .get(`http://ves-hx-e4:9200/faang/file/${name}`)
+       .get(`http://test.faang.org/api/file/${name}`)
        .map((r: Response) => r.json()._source as File)
     );
   }
