@@ -11,6 +11,11 @@ import { ApiSpecimenService }  from '../core/services/api-specimen.service';
 @Component({
     selector: 'organism-specimens',
     templateUrl: './organism-specimens.component.html',
+    styles: [`
+      .clickable {
+        cursor: pointer;
+      }
+    `],
 })
 export class OrganismSpecimensComponent{
   @Input() biosampleId: string;
