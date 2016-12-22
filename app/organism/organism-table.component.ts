@@ -12,6 +12,14 @@ import { ApiOrganismService }  from '../core/services/api-organism.service';
 @Component({
     selector: 'organism-table',
     templateUrl: './organism-table.component.html',
+    styles: [`
+      .clickable {
+        cursor: pointer;
+      }
+      li.list-group-item.title {
+        cursor: default;
+      }
+    `],
 })
 export class OrganismTableComponent implements OnInit, OnDestroy { 
   // public properties

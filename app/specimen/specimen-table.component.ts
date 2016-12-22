@@ -12,6 +12,11 @@ import { ApiSpecimenService }  from '../core/services/api-specimen.service';
 @Component({
     selector: 'specimen-table',
     templateUrl: './specimen-table.component.html',
+    styles: [`
+      .clickable {
+        cursor: pointer;
+      }
+    `],
 })
 export class SpecimenTableComponent implements OnInit, OnDestroy { 
   // public properties

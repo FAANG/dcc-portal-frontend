@@ -1,4 +1,5 @@
 <div class="container">
+<faang-navbar></faang-navbar>
 <api-error></api-error>
 <h1 class="text-center">{{biosampleId}}</h1>
 <api-slow-response></api-slow-response>
@@ -6,9 +7,9 @@
   <dt>Name</dt><dd>{{organism?.name}}</dd>
   <dt>BioSample ID</dt><dd>{{organism?.biosampleId}}</dd>
   <dt>Sex</dt><dd>{{organism?.sex?.text}}</dd>
-  <dt>Organism</dt><dd><a href="{{organism?.organism?.ontologyTerms}}">{{organism?.organism?.text}}</a></dd>
-  <dt>Breed</dt><dd><a href="{{organism?.breed?.ontologyTerms}}">{{organism?.breed?.text}}</a></dd>
-  <dt>Material</dt><dd><a href="{{organism?.material?.ontologyTerms}}">{{organism?.material?.text}}</a></dd>
+  <dt>Organism</dt><dd><a href="{{organism?.organism?.ontologyTerms}}" target="_blank">{{organism?.organism?.text}}</a></dd>
+  <dt>Breed</dt><dd><a href="{{organism?.breed?.ontologyTerms}}" target="_blank">{{organism?.breed?.text}}</a></dd>
+  <dt>Material</dt><dd><a href="{{organism?.material?.ontologyTerms}}" target="_blank">{{organism?.material?.text}}</a></dd>
   <dt>Project</dt><dd>{{organism?.project}}</dd>
   <dt>Availability</dt><dd>{{organism?.availability}}</dd>
   <dt>Pedigree</dt><dd>{{organism?.pedigree}}</dd>
