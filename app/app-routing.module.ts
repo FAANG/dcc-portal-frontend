@@ -2,6 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './core/components/home.component';
+import { PageNotFoundComponent } from './core/components/page-not-found.component';
 import { SpecimenTableComponent } from './specimen/specimen-table.component';
 import { SpecimenDetailComponent } from './specimen/specimen-detail.component';
 import { SpecimenFilesComponent } from './specimen/specimen-files.component';
@@ -16,6 +17,7 @@ const appRoutes: Routes = [
   { path: 'specimen/:biosampleId', component: SpecimenDetailComponent},
   { path: 'organism', component: OrganismTableComponent},
   { path: 'organism/:biosampleId', component: OrganismDetailComponent},
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
