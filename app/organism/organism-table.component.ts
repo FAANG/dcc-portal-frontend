@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from'@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
@@ -36,9 +37,11 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiOrganismService: ApiOrganismService,
+    private titleService: Title,
   ){ };
 
   ngOnInit() {
+    this.titleService.setTitle('FAANG organisms');
     this.organismSource = new Subject<Observable<OrganismList>>();
     this.organismSubscription = this.organismSource
         .switchMap((o: Observable<OrganismList>):Observable<OrganismList> => o)
