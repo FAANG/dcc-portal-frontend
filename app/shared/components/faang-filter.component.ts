@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 @Component({
     selector: 'faang-filter',
     templateUrl: './faang-filter.component.html',
@@ -9,5 +9,5 @@ import { Component } from '@angular/core';
     `],
 })
 export class FaangFilterComponent{
-  
+  @Input() title: string;
 }
