@@ -62,11 +62,13 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         this.query['aggs'] = {'all_organism': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'sex.text'}}, 'organism': {'terms': {'field': 'organism.organism.text'}}}}}
         if (queryParams.sex || queryParams.organism) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
-          if (queryParams.sex){
-            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'sex.text' :queryParams.sex}})
+          if (queryParams.sex){          
+            let sexParams = Array.isArray(queryParams.sex) ? queryParams.sex : [queryParams.sex];
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
           }
           if (queryParams.organism){
-            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'organism.text' :queryParams.organism}}) 
+            let organismParams = Array.isArray(queryParams.organism) ? queryParams.organism : [queryParams.organism];
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'organism.text' : organismParams}}) 
           }
         }
         this.getOrganismList();
