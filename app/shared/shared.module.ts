@@ -5,10 +5,11 @@ import { RouterModule } from '@angular/router';
 import { ApiErrorComponent } from './components/api-error.component';
 import { ApiSlowResponseComponent } from './components/api-slow-response.component';
 import { NavbarComponent } from './components/navbar.component';
+import { FaangFilterComponent } from './components/faang-filter.component';
 
 @NgModule({
   imports: [ CommonModule, RouterModule ],
-  declarations: [ ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent ],
-  exports: [ CommonModule, RouterModule, ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent ]
+  declarations: [ ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent ],
+  exports: [ CommonModule, RouterModule, ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent ]
 })
 export class SharedModule { }
