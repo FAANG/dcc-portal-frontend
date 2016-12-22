@@ -22,7 +22,7 @@ export class PageNotFoundComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.titleService.setTitle('FAANG | whoops');
     this.routeSubscription =
-      this.activatedRoute.url.subscribe(segments => this.currentUrl = segments.join(''));
+      this.activatedRoute.url.subscribe(segments => this.currentUrl = segments.join('/'));
   }
 
   ngOnDestroy() {
