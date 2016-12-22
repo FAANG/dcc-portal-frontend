@@ -62,7 +62,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         this.organismOffset = 0;
         this.query['from'] = this.organismOffset
         this.query['sort'] = [{biosampleId: "desc"}]
-        console.log(queryParams)
+        this.query['aggs'] = {'sex': {'terms': {'field': 'sex.text'}}, 'organism': {'terms': {'field': 'organism.organism.text'}}}
         if (queryParams.sex || queryParams.organism) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
           if (queryParams.sex){
@@ -72,7 +72,6 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
             this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'organism.text' :queryParams.organism}}) 
           }
         }
-        console.log(this.activatedRoute)
         this.getOrganismList();
       });
   };
@@ -105,7 +104,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     }
   }
   tableHasMore():boolean {
-    if (this.organismList && this.organismList.total > this.organismOffset + this.pageLimit) {
+    if (this.organismList && this.organismList.hits.total > this.organismOffset + this.pageLimit) {
       return true;
     }
     return false;

@@ -77,7 +77,7 @@ export class OrganismSpecimensComponent{
     }
   }
   tableHasMore():boolean {
-    if (this.specimenList && this.specimenList.total > this.specimenOffset + this.pageLimit) {
+    if (this.specimenList && this.specimenList.hits.total > this.specimenOffset + this.pageLimit) {
       return true;
     }
     return false;

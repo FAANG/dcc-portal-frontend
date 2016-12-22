@@ -14,7 +14,7 @@
 <thead><tr>
   <th>BioSample ID</th><th>Name</th><th>Material type</th>
 </tr></thead>
-<tbody><tr *ngFor="let specimen of specimenList?.hits;"
+<tbody><tr *ngFor="let specimen of specimenList?.hits.hits;"
   class="clickable" [routerLink]="['/specimen', specimen?._source?.biosampleId]">
 <td><a>{{specimen?._source.biosampleId}}</a></td><td><a>{{specimen?._source?.name}}</a></td><td><a>{{specimen?._source?.material?.text}}</a></td>
 </tr></tbody>

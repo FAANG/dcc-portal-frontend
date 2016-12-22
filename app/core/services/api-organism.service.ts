@@ -31,7 +31,7 @@ export class ApiOrganismService {
     return this.apiTimeoutService.handleTimeout<OrganismList>(
       this.apiErrorService.handleError(
         this.http.post(`/api/organism/_search`, query)
-      ).map((r: Response) => r.json().hits as OrganismList)      
+      ).map((r: Response) => r.json() as OrganismList)      
     );
   }
 }

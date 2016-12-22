@@ -30,7 +30,7 @@ export class ApiSpecimenService {
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(                                                    
         this.http.post(`/api/specimen/_search`, query)
-      ).map((r: Response) => r.json().hits as SpecimenList)
+      ).map((r: Response) => r.json() as SpecimenList)
     );
   }
   getOrganismsSpecimens(biosampleId: string, specimenOffset: number): Observable<SpecimenList>{
@@ -49,7 +49,7 @@ export class ApiSpecimenService {
           ],
           from: specimenOffset
         })
-      ).map((r: Response) => r.json().hits as SpecimenList)
+      ).map((r: Response) => r.json() as SpecimenList)
     );
   }
 

@@ -51,6 +51,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         this.specimenOffset = 0;
         this.query['from'] = this.specimenOffset
         this.query['sort'] = [{biosampleId: "desc"}]
+        this.query['aggs'] = {'sex': {'terms': {'field': 'specimen.organism.sex.text'}}, 'organism': {'terms': {'field': 'specimen.organism.organism.text'}}}
         if (queryParams.sex || queryParams.organism) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
           if (queryParams.sex){
@@ -92,7 +93,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     }
   }
   tableHasMore():boolean {
-    if (this.specimenList && this.specimenList.total > this.specimenOffset + this.pageLimit) {
+    if (this.specimenList && this.specimenList.hits.total > this.specimenOffset + this.pageLimit) {
       return true;
     }
     return false;
