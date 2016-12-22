@@ -1,38 +1,14 @@
 <div class="container">
 <faang-navbar></faang-navbar>
 <api-error></api-error>
-<h1>FAANG organisms</h1>
+<h2>FAANG organisms</h2>
 <api-slow-response></api-slow-response>
 
 <div class="row">
   <div class="col-md-2">
     <h3>Filters</h3>
-    <ul class="list-group">
-      <li class="list-group-item disabled title">
-        Sex
-      </li>
-      <button class="list-group-item" type="button">
-        <span class="badge">14</span>
-        Male
-      </button>
-      <button class="list-group-item" type="button">
-        <span class="badge">14</span>
-        Female
-      </button>
-    </ul>
-    <ul class="list-group">
-      <li class="list-group-item disabled title">
-        Organism
-      </li>
-      <button class="list-group-item" type="button">
-        <span class="badge">14</span>
-        Gallus gallus
-      </button>
-      <button class="list-group-item" type="button">
-        <span class="badge">14</span>
-        Bos taurus
-      </button>
-    </ul>
+    <faang-filter title="Sex"></faang-filter>
+    <faang-filter title="Organism"></faang-filter>
   </div>
 
   <div class="fails-table col-md-10">

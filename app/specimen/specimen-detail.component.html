@@ -7,8 +7,21 @@
   <dt>Name</dt><dd>{{specimen?.name}}</dd>
   <dt>BioSample ID</dt><dd>{{specimen?.biosampleId}}</dd>
   <dt>Sex</dt><dd>{{specimen?.organism?.sex[0]?.text}}</dd>
+  <dt>Organism BioSample Id:</dt><dd>{{specimen?.organism?.biosampleId}}</dd>
   <dt>Organism</dt><dd><a href="{{specimen?.organism?.organism[0]?.ontologyTerms}}" target="_blank">{{specimen?.organism?.organism[0]?.text}}</a></dd>
   <dt>Breed</dt><dd><a href="{{specimen?.organism?.breed[0]?.ontologyTerms}}" targe="_blank">{{specimen?.organism?.breed[0]?.text}}</a></dd>
+  <dt>Health status:</dt><dd><a href="{{specimen?.organism?.healthStatus[0]?.ontologyTerms}}">{{specimen?.organism?.healthStatus[0]?.text}}</a></dd>
+  <dt>Description:</dt><dd>{{specimen?.description}}</dd>
+  <dt>Standard met:</dt><dd>{{specimen?.standardMet}}</dd>
+  <dt>Project:</dt><dd>{{specimen?.project}}</dd>
+  <dt>Availability:</dt><dd>{{specimen?.availability}}</dd>
+  <dt>Organisation:</dt><dd><a href="{{specimen?.organization[0]?.URL}}" target="_blank">{{specimen?.organization[0]?.name}}</a></dd>
+  <dt>Material:</dt><dd><a href="{{specimen?.material?.ontologyTerms}}" target="_blank">{{specimen?.material?.text}}</a></dd>
+  <dt>Same as:</dt><dd>{{specimen?.sameAs}}</dd>
+  <dt>Derived from:</dt><dd>{{specimen?.derivedFrom}}</dd>
+  <div *ngIf="specimen?.material?.text?.includes('specimen from organism')">
+    <dt>I got here:</dt><dd>{{specimen?.derivedFrom}}</dd>
+  </div>
 </dl>
 <specimen-files></specimen-files>
 </div>

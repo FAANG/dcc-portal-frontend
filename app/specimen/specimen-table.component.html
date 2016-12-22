@@ -1,33 +1,40 @@
 <div class="container">
 <faang-navbar></faang-navbar>
 <api-error></api-error>
+<h2>FAANG specimens</h2>
 <api-slow-response></api-slow-response>
-<h3>FAANG specimens</h3>
 
-<div class="fails-table center-block">
-  <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
-    *ngIf="specimenOffset">Previous</button></div>
-  <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
-    *ngIf="tableHasMore()">Next</button></div>
-  <div class="clearfix"></div>
+<div class="row">
+  <div class="col-md-2">
+    <h3>Filters</h3>
+    <faang-filter title="Sex"></faang-filter>
+    <faang-filter title="Organism"></faang-filter>
+  </div>
 
-<table class="table table-striped table-hover table-responsive">
-<thead><tr>
-  <th>BioSample ID</th><th>Name</th><th>Sex</th><th>Organism</th><th>Breed</th>
-</tr></thead>
-<tbody><tr *ngFor="let specimen of specimenList?.hits;"
-  class="clickable" [routerLink]="[specimen?._source?.biosampleId]">
-<td><a>{{specimen?._source.biosampleId}}</a></td><td><a>{{specimen?._source?.name}}</a></td>
-<td>{{specimen?._source?.organism?.sex[0]?.text}}</td><td>{{specimen?._source?.organism?.organism[0]?.text}}</td>
-<td>{{specimen?._source?.organism?.breed[0]?.text}}</td>
-</tr></tbody>
-</table>
+  <div class="fails-table col-md-10">
+    <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
+      *ngIf="specimenOffset">Previous</button></div>
+    <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
+      *ngIf="tableHasMore()">Next</button></div>
+    <div class="clearfix"></div>
 
-  <div class="clearfix"></div>
-  <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
-    *ngIf="specimenOffset">Previous</button></div>
-  <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
-    *ngIf="tableHasMore()">Next</button></div>
-  <div class="clearfix"></div>
+  <table class="table table-striped table-hover table-responsive">
+  <thead><tr>
+    <th>BioSample ID</th><th>Name</th><th>Sex</th><th>Organism</th><th>Breed</th>
+  </tr></thead>
+  <tbody><tr *ngFor="let specimen of specimenList?.hits;"
+    class="clickable" [routerLink]="[specimen?._source?.biosampleId]">
+  <td><a>{{specimen?._source.biosampleId}}</a></td><td><a>{{specimen?._source?.name}}</a></td>
+  <td>{{specimen?._source?.organism?.sex[0]?.text}}</td><td>{{specimen?._source?.organism?.organism[0]?.text}}</td>
+  <td>{{specimen?._source?.organism?.breed[0]?.text}}</td>
+  </tr></tbody>
+  </table>
 
+    <div class="clearfix"></div>
+    <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
+      *ngIf="specimenOffset">Previous</button></div>
+    <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
+      *ngIf="tableHasMore()">Next</button></div>
+    <div class="clearfix"></div>
+  </div>
 </div>
