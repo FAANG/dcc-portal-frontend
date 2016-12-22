@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from'@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
@@ -33,9 +34,11 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiSpecimenService: ApiSpecimenService,
+    private titleService: Title,
   ){ };
 
   ngOnInit() {
+    this.titleService.setTitle('FAANG specimens');
     this.specimenSource = new Subject<Observable<SpecimenList>>();
     this.specimenSubscription = this.specimenSource
         .switchMap((o: Observable<SpecimenList>):Observable<SpecimenList> => o)

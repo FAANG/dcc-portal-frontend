@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from'@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
@@ -26,6 +27,7 @@ export class OrganismDetailComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiOrganismService: ApiOrganismService,
+    private titleService: Title,
   ){ };
 
   ngOnInit() {
@@ -36,6 +38,7 @@ export class OrganismDetailComponent implements OnInit, OnDestroy {
     this.routeSubscription =
       this.activatedRoute.params.subscribe((params: {biosampleId: string}) => {
         this.biosampleId = params.biosampleId;
+        this.titleService.setTitle(`${this.biosampleId} | FAANG organism`);
         if (this.biosampleId){
           this.organismSource.next(this.apiOrganismService.get(this.biosampleId));
         }
