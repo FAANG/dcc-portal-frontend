@@ -19,6 +19,9 @@
   <dt>Material:</dt><dd><a href="{{specimen?.material?.ontologyTerms}}" target="_blank">{{specimen?.material?.text}}</a></dd>
   <dt>Same as:</dt><dd>{{specimen?.sameAs}}</dd>
   <dt>Derived from:</dt><dd>{{specimen?.derivedFrom}}</dd>
+  <div *ngIf="specimen?.material?.text?.includes('specimen from organism')">
+    <dt>I got here:</dt><dd>{{specimen?.derivedFrom}}</dd>
+  </div>
 </dl>
 <specimen-files></specimen-files>
 </div>
