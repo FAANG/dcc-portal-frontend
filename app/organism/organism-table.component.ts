@@ -16,7 +16,7 @@ import { ApiOrganismService }  from '../core/services/api-organism.service';
       .clickable {
         cursor: pointer;
       }
-      li.disabled {
+      li.list-group-item.title {
         cursor: default;
       }
     `],
