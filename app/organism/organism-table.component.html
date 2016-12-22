@@ -7,8 +7,8 @@
 <div class="row">
   <div class="col-md-2">
     <h3>Filters</h3>
-    <faang-filter title="Sex"></faang-filter>
-    <faang-filter title="Organism"></faang-filter>
+    <faang-filter title="Sex" [aggs]="organismList?.aggregations['sex']?.buckets"></faang-filter>
+    <faang-filter title="Organism" [aggs]="organismList?.aggregations['organism']?.buckets"></faang-filter>
   </div>
 
   <div class="fails-table col-md-10">
@@ -22,7 +22,7 @@
   <thead><tr>
     <th>BioSample ID</th><th>Name</th><th>Sex</th><th>Organism</th><th>Breed</th>
   </tr></thead>
-  <tbody><tr *ngFor="let organism of organismList?.hits;"
+  <tbody><tr *ngFor="let organism of organismList?.hits.hits;"
     class="clickable" [routerLink]="[organism?._source?.biosampleId]">
   <td><a>{{organism?._source?.biosampleId}}</a></td><td><a>{{organism?._source?.name}}</a></td>
   <td>{{organism?._source?.sex?.text}}</td><td>{{organism?._source?.organism?.text}}</td>

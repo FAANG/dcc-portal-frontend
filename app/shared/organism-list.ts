@@ -2,7 +2,7 @@ import { Organism } from './organism';
 
 export class OrganismList {
   constructor(
-    readonly hits : Organism[],
-    readonly total : number
+    readonly hits : {hits: Organism[], total : number},
+    readonly aggregations : {[field : string]: {buckets: {key: string, doc_count: number}[]}},
 ) { }
 }
