@@ -17,8 +17,13 @@ import { ApiOrganismService }  from '../core/services/api-organism.service';
       .clickable {
         cursor: pointer;
       }
-      li.list-group-item.title {
-        cursor: default;
+      @media (max-width: 767px) {
+        div.faang-filter {
+          width: 300px;
+          max-width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+        }
       }
     `],
 })
