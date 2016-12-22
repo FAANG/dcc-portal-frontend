@@ -59,7 +59,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         this.specimenOffset = 0;
         this.query['from'] = this.specimenOffset
         this.query['sort'] = [{biosampleId: "desc"}]
-        this.query['aggs'] = {'sex': {'terms': {'field': 'specimen.organism.sex.text'}}, 'organism': {'terms': {'field': 'specimen.organism.organism.text'}}}
+        this.query['aggs'] = {'all_specimen': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'specimen.organism.sex.text'}}, 'organism': {'terms': {'field': 'specimen.organism.organism.text'}}}}}
         if (queryParams.sex || queryParams.organism) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
           if (queryParams.sex){
