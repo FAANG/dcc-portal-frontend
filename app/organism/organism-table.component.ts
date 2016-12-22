@@ -54,7 +54,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         this.organismOffset = 0;
         this.query['from'] = this.organismOffset
         this.query['sort'] = [{biosampleId: "desc"}]
-        this.query['aggs'] = {'sex': {'terms': {'field': 'sex.text'}}, 'organism': {'terms': {'field': 'organism.organism.text'}}}
+        this.query['aggs'] = {'all_organism': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'sex.text'}}, 'organism': {'terms': {'field': 'organism.organism.text'}}}}}
         if (queryParams.sex || queryParams.organism) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
           if (queryParams.sex){

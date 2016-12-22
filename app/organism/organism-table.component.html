@@ -7,8 +7,8 @@
 <div class="row">
   <div class="col-md-2">
     <h3>Filters</h3>
-    <faang-filter title="Sex" [aggs]="organismList?.aggregations['sex']?.buckets"></faang-filter>
-    <faang-filter title="Organism" [aggs]="organismList?.aggregations['organism']?.buckets"></faang-filter>
+    <faang-filter title="Sex" [aggs]="organismList?.aggregations['all_organism']['sex']?.buckets"></faang-filter>
+    <faang-filter title="Organism" [aggs]="organismList?.aggregations['all_organism']['organism']?.buckets"></faang-filter>
   </div>
 
   <div class="fails-table col-md-10">
