@@ -63,18 +63,20 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         if (queryParams.sex || queryParams.organism) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
           if (queryParams.sex){
-            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'organism.sex.text' :queryParams.sex}})
+            let sexParams = Array.isArray(queryParams.sex) ? queryParams.sex : [queryParams.sex];
+            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'organism.sex.text' :sexParams}})
             if(this.query['aggs']['all_specimen']['aggs']['organism']['terms']){
               this.query['aggs']['all_specimen']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'specimen.organism.organism.text'}}}, "filter" : {"bool": {"must": []}}}
             }
-            this.query['aggs']['all_specimen']['aggs']['organism']['filter']['bool']['must'].push({'term': {'specimen.organism.sex.text' : queryParams.sex}})
+            this.query['aggs']['all_specimen']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'specimen.organism.sex.text' : sexParams}})
           }
           if (queryParams.organism){
-            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'organism.organism.text' :queryParams.organism}})
+            let organismParams = Array.isArray(queryParams.organism) ? queryParams.organism : [queryParams.organism];
+            this.query['query']['filtered']['filter']['bool']['must'].push({'term': {'organism.organism.text' :organismParams}})
             if(this.query['aggs']['all_specimen']['aggs']['sex']['terms']){
               this.query['aggs']['all_specimen']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'specimen.organism.sex.text'}}}, "filter" : {"bool": {"must": []}}}
             }
-            this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'term': {'specimen.organism.organism.text' : queryParams.organism}})
+            this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'specimen.organism.organism.text' : organismParams}})
           }
         }
         this.getSpecimenList();
