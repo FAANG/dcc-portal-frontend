@@ -11,4 +11,5 @@ import { Component, Input } from '@angular/core';
 export class FaangFilterComponent{
   @Input() title: string;
   @Input() aggs: {key: string, doc_count: number}[];
+  @Input() isFiltered: {[key: string] : boolean};
 }

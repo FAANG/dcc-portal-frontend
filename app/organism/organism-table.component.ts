@@ -32,6 +32,8 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   organismList: OrganismList
   organismOffset: number
   pageLimit: number
+  isSexFiltered: {[key: string] : boolean} = {}
+  isOrganismFiltered: {[key: string] : boolean} = {}
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -60,6 +62,8 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         this.query['from'] = this.organismOffset
         this.query['sort'] = [{biosampleId: "desc"}]
         this.query['aggs'] = {'all_organism': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'sex.text'}}, 'organism': {'terms': {'field': 'organism.organism.text'}}}}}
+        this.isSexFiltered = {}
+        this.isOrganismFiltered = {}
         if (queryParams.sex || queryParams.organism) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
           if (queryParams.sex){          
@@ -69,6 +73,9 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
               this.query['aggs']['all_organism']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'organism.organism.text'}}}, "filter" : {"bool": {"must": []}}}
             }
             this.query['aggs']['all_organism']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
+            for (let filter of sexParams){
+              this.isSexFiltered[filter] = true
+            }
           }
           if (queryParams.organism){
             let organismParams = Array.isArray(queryParams.organism) ? queryParams.organism : [queryParams.organism];
@@ -76,7 +83,10 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
             if(this.query['aggs']['all_organism']['aggs']['sex']['terms']){
               this.query['aggs']['all_organism']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'sex.text'}}}, "filter" : {"bool": {"must": []}}}
             }
-            this.query['aggs']['all_organism']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'organism.organism.text' : organismParams}}) 
+            this.query['aggs']['all_organism']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'organism.organism.text' : organismParams}})             
+            for (let filter of organismParams){
+              this.isOrganismFiltered[filter] = true
+            }
           }
         }
         this.getOrganismList();

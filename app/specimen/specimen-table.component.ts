@@ -32,6 +32,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   specimenList: SpecimenList
   specimenOffset: number
   pageLimit: number
+  isSexFiltered: {[key: string] : boolean} = {}
+  isOrganismFiltered: {[key: string] : boolean} = {}
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -60,6 +62,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         this.query['from'] = this.specimenOffset
         this.query['sort'] = [{biosampleId: "desc"}]
         this.query['aggs'] = {'all_specimen': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'specimen.organism.sex.text'}}, 'organism': {'terms': {'field': 'specimen.organism.organism.text'}}}}}
+        this.isSexFiltered = {}
+        this.isOrganismFiltered = {}
         if (queryParams.sex || queryParams.organism) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
           if (queryParams.sex){
@@ -69,6 +73,9 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
               this.query['aggs']['all_specimen']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'specimen.organism.organism.text'}}}, "filter" : {"bool": {"must": []}}}
             }
             this.query['aggs']['all_specimen']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'specimen.organism.sex.text' : sexParams}})
+            for (let filter of sexParams){
+              this.isSexFiltered[filter] = true
+            }
           }
           if (queryParams.organism){
             let organismParams = Array.isArray(queryParams.organism) ? queryParams.organism : [queryParams.organism];
@@ -77,6 +84,9 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
               this.query['aggs']['all_specimen']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'specimen.organism.sex.text'}}}, "filter" : {"bool": {"must": []}}}
             }
             this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'specimen.organism.organism.text' : organismParams}})
+            for (let filter of organismParams){
+              this.isOrganismFiltered[filter] = true
+            }
           }
         }
         this.getSpecimenList();
