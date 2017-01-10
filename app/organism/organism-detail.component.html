@@ -5,7 +5,7 @@
 <api-slow-response></api-slow-response>
 <dl class="dl-horizontal">
   <dt>Name</dt><dd>{{organism?.name}}</dd>
-  <dt>BioSample ID</dt><dd>{{organism?.biosampleId}}</dd>
+  <dt>BioSample ID</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a></dd>
   <dt>Sex</dt><dd>{{organism?.sex?.text}}</dd>
   <dt>Organism</dt><dd><a href="{{organism?.organism?.ontologyTerms}}" target="_blank">{{organism?.organism?.text}}</a></dd>
   <dt>Breed</dt><dd><a href="{{organism?.breed?.ontologyTerms}}" target="_blank">{{organism?.breed?.text}}</a></dd>
