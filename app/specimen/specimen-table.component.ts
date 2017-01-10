@@ -88,6 +88,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
               this.isOrganismFiltered[filter] = true
             }
           }
+        }else{
+          delete this.query['query']
         }
         this.getSpecimenList();
       });
