@@ -67,7 +67,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         if (queryParams.sex || queryParams.organism) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
           if (queryParams.sex){          
-            let sexParams = Array.isArray(queryParams.sex) ? queryParams.sex : [queryParams.sex];
+            let sexParams = queryParams.sex.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
             if(this.query['aggs']['all_organism']['aggs']['organism']['terms']){
               this.query['aggs']['all_organism']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'organism.organism.text'}}}, "filter" : {"bool": {"must": []}}}
@@ -78,7 +78,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
             }
           }
           if (queryParams.organism){
-            let organismParams = Array.isArray(queryParams.organism) ? queryParams.organism : [queryParams.organism];
+            let organismParams = queryParams.organism.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'organism.text' : organismParams}})
             if(this.query['aggs']['all_organism']['aggs']['sex']['terms']){
               this.query['aggs']['all_organism']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'sex.text'}}}, "filter" : {"bool": {"must": []}}}

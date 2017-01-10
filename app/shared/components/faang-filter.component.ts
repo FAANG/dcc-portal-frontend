@@ -20,24 +20,25 @@ export class FaangFilterComponent{
     private router: Router
   ){ };
   toggleFilter(key: string){
-    console.log("I am the key", key)
-    console.log("Filtered", this.isFiltered)
     this.isFiltered[key] = !this.isFiltered[key];
-    console.log("Reversed filtered",this.isFiltered)
     let oldParams = this.activatedRoute.snapshot.queryParams;
-    console.log("Existing params", oldParams)
     let newParams = {}
     for (let filter in oldParams){
       newParams[filter] = oldParams[filter]
     }
+    let empty = true
+    let filters: string[] = [];
     newParams[this.routekey] = []
-    console.log("Wiped params", newParams)
     for (let filter in this.isFiltered){
       if (this.isFiltered[filter]){
-        newParams[this.routekey].push(filter)
+        filters.push(filter)
+        empty = false
       }
     }
-    console.log("Edited Params", newParams)
+    newParams[this.routekey] = filters.join("|")
+    if (empty){
+      delete newParams[this.routekey]
+    }
     this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: newParams})
   }
 }
