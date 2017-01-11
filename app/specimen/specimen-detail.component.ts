@@ -10,9 +10,16 @@ import { Specimen } from '../shared/specimen';
 
 import { ApiSpecimenService }  from '../core/services/api-specimen.service';
 
+let specimenDetailStyles: string = `
+  .dl-horizontal dt {
+    white-space: normal;
+  }
+`;
+
 @Component({
     selector: 'specimen-detail',
     templateUrl: './specimen-detail.component.html',
+    styles:[ specimenDetailStyles ],
 })
 export class SpecimenDetailComponent implements OnInit, OnDestroy { 
   
