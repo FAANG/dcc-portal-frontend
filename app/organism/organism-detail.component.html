@@ -4,54 +4,54 @@
 <h1 class="text-center">{{biosampleId}}</h1>
 <api-slow-response></api-slow-response>
 <dl class="dl-horizontal">
-  <dt>Name</dt><dd>{{organism?.name}}</dd>
-  <dt>BioSample ID</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a></dd>
-  <dt>Sex</dt><dd>{{organism?.sex?.text}}</dd>
-  <dt>Organism</dt><dd><a href="{{organism?.organism?.ontologyTerms}}" target="_blank">{{organism?.organism?.text}}</a></dd>
-  <dt>Breed</dt><dd><a href="{{organism?.breed?.ontologyTerms}}" target="_blank">{{organism?.breed?.text}}</a></dd>
-  <dt>Material</dt><dd><a href="{{organism?.material?.ontologyTerms}}" target="_blank">{{organism?.material?.text}}</a></dd>
-  <dt>Project</dt><dd>{{organism?.project}}</dd>
+  <dt>Name:</dt><dd>{{organism?.name}}</dd>
+  <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a></dd>
+  <dt>Sex:</dt><dd>{{organism?.sex?.text}}</dd>
+  <dt>Organism:</dt><dd><a href="{{organism?.organism?.ontologyTerms}}" target="_blank">{{organism?.organism?.text}}</a></dd>
+  <dt>Breed:</dt><dd><a href="{{organism?.breed?.ontologyTerms}}" target="_blank">{{organism?.breed?.text}}</a></dd>
+  <dt>Material:</dt><dd><a href="{{organism?.material?.ontologyTerms}}" target="_blank">{{organism?.material?.text}}</a></dd>
+  <dt>Project:</dt><dd>{{organism?.project}}</dd>
   <div *ngIf="organism?.availability">
-    <dt>Availability</dt><dd>{{organism?.availability}}</dd>
+    <dt>Availability:</dt><dd>{{organism?.availability}}</dd>
   </div>
   <div *ngIf="organism?.description">
-    <dt>Description</dt><dd>{{organism?.description}}</dd>
+    <dt>Description:</dt><dd>{{organism?.description}}</dd>
   </div>
   <div *ngIf="organism?.birthDate?.text">
-    <dt>Birth date</dt><dd>{{organism?.birthDate?.text}}</dd>
+    <dt>Birth date:</dt><dd>{{organism?.birthDate?.text}}</dd>
   </div>
   <div *ngIf="organism?.birthLocation">
-    <dt>Birth location</dt><dd>{{organism?.birthLocation}}</dd>
+    <dt>Birth location:</dt><dd>{{organism?.birthLocation}}</dd>
   </div>
   <div *ngIf="organism?.birthLocationLongitude?.text">
-    <dt>Birth longitude</dt><dd>{{organism?.birthLocationLongitude?.text}} {{organism?.birthLocationLongitude.unit}}</dd>
+    <dt>Birth longitude:</dt><dd>{{organism?.birthLocationLongitude?.text}} {{organism?.birthLocationLongitude.unit}}</dd>
   </div>
   <div *ngIf="organism?.birthLocationLatitude?.text">
-    <dt>Birth latitude</dt><dd>{{organism?.birthLocationLatitude?.text}} {{organism?.birthLocationLatitude?.unit}}</dd>
+    <dt>Birth latitude:</dt><dd>{{organism?.birthLocationLatitude?.text}} {{organism?.birthLocationLatitude?.unit}}</dd>
   </div>
   <div *ngIf="organism?.birthWeight?.text">
-  <dt>Birth weight</dt><dd>{{organism?.birthWeight?.text}} {{organism?.birthWeight?.unit}}</dd>
+  <dt>Birth weight:</dt><dd>{{organism?.birthWeight?.text}} {{organism?.birthWeight?.unit}}</dd>
   </div>
   <div *ngIf="organism?.placentalWeight?.text">
-    <dt>Placental weight</dt><dd>{{organism?.placentalWeight?.text}} {{organism?.placentalWeight?.unit}}</dd>
+    <dt>Placental weight:</dt><dd>{{organism?.placentalWeight?.text}} {{organism?.placentalWeight?.unit}}</dd>
   </div>
   <div *ngIf="organism?.pregnancyLength?.text">
-    <dt>Pregnancy length</dt><dd>{{organism?.pregnancyLength?.text}} {{organism?.pregnancyLength?.unit}}</dd>
+    <dt>Pregnancy length:</dt><dd>{{organism?.pregnancyLength?.text}} {{organism?.pregnancyLength?.unit}}</dd>
   </div>
   <div *ngIf="organism?.deliveryTiming">
-    <dt>Delivery timing</dt><dd>{{organism?.deliveryTiming}}</dd>
+    <dt>Delivery timing:</dt><dd>{{organism?.deliveryTiming}}</dd>
   </div>
   <div *ngIf="organism?.deliveryEase">
-    <dt>Delivery ease</dt><dd>{{organism?.deliveryEase}}</dd>
+    <dt>Delivery ease:</dt><dd>{{organism?.deliveryEase}}</dd>
   </div>
   <div *ngIf="organism?.sameAs">
-    <dt>Same as</dt><dd>{{organism?.sameAs}}</dd>
+    <dt>Same as:</dt><dd>{{organism?.sameAs}}</dd>
   </div>
   <div *ngIf="organism?.childOf">
-    <dt>Child of</dt><dd>{{organism?.childOf}}</dd>
+    <dt>Child of:</dt><dd>{{organism?.childOf}}</dd>
   </div>
   <div *ngIf="organism?.pedigree">
-    <dt>Pedigree</dt><dd>{{organism?.pedigree}}</dd>
+    <dt>Pedigree:</dt><dd>{{organism?.pedigree}}</dd>
   </div>
   </dl>
   <p></p>

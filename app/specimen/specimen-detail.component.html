@@ -4,23 +4,87 @@
 <h1 class="text-center">{{biosampleId}}</h1>
 <api-slow-response></api-slow-response>
 <dl class="dl-horizontal">
-  <dt>Name</dt><dd>{{specimen?.name}}</dd>
-  <dt>BioSample ID</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a></dd>
-  <dt>Sex</dt><dd>{{specimen?.organism?.sex[0]?.text}}</dd>
-  <dt>Organism BioSample Id:</dt><dd>{{specimen?.organism?.biosampleId}}</dd>
-  <dt>Organism</dt><dd><a href="{{specimen?.organism?.organism[0]?.ontologyTerms}}" target="_blank">{{specimen?.organism?.organism[0]?.text}}</a></dd>
-  <dt>Breed</dt><dd><a href="{{specimen?.organism?.breed[0]?.ontologyTerms}}" targe="_blank">{{specimen?.organism?.breed[0]?.text}}</a></dd>
+  <dt>Name:</dt><dd>{{specimen?.name}}</dd>
+  <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a></dd>
+  <dt>Sex:</dt><dd>{{specimen?.organism?.sex[0]?.text}}</dd>
+  <dt>Organism BioSample Id:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.organism?.biosampleId}}">{{specimen?.organism?.biosampleId}}</a></dd>
+  <dt>Organism:</dt><dd><a href="{{specimen?.organism?.organism[0]?.ontologyTerms}}" target="_blank">{{specimen?.organism?.organism[0]?.text}}</a></dd>
+  <dt>Breed:</dt><dd><a href="{{specimen?.organism?.breed[0]?.ontologyTerms}}" target="_blank">{{specimen?.organism?.breed[0]?.text}}</a></dd>
   <dt>Health status:</dt><dd><a href="{{specimen?.organism?.healthStatus[0]?.ontologyTerms}}">{{specimen?.organism?.healthStatus[0]?.text}}</a></dd>
-  <dt>Description:</dt><dd>{{specimen?.description}}</dd>
+  <div *ngIf="specimen?.description">
+    <dt>Description:</dt><dd>{{specimen?.description}}</dd>
+  </div>
   <dt>Standard met:</dt><dd>{{specimen?.standardMet}}</dd>
   <dt>Project:</dt><dd>{{specimen?.project}}</dd>
-  <dt>Availability:</dt><dd>{{specimen?.availability}}</dd>
+  <div *ngIf="specimen?.availability">
+    <dt>Availability:</dt><dd>{{specimen?.availability}}</dd>
+  </div>
   <dt>Organisation:</dt><dd><a href="{{specimen?.organization[0]?.URL}}" target="_blank">{{specimen?.organization[0]?.name}}</a></dd>
   <dt>Material:</dt><dd><a href="{{specimen?.material?.ontologyTerms}}" target="_blank">{{specimen?.material?.text}}</a></dd>
-  <dt>Same as:</dt><dd>{{specimen?.sameAs}}</dd>
+  <div *ngIf="specimen?.sameAs">
+    <dt>Same as:</dt><dd>{{specimen?.sameAs}}</dd>
+  </div>
   <dt>Derived from:</dt><dd>{{specimen?.derivedFrom}}</dd>
   <div *ngIf="specimen?.material?.text?.includes('specimen from organism')">
-    <dt>I got here:</dt><dd>{{specimen?.derivedFrom}}</dd>
+    <dt>Specimen collection date:</dt><dd>{{specimen?.specimenFromOrganism?.specimenCollectionDate?.text}}</dd>
+    <dt>Animal age at collection:</dt><dd>{{specimen?.specimenFromOrganism?.animalAgeAtCollection?.text}} {{specimen?.specimenFromOrganism?.animalAgeAtCollection?.unit}}</dd>
+    <dt>Developmental stage:</dt><dd><a href="{{specimen?.specimenFromOrganism?.developmentalStage?.ontologyTerms}}" target="_blank">{{specimen?.specimenFromOrganism?.developmentalStage?.text}}</a></dd>
+    <dt>Organism part:</dt><dd><a href="{{specimen?.specimenFromOrganism?.organismPart?.ontologyTerms}}" target="_blank">{{specimen?.specimenFromOrganism?.organismPart?.text}}</a></dd>
+    <dt>Specimen collection protocol:</dt><dd><a href="{{specimen?.specimenFromOrganism?.specimenCollectionProtocol}}" target="_blank">{{specimen?.specimenFromOrganism?.specimenCollectionProtocol}}</a></dd>
+    <div *ngIf="specimen?.specimenFromOrganism?.fastedStatus">
+      <dt>Fasted status:</dt><dd>{{specimen?.specimenFromOrganism?.fastedStatus}}</dd>
+    </div>
+    <div *ngIf="specimen?.specimenFromOrganism?.numberOfPieces?.text">
+      <dt>Number of pieces:</dt><dd>{{specimen?.specimenFromOrganism?.numberOfPieces?.text}}</dd>
+    </div>
+    <div *ngIf="specimen?.specimenFromOrganism?.specimenVolume?.text">
+      <dt>Specimen volume:</dt><dd>{{specimen?.specimenFromOrganism?.specimenVolume?.text}} {{specimen?.specimenFromOrganism?.specimenVolume?.unit}}</dd>
+    </div>
+    <div *ngIf="specimen?.specimenFromOrganism?.specimenSize?.text">
+      <dt>Specimen size:</dt><dd>{{specimen?.specimenFromOrganism?.specimenSize?.text}} {{specimen?.specimenFromOrganism?.specimenSize?.unit}}</dd>
+    </div>
+    <div *ngIf="specimen?.specimenFromOrganism?.specimenWeight?.text">
+      <dt>Specimen weight:</dt><dd>{{specimen?.specimenFromOrganism?.specimenWeight?.text}} {{specimen?.specimenFromOrganism?.specimenWeight?.unit}}</dd>
+    </div>
+    <div *ngIf="specimen?.specimenFromOrganism?.specimenPictureUrl">
+      <dt>Specimen picture URL:</dt><dd><a href="{{specimen?.specimenFromOrganism?.specimenPictureUrl}}" target="_blank">{{specimen?.specimenFromOrganism?.specimenPictureUrl}}</a></dd>
+    </div>
+    <div *ngIf="specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text">
+      <dt>Gestational age at sample collection:</dt><dd>{{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text}} {{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.unit}}</dd>
+    </div>
+  </div>
+  <div *ngIf="specimen?.material?.text?.includes('cell specimen')">
+    <div *ngIf="specimen?.cellSpecimen?.markers">
+      <dt>Specimen volume:</dt><dd>{{specimen?.cellSpecimen?.markers}}</dd>
+    </div>
+    <dt>Cell type:</dt><dd><a href="{{specimen?.cellSpecimen?.cellType?.ontologyTerms}}" target="_blank">{{specimen?.cellSpecimen?.cellType?.text}}</a></dd>
+    <dt>Purification protocol:</dt><dd><a href="{{specimen?.cellSpecimen?.purificationProtocol}}" target="_blank">{{specimen?.cellSpecimen?.purificationProtocol}}</a></dd>
+  </div>
+  <div *ngIf="specimen?.material?.text?.includes('cell culture')">
+    <dt>Culture type:</dt><dd><a href="{{specimen?.cellCulture?.cultureType?.ontologyTerms}}" target="_blank">{{specimen?.cellCulture?.cultureType?.text}}</a></dd>
+    <dt>Cell type:</dt><dd><a href="{{specimen?.cellCulture?.cellType?.ontologyTerms}}" target="_blank">{{specimen?.cellCulture?.cellType?.text}}</a></dd>
+    <dt>Cell culture protocol:</dt><dd><a href="{{specimen?.cellCulture?.cellCultureProtocol}}" target="_blank">{{specimen?.cellCulture?.cellCultureProtocol}}</a></dd>
+    <dt>Culture conditions:</dt><dd>{{specimen?.cellCulture?.cultureConditions}}</dd>
+    <dt>Number of passages:</dt><dd>{{specimen?.cellCulture?.numberOfPassages}}</dd>
+  </div>
+  <div *ngIf="specimen?.material?.text?.includes('cell line')">
+    <dt>Cell line:</dt><dd>{{specimen?.cellLine?.cellLine}}</dd>
+    <dt>Sex</dt><dd>{{specimen?.cellLine?.sex[0]?.text}}</dd>
+    <dt>Organism</dt><dd><a href="{{specimen?.cellLine?.organism?.ontologyTerms}}" target="_blank">{{specimen?.cellLine?.organism[0]?.text}}</a></dd>
+    <dt>Biomaterial provider:</dt><dd>{{specimen?.cellLine?.biomaterialProvider}}</dd>
+    <div *ngIf="specimen?.cellLine?.catalogueNumber">
+    <dt>Catalogue number:</dt><dd>{{specimen?.cellLine?.catalogueNumber}}</dd>
+    </div>
+    <div *ngIf="specimen?.cellLine?.passageNumber">
+      <dt>Passage number:</dt><dd>{{specimen?.cellLine?.passageNumber}}</dd>
+    </div>
+    <dt>Date established:</dt><dd>{{specimen?.cellLine?.publication}}</dd>
+    <dt>Publication:</dt><dd>{{specimen?.cellLine?.publication}}</dd>
+    <dt>Breed</dt><dd><a href="{{specimen?.cellLine?.breed[0]?.ontologyTerms}}" target="_blank">{{specimen?.cellLine?.breed[0]?.text}}</a></dd>
+    <dt>Cell type</dt><dd><a href="{{specimen?.cellLine?.cellType?.ontologyTerms}}" target="_blank">{{specimen?.cellLine?.cellType?.text}}</a></dd>
+    <dt>Culture conditions:</dt><dd>{{specimen?.cellLine?.cultureConditions}}</dd>
+    <dt>Culture protocol</dt><dd><a href="{{specimen?.cellLine?.cultureProtocol}}" target="_blank">{{specimen?.cellLine?.cultureProtocol}}</a></dd>
+    <dt>Karyotype:</dt><dd>{{specimen?.cellLine?.karyotype}}</dd>
   </div>
 </dl>
 <specimen-files></specimen-files>
