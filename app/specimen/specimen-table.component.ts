@@ -35,6 +35,9 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   isSexFiltered: {[key: string] : boolean} = {}
   isOrganismFiltered: {[key: string] : boolean} = {}
 
+  sexAggs: {key: string, doc_count: number}[]
+  organismAggs: {key: string, doc_count: number}[]
+
   // private properties
   private routeSubscription: Subscription = null;
   private specimenSource: Subject<Observable<SpecimenList>>;
@@ -52,7 +55,21 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     this.specimenSource = new Subject<Observable<SpecimenList>>();
     this.specimenSubscription = this.specimenSource
         .switchMap((o: Observable<SpecimenList>):Observable<SpecimenList> => o)
-        .subscribe((e: SpecimenList) => this.specimenList = e );
+        .subscribe((e: SpecimenList) => {
+          this.specimenList = e;
+          this.organismAggs = [];
+          this.sexAggs = [];
+
+          if (e && e.aggregations && e.aggregations['all_specimen']) {
+            let aggs = e.aggregations['all_specimen'];
+            this.sexAggs = aggs['sex']['buckets'] ? aggs['sex']['buckets']
+                      : aggs['sex']['sex']['buckets'] ? aggs['sex']['sex']['buckets']
+                      : [];
+            this.organismAggs = aggs['organism']['buckets'] ? aggs['organism']['buckets']
+                      : aggs['organism']['organism']['buckets'] ? aggs['organism']['organism']['buckets']
+                      : [];
+          }
+        });
     this.specimenOffset = 0;
     this.pageLimit = 10;
     this.getSpecimenList();
