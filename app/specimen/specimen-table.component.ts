@@ -31,7 +31,6 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   // public properties
   specimenList: SpecimenList
   specimenOffset: number
-  pageLimit: number
   isSexFiltered: {[key: string] : boolean} = {}
   isOrganismFiltered: {[key: string] : boolean} = {}
 
@@ -43,6 +42,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   private specimenSource: Subject<Observable<SpecimenList>>;
   private specimenSubscription: Subscription = null;
   private query: {[term: string]: any} = {};
+  private pageLimit: number
 
   constructor(
     private activatedRoute: ActivatedRoute,

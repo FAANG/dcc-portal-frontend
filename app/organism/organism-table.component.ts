@@ -31,7 +31,6 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   // public properties
   organismList: OrganismList
   organismOffset: number
-  pageLimit: number
   isSexFiltered: {[key: string] : boolean} = {}
   isOrganismFiltered: {[key: string] : boolean} = {}
 
@@ -39,6 +38,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   organismAggs: {key: string, doc_count: number}[]
 
   // private properties
+  private pageLimit: number
   private routeSubscription: Subscription = null;
   private organismSource: Subject<Observable<OrganismList>>;
   private organismSubscription: Subscription = null;
