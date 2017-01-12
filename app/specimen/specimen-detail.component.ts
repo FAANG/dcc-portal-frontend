@@ -12,7 +12,10 @@ import { ApiSpecimenService }  from '../core/services/api-specimen.service';
 
 let specimenDetailStyles: string = `
   .dl-horizontal dt {
-    white-space: normal;
+    width: 220px;
+  }
+  .dl-horizontal dd {
+    margin-left: 240px;
   }
 `;
 
