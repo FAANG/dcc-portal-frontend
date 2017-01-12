@@ -35,6 +35,9 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   isSexFiltered: {[key: string] : boolean} = {}
   isOrganismFiltered: {[key: string] : boolean} = {}
 
+  sexAggs: {key: string, doc_count: number}[]
+  organismAggs: {key: string, doc_count: number}[]
+
   // private properties
   private routeSubscription: Subscription = null;
   private organismSource: Subject<Observable<OrganismList>>;
@@ -52,7 +55,22 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     this.organismSource = new Subject<Observable<OrganismList>>();
     this.organismSubscription = this.organismSource
         .switchMap((o: Observable<OrganismList>):Observable<OrganismList> => o)
-        .subscribe((e: OrganismList) => this.organismList = e );
+        .subscribe((e: OrganismList) => {
+          this.organismList = e;
+          this.organismAggs = [];
+          this.sexAggs = [];
+
+          if (e && e.aggregations && e.aggregations['all_organism']) {
+            let aggs = e.aggregations['all_organism'];
+            this.sexAggs = aggs['sex']['buckets'] ? aggs['sex']['buckets']
+                      : aggs['sex']['sex']['buckets'] ? aggs['sex']['sex']['buckets']
+                      : [];
+            this.organismAggs = aggs['organism']['buckets'] ? aggs['organism']['buckets']
+                      : aggs['organism']['organism']['buckets'] ? aggs['organism']['organism']['buckets']
+                      : [];
+          }
+
+        });
     this.organismOffset = 0;
     this.pageLimit = 10;
     this.getOrganismList();
