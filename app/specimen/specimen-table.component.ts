@@ -71,7 +71,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
           }
         });
     this.specimenOffset = 0;
-    this.pageLimit = 25;
+    this.pageLimit = 15;
     this.getSpecimenList();
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string}) => {

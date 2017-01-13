@@ -71,7 +71,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
           }
         });
     this.organismOffset = 0;
-    this.pageLimit = 25;
+    this.pageLimit = 15;
     this.getOrganismList();
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string}) => {
