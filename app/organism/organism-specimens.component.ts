@@ -23,11 +23,11 @@ export class OrganismSpecimensComponent{
   // public properties
   specimenList: SpecimenList
   specimenOffset: number = 0
-  pageLimit: number = 10
 
   // private properties
   private specimenSource: Subject<Observable<SpecimenList>>;
   private specimenSubscription: Subscription = null;
+  private pageLimit: number = 10
 
   constructor(
     private apiSpecimenService: ApiSpecimenService,
