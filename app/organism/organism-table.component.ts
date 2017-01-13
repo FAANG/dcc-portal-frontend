@@ -38,11 +38,11 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   organismAggs: {key: string, doc_count: number}[]
 
   // private properties
-  private pageLimit: number
   private routeSubscription: Subscription = null;
   private organismSource: Subject<Observable<OrganismList>>;
   private organismSubscription: Subscription = null;
   private query: {[term: string]: any} = {};
+  private pageLimit: number
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -69,7 +69,6 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
                       : aggs['organism']['organism']['buckets'] ? aggs['organism']['organism']['buckets']
                       : [];
           }
-
         });
     this.organismOffset = 0;
     this.pageLimit = 25;
