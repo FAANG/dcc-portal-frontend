@@ -72,12 +72,13 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
 
         });
     this.organismOffset = 0;
-    this.pageLimit = 10;
+    this.pageLimit = 25;
     this.getOrganismList();
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string}) => {
         this.organismOffset = 0;
         this.query['from'] = this.organismOffset
+        this.query['size'] = this.pageLimit
         this.query['sort'] = [{biosampleId: "desc"}]
         this.query['aggs'] = {'all_organism': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'sex.text'}}, 'organism': {'terms': {'field': 'organism.organism.text'}}}}}
         this.isSexFiltered = {}

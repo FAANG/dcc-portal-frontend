@@ -71,12 +71,13 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
           }
         });
     this.specimenOffset = 0;
-    this.pageLimit = 10;
+    this.pageLimit = 25;
     this.getSpecimenList();
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string}) => {
         this.specimenOffset = 0;
         this.query['from'] = this.specimenOffset
+        this.query['size'] = this.pageLimit
         this.query['sort'] = [{biosampleId: "desc"}]
         this.query['aggs'] = {'all_specimen': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'specimen.organism.sex.text'}}, 'organism': {'terms': {'field': 'specimen.organism.organism.text'}}}}}
         this.isSexFiltered = {}
