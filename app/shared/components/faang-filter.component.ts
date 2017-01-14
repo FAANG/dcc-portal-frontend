@@ -15,6 +15,8 @@ export class FaangFilterComponent{
   @Input() aggs: {key: string, doc_count: number}[];
   @Input() isFiltered: {[key: string] : boolean};
 
+  itemLimit: number = 5
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router
@@ -40,5 +42,11 @@ export class FaangFilterComponent{
       delete newParams[this.routekey]
     }
     this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: newParams})
+  }
+  expand(){
+    this.itemLimit = 10000
+  }
+  collapse(){
+    this.itemLimit = 5
   }
 }
