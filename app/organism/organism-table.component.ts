@@ -79,7 +79,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         this.query['from'] = this.organismOffset
         this.query['size'] = this.pageLimit
         this.query['sort'] = [{biosampleId: "desc"}]
-        this.query['aggs'] = {'all_organism': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'sex.text'}}, 'organism': {'terms': {'field': 'organism.organism.text'}}}}}
+        this.query['aggs'] = {'all_organism': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'sex.text', 'size': 50}}, 'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}}}}}
         this.isSexFiltered = {}
         this.isOrganismFiltered = {}
         if (queryParams.sex || queryParams.organism) {
@@ -88,7 +88,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
             let sexParams = queryParams.sex.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
             if(this.query['aggs']['all_organism']['aggs']['organism']['terms']){
-              this.query['aggs']['all_organism']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'organism.organism.text'}}}, "filter" : {"bool": {"must": []}}}
+              this.query['aggs']['all_organism']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
             }
             this.query['aggs']['all_organism']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
             for (let filter of sexParams){
@@ -99,7 +99,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
             let organismParams = queryParams.organism.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'organism.text' : organismParams}})
             if(this.query['aggs']['all_organism']['aggs']['sex']['terms']){
-              this.query['aggs']['all_organism']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'sex.text'}}}, "filter" : {"bool": {"must": []}}}
+              this.query['aggs']['all_organism']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'sex.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
             }
             this.query['aggs']['all_organism']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'organism.organism.text' : organismParams}})             
             for (let filter of organismParams){
