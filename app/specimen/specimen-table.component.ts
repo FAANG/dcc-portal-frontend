@@ -114,7 +114,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
               this.query['aggs']['all_specimen']['aggs']['organismPart'] = {'aggs': {'organismPart': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text'}}}, "filter" : {"bool": {"must": []}}}
             }
             this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'specimen.organism.organism.text' : organismParams}})
-            this.query['aggs']['all_specimen']['aggs']['organismPart']['filter']['bool']['must'].push({'terms': {'specimen.organism.sex.text' : organismParams}})
+            this.query['aggs']['all_specimen']['aggs']['organismPart']['filter']['bool']['must'].push({'terms': {'specimen.organism.organism.text' : organismParams}})
             for (let filter of organismParams){
               this.isOrganismFiltered[filter] = true
             }
