@@ -35,11 +35,7 @@
     class="clickable" [routerLink]="[specimen?._source?.biosampleId]">
   <td><a>{{specimen?._source.biosampleId}}</a></td>
   <td><a>{{specimen?._source?.name}}</a></td>
-  <td *ngIf="specimen?._source?.specimenFromOrganism?.organismPart?.text">{{specimen?._source?.specimenFromOrganism?.organismPart?.text}}</td>
-  <td *ngIf="specimen?._source?.cellSpecimen?.cellType?.text">{{specimen?._source?.cellSpecimen?.cellType?.text}}</td>
-  <td *ngIf="specimen?._source?.cellCulture?.cellType?.text">{{specimen?._source?.cellCulture?.cellType?.text}}</td>
-  <td *ngIf="specimen?._source?.cellLine?.cellType?.text">{{specimen?.cellLine?.cellType?.text}}</td>
-  <td *ngIf="!specimen?._source?.cellLine?.cellType?.text && !specimen?._source?.cellCulture?.cellType?.text && !specimen?._source?.cellSpecimen?.cellType?.text && !specimen?._source?.specimenFromOrganism?.organismPart?.text"> </td>
+  <td>{{getCellType(specimen)}}</td>
   <td>{{specimen?._source?.organism?.sex[0]?.text}}</td>
   <td>{{specimen?._source?.organism?.organism[0]?.text}}</td>
   <td>{{specimen?._source?.organism?.breed[0]?.text}}</td>
