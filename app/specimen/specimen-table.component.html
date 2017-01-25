@@ -4,9 +4,15 @@
 <h2>FAANG specimens</h2>
 <api-slow-response></api-slow-response>
 
+<h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
+  Active filters:
+  <active-filters routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></active-filters>
+  <active-filters routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></active-filters>
+  <active-filters routekey="organismPart" [aggs]="organismPartAggs" [isFiltered]="isOrganismPartFiltered"></active-filters>
+</h3>
+
 <div class="row">
   <div class="col-md-2">
-    <h3>Filters</h3>
     <div class="row">
     <div class="col-md-12 col-sm-6 faang-filter">
     <faang-filter title="Sex" routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></faang-filter>

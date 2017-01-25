@@ -1,0 +1,5 @@
+<ng-container *ngFor="let field of aggs; let i=index" >
+  <button type="button" class="btn btn-primary btn-sm" (click)="clearFilter(field?.key)" *ngIf="isFiltered && isFiltered[field?.key]">
+    {{field?.key}} <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+  </button>
+</ng-container>

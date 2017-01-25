@@ -6,10 +6,11 @@ import { ApiErrorComponent } from './components/api-error.component';
 import { ApiSlowResponseComponent } from './components/api-slow-response.component';
 import { NavbarComponent } from './components/navbar.component';
 import { FaangFilterComponent } from './components/faang-filter.component';
+import { ActiveFiltersComponent } from './components/active-filters.component';
 
 @NgModule({
   imports: [ CommonModule, RouterModule ],
-  declarations: [ ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent ],
-  exports: [ CommonModule, RouterModule, ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent ]
+  declarations: [ ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent ],
+  exports: [ CommonModule, RouterModule, ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent ]
 })
 export class SharedModule { }
