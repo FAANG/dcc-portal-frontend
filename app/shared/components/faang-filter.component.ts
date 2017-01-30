@@ -11,6 +11,12 @@ import { ActivatedRoute, Router } from'@angular/router';
         max-height: 300px;
         overflow: scroll;
       }
+      ul.list-group {
+        margin-top: 0px
+      }
+      span.badge {
+        margin-left: 3px
+      }
     `],
 })
 export class FaangFilterComponent{
