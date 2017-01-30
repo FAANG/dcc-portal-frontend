@@ -7,6 +7,10 @@ import { ActivatedRoute, Router } from'@angular/router';
       li.list-group-item.title {
         cursor: default;
       }
+      ul.long-list {
+        max-height: 300px;
+        overflow: scroll;
+      }
     `],
 })
 export class FaangFilterComponent{
@@ -16,6 +20,7 @@ export class FaangFilterComponent{
   @Input() isFiltered: {[key: string] : boolean};
 
   itemLimit: number = 5
+  isCollapsed: boolean = true
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -43,10 +48,13 @@ export class FaangFilterComponent{
     }
     this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: newParams})
   }
-  expand(){
-    this.itemLimit = 10000
-  }
-  collapse(){
-    this.itemLimit = 5
+  toggleCollapse(){
+    if (this.isCollapsed){
+      this.itemLimit = 10000
+      this.isCollapsed = false
+    }else{
+      this.itemLimit = 5
+      this.isCollapsed = true
+    }
   }
 }

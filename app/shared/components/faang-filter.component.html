@@ -1,23 +1,15 @@
-<ul class="list-group">
-  <li class="list-group-item disabled title">
-    {{title}}
-    <span style="float:right;" *ngIf="itemLimit === 5 && aggs?.length > 5">
-      <button type="button" class="btn btn-primary btn-xs" (click)="expand()">
-        +
-      </button>
-    </span>
-    <span style="float:right;" *ngIf="itemLimit === 10000 && aggs?.length > 5">
-      <button type="button" class="btn btn-primary btn-xs" (click)="collapse()">
-        -
-      </button>
-    </span>
-  </li>
-  <div *ngFor="let field of aggs; let i=index">
-    <div *ngIf="i<itemLimit">
-      <button class="list-group-item" type="button" [ngClass]="{'active': isFiltered && isFiltered[field?.key]}" (click)="toggleFilter(field?.key)">
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      {{title}}<button type="button" class="btn btn-primary btn-xs pull-right" (click)="toggleCollapse()" *ngIf="aggs?.length > 5">{{isCollapsed ? "+" : "-"}}</button>
+    </h4>
+  </div>
+  <ul class="list-group" [ngClass]="{'long-list': itemLimit > 5}">
+    <ng-container class="list-group-item disabled" *ngFor="let field of aggs; let i=index">
+      <button class="list-group-item" type="button" [ngClass]="{'active': isFiltered && isFiltered[field?.key]}" (click)="toggleFilter(field?.key)" *ngIf="i<itemLimit">
         <span class="badge">{{field?.doc_count}}</span>
         {{field?.key}}
       </button>
-    </div>
-  </div>
-</ul>
+    </ng-container>
+  </ul>
+</div>
