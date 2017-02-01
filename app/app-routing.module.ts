@@ -9,6 +9,7 @@ import { SpecimenFilesComponent } from './specimen/specimen-files.component';
 import { OrganismTableComponent } from './organism/organism-table.component';
 import { OrganismDetailComponent } from './organism/organism-detail.component';
 import { OrganismSpecimensComponent } from './organism/organism-specimens.component';
+import { SearchResultsComponent } from './search/search-results.component';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
   { path: 'specimen/:biosampleId', component: SpecimenDetailComponent},
   { path: 'organism', component: OrganismTableComponent},
   { path: 'organism/:biosampleId', component: OrganismDetailComponent},
+  { path: 'search', component: SearchResultsComponent},
   { path: '**', component: PageNotFoundComponent },
 ];
 
