@@ -1,0 +1,10 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title text-center">
+      {{ organismHits?.total }} matching {{organismHits?.total | i18nPlural: {'=1': 'organism', 'other': 'organisms'} }}
+    </h3>
+  </div>
+  <ul class="list-group">
+    <a *ngFor="let hit of organismHits?.hits" class="list-group-item text-center" [routerLink]="['/organism', hit._id]">{{hit._id}}</a>
+  </ul>
+</div>

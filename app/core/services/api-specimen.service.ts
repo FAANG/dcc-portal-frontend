@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { Specimen } from '../../shared/specimen';
 import { SpecimenList } from '../../shared/specimen-list';
+import { ApiHits } from '../../shared/api-types/api-hits';
 import { ApiTimeoutService } from './api-timeout.service';
 import { ApiErrorService } from './api-error.service';
 
@@ -22,21 +23,24 @@ export class ApiSpecimenService {
   get(biosampleId: string): Observable<Specimen>{
     return this.apiTimeoutService.handleTimeout<Specimen>(
       this.apiErrorService.handleError(
-        this.http.get(`/api/specimen/${biosampleId}`)
+        //this.http.get(`http://data.faang.org/api/specimen/${biosampleId}`)
+        this.http.get(`http://ves-hx-e3:9200/faang_build_2/specimen/${biosampleId}`)
       ).map((r: Response) => r.json()._source as Specimen)
     );
   }
   getAll(query: any): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(                                                    
-        this.http.post(`/api/specimen/_search`, query)
+        //this.http.post(`http://data.faang.org/api/specimen/_search`, query)
+        this.http.post(`http://ves-hx-e3:9200/faang_build_2/specimen/_search`, query)
       ).map((r: Response) => r.json() as SpecimenList)
     );
   }
   getOrganismsSpecimens(biosampleId: string, specimenOffset: number): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(
-        this.http.post(`/api/specimen/_search`, {
+        //this.http.post(`http://data.faang.org/api/specimen/_search`, {
+        this.http.post(`http://ves-hx-e3:9200/faang_build_2/specimen/_search`, {
           "query": {
             "filtered" : {
               "filter" : {
@@ -53,4 +57,42 @@ export class ApiSpecimenService {
     );
   }
 
+  search(hitsPerPage: number, from: number, query: any): Observable<ApiHits>{
+    let body = {
+      from: from,
+      size: hitsPerPage,
+      fields: [
+        'name', 'organism.organism', 'organism.sex', 'organism.breed',
+      ],
+    };
+    if (query) {
+      body['query'] = query;
+    }
+    return this.apiTimeoutService.handleTimeout<ApiHits>(
+      this.apiErrorService.handleError(
+        //this.http.post(`http://data.faang.org/api/specimen/_search`, body)
+        this.http.post(`http://ves-hx-e3:9200/faang_build_2/specimen/_search`, body)
+      ).map((r:Response): ApiHits => {
+        let h: {hits: ApiHits} = r.json() as {hits: ApiHits};
+        return h.hits;
+      })
+    );
+  }
+
+  textSearch(text: string, hitsPerPage: number): Observable<ApiHits> {
+    let query = {
+      multi_match: {
+        query: text,
+        fields: [
+          'bioSampleID.std',
+          'name.std',
+          'sameAs.std',
+          'organization.name.std',
+          'organism.bioSampleID.std',
+          'cellLine.cellLine.std'
+        ],
+      }
+    }
+    return this.search(hitsPerPage, 0, query);
+  }
 }

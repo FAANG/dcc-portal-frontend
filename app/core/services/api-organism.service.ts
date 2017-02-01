@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { Organism } from '../../shared/organism';
 import { OrganismList } from '../../shared/organism-list';
+import { ApiHits } from '../../shared/api-types/api-hits';
 import { ApiTimeoutService } from './api-timeout.service';
 import { ApiErrorService } from './api-error.service';
 
@@ -22,16 +23,53 @@ export class ApiOrganismService {
   get(biosampleId: string): Observable<Organism>{
     return this.apiTimeoutService.handleTimeout<Organism>(
       this.apiErrorService.handleError(
-        this.http.get(`/api/organism/${biosampleId}`)
+        //this.http.get(`http://data.faang.org/api/organism/${biosampleId}`)
+        this.http.get(`http://ves-hx-e3:9200/faang_build_2/organism/${biosampleId}`)
       ).map((r: Response) => r.json()._source as Organism)
     );
   }
-
   getAll(query: any): Observable<OrganismList>{
     return this.apiTimeoutService.handleTimeout<OrganismList>(
       this.apiErrorService.handleError(
-        this.http.post(`/api/organism/_search`, query)
+        //this.http.post(`http://data.faang.org/api/organism/_search`, query)
+        this.http.post(`http://ves-hx-e3:9200/faang_build_2/organism/_search`, query)
       ).map((r: Response) => r.json() as OrganismList)      
     );
+  }
+
+  search(hitsPerPage: number, from: number, query: any): Observable<ApiHits>{
+    let body = {
+      from: from,
+      size: hitsPerPage,
+      fields: [
+        'name', 'organism', 'sex', 'breed',
+      ],
+    };
+    if (query) {
+      body['query'] = query;
+    }
+    return this.apiTimeoutService.handleTimeout<ApiHits>(
+      this.apiErrorService.handleError(
+        //this.http.post(`http://data.faang.org/api/organism/_search`, body)
+        this.http.post(`http://ves-hx-e3:9200/faang_build_2/organism/_search`, body)
+      ).map((r:Response): ApiHits => {
+        let h: {hits: ApiHits} = r.json() as {hits: ApiHits};
+        return h.hits;
+      })
+    );
+  }
+
+  textSearch(text: string, hitsPerPage: number): Observable<ApiHits> {
+    let query = {
+      multi_match: {
+        query: text,
+        fields: [
+          'bioSampleID.std',
+          'name.std',
+          'sameAs.std',
+        ],
+      }
+    }
+    return this.search(hitsPerPage, 0, query);
   }
 }
