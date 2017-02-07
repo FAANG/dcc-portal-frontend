@@ -2,12 +2,14 @@ import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 
 import { Organism } from '../../shared/organism';
 import { OrganismList } from '../../shared/organism-list';
 import { ApiHits } from '../../shared/api-types/api-hits';
 import { ApiTimeoutService } from './api-timeout.service';
 import { ApiErrorService } from './api-error.service';
+
 
 @Injectable()
 export class ApiOrganismService {
@@ -60,6 +62,9 @@ export class ApiOrganismService {
   }
 
   textSearch(text: string, hitsPerPage: number): Observable<ApiHits> {
+    if (!text) {
+      return Observable.of<ApiHits>(null);
+    }
     let query = {
       multi_match: {
         query: text,

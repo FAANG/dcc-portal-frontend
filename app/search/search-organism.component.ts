@@ -10,6 +10,11 @@ import { ApiHits } from '../shared/api-types/api-hits';
 let searchOrganismStyles: string = `
   ul.list-group {
     margin: 0;
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+  .list-group-item {
+    padding: 5px 15px;
   }
 `;
 
@@ -30,7 +35,7 @@ export class SearchOrganismComponent implements OnChanges, OnDestroy {
   // private properties
   private organismHitsSource: Subject<Observable<ApiHits>> = null;
   private organismHitsSubscription: Subscription = null;
-  private hitsPerPage: number = 10;
+  private hitsPerPage: number = 100;
 
   ngOnChanges(changes: SimpleChanges) {
 

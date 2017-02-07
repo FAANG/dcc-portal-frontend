@@ -2,6 +2,7 @@ import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 
 import { Specimen } from '../../shared/specimen';
 import { SpecimenList } from '../../shared/specimen-list';
@@ -80,6 +81,9 @@ export class ApiSpecimenService {
   }
 
   textSearch(text: string, hitsPerPage: number): Observable<ApiHits> {
+    if (!text) {
+      return Observable.of<ApiHits>(null);
+    }
     let query = {
       multi_match: {
         query: text,

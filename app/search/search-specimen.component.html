@@ -1,8 +1,8 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title text-center">
-      {{ specimenHits?.total }} matching {{specimenHits?.total | i18nPlural: {'=1': 'specimen', 'other': 'specimens'} }}
-    </h3>
+    <h4 class="panel-title text-center">
+      {{ specimenHits?.total }} matching specimen{{specimenHits?.total == 1 ? '' : 's' }}
+    </h4>
   </div>
   <ul class="list-group">
     <a *ngFor="let hit of specimenHits?.hits" class="list-group-item text-center" [routerLink]="['/specimen', hit._id]">{{hit._id}}</a>
