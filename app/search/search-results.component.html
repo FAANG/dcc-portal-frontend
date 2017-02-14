@@ -1,4 +1,9 @@
+<div class="container">
+<faang-navbar></faang-navbar>
+<api-error></api-error>
 <h2>Search results: {{query}}</h2>
+<api-slow-response></api-slow-response>
+
 <div class="row">
 
   <form class="col-md-6 col-md-offset-3 clearfix">
@@ -8,11 +13,11 @@
     </div>
   </form>
 
-  <div class="col-lg-4 col-md-4 col-sm-6">
+  <div class="col-lg-4 col-md-4 col-md-offset-1 col-sm-6">
     <search-specimen [query]="query"></search-specimen>
   </div>
 
-  <div class="col-lg-4 col-md-4 col-sm-6">
+  <div class="col-lg-4 col-md-4 col-md-offset-1 col-sm-6">
     <search-organism [query]="query"></search-organism>
   </div>
 
