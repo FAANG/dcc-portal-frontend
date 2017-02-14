@@ -44,7 +44,7 @@ export class ApiOrganismService {
       from: from,
       size: hitsPerPage,
       fields: [
-        'name', 'organism', 'sex', 'breed',
+        'name', 'biosampleId', 'organism.organism.text', 'sex.text', 'breed.text',
       ],
     };
     if (query) {
@@ -69,9 +69,12 @@ export class ApiOrganismService {
       multi_match: {
         query: text,
         fields: [
-          'bioSampleID.std',
+          'biosampleId.std',
           'name.std',
           'sameAs.std',
+          'organism.organism.text',
+          'sex.text',
+          'breed.text'
         ],
       }
     }

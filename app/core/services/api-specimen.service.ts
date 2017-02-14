@@ -63,7 +63,7 @@ export class ApiSpecimenService {
       from: from,
       size: hitsPerPage,
       fields: [
-        'name', 'organism.organism', 'organism.sex', 'organism.breed',
+        'name', 'organism.organism.text', 'organism.sex.text', 'organism.breed.text',
       ],
     };
     if (query) {
@@ -88,12 +88,15 @@ export class ApiSpecimenService {
       multi_match: {
         query: text,
         fields: [
-          'bioSampleID.std',
+          'biosampleId.std',
           'name.std',
           'sameAs.std',
           'organization.name.std',
-          'organism.bioSampleID.std',
-          'cellLine.cellLine.std'
+          'organism.biosampleId.std',
+          'cellLine.cellLine.std',
+          'organism.organism.text',
+          'organism.sex.text',
+          'organism.breed.text'
         ],
       }
     }
