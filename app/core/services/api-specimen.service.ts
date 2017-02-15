@@ -62,9 +62,6 @@ export class ApiSpecimenService {
     let body = {
       from: from,
       size: hitsPerPage,
-      fields: [
-        'name', 'organism.organism.text', 'organism.sex.text', 'organism.breed.text',
-      ],
     };
     if (query) {
       body['query'] = query;

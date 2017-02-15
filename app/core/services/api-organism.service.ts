@@ -43,9 +43,6 @@ export class ApiOrganismService {
     let body = {
       from: from,
       size: hitsPerPage,
-      fields: [
-        'name', 'biosampleId', 'organism.organism.text', 'sex.text', 'breed.text',
-      ],
     };
     if (query) {
       body['query'] = query;
