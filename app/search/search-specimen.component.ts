@@ -6,15 +6,14 @@ import 'rxjs/add/operator/switchMap';
 
 import { ApiSpecimenService }  from '../core/services/api-specimen.service';
 import { ApiHits } from '../shared/api-types/api-hits';
+import { Specimen } from '../shared/specimen';
 
 let searchSpecimenStyles: string = `
-  ul.list-group {
+  table {
     margin: 0;
-    max-height: 200px;
-    overflow-y: scroll;
   }
-  .list-group-item {
-    padding: 5px 15px;
+  .clickable {
+    cursor: pointer;
   }
 `;
 
@@ -55,6 +54,23 @@ export class SearchSpecimenComponent implements OnChanges, OnDestroy {
     if (this.specimenHitsSubscription) {
       this.specimenHitsSubscription.unsubscribe();
     }
+  }
+
+  getCellType(hit: Specimen):string{
+    let cellType = "";
+    if(hit['_source']['specimenFromOrganism'] && hit['_source']['specimenFromOrganism']['organismPart']){
+      cellType = hit['_source']['specimenFromOrganism']['organismPart']['text'];
+    }
+    if(hit['_source']['cellSpecimen'] && hit['_source']['cellSpecimen']['cellType']){
+      cellType = hit['_source']['cellSpecimen']['cellType'][0]['text'];
+    }
+    if(hit['_source']['cellCulture'] && hit['_source']['cellCulture']['cellType']){
+      cellType = hit['_source']['cellCulture']['cellType']['text'];
+    }
+    if(hit['_source']['cellLine'] && hit['_source']['cellLine']['cellType']){
+      cellType = hit['_source']['cellLine']['cellType'][0]['text'];
+    }
+    return cellType
   }
 
 };

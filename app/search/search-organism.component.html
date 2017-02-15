@@ -4,7 +4,17 @@
       {{ organismHits?.total }} matching organism{{organismHits?.total == 1 ? '' : 's' }}
     </h4>
   </div>
-  <ul class="list-group">
-    <a *ngFor="let hit of organismHits?.hits" class="list-group-item text-center" [routerLink]="['/organism', hit._id]">{{hit._id}}</a>
-  </ul>
+  <div style="max-height: 200px; overflow: auto;">
+    <table class="table table-striped table-hover table-responsive">
+      <tbody>
+        <tr *ngFor="let hit of organismHits?.hits" class="clickable" [routerLink]="['/organism', hit._id]">
+          <td><a>{{hit._id}}</a></td>
+          <td><a>{{hit?._source?.name}}</a></td>
+          <td>{{hit?._source?.sex?.text}}</td>
+          <td>{{hit?._source?.organism?.text}}</td>
+          <td>{{hit?._source?.breed?.text}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

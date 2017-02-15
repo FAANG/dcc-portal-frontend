@@ -8,13 +8,11 @@ import { ApiOrganismService }  from '../core/services/api-organism.service';
 import { ApiHits } from '../shared/api-types/api-hits';
 
 let searchOrganismStyles: string = `
-  ul.list-group {
+  table {
     margin: 0;
-    max-height: 200px;
-    overflow-y: scroll;
   }
-  .list-group-item {
-    padding: 5px 15px;
+  .clickable {
+    cursor: pointer;
   }
 `;
 
