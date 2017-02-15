@@ -11,22 +11,24 @@ import { Specimen } from '../shared/specimen';
 
 import { ApiSpecimenService }  from '../core/services/api-specimen.service';
 
+let specimenTableStyles: string = `
+  .clickable {
+    cursor: pointer;
+  }
+  @media (max-width: 767px) {
+    div.faang-filter {
+      width: 300px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+`;
+
 @Component({
     selector: 'specimen-table',
     templateUrl: './specimen-table.component.html',
-    styles: [`
-      .clickable {
-        cursor: pointer;
-      }
-      @media (max-width: 767px) {
-        div.faang-filter {
-          width: 300px;
-          max-width: 100%;
-          margin-left: auto;
-          margin-right: auto;
-        }
-      }
-    `],
+    styles: [ specimenTableStyles ],
 })
 export class SpecimenTableComponent implements OnInit, OnDestroy { 
   // public properties

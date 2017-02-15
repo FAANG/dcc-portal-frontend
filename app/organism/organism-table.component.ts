@@ -10,24 +10,27 @@ import { OrganismList } from '../shared/organism-list';
 
 import { ApiOrganismService }  from '../core/services/api-organism.service';
 
+let organismTableStyles: string = `
+  .clickable {
+    cursor: pointer;
+  }
+  @media (max-width: 767px) {
+    div.faang-filter {
+      width: 300px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+`;
+
 @Component({
     selector: 'organism-table',
     templateUrl: './organism-table.component.html',
-    styles: [`
-      .clickable {
-        cursor: pointer;
-      }
-      @media (max-width: 767px) {
-        div.faang-filter {
-          width: 300px;
-          max-width: 100%;
-          margin-left: auto;
-          margin-right: auto;
-        }
-      }
-    `],
+    styles: [ organismTableStyles ],
 })
 export class OrganismTableComponent implements OnInit, OnDestroy { 
+
   // public properties
   organismList: OrganismList
   organismOffset: number
