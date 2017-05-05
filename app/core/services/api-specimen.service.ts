@@ -87,13 +87,23 @@ export class ApiSpecimenService {
         fields: [
           'biosampleId.std',
           'name.std',
+          'description.std',
           'sameAs.std',
+          'derivedFrom.std',
           'organization.name.std',
+          'specimenFromOrganism.developmentalStage.text.autocomp',
+          'specimenFromOrganism.healthStatusAtCollection.text.autocomp',
+          'specimenFromOrganism.organismPart.text.autocomp',
           'organism.biosampleId.std',
+          'organism.organism.text.autocomp',
+          'organism.sex.text.autocomp',
+          'organism.breed.text.autocomp',
+          'organism.healthStatus.text.autocomp',
+          'cellLine.organism.text.autocomp',
+          'cellLine.sex.text.autocomp',
+          'cellLine.breed.text.autocomp',
           'cellLine.cellLine.std',
-          'organism.organism.text',
-          'organism.sex.text',
-          'organism.breed.text'
+          'cellLine.disease.autocomp',
         ],
       }
     }

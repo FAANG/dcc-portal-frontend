@@ -69,9 +69,11 @@ export class ApiOrganismService {
           'biosampleId.std',
           'name.std',
           'sameAs.std',
-          'organism.organism.text',
-          'sex.text',
-          'breed.text'
+          'description.std',
+          'organism.organism.text.autocomp',
+          'sex.text.autocomp',
+          'breed.text.autocomp',
+          'healthStatus.text.autocomp'
         ],
       }
     }
