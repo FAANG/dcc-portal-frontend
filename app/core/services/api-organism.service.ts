@@ -25,16 +25,14 @@ export class ApiOrganismService {
   get(biosampleId: string): Observable<Organism>{
     return this.apiTimeoutService.handleTimeout<Organism>(
       this.apiErrorService.handleError(
-        //this.http.get(`http://data.faang.org/api/organism/${biosampleId}`)
-        this.http.get(`http://ves-hx-e3:9200/faang_build_2/organism/${biosampleId}`)
+        this.http.get(`http://ves-hx-e3:9200/api/organism/${biosampleId}`)
       ).map((r: Response) => r.json()._source as Organism)
     );
   }
   getAll(query: any): Observable<OrganismList>{
     return this.apiTimeoutService.handleTimeout<OrganismList>(
       this.apiErrorService.handleError(
-        //this.http.post(`http://data.faang.org/api/organism/_search`, query)
-        this.http.post(`http://ves-hx-e3:9200/faang_build_2/organism/_search`, query)
+        this.http.post(`http://ves-hx-e3:9200/api/organism/_search`, query)
       ).map((r: Response) => r.json() as OrganismList)      
     );
   }
@@ -49,8 +47,7 @@ export class ApiOrganismService {
     }
     return this.apiTimeoutService.handleTimeout<ApiHits>(
       this.apiErrorService.handleError(
-        //this.http.post(`http://data.faang.org/api/organism/_search`, body)
-        this.http.post(`http://ves-hx-e3:9200/faang_build_2/organism/_search`, body)
+        this.http.post(`http://ves-hx-e3:9200/api/organism/_search`, body)
       ).map((r:Response): ApiHits => {
         let h: {hits: ApiHits} = r.json() as {hits: ApiHits};
         return h.hits;

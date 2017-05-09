@@ -24,24 +24,21 @@ export class ApiSpecimenService {
   get(biosampleId: string): Observable<Specimen>{
     return this.apiTimeoutService.handleTimeout<Specimen>(
       this.apiErrorService.handleError(
-        //this.http.get(`http://data.faang.org/api/specimen/${biosampleId}`)
-        this.http.get(`http://ves-hx-e3:9200/faang_build_2/specimen/${biosampleId}`)
+        this.http.get(`http://ves-hx-e3:9200/api/specimen/${biosampleId}`)
       ).map((r: Response) => r.json()._source as Specimen)
     );
   }
   getAll(query: any): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(                                                    
-        //this.http.post(`http://data.faang.org/api/specimen/_search`, query)
-        this.http.post(`http://ves-hx-e3:9200/faang_build_2/specimen/_search`, query)
+        this.http.post(`http://ves-hx-e3:9200/api/specimen/_search`, query)
       ).map((r: Response) => r.json() as SpecimenList)
     );
   }
   getOrganismsSpecimens(biosampleId: string, specimenOffset: number): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(
-        //this.http.post(`http://data.faang.org/api/specimen/_search`, {
-        this.http.post(`http://ves-hx-e3:9200/faang_build_2/specimen/_search`, {
+        this.http.post(`http://ves-hx-e3:9200/api/specimen/_search`, {
           "query": {
             "filtered" : {
               "filter" : {
@@ -68,8 +65,7 @@ export class ApiSpecimenService {
     }
     return this.apiTimeoutService.handleTimeout<ApiHits>(
       this.apiErrorService.handleError(
-        //this.http.post(`http://data.faang.org/api/specimen/_search`, body)
-        this.http.post(`http://ves-hx-e3:9200/faang_build_2/specimen/_search`, body)
+        this.http.post(`http://ves-hx-e3:9200/api/specimen/_search`, body)
       ).map((r:Response): ApiHits => {
         let h: {hits: ApiHits} = r.json() as {hits: ApiHits};
         return h.hits;
