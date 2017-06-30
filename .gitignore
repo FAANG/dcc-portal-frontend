@@ -3,7 +3,7 @@ app/**/*.js.map
 
 aot/
 node_modules/
-typings/
 webroot/static/build.js
+webroot/static/shims.js
 .DS_Store
 npm-debug.log

@@ -3,34 +3,36 @@
   "version": "0.0.1-dev",
   "description": "FAANG Data Portal",
   "scripts": {
-    "postinstall": "typings install && ngc && rollup -c",
+    "postinstall": "ngc && npm run rollup && npm run shims",
     "ngc": "ngc",
-    "rollup": "rollup -c"
+    "rollup": "rollup -c",
+    "shims": "rollup -c rollup.config.shims.js"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "@angular/animations": "^4.1.3",
     "@angular/common": "^4.1.3",
     "@angular/compiler": "^4.1.3",
+    "@angular/compiler-cli": "^4.1.3",
     "@angular/core": "^4.1.3",
     "@angular/forms": "^4.1.3",
     "@angular/http": "^4.1.3",
     "@angular/platform-browser": "^4.1.3",
     "@angular/platform-browser-dynamic": "^4.1.3",
+    "@angular/platform-server": "^4.1.3",
     "@angular/router": "^4.1.3",
     "@angular/upgrade": "^4.1.3",
-    "@angular/compiler-cli": "^4.1.3",
-    "@angular/platform-server": "^4.1.3",
-    "@angular/animations": "^4.1.3",
+    "core-js": "^2.4.1",
+    "reflect-metadata": "^0.1.10",
     "rollup": "^0.41.6",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^2.0.1",
     "rxjs": "5.4.0",
-    "typings": "^2.1.1",
-    "zone.js": "^0.8.11",
-    "typescript": "2.1.5"
+    "typescript": "2.1.5",
+    "zone.js": "^0.8.11"
   },
   "repository": {}
 }

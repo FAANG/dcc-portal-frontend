@@ -8,13 +8,13 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": ["es2015", "es2015.iterable", "dom"]
   },
 
   "files": [
     "app/app.module.ts",
-    "app/main.ts",
-    "./typings/index.d.ts"
+    "app/main.ts"
   ],
 
   "angularCompilerOptions": {
