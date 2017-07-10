@@ -36,6 +36,22 @@ export class ApiFileService {
     );
   }
 
+  getSpecimensFiles(biosampleId: string, fileOffset: number): Observable<FileList>{
+    return this.apiTimeoutService.handleTimeout<FileList>(
+      this.apiErrorService.handleError(
+        this.http.post(`/api/file/_search`, {
+          "query": {
+            "filtered" : {
+              "filter" : {
+                "term" : {"specimens" : biosampleId}
+              }
+            }
+          },
+          from: fileOffset
+        })
+      ).map((r: Response) => r.json() as FileList)
+    );
+  }
   search(hitsPerPage: number, from: number, query: any): Observable<ApiHits>{
     let body = {
       from: from,

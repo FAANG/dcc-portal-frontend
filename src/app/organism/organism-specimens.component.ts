@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnDestroy, SimpleChanges, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 
 import { SpecimenList } from '../shared/specimen-list';

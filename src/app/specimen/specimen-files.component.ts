@@ -1,6 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from'@angular/router';
+import { Component, OnChanges, OnDestroy, SimpleChanges, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -32,53 +30,49 @@ let specimenFilesStyles: string = `
 })
 
 export class SpecimenFilesComponent{ 
+  @Input() biosampleId: string;
+
   // public properties
   fileList: FileList;
-  fileOffset: number
+  fileOffset: number = 0
 
   // private properties
-  private routeSubscription: Subscription = null;
   private fileSource: Subject<Observable<FileList>>;
-  private fileSubscription: Subscription = null
-  private query: {[term: string]: any} = {};
-  private pageLimit: number
+  private fileSubscription: Subscription = null;
+  private pageLimit: number = 10
+
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private apiFileService: ApiFileService,
-    private titleService: Title,
   ){ };
 
-  ngOnInit() {
-    this.titleService.setTitle('FAANG specimens');
+  getFileList() {
+    if (this.biosampleId) { 
+      this.fileSource.next(this.apiFileService.getSpecimensFiles(this.biosampleId, this.fileOffset));
+    }else {
+      this.fileSource.next(Observable.empty<FileList>());
+    }
+  }
+
+  initFileSource() {
     this.fileSource = new Subject<Observable<FileList>>();
     this.fileSubscription = this.fileSource
         .switchMap((o: Observable<FileList>):Observable<FileList> => o)
-        .subscribe((e: FileList) => {
-          this.fileList = e;});
-
-    this.fileOffset = 0;
-    this.pageLimit = 20;
-    this.getFileList();
-    this.routeSubscription =
-      this.activatedRoute.queryParams.subscribe((queryParams: {name: string}) => {
-        this.fileOffset = 0;
-        this.query['from'] = this.fileOffset
-        this.query['size'] = this.pageLimit
-        this.query['sort'] = [{name: "desc"}]
-        this.getFileList();
-      });
+        .subscribe((f:FileList) => this.fileList = f );
   };
 
-  getFileList() {
-    this.fileSource.next(this.apiFileService.getAll(this.query));
+  ngOnChanges(changes: SimpleChanges) {
+    if (! this.fileSource) {
+      this.initFileSource();
+    }
+    if (changes['biosampleId']) {
+      this.fileOffset = 0;
+      this.getFileList();
+    }
   }
 
   ngOnDestroy() {
     if (this.fileSubscription) {
-      this.fileSubscription.unsubscribe();
-    }
-    if (this.routeSubscription) {
       this.fileSubscription.unsubscribe();
     }
   };
@@ -86,14 +80,12 @@ export class SpecimenFilesComponent{
   tableNext() {
     if (this.tableHasMore()) {
       this.fileOffset += this.pageLimit;
-      this.query['from'] = this.fileOffset
       this.getFileList();
     }
   }
   tablePrevious() {
     if (this.fileList && this.fileList.hits) {
       this.fileOffset = (this.fileOffset >= this.pageLimit) ? this.fileOffset - this.pageLimit : 0;
-      this.query['from'] = this.fileOffset
       this.getFileList();
     }
   }
