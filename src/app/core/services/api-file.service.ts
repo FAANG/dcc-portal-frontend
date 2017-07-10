@@ -31,7 +31,7 @@ export class ApiFileService {
   getAll(query: any): Observable<FileList>{
     return this.apiTimeoutService.handleTimeout<FileList>(
       this.apiErrorService.handleError(
-        this.http.post(`/api/organism/_search`, query)
+        this.http.post(`/api/file/_search`, query)
       ).map((r: Response) => r.json() as FileList)      
     );
   }
@@ -46,7 +46,7 @@ export class ApiFileService {
     }
     return this.apiTimeoutService.handleTimeout<ApiHits>(
       this.apiErrorService.handleError(
-        this.http.post(`/api/organism/_search`, body)
+        this.http.post(`/api/file/_search`, body)
       ).map((r:Response): ApiHits => {
         let h: {hits: ApiHits} = r.json() as {hits: ApiHits};
         return h.hits;
