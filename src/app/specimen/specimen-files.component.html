@@ -11,12 +11,13 @@
 <thead><tr>
   <th>Name</th><th>Archive</th><th>Data type</th><th>Download</th>
 </tr></thead>
-<tbody><tr *ngFor="let file of fileList?.hits.hits._source.files;">
+<tbody><ng-container *ngFor="let hit of fileList?.hits.hits;">
+<tr *ngFor="let file of hit?._source.files;">
 <td>{{file?.name}}</td>
 <td>{{file?.archive}}</td>
 <td>{{file?.dataType}}</td>
 <td><a>{{file?.url}}</a></td>
-</tr></tbody>
+</tr></ng-container></tbody>
 </table>
 
   <div class="clearfix"></div>
