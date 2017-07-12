@@ -1,3 +1,4 @@
+<div *ngIf="fileList.hits.total > 0">
 <h3>Files</h3>
 
 <div class="fails-table center-block">
@@ -26,3 +27,4 @@
   <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
     *ngIf="tableHasMore()">Next</button></div>
   <div class="clearfix"></div>
+</div>
