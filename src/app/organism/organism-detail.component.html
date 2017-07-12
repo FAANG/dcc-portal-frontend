@@ -8,7 +8,8 @@
   <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a></dd>
   <dt>Sex:</dt><dd>{{organism?.sex?.text}}</dd>
   <dt>Organism:</dt><dd><a href="{{organism?.organism?.ontologyTerms}}" target="_blank">{{organism?.organism?.text}}</a></dd>
-  <dt>Breed:</dt><dd><a href="{{organism?.breed?.ontologyTerms}}" target="_blank">{{organism?.breed?.text}}</a></dd>
+  <dt>Breed:</dt><dd>{{organism?.breed?.text}}</dd>
+  <!--<dt>Breed:</dt><dd><a href="{{organism?.breed?.ontologyTerms}}" target="_blank">{{organism?.breed?.text}}</a></dd>-->
   <dt>Material:</dt><dd><a href="{{organism?.material?.ontologyTerms}}" target="_blank">{{organism?.material?.text}}</a></dd>
   <dt>Project:</dt><dd>{{organism?.project}}</dd>
   <div *ngIf="organism?.availability">
