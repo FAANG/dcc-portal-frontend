@@ -9,7 +9,10 @@
   <dt>Sex:</dt><dd>{{specimen?.organism?.sex[0]?.text}}</dd>
   <dt>Organism BioSample Id:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.organism?.biosampleId}}">{{specimen?.organism?.biosampleId}}</a></dd>
   <dt>Organism:</dt><dd><a href="{{specimen?.organism?.organism[0]?.ontologyTerms}}" target="_blank">{{specimen?.organism?.organism[0]?.text}}</a></dd>
-  <dt>Breed:</dt><dd><a href="{{specimen?.organism?.breed[0]?.ontologyTerms}}" target="_blank">{{specimen?.organism?.breed[0]?.text}}</a></dd>
+  <dt>Breed:</dt><dd>
+    <a *ngIf="specime?.organism?.breed[0]?.ontologyTerms" [href]="specimen?.organism?.breed[0]?.ontologyTerms" target="_blank">{{specimen?.organism?.breed[0]?.text}}</a>
+    <ng-container *ngIf="!specime?.organism?.breed[0]?.ontologyTerms">{{specimen?.organism?.breed[0]?.text}}</ng-container>
+  </dd>
   <dt>Health status:</dt><dd><a href="{{specimen?.organism?.healthStatus[0]?.ontologyTerms}}">{{specimen?.organism?.healthStatus[0]?.text}}</a></dd>
   <div *ngIf="specimen?.description">
     <dt>Description:</dt><dd>{{specimen?.description}}</dd>
@@ -20,7 +23,10 @@
     <dt>Availability:</dt><dd>{{specimen?.availability}}</dd>
   </div>
   <dt>Organisation:</dt><dd><a href="{{specimen?.organization[0]?.URL}}" target="_blank">{{specimen?.organization[0]?.name}}</a></dd>
-  <dt>Material:</dt><dd><a href="{{specimen?.material?.ontologyTerms}}" target="_blank">{{specimen?.material?.text}}</a></dd>
+  <dt>Material:</dt><dd>
+    <a *ngIf="specimen?.material?.ontologyTerms" [href]="specimen?.material?.ontologyTerms" target="_blank">{{specimen?.material?.text}}</a>
+    <ng-container *ngIf="!specimen?.material?.ontologyTerms">{{specimen?.material?.text}}</ng-container>
+  </dd>
   <div *ngIf="specimen?.sameAs">
     <dt>Same as:</dt><dd>{{specimen?.sameAs}}</dd>
   </div>
