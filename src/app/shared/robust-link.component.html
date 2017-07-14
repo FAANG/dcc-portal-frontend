@@ -1,0 +1,16 @@
+    <a *ngIf="link" [href]="link" target="_blank">{{text}}</a>
+    <ng-container *ngIf="!link">{{text}}</ng-container>
+<!--
+In the parent html, e.g. specimen-detail.component.html
+could use following statement
+Wrong
+    <robust-link [text]="something"></robust-link>
+Correct
+    <robust-link text="something"></robust-link>    		plain text
+    <robust-link [text]="'something'"></robust-link>        with [], the right side is JavaScript, so string should be within ''
+    <robust-link [text]="mytext"></robust-link>             mytext should be defined in the specimen-detail.component.ts
+    														text needs to be defined with @Input() text: string;
+														    And in this html use <a href="{{link}}">{{text}}</a>
+
+    <robust-link>some text</robust-link>					In this html, use <ng-content></ng-content> to refer to "some text", currently there could not be two <ng-content> in the html in *ngIf
+-->

@@ -7,13 +7,16 @@
   <dt>Name:</dt><dd>{{organism?.name}}</dd>
   <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a></dd>
   <dt>Sex:</dt><dd>{{organism?.sex?.text}}</dd>
-  <dt>Organism:</dt><dd><a href="{{organism?.organism?.ontologyTerms}}" target="_blank">{{organism?.organism?.text}}</a></dd>
-  <dt>Breed:</dt><dd>
-    <a *ngIf="organism?.breed.ontologyTerms" [href]="specimen?.organism?.breed[0]?.ontologyTerms" target="_blank">{{organism?.breed?.text}}</a>
-    <ng-container *ngIf="!organism?.breed?.ontologyTerms">{{organism?.breed?.text}}</ng-container>
+  <dt>Organism:</dt><dd>
+    <robust-link [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></robust-link>
   </dd>
-  <!--<dt>Breed:</dt><dd><a href="{{organism?.breed?.ontologyTerms}}" target="_blank">{{organism?.breed?.text}}</a></dd>-->
-  <dt>Material:</dt><dd><a href="{{organism?.material?.ontologyTerms}}" target="_blank">{{organism?.material?.text}}</a></dd>
+  <dt>Breed:</dt><dd>
+    <robust-link [link]="organism?.breed.ontologyTerms" [text]="organism?.breed?.text"></robust-link>
+  </dd>
+  <dt>Material:</dt><dd>
+<!--    <robust-link [link]="organism?.material?.ontologyTerms" [text]="organism?.material?.text"></robust-link>-->
+    <a href="http://purl.obolibrary.org/obo/UBERON_0000468" target="_blank">organism</a>
+  </dd>
   <dt>Project:</dt><dd>{{organism?.project}}</dd>
   <div *ngIf="organism?.availability">
     <dt>Availability:</dt><dd>{{organism?.availability}}</dd>
