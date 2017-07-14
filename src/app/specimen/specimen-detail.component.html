@@ -10,8 +10,8 @@
   <dt>Organism BioSample Id:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.organism?.biosampleId}}">{{specimen?.organism?.biosampleId}}</a></dd>
   <dt>Organism:</dt><dd><a href="{{specimen?.organism?.organism[0]?.ontologyTerms}}" target="_blank">{{specimen?.organism?.organism[0]?.text}}</a></dd>
   <dt>Breed:</dt><dd>
-    <a *ngIf="specime?.organism?.breed[0]?.ontologyTerms" [href]="specimen?.organism?.breed[0]?.ontologyTerms" target="_blank">{{specimen?.organism?.breed[0]?.text}}</a>
-    <ng-container *ngIf="!specime?.organism?.breed[0]?.ontologyTerms">{{specimen?.organism?.breed[0]?.text}}</ng-container>
+    <a *ngIf="specimen?.organism?.breed[0]?.ontologyTerms" [href]="specimen?.organism?.breed[0]?.ontologyTerms" target="_blank">{{specimen?.organism?.breed[0]?.text}}</a>
+    <ng-container *ngIf="!specimen?.organism?.breed[0]?.ontologyTerms">{{specimen?.organism?.breed[0]?.text}}</ng-container>
   </dd>
   <dt>Health status:</dt><dd><a href="{{specimen?.organism?.healthStatus[0]?.ontologyTerms}}">{{specimen?.organism?.healthStatus[0]?.text}}</a></dd>
   <div *ngIf="specimen?.description">
