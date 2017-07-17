@@ -8,6 +8,7 @@ export class RobustLinkComponent{
 //	public properties
   @Input() text: string;
   @Input() link: string;
+  @Input() prefix: string;
   constructor() {
   }
 };

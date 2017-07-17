@@ -1,5 +1,8 @@
+<a *ngIf="prefix" [href]="prefix + link" target="_blank">{{text}}</a>
+<ng-container *ngIf="!prefix">
     <a *ngIf="link" [href]="link" target="_blank">{{text}}</a>
     <ng-container *ngIf="!link">{{text}}</ng-container>
+</ng-container>
 <!--
 In the parent html, e.g. specimen-detail.component.html
 could use following statement
