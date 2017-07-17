@@ -8,10 +8,11 @@ import { ApiSlowResponseComponent } from './components/api-slow-response.compone
 import { NavbarComponent } from './components/navbar.component';
 import { FaangFilterComponent } from './components/faang-filter.component';
 import { ActiveFiltersComponent } from './components/active-filters.component';
+import { RobustLinkComponent } from './robust-link.component';
 
 @NgModule({
   imports: [ CommonModule, RouterModule, FormsModule ],
-  declarations: [ ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent ],
-  exports: [ CommonModule, RouterModule, FormsModule, ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent ]
+  declarations: [ ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent, RobustLinkComponent ],
+  exports: [ CommonModule, RouterModule, FormsModule, ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent, RobustLinkComponent ]
 })
 export class SharedModule { }
