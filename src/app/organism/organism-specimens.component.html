@@ -9,11 +9,11 @@
 
 <table class="table table-striped table-hover table-responsive">
 <thead><tr>
-  <th>BioSample ID</th><th>Name</th><th>Organism part/Cell type</th><th>Material type</th>
+  <th>BioSample ID</th><th>Organism part/Cell type</th><th>Material type</th>
 </tr></thead>
 <tbody><tr *ngFor="let specimen of specimenList?.hits.hits;"
   class="clickable" [routerLink]="['/specimen', specimen?._source?.biosampleId]">
-<td><a>{{specimen?._source.biosampleId}}</a></td><td><a>{{specimen?._source?.name}}</a></td>
+<td><a>{{specimen?._source.biosampleId}}</a></td>
 <td *ngIf="specimen?._source?.specimenFromOrganism?.organismPart?.text">{{specimen?._source?.specimenFromOrganism?.organismPart?.text}}</td>
 <td *ngIf="specimen?._source?.cellSpecimen?.cellType?.text">{{specimen?._source?.cellSpecimen?.cellType?.text}}</td>
 <td *ngIf="specimen?._source?.cellCulture?.cellType?.text">{{specimen?._source?.cellCulture?.cellType?.text}}</td>
