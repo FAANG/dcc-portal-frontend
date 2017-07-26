@@ -82,7 +82,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     //in the background elasticsearch the term "organism" is used at two levels (a mistake to avoid in future), just use "organism" below as "sex" may get the unwanted.
     //Basically "sex.text" could be referenced as "organism.sex.text" 
     this.organismOffset = 0;
-    this.pageLimit = 15;
+    this.pageLimit = 20;
     this.getOrganismList();
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string, breed: string}) => {
