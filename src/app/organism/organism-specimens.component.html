@@ -14,11 +14,13 @@
 <tbody><tr *ngFor="let specimen of specimenList?.hits.hits;"
   class="clickable" [routerLink]="['/specimen', specimen?._source?.biosampleId]">
 <td><a>{{specimen?._source.biosampleId}}</a></td>
+<!--there is only one condition in the ngIf section below is true-->
 <td *ngIf="specimen?._source?.specimenFromOrganism?.organismPart?.text">{{specimen?._source?.specimenFromOrganism?.organismPart?.text}}</td>
 <td *ngIf="specimen?._source?.cellSpecimen?.cellType?.text">{{specimen?._source?.cellSpecimen?.cellType?.text}}</td>
 <td *ngIf="specimen?._source?.cellCulture?.cellType?.text">{{specimen?._source?.cellCulture?.cellType?.text}}</td>
 <td *ngIf="specimen?._source?.cellLine?.cellType?.text">{{specimen?.cellLine?.cellType?.text}}</td>
 <td *ngIf="!specimen?._source?.cellLine?.cellType?.text && !specimen?._source?.cellCulture?.cellType?.text && !specimen?._source?.cellSpecimen?.cellType?.text && !specimen?._source?.specimenFromOrganism?.organismPart?.text"> </td>
+<!--end of ngIf section-->
 <td><a>{{specimen?._source?.material?.text}}</a></td>
 </tr></tbody>
 </table>

@@ -36,9 +36,11 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   organismOffset: number
   isSexFiltered: {[key: string] : boolean} = {}
   isOrganismFiltered: {[key: string] : boolean} = {}
+  isBreedFiltered: {[key: string] : boolean} = {}
 
   sexAggs: {key: string, doc_count: number}[]
   organismAggs: {key: string, doc_count: number}[]
+  breedAggs: {key: string, doc_count: number}[]
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -60,8 +62,9 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         .switchMap((o: Observable<OrganismList>):Observable<OrganismList> => o)
         .subscribe((e: OrganismList) => {
           this.organismList = e;
-          this.organismAggs = [];
           this.sexAggs = [];
+          this.organismAggs = [];
+          this.breedAggs = [];
 
           if (e && e.aggregations && e.aggregations['all_organism']) {
             let aggs = e.aggregations['all_organism'];
@@ -71,42 +74,84 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
             this.organismAggs = aggs['organism']['buckets'] ? aggs['organism']['buckets']
                       : aggs['organism']['organism']['buckets'] ? aggs['organism']['organism']['buckets']
                       : [];
+            this.breedAggs = aggs['breed']['buckets'] ? aggs['breed']['buckets']
+                      : aggs['breed']['breed']['buckets'] ? aggs['breed']['breed']['buckets']
+                      : [];
           }
         });
+    //in the background elasticsearch the term "organism" is used at two levels (a mistake to avoid in future), just use "organism" below as "sex" may get the unwanted.
+    //Basically "sex.text" could be referenced as "organism.sex.text" 
     this.organismOffset = 0;
     this.pageLimit = 15;
     this.getOrganismList();
     this.routeSubscription =
-      this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string}) => {
+      this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string, breed: string}) => {
         this.organismOffset = 0;
         this.query['from'] = this.organismOffset
         this.query['size'] = this.pageLimit
         this.query['sort'] = [{biosampleId: "desc"}]
-        this.query['aggs'] = {'all_organism': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'sex.text', 'size': 50}}, 'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}}}}}
+        this.query['aggs'] = {
+                                'all_organism': {
+                                  'global' : {}, 
+                                  'aggs': {
+                                    'sex': {'terms': {'field': 'sex.text', 'size': 50}}, 
+                                    'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}},
+                                    'breed': {'terms': {'field': 'breed.text', 'size': 50}}
+                                  }
+                                }
+                              }
         this.isSexFiltered = {}
         this.isOrganismFiltered = {}
-        if (queryParams.sex || queryParams.organism) {
+        this.isBreedFiltered = {}
+        if (queryParams.sex || queryParams.organism || queryParams.breed) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
+
           if (queryParams.sex){          
             let sexParams = queryParams.sex.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
             if(this.query['aggs']['all_organism']['aggs']['organism']['terms']){
               this.query['aggs']['all_organism']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
             }
+            if(this.query['aggs']['all_organism']['aggs']['breed']['terms']){
+              this.query['aggs']['all_organism']['aggs']['breed'] = {'aggs': {'breed': {'terms': {'field': 'breed.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
+            }
             this.query['aggs']['all_organism']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
+            this.query['aggs']['all_organism']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
             for (let filter of sexParams){
               this.isSexFiltered[filter] = true
             }
           }
+
+
           if (queryParams.organism){
             let organismParams = queryParams.organism.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'organism.text' : organismParams}})
             if(this.query['aggs']['all_organism']['aggs']['sex']['terms']){
               this.query['aggs']['all_organism']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'sex.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
             }
+            if(this.query['aggs']['all_organism']['aggs']['breed']['terms']){
+              this.query['aggs']['all_organism']['aggs']['breed'] = {'aggs': {'breed': {'terms': {'field': 'breed.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
+            }
             this.query['aggs']['all_organism']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'organism.organism.text' : organismParams}})             
+            this.query['aggs']['all_organism']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'organism.organism.text' : organismParams}})
             for (let filter of organismParams){
               this.isOrganismFiltered[filter] = true
+            }
+          }
+
+          if (queryParams.breed){
+            let breedParams = queryParams.breed.split("|")
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'breed.text' : breedParams}})
+            if(this.query['aggs']['all_organism']['aggs']['sex']['terms']){
+              this.query['aggs']['all_organism']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'sex.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
+            }
+            if(this.query['aggs']['all_organism']['aggs']['organism']['terms']){
+              this.query['aggs']['all_organism']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
+            }
+            this.query['aggs']['all_organism']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'breed.text' : breedParams}})             
+            this.query['aggs']['all_organism']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'breed.text' : breedParams}})
+            for (let filter of breedParams){
+              this.isBreedFiltered[filter] = true
             }
           }
         }else{
@@ -149,14 +194,20 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     }
     return false;
   }
+  //if not set here, the clicked filter won't be displayed as the active filter
   hasActiveFilters():boolean {
+    for (var key in this.isSexFiltered){
+      if (this.isSexFiltered[key]){
+        return true
+      }
+    }
     for (var key in this.isOrganismFiltered){
       if (this.isOrganismFiltered[key]){
         return true
       }
     }
-    for (var key in this.isSexFiltered){
-      if (this.isSexFiltered[key]){
+    for (var key in this.isBreedFiltered){
+      if (this.isBreedFiltered[key]){
         return true
       }
     }
