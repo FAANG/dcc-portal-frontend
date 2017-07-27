@@ -91,6 +91,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         this.query['aggs'] = {'all_specimen': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'specimen.organism.sex.text', 'size': 50}}, 'organism': {'terms': {'field': 'specimen.organism.organism.text', 'size': 50}}, 'organismPart': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 1000}}}}}
         this.isSexFiltered = {}
         this.isOrganismFiltered = {}
+        this.isOrganismPartFiltered = {}
         if (queryParams.sex || queryParams.organism || queryParams.organismPart) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
           if (queryParams.sex){
