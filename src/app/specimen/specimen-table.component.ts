@@ -37,10 +37,12 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   isSexFiltered: {[key: string] : boolean} = {}
   isOrganismFiltered: {[key: string] : boolean} = {}
   isOrganismPartFiltered: {[key: string] : boolean} = {}
+  isBreedFiltered: {[key: string] : boolean} = {}
 
   sexAggs: {key: string, doc_count: number}[]
   organismAggs: {key: string, doc_count: number}[]
   organismPartAggs: {key: string, doc_count: number}[]
+  breedAggs: {key: string, doc_count: number}[]
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -64,6 +66,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
           this.specimenList = e;
           this.organismAggs = [];
           this.sexAggs = [];
+          this.organismPartAggs = [];
+          this.breedAggs = [];
 
           if (e && e.aggregations && e.aggregations['all_specimen']) {
             let aggs = e.aggregations['all_specimen'];
@@ -76,6 +80,9 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             this.organismPartAggs = aggs['organismPart']['buckets'] ? aggs['organismPart']['buckets']
                       : aggs['organismPart']['organismPart']['buckets'] ? aggs['organismPart']['organismPart']['buckets']
                       : [];
+            this.breedAggs = aggs['breed']['buckets'] ? aggs['breed']['buckets']
+                      : aggs['breed']['breed']['buckets'] ? aggs['breed']['breed']['buckets']
+                      : [];
           }
         });
     
@@ -83,17 +90,29 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     this.pageLimit = 20;
     this.getSpecimenList();
     this.routeSubscription =
-      this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string, organismPart: string}) => {
+      this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string, organismPart: string, breed: string}) => {
         this.specimenOffset = 0;
         this.query['from'] = this.specimenOffset
         this.query['size'] = this.pageLimit
         this.query['sort'] = [{biosampleId: "desc"}]
-        this.query['aggs'] = {'all_specimen': {'global' : {}, 'aggs': {'sex': {'terms': {'field': 'specimen.organism.sex.text', 'size': 50}}, 'organism': {'terms': {'field': 'specimen.organism.organism.text', 'size': 50}}, 'organismPart': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 1000}}}}}
+        this.query['aggs'] = {
+                              'all_specimen': {
+                                'global' : {}, 
+                                'aggs': {
+                                  'sex': {'terms': {'field': 'specimen.organism.sex.text', 'size': 50}}, 
+                                  'organism': {'terms': {'field': 'specimen.organism.organism.text', 'size': 50}}, 
+                                  'organismPart': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 1000}},
+                                  'breed': {'terms': {'field': 'specimen.organism.breed.text', 'size': 1000}}
+                                }
+                              }
+                             }
         this.isSexFiltered = {}
         this.isOrganismFiltered = {}
         this.isOrganismPartFiltered = {}
-        if (queryParams.sex || queryParams.organism || queryParams.organismPart) {
+        this.isBreedFiltered = {}
+        if (queryParams.sex || queryParams.organism || queryParams.organismPart || queryParams.breed) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
+
           if (queryParams.sex){
             let sexParams = queryParams.sex.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'organism.sex.text' :sexParams}})
@@ -103,8 +122,12 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             if(this.query['aggs']['all_specimen']['aggs']['organismPart']['terms']){
               this.query['aggs']['all_specimen']['aggs']['organismPart'] = {'aggs': {'organismPart': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, "filter" : {"bool": {"must": []}}}
             }
+            if(this.query['aggs']['all_specimen']['aggs']['breed']['terms']){
+              this.query['aggs']['all_specimen']['aggs']['breed'] = {'aggs': {'breed': {'terms': {'field': 'specimen.organism.breed.text'}}}, "filter" : {"bool": {"must": []}}}
+            }
             this.query['aggs']['all_specimen']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'specimen.organism.sex.text' : sexParams}})
             this.query['aggs']['all_specimen']['aggs']['organismPart']['filter']['bool']['must'].push({'terms': {'specimen.organism.sex.text' : sexParams}})
+            this.query['aggs']['all_specimen']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'specimen.organism.sex.text' : sexParams}})
             for (let filter of sexParams){
               this.isSexFiltered[filter] = true
             }
@@ -118,8 +141,12 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             if(this.query['aggs']['all_specimen']['aggs']['organismPart']['terms']){
               this.query['aggs']['all_specimen']['aggs']['organismPart'] = {'aggs': {'organismPart': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, "filter" : {"bool": {"must": []}}}
             }
+            if(this.query['aggs']['all_specimen']['aggs']['breed']['terms']){
+              this.query['aggs']['all_specimen']['aggs']['breed'] = {'aggs': {'breed': {'terms': {'field': 'specimen.organism.breed.text'}}}, "filter" : {"bool": {"must": []}}}
+            }
             this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'specimen.organism.organism.text' : organismParams}})
             this.query['aggs']['all_specimen']['aggs']['organismPart']['filter']['bool']['must'].push({'terms': {'specimen.organism.organism.text' : organismParams}})
+            this.query['aggs']['all_specimen']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'specimen.organism.organism.text' : organismParams}})
             for (let filter of organismParams){
               this.isOrganismFiltered[filter] = true
             }
@@ -133,10 +160,33 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             if(this.query['aggs']['all_specimen']['aggs']['organism']['terms']){
               this.query['aggs']['all_specimen']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'specimen.organism.organism.text', 'size': 100}}}, "filter" : {"bool": {"must": []}}}
             }
+            if(this.query['aggs']['all_specimen']['aggs']['breed']['terms']){
+              this.query['aggs']['all_specimen']['aggs']['breed'] = {'aggs': {'breed': {'terms': {'field': 'specimen.organism.breed.text'}}}, "filter" : {"bool": {"must": []}}}
+            }
             this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'specimen.specimenFromOrganism.organismPart.text' : organismPartParams}})
             this.query['aggs']['all_specimen']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'specimen.specimenFromOrganism.organismPart.text' : organismPartParams}})
+            this.query['aggs']['all_specimen']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'specimen.specimenFromOrganism.organismPart.text' : organismPartParams}})
             for (let filter of organismPartParams){
               this.isOrganismPartFiltered[filter] = true
+            }
+          }
+          if (queryParams.breed){
+            let breedParams = queryParams.breed.split("|")
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'organism.breed.text' :breedParams}})
+            if(this.query['aggs']['all_specimen']['aggs']['sex']['terms']){
+              this.query['aggs']['all_specimen']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'specimen.organism.sex.text'}}}, "filter" : {"bool": {"must": []}}}
+            }
+            if(this.query['aggs']['all_specimen']['aggs']['organism']['terms']){
+              this.query['aggs']['all_specimen']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'specimen.organism.organism.text', 'size': 100}}}, "filter" : {"bool": {"must": []}}}
+            }
+            if(this.query['aggs']['all_specimen']['aggs']['organismPart']['terms']){
+              this.query['aggs']['all_specimen']['aggs']['organismPart'] = {'aggs': {'organismPart': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, "filter" : {"bool": {"must": []}}}
+            }
+            this.query['aggs']['all_specimen']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'specimen.organism.breed.text' : breedParams}})
+            this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'specimen.organism.breed.text' : breedParams}})
+            this.query['aggs']['all_specimen']['aggs']['organismPart']['filter']['bool']['must'].push({'terms': {'specimen.organism.breed.text' : breedParams}})
+            for (let filter of breedParams){
+              this.isBreedFiltered[filter] = true
             }
           }
         }else{
@@ -197,6 +247,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     }
     return false;
   }
+  //used in html <h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
+  //if not set here, the clicked filter won't be displayed as the active filter
   hasActiveFilters():boolean {
     for (var key in this.isOrganismFiltered){
       if (this.isOrganismFiltered[key]){
@@ -210,6 +262,11 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     }
     for (var key in this.isOrganismPartFiltered){
       if (this.isOrganismPartFiltered[key]){
+        return true
+      }
+    }
+    for (var key in this.isBreedFiltered){
+      if (this.isBreedFiltered[key]){
         return true
       }
     }

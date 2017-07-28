@@ -9,19 +9,23 @@
   <active-filters routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></active-filters>
   <active-filters routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></active-filters>
   <active-filters routekey="organismPart" [aggs]="organismPartAggs" [isFiltered]="isOrganismPartFiltered"></active-filters>
+  <active-filters routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></active-filters>
 </h3>
 
 <div class="row">
   <div class="col-md-2">
     <div class="row">
     <div class="col-md-12 col-sm-6 faang-filter">
-    <faang-filter title="Sex" routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></faang-filter>
+      <faang-filter title="Sex" routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></faang-filter>
     </div>
     <div class="col-md-12 col-sm-6 faang-filter">
-    <faang-filter title="Organism" routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></faang-filter>
+      <faang-filter title="Organism" routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></faang-filter>
     </div>
     <div class="col-md-12 col-sm-6 faang-filter">
-    <faang-filter title="Organism part" routekey="organismPart" [aggs]="organismPartAggs" [isFiltered]="isOrganismPartFiltered"></faang-filter>
+      <faang-filter title="Organism part" routekey="organismPart" [aggs]="organismPartAggs" [isFiltered]="isOrganismPartFiltered"></faang-filter>
+    </div>
+    <div class="col-md-12 col-sm-6 faang-filter">
+      <faang-filter title="Breed" routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></faang-filter>
     </div>
     </div>
   </div>

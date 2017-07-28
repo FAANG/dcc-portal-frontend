@@ -79,8 +79,8 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
                       : [];
           }
         });
-    //in the background elasticsearch the term "organism" is used at two levels (a mistake to avoid in future), just use "organism" below as "sex" may get the unwanted.
-    //Basically "sex.text" could be referenced as "organism.sex.text" 
+    //in the background elasticsearch the term "organism" is used under both types (elasticsearch term): organism and specimen, just use "organism" below as "sex" may get the unwanted.
+    //Basically "sex.text" could be referenced as "organism.sex.text", in specimen it will be specimen.organism.sex.text, so no chance to mixed two sex fields 
     this.organismOffset = 0;
     this.pageLimit = 20;
     this.getOrganismList();
@@ -194,6 +194,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     }
     return false;
   }
+  //used in html <h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
   //if not set here, the clicked filter won't be displayed as the active filter
   hasActiveFilters():boolean {
     for (var key in this.isSexFiltered){
