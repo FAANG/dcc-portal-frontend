@@ -37,7 +37,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   isSexFiltered: {[key: string] : boolean} = {}
   isOrganismFiltered: {[key: string] : boolean} = {}
   isBreedFiltered: {[key: string] : boolean} = {}
-
+  //bucket size counters
   sexAggs: {key: string, doc_count: number}[]
   organismAggs: {key: string, doc_count: number}[]
   breedAggs: {key: string, doc_count: number}[]
@@ -68,6 +68,9 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
 
           if (e && e.aggregations && e.aggregations['all_organism']) {
             let aggs = e.aggregations['all_organism'];
+            //when initialized, i.e. without any filter, the buckets are under 'sex'. refer to line 100
+            //with any filter, the buckets are under 'sex'.'sex'
+            //. in the elasticsearch response in ts is represented by [][]
             this.sexAggs = aggs['sex']['buckets'] ? aggs['sex']['buckets']
                       : aggs['sex']['sex']['buckets'] ? aggs['sex']['sex']['buckets']
                       : [];
@@ -103,20 +106,27 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         this.isSexFiltered = {}
         this.isOrganismFiltered = {}
         this.isBreedFiltered = {}
-        if (queryParams.sex || queryParams.organism || queryParams.breed) {
+        if (queryParams.sex || queryParams.organism || queryParams.breed) { //exist any query, add the query
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
 
           if (queryParams.sex){          
             let sexParams = queryParams.sex.split("|")
+            //add to the filter at the same level as global aggs using terms bool filter
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
-            if(this.query['aggs']['all_organism']['aggs']['organism']['terms']){
+            
+            //add sex filter to all other aggs in two steps:
+            //1. initialize the filter if no filter existant for other aggs
+            if(this.query['aggs']['all_organism']['aggs']['organism']['terms']){ //only true when there is no filter under that aggs
               this.query['aggs']['all_organism']['aggs']['organism'] = {'aggs': {'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
             }
             if(this.query['aggs']['all_organism']['aggs']['breed']['terms']){
               this.query['aggs']['all_organism']['aggs']['breed'] = {'aggs': {'breed': {'terms': {'field': 'breed.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
             }
+            //2. actually add filter under aggs
             this.query['aggs']['all_organism']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
             this.query['aggs']['all_organism']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
+            
+            //flag which filters are selected
             for (let filter of sexParams){
               this.isSexFiltered[filter] = true
             }
@@ -127,6 +137,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
             let organismParams = queryParams.organism.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'organism.text' : organismParams}})
             if(this.query['aggs']['all_organism']['aggs']['sex']['terms']){
+              //delete this.query['aggs']['all_organism']['aggs']['sex']
               this.query['aggs']['all_organism']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'sex.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
             }
             if(this.query['aggs']['all_organism']['aggs']['breed']['terms']){
@@ -143,6 +154,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
             let breedParams = queryParams.breed.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'breed.text' : breedParams}})
             if(this.query['aggs']['all_organism']['aggs']['sex']['terms']){
+              //delete this.query['aggs']['all_organism']['aggs']['sex']
               this.query['aggs']['all_organism']['aggs']['sex'] = {'aggs': {'sex': {'terms': {'field': 'sex.text', 'size': 50}}}, "filter" : {"bool": {"must": []}}}
             }
             if(this.query['aggs']['all_organism']['aggs']['organism']['terms']){
