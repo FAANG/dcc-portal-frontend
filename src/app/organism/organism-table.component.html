@@ -15,13 +15,13 @@
   <div class="col-md-2">
     <div class="row">
     <div class="col-md-12 col-sm-6 faang-filter">
-      <faang-filter title="Sex" routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></faang-filter>
+      <faang-filter [filterSize]=2 title="Sex" routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></faang-filter>
     </div>
     <div class="col-md-12 col-sm-6 faang-filter">
-      <faang-filter title="Organism" routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></faang-filter>
+      <faang-filter [filterSize]=5 title="Organism" routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></faang-filter>
     </div>
     <div class="col-md-12 col-sm-6 faang-filter">
-      <faang-filter title="Breed" routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></faang-filter>
+      <faang-filter [filterSize]=5 title="Breed" routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></faang-filter>
     </div>
     </div>
   </div>

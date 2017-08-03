@@ -24,14 +24,21 @@ export class FaangFilterComponent{
   @Input() routekey: string;
   @Input() aggs: {key: string, doc_count: number}[];
   @Input() isFiltered: {[key: string] : boolean};
+  @Input() filterSize: number;
 
-  itemLimit: number = 5
+  itemLimit: number
   isCollapsed: boolean = true
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router
   ){ };
+  ngOnInit() {
+    //cannot assign value while declaring because the assignment is after the initialization, which causes the problem when loading the page no items available in the filter
+    //caused by <button class="list-group-item" type="button" [ngClass]="{'active': isFiltered && isFiltered[field?.key]}" (click)="toggleFilter(field?.key)" *ngIf="i<itemLimit">  as itemLimit has no value
+    this.itemLimit = this.filterSize
+  }
+
   toggleFilter(key: string){
     this.isFiltered[key] = !this.isFiltered[key];
     let oldParams = this.activatedRoute.snapshot.queryParams;
@@ -59,7 +66,7 @@ export class FaangFilterComponent{
       this.itemLimit = 10000
       this.isCollapsed = false
     }else{
-      this.itemLimit = 5
+      this.itemLimit = this.filterSize
       this.isCollapsed = true
     }
   }
