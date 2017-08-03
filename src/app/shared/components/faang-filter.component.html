@@ -4,7 +4,7 @@
       {{title}}<button type="button" class="btn btn-primary btn-xs pull-right" (click)="toggleCollapse()" *ngIf="aggs?.length > filterSize">{{isCollapsed ? "+" : "-"}}</button>
     </h4>
   </div>
-  <ul class="list-group" [ngClass]="{'long-list': itemLimit > 5}">
+  <ul class="list-group" [ngClass]="{'long-list': itemLimit > filterSize}">
     <ng-container class="list-group-item disabled" *ngFor="let field of aggs; let i=index">
       <button class="list-group-item" type="button" [ngClass]="{'active': isFiltered && isFiltered[field?.key]}" (click)="toggleFilter(field?.key)" *ngIf="i<itemLimit">
         <span class="badge">{{field?.doc_count}}</span>
