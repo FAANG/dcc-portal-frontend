@@ -39,7 +39,7 @@
 
   <table class="table table-striped table-hover table-responsive">
   <thead><tr>
-    <th>BioSample ID</th><th>Organism part/Cell type</th><th>Sex</th><th>Organism</th><th>Breed</th>
+    <th>BioSample ID <button class="btn btn-default" type="button" (click)="toggleSort('biosampleId')">sort test</button></th><th>Organism part/Cell type</th><th>Sex</th><th>Organism</th><th>Breed</th>
   </tr></thead>
   <tbody><tr *ngFor="let specimen of specimenList?.hits.hits;"
     class="clickable" [routerLink]="[specimen?._source?.biosampleId]">
