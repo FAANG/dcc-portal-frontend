@@ -8,6 +8,7 @@ export class SortIconComponent{
   @Input() key: string;
   @Input() orders: {[key:string]: string}[];
   @Output() sort: EventEmitter<{[key:string]: string}[]> = new EventEmitter();// {[key:string]: string} is a hash, which maps to elasticsearch data structure in Params in Fireforx network monitor 
+  flags = new Map(); 
 
   constructor(){ };
   
@@ -24,8 +25,10 @@ export class SortIconComponent{
           var curr = this.orders[i][property];
           if (curr == "asc") {
             this.orders[i][property] = "desc";
+            this.flags.set(this.key,-1);
           }else{
             this.orders[i][property] = "asc";
+            this.flags.set(this.key,1);
           }
           i = this.orders.length; //the break statement below only breaks the inner loop (current), so set to this value to break the outer loop
           break;
@@ -38,13 +41,21 @@ export class SortIconComponent{
       var entry: {[key:string]: string} = {};
       var property: string = this.key;
       entry[property] = "desc";
-
+      this.flags.set(this.key,-1);
       //var entry: map{[x: string]: any}.  search for this, this allows the notation of entry['key']
       this.orders.push(entry);
 //      alert("not found, add new sort term "+this.key+" now there are "+this.orders.length+ " orders");
     }
     
     this.sort.emit(this.orders);
+  }
+
+  getFlag(){
+    if(this.flags.has(this.key)){
+      return this.flags.get(this.key);
+    }else{
+      return 0;
+    }
   }
 }
 

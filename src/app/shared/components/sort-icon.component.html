@@ -1,2 +1,6 @@
-<button class="btn btn-default" type="button" (click)="toggleSort()">sort</button>
+<button class="btn btn-default" type="button" (click)="toggleSort()">{{getFlag()}}</button>
+<span *ngIf="getFlag()==0" class="glyphicon glyphicon-sort" ng-click="toggleSort()"></span>
+<span *ngIf="getFlag()==-1" class="glyphicon glyphicon-sort-by-attributes" ng-click="toggleSort()"></span> <!--when current order is descending, getFlag() return -1, the icon should show ascending to indicate next click-->
+<span *ngIf="getFlag()==1" class="glyphicon glyphicon-sort-by-attributes-alt" ng-click="toggleSort()"></span>
+
 <!--<span class="glyphicon glyphicon-triangle-bottom" ng-click="toggleSort(biosampleId)" style="cursor:pointer;"></span>-->
