@@ -92,7 +92,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         this.organismOffset = 0;
         this.query['from'] = this.organismOffset
         this.query['size'] = this.pageLimit
-        this.query['sort'] = [{biosampleId: "desc"}]
+        this.query['sort'] = []
         this.query['aggs'] = {
                                 'all_organism': {
                                   'global' : {}, 
@@ -195,6 +195,11 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     this.organismSource.next(this.apiOrganismService.getAll(this.query));
   }
 
+  setSort(sort: any) {
+    this.query['sort'] = sort;
+    this.getOrganismList();
+  }
+ 
   ngOnDestroy() {
     if (this.organismSubscription) {
       this.organismSubscription.unsubscribe();

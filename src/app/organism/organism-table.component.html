@@ -35,7 +35,10 @@
 
   <table class="table table-striped table-hover table-responsive">
   <thead><tr>
-    <th>BioSample ID</th><th>Sex</th><th>Organism</th><th>Breed</th>
+    <th>BioSample ID<sort-icon key="biosampleId" [orders]="query['sort']" (sort)="setSort($event)"></sort-icon></th>
+    <th>Sex<sort-icon key="sex.text" [orders]="query['sort']" (sort)="setSort($event)"></sort-icon></th>
+    <th>Organism<sort-icon key="organism.organism.text" [orders]="query['sort']" (sort)="setSort($event)"></sort-icon></th>
+    <th>Breed<sort-icon key="breed.text" [orders]="query['sort']" (sort)="setSort($event)"></sort-icon></th>
   </tr></thead>
   <tbody><tr *ngFor="let organism of organismList?.hits.hits;"
     class="clickable" [routerLink]="[organism?._source?.biosampleId]">
