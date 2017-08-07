@@ -38,9 +38,15 @@
     <div class="clearfix"></div>
 
   <table class="table table-striped table-hover table-responsive">
-  <thead><tr>
-    <th>BioSample ID <button class="btn btn-default" type="button" (click)="toggleSort('biosampleId')">sort test</button></th><th>Organism part/Cell type</th><th>Sex</th><th>Organism</th><th>Breed</th>
-  </tr></thead>
+  <thead>
+    <tr>
+      <th>BioSample ID<sort-icon key="biosampleId" [orders]="query['sort']" (sort)="setSort($event)"></sort-icon></th>
+      <th>Organism part/Cell type<sort-icon key="specimen.specimenFromOrganism.organismPart.text" [orders]="query['sort']" (sort)="setSort($event)"></sort-icon></th>
+      <th>Sex<sort-icon key="specimen.organism.sex.text" [orders]="query['sort']"  (sort)="setSort($event)"></sort-icon></th>
+      <th>Organism<sort-icon key="specimen.organism.organism.text" [orders]="query['sort']" (sort)="setSort($event)"></sort-icon></th>
+      <th>Breed<sort-icon key="specimen.organism.breed.text" [orders]="query['sort']" (sort)="setSort($event)"></sort-icon></th>
+    </tr>
+  </thead>
   <tbody><tr *ngFor="let specimen of specimenList?.hits.hits;"
     class="clickable" [routerLink]="[specimen?._source?.biosampleId]">
     <td><a>{{specimen?._source.biosampleId}}</a></td>

@@ -44,8 +44,6 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   organismPartAggs: {key: string, doc_count: number}[]
   breedAggs: {key: string, doc_count: number}[]
 
-  orders: {key:string, order: string}[]
-
   // private properties
   private routeSubscription: Subscription = null;
   private specimenSource: Subject<Observable<SpecimenList>>;
@@ -99,7 +97,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         this.specimenOffset = 0;
         this.query['from'] = this.specimenOffset
         this.query['size'] = this.pageLimit
-        this.query['sort'] = [{biosampleId: "desc"}]
+        this.query['sort'] = []
         this.query['aggs'] = {
                               'all_specimen': {
                                 'global' : {}, 
@@ -267,32 +265,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     return cellType
   }
 
-  toggleSort(key: string){
-    console.log("change order on property: "+key);
-//    this.query['sort'] = [{biosampleId: "asc"}]
-    this.orders = this.query['sort'];
-//    console.log(this.orders);
-    for (var i = 0; i < this.orders.length; i++) {
-//      var output = '';
-      for (var property in this.orders[i]) {
-//        output += "KEY:<"+ property + '>: VALUE:<' + this.orders[i][property]+'>; ';
-//        window.alert(typeof(property) + " " + property);
-        if (property == key){
-          var curr = this.orders[i][property];
-//        window.alert(typeof(curr) + " " + curr);
-          if (curr == "asc") {
-            this.orders[i][property] = "desc";
-          }else{
-            this.orders[i][property] = "asc";
-          }
-          this.query['sort'] = this.orders;
-          i = this.orders.length; //the next break statement only breaks the inner loop, so set to this value to break the outer loop
-          break;
-        }
-      }
-//      console.log(output);
-    }
-            //this.query['sort'] = [{biosampleId: "desc"}]
+  setSort(sort: any) {
+    this.query['sort'] = sort;
     this.getSpecimenList();
   }
  
