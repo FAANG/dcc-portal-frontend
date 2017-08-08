@@ -1,6 +1,10 @@
-<button class="btn btn-default" type="button" (click)="toggleSort()">{{getFlag()}}</button>
-<span *ngIf="getFlag()==0" class="glyphicon glyphicon-sort" ng-click="toggleSort()"></span>
-<span *ngIf="getFlag()==-1" class="glyphicon glyphicon-sort-by-attributes" ng-click="toggleSort()"></span> <!--when current order is descending, getFlag() return -1, the icon should show ascending to indicate next click-->
-<span *ngIf="getFlag()==1" class="glyphicon glyphicon-sort-by-attributes-alt" ng-click="toggleSort()"></span>
+<!--
+<button (click)="toggleSort()" *ngIf="getFlag()==0"><span class="glyphicon glyphicon-sort"></span></button>
+<button (click)="toggleSort()" *ngIf="getFlag()==-1"><span class="glyphicon glyphicon-sort-by-attributes"></span></button>
+<button (click)="toggleSort()" *ngIf="getFlag()==1"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+-->
+<!--this is a better way than the way shown above https://angular.io/api/common/NgClass  third example in the how to use section-->
+<!--<button (click)="toggleSort()"><span class="glyphicon" [ngClass]="{'glyphicon-sort-by-attributes-alt': getFlag()==1, 'glyphicon-sort-by-attributes': getFlag()==-1, 'glyphicon-sort': getFlag()==0}"></span></button>-->
+<!--when current order is descending, getFlag() return -1, the icon should show ascending to indicate next click-->
+<span class="glyphicon" [ngClass]="{'glyphicon-sort-by-attributes-alt': getFlag()==1, 'glyphicon-sort-by-attributes': getFlag()==-1, 'glyphicon-sort': getFlag()==0}" (click)="toggleSort()" style="cursor:pointer;"></span> 
 
-<!--<span class="glyphicon glyphicon-triangle-bottom" ng-click="toggleSort(biosampleId)" style="cursor:pointer;"></span>-->
