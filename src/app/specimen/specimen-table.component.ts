@@ -265,6 +265,10 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     return cellType
   }
 
+  getSort(){
+    return this.query['sort'];
+  }
+
   setSort(sort: any) {
     this.query['sort'] = sort;
     this.getSpecimenList();

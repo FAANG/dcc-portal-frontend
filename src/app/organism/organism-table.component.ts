@@ -195,6 +195,10 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     this.organismSource.next(this.apiOrganismService.getAll(this.query));
   }
 
+  getSort(){
+    return this.query['sort'];
+  }
+
   setSort(sort: any) {
     this.query['sort'] = sort;
     this.getOrganismList();
