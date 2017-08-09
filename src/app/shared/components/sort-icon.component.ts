@@ -1,17 +1,39 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 @Component({
     selector: 'sort-icon',
     templateUrl: './sort-icon.component.html'
 })
 
-export class SortIconComponent{
+export class SortIconComponent implements OnInit, OnChanges{
   @Input() key: string;
   @Input() orders: {[key:string]: string}[];
   @Output() sort: EventEmitter<{[key:string]: string}[]> = new EventEmitter();// {[key:string]: string} is a hash, which maps to elasticsearch data structure in Params in Fireforx network monitor 
   flags = new Map(); 
 
   constructor(){ };
-  
+  ngOnInit() {
+    this.flags = new Map();
+    this.flags.set("biosampleId",-1);
+  }
+
+
+  ngOnChanges(changes: SimpleChanges){
+    if (changes.orders){//when content of orders changes, must match to the field name
+      this.flags = new Map();
+      var orderLength : number = this.orders.length;
+      for (var i = 0; i < orderLength; i++) {
+        for (var property in this.orders[i]) { //each element is {[key:string]:string}
+          var curr = this.orders[i][property];
+          if (curr == "asc"){
+            this.flags.set(property,1);
+          }else{
+            this.flags.set(property,-1);
+          }
+        }
+      }
+    }
+  }
+
   toggleSort(){
 //    alert(this.key);
     var found : boolean = false;

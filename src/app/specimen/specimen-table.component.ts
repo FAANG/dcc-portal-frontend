@@ -97,7 +97,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         this.specimenOffset = 0;
         this.query['from'] = this.specimenOffset
         this.query['size'] = this.pageLimit
-        this.query['sort'] = []
+        this.query['sort'] = [{biosampleId: "desc"}]
         this.query['aggs'] = {
                               'all_specimen': {
                                 'global' : {}, 
@@ -274,6 +274,11 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     this.getSpecimenList();
   }
  
+  resetSort(){
+    this.query['sort'] = [{biosampleId: "desc"}];
+    this.getSpecimenList();
+  }
+
   ngOnDestroy() {
     if (this.specimenSubscription) {
       this.specimenSubscription.unsubscribe();
