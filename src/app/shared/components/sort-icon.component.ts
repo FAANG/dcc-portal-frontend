@@ -15,9 +15,10 @@ export class SortIconComponent{
   toggleSort(){
 //    alert(this.key);
     var found : boolean = false;
-    for (var i = 0; i < this.orders.length; i++) {
+    var orderLength : number = this.orders.length;
+    for (var i = 0; i < orderLength; i++) {
 //      var output = '';
-      for (var property in this.orders[i]) {
+      for (var property in this.orders[i]) { //each element is {[key:string]:string}
 //        output += "KEY:<"+ property + '>: VALUE:<' + this.orders[i][property]+'>; ';
 //        alert(typeof(property) + " " + property);
         if (property == this.key){ //found the key
@@ -43,7 +44,8 @@ export class SortIconComponent{
       entry[property] = "desc";
       this.flags.set(this.key,-1);
       //var entry: map{[x: string]: any}.  search for this, this allows the notation of entry['key']
-      this.orders.push(entry);
+      //always put biosampleId order to the end of orders
+      this.orders.splice(orderLength-1,0,entry);
 //      alert("not found, add new sort term "+this.key+" now there are "+this.orders.length+ " orders");
     }
     
