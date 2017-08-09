@@ -61,8 +61,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('FAANG specimens');
     this.specimenSource = new Subject<Observable<SpecimenList>>();
     this.specimenSubscription = this.specimenSource
-        .switchMap((o: Observable<SpecimenList>):Observable<SpecimenList> => o)
-        .subscribe((e: SpecimenList) => {
+        .switchMap((o: Observable<SpecimenList>):Observable<SpecimenList> => o) //convert each http request into an element in the pipe
+        .subscribe((e: SpecimenList) => { //deal with each element coming out of the pipe
           this.specimenList = e;
           this.organismAggs = [];
           this.sexAggs = [];
@@ -245,7 +245,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   };
 
   getSpecimenList() {
-    this.specimenSource.next(this.apiSpecimenService.getAll(this.query));
+    this.specimenSource.next(this.apiSpecimenService.getAll(this.query)); // this.apiSpecimenService.getAll(this.query) is an Observable, input of the pipe
   }
 
   getCellType(specimen: Specimen):string{

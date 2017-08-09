@@ -6,5 +6,5 @@
 <!--this is a better way than the way shown above https://angular.io/api/common/NgClass  third example in the how to use section-->
 <!--<button (click)="toggleSort()"><span class="glyphicon" [ngClass]="{'glyphicon-sort-by-attributes-alt': getFlag()==1, 'glyphicon-sort-by-attributes': getFlag()==-1, 'glyphicon-sort': getFlag()==0}"></span></button>-->
 <!--when current order is descending, getFlag() return -1, the icon should show ascending to indicate next click-->
-<span class="glyphicon" [ngClass]="{'glyphicon-sort-by-attributes-alt': getFlag()==1, 'glyphicon-sort-by-attributes': getFlag()==-1, 'glyphicon-sort': getFlag()==0}" (click)="toggleSort()" style="cursor:pointer;"></span> 
+<div (click)="toggleSort()" style="cursor:pointer;">{{display}}<span class="glyphicon" [ngClass]="{'glyphicon-sort-by-attributes-alt': getFlag()==1, 'glyphicon-sort-by-attributes': getFlag()==-1, 'glyphicon-sort': getFlag()==0}"></span></div> 
 

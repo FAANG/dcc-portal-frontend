@@ -41,12 +41,12 @@
   <table class="table table-striped table-hover table-responsive">
   <thead>
     <tr>
-      <!--for sort-icon key attribute represents the property to sort on, [orders] retrieves the current sorting orders, (sort) event emitter sent the new order to the component to refresh the page-->
-      <th>BioSample ID<sort-icon key="biosampleId" [orders]="getSort()" (sort)="setSort($event)"></sort-icon></th>
-      <th>Organism part/Cell type<sort-icon key="specimen.specimenFromOrganism.organismPart.text" [orders]="getSort()" (sort)="setSort($event)"></sort-icon></th>
-      <th>Sex<sort-icon key="specimen.organism.sex.text" [orders]="getSort()"  (sort)="setSort($event)"></sort-icon></th>
-      <th>Organism<sort-icon key="specimen.organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-icon></th>
-      <th>Breed<sort-icon key="specimen.organism.breed.text" [orders]="getSort()" (sort)="setSort($event)"></sort-icon></th>
+      <!--for sort-element key attribute represents the property to sort on, [orders] retrieves the current sorting orders, (sort) event emitter sent the new order to the component to refresh the page-->
+      <th><sort-element display="BioSample ID" key="biosampleId" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Organism part/Cell type" key="specimen.specimenFromOrganism.organismPart.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Sex" key="specimen.organism.sex.text" [orders]="getSort()"  (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Organism" key="specimen.organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Breed" key="specimen.organism.breed.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
     </tr>
   </thead>
   <tbody><tr *ngFor="let specimen of specimenList?.hits.hits;"

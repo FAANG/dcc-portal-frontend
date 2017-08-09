@@ -9,11 +9,11 @@ import { NavbarComponent } from './components/navbar.component';
 import { FaangFilterComponent } from './components/faang-filter.component';
 import { ActiveFiltersComponent } from './components/active-filters.component';
 import { RobustLinkComponent } from './robust-link.component';
-import { SortIconComponent } from './components/sort-icon.component';
+import { SortElementComponent } from './components/sort-element.component';
 
 @NgModule({
   imports: [ CommonModule, RouterModule, FormsModule ],
-  declarations: [ ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent, RobustLinkComponent, SortIconComponent ],
-  exports: [ CommonModule, RouterModule, FormsModule, ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent, RobustLinkComponent, SortIconComponent ]
+  declarations: [ ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent, RobustLinkComponent, SortElementComponent ],
+  exports: [ CommonModule, RouterModule, FormsModule, ApiErrorComponent, ApiSlowResponseComponent, NavbarComponent, FaangFilterComponent, ActiveFiltersComponent, RobustLinkComponent, SortElementComponent ]
 })
 export class SharedModule { }
