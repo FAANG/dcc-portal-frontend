@@ -17,7 +17,9 @@
 
 <td [ngSwitch]="specimen?._source?.material?.text">
   <ng-template ngSwitchCase="specimen from organism">{{specimen?._source?.specimenFromOrganism?.organismPart?.text}}</ng-template>
-  <ng-template ngSwitchCase="cell specimen">{{specimen?._source?.cellSpecimen?.cellType[0]?.text}} {{specimen?._source?.cellSpecimen?.cellType?.text}}</ng-template>
+<!--should be in the form of commented one, but due to backend data structure, the [0] is used. Expected to change in the future when data structure fixed-->  
+<!--  <ng-template ngSwitchCase="cell specimen">{{specimen?._source?.cellSpecimen?.cellType?.text}}</ng-template>-->
+  <ng-template ngSwitchCase="cell specimen">{{specimen?._source?.cellSpecimen?.cellType[0]?.text}}</ng-template>
   <ng-template ngSwitchCase="pool of specimens"></ng-template>
   <ng-template ngSwitchCase="cell culture">{{specimen?._source?.cellCulture?.cellType?.text}}</ng-template>
   <ng-template ngSwitchCase="cell line">{{specimen?._source?.cellLine?.cellType?.text}}</ng-template>
