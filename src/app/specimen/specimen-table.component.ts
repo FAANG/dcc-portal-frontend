@@ -279,6 +279,13 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     this.getSpecimenList();
   }
 
+  notDefaultSort(){
+    let orders = this.query['sort'];
+    if (orders.length>1) return true;
+    if (orders[0]["biosampleId"]!="desc") return true;
+    return false;
+  }
+
   ngOnDestroy() {
     if (this.specimenSubscription) {
       this.specimenSubscription.unsubscribe();

@@ -209,6 +209,13 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     this.getOrganismList()
   }
 
+  notDefaultSort(){
+    let orders = this.query['sort'];
+    if (orders.length>1) return true;
+    if (orders[0]["biosampleId"]!="desc") return true;
+    return false;
+  }
+
   ngOnDestroy() {
     if (this.organismSubscription) {
       this.organismSubscription.unsubscribe();
