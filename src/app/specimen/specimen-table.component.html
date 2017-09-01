@@ -45,9 +45,9 @@
     class="clickable" [routerLink]="[specimen?._source?.biosampleId]">
     <td><a>{{specimen?._source.biosampleId}}</a></td>
     <td>{{getCellType(specimen)}}</td>
-    <td>{{specimen?._source?.organism?.sex[0]?.text}}</td>
-    <td>{{specimen?._source?.organism?.organism[0]?.text}}</td>
-    <td>{{specimen?._source?.organism?.breed[0]?.text}}</td>
+    <td>{{specimen?._source?.organism?.sex?.text}}</td>
+    <td>{{specimen?._source?.organism?.organism?.text}}</td>
+    <td>{{specimen?._source?.organism?.breed?.text}}</td>
   </tr></tbody>
   </table>
 
