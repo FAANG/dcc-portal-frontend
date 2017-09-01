@@ -6,13 +6,13 @@
 <dl class="dl-horizontal">
   <dt>Name:</dt><dd>{{specimen?.name}}</dd>
   <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a></dd>
-  <dt>Sex:</dt><dd>{{specimen?.organism?.sex[0]?.text}}</dd>
+  <dt>Sex:</dt><dd>{{specimen?.organism?.sex?.text}}</dd>
   <dt>Organism BioSample Id:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.organism?.biosampleId}}">{{specimen?.organism?.biosampleId}}</a></dd>
   <dt>Organism:</dt><dd>
-    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.organism[0]?.ontologyTerms" [text]="specimen?.organism?.organism[0]?.text"></robust-link>
+    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.organism?.ontologyTerms" [text]="specimen?.organism?.organism?.text"></robust-link>
   </dd>
   <dt>Breed:</dt><dd>
-    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.breed[0]?.ontologyTerms" [text]="specimen?.organism?.breed[0]?.text"></robust-link>
+    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.breed?.ontologyTerms" [text]="specimen?.organism?.breed?.text"></robust-link>
   </dd>
   <dt>Health status:</dt><dd>
     <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.healthStatus[0]?.ontologyTerms" [text]="specimen?.organism?.healthStatus[0]?.text"></robust-link>
@@ -34,7 +34,9 @@
   <div *ngIf="specimen?.sameAs">
     <dt>Same as:</dt><dd>{{specimen?.sameAs}}</dd>
   </div>
-  <dt>Derived from:</dt><dd>{{specimen?.derivedFrom}}</dd>
+  <dt>Derived from:</dt><dd>
+    <robust-link  prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link>
+  </dd>
   <div *ngIf="specimen?.material?.text?.includes('specimen from organism')">
     <dt>Specimen collection date:</dt><dd>{{specimen?.specimenFromOrganism?.specimenCollectionDate?.text}}</dd>
     <dt>Animal age at collection:</dt><dd>{{specimen?.specimenFromOrganism?.animalAgeAtCollection?.text}} {{specimen?.specimenFromOrganism?.animalAgeAtCollection?.unit}}</dd>
