@@ -8,19 +8,21 @@
   <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a></dd>
   <dt>Release date:</dt><dd>{{specimen?.releaseDate}}</dd>
   <dt>Update date:</dt><dd>{{specimen?.updateDate}}</dd>
-  <dt>Sex:</dt><dd>{{specimen?.organism?.sex?.text}}</dd>
-  <dt>Organism BioSample Id:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.organism?.biosampleId}}">{{specimen?.organism?.biosampleId}}</a></dd>
-  <dt>Organism:</dt><dd>
-    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.organism?.ontologyTerms" [text]="specimen?.organism?.organism?.text"></robust-link>
-  </dd>
-  <dt>Breed:</dt><dd>
-    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.breed?.ontologyTerms" [text]="specimen?.organism?.breed?.text"></robust-link>
-  </dd>
-  <dt>Health status:</dt><dd>
-    <ng-container *ngFor="let status of specimen?.organism?.healthStatus;">
-      <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="status.ontologyTerms" [text]="status.text"></robust-link>
-    </ng-container>
-  </dd>
+  <ng-container *ngIf="!specimen?.material?.text?.includes('pool of specimen')">
+    <dt>Sex:</dt><dd>{{specimen?.organism?.sex?.text}}</dd>
+    <dt>Organism BioSample Id:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.organism?.biosampleId}}">{{specimen?.organism?.biosampleId}}</a></dd>
+    <dt>Organism:</dt><dd>
+      <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.organism?.ontologyTerms" [text]="specimen?.organism?.organism?.text"></robust-link>
+    </dd>
+    <dt>Breed:</dt><dd>
+      <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.breed?.ontologyTerms" [text]="specimen?.organism?.breed?.text"></robust-link>
+    </dd>
+    <dt>Health status:</dt><dd>
+      <ng-container *ngFor="let status of specimen?.organism?.healthStatus;">
+        <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="status.ontologyTerms" [text]="status.text"></robust-link>
+      </ng-container>
+    </dd>
+  </ng-container>
   <div *ngIf="specimen?.description">
     <dt>Description:</dt><dd>{{specimen?.description}}</dd>
   </div>
@@ -97,7 +99,22 @@
       </dd>
     </ng-template>
     <ng-template ngSwitchCase="pool of specimens">
-      <dt></dt>
+      <dt>Pool creation date:</dt><dd>{{specimen.poolOfSpecimens.poolCreationDate.text}}</dd>
+      <dt>Pool creation protocol:</dt><dd><robust-link [link]="specimen.poolOfSpecimens.poolCreationProtocol" [text]="specimen.poolOfSpecimens.poolCreationProtocol"></robust-link></dd>
+      <div *ngIf="specimen?.poolOfSpecimens?.specimenVolume?.text">
+        <dt>Specimen volume:</dt><dd>{{specimen.poolOfSpecimens.specimenVolume.text}} {{specimen.poolOfSpecimens.specimenVolume.unit}}</dd>
+      </div>
+      <div *ngIf="specimen?.poolOfSpecimens?.specimenSize?.text">
+        <dt>Specimen size:</dt><dd>{{specimen.poolOfSpecimens.specimenSize.text}} {{specimen.poolOfSpecimens.specimenSize.unit}}</dd>
+      </div>
+      <div *ngIf="specimen?.poolOfSpecimens?.specimenWeight?.text">
+        <dt>Specimen weight:</dt><dd>{{specimen.poolOfSpecimens.specimenWeight.text}} {{specimen.poolOfSpecimens.specimenWeight.unit}}</dd>
+      </div>
+      <div *ngIf="specimen?.poolOfSpecimens?.specimenPictureUrl">
+        <dt>Specimen picture URL:</dt><dd>
+          <robust-link [link]="specimen.poolOfSpecimens.specimenPictureUrl" [text]="specimen.poolOfSpecimens.specimenPictureUrl"></robust-link>
+        </dd>
+      </div>
     </ng-template>
     <ng-template ngSwitchCase="cell culture">
       <dt>Culture type:</dt><dd>
