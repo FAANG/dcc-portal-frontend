@@ -8,8 +8,10 @@
   <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a></dd>
   <dt>Release date:</dt><dd>{{specimen?.releaseDate}}</dd>
   <dt>Update date:</dt><dd>{{specimen?.updateDate}}</dd>
-  <ng-container *ngIf="!specimen?.material?.text?.includes('pool of specimen')">
-    <dt>Sex:</dt><dd>{{specimen?.organism?.sex?.text}}</dd>
+  <ng-container *ngIf="(specimen?.material?.text !== 'pool of specimens' && specimen?.material?.text !=='cell line')">
+    <dt>Sex:</dt><dd>
+      <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.sex?.ontologyTerms" [text]="specimen?.organism?.sex?.text"></robust-link>
+    </dd>
     <dt>Organism BioSample Id:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.organism?.biosampleId}}">{{specimen?.organism?.biosampleId}}</a></dd>
     <dt>Organism:</dt><dd>
       <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.organism?.ontologyTerms" [text]="specimen?.organism?.organism?.text"></robust-link>
@@ -42,14 +44,23 @@
   <div *ngIf="specimen?.sameAs">
     <dt>Same as:</dt><dd>{{specimen?.sameAs}}</dd>
   </div>
-  <dt>Derived from:</dt>
-    <dd *ngIf="!specimen?.material?.text?.includes('pool of specimen')"><robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link></dd>
-    <dd *ngIf="specimen?.material?.text?.includes('pool of specimen')">
-      <ng-container *ngFor="let derived of specimen?.derivedFrom;">
-        <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>
+  <div *ngIf="specimen?.derivedFrom">
+    <dt>Derived from:</dt><dd>
+      <ng-container [ngSwitch]="specimen?.material?.text">
+        <ng-template ngSwitchCase="pool of specimens">
+          <ng-container *ngFor="let derived of specimen?.derivedFrom;">
+            <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>
+          </ng-container>
+        </ng-template>
+        <ng-template ngSwitchCase="cell line">
+          <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link>
+        </ng-template>
+        <ng-template ngSwitchDefault>
+          <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link>
+        </ng-template>
       </ng-container>
     </dd>
-  
+  </div>
   <ng-container [ngSwitch]="specimen?.material?.text">
     <ng-template ngSwitchCase="specimen from organism">
       <dt>Specimen collection date:</dt><dd>{{specimen?.specimenFromOrganism?.specimenCollectionDate?.text}}</dd>
@@ -131,30 +142,51 @@
     </ng-template>
     <ng-template ngSwitchCase="cell line">
       <dt>Cell line:</dt><dd>{{specimen?.cellLine?.cellLine}}</dd>
-      <dt>Sex</dt><dd>{{specimen?.cellLine?.sex[0]?.text}}</dd>
-      <dt>Organism</dt><dd>
-        <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellLine?.organism?.ontologyTerms" [text]="specimen?.cellLine?.organism[0]?.text"></robust-link>
+      <dt>Organism: </dt><dd>
+        <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellLine?.organism?.ontologyTerms" [text]="specimen?.cellLine?.organism?.text"></robust-link>
+      </dd>
+      <dt>Sex: </dt><dd>
+        <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellLine?.sex?.ontologyTerms" [text]="specimen?.cellLine?.sex?.text"></robust-link>
       </dd>
       <dt>Biomaterial provider:</dt><dd>{{specimen?.cellLine?.biomaterialProvider}}</dd>
       <div *ngIf="specimen?.cellLine?.catalogueNumber">
-      <dt>Catalogue number:</dt><dd>{{specimen?.cellLine?.catalogueNumber}}</dd>
+        <dt>Catalogue number:</dt><dd>{{specimen.cellLine.catalogueNumber}}</dd>
       </div>
-      <div *ngIf="specimen?.cellLine?.passageNumber">
-        <dt>Passage number:</dt><dd>{{specimen?.cellLine?.passageNumber}}</dd>
+      <div *ngIf="specimen?.cellLine?.numberOfPassages">
+        <dt>Number of passages:</dt><dd>{{specimen?.cellLine?.numberOfPassages}}</dd>
       </div>
-      <dt>Date established:</dt><dd>{{specimen?.cellLine?.publication}}</dd>
-      <dt>Publication:</dt><dd>{{specimen?.cellLine?.publication}}</dd>
-      <dt>Breed</dt><dd>
-        <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellLine?.breed[0]?.ontologyTerms" [text]="specimen?.cellLine?.breed[0]?.text"></robust-link>
-      </dd>
-      <dt>Cell type</dt><dd>
-        <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellLine?.cellType?.ontologyTerms" [text]="specimen?.cellLine?.cellType?.text"></robust-link>
-      </dd>
-      <dt>Culture conditions:</dt><dd>{{specimen?.cellLine?.cultureConditions}}</dd>
-      <dt>Culture protocol</dt><dd>
-        <robust-link [link]="specimen?.cellLine?.cultureProtocol" [text]="specimen?.cellLine?.cultureProtocol"></robust-link>
-      </dd>
-      <dt>Karyotype:</dt><dd>{{specimen?.cellLine?.karyotype}}</dd>
+      <div *ngIf="specimen?.cellLine?.dateEstablished">
+        <dt>Date established:</dt><dd>{{specimen?.cellLine?.dateEstablished.text}}</dd>
+      </div>
+      <div *ngIf="specimen?.cellLine?.publication">
+        <dt>Publication:</dt><dd>{{specimen.cellLine.publication}}</dd>
+      </div>
+      <div *ngIf="specimen?.cellLine?.breed?.text">
+        <dt>Breed:</dt><dd>
+          <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen.cellLine.breed.ontologyTerms" [text]="specimen.cellLine.breed.text"></robust-link>
+        </dd>
+      </div>
+      <div *ngIf="specimen?.cellLine?.cellType?.text">
+        <dt>Cell type:</dt><dd>
+          <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellLine?.cellType?.ontologyTerms" [text]="specimen?.cellLine?.cellType?.text"></robust-link>
+        </dd>
+      </div>
+      <div *ngIf="specimen?.cellLine?.cultureConditions">
+        <dt>Culture conditions:</dt><dd>{{specimen.cellLine.cultureConditions}}</dd>
+      </div>
+      <div *ngIf="specimen?.cellLine?.cultureProtocol">
+        <dt>Culture protocol:</dt><dd>
+          <robust-link [link]="specimen.cellLine.cultureProtocol" [text]="specimen.cellLine.cultureProtocol"></robust-link>
+        </dd>
+      </div>
+      <div *ngIf="specimen?.cellLine?.disease?.text">
+        <dt>Disease:</dt><dd>
+          <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen.cellLine.disease.ontologyTerms" [text]="specimen.cellLine.disease.text"></robust-link>
+        </dd>
+      </div>
+      <div *ngIf="specimen?.cellLine?.karyotype">
+        <dt>Karyotype:</dt><dd>{{specimen.cellLine.karyotype}}</dd>
+      </div>
     </ng-template>
     <ng-template ngSwitchDefault>Unrecgonizable specimen type</ng-template>
   </ng-container>
