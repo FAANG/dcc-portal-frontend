@@ -24,14 +24,14 @@ export class ApiSpecimenService {
   get(biosampleId: string): Observable<Specimen>{
     return this.apiTimeoutService.handleTimeout<Specimen>(
       this.apiErrorService.handleError(
-        this.http.get(`http://ves-hx-e4:9200/faang_build_3/specimen/${biosampleId}`)
+        this.http.get(`/api/specimen/${biosampleId}`)
       ).map((r: Response) => r.json()._source as Specimen)
     );
   }
   getAll(query: any): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(                                                    
-        this.http.post(`http://ves-hx-e4:9200/faang_build_3/specimen/_search`, query)
+        this.http.post(`/api/specimen/_search`, query)
       ).map((r: Response) => r.json() as SpecimenList)
     );
   }

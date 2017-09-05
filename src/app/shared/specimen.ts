@@ -4,10 +4,13 @@ export class Specimen {
     readonly name: string,
     readonly description: string,
     readonly standardMet: string,
+    readonly releaseDate: string,
+    readonly updateDate: string,
     readonly project: string,
     readonly organization: {
       readonly name: string,
       readonly URL: string,
+      readonly role: string
     }[],
     readonly material: {
       readonly text: string,
