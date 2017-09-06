@@ -121,7 +121,9 @@
         <dt>Markers:</dt><dd>{{specimen.cellSpecimen.markers}}</dd>
       </div>
       <dt>Cell type:</dt><dd>
-        <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellSpecimen?.cellType?.ontologyTerms" [text]="specimen?.cellSpecimen?.cellType?.text"></robust-link>
+        <ng-container *ngFor="let type of specimen?.cellSpecimen?.cellType;">
+          <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="type?.ontologyTerms[0]" [text]="type?.text"></robust-link>
+        </ng-container>
       </dd>
       <dt>Purification protocol:</dt><dd>
         <robust-link [link]="specimen?.cellSpecimen?.purificationProtocol" [text]="specimen?.cellSpecimen?.purificationProtocol"></robust-link>
