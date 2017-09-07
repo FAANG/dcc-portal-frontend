@@ -345,6 +345,9 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     if(specimen['_source']['cellLine'] && specimen['_source']['cellLine']['cellType']){
       cellType = specimen['_source']['cellLine']['cellType']['text'];
     }
+    if(specimen['_source']['poolOfSpecimens']){
+      cellType = 'Not applicable';
+    }
     return cellType
   }
 
