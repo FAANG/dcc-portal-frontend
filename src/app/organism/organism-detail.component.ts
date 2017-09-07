@@ -37,7 +37,7 @@ export class OrganismDetailComponent implements OnInit, OnDestroy {
         .subscribe((e: Organism) => this.organism = e );
     this.routeSubscription =
       this.activatedRoute.params.subscribe((params: {biosampleId: string}) => {
-        this.biosampleId = params.biosampleId;
+        this.biosampleId = params.biosampleId.toUpperCase();
         this.titleService.setTitle(`${this.biosampleId} | FAANG organism`);
         if (this.biosampleId){
           this.organismSource.next(this.apiOrganismService.get(this.biosampleId));
