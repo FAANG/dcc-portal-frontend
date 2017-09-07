@@ -7,6 +7,7 @@
 <h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
   Active filters:
   <active-filters routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></active-filters>
+  <active-filters routekey="material" [aggs]="materialAggs" [isFiltered]="isMaterialFiltered"></active-filters>
   <active-filters routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></active-filters>
   <active-filters routekey="organismPart" [aggs]="organismPartAggs" [isFiltered]="isOrganismPartFiltered"></active-filters>
   <active-filters routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></active-filters>
@@ -20,6 +21,9 @@
     </div>
     <div class="col-md-12 col-sm-6 faang-filter">
       <faang-filter [filterSize]=4 title="Organism" routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></faang-filter>
+    </div>
+    <div class="col-md-12 col-sm-6 faang-filter">
+      <faang-filter [filterSize]=4 title="Material" routekey="material" [aggs]="materialAggs" [isFiltered]="isMaterialFiltered"></faang-filter>
     </div>
     <div class="col-md-12 col-sm-6 faang-filter">
       <faang-filter [filterSize]=4 title="Organism part" routekey="organismPart" [aggs]="organismPartAggs" [isFiltered]="isOrganismPartFiltered"></faang-filter>
