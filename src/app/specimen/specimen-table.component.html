@@ -43,7 +43,8 @@
     <tr>
       <!--for sort-element key attribute represents the property to sort on, [orders] retrieves the current sorting orders, (sort) event emitter sent the new order to the component to refresh the page-->
       <th><sort-element display="BioSample ID" key="biosampleId" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-      <th><sort-element display="Organism part/Cell type" key="specimen.specimenFromOrganism.organismPart.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Material" key="specimen.material.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Organism part/Cell type" key="getCellType(specimen)" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Sex" key="specimen.organism.sex.text" [orders]="getSort()"  (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Organism" key="specimen.organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Breed" key="specimen.organism.breed.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
@@ -52,6 +53,7 @@
   <tbody><tr *ngFor="let specimen of specimenList?.hits.hits;"
     class="clickable" [routerLink]="[specimen?._source?.biosampleId]">
     <td><a>{{specimen?._source.biosampleId}}</a></td>
+    <td>{{specimen?._source.material.text}}</td>
     <td>{{getCellType(specimen)}}</td>
     <td>{{specimen?._source?.organism?.sex?.text}}</td>
     <td>{{specimen?._source?.organism?.organism?.text}}</td>

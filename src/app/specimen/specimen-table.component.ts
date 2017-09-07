@@ -260,7 +260,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
       cellType = specimen['_source']['cellCulture']['cellType']['text'];
     }
     if(specimen['_source']['cellLine'] && specimen['_source']['cellLine']['cellType']){
-      cellType = specimen['_source']['cellLine']['cellType'][0]['text'];
+      cellType = specimen['_source']['cellLine']['cellType']['text'];
     }
     return cellType
   }

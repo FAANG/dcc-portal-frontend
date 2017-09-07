@@ -59,7 +59,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('FAANG organisms');
     this.organismSource = new Subject<Observable<OrganismList>>();
     this.organismSubscription = this.organismSource
-        .switchMap((o: Observable<OrganismList>):Observable<OrganismList> => o)
+        .switchMap((o: Observable<OrganismList>):Observable<OrganismList> => o) //first Observable is the type of the parameter, second is the expected type of the output. 
         .subscribe((e: OrganismList) => {
           this.organismList = e;
           this.sexAggs = [];
@@ -215,7 +215,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     if (orders[0]["biosampleId"]!="desc") return true;
     return false;
   }
-
+  
   ngOnDestroy() {
     if (this.organismSubscription) {
       this.organismSubscription.unsubscribe();
