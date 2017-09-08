@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from'@angular/router';
+import { ActivatedRoute, Router } from'@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -55,11 +55,13 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private apiSpecimenService: ApiSpecimenService,
     private titleService: Title,
   ){ };
 
   ngOnInit() {
+    this.query['sort'] = [{biosampleId: "desc"}]//if in the subscribe function, the sort order will be initialized every time, i.e. after removing all filters, the existing sort orders will be lost
     this.titleService.setTitle('FAANG specimens');
     this.specimenSource = new Subject<Observable<SpecimenList>>();
     this.specimenSubscription = this.specimenSource
@@ -103,24 +105,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         this.specimenOffset = 0;
         this.query['from'] = this.specimenOffset
         this.query['size'] = this.pageLimit
-        this.query['sort'] = [{biosampleId: "desc"}]
-        this.query['aggs'] = {
-                              'all_specimen': {
-                                'global' : {}, 
-                                'aggs': {
-                                  'sex': {'terms': {'field': 'specimen.organism.sex.text', 'size': 50}}, 
-                                  'material': {'terms': {'field': 'specimen.material.text', 'size': 50}}, 
-                                  'organism': {'terms': {'field': 'specimen.organism.organism.text', 'size': 50}}, 
-                                  'organismPart': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 1000}},
-                                  'breed': {'terms': {'field': 'specimen.organism.breed.text', 'size': 1000}}
-                                }
-                              }
-                             }
-        this.isSexFiltered = {}
-        this.isMaterialFiltered = {}
-        this.isOrganismFiltered = {}
-        this.isOrganismPartFiltered = {}
-        this.isBreedFiltered = {}
+//        this.query['sort'] = [{biosampleId: "desc"}]
+        this.initAggRelatedVariables();
         if (queryParams.sex || queryParams.material || queryParams.organism || queryParams.organismPart || queryParams.breed) {
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
 
@@ -370,6 +356,35 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     if (orders.length>1) return true;
     if (orders[0]["biosampleId"]!="desc") return true;
     return false;
+  }
+
+  resetFilter(){
+    delete this.query['query'];
+    this.initAggRelatedVariables();
+    this.getSpecimenList();
+    this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: {}})
+
+//    window.alert(this.activatedRoute.url);
+  }
+
+  initAggRelatedVariables(){
+    this.query['aggs'] = {
+                          'all_specimen': {
+                            'global' : {}, 
+                            'aggs': {
+                              'sex': {'terms': {'field': 'specimen.organism.sex.text', 'size': 50}}, 
+                              'material': {'terms': {'field': 'specimen.material.text', 'size': 50}}, 
+                              'organism': {'terms': {'field': 'specimen.organism.organism.text', 'size': 50}}, 
+                              'organismPart': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 1000}},
+                              'breed': {'terms': {'field': 'specimen.organism.breed.text', 'size': 1000}}
+                            }
+                          }
+                        }
+    this.isSexFiltered = {}
+    this.isMaterialFiltered = {}
+    this.isOrganismFiltered = {}
+    this.isOrganismPartFiltered = {}
+    this.isBreedFiltered = {}
   }
 
   ngOnDestroy() {

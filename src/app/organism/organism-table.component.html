@@ -9,6 +9,7 @@
   <active-filters routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></active-filters>
   <active-filters routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></active-filters>
   <active-filters routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></active-filters>
+  <button class="btn btn-default" type = "button" (click)="resetFilter()">Remove all filters</button>
 </h3>
 
 <div class="row">

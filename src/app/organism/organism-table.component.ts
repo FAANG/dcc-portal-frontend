@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from'@angular/router';
+import { ActivatedRoute, Router } from'@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -51,11 +51,13 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private apiOrganismService: ApiOrganismService,
     private titleService: Title,
   ){ };
 
   ngOnInit() {
+    this.query['sort'] = [{biosampleId: "desc"}]
     this.titleService.setTitle('FAANG organisms');
     this.organismSource = new Subject<Observable<OrganismList>>();
     this.organismSubscription = this.organismSource
@@ -92,20 +94,8 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         this.organismOffset = 0;
         this.query['from'] = this.organismOffset
         this.query['size'] = this.pageLimit
-        this.query['sort'] = [{biosampleId: "desc"}]
-        this.query['aggs'] = {
-                                'all_organism': {
-                                  'global' : {}, 
-                                  'aggs': {
-                                    'sex': {'terms': {'field': 'sex.text', 'size': 50}}, 
-                                    'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}},
-                                    'breed': {'terms': {'field': 'breed.text', 'size': 50}}
-                                  }
-                                }
-                              }
-        this.isSexFiltered = {}
-        this.isOrganismFiltered = {}
-        this.isBreedFiltered = {}
+        this.initAggRelatedVariables();
+
         if (queryParams.sex || queryParams.organism || queryParams.breed) { //exist any query, add the query
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
 
@@ -215,7 +205,30 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     if (orders[0]["biosampleId"]!="desc") return true;
     return false;
   }
+
+  resetFilter(){
+    delete this.query['query'];
+    this.initAggRelatedVariables();
+    this.getOrganismList();
+    this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: {}})
+  }
   
+  initAggRelatedVariables(){
+    this.query['aggs'] = {
+                          'all_organism': {
+                            'global' : {}, 
+                              'aggs': {
+                                'sex': {'terms': {'field': 'sex.text', 'size': 50}}, 
+                                'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}},
+                                'breed': {'terms': {'field': 'breed.text', 'size': 50}}
+                              }
+                            }
+                          }
+    this.isSexFiltered = {}
+    this.isOrganismFiltered = {}
+    this.isBreedFiltered = {}
+  }
+
   ngOnDestroy() {
     if (this.organismSubscription) {
       this.organismSubscription.unsubscribe();
