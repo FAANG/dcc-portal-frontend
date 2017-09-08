@@ -8,10 +8,11 @@ In the parent html, e.g. specimen-detail.component.html
 could use following statement
 Wrong
     <robust-link [text]="something"></robust-link>
+
 Correct
-    <robust-link text="something"></robust-link>    		plain text
+    <robust-link text="something"></robust-link>    		plain text. Recommended for String
     <robust-link [text]="'something'"></robust-link>        with [], the right side is JavaScript, so string should be within ''
-    <robust-link [text]="mytext"></robust-link>             mytext should be defined in the specimen-detail.component.ts
+    <robust-link [text]="mytext"></robust-link>             mytext should be defined in the specimen-detail.component.ts. Recommended for property
     														text needs to be defined with @Input() text: string;
 														    And in this html use <a href="{{link}}">{{text}}</a>
 

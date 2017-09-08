@@ -68,7 +68,7 @@ export class SearchSpecimenComponent implements OnChanges, OnDestroy {
       cellType = hit['_source']['cellCulture']['cellType']['text'];
     }
     if(hit['_source']['cellLine'] && hit['_source']['cellLine']['cellType']){
-      cellType = hit['_source']['cellLine']['cellType'][0]['text'];
+      cellType = hit['_source']['cellLine']['cellType']['text'];
     }
     return cellType
   }

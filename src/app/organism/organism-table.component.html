@@ -9,6 +9,7 @@
   <active-filters routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></active-filters>
   <active-filters routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></active-filters>
   <active-filters routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></active-filters>
+  <button class="btn btn-default" type = "button" (click)="resetFilter()">Remove all filters</button>
 </h3>
 
 <div class="row">
@@ -31,11 +32,15 @@
       *ngIf="organismOffset">Previous</button></div>
     <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
       *ngIf="tableHasMore()">Next</button></div>
+    <button *ngIf="notDefaultSort()" class="btn btn-default" type = "button" (click)="resetSort()">Reset sorting</button>
     <div class="clearfix"></div>
 
   <table class="table table-striped table-hover table-responsive">
   <thead><tr>
-    <th>BioSample ID</th><th>Sex</th><th>Organism</th><th>Breed</th>
+    <th><sort-element display="BioSample ID" key="biosampleId" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+    <th><sort-element display="Sex" key="sex.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+    <th><sort-element display="Organism" key="organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+    <th><sort-element display="Breed" key="breed.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
   </tr></thead>
   <tbody><tr *ngFor="let organism of organismList?.hits.hits;"
     class="clickable" [routerLink]="[organism?._source?.biosampleId]">
