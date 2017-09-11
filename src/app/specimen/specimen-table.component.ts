@@ -131,7 +131,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             }
             if(this.query['aggs']['all_specimen']['aggs']['organismPart']['terms']){
               this.query['aggs']['all_specimen']['aggs']['organismPart'] = {'aggs': 
-                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, 
+//                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, 
+                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.cellType.text', 'size': 100}}}, 
                                                                               "filter" : {"bool": {"must": []}}
                                                                             }
             }
@@ -174,7 +175,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             }
             if(this.query['aggs']['all_specimen']['aggs']['organismPart']['terms']){
               this.query['aggs']['all_specimen']['aggs']['organismPart'] = {'aggs': 
-                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, 
+//                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, 
+                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.cellType.text', 'size': 100}}}, 
                                                                               "filter" : {"bool": {"must": []}}
                                                                             }
             }
@@ -214,7 +216,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             }
             if(this.query['aggs']['all_specimen']['aggs']['organismPart']['terms']){
               this.query['aggs']['all_specimen']['aggs']['organismPart'] = {'aggs': 
-                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, 
+//                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, 
+                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.cellType.text', 'size': 100}}}, 
                                                                               "filter" : {"bool": {"must": []}}
                                                                             }
             }
@@ -235,7 +238,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
 
           if (queryParams.organismPart){
             let organismPartParams = queryParams.organismPart.split("|")
-            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'specimenFromOrganism.organismPart.text' :organismPartParams}})
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' :organismPartParams}})
 
             if(this.query['aggs']['all_specimen']['aggs']['sex']['terms']){
               this.query['aggs']['all_specimen']['aggs']['sex'] = {'aggs': 
@@ -261,10 +264,10 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
                                                                         "filter" : {"bool": {"must": []}}
                                                                      }
             }
-            this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'specimen.specimenFromOrganism.organismPart.text' : organismPartParams}})
-            this.query['aggs']['all_specimen']['aggs']['materail']['filter']['bool']['must'].push({'terms': {'specimen.specimenFromOrganism.organismPart.text' : organismPartParams}})
-            this.query['aggs']['all_specimen']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'specimen.specimenFromOrganism.organismPart.text' : organismPartParams}})
-            this.query['aggs']['all_specimen']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'specimen.specimenFromOrganism.organismPart.text' : organismPartParams}})
+            this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
+            this.query['aggs']['all_specimen']['aggs']['materail']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
+            this.query['aggs']['all_specimen']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
+            this.query['aggs']['all_specimen']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
             for (let filter of organismPartParams){
               this.isOrganismPartFiltered[filter] = true
             }
@@ -294,7 +297,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             }
             if(this.query['aggs']['all_specimen']['aggs']['organismPart']['terms']){
               this.query['aggs']['all_specimen']['aggs']['organismPart'] = {'aggs': 
-                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.specimenFromOrganism.organismPart.text', 'size': 100}}}, 
+                                                                              {'organismPart-filter': {'terms': {'field': 'specimen.cellType.text', 'size': 100}}}, 
                                                                               "filter" : {"bool": {"must": []}}
                                                                             }
             }

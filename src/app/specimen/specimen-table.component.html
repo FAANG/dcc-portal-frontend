@@ -51,7 +51,7 @@
       <th><sort-element display="Material" key="specimen.material.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
       <!--It is not ideal to only sort on specimen from organism records, but this is the best solution which can be achieved based on the sorting function provided by ES-->
       <!--To do it properly, it needs to retrieve all the data, then sort at the client side, probably using jquery etc-->
-      <th><sort-element display="Organism part/Cell type" key="specimen.specimenFromOrganism.organismPart.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Organism part/Cell type" key="specimen.cellType.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Sex" key="specimen.organism.sex.text" [orders]="getSort()"  (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Organism" key="specimen.organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Breed" key="specimen.organism.breed.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
@@ -61,11 +61,12 @@
     class="clickable" [routerLink]="[specimen?._source?.biosampleId]">
     <td><a>{{specimen?._source.biosampleId}}</a></td>
     <td>{{specimen?._source.material.text}}</td>
-    <td>{{getCellType(specimen)}}</td>
-<!--    <td>{{specimen?._source?.organism?.sex?.text}}</td>
+<!--    <td>{{getCellType(specimen)}}</td>-->
+    <td>{{specimen?._source.cellType.text}}</td>
+    <td>{{specimen?._source?.organism?.sex?.text}}</td>
     <td>{{specimen?._source?.organism?.organism?.text}}</td>
-    <td>{{specimen?._source?.organism?.breed?.text}}</td>-->
-    <ng-container [ngSwitch]="specimen?._source.material?.text">
+    <td>{{specimen?._source?.organism?.breed?.text}}</td>
+<!--    <ng-container [ngSwitch]="specimen?._source.material?.text">
       <ng-template ngSwitchCase="pool of specimens">
         <td>Not applicable</td>
         <td>Not applicable</td>
@@ -81,7 +82,7 @@
         <td>{{specimen?._source?.organism?.organism?.text}}</td>
         <td>{{specimen?._source?.organism?.breed?.text}}</td>
       </ng-template>
-    </ng-container>
+    </ng-container>-->
   </tr></tbody>
   </table>
 
