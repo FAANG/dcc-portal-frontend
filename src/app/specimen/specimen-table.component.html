@@ -54,7 +54,7 @@
       <th><sort-element display="Organism part/Cell type" key="specimen.cellType.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Sex" key="specimen.organism.sex.text" [orders]="getSort()"  (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Organism" key="specimen.organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-      <th><sort-element display="Breed" key="specimen.organism.breed.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Breed" key="specimen.organism.breed.text.lower_case_sort" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
     </tr>
   </thead>
   <tbody><tr *ngFor="let specimen of specimenList?.hits.hits;"

@@ -40,7 +40,7 @@
     <th><sort-element display="BioSample ID" key="biosampleId" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
     <th><sort-element display="Sex" key="sex.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
     <th><sort-element display="Organism" key="organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-    <th><sort-element display="Breed" key="breed.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+    <th><sort-element display="Breed" key="breed.text.lower_case_sort" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
   </tr></thead>
   <tbody><tr *ngFor="let organism of organismList?.hits.hits;"
     class="clickable" [routerLink]="[organism?._source?.biosampleId]">
