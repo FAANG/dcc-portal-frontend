@@ -24,6 +24,7 @@ export class ApiFileService {
   get(name: string): Observable<File>{
     return this.apiTimeoutService.handleTimeout<File>(
       this.apiErrorService.handleError(
+//        this.http.get(`http://ves-hx-e4:9200/faang_build_3/file/${name}`)
         this.http.get(`/api/file/${name}`)
        ).map((r: Response) => r.json()._source as File)
     );
@@ -31,6 +32,7 @@ export class ApiFileService {
   getAll(query: any): Observable<FileList>{
     return this.apiTimeoutService.handleTimeout<FileList>(
       this.apiErrorService.handleError(
+//        this.http.post(`http://ves-hx-e4:9200/faang_build_3/file/_search`,query)
         this.http.post(`/api/file/_search`, query)
       ).map((r: Response) => r.json() as FileList)      
     );
@@ -40,13 +42,18 @@ export class ApiFileService {
     return this.apiTimeoutService.handleTimeout<FileList>(
       this.apiErrorService.handleError(
         this.http.post(`/api/file/_search`, {
+//        this.http.post(`http://ves-hx-e4:9200/faang_build_3/file/_search`, {
           "query": {
             "filtered" : {
               "filter" : {
-                "term" : {"specimens" : biosampleId}
+                "term" : {"specimen" : biosampleId}
               }
             }
           },
+          "sort": [
+            {"run.accession": "asc"},
+            {"name":"asc"}
+          ],
           from: fileOffset
         })
       ).map((r: Response) => r.json() as FileList)
