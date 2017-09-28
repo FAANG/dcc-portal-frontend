@@ -37,26 +37,26 @@
     <div class="clearfix"></div>
 
   <table class="table table-striped table-hover table-responsive">
-  <!--
-  <thead><tr>
-    <th><sort-element display="BioSample ID" key="biosampleId" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-    <th><sort-element display="Sex" key="sex.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-    <th><sort-element display="Organism" key="organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-    <th><sort-element display="Breed" key="breed.text.lower_case_sort" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-  </tr></thead>
-  <tbody><tr *ngFor="let organism of organismList?.hits.hits;"
-    class="clickable" [routerLink]="[organism?._source?.biosampleId]">
-    <td><a>{{organism?._source?.biosampleId}}</a></td>
-    <td>{{organism?._source?.sex?.text}}</td>
-    <td>{{organism?._source?.organism?.text}}</td>
-    <td>{{organism?._source?.breed?.text}}</td>
-  </tr></tbody>
--->
+    <thead><tr>
+      <th><sort-element display="File name" key="name" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Study" key="study.accession" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Species" key="species.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Assay type" key="experiment.assayType" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Instrument" key="run.instrument" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+    </tr></thead>
+    <tbody><tr *ngFor="let file of fileList?.hits.hits;"
+      class="clickable" [routerLink]="[file?._id]">
+      <td><a>{{file?._id}}</a></td>
+      <td>{{file?._source?.study.accession}}</td>
+      <td>{{file?._source?.species.text}}</td>
+      <td>{{file?._source?.experiment?.assayType}}</td>
+      <td>{{file?._source?.run?.instrument}}</td>
+    </tr></tbody>
   </table>
 
     <div class="clearfix"></div>
     <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
-      *ngIf="organismOffset">Previous</button></div>
+      *ngIf="fileOffset">Previous</button></div>
     <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
       *ngIf="tableHasMore()">Next</button></div>
     <div class="clearfix"></div>

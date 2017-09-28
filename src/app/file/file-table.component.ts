@@ -57,7 +57,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
   ){ };
 
   ngOnInit() {
-    this.query['sort'] = [{biosampleId: "desc"}]
+    this.query['sort'] = [{name: "desc"}]
     this.titleService.setTitle('FAANG files');
     this.fileSource = new Subject<Observable<FileList>>();
     this.fileSubscription = this.fileSource
