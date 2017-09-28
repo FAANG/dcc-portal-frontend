@@ -36,9 +36,9 @@ export class FileDetailComponent implements OnInit, OnDestroy {
         .switchMap((o: Observable<File>):Observable<File> => o)
         .subscribe((e: File) => this.file = e );
     this.routeSubscription =
-      this.activatedRoute.params.subscribe((params: {biosampleId: string}) => {
-        this.fileId = params.biosampleId.toUpperCase();
-        this.titleService.setTitle(`${this.fileId} | FAANG organism`);
+      this.activatedRoute.params.subscribe((params: {fileId: string}) => {
+        this.fileId = params.fileId;
+        this.titleService.setTitle(`${this.fileId} | FAANG file`);
         if (this.fileId){
           this.fileSource.next(this.apiFileService.get(this.fileId));
         }
