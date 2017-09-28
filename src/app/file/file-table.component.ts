@@ -252,7 +252,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
   }
  
   resetSort(){
-    this.query['sort'] = [{name: "desc"}];
+    this.query['sort'] = [{name: "asc"}];
     this.getFileList()
   }
 

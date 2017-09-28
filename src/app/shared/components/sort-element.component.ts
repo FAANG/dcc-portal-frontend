@@ -10,11 +10,16 @@ export class SortElementComponent implements OnInit, OnChanges{
   @Input() orders: {[key:string]: string}[];
   @Output() sort: EventEmitter<{[key:string]: string}[]> = new EventEmitter();// {[key:string]: string} is a hash, which maps to elasticsearch data structure in Params in Fireforx network monitor 
   flags = new Map(); 
+  @Input() type: string;
 
   constructor(){ };
   ngOnInit() {
     this.flags = new Map();
-    this.flags.set("biosampleId",-1);
+    if (this.type == "file"){
+      this.flags.set("name",1);
+    }else{
+      this.flags.set("biosampleId",-1);
+    }
   }
 
 

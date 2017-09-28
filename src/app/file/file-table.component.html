@@ -41,13 +41,13 @@
 
   <table class="table table-striped table-hover table-responsive">
     <thead><tr>
-      <th><sort-element display="File name" key="name" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-      <th><sort-element display="Study" key="study.accession" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-      <th><sort-element display="Experiment" key="experiment.accession" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-      <th><sort-element display="Species" key="species.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-      <th><sort-element display="Assay type" key="experiment.assayType" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-      <th><sort-element display="Specimen" key="specimen" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
-      <th><sort-element display="Instrument" key="run.instrument" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="File name" key="name" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Study" key="study.accession" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Experiment" key="experiment.accession" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Species" key="species.text" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Assay type" key="experiment.assayType" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Specimen" key="specimen" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Instrument" key="run.instrument" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
     </tr></thead>
     <tbody><tr *ngFor="let file of fileList?.hits.hits;"
       class="clickable" [routerLink]="[file?._id]">
