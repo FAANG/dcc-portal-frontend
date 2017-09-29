@@ -10,6 +10,7 @@ export class File {
     readonly url: string,
     readonly type: string,
     readonly size: number,
+    readonly readableSize: number,
     readonly checksum: string,
     readonly checksumMethod: string,
     readonly archive: string,
