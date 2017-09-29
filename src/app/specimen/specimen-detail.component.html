@@ -12,7 +12,8 @@
     <dt>Sex:</dt><dd>
       <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.sex?.ontologyTerms" [text]="specimen?.organism?.sex?.text"></robust-link>
     </dd>
-    <dt>Organism BioSample Id:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.organism?.biosampleId}}">{{specimen?.organism?.biosampleId}}</a></dd>
+    <dt>Organism BioSample Id:</dt><dd>
+      <robust-link prefix="../organism/" [link]="specimen?.organism?.biosampleId" [text]="specimen?.organism?.biosampleId"></robust-link>
     <dt>Organism:</dt><dd>
       <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.organism?.ontologyTerms" [text]="specimen?.organism?.organism?.text"></robust-link>
     </dd>
@@ -49,14 +50,15 @@
       <ng-container [ngSwitch]="specimen?.material?.text">
         <ng-template ngSwitchCase="pool of specimens">
           <ng-container *ngFor="let derived of specimen?.derivedFrom;">
-            <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>
+<!--            <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>-->
+            <robust-link prefix="../specimen/" [link]="derived" [text]="derived"></robust-link>
           </ng-container>
         </ng-template>
         <ng-template ngSwitchCase="cell line">
-          <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link>
+          <robust-link prefix="../specimen/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link>
         </ng-template>
         <ng-template ngSwitchDefault>
-          <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link>
+          <robust-link prefix="../organism/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link>
         </ng-template>
       </ng-container>
     </dd>
