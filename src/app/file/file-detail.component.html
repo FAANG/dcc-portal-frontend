@@ -5,7 +5,7 @@
 <api-slow-response></api-slow-response>
 <dl class="dl-horizontal">
   <dt>File name:</dt><dd>
-    <robust-link prefix="ftp://" [link]="file?.url" [text]="file?.name"></robust-link>
+    <robust-link prefix="ftp://" [link]="file?.url" [text]="file?.name"></robust-link><a href="ftp://{{file?.url}}"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
   </dd>
   <dt>Release date:</dt><dd>{{file?.releaseDate}}</dd>
   <dt>Update date:</dt><dd>{{file?.updateDate}}</dd>
