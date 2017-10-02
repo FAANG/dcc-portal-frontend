@@ -5,7 +5,8 @@
 <api-slow-response></api-slow-response>
 <dl class="dl-horizontal">
   <dt>File name:</dt><dd>
-    <robust-link prefix="ftp://" [link]="file?.url" [text]="file?.name"></robust-link><a href="ftp://{{file?.url}}"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+<!--    <robust-link prefix="ftp://" [link]="file?.url" [text]="file?.name"></robust-link><a href="ftp://{{file?.url}}"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>-->
+    {{file?.name}}
   </dd>
   <dt>Release date:</dt><dd>{{file?.releaseDate}}</dd>
   <dt>Update date:</dt><dd>{{file?.updateDate}}</dd>
@@ -15,7 +16,11 @@
   <dt>Specimen:</dt><dd>
     <robust-link prefix="../specimen/" [link]="file?.specimen" [text]="file?.specimen"></robust-link>
   </dd>
-  <dt *ngIf="file?.organism">Organism:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{file?.organism}}">{{file?.organism}}</a></dd>
+  <div *ngIf="file?.organism">
+    <dt>Organism:</dt><dd>
+      <robust-link prefix="../organism/" [link]="file?.organism" [text]="file?.organism"></robust-link>
+    </dd>
+  </div>
   <dt>File size:</dt><dd>{{file?.size}} ({{file?.readableSize}})</dd>
   <dt>Archive:</dt><dd>{{file?.archive}}</dd>
   <dt *ngIf="file?.readCount">Read count:</dt><dd>{{file?.readCount}}</dd>
@@ -46,4 +51,5 @@
   <dt *ngIf="file?.run?.sequencingLatitude">Sequencing latitude:</dt><dd>{{file?.run?.sequencingLatitude}}</dd>
   <dt *ngIf="file?.run?.sequencingLongitude">Sequencing longitude:</dt><dd>{{file?.run?.sequencingLongitude}}</dd>
 </dl>
+<run-files [runId]="file?.run?.accession"></run-files>
 </div>

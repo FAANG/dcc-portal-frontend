@@ -59,6 +59,27 @@ export class ApiFileService {
       ).map((r: Response) => r.json() as FileList)
     );
   }
+
+  getSpecimensFilesByRun(runId: string, fileOffset: number): Observable<FileList>{
+    return this.apiTimeoutService.handleTimeout<FileList>(
+      this.apiErrorService.handleError(
+        this.http.post(`/api/file/_search`, {
+//        this.http.post(`http://ves-hx-e4:9200/faang_build_3/file/_search`, {
+          "query": {
+            "filtered" : {
+              "filter" : {
+                "term" : {"run.accession" : runId}
+              }
+            }
+          },
+          "sort": [
+            {"name":"asc"}
+          ],
+          from: fileOffset
+        })
+      ).map((r: Response) => r.json() as FileList)
+    );
+  }
   search(hitsPerPage: number, from: number, query: any): Observable<ApiHits>{
     let body = {
       from: from,
