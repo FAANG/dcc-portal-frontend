@@ -74,7 +74,13 @@
         <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.specimenFromOrganism?.organismPart?.ontologyTerms" [text]="specimen?.specimenFromOrganism?.organismPart?.text"></robust-link>
       </dd>
       <dt>Specimen collection protocol:</dt><dd>
-        <robust-link [link]="specimen?.specimenFromOrganism?.specimenCollectionProtocol" [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol"></robust-link>
+        <ng-container *ngIf="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
+          <robust-link [link]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url" [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename"></robust-link>
+          <a href={{specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+        </ng-container>
+        <ng-container *ngIf="!specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
+          <robust-link [link]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url" [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename"></robust-link>
+        </ng-container>
       </dd>
       <div *ngIf="specimen?.specimenFromOrganism?.fastedStatus">
         <dt>Fasted status:</dt><dd>{{specimen?.specimenFromOrganism?.fastedStatus}}</dd>
@@ -102,7 +108,15 @@
     </ng-template>
     <ng-template ngSwitchCase="pool of specimens">
       <dt>Pool creation date:</dt><dd>{{specimen.poolOfSpecimens.poolCreationDate.text}}</dd>
-      <dt>Pool creation protocol:</dt><dd><robust-link [link]="specimen.poolOfSpecimens.poolCreationProtocol" [text]="specimen.poolOfSpecimens.poolCreationProtocol"></robust-link></dd>
+      <dt>Pool creation protocol:</dt><dd>
+        <ng-container *ngIf="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
+          <robust-link [link]="specimen?.poolOfSpecimens?.poolCreationProtocol?.url" [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename"></robust-link>
+          <a href={{specimen?.poolOfSpecimens?.poolCreationProtocol?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+        </ng-container>
+        <ng-container *ngIf="!specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
+          <robust-link [link]="specimen?.poolOfSpecimens?.poolCreationProtocol?.url" [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename"></robust-link>
+        </ng-container>
+      </dd>
       <div *ngIf="specimen?.poolOfSpecimens?.specimenVolume?.text">
         <dt>Specimen volume:</dt><dd>{{specimen.poolOfSpecimens.specimenVolume.text}} {{specimen.poolOfSpecimens.specimenVolume.unit}}</dd>
       </div>
@@ -128,7 +142,13 @@
         </ng-container>
       </dd>
       <dt>Purification protocol:</dt><dd>
-        <robust-link [link]="specimen?.cellSpecimen?.purificationProtocol" [text]="specimen?.cellSpecimen?.purificationProtocol"></robust-link>
+        <ng-container *ngIf="specimen?.cellSpecimen?.purificationProtocol?.filename">
+          <robust-link [link]="specimen?.cellSpecimen?.purificationProtocol?.url" [text]="specimen?.cellSpecimen?.purificationProtocol?.filename"></robust-link>
+          <a href={{specimen?.cellSpecimen?.purificationProtocol?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+        </ng-container>
+        <ng-container *ngIf="!specimen?.cellSpecimen?.purificationProtocol?.filename">
+          <robust-link [link]="specimen?.cellSpecimen?.purificationProtocol?.url" [text]="specimen?.cellSpecimen?.purificationProtocol?.url"></robust-link>
+        </ng-container>
       </dd>
     </ng-template>
     <ng-template ngSwitchCase="cell culture">
@@ -139,7 +159,13 @@
         <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellCulture?.cellType?.ontologyTerms" [text]="specimen?.cellCulture?.cellType?.text"></robust-link>
       </dd>
       <dt>Cell culture protocol:</dt><dd>
-        <robust-link [link]="specimen?.cellCulture?.cellCultureProtocol" [text]="specimen?.cellCulture?.cellCultureProtocol"></robust-link>
+        <ng-container *ngIf="specimen?.cellCulture?.cellCultureProtocol?.filename">
+          <robust-link [link]="specimen?.cellCulture?.cellCultureProtocol?.url" [text]="specimen?.cellCulture?.cellCultureProtocol?.filename"></robust-link>
+          <a href={{specimen?.cellCulture?.cellCultureProtocol?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+        </ng-container>
+        <ng-container *ngIf="!specimen?.cellCulture?.cellCultureProtocol?.filename">
+          <robust-link [link]="specimen?.cellCulture?.cellCultureProtocol?.url" [text]="specimen?.cellCulture?.cellCultureProtocol?.url"></robust-link>
+        </ng-container>
       </dd>
       <dt>Culture conditions:</dt><dd>{{specimen?.cellCulture?.cultureConditions}}</dd>
       <dt>Number of passages:</dt><dd>{{specimen?.cellCulture?.numberOfPassages}}</dd>
@@ -178,9 +204,15 @@
       <div *ngIf="specimen?.cellLine?.cultureConditions">
         <dt>Culture conditions:</dt><dd>{{specimen.cellLine.cultureConditions}}</dd>
       </div>
-      <div *ngIf="specimen?.cellLine?.cultureProtocol">
+      <div *ngIf="specimen?.cellLine?.cultureProtocol?.url">
         <dt>Culture protocol:</dt><dd>
-          <robust-link [link]="specimen.cellLine.cultureProtocol" [text]="specimen.cellLine.cultureProtocol"></robust-link>
+          <ng-container *ngIf="specimen.cellLine.cultureprotocol.filename">
+            <robust-link [link]="specimen.cellLine.cultureProtocol.url" [text]="specimen.cellLine.cultureProtocol.filename"></robust-link>
+            <a href={{specimen?.cellLine.cultureProtocol.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+          </ng-container>
+          <ng-container *ngIf="!specimen.cellLine.cultureprotocol.filename">
+            <robust-link [link]="specimen.cellLine.cultureProtocol.url" [text]="specimen.cellLine.cultureProtocol.url"></robust-link>
+          </ng-container>
         </dd>
       </div>
       <div *ngIf="specimen?.cellLine?.disease?.text">

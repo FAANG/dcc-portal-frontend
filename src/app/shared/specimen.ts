@@ -59,7 +59,10 @@ export class Specimen {
         readonly text: string,
         readonly ontologyTerms: string,
       },
-      readonly specimenCollectionProtocol: string,
+      readonly specimenCollectionProtocol: {
+        readonly url: string,
+        readonly filename: string
+      },
       readonly fastedStatus: string,
       readonly numberOfPieces: {
         readonly text: number,
@@ -89,7 +92,10 @@ export class Specimen {
         readonly text: string,
         readonly ontologyTerms: string,
       }[],
-      readonly purificationProtocol: string
+      readonly purificationProtocol: {
+        readonly url: string,
+        readonly filename: string
+      }
     },
     readonly cellCulture: {
       readonly cultureType: {
@@ -100,7 +106,10 @@ export class Specimen {
         readonly text: string,
         readonly ontologyTerms: string,
       },
-      readonly cellCultureProtocol: string,
+      readonly cellCultureProtocol: {
+        readonly url: string,
+        readonly filename: string
+      },
       readonly cultureConditions: string,
       readonly numberOfPassages: number
     },
@@ -131,7 +140,10 @@ export class Specimen {
         readonly ontologyTerms: string,
       },
       readonly cultureConditions: string,
-      readonly cultureProtocol: string,
+      readonly cultureProtocol: {
+        readonly url: string,
+        readonly filename: string
+      },
       readonly disease: {
         readonly text: string,
         readonly ontologyTerms: string,
