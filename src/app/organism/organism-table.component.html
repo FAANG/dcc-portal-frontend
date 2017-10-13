@@ -9,12 +9,16 @@
   <active-filters routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></active-filters>
   <active-filters routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></active-filters>
   <active-filters routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></active-filters>
+  <active-filters routekey="standard" [aggs]="standardAggs" [isFiltered]="isStandardFiltered"></active-filters>
   <button class="btn btn-default" type = "button" (click)="resetFilter()">Remove all filters</button>
 </h3>
 
 <div class="row">
   <div class="col-md-2">
     <div class="row">
+    <div class="col-md-12 col-sm-6 faang-filter">
+      <faang-filter [filterSize]=6 title="Standard" routekey="standard" [aggs]="standardAggs" [isFiltered]="isStandardFiltered"></faang-filter>
+    </div>
     <div class="col-md-12 col-sm-6 faang-filter">
       <faang-filter [filterSize]=2 title="Sex" routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></faang-filter>
     </div>
@@ -24,8 +28,8 @@
     <div class="col-md-12 col-sm-6 faang-filter">
       <faang-filter [filterSize]=6 title="Breed" routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></faang-filter>
     </div>
-    </div>
   </div>
+</div>
 
   <div class="fails-table col-md-10">
     <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
@@ -41,6 +45,7 @@
     <th><sort-element display="Sex" key="sex.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
     <th><sort-element display="Organism" key="organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
     <th><sort-element display="Breed" key="breed.text.lower_case_sort" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+    <th>Standard</th>
   </tr></thead>
   <tbody><tr *ngFor="let organism of organismList?.hits.hits;"
     class="clickable" [routerLink]="[organism?._source?.biosampleId]">
@@ -48,6 +53,7 @@
     <td>{{organism?._source?.sex?.text}}</td>
     <td>{{organism?._source?.organism?.text}}</td>
     <td>{{organism?._source?.breed?.text}}</td>
+    <td>{{organism?._source?.standardMet}}</td>
   </tr></tbody>
   </table>
 

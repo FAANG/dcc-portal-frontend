@@ -37,10 +37,12 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   isSexFiltered: {[key: string] : boolean} = {}
   isOrganismFiltered: {[key: string] : boolean} = {}
   isBreedFiltered: {[key: string] : boolean} = {}
+  isStandardFiltered: {[key: string] : boolean} = {}
   //bucket size counters
   sexAggs: {key: string, doc_count: number}[]
   organismAggs: {key: string, doc_count: number}[]
   breedAggs: {key: string, doc_count: number}[]
+  standardAggs: {key: string, doc_count: number}[]
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -67,6 +69,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
           this.sexAggs = [];
           this.organismAggs = [];
           this.breedAggs = [];
+          this.standardAggs = [];
 
           if (e && e.aggregations && e.aggregations['all_organism']) {
             let aggs = e.aggregations['all_organism'];
@@ -82,6 +85,9 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
             this.breedAggs = aggs['breed']['buckets'] ? aggs['breed']['buckets']
                       : aggs['breed']['breed-filter']['buckets'] ? aggs['breed']['breed-filter']['buckets']
                       : [];
+            this.standardAggs = aggs['standard']['buckets'] ? aggs['standard']['buckets']
+                      : aggs['standard']['standard-filter']['buckets'] ? aggs['standard']['standard-filter']['buckets']
+                      : [];
           }
         });
     //in the background elasticsearch the term "organism" is used under both types (elasticsearch term): organism and specimen, just use "organism" below as "sex" may get the unwanted.
@@ -90,13 +96,13 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     this.pageLimit = 20;
     this.getOrganismList();
     this.routeSubscription =
-      this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string, breed: string}) => {
+      this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string, breed: string, standard: string}) => {
         this.organismOffset = 0;
         this.query['from'] = this.organismOffset
         this.query['size'] = this.pageLimit
         this.initAggRelatedVariables();
 
-        if (queryParams.sex || queryParams.organism || queryParams.breed) { //exist any query, add the query
+        if (queryParams.sex || queryParams.organism || queryParams.breed || queryParams.standard) { //exist any query, add the query
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
 
           if (queryParams.sex){          
@@ -118,16 +124,22 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
                                                                       "filter" : {"bool": {"must": []}}
                                                                     }
             }
+            if(this.query['aggs']['all_organism']['aggs']['standard']['terms']){
+              this.query['aggs']['all_organism']['aggs']['standard'] = {'aggs': 
+                                                                      {'standard-filter': {'terms': {'field': 'standardMet', 'size': 50}}}, 
+                                                                      "filter" : {"bool": {"must": []}}
+                                                                    }
+            }
             //2. actually add filter under aggs
             this.query['aggs']['all_organism']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
             this.query['aggs']['all_organism']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
+            this.query['aggs']['all_organism']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'sex.text' : sexParams}})
             
             //flag which filters are selected
             for (let filter of sexParams){
               this.isSexFiltered[filter] = true
             }
           }
-
 
           if (queryParams.organism){
             let organismParams = queryParams.organism.split("|")
@@ -145,8 +157,15 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
                                                                       "filter" : {"bool": {"must": []}}
                                                                     }
             }
+            if(this.query['aggs']['all_organism']['aggs']['standard']['terms']){
+              this.query['aggs']['all_organism']['aggs']['standard'] = {'aggs': 
+                                                                      {'standard-filter': {'terms': {'field': 'standardMet', 'size': 50}}}, 
+                                                                      "filter" : {"bool": {"must": []}}
+                                                                    }
+            }
             this.query['aggs']['all_organism']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'organism.organism.text' : organismParams}})             
             this.query['aggs']['all_organism']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'organism.organism.text' : organismParams}})
+            this.query['aggs']['all_organism']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'organism.organism.text' : organismParams}})
             for (let filter of organismParams){
               this.isOrganismFiltered[filter] = true
             }
@@ -168,10 +187,53 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
                                                                           "filter" : {"bool": {"must": []}}
                                                                         }
             }
+            if(this.query['aggs']['all_organism']['aggs']['standard']['terms']){
+              this.query['aggs']['all_organism']['aggs']['standard'] = {'aggs': 
+                                                                      {'standard-filter': {'terms': {'field': 'standardMet', 'size': 50}}}, 
+                                                                      "filter" : {"bool": {"must": []}}
+                                                                    }
+            }
             this.query['aggs']['all_organism']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'breed.text' : breedParams}})             
             this.query['aggs']['all_organism']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'breed.text' : breedParams}})
+            this.query['aggs']['all_organism']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'breed.text' : breedParams}})
             for (let filter of breedParams){
               this.isBreedFiltered[filter] = true
+            }
+          }
+
+          if (queryParams.standard){          
+            let standardParams = queryParams.standard.split("|")
+            //add to the filter at the same level as global aggs using terms bool filter
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
+            
+            //add sex filter to all other aggs in two steps:
+            //1. initialize the filter if no filter existant for other aggs
+            if(this.query['aggs']['all_organism']['aggs']['sex']['terms']){
+              this.query['aggs']['all_organism']['aggs']['sex'] = {'aggs': 
+                                                                      {'sex-filter': {'terms': {'field': 'sex.text', 'size': 50}}}, 
+                                                                      "filter" : {"bool": {"must": []}}
+                                                                  }
+            }
+            if(this.query['aggs']['all_organism']['aggs']['organism']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_organism']['aggs']['organism'] = {'aggs': 
+                                                                          {'organism-filter': {'terms': {'field': 'organism.organism.text', 'size': 50}}}, 
+                                                                          "filter" : {"bool": {"must": []}}
+                                                                        }
+            }
+            if(this.query['aggs']['all_organism']['aggs']['breed']['terms']){
+              this.query['aggs']['all_organism']['aggs']['breed'] = {'aggs': 
+                                                                      {'breed-filter': {'terms': {'field': 'breed.text', 'size': 50}}}, 
+                                                                      "filter" : {"bool": {"must": []}}
+                                                                    }
+            }
+            //2. actually add filter under aggs
+            this.query['aggs']['all_organism']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
+            this.query['aggs']['all_organism']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
+            this.query['aggs']['all_organism']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
+            
+            //flag which filters are selected
+            for (let filter of standardParams){
+              this.isStandardFiltered[filter] = true
             }
           }
         }else{
@@ -220,13 +282,15 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
                               'aggs': {
                                 'sex': {'terms': {'field': 'sex.text', 'size': 50}}, 
                                 'organism': {'terms': {'field': 'organism.organism.text', 'size': 50}},
-                                'breed': {'terms': {'field': 'breed.text', 'size': 50}}
+                                'breed': {'terms': {'field': 'breed.text', 'size': 50}},
+                                'standard': {'terms': {'field': 'standardMet', 'size': 50}}
                               }
                             }
                           }
     this.isSexFiltered = {}
     this.isOrganismFiltered = {}
     this.isBreedFiltered = {}
+    this.isStandardFiltered = {}
   }
 
   ngOnDestroy() {
@@ -273,6 +337,11 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     }
     for (var key in this.isBreedFiltered){
       if (this.isBreedFiltered[key]){
+        return true
+      }
+    }
+    for (var key in this.isStandardFiltered){
+      if (this.isStandardFiltered[key]){
         return true
       }
     }
