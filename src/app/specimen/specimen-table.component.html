@@ -11,12 +11,16 @@
   <active-filters routekey="organism" [aggs]="organismAggs" [isFiltered]="isOrganismFiltered"></active-filters>
   <active-filters routekey="organismPart" [aggs]="organismPartAggs" [isFiltered]="isOrganismPartFiltered"></active-filters>
   <active-filters routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></active-filters>
+  <active-filters routekey="standard" [aggs]="standardAggs" [isFiltered]="isStandardFiltered"></active-filters>
   <button class="btn btn-default" type = "button" (click)="resetFilter()">Remove all filters</button>
 </h3>
 
 <div class="row">
   <div class="col-md-2">
     <div class="row">
+    <div class="col-md-12 col-sm-6 faang-filter">
+      <faang-filter [filterSize]=3 title="Standard" routekey="standard" [aggs]="standardAggs" [isFiltered]="isStandardFiltered"></faang-filter>
+    </div>
     <div class="col-md-12 col-sm-6 faang-filter">
       <faang-filter [filterSize]=2 title="Sex" routekey="sex" [aggs]="sexAggs" [isFiltered]="isSexFiltered"></faang-filter>
     </div>
@@ -27,7 +31,7 @@
       <faang-filter [filterSize]=4 title="Material" routekey="material" [aggs]="materialAggs" [isFiltered]="isMaterialFiltered"></faang-filter>
     </div>
     <div class="col-md-12 col-sm-6 faang-filter">
-      <faang-filter [filterSize]=4 title="Organism part" routekey="organismPart" [aggs]="organismPartAggs" [isFiltered]="isOrganismPartFiltered"></faang-filter>
+      <faang-filter [filterSize]=4 title="Organism part/Cell type" routekey="organismPart" [aggs]="organismPartAggs" [isFiltered]="isOrganismPartFiltered"></faang-filter>
     </div>
     <div class="col-md-12 col-sm-6 faang-filter">
       <faang-filter [filterSize]=4 title="Breed" routekey="breed" [aggs]="breedAggs" [isFiltered]="isBreedFiltered"></faang-filter>
@@ -55,34 +59,18 @@
       <th><sort-element display="Sex" key="specimen.organism.sex.text" [orders]="getSort()"  (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Organism" key="specimen.organism.organism.text" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Breed" key="specimen.organism.breed.text.lower_case_sort" [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th>Standard</th>
     </tr>
   </thead>
   <tbody><tr *ngFor="let specimen of specimenList?.hits.hits;"
     class="clickable" [routerLink]="[specimen?._source?.biosampleId]">
     <td><a>{{specimen?._source.biosampleId}}</a></td>
     <td>{{specimen?._source.material.text}}</td>
-<!--    <td>{{getCellType(specimen)}}</td>-->
     <td>{{specimen?._source.cellType.text}}</td>
     <td>{{specimen?._source?.organism?.sex?.text}}</td>
     <td>{{specimen?._source?.organism?.organism?.text}}</td>
     <td>{{specimen?._source?.organism?.breed?.text}}</td>
-<!--    <ng-container [ngSwitch]="specimen?._source.material?.text">
-      <ng-template ngSwitchCase="pool of specimens">
-        <td>Not applicable</td>
-        <td>Not applicable</td>
-        <td>Not applicable</td>
-      </ng-template>
-      <ng-template ngSwitchCase="cell line">
-        <td>{{specimen?._source?.cellLine?.sex?.text}}</td>
-        <td>{{specimen?._source?.cellLine?.organism?.text}}</td>
-        <td>{{specimen?._source?.cellLine?.breed?.text}}</td>
-      </ng-template>
-      <ng-template ngSwitchDefault>
-        <td>{{specimen?._source?.organism?.sex?.text}}</td>
-        <td>{{specimen?._source?.organism?.organism?.text}}</td>
-        <td>{{specimen?._source?.organism?.breed?.text}}</td>
-      </ng-template>
-    </ng-container>-->
+    <td>{{specimen?._source?.standardMet}}</td>
   </tr></tbody>
   </table>
 
