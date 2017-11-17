@@ -1,52 +1,28 @@
 <div class="container">
 <faang-navbar></faang-navbar>
-<p>
-In the FAANG data portal, FAANG data is classified into three main categories: Animals (the type is <a href="/organism">organism</a>) , Samples (the type is <a href="/specimen">specimen</a>) and genomic files including experiment information (the type is <a href="/file">file</a>). Within each category, there are two levels of data: list of records meeting certain criteria (filters in the left panel) which can be sorted by clicking the column header and record detail.
-</p>
-<h2>How can I access data programmatically?</h2>
-<p>On top of browsing on this website,FAANG also provides APIs which allow programmatic access to all FAANG data</p>
+<h2>Frequent Asked Questions:</h2>
+<details>
+  <summary><h4>How do I get involved with FAANG project?</h4></summary>
+  Please first register at <a href="https://www.faang.org/">the FAANG website</a> and start from there.
+</details>
+<details>
+  <summary><h4>What is this data portal for?</h4></summary>
+We are the FAANG Data Coordination Centre (DCC) who accepts the data submission from the FAANG community. This data portal provides an easy-to-use interface to access those submitted data</details>
+<details>
+  <summary><h4>How to submit data to FAANG data portal?</h4></summary>
+  It is a not-so-easy-but-managable process and we have developed a dedicated wiki-like <a href="https://www.ebi.ac.uk/seqdb/confluence/display/FAANG/FAANG+Archive+Submission+guidelines">web page</a> to guide you through the submission.
+</details>
+<details>
+  <summary><h4>How to access FAANG data?</h4></summary>
+  We provide two ways of accessing the data: one is through this data portal, the other is through APIs to access programmatically. More details can be found <a href="/help/api">here</a>.
+</details>
+<details>
+  <summary><h4>Is there a way to access data programmatically?</h4></summary>
+  Certainly. We provide APIs to access data programmatically. The details can be found <a href="/help/api">here</a>.
+</details>
+<details>
+  <summary><h4>I still have questions which are not listed here, what shall I do?</h4></summary>
+  Please <a href="mailto:faang-dcc@ebi.ac.uk">contact FAANG DCC</a> and we welcome any type of questions.
+</details>
 
-<h3 id="endpoint">Endpoints</h3>
-In the URI template provided below, any field which needs to be assigned with actual value by the user is represented as ":field". The optional fields are wrapped with [ ]. There are two types of endpoints:
-<ul>
-<li>List of records from one type</li>
-	<b>http://data.faang.org/api/:type/_search?fields=_id[&size=:size]</b> where the parameter <i>size</i> defines how many records are returned from the server and the default value is 20.
-<li>Record detail</li>
-  <b>http://data.faang.org/api/:type/:entityID</b><br>
-</ul>
-	<h4 class="example">Examples</h4>
-  Get all available animals: <pre><code>curl "http://data.faang.org/api/organism/_search/?fields=_id&size=1000"</code></pre>
-  Get information for animal with BioSample accession SAMEA7999918: <pre><code>curl "http://data.faang.org/api/organism/SAMEA7999918"</code></pre>
-  Get information for sample with BioSample accession SAMEA4451650: <pre><code>curl "http://data.faang.org/api/specimen/SAMEA4451650"</code></pre>
-
-<h3 id="response">Parse the response</h3>
-Actually the API is built on Elasticsearch, therefore the returned response is a typical Elasticsearch result which contains Elasticsearch fields and probably not relate to you. It is important to know where to look for the desired information. For the endpoint for list, the useful information can be found under <b>hits</b> field. The total number of return records is saved in the <b>hits.total</b> field while the information for each individual record is under <b>hits.hits</b> which is an array. If you want to retrieve all records from one type, you need to make sure that the value for the parameter <i>size</i> must be no less than the value in the <b>hits.total</b> field.
-For the endpoint for detail, the details of the record can be found under <b>_source</b> field
-
-<h3 id="advanced">Advanced options</h3>
-<p>The endpoints mentioned above only provide the basic functionality to make it possible to retrieve information for all records from one type of data. As Elasticsearch is a very powerful platform, many additional options are available and well described in the <a href="https://www.elastic.co/guide/en/elasticsearch/guide/1.x/search.html" target="_blank">Elasticsearch version 1.5 documentation</a>.
-</p>
-	<h4 class="example">Examples</h4>
-	Only return male animal records: 
-	<pre><code>curl POST "http://data.faang.org/api/organism/_search" -d '&#123;
-  "query": &#123;
-            "filtered" : &#123;
-              "filter" : &#123;
-                "term" : &#123;"sex.text" : "male"&#125;
-              &#125;
-          &#125;
-  &#125;
-&#125;' </code></pre>
-    List all species stores in the data portal with counts: 
-    <pre><code>curl POST "http://data.faang.org/api/organism/_search" -d '&#123;
-    "aggs" : &#123;
-        "organism" : &#123;
-            "terms" : &#123; "field" : "organism.organism.text" &#125;
-        &#125;
-    &#125;
-&#125;'
-</code></pre>
-<p>
-	To use the advanced options, you need to know the data structure which is accessible <a href="https://github.com/FAANG/faang-portal-backend/tree/master/elasticsearch">here</a>. To replicate the functionality (e.g. filtering, sorting), there is a shortcut to do so. Many browsers provide some development tool, for example in Google Chrome, under View menu, click Developer, then Developer tool, a plugin window will pop up. In the window, click "Network" tab, then "Headers" tab, scroll down to "Request Payload", click view source, copy and paste the JSON content after the -d option to be wrapped with a pair of single quotation marks
-</p>
-
+</div>

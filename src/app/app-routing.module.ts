@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './core/components/home.component';
 import { HelpComponent } from './core/components/help.component';
+import { ApiComponent } from './core/components/api.component';
 import { PageNotFoundComponent } from './core/components/page-not-found.component';
 import { SpecimenTableComponent } from './specimen/specimen-table.component';
 import { SpecimenDetailComponent } from './specimen/specimen-detail.component';
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
   { path: 'home', component: HomeComponent},
   { path: 'help', component: HelpComponent},
+  { path: 'help/api', component: ApiComponent},
   { path: 'specimen', component: SpecimenTableComponent},
   { path: 'specimen/:biosampleId', component: SpecimenDetailComponent},
   { path: 'organism', component: OrganismTableComponent},

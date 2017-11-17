@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './components/home.component';
 import { HelpComponent } from './components/help.component';
+import { ApiComponent } from './components/api.component';
 import { PageNotFoundComponent } from './components/page-not-found.component';
 
 import { ApiSpecimenService }  from './services/api-specimen.service';
@@ -16,7 +17,7 @@ import { ApiErrorService }  from './services/api-error.service';
 @NgModule({
   imports: [ SharedModule, CommonModule, HttpModule ],
   providers: [ ApiSpecimenService, ApiOrganismService, ApiFileService, ApiTimeoutService, ApiErrorService ],
-  declarations: [ HomeComponent, PageNotFoundComponent, HelpComponent ]
+  declarations: [ HomeComponent, PageNotFoundComponent, HelpComponent, ApiComponent ]
 })
 export class CoreModule { 
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
