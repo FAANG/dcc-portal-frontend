@@ -37,6 +37,7 @@
     <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
       *ngIf="tableHasMore()">Next</button></div>
     <button *ngIf="notDefaultSort()" class="btn btn-default" type = "button" (click)="resetSort()">Reset sorting</button>
+    <export-button type="organism" [query]="getQuery()"></export-button>
     <div class="clearfix"></div>
 
   <table class="table table-striped table-hover table-responsive">

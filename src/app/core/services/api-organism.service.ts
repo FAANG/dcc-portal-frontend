@@ -13,6 +13,9 @@ import { ApiErrorService } from './api-error.service';
 
 @Injectable()
 export class ApiOrganismService {
+  private host:string = "http://ves-hx-e4:9200/faang_build_3/organism/";
+//  private host:string = "http://test.faang.org/api/organism/";
+//  private host:string = "/api/organism/";
 
   constructor(
     private http: Http,
@@ -26,16 +29,46 @@ export class ApiOrganismService {
     return this.apiTimeoutService.handleTimeout<Organism>(
       this.apiErrorService.handleError(
 //        this.http.get(`http://ves-hx-e4:9200/faang_build_3/organism/${biosampleId}`)
-        this.http.get(`/api/organism/${biosampleId}`)
+//        this.http.get(`http://test.faang.org/api/organism/${biosampleId}`)
+        this.http.get(this.host+`${biosampleId}`)
       ).map((r: Response) => r.json()._source as Organism)
     );
   }
   getAll(query: any): Observable<OrganismList>{
     return this.apiTimeoutService.handleTimeout<OrganismList>(
       this.apiErrorService.handleError(
+        this.http.post(this.host+"_search", query)
 //        this.http.post(`http://ves-hx-e4:9200/faang_build_3/organism/_search`, query)
-        this.http.post(`/api/organism/_search`, query)
-      ).map((r: Response) => r.json() as OrganismList)      
+//        this.http.post(`http://test.faang.org/api/organism/_search`, query)
+//        this.http.post(`/api/organism/_search`, query)
+      ).map((r: Response) => r.json() as OrganismList)
+//      ).map((r: Response) => r.json() as OrganismList).do(console.log) #do function to print out the result
+    );
+  }
+
+  getAllInArray(query: any): Observable<Array<Array<string>>>{
+    return this.apiTimeoutService.handleTimeout<Array<Array<string>>>(
+      this.apiErrorService.handleError(
+        this.http.post(this.host+"_search", query)
+      ).map((r: Response) => {
+        console.log(query);
+        var result:Array<Array<string>> = new Array<Array<string>>();
+//        console.log("within service initialize:"+result.length);
+        var header:Array<string> = ["BiosampleId","Sex","Species","Breed"];
+        result.push(header);
+        let json = r.json() as OrganismList;
+        for ( let index in json.hits.hits){
+          var one:Array<string> = new Array<string>();
+          let hit : Organism = json.hits.hits[index]['_source'];
+          one.push(hit.biosampleId);
+          one.push(hit.sex.text);
+          one.push(hit.organism.text);
+          one.push(hit.breed.text);
+          result.push(one);
+        }
+//        console.log("result within service\n"+result);
+        return result;
+      })
     );
   }
 
