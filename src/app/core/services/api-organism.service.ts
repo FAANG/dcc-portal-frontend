@@ -45,6 +45,17 @@ export class ApiOrganismService {
 //      ).map((r: Response) => r.json() as OrganismList).do(console.log) #do function to print out the result
     );
   }
+  getAllinJSON(query: any) {
+    return this.apiTimeoutService.handleTimeout<string>(
+      this.apiErrorService.handleError(
+        this.http.post(this.host+"_search", query)
+//        this.http.post(`http://ves-hx-e4:9200/faang_build_3/organism/_search`, query)
+//        this.http.post(`http://test.faang.org/api/organism/_search`, query)
+//        this.http.post(`/api/organism/_search`, query)
+      ).map((r: Response) => r.json()).do(console.log)
+//      ).map((r: Response) => r.json() as OrganismList).do(console.log) #do function to print out the result
+    );
+  }
 
   getAllInArray(query: any): Observable<Array<Array<string>>>{
     return this.apiTimeoutService.handleTimeout<Array<Array<string>>>(
