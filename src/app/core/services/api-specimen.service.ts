@@ -47,6 +47,7 @@ export class ApiSpecimenService {
         console.log(query);
         var result:Array<Array<string>> = new Array<Array<string>>();
         var header:Array<string> = ["BiosampleId",
+                                    "Name",
                                     "Standard",
                                     "Release date",
                                     "Update date",
@@ -182,6 +183,7 @@ export class ApiSpecimenService {
           var one:Array<string> = new Array<string>();
           let hit : Specimen = json.hits.hits[index]['_source'];
           one.push(hit.biosampleId);
+          one.push(hit.name);
           one.push(hit.standardMet);
           one.push(hit.releaseDate);
           one.push(hit.updateDate);
