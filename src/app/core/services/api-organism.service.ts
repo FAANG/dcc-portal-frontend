@@ -12,9 +12,9 @@ import { ApiErrorService } from './api-error.service';
 
 @Injectable()
 export class ApiOrganismService {
-  private host:string = "http://ves-hx-e4:9200/faang_build_3/organism/";
+//  private host:string = "http://ves-hx-e4:9200/faang_build_3/organism/";
 //  private host:string = "http://test.faang.org/api/organism/";
-//  private host:string = "/api/organism/";
+  private host:string = "/api/organism/";
 
   constructor(
     private http: Http,
@@ -47,13 +47,19 @@ export class ApiOrganismService {
       ).map((r: Response) => {
         var result:Array<Array<string>> = new Array<Array<string>>();
         var header:Array<string> = ["BiosampleId",
+                                    "Name",
+                                    "Standard",
+                                    "Release date",
+                                    "Update date",
+                                    "Project",
+                                    "Organization",
+                                    "Material",
                                     "Species",
                                     "Species ontology",
                                     "Sex",
                                     "Sex ontology",
                                     "Breed",
                                     "Breed ontology",
-                                    "Standard",
                                     "Birth date",
                                     "Health status",
                                     "Birth location",
@@ -73,13 +79,19 @@ export class ApiOrganismService {
           var one:Array<string> = new Array<string>();
           let hit : Organism = json.hits.hits[index]['_source'];
           one.push(hit.biosampleId);
+          one.push(hit.name);
+          one.push(hit.standardMet);
+          one.push(hit.releaseDate);
+          one.push(hit.updateDate);
+          one.push(hit.project);
+          one.push(this.joinArray(hit.organization));
+          one.push(hit.material.text);
           one.push(hit.organism.text);
           one.push(hit.organism.ontologyTerms);
           one.push(hit.sex.text);
           one.push(hit.sex.ontologyTerms);
           one.push(hit.breed.text);
           one.push(hit.breed.ontologyTerms);
-          one.push(hit.standardMet);
           one.push(hit.birthDate.text);
 //          console.log(hit.biosampleId);
 //          console.log(hit.healthStatus);

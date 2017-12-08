@@ -6,6 +6,8 @@
 <dl class="dl-horizontal">
   <dt>Name:</dt><dd>{{organism?.name}}</dd>
   <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a></dd>
+  <dt>Release date:</dt><dd>{{organism?.releaseDate}}</dd>
+  <dt>Update date:</dt><dd>{{organism?.updateDate}}</dd>
   <dt>Sex:</dt><dd>{{organism?.sex?.text}}</dd>
   <dt>Organism:</dt><dd>
     <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></robust-link>
@@ -21,6 +23,11 @@
   <div *ngIf="organism?.availability">
     <dt>Availability:</dt><dd>{{organism?.availability}}</dd>
   </div>
+  <dt>Organisation:</dt><dd>
+    <ng-container *ngFor="let organization of organism?.organization;">
+      <robust-link [link]="organization.URL" [text]="organization.name"></robust-link> ( {{organization.role}})
+    </ng-container>
+  </dd>
   <div *ngIf="organism?.description">
     <dt>Description:</dt><dd>{{organism?.description}}</dd>
   </div>
@@ -55,7 +62,11 @@
     <dt>Same as:</dt><dd>{{organism?.sameAs}}</dd>
   </div>
   <div *ngIf="organism?.childOf">
-    <dt>Child of:</dt><dd>{{organism?.childOf}}</dd>
+    <dt>Child of:</dt><dd>
+      <ng-container *ngFor="let child of organism?.childOf;">
+        <robust-link prefix="../organism/" [link]="child" [text]="child"></robust-link>
+      </ng-container>
+    </dd>
   </div>
   <div *ngIf="organism?.pedigree">
     <dt>Pedigree:</dt><dd>{{organism?.pedigree}}</dd>
