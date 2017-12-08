@@ -9,10 +9,10 @@
   <dt>Release date:</dt><dd>{{organism?.releaseDate}}</dd>
   <dt>Update date:</dt><dd>{{organism?.updateDate}}</dd>
   <dt>Sex:</dt><dd>
-    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.sex?.ontologyTerms" [text]="organism?.sex?.text"></robust-link>
+    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.sex?.ontologyTerms" [text]="organism?.sex?.text"></robust-link>
   </dd>
   <dt>Organism:</dt><dd>
-    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></robust-link>
+    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></robust-link>
   </dd>
   <dt>Breed:</dt><dd>
     <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.breed.ontologyTerms" [text]="organism?.breed?.text"></robust-link>
@@ -72,6 +72,13 @@
   </div>
   <div *ngIf="organism?.pedigree">
     <dt>Pedigree:</dt><dd>{{organism?.pedigree}}</dd>
+  </div>
+  <div *ngIf="organism?.customField?.length > 0;">
+    <ng-container *ngFor="let field of organism?.customField;">
+      <dt>{{field.name}}:</dt><dd>
+        <robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="field.ontologyTerms" [text]="field.value"></robust-link>  {{field?.unit}}
+      </dd>
+    </ng-container>
   </div>
   </dl>
   <p></p>
