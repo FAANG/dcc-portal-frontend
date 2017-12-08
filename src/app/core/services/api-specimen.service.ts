@@ -12,6 +12,9 @@ import { ApiErrorService } from './api-error.service';
 
 @Injectable()
 export class ApiSpecimenService {
+  private host:string = "http://ves-hx-e4:9200/faang_build_3/specimen/";
+//  private host:string = "http://test.faang.org/api/specimen/";
+//  private host:string = "/api/specimen/";
 
   constructor(
     private http: Http,
@@ -24,23 +27,23 @@ export class ApiSpecimenService {
   get(biosampleId: string): Observable<Specimen>{
     return this.apiTimeoutService.handleTimeout<Specimen>(
       this.apiErrorService.handleError(
-//        this.http.get(`http://ves-hx-e4:9200/faang_build_3/specimen/${biosampleId}`)
-        this.http.get(`/api/specimen/${biosampleId}`)
+        this.http.get(this.host+`${biosampleId}`)
       ).map((r: Response) => r.json()._source as Specimen)
     );
   }
   getAll(query: any): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(                                                    
-//        this.http.post(`http://ves-hx-e4:9200/faang_build_3/specimen/_search`, query)
-        this.http.post(`/api/specimen/_search`, query)
+        this.http.post(this.host+"_search", query)
       ).map((r: Response) => r.json() as SpecimenList)
     );
   }
+
   getOrganismsSpecimens(biosampleId: string, specimenOffset: number): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(
-        this.http.post(`/api/specimen/_search`, {
+//        this.http.post(`/api/specimen/_search`, {
+        this.http.post(this.host+"_search",  {
           "query": {
             "filtered" : {
               "filter" : {

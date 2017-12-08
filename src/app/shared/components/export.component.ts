@@ -18,9 +18,6 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 export class ExportComponent{
   @Input() query: {[term: string]: any};
   @Input() type: string;
-  private organismSource: Subject<Observable<Array<Array<string>>>>;
-  private organismSubscription: Subscription = null;
-//  organismList: OrganismList;
   result:Array<Array<string>> = new Array<Array<string>>();
 
   constructor(
@@ -28,42 +25,26 @@ export class ExportComponent{
     private apiSpecimenService: ApiSpecimenService
   ){};
 
-  ngOnInit() {
-//    this.organismSource = new Subject<Observable<Array<Array<string>>>>();
-//    this.organismSource.switchMap((o: Observable<Array<Array<string>>>):Observable<Array<Array<string>>> => o) //first Observable is the type of the parameter, second is the expected type of the output. 
-//        .subscribe((response) => { 
-//          this.result = response;
-//        });
-//    this.organismSource.next(this.apiOrganismService.getAllInArray(this.query));
-  }
-
+//it utilizes the existing library Angular2Csv which is described at https://www.npmjs.com/package/angular2-csv
   export(format: string){
-
-
-    console.log(format);
-    console.log(this.type);
     //remove the pagination to return the full list
     delete this.query['from'];
     this.query['size'] = 10;
+    //options for Angular2csv to export
+    var options = { 
+      fieldSeparator: ','
+    };
+    var filename:string = "Export result of "+this.type;
+    if (format == "tsv"){
+      options = {
+        fieldSeparator: '\t'
+      };
+      filename = filename + ".tsv";
+    }
+
     this.apiOrganismService.getAllInArray(this.query).subscribe((response)=>{
-      new Angular2Csv(JSON.stringify(response), 'My Report');
+      new Angular2Csv(JSON.stringify(response), filename ,options);
     });
-    
-//    console.log("in the export before next");
-//    this.organismSource.next(this.apiOrganismService.getAllInArray(this.query));
-//    console.log(this.result);
-//    console.log("in the export after next: "+this.result.length);
-//    var header:string;
-//    var str: string;
-//    if (format == "tsv"){
-//      header = "text/tab-separated-values;charset=utf-8;";
-//      str = this.convertIntoFormat(this.result,format);
-//    }else{
-//      header = "text/csv;charset=utf-8;";
-//      str = this.convertIntoFormat(this.result,format);
-//    }
-//    console.log("in the export result");
-//    console.log(str);
   }
 
   convertIntoFormat(result:Array<Array<string>>,format: string){

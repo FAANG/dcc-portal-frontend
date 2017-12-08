@@ -10,7 +10,6 @@ import { ApiHits } from '../../shared/api-types/api-hits';
 import { ApiTimeoutService } from './api-timeout.service';
 import { ApiErrorService } from './api-error.service';
 
-
 @Injectable()
 export class ApiOrganismService {
   private host:string = "http://ves-hx-e4:9200/faang_build_3/organism/";
@@ -28,8 +27,6 @@ export class ApiOrganismService {
   get(biosampleId: string): Observable<Organism>{
     return this.apiTimeoutService.handleTimeout<Organism>(
       this.apiErrorService.handleError(
-//        this.http.get(`http://ves-hx-e4:9200/faang_build_3/organism/${biosampleId}`)
-//        this.http.get(`http://test.faang.org/api/organism/${biosampleId}`)
         this.http.get(this.host+`${biosampleId}`)
       ).map((r: Response) => r.json()._source as Organism)
     );
@@ -38,21 +35,7 @@ export class ApiOrganismService {
     return this.apiTimeoutService.handleTimeout<OrganismList>(
       this.apiErrorService.handleError(
         this.http.post(this.host+"_search", query)
-//        this.http.post(`http://ves-hx-e4:9200/faang_build_3/organism/_search`, query)
-//        this.http.post(`http://test.faang.org/api/organism/_search`, query)
-//        this.http.post(`/api/organism/_search`, query)
       ).map((r: Response) => r.json() as OrganismList)
-//      ).map((r: Response) => r.json() as OrganismList).do(console.log) #do function to print out the result
-    );
-  }
-  getAllinJSON(query: any) {
-    return this.apiTimeoutService.handleTimeout<string>(
-      this.apiErrorService.handleError(
-        this.http.post(this.host+"_search", query)
-//        this.http.post(`http://ves-hx-e4:9200/faang_build_3/organism/_search`, query)
-//        this.http.post(`http://test.faang.org/api/organism/_search`, query)
-//        this.http.post(`/api/organism/_search`, query)
-      ).map((r: Response) => r.json()).do(console.log)
 //      ).map((r: Response) => r.json() as OrganismList).do(console.log) #do function to print out the result
     );
   }
@@ -64,23 +47,90 @@ export class ApiOrganismService {
       ).map((r: Response) => {
         console.log(query);
         var result:Array<Array<string>> = new Array<Array<string>>();
-//        console.log("within service initialize:"+result.length);
-        var header:Array<string> = ["BiosampleId","Sex","Species","Breed"];
+        var header:Array<string> = ["BiosampleId",
+                                    "Species",
+                                    "Species ontology",
+                                    "Sex",
+                                    "Sex ontology",
+                                    "Breed",
+                                    "Breed ontology",
+                                    "Standard",
+                                    "Birth date",
+                                    "Health status",
+                                    "Birth location",
+                                    "Birth location longitude",
+                                    "Birth location latitude",
+                                    "Birth weight",
+                                    "PlacentalWeight",
+                                    "Pregnancy length",
+                                    "Delivery timing",
+                                    "Delivery ease",
+                                    "Child of",
+                                    "Pedigree"
+                                    ];
         result.push(header);
         let json = r.json() as OrganismList;
         for ( let index in json.hits.hits){
           var one:Array<string> = new Array<string>();
           let hit : Organism = json.hits.hits[index]['_source'];
           one.push(hit.biosampleId);
-          one.push(hit.sex.text);
           one.push(hit.organism.text);
+          one.push(hit.organism.ontologyTerms);
+          one.push(hit.sex.text);
+          one.push(hit.sex.ontologyTerms);
           one.push(hit.breed.text);
+          one.push(hit.breed.ontologyTerms);
+          one.push(hit.standardMet);
+          one.push(hit.birthDate.text);
+//          console.log(hit.biosampleId);
+//          console.log(hit.healthStatus);
+          one.push(this.joinArray(hit.healthStatus));
+          one.push(hit.birthLocation);
+          one.push(hit.birthLocationLongitude.text);
+          one.push(hit.birthLocationLatitude.text);
+          one.push(hit.birthWeight.text+hit.birthWeight.unit);
+          one.push(hit.placentalWeight.text+hit.placentalWeight.unit);
+          one.push(hit.pregnancyLength.text+hit.pregnancyLength.unit);
+          one.push(hit.deliveryTiming);
+          one.push(hit.deliveryEase);
+          one.push(this.joinArray(hit.childOf));
+          one.push(hit.pedigree);
           result.push(one);
         }
-//        console.log("result within service\n"+result);
         return result;
       })
     );
+  }
+
+  joinArray (arr: Array<any>): string{
+    if (arr == null || typeof(arr) === 'undefined'){
+      return "null";
+    }
+    var str:string = "";
+    for (var index in arr) {
+      var element = arr[index];
+      var curr:string = "";
+      if (typeof(element) == 'object'){
+        var keys = Object.keys(element);
+        if(keys.includes("text")){
+          curr = element["text"];
+        }else{
+          keys = keys.sort();
+          for (var key of keys){
+            curr += key+":"+element[key]+",";
+          }
+          curr = curr.slice(0,(curr.length-1));
+        }
+      }else{
+        curr = element;
+      }
+      if (index == "0"){
+        str += curr;
+      }else{
+        str += ";"+curr;
+      }
+    }
+    return str;
   }
 
   search(hitsPerPage: number, from: number, query: any): Observable<ApiHits>{

@@ -1,3 +1,5 @@
+//IMPORTANT: this file needs to be updated when the elasticsearch structure changes
+//if the change affects the display, both organism-detail and getAllInArray in apiOrganismService for exportation needs change
 export class Organism {
   constructor(
     readonly biosampleId: string,
