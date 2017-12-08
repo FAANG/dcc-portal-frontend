@@ -29,6 +29,8 @@ export class ExportComponent{
   export(format: string){
     //remove the pagination to return the full list
     delete this.query['from'];
+    delete this.query['aggs'];
+
     this.query['size'] = 100000;
     //options for Angular2csv to export
     var options = { 
