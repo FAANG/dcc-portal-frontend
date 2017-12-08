@@ -29,7 +29,7 @@ export class ExportComponent{
   export(format: string){
     //remove the pagination to return the full list
     delete this.query['from'];
-    this.query['size'] = 10;
+    this.query['size'] = 100000;
     //options for Angular2csv to export
     var options = { 
       fieldSeparator: ','
