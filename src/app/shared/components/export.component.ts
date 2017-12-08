@@ -42,9 +42,15 @@ export class ExportComponent{
       filename = filename + ".tsv";
     }
 
-    this.apiOrganismService.getAllInArray(this.query).subscribe((response)=>{
-      new Angular2Csv(JSON.stringify(response), filename ,options);
-    });
+    if (this.type == "organism"){
+      this.apiOrganismService.getAllInArray(this.query).subscribe((response)=>{
+        new Angular2Csv(JSON.stringify(response), filename ,options);
+      });
+    }else if(this.type == "specimen"){
+      this.apiSpecimenService.getAllInArray(this.query).subscribe((response)=>{
+        new Angular2Csv(JSON.stringify(response), filename ,options);
+      });
+    }
   }
 
   convertIntoFormat(result:Array<Array<string>>,format: string){

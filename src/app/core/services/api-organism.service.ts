@@ -45,7 +45,6 @@ export class ApiOrganismService {
       this.apiErrorService.handleError(
         this.http.post(this.host+"_search", query)
       ).map((r: Response) => {
-        console.log(query);
         var result:Array<Array<string>> = new Array<Array<string>>();
         var header:Array<string> = ["BiosampleId",
                                     "Species",

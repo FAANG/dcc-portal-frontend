@@ -39,6 +39,170 @@ export class ApiSpecimenService {
     );
   }
 
+  getAllInArray(query: any): Observable<Array<Array<string>>>{
+    return this.apiTimeoutService.handleTimeout<Array<Array<string>>>(
+      this.apiErrorService.handleError(
+        this.http.post(this.host+"_search", query)
+      ).map((r: Response) => {
+        console.log(query);
+        var result:Array<Array<string>> = new Array<Array<string>>();
+        var header:Array<string> = ["BiosampleId",
+                                    "Standard",
+                                    "Release date",
+                                    "Update date",
+                                    "Project",
+                                    "Organization",
+                                    "Material",
+                                    "Derived from",
+                                    "Species",
+                                    "Species ontology",
+                                    "Sex",
+                                    "Sex ontology",
+                                    "Breed",
+                                    "Breed ontology",
+                                    "Health status",
+                                    ];
+
+//    readonly specimenFromOrganism: {
+//      readonly specimenCollectionDate: {
+//        readonly text: string,
+//        readonly unit: string,
+//      },
+//      readonly animalAgeAtCollection: {
+//        readonly text: number,
+//        readonly unit: string,
+//      },
+//      readonly developmentalStage: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//      },
+//      readonly healthStatusAtCollection: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//      }[],
+//      readonly organismPart: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//      },
+//      readonly specimenCollectionProtocol: {
+//        readonly url: string,
+//        readonly filename: string
+//      },
+//      readonly fastedStatus: string,
+//      readonly numberOfPieces: {
+//        readonly text: number,
+//        readonly unit: string,
+//      },
+//      readonly specimenVolume: {
+//        readonly text: number,
+//        readonly unit: string,
+//      },
+//      readonly specimenSize: {
+//        readonly text: number,
+//        readonly unit: string,
+//      },
+//      readonly specimenWeight: {
+//        readonly text: number,
+//        readonly unit: string,
+//      },
+//      readonly specimenPictureUrl: string[],
+//      readonly gestationalAgeAtSampleCollection: {
+//        readonly text: number,
+//        readonly unit: string,
+//      }
+//    },
+//    readonly cellSpecimen: {
+//      readonly markers: string,
+//      readonly cellType: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//      }[],
+//      readonly purificationProtocol: {
+//        readonly url: string,
+//        readonly filename: string
+//      }
+//    },
+//    readonly cellCulture: {
+//      readonly cultureType: {
+//       readonly text: string,
+//        readonly ontologyTerms: string,
+//      },
+//      readonly cellType: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//      },
+//      readonly cellCultureProtocol: {
+//        readonly url: string,
+//        readonly filename: string
+//      },
+//      readonly cultureConditions: string,
+//      readonly numberOfPassages: number
+//    },
+//    readonly cellLine: {
+//      readonly organism: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//      },
+//      readonly sex: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//     },
+//      readonly cellLine: string,
+//      readonly biomaterialProvider: string,
+//      readonly catalogueNumber: string,
+//      readonly passageNumber: number,
+//      readonly dateEstablished: {
+//        readonly text: number,
+//        readonly unit: string,
+//      },
+//      readonly publication: string,
+//      readonly breed: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//     },
+//      readonly cellType: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//      },
+//      readonly cultureConditions: string,
+//      readonly cultureProtocol: {
+//        readonly url: string,
+//        readonly filename: string
+//      },
+//      readonly disease: {
+//        readonly text: string,
+//        readonly ontologyTerms: string,
+//      },
+//      readonly karyotype: string,
+//    },
+
+        result.push(header);
+        let json = r.json() as SpecimenList;
+        for ( let index in json.hits.hits){
+          var one:Array<string> = new Array<string>();
+          let hit : Specimen = json.hits.hits[index]['_source'];
+          one.push(hit.biosampleId);
+          one.push(hit.standardMet);
+          one.push(hit.releaseDate);
+          one.push(hit.updateDate);
+          one.push(hit.project);
+          one.push(this.joinArray(hit.organization));
+          one.push(hit.material.text);
+          one.push(hit.derivedFrom);
+          one.push(hit.organism.organism.text);
+          one.push(hit.organism.organism.ontologyTerms);
+          one.push(hit.organism.sex.text);
+          one.push(hit.organism.sex.ontologyTerms);
+          one.push(hit.organism.breed.text);
+          one.push(hit.organism.breed.ontologyTerms);
+          one.push(this.joinArray(hit.organism.healthStatus));
+          result.push(one);
+        }
+        return result;
+      })
+    );
+  }
+
   getOrganismsSpecimens(biosampleId: string, specimenOffset: number): Observable<SpecimenList>{
     return this.apiTimeoutService.handleTimeout<SpecimenList>(
       this.apiErrorService.handleError(
@@ -58,6 +222,37 @@ export class ApiSpecimenService {
         })
       ).map((r: Response) => r.json() as SpecimenList)
     );
+  }
+
+  joinArray (arr: Array<any>): string{
+    if (arr == null || typeof(arr) === 'undefined'){
+      return "null";
+    }
+    var str:string = "";
+    for (var index in arr) {
+      var element = arr[index];
+      var curr:string = "";
+      if (typeof(element) == 'object'){
+        var keys = Object.keys(element);
+        if(keys.includes("text")){
+          curr = element["text"];
+        }else{
+          keys = keys.sort();
+          for (var key of keys){
+            curr += key+":"+element[key]+",";
+          }
+          curr = curr.slice(0,(curr.length-1));
+        }
+      }else{
+        curr = element;
+      }
+      if (index == "0"){
+        str += curr;
+      }else{
+        str += ";"+curr;
+      }
+    }
+    return str;
   }
 
   search(hitsPerPage: number, from: number, query: any): Observable<ApiHits>{
