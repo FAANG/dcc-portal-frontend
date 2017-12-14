@@ -11,19 +11,91 @@ import { ApiTimeoutService } from './api-timeout.service';
 import { ApiErrorService } from './api-error.service';
 
 @Injectable()
-export class ApiSpecimenService {
+export class ApiSpecimenService{
 //  private host:string = "http://ves-hx-e4:9200/faang_build_3/specimen/";
-//  private host:string = "http://test.faang.org/api/specimen/";
-  private host:string = "/api/specimen/";
+  private host:string = "http://data.faang.org/api/specimen/";
+//  private host:string = "/api/specimen/";
+  private header:Array<string> = ["BiosampleId",
+                                  "Name",
+                                  "Material",
+                                  "Material ontology",
+                                  "Standard",
+                                  "Release date",
+                                  "Update date",
+                                  "Project",
+                                  "Organization",
+                                  "Derived from",
+                                  "Species",
+                                  "Species ontology",
+                                  "Sex",
+                                  "Sex ontology",
+                                  "Breed",
+                                  "Breed ontology",
+                                  "Health status",
+                                 ];
+  private headerSpecimenFromOrganism:Array<string> = ["Specimen collection date",
+                                                      "Animal age at collection",
+                                                      "Development stage",
+                                                      "Development stage ontology",
+                                                      "Health status at collection",
+                                                      "Organism part",
+                                                      "Organism part ontology",
+                                                      "Specimen collection protocol",
+                                                      "Fasted status",
+                                                      "Number of pieces",
+                                                      "Specimen volume",
+                                                      "Specimen size",
+                                                      "Specimen weight",
+                                                      "Specimen picture urls",
+                                                      "Gestational age at collection"
+                                                     ];
+  private headerCellSpecimen:Array<string> = ["Markers",
+                                              "Cell types",
+                                              "Purification protocol",
+                                             ];
+  private headerCellCulture:Array<string> = ["Culture type",
+                                             "Culture type ontology",
+                                             "Cell type",
+                                             "Cell type ontology",
+                                             "Cell culture protocol",
+                                             "Culture conditions",
+                                             "Number of passages"
+                                            ];
+  private headerCellLine:Array<string> = ["Cell line",
+                                          "Biomaterial provider",
+                                          "Catalogue number",
+                                          "Number of passages",
+                                          "Date established",
+                                          "Publication",
+                                          "Cell type",
+                                          "Cell type ontology",
+                                          "Culture conditions",
+                                          "Culture protocol",
+                                          "Disease",
+                                          "Karyotype"
+                                          ];
 
   constructor(
     private http: Http,
     private apiTimeoutService: ApiTimeoutService,
     private apiErrorService: ApiErrorService,
-  ) {}
+  ) {
+    //ngOnInit does not execute the following codes
+    for (let value of this.headerSpecimenFromOrganism){
+      this.header.push(value);
+    }
+    for (let value of this.headerCellSpecimen){
+      this.header.push(value);
+    }
+    for (let value of this.headerCellCulture){
+      this.header.push(value);
+    }
+    for (let value of this.headerCellLine){
+      this.header.push(value);
+    }
+  }
 
   // public methods
-
   get(biosampleId: string): Observable<Specimen>{
     return this.apiTimeoutService.handleTimeout<Specimen>(
       this.apiErrorService.handleError(
@@ -46,151 +118,21 @@ export class ApiSpecimenService {
       ).map((r: Response) => {
         console.log(query);
         var result:Array<Array<string>> = new Array<Array<string>>();
-        var header:Array<string> = ["BiosampleId",
-                                    "Name",
-                                    "Standard",
-                                    "Release date",
-                                    "Update date",
-                                    "Project",
-                                    "Organization",
-                                    "Material",
-                                    "Derived from",
-                                    "Species",
-                                    "Species ontology",
-                                    "Sex",
-                                    "Sex ontology",
-                                    "Breed",
-                                    "Breed ontology",
-                                    "Health status",
-                                    ];
-
-//    readonly specimenFromOrganism: {
-//      readonly specimenCollectionDate: {
-//        readonly text: string,
-//        readonly unit: string,
-//      },
-//      readonly animalAgeAtCollection: {
-//        readonly text: number,
-//        readonly unit: string,
-//      },
-//      readonly developmentalStage: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//      },
-//      readonly healthStatusAtCollection: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//      }[],
-//      readonly organismPart: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//      },
-//      readonly specimenCollectionProtocol: {
-//        readonly url: string,
-//        readonly filename: string
-//      },
-//      readonly fastedStatus: string,
-//      readonly numberOfPieces: {
-//        readonly text: number,
-//        readonly unit: string,
-//      },
-//      readonly specimenVolume: {
-//        readonly text: number,
-//        readonly unit: string,
-//      },
-//      readonly specimenSize: {
-//        readonly text: number,
-//        readonly unit: string,
-//      },
-//      readonly specimenWeight: {
-//        readonly text: number,
-//        readonly unit: string,
-//      },
-//      readonly specimenPictureUrl: string[],
-//      readonly gestationalAgeAtSampleCollection: {
-//        readonly text: number,
-//        readonly unit: string,
-//      }
-//    },
-//    readonly cellSpecimen: {
-//      readonly markers: string,
-//      readonly cellType: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//      }[],
-//      readonly purificationProtocol: {
-//        readonly url: string,
-//        readonly filename: string
-//      }
-//    },
-//    readonly cellCulture: {
-//      readonly cultureType: {
-//       readonly text: string,
-//        readonly ontologyTerms: string,
-//      },
-//      readonly cellType: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//      },
-//      readonly cellCultureProtocol: {
-//        readonly url: string,
-//        readonly filename: string
-//      },
-//      readonly cultureConditions: string,
-//      readonly numberOfPassages: number
-//    },
-//    readonly cellLine: {
-//      readonly organism: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//      },
-//      readonly sex: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//     },
-//      readonly cellLine: string,
-//      readonly biomaterialProvider: string,
-//      readonly catalogueNumber: string,
-//      readonly passageNumber: number,
-//      readonly dateEstablished: {
-//        readonly text: number,
-//        readonly unit: string,
-//      },
-//      readonly publication: string,
-//      readonly breed: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//     },
-//      readonly cellType: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//      },
-//      readonly cultureConditions: string,
-//      readonly cultureProtocol: {
-//        readonly url: string,
-//        readonly filename: string
-//      },
-//      readonly disease: {
-//        readonly text: string,
-//        readonly ontologyTerms: string,
-//      },
-//      readonly karyotype: string,
-//    },
-
-        result.push(header);
+        result.push(this.header);
         let json = r.json() as SpecimenList;
         for ( let index in json.hits.hits){
           var one:Array<string> = new Array<string>();
           let hit : Specimen = json.hits.hits[index]['_source'];
           one.push(hit.biosampleId);
           one.push(hit.name);
+          one.push(hit.material.text);
+          one.push(hit.material.ontologyTerms);
           one.push(hit.standardMet);
           one.push(hit.releaseDate);
           one.push(hit.updateDate);
           one.push(hit.project);
           one.push(this.joinArray(hit.organization));
-          one.push(hit.material.text);
-          one.push(hit.derivedFrom);
+          one.push(this.joinArray(hit.derivedFrom));
           one.push(hit.organism.organism.text);
           one.push(hit.organism.organism.ontologyTerms);
           one.push(hit.organism.sex.text);
@@ -198,6 +140,67 @@ export class ApiSpecimenService {
           one.push(hit.organism.breed.text);
           one.push(hit.organism.breed.ontologyTerms);
           one.push(this.joinArray(hit.organism.healthStatus));
+          if(hit.material.text == "specimen from organism"){
+            one.push(hit.specimenFromOrganism.specimenCollectionDate.text);
+            one.push(hit.specimenFromOrganism.animalAgeAtCollection.text+" "+hit.specimenFromOrganism.animalAgeAtCollection.unit);
+            one.push(hit.specimenFromOrganism.developmentalStage.text);
+            one.push(hit.specimenFromOrganism.developmentalStage.ontologyTerms);
+            one.push(this.joinArray(hit.specimenFromOrganism.healthStatusAtCollection));
+            one.push(hit.specimenFromOrganism.organismPart.text);
+            one.push(hit.specimenFromOrganism.organismPart.ontologyTerms);
+            one.push(hit.specimenFromOrganism.specimenCollectionProtocol.url);
+            one.push(hit.specimenFromOrganism.fastedStatus);
+            one.push(hit.specimenFromOrganism.numberOfPieces.text+hit.specimenFromOrganism.numberOfPieces.unit);
+            one.push(hit.specimenFromOrganism.specimenVolume.text+hit.specimenFromOrganism.specimenVolume.unit);
+            one.push(hit.specimenFromOrganism.specimenSize.text+hit.specimenFromOrganism.specimenSize.unit);
+            one.push(hit.specimenFromOrganism.specimenWeight.text+hit.specimenFromOrganism.specimenWeight.unit);
+            one.push(this.joinArray(hit.specimenFromOrganism.specimenPictureUrl));
+            one.push(hit.specimenFromOrganism.gestationalAgeAtSampleCollection.text+hit.specimenFromOrganism.gestationalAgeAtSampleCollection.unit);
+          }else{
+            for (let i in this.headerSpecimenFromOrganism){
+              one.push("");
+            }
+          }
+          if(hit.material.text == "cell specimen"){
+            one.push(hit.cellSpecimen.markers);
+            one.push(this.joinArray(hit.cellSpecimen.cellType));
+            one.push(hit.cellSpecimen.purificationProtocol.url);
+          }else{
+            for (let i in this.headerCellSpecimen){
+              one.push("");
+            }
+          }
+          if(hit.material.text == "cell culture"){
+            one.push(hit.cellCulture.cultureType.text);
+            one.push(hit.cellCulture.cultureType.ontologyTerms);
+            one.push(hit.cellCulture.cellType.text);
+            one.push(hit.cellCulture.cellType.ontologyTerms);
+            one.push(hit.cellCulture.cellCultureProtocol.url);
+            one.push(hit.cellCulture.cultureConditions);
+            one.push(hit.cellCulture.numberOfPassages+"");
+          }else{
+            for (let i in this.headerCellCulture){
+              one.push("");
+            }
+          }
+          if(hit.material.text == "cell line"){
+            one.push(hit.cellLine.cellLine);
+            one.push(hit.cellLine.biomaterialProvider);
+            one.push(hit.cellLine.catalogueNumber);
+            one.push(hit.cellLine.passageNumber+"");
+            one.push(hit.cellLine.dateEstablished.text+"");
+            one.push(hit.cellLine.publication);
+            one.push(hit.cellLine.cellType.text);
+            one.push(hit.cellLine.cellType.ontologyTerms);
+            one.push(hit.cellLine.cultureConditions);
+            one.push(hit.cellLine.cultureProtocol.url);
+            one.push(hit.cellLine.disease.text);
+            one.push(hit.cellLine.karyotype);
+          }else{
+            for (let i in this.headerCellLine){
+              one.push("");
+            }
+          }
           result.push(one);
         }
         return result;
@@ -243,7 +246,7 @@ export class ApiSpecimenService {
           for (var key of keys){
             curr += key+":"+element[key]+",";
           }
-          curr = curr.slice(0,(curr.length-1));
+          curr = curr.substr(0,(curr.length-1));
         }
       }else{
         curr = element;
@@ -254,6 +257,13 @@ export class ApiSpecimenService {
         str += ";"+curr;
       }
     }
+    return str;
+  }
+  //maybe needed to wrap each element
+  wrapWithQuotationMark (str:string): string{
+//    return "\""+str+"\"";
+    if(str == undefined) return str;
+    if(str.length==0) return "";
     return str;
   }
 
