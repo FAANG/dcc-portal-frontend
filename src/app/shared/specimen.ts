@@ -16,7 +16,7 @@ export class Specimen {
       readonly text: string,
       readonly ontologyTerms: string,
     },
-    readonly derivedFrom: string,
+    readonly derivedFrom: string[],
     readonly sameAs: string[],
     readonly availability: string,
     readonly organism: {
