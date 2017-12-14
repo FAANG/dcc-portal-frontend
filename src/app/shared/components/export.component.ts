@@ -18,6 +18,7 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 export class ExportComponent{
   @Input() query: {[term: string]: any};
   @Input() type: string;
+  @Input() count: number;  
   result:Array<Array<string>> = new Array<Array<string>>();
 
   constructor(
@@ -31,7 +32,7 @@ export class ExportComponent{
     delete this.query['from'];
     delete this.query['aggs'];
 
-    this.query['size'] = 100000;
+    this.query['size'] = this.count;
     //options for Angular2csv to export
     var options = { 
       fieldSeparator: ','

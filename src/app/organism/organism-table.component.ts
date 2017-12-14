@@ -50,6 +50,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   private organismSubscription: Subscription = null;
   private query: {[term: string]: any} = {};
   private pageLimit: number
+  private numberOfRecords: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -66,6 +67,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         .switchMap((o: Observable<OrganismList>):Observable<OrganismList> => o) //first Observable is the type of the parameter, second is the expected type of the output. 
         .subscribe((e: OrganismList) => {
           this.organismList = e;
+          this.numberOfRecords = e.hits.total;
           this.sexAggs = [];
           this.organismAggs = [];
           this.breedAggs = [];
@@ -255,6 +257,10 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     return this.query;
   }
 
+  getCount(){
+    return this.numberOfRecords;
+  }
+  
   setSort(sort: any) {
     this.query['sort'] = sort;
     this.getOrganismList();

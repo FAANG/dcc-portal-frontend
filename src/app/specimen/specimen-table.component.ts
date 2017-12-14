@@ -53,7 +53,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   private specimenSource: Subject<Observable<SpecimenList>>;
   private specimenSubscription: Subscription = null;
   private query: {[term: string]: any} = {};
-  private pageLimit: number
+  private pageLimit: number;
+  private numberOfRecord: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -70,6 +71,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         .switchMap((o: Observable<SpecimenList>):Observable<SpecimenList> => o) //convert each http request into an element in the pipe
         .subscribe((e: SpecimenList) => { //deal with each element coming out of the pipe
           this.specimenList = e;
+          this.numberOfRecord = e.hits.total;
           this.sexAggs = [];
           this.materialAggs = [];
           this.organismAggs = [];
@@ -430,6 +432,10 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
 
   getQuery(){
     return this.query;
+  }
+
+  getCount(){
+    return this.numberOfRecord;
   }
 
   setSort(sort: any) {
