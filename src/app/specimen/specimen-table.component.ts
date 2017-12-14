@@ -297,7 +297,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
                                                                     }
             }
             this.query['aggs']['all_specimen']['aggs']['sex']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
-            this.query['aggs']['all_specimen']['aggs']['materail']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
+            this.query['aggs']['all_specimen']['aggs']['material']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
             this.query['aggs']['all_specimen']['aggs']['organism']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
             this.query['aggs']['all_specimen']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
             this.query['aggs']['all_specimen']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
