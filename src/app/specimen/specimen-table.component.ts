@@ -267,7 +267,6 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
           if (queryParams.organismPart){
             let organismPartParams = queryParams.organismPart.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' :organismPartParams}})
-
             if(this.query['aggs']['all_specimen']['aggs']['sex']['terms']){
               this.query['aggs']['all_specimen']['aggs']['sex'] = {'aggs': 
                                                                       {'sex-filter': {'terms': {'field': 'specimen.organism.sex.text'}}}, 
