@@ -93,8 +93,6 @@ export class ApiOrganismService {
           one.push(hit.breed.text);
           one.push(hit.breed.ontologyTerms);
           one.push(hit.birthDate.text);
-//          console.log(hit.biosampleId);
-//          console.log(hit.healthStatus);
           one.push(this.joinArray(hit.healthStatus));
           one.push(hit.birthLocation);
           one.push(hit.birthLocationLongitude.text);
@@ -130,7 +128,7 @@ export class ApiOrganismService {
           for (var key of keys){
             curr += key+":"+element[key]+",";
           }
-          curr = curr.slice(0,(curr.length-1));
+          curr = curr.substr(0,(curr.length-1));
         }
       }else{
         curr = element;

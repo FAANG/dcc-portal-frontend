@@ -13,8 +13,9 @@ import { ApiErrorService } from './api-error.service';
 @Injectable()
 export class ApiSpecimenService{
 //  private host:string = "http://ves-hx-e4:9200/faang_build_3/specimen/";
-  private host:string = "http://data.faang.org/api/specimen/";
-//  private host:string = "/api/specimen/";
+//  private host:string = "http://data.faang.org/api/specimen/";
+  private host:string = "/api/specimen/";
+  //headers for different sections
   private header:Array<string> = ["BiosampleId",
                                   "Name",
                                   "Material",
@@ -95,6 +96,10 @@ export class ApiSpecimenService{
     }
   }
 
+  getHeader(): Array<string>{
+    return this.header;
+  }
+
   // public methods
   get(biosampleId: string): Observable<Specimen>{
     return this.apiTimeoutService.handleTimeout<Specimen>(
@@ -116,10 +121,9 @@ export class ApiSpecimenService{
       this.apiErrorService.handleError(
         this.http.post(this.host+"_search", query)
       ).map((r: Response) => {
-        console.log(query);
         var result:Array<Array<string>> = new Array<Array<string>>();
-        result.push(this.header);
         let json = r.json() as SpecimenList;
+        console.log("AHHHHH: "+json.hits.total);
         for ( let index in json.hits.hits){
           var one:Array<string> = new Array<string>();
           let hit : Specimen = json.hits.hits[index]['_source'];
@@ -132,7 +136,11 @@ export class ApiSpecimenService{
           one.push(hit.updateDate);
           one.push(hit.project);
           one.push(this.joinArray(hit.organization));
-          one.push(this.joinArray(hit.derivedFrom));
+          if(typeof(hit.derivedFrom)=="string"){
+            one.push(hit.derivedFrom);
+          }else{
+            one.push(this.joinArray(hit.derivedFrom));
+          }
           one.push(hit.organism.organism.text);
           one.push(hit.organism.organism.ontologyTerms);
           one.push(hit.organism.sex.text);
@@ -203,6 +211,7 @@ export class ApiSpecimenService{
           }
           result.push(one);
         }
+        console.log("within service result length: "+result.length);
         return result;
       })
     );
