@@ -40,9 +40,9 @@ export class ApiOrganismService {
     );
   }
 
-  getAllInArray(query: any): Observable<Array<Array<string>>>{
-    return this.apiTimeoutService.handleTimeout<Array<Array<string>>>(
-      this.apiErrorService.handleError(
+  getAllInArray(query: any, timeout: number): Observable<Array<Array<string>>>{
+    return this.apiTimeoutService.handleExportTimeout<Array<Array<string>>>(
+      timeout, this.apiErrorService.handleError(
         this.http.post(this.host+"_search", query)
       ).map((r: Response) => {
         var result:Array<Array<string>> = new Array<Array<string>>();

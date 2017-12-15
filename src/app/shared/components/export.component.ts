@@ -32,11 +32,11 @@ export class ExportComponent{
     //remove the pagination to return the full list
     delete this.query['from'];
     delete this.query['aggs'];
-
-    this.query['size'] = this.pageSize;
-    console.log("Total number:"+this.count);
-    var pages: number = Math.floor(this.count/this.pageSize)+1;
-    console.log("page count:"+pages);
+    this.query['size']=this.count;
+//    this.query['size'] = this.pageSize;
+//    console.log("Total number:"+this.count);
+//    var pages: number = Math.floor(this.count/this.pageSize)+1;
+//    console.log("page count:"+pages);
 
     //options for Angular2csv to export
     var options = { 
@@ -49,6 +49,7 @@ export class ExportComponent{
       };
       filename = filename + ".tsv";
     }
+//pagination to solve long list of records, at the moment only deal with specimen
 //    var downloaded = false;
 //    var totalResult:Array<Array<string>> = new Array<Array<string>>();
 //    if(this.type == "specimen"){
@@ -66,30 +67,20 @@ export class ExportComponent{
 //        });
 //      }else if(this.type == "specimen"){
 //        this.apiSpecimenService.getAllInArray(this.query).subscribe((response)=>{
-//          console.log("Returned length: "+response.length);
 //          for(let one of response){
 //            totalResult.push(one);
 //          }
-//          console.log("current total size:"+totalResult.length);
-//          console.log("i: "+i);
-//          console.log("pages: "+(pages-1));
 //          if (i==pages || pages == 1){
-//            console.log("End");
-//            console.log(totalResult.length);
-//            console.log(downloaded);
-//            console.log("End log finished")
-//            if (totalResult.length > this.count){
 //            if(!downloaded && totalResult.length >= this.count){
 //              new Angular2Csv(JSON.stringify(totalResult), filename ,options);  
 //              downloaded = true;
-//            } 
 //            }
 //         }
 //        });
 //      }
 
     if (this.type == "organism"){
-      this.apiOrganismService.getAllInArray(this.query).subscribe((response)=>{
+      this.apiOrganismService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
         new Angular2Csv(JSON.stringify(response), filename ,options);
       });
     }else if(this.type == "specimen"){

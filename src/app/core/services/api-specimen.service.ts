@@ -123,6 +123,7 @@ export class ApiSpecimenService{
         this.http.post(this.host+"_search", query)
       ).map((r: Response) => {
         var result:Array<Array<string>> = new Array<Array<string>>();
+        result.push(this.header);
         let json = r.json() as SpecimenList;
         for ( let index in json.hits.hits){
           var one:Array<string> = new Array<string>();
@@ -211,7 +212,6 @@ export class ApiSpecimenService{
           }
           result.push(one);
         }
-        console.log("within service result length: "+result.length);
         return result;
       })
     );
