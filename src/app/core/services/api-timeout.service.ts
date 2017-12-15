@@ -20,9 +20,19 @@ export class ApiTimeoutService {
     return Observable.create((observer : Observer<T>) => this.try<T>(o, observer));
   }
 
+  handleExportTimeout<T>(timeout:number, o: Observable<T>): Observable<T> {
+    return Observable.create((observer : Observer<T>) => this.tryExport<T>(timeout, o, observer));
+  }
+
   private try<T>(observable: Observable<T>, observer: Observer<T>) {
     let timer : {subscription: Subscription} = {subscription: null};
     timer.subscription = Observable.timer(1000).subscribe( t => this.onTimeout(timer, observer));
+    observable.subscribe((next: T) => this.onNext(next, timer, observer));
+  };
+
+  private tryExport<T>(timeout:number, observable: Observable<T>, observer: Observer<T>) {
+    let timer : {subscription: Subscription} = {subscription: null};
+    timer.subscription = Observable.timer(timeout).subscribe( t => this.onTimeout(timer, observer));
     observable.subscribe((next: T) => this.onNext(next, timer, observer));
   };
 

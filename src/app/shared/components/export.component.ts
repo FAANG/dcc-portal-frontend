@@ -49,45 +49,53 @@ export class ExportComponent{
       };
       filename = filename + ".tsv";
     }
-    var downloaded = false;
-    var totalResult:Array<Array<string>> = new Array<Array<string>>();
-    if(this.type == "specimen"){
-      totalResult.push(this.apiSpecimenService.getHeader());
-    }
-    console.log("AFter pushing the header: "+totalResult.length);
-    for(var i=0;i<pages;i++){
-      this.query['from'] = i*this.pageSize;
-      console.log ((i*this.pageSize+1)+" to "+((i+1)*this.pageSize));
-      console.log(this.query);
-      if (this.type == "organism"){
-        this.apiOrganismService.getAllInArray(this.query).subscribe((response)=>{
-          for(let one of response){
-            totalResult.push(one);
-          }
-        });
-      }else if(this.type == "specimen"){
-        this.apiSpecimenService.getAllInArray(this.query).subscribe((response)=>{
-          console.log("Returned length: "+response.length);
-          for(let one of response){
-            totalResult.push(one);
-          }
-          console.log("current total size:"+totalResult.length);
-          console.log("i: "+i);
-          console.log("pages: "+(pages-1));
-          if (i==pages || pages == 1){
-            console.log("End");
-            console.log(totalResult.length);
-            console.log(downloaded);
-            console.log("End log finished")
+//    var downloaded = false;
+//    var totalResult:Array<Array<string>> = new Array<Array<string>>();
+//    if(this.type == "specimen"){
+//      totalResult.push(this.apiSpecimenService.getHeader());
+//    }
+//    for(var i=0;i<pages;i++){
+//      this.query['from'] = i*this.pageSize;
+//      console.log ((i*this.pageSize+1)+" to "+((i+1)*this.pageSize));
+//      console.log(this.query);
+//      if (this.type == "organism"){
+//        this.apiOrganismService.getAllInArray(this.query).subscribe((response)=>{
+//          for(let one of response){
+//            totalResult.push(one);
+//          }
+//        });
+//      }else if(this.type == "specimen"){
+//        this.apiSpecimenService.getAllInArray(this.query).subscribe((response)=>{
+//          console.log("Returned length: "+response.length);
+//          for(let one of response){
+//            totalResult.push(one);
+//          }
+//          console.log("current total size:"+totalResult.length);
+//          console.log("i: "+i);
+//          console.log("pages: "+(pages-1));
+//          if (i==pages || pages == 1){
+//            console.log("End");
+//            console.log(totalResult.length);
+//            console.log(downloaded);
+//            console.log("End log finished")
 //            if (totalResult.length > this.count){
 //            if(!downloaded && totalResult.length >= this.count){
-              new Angular2Csv(JSON.stringify(totalResult), filename ,options);  
-              downloaded = true;
+//              new Angular2Csv(JSON.stringify(totalResult), filename ,options);  
+//              downloaded = true;
 //            } 
 //            }
-          }
-        });
-      }
+//         }
+//        });
+//      }
+
+    if (this.type == "organism"){
+      this.apiOrganismService.getAllInArray(this.query).subscribe((response)=>{
+        new Angular2Csv(JSON.stringify(response), filename ,options);
+      });
+    }else if(this.type == "specimen"){
+      this.apiSpecimenService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
+        new Angular2Csv(JSON.stringify(response), filename ,options);
+      });
     }
   }
 
