@@ -21,7 +21,8 @@ export class ExportComponent{
   @Input() count: number;  
   result:Array<Array<string>> = new Array<Array<string>>();
   private pageSize = 100;
-
+  busy: Promise<any>;    
+  
   constructor(
     private apiOrganismService: ApiOrganismService,
     private apiSpecimenService: ApiSpecimenService
@@ -78,7 +79,7 @@ export class ExportComponent{
 //         }
 //        });
 //      }
-
+    this.busy = new Observable(observable => {
     if (this.type == "organism"){
       this.apiOrganismService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
         new Angular2Csv(JSON.stringify(response), filename ,options);
@@ -88,7 +89,10 @@ export class ExportComponent{
         new Angular2Csv(JSON.stringify(response), filename ,options);
       });
     }
+    }).toPromise();
   }
+
+
 
   convertIntoFormat(result:Array<Array<string>>,format: string){
     var value = "";

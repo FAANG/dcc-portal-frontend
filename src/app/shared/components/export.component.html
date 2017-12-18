@@ -1,2 +1,7 @@
+<div>
+<!--Angular2busy https://github.com/devyumao/angular2-busy-->
+<!--Notes: in the shared.module.ts import two modules BrowserAnimationsModule and BusyModule-->
+<div [ngBusy]="{busy: busy, message: 'Start exporting...', backdrop: true, delay: 200, minDuration: 600}"></div>
 <button class="btn btn-default" type="button" (click)="export('csv')">Export as CSV file</button>
 <button class="btn btn-default" type="button" (click)="export('tsv')">Export as tabular file</button>
+</div>

@@ -13,8 +13,8 @@ import { ApiErrorService } from './api-error.service';
 @Injectable()
 export class ApiSpecimenService{
 //  private host:string = "http://ves-hx-e4:9200/faang_build_3/specimen/";
-//  private host:string = "http://data.faang.org/api/specimen/";
-  private host:string = "/api/specimen/";
+  private host:string = "http://data.faang.org/api/specimen/";
+//  private host:string = "/api/specimen/";
   //headers for different sections
   private header:Array<string> = ["BiosampleId",
                                   "Name",

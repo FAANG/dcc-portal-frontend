@@ -1,5 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
+import { BusyModule } from 'angular2-busy';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppComponent }  from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +14,8 @@ import { FileModule } from './file/file.module';
 import { SearchModule } from './search/search.module';
 
 @NgModule({
-  imports: [ BrowserModule, CoreModule, AppRoutingModule, SharedModule, SpecimenModule, OrganismModule, FileModule, SearchModule ],
+  imports: [ BrowserModule, CoreModule, AppRoutingModule, SharedModule, 
+  	SpecimenModule, OrganismModule, FileModule, SearchModule, BusyModule ],
   declarations: [ AppComponent ],
   providers: [ Title ],
   bootstrap: [ AppComponent ]
