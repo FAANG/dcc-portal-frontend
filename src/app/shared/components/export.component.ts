@@ -12,13 +12,17 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
     selector: 'export-button',
-    templateUrl: './export.component.html'
+    templateUrl: './export.component.html',
+    styleUrls: ['./busy.css']
 })
 
 export class ExportComponent{
   @Input() query: {[term: string]: any};
   @Input() type: string;
   @Input() count: number;  
+  disabled: boolean = false;
+  CSVLabel: string = "Export as CSV file";
+  TSVLabel: string = "Export as Tabular file";
   result:Array<Array<string>> = new Array<Array<string>>();
   private pageSize = 100;
   busy: Promise<any>;    
@@ -30,6 +34,7 @@ export class ExportComponent{
 
 //it utilizes the existing library Angular2Csv which is described at https://www.npmjs.com/package/angular2-csv
   export(format: string){
+    this.disabled = true;
     //remove the pagination to return the full list
     delete this.query['from'];
     delete this.query['aggs'];
@@ -49,6 +54,9 @@ export class ExportComponent{
         fieldSeparator: '\t'
       };
       filename = filename + ".tsv";
+      this.TSVLabel = "Exporting ...";
+    }else{
+      this.CSVLabel = "Exporting ...";
     }
 //pagination to solve long list of records, at the moment only deal with specimen
 //    var downloaded = false;
@@ -80,19 +88,25 @@ export class ExportComponent{
 //        });
 //      }
     this.busy = new Observable(observable => {
-    if (this.type == "organism"){
-      this.apiOrganismService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
-        new Angular2Csv(JSON.stringify(response), filename ,options);
-      });
-    }else if(this.type == "specimen"){
-      this.apiSpecimenService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
-        new Angular2Csv(JSON.stringify(response), filename ,options);
-      });
-    }
+      if (this.type == "organism"){
+        this.apiOrganismService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
+          new Angular2Csv(JSON.stringify(response), filename ,options);
+          this.default();
+        });
+      }else if(this.type == "specimen"){
+        this.apiSpecimenService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
+          new Angular2Csv(JSON.stringify(response), filename ,options);
+          this.default();
+        });
+      }
     }).toPromise();
   }
 
-
+  default(){
+    this.disabled = false;
+    this.CSVLabel = "Export as CSV file";
+    this.TSVLabel = "Export as Tabular file";
+  }
 
   convertIntoFormat(result:Array<Array<string>>,format: string){
     var value = "";
