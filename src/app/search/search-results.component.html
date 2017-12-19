@@ -21,4 +21,9 @@
     <search-specimen [query]="query"></search-specimen>
   </div>
 </div>
+<div class="row" *ngIf="query">
+  <div class="col-md-10 col-md-offset-1">
+    <search-file [query]="query"></search-file>
+  </div>
+</div>
 

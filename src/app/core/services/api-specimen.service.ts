@@ -286,7 +286,7 @@ export class ApiSpecimenService{
     }
     return this.apiTimeoutService.handleTimeout<ApiHits>(
       this.apiErrorService.handleError(
-        this.http.post(`/api/specimen/_search`, body)
+        this.http.post(this.host+"_search", body)
       ).map((r:Response): ApiHits => {
         let h: {hits: ApiHits} = r.json() as {hits: ApiHits};
         return h.hits;

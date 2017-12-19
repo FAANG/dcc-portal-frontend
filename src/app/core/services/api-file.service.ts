@@ -12,6 +12,9 @@ import { ApiErrorService } from './api-error.service';
 
 @Injectable()
 export class ApiFileService {
+//  private host:string = "http://ves-hx-e4:9200/faang_build_3/file/";
+  private host:string = "http://test.faang.org/api/file/";
+//  private host:string = "/api/file/";
 
   constructor(
     private http: Http,
@@ -24,16 +27,14 @@ export class ApiFileService {
   get(name: string): Observable<File>{
     return this.apiTimeoutService.handleTimeout<File>(
       this.apiErrorService.handleError(
-//        this.http.get(`http://ves-hx-e4:9200/faang_build_3/file/${name}`)
-        this.http.get(`/api/file/${name}`)
-       ).map((r: Response) => r.json()._source as File)
+        this.http.get(this.host+`${name}`)
+      ).map((r: Response) => r.json()._source as File)
     );
   }
   getAll(query: any): Observable<FileList>{
     return this.apiTimeoutService.handleTimeout<FileList>(
       this.apiErrorService.handleError(
-//        this.http.post(`http://ves-hx-e4:9200/faang_build_3/file/_search`,query)
-        this.http.post(`/api/file/_search`, query)
+        this.http.post(this.host+"_search", query)
       ).map((r: Response) => r.json() as FileList)      
     );
   }
@@ -41,7 +42,7 @@ export class ApiFileService {
   getSpecimensFiles(biosampleId: string, fileOffset: number): Observable<FileList>{
     return this.apiTimeoutService.handleTimeout<FileList>(
       this.apiErrorService.handleError(
-        this.http.post(`/api/file/_search`, {
+        this.http.post(this.host+"_search", {
 //        this.http.post(`http://ves-hx-e4:9200/faang_build_3/file/_search`, {
           "query": {
             "filtered" : {
@@ -63,7 +64,7 @@ export class ApiFileService {
   getSpecimensFilesByRun(runId: string, fileOffset: number): Observable<FileList>{
     return this.apiTimeoutService.handleTimeout<FileList>(
       this.apiErrorService.handleError(
-        this.http.post(`/api/file/_search`, {
+        this.http.post(this.host+"_search", {
 //        this.http.post(`http://ves-hx-e4:9200/faang_build_3/file/_search`, {
           "query": {
             "filtered" : {
@@ -90,7 +91,7 @@ export class ApiFileService {
     }
     return this.apiTimeoutService.handleTimeout<ApiHits>(
       this.apiErrorService.handleError(
-        this.http.post(`/api/file/_search`, body)
+        this.http.post(this.host+"_search", body)
       ).map((r:Response): ApiHits => {
         let h: {hits: ApiHits} = r.json() as {hits: ApiHits};
         return h.hits;
@@ -106,10 +107,12 @@ export class ApiFileService {
       multi_match: {
         query: text,
         fields: [
-          'name.std',
-          'dataType.std',
-          'archive.std',
-          'specimens.std',
+          'study.accession',
+          'experiment.accession',
+          'specimen.std',
+          'organism.std',
+          'species.text.autocomp',
+          'name',
           'url.keywords'
         ],
       }
