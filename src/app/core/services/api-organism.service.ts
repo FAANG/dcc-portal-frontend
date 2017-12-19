@@ -13,8 +13,8 @@ import { ApiErrorService } from './api-error.service';
 @Injectable()
 export class ApiOrganismService {
 //  private host:string = "http://ves-hx-e4:9200/faang_build_3/organism/";
-  private host:string = "http://test.faang.org/api/organism/";
-//  private host:string = "/api/organism/";
+//  private host:string = "http://test.faang.org/api/organism/";
+  private host:string = "/api/organism/";
 
   constructor(
     private http: Http,

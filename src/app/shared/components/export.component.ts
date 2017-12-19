@@ -13,7 +13,7 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 @Component({
     selector: 'export-button',
     templateUrl: './export.component.html',
-    styleUrls: ['./busy.css']
+//    styleUrls: ['./busy.css']
 })
 
 export class ExportComponent{
