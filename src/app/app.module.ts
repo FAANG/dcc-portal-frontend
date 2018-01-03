@@ -11,11 +11,12 @@ import { SharedModule }  from './shared/shared.module';
 import { SpecimenModule } from './specimen/specimen.module';
 import { OrganismModule } from './organism/organism.module';
 import { FileModule } from './file/file.module';
+import { DatasetModule } from './dataset/dataset.module';
 import { SearchModule } from './search/search.module';
 
 @NgModule({
   imports: [ BrowserModule, CoreModule, AppRoutingModule, SharedModule, 
-  	SpecimenModule, OrganismModule, FileModule, SearchModule ],
+  	SpecimenModule, OrganismModule, FileModule, DatasetModule, SearchModule ],
   declarations: [ AppComponent ],
   providers: [ Title ],
   bootstrap: [ AppComponent ]
