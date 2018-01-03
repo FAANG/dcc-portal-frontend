@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { SpecimenList } from '../specimen-list';
 import { ApiSpecimenService }  from '../../core/services/api-specimen.service';
+import { FileList } from '../file-list';
+import { ApiFileService }  from '../../core/services/api-file.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
@@ -29,7 +31,8 @@ export class ExportComponent{
   
   constructor(
     private apiOrganismService: ApiOrganismService,
-    private apiSpecimenService: ApiSpecimenService
+    private apiSpecimenService: ApiSpecimenService,
+    private apiFileService: ApiFileService
   ){};
 
 //it utilizes the existing library Angular2Csv which is described at https://www.npmjs.com/package/angular2-csv
@@ -95,6 +98,12 @@ export class ExportComponent{
         });
       }else if(this.type == "specimen"){
         this.apiSpecimenService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
+          new Angular2Csv(JSON.stringify(response), filename ,options);
+          this.default();
+        });
+      }else if(this.type == "file"){
+        this.apiFileService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
+          console.log("export files");
           new Angular2Csv(JSON.stringify(response), filename ,options);
           this.default();
         });

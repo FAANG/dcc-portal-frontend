@@ -50,6 +50,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
   private fileSubscription: Subscription = null;
   private query: {[term: string]: any} = {};
   private pageLimit: number
+  private numberOfRecord: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -66,6 +67,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
         .switchMap((o: Observable<FileList>):Observable<FileList> => o) //first Observable is the type of the parameter, second is the expected type of the output. 
         .subscribe((e: FileList) => {
           this.fileList = e;
+          this.numberOfRecord = e.hits.total;
           this.studyAggs = [];
           this.speciesAggs = [];
           this.assayAggs = [];
@@ -244,6 +246,14 @@ export class FileTableComponent implements OnInit, OnDestroy {
 
   getSort(){
     return this.query['sort'];
+  }
+
+  getQuery(){
+    return this.query;
+  }
+
+  getCount(){
+    return this.numberOfRecord;
   }
 
   setSort(sort: any) {

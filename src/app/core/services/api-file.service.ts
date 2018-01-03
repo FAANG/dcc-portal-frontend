@@ -39,6 +39,93 @@ export class ApiFileService {
     );
   }
 
+  getAllInArray(query: any, timeout: number): Observable<Array<Array<string>>>{
+    return this.apiTimeoutService.handleExportTimeout<Array<Array<string>>>(
+      timeout, this.apiErrorService.handleError(
+        this.http.post(this.host+"_search", query)
+      ).map((r: Response) => {
+        var result:Array<Array<string>> = new Array<Array<string>>();
+        var header:Array<string> = ["File name",
+                                    "Release date",
+                                    "Update date",
+                                    "Specimen",
+                                    "Organism",
+                                    "Species",
+                                    "Species ontology",
+                                    "URL",
+                                    "Type",
+                                    "Size",
+                                    "Readable size",
+                                    "Checksum",
+                                    "Checksum method",
+                                    "Archive",
+                                    "Read count",
+                                    "Base count",
+                                    "Submission",
+                                    "Experiment accession",
+                                    "Experiment target",
+                                    "Experiment assay type",
+                                    "Study accession",
+                                    "Study type",
+                                    "Study secondary accession",
+                                    "Study title",
+                                    "Run accession",
+                                    "Platform",
+                                    "Instrument",
+                                    "Centre name",
+                                    "Sequencing date",
+                                    "Sequencing location",
+                                    "Sequencing latitude",
+                                    "Sequencing longitude"
+                                    ];
+
+        result.push(header);
+        let json = r.json() as FileList;
+        for ( let index in json.hits.hits){
+          var one:Array<string> = new Array<string>();
+          let hit : File = json.hits.hits[index]['_source'];
+
+
+          one.push(hit.name);
+          one.push(hit.releaseDate);
+          one.push(hit.updateDate);
+          one.push(hit.specimen);
+          one.push(hit.organism);
+          one.push(hit.species.text);
+          one.push(hit.species.ontologyTerms);
+          one.push(hit.url);
+          one.push(hit.type);
+          one.push(hit.size+"");
+          one.push(hit.readableSize+"");
+          one.push(hit.checksum);
+          one.push(hit.checksumMethod);
+          one.push(hit.archive);
+          one.push(hit.readCount+"");
+          one.push(hit.baseCount+"");
+          one.push(hit.submission);
+          one.push(hit.experiment.accession);
+          one.push(hit.experiment.target);
+          one.push(hit.experiment.assayType);
+          one.push(hit.study.accession);
+          one.push(hit.study.type);
+          one.push(hit.study.secondaryAccession);
+          one.push(hit.study.title);
+          one.push(hit.run.accession);
+          one.push(hit.run.platform);
+          one.push(hit.run.instrument);
+          one.push(hit.run.centerName);
+          one.push(hit.run.sequencingDate);
+          one.push(hit.run.sequencingLocation);
+          one.push(hit.run.sequencingLatitude);
+          one.push(hit.run.sequencingLongitude);
+          result.push(one);
+        }
+        console.log("HAHAHA"+result.length);
+        return result;
+      })
+    );
+  }
+
   getSpecimensFiles(biosampleId: string, fileOffset: number): Observable<FileList>{
     return this.apiTimeoutService.handleTimeout<FileList>(
       this.apiErrorService.handleError(
