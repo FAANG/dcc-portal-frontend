@@ -28,6 +28,7 @@ let searchFileStyles: string = `
 export class SearchTemplateComponent implements OnChanges, OnDestroy {
   @Input() query: string;
   @Input() entity: string;
+  display: boolean = false;
 
   public constructor(
     private apiOrganismService: ApiOrganismService,
@@ -65,6 +66,14 @@ export class SearchTemplateComponent implements OnChanges, OnDestroy {
   ngOnDestroy() {
     if (this.hitsSubscription) {
       this.hitsSubscription.unsubscribe();
+    }
+  }
+
+  toggleDisplay(){
+    if(this.display){
+      this.display = false;
+    }else{
+      this.display = true;
     }
   }
 
