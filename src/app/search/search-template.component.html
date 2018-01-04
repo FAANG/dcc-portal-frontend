@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title text-center">
+      {{ hits?.total }} matching {{entity}}{{hits?.total == 1 ? '' : 's' }}
+    </h4>
+  </div>
+  <div style="max-height: 200px; overflow: auto;">
+    <table class="table table-striped table-hover table-responsive">
+      <tbody>
+      <ng-container [ngSwitch]="entity">
+        <ng-template ngSwitchCase="organism">
+          <tr *ngFor="let hit of hits?.hits" class="clickable" [routerLink]="['/organism', hit._id]">
+            <td><a>{{hit._id}}</a></td>
+            <td><a>{{hit?._source?.name}}</a></td>
+            <td>{{hit?._source?.sex?.text}}</td>
+            <td>{{hit?._source?.organism?.text}}</td>
+            <td>{{hit?._source?.breed?.text}}</td>
+          </tr>
+        </ng-template>
+        <ng-template ngSwitchCase="specimen">
+          <tr *ngFor="let hit of hits?.hits" class="clickable" [routerLink]="['/specimen', hit?._id]">
+            <td><a>{{hit?._id}}</a></td>
+            <td><a>{{hit?._source?.name}}</a></td>
+            <td>{{getCellType(hit)}}</td>
+            <td>{{hit?._source?.organism?.sex[0]?.text}}</td>
+            <td>{{hit?._source?.organism?.organism[0]?.text}}</td>
+            <td>{{hit?._source?.organism?.breed[0]?.text}}</td>
+          </tr>
+        </ng-template>
+        <ng-template ngSwitchCase="file">
+          <tr *ngFor="let hit of hits?.hits" class="clickable" [routerLink]="['/file', hit._id]">
+            <td><a>{{hit._id}}</a></td>
+            <td>{{hit?._source?.study?.accession}}</td>
+            <td>{{hit?._source?.experiment?.accession}}</td>
+            <td>{{hit?._source?.species?.text}}</td>
+            <td>{{hit?._source?.specimen}}</td>
+          </tr>
+        </ng-template>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -11,19 +11,20 @@
     </div>
   </form>
 </div>
+
 <div class="row" *ngIf="query">
   <div class="col-md-10 col-md-offset-1">
-    <search-organism [query]="query"></search-organism>
+    <search-template entity="organism" [query]="query"></search-template>
   </div>
 </div>
 <div class="row" *ngIf="query">
   <div class="col-md-10 col-md-offset-1">
-    <search-specimen [query]="query"></search-specimen>
+    <search-template entity="specimen" [query]="query"></search-template>
   </div>
 </div>
 <div class="row" *ngIf="query">
   <div class="col-md-10 col-md-offset-1">
-    <search-file [query]="query"></search-file>
+    <search-template entity="file" [query]="query"></search-template>
   </div>
 </div>
 

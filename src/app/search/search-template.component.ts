@@ -4,11 +4,14 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
+import { ApiOrganismService }  from '../core/services/api-organism.service';
 import { ApiSpecimenService }  from '../core/services/api-specimen.service';
+import { ApiFileService }  from '../core/services/api-file.service';
 import { ApiHits } from '../shared/api-types/api-hits';
+
 import { Specimen } from '../shared/specimen';
 
-let searchSpecimenStyles: string = `
+let searchFileStyles: string = `
   table {
     margin: 0;
   }
@@ -18,41 +21,50 @@ let searchSpecimenStyles: string = `
 `;
 
 @Component({
-    templateUrl: './search-specimen.component.html',
-    selector: 'search-specimen',
-    styles: [ searchSpecimenStyles ],
+    templateUrl: './search-template.component.html',
+    selector: 'search-template',
+    styles: [ searchFileStyles ],
 })
-export class SearchSpecimenComponent implements OnChanges, OnDestroy {
+export class SearchTemplateComponent implements OnChanges, OnDestroy {
   @Input() query: string;
+  @Input() entity: string;
 
   public constructor(
+    private apiOrganismService: ApiOrganismService,
     private apiSpecimenService: ApiSpecimenService,
+    private apiFileService: ApiFileService,
   ) {};
 
-  public specimenHits: ApiHits = null;
+  public hits: ApiHits = null;
 
   // private properties
-  private specimenHitsSource: Subject<Observable<ApiHits>> = null;
-  private specimenHitsSubscription: Subscription = null;
+  private hitsSource: Subject<Observable<ApiHits>> = null;
+  private hitsSubscription: Subscription = null;
   private hitsPerPage: number = 100;
 
   ngOnChanges(changes: SimpleChanges) {
 
-    if (!this.specimenHitsSource) {
-      this.specimenHitsSource = new Subject<Observable<ApiHits>>();
-      this.specimenHitsSubscription = this.specimenHitsSource
+    if (!this.hitsSource) {
+      this.hitsSource = new Subject<Observable<ApiHits>>();
+      this.hitsSubscription = this.hitsSource
           .switchMap((o: Observable<ApiHits>) : Observable<ApiHits> => o)
           .subscribe((h: ApiHits) => {
-            this.specimenHits = h
+            this.hits = h
           });
     }
 
-    this.specimenHitsSource.next(this.apiSpecimenService.textSearch(this.query, this.hitsPerPage));
+    if (this.entity == "organism"){
+      this.hitsSource.next(this.apiOrganismService.textSearch(this.query, this.hitsPerPage));
+    }else if (this.entity == "specimen"){
+      this.hitsSource.next(this.apiSpecimenService.textSearch(this.query, this.hitsPerPage));
+    }else if (this.entity == "file"){
+      this.hitsSource.next(this.apiFileService.textSearch(this.query, this.hitsPerPage));
+    }
   }
 
   ngOnDestroy() {
-    if (this.specimenHitsSubscription) {
-      this.specimenHitsSubscription.unsubscribe();
+    if (this.hitsSubscription) {
+      this.hitsSubscription.unsubscribe();
     }
   }
 
