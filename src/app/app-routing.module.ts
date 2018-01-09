@@ -14,6 +14,8 @@ import { OrganismSpecimensComponent } from './organism/organism-specimens.compon
 import { SearchResultsComponent } from './search/search-results.component';
 import { FileTableComponent } from './file/file-table.component';
 import { FileDetailComponent } from './file/file-detail.component';
+import { DatasetTableComponent } from './dataset/dataset-table.component';
+import { DatasetDetailComponent } from './dataset/dataset-detail.component';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -26,6 +28,8 @@ const appRoutes: Routes = [
   { path: 'organism/:biosampleId', component: OrganismDetailComponent},
   { path: 'file', component: FileTableComponent},
   { path: 'file/:fileId', component: FileDetailComponent},
+  { path: 'dataset', component: DatasetTableComponent},
+  { path: 'dataset/:accession', component: DatasetDetailComponent},
   { path: 'search', component: SearchResultsComponent},
   { path: '**', component: PageNotFoundComponent },
 ];

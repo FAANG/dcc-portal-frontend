@@ -1,0 +1,70 @@
+<div class="container">
+<faang-navbar></faang-navbar>
+<api-error></api-error>
+<h1 class="text-center">{{fileId}}</h1>
+<api-slow-response></api-slow-response>
+<dl class="dl-horizontal">
+  <dt>Study name:</dt>
+  <dd>
+    <robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="dataset?.accession" [text]="dataset?.accession"></robust-link>
+  </dd>
+  <dt>Title:</dt><dd>{{dataset?.title}}</dd>
+  <div *ngIf="dataset?.type">
+    <dt>Type:</dt><dd>{{dataset?.type}}</dd>
+  </div>
+  <div *ngIf="dataset?.secondaryAccession">
+    <dt>Secondary accession:</dt><dd><robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="dataset?.secondaryAccession" [text]="dataset?.secondaryAccession"></robust-link>
+    </dd>
+  </div>
+  <dt>Species</dt>
+  <dd>
+    <ng-container *ngFor="let organism of dataset?.species">
+      <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.ontologyTerms" [text]="organism?.text">(({{organism?.text}}))   (({{organism?.ontology}}))</robust-link>
+    </ng-container>
+  </dd>
+  <div *ngIf="dataset?.experiments">
+    <dt>Experiment accessions:</dt><dd>
+      <ng-container *ngFor="let experiment of dataset.experiments">
+        <robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="experiment" [text]="experiment"></robust-link>
+      </ng-container>
+    </dd> 
+  </div>
+  <div *ngIf="dataset?.instruments">
+    <dt>Instruments:</dt><dd>
+      <ng-container *ngFor="let instrument of dataset.instruments">{{instrument}}</ng-container>
+    </dd> 
+  </div>
+</dl>
+
+<div *ngIf="dataset?.files?.length > 0">
+  <h3>Related Files</h3>
+  <div class="clearfix"></div>
+  <div class="fails-table center-block">
+    <div class="pull-left ">
+      <button class="btn btn-default" type="button" (click)="tablePrevious()" *ngIf="fileOffset">Previous</button>
+    </div>
+    <div class="pull-right ">
+      <button class="btn btn-default" type="button" (click)="tableNext()" *ngIf="tableHasMore()">Next</button>
+    </div>
+  <div class="clearfix"></div>
+
+  <table class="table table-striped table-hover table-responsive">
+  <thead><tr>
+    <th>File name</th><th>Experiment</th><th>File size</th><th>Download</th>
+  </tr></thead>
+  <tbody>
+    <ng-container *ngFor="let file of currentDisplayedFiles;">
+      <tr>
+        <td>
+          <robust-link prefix="../file/" [link]="file?.name" [text]="file?.name"></robust-link>
+        </td>
+        <td>{{file?.experiment?.accession}}</td>
+        <td>{{file?.size}} ({{file?.readableSize}})</td>
+        <td><a href="ftp://{{file?.url}}"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></td>
+      </tr>
+    </ng-container>
+  </tbody>
+  </table>
+</div>
+
+</div>

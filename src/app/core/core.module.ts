@@ -11,12 +11,13 @@ import { PageNotFoundComponent } from './components/page-not-found.component';
 import { ApiSpecimenService }  from './services/api-specimen.service';
 import { ApiOrganismService }  from './services/api-organism.service';
 import { ApiFileService }  from './services/api-file.service';
+import { ApiDatasetService }  from './services/api-dataset.service';
 import { ApiTimeoutService }  from './services/api-timeout.service';
 import { ApiErrorService }  from './services/api-error.service';
 
 @NgModule({
   imports: [ SharedModule, CommonModule, HttpModule ],
-  providers: [ ApiSpecimenService, ApiOrganismService, ApiFileService, ApiTimeoutService, ApiErrorService ],
+  providers: [ ApiSpecimenService, ApiOrganismService, ApiFileService, ApiDatasetService, ApiTimeoutService, ApiErrorService ],
   declarations: [ HomeComponent, PageNotFoundComponent, HelpComponent, ApiComponent ]
 })
 export class CoreModule { 

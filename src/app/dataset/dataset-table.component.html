@@ -1,0 +1,73 @@
+<div class="container">
+<faang-navbar></faang-navbar>
+<api-error></api-error>
+<h2>FAANG files</h2>
+<api-slow-response></api-slow-response>
+
+<h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
+  Active filters:
+  <active-filters routekey="study" [aggs]="studyAggs" [isFiltered]="isStudyFiltered"></active-filters>
+  <active-filters routekey="species" [aggs]="speciesAggs" [isFiltered]="isSpeciesFiltered"></active-filters>
+  <active-filters routekey="assay" [aggs]="assayAggs" [isFiltered]="isAssayFiltered"></active-filters>
+  <active-filters routekey="instrument" [aggs]="instrumentAggs" [isFiltered]="isInstrumentFiltered"></active-filters>
+  <button class="btn btn-default" type = "button" (click)="resetFilter()">Remove all filters</button>
+</h3>
+
+<div class="row">
+  <div class="col-md-2">
+    <div class="row">
+      <div class="col-md-12 col-sm-6 faang-filter">
+        <faang-filter [filterSize]=5 title="Study" routekey="study" [aggs]="studyAggs" [isFiltered]="isStudyFiltered"></faang-filter>
+      </div>
+      <div class="col-md-12 col-sm-6 faang-filter">
+        <faang-filter [filterSize]=6 title="Species" routekey="species" [aggs]="speciesAggs" [isFiltered]="isSpeciesFiltered"></faang-filter>
+      </div>
+      <div class="col-md-12 col-sm-6 faang-filter">
+        <faang-filter [filterSize]=6 title="Assay type" routekey="assay" [aggs]="assayAggs" [isFiltered]="isAssayFiltered"></faang-filter>
+      </div>
+      <div class="col-md-12 col-sm-6 faang-filter">
+        <faang-filter [filterSize]=6 title="Instrument" routekey="instrument" [aggs]="instrumentAggs" [isFiltered]="isInstrumentFiltered"></faang-filter>
+      </div>
+    </div>
+  </div>
+
+  <div class="fails-table col-md-10">
+    <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
+      *ngIf="fileOffset">Previous</button></div>
+    <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
+      *ngIf="tableHasMore()">Next</button></div>
+    <button *ngIf="notDefaultSort()" class="btn btn-default" type = "button" (click)="resetSort()">Reset sorting</button>
+    <export-button type="file" [count]="getCount()" [query]="getQuery()"></export-button>
+    <div class="clearfix"></div>
+
+  <table class="table table-striped table-hover table-responsive">
+    <thead><tr>
+      <th><sort-element display="File name" key="name" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Study" key="study.accession" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Experiment" key="experiment.accession" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Species" key="species.text" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Assay type" key="experiment.assayType" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Specimen" key="specimen" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th><sort-element display="Instrument" key="run.instrument" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+    </tr></thead>
+    <tbody><tr *ngFor="let file of fileList?.hits.hits;"
+      class="clickable" [routerLink]="[file?._id]">
+      <td><a>{{file?._id}}</a></td>
+      <td>{{file?._source?.study?.accession}}</td>
+      <td>{{file?._source?.experiment?.accession}}</td>
+      <td>{{file?._source?.species?.text}}</td>
+      <td>{{file?._source?.experiment?.assayType}}</td>
+      <td>{{file?._source?.specimen}}</td>
+      <td>{{file?._source?.run?.instrument}}</td>
+    </tr></tbody>
+  </table>
+
+    <div class="clearfix"></div>
+    <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
+      *ngIf="fileOffset">Previous</button></div>
+    <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
+      *ngIf="tableHasMore()">Next</button></div>
+    <div class="clearfix"></div>
+
+  </div>
+</div>
