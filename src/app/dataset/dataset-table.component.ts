@@ -10,7 +10,7 @@ import { DatasetList } from '../shared/dataset-list';
 
 import { ApiDatasetService }  from '../core/services/api-dataset.service';
 
-let fileTableStyles: string = `
+let datasetTableStyles: string = `
   .clickable {
     cursor: pointer;
   }
@@ -27,22 +27,20 @@ let fileTableStyles: string = `
 @Component({
     selector: 'dataset-table',
     templateUrl: './dataset-table.component.html',
-    styles: [ fileTableStyles ],
+    styles: [ datasetTableStyles ],
 })
 export class DatasetTableComponent implements OnInit, OnDestroy { 
 
   // public properties
   datasetList: DatasetList
   datasetOffset: number
-  isStudyFiltered: {[key: string] : boolean} = {}
   isSpeciesFiltered: {[key: string] : boolean} = {}
-  isAssayFiltered: {[key: string] : boolean} = {}
   isInstrumentFiltered: {[key: string] : boolean} = {}
+  isArchiveFiltered: {[key: string] : boolean} = {}
   //bucket size counters
-  studyAggs: {key: string, doc_count: number}[]
   speciesAggs: {key: string, doc_count: number}[]
-  assayAggs: {key: string, doc_count: number}[]
   instrumentAggs: {key: string, doc_count: number}[]
+  archiveAggs: {key: string, doc_count: number}[]
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -50,6 +48,8 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
   private datasetSubscription: Subscription = null;
   private query: {[term: string]: any} = {};
   private pageLimit: number
+
+  private numberOfRecord: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -59,34 +59,31 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
   ){ };
 
   ngOnInit() {
-    this.query['sort'] = [{name: "asc"}]
+    this.query['sort'] = [{accession: "asc"}]
     this.titleService.setTitle('FAANG datasets');
     this.datasetSource = new Subject<Observable<DatasetList>>();
     this.datasetSubscription = this.datasetSource
         .switchMap((o: Observable<DatasetList>):Observable<DatasetList> => o) //first Observable is the type of the parameter, second is the expected type of the output. 
         .subscribe((e: DatasetList) => {
           this.datasetList = e;
-          this.studyAggs = [];
+          this.numberOfRecord = e.hits.total;
           this.speciesAggs = [];
-          this.assayAggs = [];
           this.instrumentAggs = [];
+          this.archiveAggs = [];
 
-          if (e && e.aggregations && e.aggregations['all_file']) {
-            let aggs = e.aggregations['all_file'];
+          if (e && e.aggregations && e.aggregations['all_dataset']) {
+            let aggs = e.aggregations['all_dataset'];
             //when initialized, i.e. without any filter, the buckets (the terms aggs) are under 'sex'. refer to line 100
             //with any filter, the buckets are under 'sex'.'sex'
             //. in the elasticsearch response in ts is represented by [][]
-            this.studyAggs = aggs['study']['buckets'] ? aggs['study']['buckets']
-                      : aggs['study']['study-filter']['buckets'] ? aggs['study']['study-filter']['buckets']
-                      : [];
             this.speciesAggs = aggs['species']['buckets'] ? aggs['species']['buckets']
                       : aggs['species']['species-filter']['buckets'] ? aggs['species']['species-filter']['buckets']
                       : [];
-            this.assayAggs = aggs['assay']['buckets'] ? aggs['assay']['buckets']
-                      : aggs['assay']['assay-filter']['buckets'] ? aggs['assay']['assay-filter']['buckets']
-                      : [];
             this.instrumentAggs = aggs['instrument']['buckets'] ? aggs['instrument']['buckets']
                       : aggs['instrument']['instrument-filter']['buckets'] ? aggs['instrument']['instrument-filter']['buckets']
+                      : [];
+            this.archiveAggs = aggs['archive']['buckets'] ? aggs['archive']['buckets']
+                      : aggs['archive']['archive-filter']['buckets'] ? aggs['archive']['archive-filter']['buckets']
                       : [];
           }
         });
@@ -94,152 +91,129 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
     //Basically "sex.text" could be referenced as "organism.sex.text", in specimen it will be specimen.organism.sex.text, so no chance to mixed two sex fields 
     this.datasetOffset = 0;
     this.pageLimit = 20;
-    this.getFileList();
+    this.getDatasetList();
     this.routeSubscription =
-      this.activatedRoute.queryParams.subscribe((queryParams: {study: string, species: string, assay: string, instrument: string}) => {
+      this.activatedRoute.queryParams.subscribe((queryParams: {archive: string, species: string, instrument: string}) => {
         this.datasetOffset = 0;
         this.query['from'] = this.datasetOffset
         this.query['size'] = this.pageLimit
         this.initAggRelatedVariables();
 
-        if (queryParams.study || queryParams.species || queryParams.assay || queryParams.instrument) { //exist any query, add the query
+        if (queryParams.archive || queryParams.species || queryParams.instrument) { //exist any query, add the query
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
-
-          if (queryParams.study){          
-            let studyParams = queryParams.study.split("|")
-            //add to the filter at the same level as global aggs using terms bool filter
-            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
-            
-            //add study filter to all other aggs in two steps:
-            //1. initialize the filter if no filter existant for other aggs
-            if(this.query['aggs']['all_file']['aggs']['species']['terms']){ //only true when there is no filter under that aggs
-              this.query['aggs']['all_file']['aggs']['species'] = {'aggs': 
-                                                                   {'species-filter': {'terms': {'field': 'species.text', 'size': 50}}}, 
-                                                                    "filter" : {"bool": {"must": []}}
-                                                                  }
-            }
-            if(this.query['aggs']['all_file']['aggs']['assay']['terms']){
-              this.query['aggs']['all_file']['aggs']['assay'] = {'aggs': 
-                                                                  {'assay-filter': {'terms': {'field': 'experiment.assayType', 'size': 50}}}, 
-                                                                  "filter" : {"bool": {"must": []}}
-                                                                }
-            }
-            if(this.query['aggs']['all_file']['aggs']['instrument']['terms']){
-              this.query['aggs']['all_file']['aggs']['instrument'] = {'aggs': 
-                                                                  {'instrument-filter': {'terms': {'field': 'run.instrument', 'size': 100}}}, 
-                                                                  "filter" : {"bool": {"must": []}}
-                                                                }
-            }
-            //2. actually add filter under aggs
-            this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
-            this.query['aggs']['all_file']['aggs']['assay']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
-            this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
-            
-            //flag which filters are selected
-            for (let filter of studyParams){
-              this.isStudyFiltered[filter] = true
-            }
-          }
 
 
           if (queryParams.species){
             let speciesParams = queryParams.species.split("|")
+            //add to the filter at the same level as global aggs using terms bool filter
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})
-            if(this.query['aggs']['all_file']['aggs']['study']['terms']){
-              //delete this.query['aggs']['all_organism']['aggs']['study']
-              this.query['aggs']['all_file']['aggs']['study'] = {'aggs': 
-                                                                  {'study-filter': {'terms': {'field': 'study.accession', 'size': 1000}}}, 
+
+            //add species filter to all other aggs in two steps:
+            //1. initialize the filter if no filter existant for other aggs
+            if(this.query['aggs']['all_dataset']['aggs']['instrument']['terms']){//only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['instrument'] = {'aggs': 
+                                                                  {'instrument-filter': {'terms': {'field': 'instrument', 'size': 100}}}, 
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
-            if(this.query['aggs']['all_file']['aggs']['assay']['terms']){
-              this.query['aggs']['all_file']['aggs']['assay'] = {'aggs': 
-                                                                  {'assay-filter': {'terms': {'field': 'experiment.assayType', 'size': 50}}}, 
+            if(this.query['aggs']['all_dataset']['aggs']['archive']['terms']){//only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['archive'] = {'aggs': 
+                                                                  {'archive-filter': {'terms': {'field': 'archive', 'size': 50}}}, 
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
-            if(this.query['aggs']['all_file']['aggs']['instrument']['terms']){
-              this.query['aggs']['all_file']['aggs']['instrument'] = {'aggs': 
-                                                                  {'instrument-filter': {'terms': {'field': 'run.instrument', 'size': 100}}}, 
-                                                                  "filter" : {"bool": {"must": []}}
-                                                                }
-            }
-            this.query['aggs']['all_file']['aggs']['study']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
-            this.query['aggs']['all_file']['aggs']['assay']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
-            this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
+            //2. actually add filter under aggs
+            this.query['aggs']['all_dataset']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
+            this.query['aggs']['all_dataset']['aggs']['archive']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
+
+            //flag which filters are selected
             for (let filter of speciesParams){
               this.isSpeciesFiltered[filter] = true
             }
           }
 
-          if (queryParams.assay){
-            let assayParams = queryParams.assay.split("|")
-            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'experiment.assayType' : assayParams}})
-            if(this.query['aggs']['all_file']['aggs']['study']['terms']){
-              //delete this.query['aggs']['all_organism']['aggs']['study']
-              this.query['aggs']['all_file']['aggs']['study'] = {'aggs': 
-                                                                  {'study-filter': {'terms': {'field': 'study.accession', 'size': 1000}}}, 
-                                                                  "filter" : {"bool": {"must": []}}
-                                                                }
-            }
-            if(this.query['aggs']['all_file']['aggs']['species']['terms']){ //only true when there is no filter under that aggs
-              this.query['aggs']['all_file']['aggs']['species'] = {'aggs': 
+          if (queryParams.instrument){
+            let instrumentParams = queryParams.instrument.split("|")
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'instrument' : instrumentParams}})
+            
+            if(this.query['aggs']['all_dataset']['aggs']['species']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['species'] = {'aggs': 
                                                                    {'species-filter': {'terms': {'field': 'species.text', 'size': 50}}}, 
                                                                     "filter" : {"bool": {"must": []}}
                                                                   }
             }
-            if(this.query['aggs']['all_file']['aggs']['instrument']['terms']){
-              this.query['aggs']['all_file']['aggs']['instrument'] = {'aggs': 
-                                                                  {'instrument-filter': {'terms': {'field': 'run.instrument', 'size': 100}}}, 
-                                                                  "filter" : {"bool": {"must": []}}
-                                                                }
+            if(this.query['aggs']['all_dataset']['aggs']['archive']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['archive'] = {'aggs': 
+                                                                   {'archive-filter': {'terms': {'field': 'archive', 'size': 50}}}, 
+                                                                    "filter" : {"bool": {"must": []}}
+                                                                  }
             }
-            this.query['aggs']['all_file']['aggs']['study']['filter']['bool']['must'].push({'terms': {'experiment.assayType' : assayParams}})             
-            this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'experiment.assayType' : assayParams}})             
-            this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'experiment.assayType' : assayParams}})             
-            for (let filter of assayParams){
-              this.isAssayFiltered[filter] = true
+            
+            this.query['aggs']['all_dataset']['aggs']['species']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
+            this.query['aggs']['all_dataset']['aggs']['archive']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
+
+            for (let filter of instrumentParams){
+              this.isInstrumentFiltered[filter] = true
             }
           }
 
-          if (queryParams.instrument){
-            let instrumentParams = queryParams.instrument.split("|")
-            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})
-            if(this.query['aggs']['all_file']['aggs']['study']['terms']){
-              //delete this.query['aggs']['all_organism']['aggs']['study']
-              this.query['aggs']['all_file']['aggs']['study'] = {'aggs': 
-                                                                  {'study-filter': {'terms': {'field': 'study.accession', 'size': 1000}}}, 
-                                                                  "filter" : {"bool": {"must": []}}
-                                                                }
-            }
-            if(this.query['aggs']['all_file']['aggs']['species']['terms']){ //only true when there is no filter under that aggs
-              this.query['aggs']['all_file']['aggs']['species'] = {'aggs': 
+          if (queryParams.archive){
+            let archiveParams = queryParams.archive.split("|")
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'archive' : archiveParams}})
+            if(this.query['aggs']['all_dataset']['aggs']['species']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['species'] = {'aggs': 
                                                                    {'species-filter': {'terms': {'field': 'species.text', 'size': 50}}}, 
                                                                     "filter" : {"bool": {"must": []}}
                                                                   }
             }
-            if(this.query['aggs']['all_file']['aggs']['assay']['terms']){
-              this.query['aggs']['all_file']['aggs']['assay'] = {'aggs': 
-                                                                  {'assay-filter': {'terms': {'field': 'experiment.assayType', 'size': 50}}}, 
+            if(this.query['aggs']['all_dataset']['aggs']['instrument']['terms']){//only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['instrument'] = {'aggs': 
+                                                                  {'instrument-filter': {'terms': {'field': 'instrument', 'size': 100}}}, 
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
-            this.query['aggs']['all_file']['aggs']['study']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
-            this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
-            this.query['aggs']['all_file']['aggs']['assay']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
-            for (let filter of instrumentParams){
-              this.isInstrumentFiltered[filter] = true
+            this.query['aggs']['all_dataset']['aggs']['species']['filter']['bool']['must'].push({'terms': {'archive' : archiveParams}})             
+            this.query['aggs']['all_dataset']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'archive' : archiveParams}})             
+            for (let filter of archiveParams){
+              this.isArchiveFiltered[filter] = true
             }
           }
         }else{
           delete this.query['query']
         }
-        this.getFileList();
+        this.getDatasetList();
+        console.log("dataset table datasetList onInit");
+        console.log(this.datasetList);
       });
   };
 
-  getFileList() {
+  getSpeciesStr(dataset: any):string{
+    let species: any[] = dataset['_source']['species'];    
+    var value:string = "";
+    for (var i = species.length - 1; i >= 0; i--) {
+      value += species[i]['text']+",";
+    }
+    return value.substring(0,value.length-1);
+  }
+
+  convertArrayToStr(data: string[]){
+    var value:string = "";
+    for (var i = 0; i< data.length; i++) {
+      value += data[i]+",";
+    }
+    return value.substring(0,value.length-1);
+  }
+
+  getDatasetList() {
     this.datasetSource.next(this.apiDatasetService.getAll(this.query));
+  }
+
+  getQuery(){
+    return this.query;
+  }
+
+  getCount(){
+    return this.numberOfRecord;
   }
 
   getSort(){
@@ -248,44 +222,42 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
 
   setSort(sort: any) {
     this.query['sort'] = sort;
-    this.getFileList();
+    this.getDatasetList();
   }
  
   resetSort(){
-    this.query['sort'] = [{name: "asc"}];
-    this.getFileList()
+    this.query['sort'] = [{accession: "asc"}];
+    this.getDatasetList()
   }
 
   notDefaultSort(){
     let orders = this.query['sort'];
     if (orders.length>1) return true;
-    if (orders[0]["name"]!="asc") return true;
+    if (orders[0]["accession"]!="asc") return true;
     return false;
   }
 
   resetFilter(){
     delete this.query['query'];
     this.initAggRelatedVariables();
-    this.getFileList();
+    this.getDatasetList();
     this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: {}})
   }
   
   initAggRelatedVariables(){
     this.query['aggs'] = {
-                          'all_file': {
+                          'all_dataset': {
                             'global' : {}, 
                               'aggs': {
-                                'study': {'terms': {'field': 'study.accession', 'size': 1000}}, 
                                 'species': {'terms': {'field': 'species.text', 'size': 50}},
-                                'assay': {'terms': {'field': 'experiment.assayType', 'size': 50}},
-                                'instrument': {'terms': {'field': 'run.instrument', 'size': 50}}
+                                'instrument': {'terms': {'field': 'instrument', 'size': 50}},
+                                'archive': {'terms': {'field': 'archive', 'size': 50}}
                               }
                             }
                           }
-    this.isStudyFiltered = {}
     this.isSpeciesFiltered = {}
-    this.isAssayFiltered = {}
     this.isInstrumentFiltered = {}
+    this.isArchiveFiltered = {}
   }
 
   ngOnDestroy() {
@@ -301,14 +273,14 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
     if (this.tableHasMore()) {
       this.datasetOffset += this.pageLimit;
       this.query['from'] = this.datasetOffset
-      this.getFileList();
+      this.getDatasetList();
     }
   }
   tablePrevious() {
     if (this.datasetList && this.datasetList.hits) {
       this.datasetOffset = (this.datasetOffset >= this.pageLimit) ? this.datasetOffset - this.pageLimit : 0;
       this.query['from'] = this.datasetOffset
-      this.getFileList();
+      this.getDatasetList();
     }
   }
   tableHasMore():boolean {
@@ -320,23 +292,18 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
   //used in html <h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
   //if not set here, the clicked filter won't be displayed as the active filter
   hasActiveFilters():boolean {
-    for (var key in this.isStudyFiltered){
-      if (this.isStudyFiltered[key]){
-        return true
-      }
-    }
     for (var key in this.isSpeciesFiltered){
       if (this.isSpeciesFiltered[key]){
         return true
       }
     }
-    for (var key in this.isAssayFiltered){
-      if (this.isAssayFiltered[key]){
+    for (var key in this.isInstrumentFiltered){
+      if (this.isInstrumentFiltered[key]){
         return true
       }
     }
-    for (var key in this.isInstrumentFiltered){
-      if (this.isInstrumentFiltered[key]){
+    for (var key in this.isArchiveFiltered){
+      if (this.isArchiveFiltered[key]){
         return true
       }
     }

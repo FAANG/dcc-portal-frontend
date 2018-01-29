@@ -12,7 +12,7 @@ import { ApiErrorService } from './api-error.service';
 
 @Injectable()
 export class ApiFileService {
-//  private host:string = "http://ves-hx-e4:9200/faang_build_3/file/";
+//  private host:string = "http://ves-hx-e4:9200/faang_build_2/file/";
   private host:string = "/api/file/";
 
   constructor(

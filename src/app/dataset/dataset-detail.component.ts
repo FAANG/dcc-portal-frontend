@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
 import { Dataset } from '../shared/dataset';
-import { File } from '../shared/file';
 
 import { ApiDatasetService }  from '../core/services/api-dataset.service';
 
@@ -21,7 +20,8 @@ export class DatasetDetailComponent implements OnInit, OnDestroy {
   dataset: Dataset;
   pageLimit: number = 10;
   fileOffset: number = 0;
-  currentDisplayedFiles: File[] = [];
+  specimenOffset: number = 0;
+  currentDisplayedFiles: any[];
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -38,7 +38,7 @@ export class DatasetDetailComponent implements OnInit, OnDestroy {
     this.datasetSource = new Subject<Observable<Dataset>>();
     this.datasetSubscription = this.datasetSource
         .switchMap((o: Observable<Dataset>):Observable<Dataset> => o)
-        .subscribe((e: Dataset) => {this.dataset = e;this.updateDisplayFiles()} );
+        .subscribe((e: Dataset) => {this.dataset = e;} );
     this.routeSubscription =
       this.activatedRoute.params.subscribe((params: {accession: string}) => {
         this.accession = params.accession;
@@ -57,33 +57,4 @@ export class DatasetDetailComponent implements OnInit, OnDestroy {
       this.datasetSubscription.unsubscribe();
     }
   };
-
-  updateDisplayFiles(){
-    this.currentDisplayedFiles = [];
-    for (var i = 0; i < this.pageLimit && ((this.fileOffset + i) < this.dataset.files.length); i++){
-      this.currentDisplayedFiles[i] = this.dataset.files[i+this.fileOffset];
-    }
-    console.log(this.currentDisplayedFiles);
-  }
-
-  tableNext() {
-    if (this.tableHasMore()) {
-      this.fileOffset += this.pageLimit;
-    }
-    this.updateDisplayFiles();
-  }
-
-  tablePrevious() {
-    if (this.dataset.files) {
-      this.fileOffset = (this.fileOffset >= this.pageLimit) ? this.fileOffset - this.pageLimit : 0;
-    }
-    this.updateDisplayFiles();
-  }
-  
-  tableHasMore():boolean {
-    if (this.dataset.files && this.dataset.files.length > this.fileOffset + this.pageLimit) {
-      return true;
-    }
-    return false;
-  }
 };

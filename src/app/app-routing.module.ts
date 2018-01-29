@@ -26,10 +26,10 @@ const appRoutes: Routes = [
   { path: 'specimen/:biosampleId', component: SpecimenDetailComponent},
   { path: 'organism', component: OrganismTableComponent},
   { path: 'organism/:biosampleId', component: OrganismDetailComponent},
-  { path: 'file', component: FileTableComponent},
-  { path: 'file/:fileId', component: FileDetailComponent},
   { path: 'dataset', component: DatasetTableComponent},
   { path: 'dataset/:accession', component: DatasetDetailComponent},
+  { path: 'file', component: FileTableComponent},
+  { path: 'file/:fileId', component: FileDetailComponent},
   { path: 'search', component: SearchResultsComponent},
   { path: '**', component: PageNotFoundComponent },
 ];
