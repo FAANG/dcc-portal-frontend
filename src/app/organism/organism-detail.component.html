@@ -8,7 +8,9 @@
   <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a></dd>
   <dt>Release date:</dt><dd>{{organism?.releaseDate}}</dd>
   <dt>Update date:</dt><dd>{{organism?.updateDate}}</dd>
-  <dt>Sex:</dt><dd>{{organism?.sex?.text}}</dd>
+  <dt>Sex:</dt><dd>
+    <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.sex?.ontologyTerms" [text]="organism?.sex?.text"></robust-link>
+  </dd>
   <dt>Organism:</dt><dd>
     <robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></robust-link>
   </dd>
