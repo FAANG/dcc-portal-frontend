@@ -54,7 +54,10 @@
             <robust-link prefix="../specimen/" [link]="derived" [text]="derived"></robust-link>
           </ng-container>
         </ng-template>
-        <ng-template ngSwitchCase="cell specimen">
+        <ng-template ngSwitchCase="cell specimen"> <!--ruleset constrain: specimen from organism-->
+          <robust-link prefix="../specimen/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link>
+        </ng-template>
+        <ng-template ngSwitchCase="cell culture"> <!--ruleset constrain: specimen from organism or cell specimen-->
           <robust-link prefix="../specimen/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></robust-link>
         </ng-template>
         <ng-template ngSwitchDefault>
