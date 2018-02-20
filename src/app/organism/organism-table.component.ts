@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
 import { OrganismList } from '../shared/organism-list';
+import { Organism } from '../shared/organism';
 
 import { ApiOrganismService }  from '../core/services/api-organism.service';
 
@@ -30,7 +31,6 @@ let organismTableStyles: string = `
     styles: [ organismTableStyles ],
 })
 export class OrganismTableComponent implements OnInit, OnDestroy { 
-
   // public properties
   organismList: OrganismList
   organismOffset: number

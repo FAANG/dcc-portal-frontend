@@ -40,7 +40,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   isOrganismPartFiltered: {[key: string] : boolean} = {}
   isBreedFiltered: {[key: string] : boolean} = {}
   isStandardFiltered: {[key: string] : boolean} = {}
-
+  //bucket size counters
   sexAggs: {key: string, doc_count: number}[]
   materialAggs: {key: string, doc_count: number}[]
   organismAggs: {key: string, doc_count: number}[]
@@ -54,7 +54,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   private specimenSubscription: Subscription = null;
   private query: {[term: string]: any} = {};
   private pageLimit: number;
-  private numberOfRecord: number = 0;
+  private numberOfRecords: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -71,7 +71,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         .switchMap((o: Observable<SpecimenList>):Observable<SpecimenList> => o) //convert each http request into an element in the pipe
         .subscribe((e: SpecimenList) => { //deal with each element coming out of the pipe
           this.specimenList = e;
-          this.numberOfRecord = e.hits.total;
+          this.numberOfRecords = e.hits.total;
           this.sexAggs = [];
           this.materialAggs = [];
           this.organismAggs = [];
@@ -434,7 +434,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   }
 
   getCount(){
-    return this.numberOfRecord;
+    return this.numberOfRecords;
   }
 
   setSort(sort: any) {
