@@ -66,6 +66,14 @@
       </ng-container>
     </dd>
   </div>
+  <div *ngIf="specimen?.customField?.length > 0;">
+    <dt>Custom fields:</dt><dd>
+      <ng-container *ngFor="let field of specimen?.customField;">
+        {{field.name}}: <robust-link [link]="field.ontologyTerm" [text]="field.value"></robust-link>
+        <ng-template *ngIf="field.unit;">({{field.unit}})</ng-template><br>
+      </ng-container>
+    </dd>
+  </div>
   <ng-container [ngSwitch]="specimen?.material?.text">
     <ng-template ngSwitchCase="specimen from organism">
       <dt>Specimen collection date:</dt><dd>{{specimen?.specimenFromOrganism?.specimenCollectionDate?.text}}</dd>

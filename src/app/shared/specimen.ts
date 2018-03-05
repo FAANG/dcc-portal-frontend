@@ -38,6 +38,12 @@ export class Specimen {
         readonly ontologyTerms: string,
       }[]
     },
+    readonly customField:{
+      readonly name: string,
+      readonly value: string,
+      readonly unit: string,
+      readonly ontologyTerms: string
+    }[],
     readonly specimenFromOrganism: {
       readonly specimenCollectionDate: {
         readonly text: string,

@@ -65,5 +65,11 @@ export class Organism {
     readonly deliveryEase: string,
     readonly childOf: string[],
     readonly pedigree: string,
+    readonly customField:{
+      readonly name: string,
+      readonly value: string,
+      readonly unit: string,
+      readonly ontologyTerms: string
+    }[]
   ) { }
 }
