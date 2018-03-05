@@ -48,7 +48,7 @@ export class Dataset {
       readonly readCount: number,
       readonly baseCount: number
     }[],
-    readonly experiments: {
+    readonly experiment: {
       readonly accession: string,
       readonly target: string,
       readonly assayType: string
