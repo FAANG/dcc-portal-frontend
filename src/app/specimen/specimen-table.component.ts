@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
 import { SpecimenList } from '../shared/specimen-list';
-import { Specimen } from '../shared/specimen';
+//import { Specimen } from '../shared/specimen';
 
 import { ApiSpecimenService }  from '../core/services/api-specimen.service';
 
@@ -398,32 +398,32 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
           delete this.query['query']
         }
         this.getSpecimenList();
-      });
+     });
   };
 
   getSpecimenList() {
     this.specimenSource.next(this.apiSpecimenService.getAll(this.query)); // this.apiSpecimenService.getAll(this.query) is an Observable, input of the pipe
   }
 
-  getCellType(specimen: Specimen):string{
-    let cellType = "";
-    if(specimen['_source']['specimenFromOrganism'] && specimen['_source']['specimenFromOrganism']['organismPart']){
-      cellType = specimen['_source']['specimenFromOrganism']['organismPart']['text'];
-    }
-    if(specimen['_source']['cellSpecimen'] && specimen['_source']['cellSpecimen']['cellType']){
-      cellType = specimen['_source']['cellSpecimen']['cellType'][0]['text'];
-    }
-    if(specimen['_source']['cellCulture'] && specimen['_source']['cellCulture']['cellType']){
-      cellType = specimen['_source']['cellCulture']['cellType']['text'];
-    }
-    if(specimen['_source']['cellLine'] && specimen['_source']['cellLine']['cellType']){
-      cellType = specimen['_source']['cellLine']['cellType']['text'];
-    }
-    if(specimen['_source']['poolOfSpecimens']){
-      cellType = 'Not applicable';
-    }
-    return cellType
-  }
+//  getCellType(specimen: Specimen):string{
+//    let cellType = "";
+//    if(specimen['_source']['specimenFromOrganism'] && specimen['_source']['specimenFromOrganism']['organismPart']){
+//      cellType = specimen['_source']['specimenFromOrganism']['organismPart']['text'];
+//    }
+//    if(specimen['_source']['cellSpecimen'] && specimen['_source']['cellSpecimen']['cellType']){
+//      cellType = specimen['_source']['cellSpecimen']['cellType'][0]['text'];
+//    }
+//    if(specimen['_source']['cellCulture'] && specimen['_source']['cellCulture']['cellType']){
+//      cellType = specimen['_source']['cellCulture']['cellType']['text'];
+//    }
+//    if(specimen['_source']['cellLine'] && specimen['_source']['cellLine']['cellType']){
+//      cellType = specimen['_source']['cellLine']['cellType']['text'];
+//   }
+//    if(specimen['_source']['poolOfSpecimens']){
+//      cellType = 'Not applicable';
+//   }
+//    return cellType
+//  }
 
   getSort(){
     return this.query['sort'];
