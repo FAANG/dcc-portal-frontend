@@ -1,11 +1,11 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4 class="panel-title text-center">
+    <h4 class="panel-title text-center" (click)="toggleDisplay()">
       {{ hits?.total }} matching {{entity}}{{hits?.total == 1 ? '' : 's' }}
-      <button type="button" class="btn" (click)="toggleDisplay()">
+      <ng-container>
         <span *ngIf="!display" class="glyphicon glyphicon glyphicon-collapse-down" aria-hidden="true"></span>
         <span *ngIf="display" class="glyphicon glyphicon glyphicon-collapse-up" aria-hidden="true"></span>
-      </button>
+      </ng-container>
     </h4>
   </div>
   <div style="max-height: 200px; overflow: auto;">
