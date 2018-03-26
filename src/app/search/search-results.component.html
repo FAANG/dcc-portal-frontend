@@ -27,4 +27,9 @@
     <search-template entity="file" [query]="query"></search-template>
   </div>
 </div>
+<div class="row" *ngIf="query">
+  <div class="col-md-10 col-md-offset-1">
+    <search-template entity="dataset" [query]="query"></search-template>
+  </div>
+</div>
 

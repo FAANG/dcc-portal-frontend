@@ -7,6 +7,7 @@ import 'rxjs/add/operator/switchMap';
 import { ApiOrganismService }  from '../core/services/api-organism.service';
 import { ApiSpecimenService }  from '../core/services/api-specimen.service';
 import { ApiFileService }  from '../core/services/api-file.service';
+import { ApiDatasetService } from '../core/services/api-dataset.service';
 import { ApiHits } from '../shared/api-types/api-hits';
 
 import { Specimen } from '../shared/specimen';
@@ -34,6 +35,7 @@ export class SearchTemplateComponent implements OnChanges, OnDestroy {
     private apiOrganismService: ApiOrganismService,
     private apiSpecimenService: ApiSpecimenService,
     private apiFileService: ApiFileService,
+    private apiDatasetService: ApiDatasetService
   ) {};
 
   public hits: ApiHits = null;
@@ -60,6 +62,8 @@ export class SearchTemplateComponent implements OnChanges, OnDestroy {
       this.hitsSource.next(this.apiSpecimenService.textSearch(this.query, this.hitsPerPage));
     }else if (this.entity == "file"){
       this.hitsSource.next(this.apiFileService.textSearch(this.query, this.hitsPerPage));
+    }else if (this.entity == "dataset"){
+      this.hitsSource.next(this.apiDatasetService.textSearch(this.query, this.hitsPerPage));
     }
   }
 
@@ -92,6 +96,21 @@ export class SearchTemplateComponent implements OnChanges, OnDestroy {
       cellType = hit['_source']['cellLine']['cellType']['text'];
     }
     return cellType
+  }
+
+  //subelement indicates whether the element of data is a hash or not
+  //subelement == "", not a hash, use the value directly
+  //subelement != "", is a hash, use the value under the key subelement, e.g. "text" for species, or "ontologyTerms" ()
+  convertArrayToStr(data: string[], subelement: string):string{
+    var value:string = "";
+    for (var i = 0; i< data.length; i++) {
+      if (subelement == ""){
+        value += data[i]+",";
+      }else{
+        value += data[i][subelement]+",";
+      }
+    }
+    return value.substring(0,value.length-1);
   }
 
 };
