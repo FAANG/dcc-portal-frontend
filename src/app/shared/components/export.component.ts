@@ -10,6 +10,7 @@ import { SpecimenList } from '../specimen-list';
 import { ApiSpecimenService }  from '../../core/services/api-specimen.service';
 import { FileList } from '../file-list';
 import { ApiFileService }  from '../../core/services/api-file.service';
+import { ApiDatasetService} from '../../core/services/api-dataset.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
@@ -32,7 +33,8 @@ export class ExportComponent{
   constructor(
     private apiOrganismService: ApiOrganismService,
     private apiSpecimenService: ApiSpecimenService,
-    private apiFileService: ApiFileService
+    private apiFileService: ApiFileService,
+    private apiDatasetService: ApiDatasetService
   ){};
 
 //it utilizes the existing library Angular2Csv which is described at https://www.npmjs.com/package/angular2-csv
@@ -44,6 +46,7 @@ export class ExportComponent{
     this.query['size']=this.count;
 //    this.query['size'] = this.pageSize;
 //    console.log("Total number:"+this.count);
+//    console.log(this.type)
 //    var pages: number = Math.floor(this.count/this.pageSize)+1;
 //    console.log("page count:"+pages);
 
@@ -107,6 +110,11 @@ export class ExportComponent{
           new Angular2Csv(JSON.stringify(response), filename ,options);
           this.default();
         });
+      }else if(this.type == "dataset"){
+        this.apiDatasetService.getAllInArray(this.query,(this.count*2+1000)).subscribe((response)=>{
+          new Angular2Csv(JSON.stringify(response),filename,options);
+          this.default();
+        })
       }
     }).toPromise();
   }
