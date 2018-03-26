@@ -12,10 +12,10 @@ import { ApiErrorService } from './api-error.service';
 
 @Injectable()
 export class ApiDatasetService {
-  private host:string = "http://ves-hx-e4:9200/faang_build_1/dataset/";
+//  private host:string = "http://ves-hx-e4:9200/faang_build_1/dataset/";
 //  private host:string = "http://ves-pg-e4:9200/faang/file/";
 //  private host:string = "http://data.faang.org/api/file/";
-//  private host:string = "/api/dataset/";
+  private host:string = "/api/dataset/";
 
   constructor(
     private http: Http,
