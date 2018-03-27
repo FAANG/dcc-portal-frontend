@@ -150,11 +150,12 @@ export class ApiDatasetService {
         query: text,
         fields: [
           'accession',
+          'title.autocomp',
           'specimen.biosampleId.std',
           'specimen.cellType.autocomp',
           'specimen.breed.autocomp',
           'species.text.autocomp',
-          'instrument.std'
+          'instrument.autocomp'
         ],
       }
     }
