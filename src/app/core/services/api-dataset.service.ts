@@ -152,11 +152,9 @@ export class ApiDatasetService {
           'accession',
           'specimen.biosampleId.std',
           'specimen.cellType.autocomp',
-          'specimen.organism.autocomp',
           'specimen.breed.autocomp',
           'species.text.autocomp',
-          'instrument.std',
-          'centerName.std'
+          'instrument.std'
         ],
       }
     }

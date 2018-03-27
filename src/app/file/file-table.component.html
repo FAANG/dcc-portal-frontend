@@ -32,11 +32,15 @@
   </div>
 
   <div class="fails-table col-md-10">
-    <div class="pull-left "><button class="btn btn-default" type="button" (click)="tablePrevious()"
-      *ngIf="fileOffset">Previous</button></div>
-    <div class="pull-right "><button class="btn btn-default" type="button" (click)="tableNext()"
-      *ngIf="tableHasMore()">Next</button></div>
-    <button *ngIf="notDefaultSort()" class="btn btn-default" type = "button" (click)="resetSort()">Reset sorting</button>
+    <div class="pull-left ">
+      <button class="btn btn-default" type="button" (click)="tablePrevious()" *ngIf="fileOffset">Previous</button>
+    </div>
+    <div class="pull-right ">
+      <button class="btn btn-default" type="button" (click)="tableNext()" *ngIf="tableHasMore()">Next</button>
+    </div>
+    <div class="pull-left ">
+      <button *ngIf="notDefaultSort()" class="btn btn-default" type = "button" (click)="resetSort()">Reset sorting</button>
+    </div>
     <export-button type="file" [count]="getCount()" [query]="getQuery()"></export-button>
     <div class="clearfix"></div>
 

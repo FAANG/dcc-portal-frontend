@@ -60,7 +60,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   ){ };
 
   ngOnInit() {
-    this.query['sort'] = [{biosampleId: "desc"}]
+    this.query['sort'] = [{"id_number": "desc"}]
     this.titleService.setTitle('FAANG organisms');
     this.organismSource = new Subject<Observable<OrganismList>>();
     this.organismSubscription = this.organismSource
@@ -267,14 +267,14 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   }
  
   resetSort(){
-    this.query['sort'] = [{biosampleId: "desc"}];
+    this.query['sort'] = [{"id_number": "desc"}];
     this.getOrganismList()
   }
 
   notDefaultSort(){
     let orders = this.query['sort'];
     if (orders.length>1) return true;
-    if (orders[0]["biosampleId"]!="desc") return true;
+    if (orders[0]["id_number"]!="desc") return true;
     return false;
   }
 

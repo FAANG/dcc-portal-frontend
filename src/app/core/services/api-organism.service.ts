@@ -66,7 +66,7 @@ export class ApiOrganismService {
                                     "Birth location longitude",
                                     "Birth location latitude",
                                     "Birth weight",
-                                    "PlacentalWeight",
+                                    "Placental weight",
                                     "Pregnancy length",
                                     "Delivery timing",
                                     "Delivery ease",
@@ -175,7 +175,8 @@ export class ApiOrganismService {
           'organism.organism.text.autocomp',
           'sex.text.autocomp',
           'breed.text.autocomp',
-          'healthStatus.text.autocomp'
+          'healthStatus.text.autocomp',
+          'organization.name.std'
         ],
       }
     }

@@ -64,7 +64,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   ){ };
 
   ngOnInit() {
-    this.query['sort'] = [{biosampleId: "desc"}]//if in the subscribe function, the sort order will be initialized every time, i.e. after removing all filters, the existing sort orders will be lost
+    this.query['sort'] = [{"id_number": "desc"}]//if in the subscribe function, the sort order will be initialized every time, i.e. after removing all filters, the existing sort orders will be lost
     this.titleService.setTitle('FAANG specimens');
     this.specimenSource = new Subject<Observable<SpecimenList>>();
     this.specimenSubscription = this.specimenSource
@@ -443,14 +443,14 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   }
  
   resetSort(){
-    this.query['sort'] = [{biosampleId: "desc"}];
+    this.query['sort'] = [{"id_number": "desc"}];
     this.getSpecimenList();
   }
 
   notDefaultSort(){
     let orders = this.query['sort'];
     if (orders.length>1) return true;
-    if (orders[0]["biosampleId"]!="desc") return true;
+    if (orders[0]["id_number"]!="desc") return true;
     return false;
   }
 

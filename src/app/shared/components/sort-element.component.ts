@@ -18,7 +18,7 @@ export class SortElementComponent implements OnInit, OnChanges{
     if (this.type == "file"){
       this.flags.set("name",1);
     }else{
-      this.flags.set("biosampleId",-1);
+      this.flags.set("id_number",-1);
     }
   }
 
