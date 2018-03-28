@@ -91,7 +91,7 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
     //Basically "sex.text" could be referenced as "organism.sex.text", in specimen it will be specimen.organism.sex.text, so no chance to mixed two sex fields 
     this.datasetOffset = 0;
     this.pageLimit = 20;
-    this.getDatasetList();
+//    this.getDatasetList();
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {archive: string, species: string, instrument: string}) => {
         this.datasetOffset = 0;
@@ -182,8 +182,8 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
           delete this.query['query']
         }
         this.getDatasetList();
-        console.log("dataset table datasetList onInit");
-        console.log(this.datasetList);
+//        console.log("dataset table datasetList onInit");
+//        console.log(this.datasetList);
       });
   };
 

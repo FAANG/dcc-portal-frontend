@@ -96,7 +96,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
     //Basically "sex.text" could be referenced as "organism.sex.text", in specimen it will be specimen.organism.sex.text, so no chance to mixed two sex fields 
     this.fileOffset = 0;
     this.pageLimit = 20;
-    this.getFileList();
+//    this.getFileList();
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {study: string, species: string, assay: string, instrument: string}) => {
         this.fileOffset = 0;

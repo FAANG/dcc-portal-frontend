@@ -96,7 +96,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
     //Basically "sex.text" could be referenced as "organism.sex.text", in specimen it will be specimen.organism.sex.text, so no chance to mixed two sex fields 
     this.organismOffset = 0;
     this.pageLimit = 20;
-    this.getOrganismList();
+//    this.getOrganismList();
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, organism: string, breed: string, standard: string}) => {
         this.organismOffset = 0;
