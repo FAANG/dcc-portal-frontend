@@ -53,6 +53,7 @@
       <th><sort-element display="Assay type" key="experiment.assayType" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Specimen" key="specimen" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
       <th><sort-element display="Instrument" key="run.instrument" type='file' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>
+      <th>Standard</th>
     </tr></thead>
     <tbody><tr *ngFor="let file of fileList?.hits.hits;"
       class="clickable" [routerLink]="[file?._id]">
@@ -63,6 +64,7 @@
       <td>{{file?._source?.experiment?.assayType}}</td>
       <td>{{file?._source?.specimen}}</td>
       <td>{{file?._source?.run?.instrument}}</td>
+      <td>{{file?._source?.experiment?.standardMet}}</td>
     </tr></tbody>
   </table>
 

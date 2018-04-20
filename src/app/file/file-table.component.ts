@@ -122,7 +122,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
             }
             if(this.query['aggs']['all_file']['aggs']['assay']['terms']){
               this.query['aggs']['all_file']['aggs']['assay'] = {'aggs': 
-                                                                  {'assay-filter': {'terms': {'field': 'experiment.assayType', 'size': 50}}}, 
+                                                                  {'assay-filter': {'terms': {'field': 'file.experiment.assayType', 'size': 50}}}, 
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
@@ -156,7 +156,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
             }
             if(this.query['aggs']['all_file']['aggs']['assay']['terms']){
               this.query['aggs']['all_file']['aggs']['assay'] = {'aggs': 
-                                                                  {'assay-filter': {'terms': {'field': 'experiment.assayType', 'size': 50}}}, 
+                                                                  {'assay-filter': {'terms': {'field': 'file.experiment.assayType', 'size': 50}}}, 
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
@@ -176,7 +176,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
 
           if (queryParams.assay){
             let assayParams = queryParams.assay.split("|")
-            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'experiment.assayType' : assayParams}})
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})
             if(this.query['aggs']['all_file']['aggs']['study']['terms']){
               //delete this.query['aggs']['all_organism']['aggs']['study']
               this.query['aggs']['all_file']['aggs']['study'] = {'aggs': 
@@ -196,9 +196,9 @@ export class FileTableComponent implements OnInit, OnDestroy {
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
-            this.query['aggs']['all_file']['aggs']['study']['filter']['bool']['must'].push({'terms': {'experiment.assayType' : assayParams}})             
-            this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'experiment.assayType' : assayParams}})             
-            this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'experiment.assayType' : assayParams}})             
+            this.query['aggs']['all_file']['aggs']['study']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})             
+            this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})             
+            this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})             
             for (let filter of assayParams){
               this.isAssayFiltered[filter] = true
             }
@@ -222,7 +222,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
             }
             if(this.query['aggs']['all_file']['aggs']['assay']['terms']){
               this.query['aggs']['all_file']['aggs']['assay'] = {'aggs': 
-                                                                  {'assay-filter': {'terms': {'field': 'experiment.assayType', 'size': 50}}}, 
+                                                                  {'assay-filter': {'terms': {'field': 'file.experiment.assayType', 'size': 50}}}, 
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
@@ -287,7 +287,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
                               'aggs': {
                                 'study': {'terms': {'field': 'study.accession', 'size': 1000}}, 
                                 'species': {'terms': {'field': 'species.text', 'size': 50}},
-                                'assay': {'terms': {'field': 'experiment.assayType', 'size': 50}},
+                                'assay': {'terms': {'field': 'file.experiment.assayType', 'size': 50}},
                                 'instrument': {'terms': {'field': 'run.instrument', 'size': 50}}
                               }
                             }
