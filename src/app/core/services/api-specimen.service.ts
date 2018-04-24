@@ -123,6 +123,7 @@ export class ApiSpecimenService{
         this.http.post(this.host+"_search", query)
       ).map((r: Response) => {
         var result:Array<Array<string>> = new Array<Array<string>>();
+        result.push(this.header);
         let json = r.json() as SpecimenList;
         console.log("AHHHHH: "+json.hits.total);
         for ( let index in json.hits.hits){
