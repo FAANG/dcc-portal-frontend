@@ -32,7 +32,7 @@
   <dt>Standard met:</dt><dd>{{specimen?.standardMet}}</dd>
   <dt>Project:</dt><dd>{{specimen?.project}}</dd>
   <div *ngIf="specimen?.availability">
-    <dt>Availability:</dt><dd>{{specimen?.availability}}</dd>
+    <dt>Availability:</dt><dd><a href={{specimen?.availability}}>{{dealWithAvailability(specimen?.availability)}}</a></dd>
   </div>
   <dt>Organisation:</dt><dd>
     <ng-container *ngFor="let organization of specimen?.organization;">

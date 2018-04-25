@@ -23,7 +23,7 @@
   <dt>Standard met:</dt><dd>{{organism?.standardMet}}</dd>
   <dt>Project:</dt><dd>{{organism?.project}}</dd>
   <div *ngIf="organism?.availability">
-    <dt>Availability:</dt><dd>{{organism?.availability}}</dd>
+    <dt>Availability:</dt><dd><a href={{organism?.availability}}>{{dealWithAvailability(organism?.availability)}}</a></dd>
   </div>
   <dt>Organisation:</dt><dd>
     <ng-container *ngFor="let organization of organism?.organization;">
@@ -71,7 +71,7 @@
     </dd>
   </div>
   <div *ngIf="organism?.pedigree">
-    <dt>Pedigree:</dt><dd>{{organism?.pedigree}}</dd>
+    <dt>Pedigree:</dt><dd><a href={{organism?.pedigree}}>{{organism?.pedigree}}</a></dd>
   </div>
   <div *ngIf="organism?.customField?.length > 0;">
     <ng-container *ngFor="let field of organism?.customField;">

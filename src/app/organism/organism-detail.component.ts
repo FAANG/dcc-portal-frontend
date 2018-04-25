@@ -45,6 +45,15 @@ export class OrganismDetailComponent implements OnInit, OnDestroy {
       });
   };
 
+  dealWithAvailability(input: string):string{
+    if (input.substr(0,6) == "mailto"){
+      return input.substr(7);
+    }else{
+      return input;
+    }
+  }
+
+
   ngOnDestroy() {
     if (this.routeSubscription) {
       this.routeSubscription.unsubscribe();
