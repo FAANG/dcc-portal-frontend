@@ -3,6 +3,7 @@ export class Dataset {
   constructor(
     readonly accession: string,
     readonly title: string,
+    readonly standardMet: string,
     readonly alias: string,
     readonly type: string,
     readonly secondaryAccession: string,

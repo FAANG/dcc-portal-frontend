@@ -34,11 +34,13 @@ export class FileTableComponent implements OnInit, OnDestroy {
   // public properties
   fileList: FileList
   fileOffset: number
+  isStandardFiltered: {[key: string] : boolean} = {}
   isStudyFiltered: {[key: string] : boolean} = {}
   isSpeciesFiltered: {[key: string] : boolean} = {}
   isAssayFiltered: {[key: string] : boolean} = {}
   isInstrumentFiltered: {[key: string] : boolean} = {}
   //bucket size counters
+  standardAggs: {key: string, doc_count: number}[]
   studyAggs: {key: string, doc_count: number}[]
   speciesAggs: {key: string, doc_count: number}[]
   assayAggs: {key: string, doc_count: number}[]
@@ -68,6 +70,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
         .subscribe((e: FileList) => {
           this.fileList = e;
           this.numberOfRecord = e.hits.total;
+          this.standardAggs = [];
           this.studyAggs = [];
           this.speciesAggs = [];
           this.assayAggs = [];
@@ -78,6 +81,9 @@ export class FileTableComponent implements OnInit, OnDestroy {
             //when initialized, i.e. without any filter, the buckets (the terms aggs) are under 'sex'. refer to line 100
             //with any filter, the buckets are under 'sex'.'sex'
             //. in the elasticsearch response in ts is represented by [][]
+            this.standardAggs = aggs['standard']['buckets'] ? aggs['standard']['buckets']
+                      : aggs['standard']['standard-filter']['buckets'] ? aggs['standard']['standard-filter']['buckets']
+                      : [];
             this.studyAggs = aggs['study']['buckets'] ? aggs['study']['buckets']
                       : aggs['study']['study-filter']['buckets'] ? aggs['study']['study-filter']['buckets']
                       : [];
@@ -98,22 +104,27 @@ export class FileTableComponent implements OnInit, OnDestroy {
     this.pageLimit = 20;
 //    this.getFileList();
     this.routeSubscription =
-      this.activatedRoute.queryParams.subscribe((queryParams: {study: string, species: string, assay: string, instrument: string}) => {
+      this.activatedRoute.queryParams.subscribe((queryParams: {standard: string, study: string, species: string, assay: string, instrument: string}) => {
         this.fileOffset = 0;
         this.query['from'] = this.fileOffset
         this.query['size'] = this.pageLimit
         this.initAggRelatedVariables();
 
-        if (queryParams.study || queryParams.species || queryParams.assay || queryParams.instrument) { //exist any query, add the query
+        if (queryParams.standard || queryParams.study || queryParams.species || queryParams.assay || queryParams.instrument) { //exist any query, add the query
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
 
-          if (queryParams.study){          
-            let studyParams = queryParams.study.split("|")
+          if (queryParams.standard){
+            let standardParams = queryParams.standard.split("|")
             //add to the filter at the same level as global aggs using terms bool filter
-            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
-            
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'file.experiment.standardMet' : standardParams}})
             //add study filter to all other aggs in two steps:
             //1. initialize the filter if no filter existant for other aggs
+            if(this.query['aggs']['all_file']['aggs']['study']['terms']){
+              this.query['aggs']['all_file']['aggs']['study'] = {'aggs': 
+                                                                  {'study-filter': {'terms': {'field': 'study.accession', 'size': 1000}}}, 
+                                                                  "filter" : {"bool": {"must": []}}
+                                                                }
+            }
             if(this.query['aggs']['all_file']['aggs']['species']['terms']){ //only true when there is no filter under that aggs
               this.query['aggs']['all_file']['aggs']['species'] = {'aggs': 
                                                                    {'species-filter': {'terms': {'field': 'species.text', 'size': 50}}}, 
@@ -133,6 +144,51 @@ export class FileTableComponent implements OnInit, OnDestroy {
                                                                 }
             }
             //2. actually add filter under aggs
+            this.query['aggs']['all_file']['aggs']['study']['filter']['bool']['must'].push({'terms': {'file.experiment.standardMet' : standardParams}})
+            this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'file.experiment.standardMet' : standardParams}})
+            this.query['aggs']['all_file']['aggs']['assay']['filter']['bool']['must'].push({'terms': {'file.experiment.standardMet' : standardParams}})
+            this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'file.experiment.standardMet' : standardParams}})
+            
+            //flag which filters are selected
+            for (let filter of standardParams){
+              this.isStandardFiltered[filter] = true
+            }
+
+
+          }
+          if (queryParams.study){          
+            let studyParams = queryParams.study.split("|")
+            //add to the filter at the same level as global aggs using terms bool filter
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
+            
+            //add study filter to all other aggs in two steps:
+            //1. initialize the filter if no filter existant for other aggs
+            if(this.query['aggs']['all_file']['aggs']['standard']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_file']['aggs']['standard'] = {'aggs': 
+                                                                   {'standard-filter': {'terms': {'field': 'file.experiment.standardMet', 'size': 50}}}, 
+                                                                    "filter" : {"bool": {"must": []}}
+                                                                  }
+            }
+            if(this.query['aggs']['all_file']['aggs']['species']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_file']['aggs']['species'] = {'aggs': 
+                                                                   {'species-filter': {'terms': {'field': 'species.text', 'size': 50}}}, 
+                                                                    "filter" : {"bool": {"must": []}}
+                                                                  }
+            }
+            if(this.query['aggs']['all_file']['aggs']['assay']['terms']){
+              this.query['aggs']['all_file']['aggs']['assay'] = {'aggs': 
+                                                                  {'assay-filter': {'terms': {'field': 'file.experiment.assayType', 'size': 50}}}, 
+                                                                  "filter" : {"bool": {"must": []}}
+                                                                }
+            }
+            if(this.query['aggs']['all_file']['aggs']['instrument']['terms']){
+              this.query['aggs']['all_file']['aggs']['instrument'] = {'aggs': 
+                                                                  {'instrument-filter': {'terms': {'field': 'run.instrument', 'size': 100}}}, 
+                                                                  "filter" : {"bool": {"must": []}}
+                                                                }
+            }
+            //2. actually add filter under aggs
+            this.query['aggs']['all_file']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
             this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
             this.query['aggs']['all_file']['aggs']['assay']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
             this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'study.accession' : studyParams}})
@@ -147,6 +203,13 @@ export class FileTableComponent implements OnInit, OnDestroy {
           if (queryParams.species){
             let speciesParams = queryParams.species.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})
+
+            if(this.query['aggs']['all_file']['aggs']['standard']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_file']['aggs']['standard'] = {'aggs': 
+                                                                   {'standard-filter': {'terms': {'field': 'file.experiment.standardMet', 'size': 50}}}, 
+                                                                    "filter" : {"bool": {"must": []}}
+                                                                  }
+            }
             if(this.query['aggs']['all_file']['aggs']['study']['terms']){
               //delete this.query['aggs']['all_organism']['aggs']['study']
               this.query['aggs']['all_file']['aggs']['study'] = {'aggs': 
@@ -166,6 +229,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
+            this.query['aggs']['all_file']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
             this.query['aggs']['all_file']['aggs']['study']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
             this.query['aggs']['all_file']['aggs']['assay']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
             this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
@@ -177,6 +241,13 @@ export class FileTableComponent implements OnInit, OnDestroy {
           if (queryParams.assay){
             let assayParams = queryParams.assay.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})
+
+            if(this.query['aggs']['all_file']['aggs']['standard']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_file']['aggs']['standard'] = {'aggs': 
+                                                                   {'standard-filter': {'terms': {'field': 'file.experiment.standardMet', 'size': 50}}}, 
+                                                                    "filter" : {"bool": {"must": []}}
+                                                                  }
+            }
             if(this.query['aggs']['all_file']['aggs']['study']['terms']){
               //delete this.query['aggs']['all_organism']['aggs']['study']
               this.query['aggs']['all_file']['aggs']['study'] = {'aggs': 
@@ -196,6 +267,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
+            this.query['aggs']['all_file']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})             
             this.query['aggs']['all_file']['aggs']['study']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})             
             this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})             
             this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})             
@@ -207,6 +279,13 @@ export class FileTableComponent implements OnInit, OnDestroy {
           if (queryParams.instrument){
             let instrumentParams = queryParams.instrument.split("|")
             this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})
+
+            if(this.query['aggs']['all_file']['aggs']['standard']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_file']['aggs']['standard'] = {'aggs': 
+                                                                   {'standard-filter': {'terms': {'field': 'file.experiment.standardMet', 'size': 50}}}, 
+                                                                    "filter" : {"bool": {"must": []}}
+                                                                  }
+            }
             if(this.query['aggs']['all_file']['aggs']['study']['terms']){
               //delete this.query['aggs']['all_organism']['aggs']['study']
               this.query['aggs']['all_file']['aggs']['study'] = {'aggs': 
@@ -226,6 +305,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
+            this.query['aggs']['all_file']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
             this.query['aggs']['all_file']['aggs']['study']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
             this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
             this.query['aggs']['all_file']['aggs']['assay']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
@@ -285,6 +365,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
                           'all_file': {
                             'global' : {}, 
                               'aggs': {
+                                'standard': {'terms': {'field': 'file.experiment.standardMet', 'size': 50}}, 
                                 'study': {'terms': {'field': 'study.accession', 'size': 1000}}, 
                                 'species': {'terms': {'field': 'species.text', 'size': 50}},
                                 'assay': {'terms': {'field': 'file.experiment.assayType', 'size': 50}},
@@ -292,6 +373,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
                               }
                             }
                           }
+    this.isStandardFiltered = {}
     this.isStudyFiltered = {}
     this.isSpeciesFiltered = {}
     this.isAssayFiltered = {}
@@ -330,6 +412,11 @@ export class FileTableComponent implements OnInit, OnDestroy {
   //used in html <h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
   //if not set here, the clicked filter won't be displayed as the active filter
   hasActiveFilters():boolean {
+    for (var key in this.isStandardFiltered){
+      if (this.isStandardFiltered[key]){
+        return true
+      }
+    }
     for (var key in this.isStudyFiltered){
       if (this.isStudyFiltered[key]){
         return true

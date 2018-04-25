@@ -9,12 +9,16 @@
   <active-filters routekey="species" [aggs]="speciesAggs" [isFiltered]="isSpeciesFiltered"></active-filters>
   <active-filters routekey="instrument" [aggs]="instrumentAggs" [isFiltered]="isInstrumentFiltered"></active-filters>
   <active-filters routekey="archive" [aggs]="archiveAggs" [isFiltered]="isArchiveFiltered"></active-filters>
+  <active-filters routekey="standard" [aggs]="standardAggs" [isFiltered]="isStandardFiltered"></active-filters>
   <button class="btn btn-default" type = "button" (click)="resetFilter()">Remove all filters</button>
 </h3>
 
 <div class="row">
   <div class="col-md-2">
     <div class="row">
+      <div class="col-md-12 col-sm-6 faang-filter">
+        <faang-filter [filterSize]=6 title="Standard" routekey="standard" [aggs]="standardAggs" [isFiltered]="isStandardFiltered"></faang-filter>
+      </div>
       <div class="col-md-12 col-sm-6 faang-filter">
         <faang-filter [filterSize]=6 title="Species" routekey="species" [aggs]="speciesAggs" [isFiltered]="isSpeciesFiltered"></faang-filter>
       </div>
@@ -52,6 +56,7 @@
       <th>Number of Experiments</th>
       <th>Number of Specimens</th>
       <th>Number of Files</th>
+      <th>Standard</th>
 <!--      <th><sort-element display="Experiment" key="experiment.accession" type='dataset' [orders]="getSort()" (sort)="setSort($event)"></sort-element></th>-->
     </tr></thead>
     <tbody><tr *ngFor="let dataset of datasetList?.hits?.hits;"
@@ -63,6 +68,7 @@
       <td>{{dataset?._source?.experiment?.length}}</td>
       <td>{{dataset?._source?.specimen?.length}}</td>
       <td>{{dataset?._source?.file?.length}}</td>
+      <td>{{dataset?._source?.standardMet}}</td>
     </tr></tbody>
   </table>
 

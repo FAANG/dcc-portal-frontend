@@ -6,6 +6,7 @@
 
 <h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
   Active filters:
+  <active-filters routekey="standard" [aggs]="standardAggs" [isFiltered]="isStandardFiltered"></active-filters>
   <active-filters routekey="study" [aggs]="studyAggs" [isFiltered]="isStudyFiltered"></active-filters>
   <active-filters routekey="species" [aggs]="speciesAggs" [isFiltered]="isSpeciesFiltered"></active-filters>
   <active-filters routekey="assay" [aggs]="assayAggs" [isFiltered]="isAssayFiltered"></active-filters>
@@ -16,6 +17,9 @@
 <div class="row">
   <div class="col-md-2">
     <div class="row">
+      <div class="col-md-12 col-sm-6 faang-filter">
+        <faang-filter [filterSize]=5 title="Standard" routekey="standard" [aggs]="standardAggs" [isFiltered]="isStandardFiltered"></faang-filter>
+      </div>
       <div class="col-md-12 col-sm-6 faang-filter">
         <faang-filter [filterSize]=5 title="Study" routekey="study" [aggs]="studyAggs" [isFiltered]="isStudyFiltered"></faang-filter>
       </div>

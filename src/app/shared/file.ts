@@ -22,7 +22,8 @@ export class File {
     readonly experiment: {
       readonly accession: string,
       readonly target: string,
-      readonly assayType: string
+      readonly assayType: string,
+      readonly standardMet: string
     },
     readonly study: {
       readonly accession: string,

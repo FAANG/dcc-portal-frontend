@@ -37,10 +37,12 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
   isSpeciesFiltered: {[key: string] : boolean} = {}
   isInstrumentFiltered: {[key: string] : boolean} = {}
   isArchiveFiltered: {[key: string] : boolean} = {}
+  isStandardFiltered: {[key: string] : boolean} = {}
   //bucket size counters
   speciesAggs: {key: string, doc_count: number}[]
   instrumentAggs: {key: string, doc_count: number}[]
   archiveAggs: {key: string, doc_count: number}[]
+  standardAggs: {key: string, doc_count: number}[]
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -70,6 +72,7 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
           this.speciesAggs = [];
           this.instrumentAggs = [];
           this.archiveAggs = [];
+          this.standardAggs = [];
 
           if (e && e.aggregations && e.aggregations['all_dataset']) {
             let aggs = e.aggregations['all_dataset'];
@@ -85,6 +88,9 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
             this.archiveAggs = aggs['archive']['buckets'] ? aggs['archive']['buckets']
                       : aggs['archive']['archive-filter']['buckets'] ? aggs['archive']['archive-filter']['buckets']
                       : [];
+            this.standardAggs = aggs['standard']['buckets'] ? aggs['standard']['buckets']
+                      : aggs['standard']['standard-filter']['buckets'] ? aggs['standard']['standard-filter']['buckets']
+                      : [];
           }
         });
     //in the background elasticsearch the term "organism" is used under both types (elasticsearch term): organism and specimen, just use "organism" below as "sex" may get the unwanted.
@@ -93,13 +99,13 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
     this.pageLimit = 20;
 //    this.getDatasetList();
     this.routeSubscription =
-      this.activatedRoute.queryParams.subscribe((queryParams: {archive: string, species: string, instrument: string}) => {
+      this.activatedRoute.queryParams.subscribe((queryParams: {archive: string, species: string, instrument: string, standard: string}) => {
         this.datasetOffset = 0;
         this.query['from'] = this.datasetOffset
         this.query['size'] = this.pageLimit
         this.initAggRelatedVariables();
 
-        if (queryParams.archive || queryParams.species || queryParams.instrument) { //exist any query, add the query
+        if (queryParams.archive || queryParams.species || queryParams.instrument || queryParams.standard) { //exist any query, add the query
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
 
 
@@ -122,9 +128,16 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
+            if(this.query['aggs']['all_dataset']['aggs']['standard']['terms']){//only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['standard'] = {'aggs': 
+                                                                  {'standard-filter': {'terms': {'field': 'standardMet', 'size': 50}}}, 
+                                                                  "filter" : {"bool": {"must": []}}
+                                                                }
+            }
             //2. actually add filter under aggs
             this.query['aggs']['all_dataset']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
             this.query['aggs']['all_dataset']['aggs']['archive']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
+            this.query['aggs']['all_dataset']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
 
             //flag which filters are selected
             for (let filter of speciesParams){
@@ -148,9 +161,16 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
                                                                     "filter" : {"bool": {"must": []}}
                                                                   }
             }
+            if(this.query['aggs']['all_dataset']['aggs']['standard']['terms']){//only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['standard'] = {'aggs': 
+                                                                  {'standard-filter': {'terms': {'field': 'standardMet', 'size': 50}}}, 
+                                                                  "filter" : {"bool": {"must": []}}
+                                                                }
+            }
             
-            this.query['aggs']['all_dataset']['aggs']['species']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
-            this.query['aggs']['all_dataset']['aggs']['archive']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
+            this.query['aggs']['all_dataset']['aggs']['species']['filter']['bool']['must'].push({'terms': {'instrument' : instrumentParams}})             
+            this.query['aggs']['all_dataset']['aggs']['archive']['filter']['bool']['must'].push({'terms': {'instrument' : instrumentParams}})             
+            this.query['aggs']['all_dataset']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'instrument' : instrumentParams}})             
 
             for (let filter of instrumentParams){
               this.isInstrumentFiltered[filter] = true
@@ -172,10 +192,47 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
                                                                   "filter" : {"bool": {"must": []}}
                                                                 }
             }
+            if(this.query['aggs']['all_dataset']['aggs']['standard']['terms']){//only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['standard'] = {'aggs': 
+                                                                  {'standard-filter': {'terms': {'field': 'standardMet', 'size': 50}}}, 
+                                                                  "filter" : {"bool": {"must": []}}
+                                                                }
+            }
+
             this.query['aggs']['all_dataset']['aggs']['species']['filter']['bool']['must'].push({'terms': {'archive' : archiveParams}})             
             this.query['aggs']['all_dataset']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'archive' : archiveParams}})             
+            this.query['aggs']['all_dataset']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'archive' : archiveParams}})             
             for (let filter of archiveParams){
               this.isArchiveFiltered[filter] = true
+            }
+          }
+
+          if (queryParams.standard){
+            let standardParams = queryParams.standard.split("|")
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
+            if(this.query['aggs']['all_dataset']['aggs']['species']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['species'] = {'aggs': 
+                                                                   {'species-filter': {'terms': {'field': 'species.text', 'size': 50}}}, 
+                                                                    "filter" : {"bool": {"must": []}}
+                                                                  }
+            }
+            if(this.query['aggs']['all_dataset']['aggs']['instrument']['terms']){//only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['instrument'] = {'aggs': 
+                                                                  {'instrument-filter': {'terms': {'field': 'instrument', 'size': 100}}}, 
+                                                                  "filter" : {"bool": {"must": []}}
+                                                                }
+            }
+            if(this.query['aggs']['all_dataset']['aggs']['archive']['terms']){ //only true when there is no filter under that aggs
+              this.query['aggs']['all_dataset']['aggs']['archive'] = {'aggs': 
+                                                                   {'archive-filter': {'terms': {'field': 'archive', 'size': 50}}}, 
+                                                                    "filter" : {"bool": {"must": []}}
+                                                                  }
+            }
+            this.query['aggs']['all_dataset']['aggs']['species']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
+            this.query['aggs']['all_dataset']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
+            this.query['aggs']['all_dataset']['aggs']['archive']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
+            for (let filter of standardParams){
+              this.isStandardFiltered[filter] = true
             }
           }
         }else{
@@ -251,13 +308,15 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
                               'aggs': {
                                 'species': {'terms': {'field': 'species.text', 'size': 50}},
                                 'instrument': {'terms': {'field': 'instrument', 'size': 50}},
-                                'archive': {'terms': {'field': 'archive', 'size': 50}}
+                                'archive': {'terms': {'field': 'archive', 'size': 50}},
+                                'standard': {'terms': {'field': 'standardMet', 'size': 50}}
                               }
                             }
                           }
     this.isSpeciesFiltered = {}
     this.isInstrumentFiltered = {}
     this.isArchiveFiltered = {}
+    this.isStandardFiltered = {}
   }
 
   ngOnDestroy() {
@@ -304,6 +363,11 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
     }
     for (var key in this.isArchiveFiltered){
       if (this.isArchiveFiltered[key]){
+        return true
+      }
+    }
+    for (var key in this.isStandardFiltered){
+      if (this.isStandardFiltered[key]){
         return true
       }
     }
