@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { OrganismList } from '../organism-list';
 import { Organism } from '../organism';
-import { ApiOrganismService }  from '../../core/services/api-organism.service';
+import { ApiOrganismService } from '../../core/services/api-organism.service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SpecimenList } from '../specimen-list';
-import { ApiSpecimenService }  from '../../core/services/api-specimen.service';
+import { ApiSpecimenService } from '../../core/services/api-specimen.service';
 import { FileList } from '../file-list';
-import { ApiFileService }  from '../../core/services/api-file.service';
+import { ApiFileService } from '../../core/services/api-file.service';
 import { ApiDatasetService} from '../../core/services/api-dataset.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
@@ -22,14 +22,14 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 export class ExportComponent{
   @Input() query: {[term: string]: any};
   @Input() type: string;
-  @Input() count: number;  
+  @Input() count: number;
   disabled: boolean = false;
   CSVLabel: string = "Export as CSV file";
   TSVLabel: string = "Export as Tabular file";
   result:Array<Array<string>> = new Array<Array<string>>();
   private pageSize = 100;
-  busy: Promise<any>;    
-  
+  busy: Promise<any>;
+
   constructor(
     private apiOrganismService: ApiOrganismService,
     private apiSpecimenService: ApiSpecimenService,
@@ -37,21 +37,21 @@ export class ExportComponent{
     private apiDatasetService: ApiDatasetService
   ){};
 
-//it utilizes the existing library Angular2Csv which is described at https://www.npmjs.com/package/angular2-csv
+// it utilizes the existing library Angular2Csv which is described at https://www.npmjs.com/package/angular2-csv
   export(format: string){
     this.disabled = true;
-    //remove the pagination to return the full list
+    // remove the pagination to return the full list
     delete this.query['from'];
     delete this.query['aggs'];
-    this.query['size']=this.count;
+    this.query['size'] = this.count;
 //    this.query['size'] = this.pageSize;
 //    console.log("Total number:"+this.count);
 //    console.log(this.type)
 //    var pages: number = Math.floor(this.count/this.pageSize)+1;
 //    console.log("page count:"+pages);
 
-    //options for Angular2csv to export
-    var options = { 
+    // options for Angular2csv to export
+    var options = {
       fieldSeparator: ','
     };
     var filename:string = "Export result of "+this.type;
