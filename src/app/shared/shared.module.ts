@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { CookieLawModule } from 'angular2-cookie-law';
+import { CookieLawModule } from './components/cookie-law/cookie-law.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ApiErrorComponent } from './components/api-error.component';
