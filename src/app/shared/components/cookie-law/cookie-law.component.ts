@@ -60,11 +60,14 @@ export class CookieLawComponent implements OnInit {
   @Input()
   public awsomeCloseIcon: string;
 
+  @Input()
+  public version: number;
+
   @Output()
   public isSeen = new EventEmitter<boolean>();
 
   public get cookieLawSeen(): boolean {
-    return this._service.seen(this.name);
+    return this._service.seen(this.name, this.version);
   }
 
   constructor(private _service: CookieLawService) {
@@ -72,17 +75,17 @@ export class CookieLawComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.seen = this._service.seen(this.name);
+    this.seen = this._service.seen(this.name, this.version);
   }
 
   public hasBeenDismissed(): void {
-    this._service.storeCookie(this.name, this.expiration);
+    const cookieName = this.name + '_version_' + this.version;
+    this._service.storeCookie(cookieName, this.expiration);
     this.seen = true;
     this.isSeen.emit(true);
   }
 
   public dismiss(): void {
-    console.log('found you');
     this.cookieLawComponent.dismiss();
   }
 }

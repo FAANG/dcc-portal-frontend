@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   styleUrls: ['./gdpr.component.css']
 })
 export class GdprComponent implements OnInit {
-  @Input() version: number;
   @ViewChild('cookieLaw')
   private cookieLawEl: any;
   private accepted = false;

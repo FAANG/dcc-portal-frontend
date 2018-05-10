@@ -1,7 +1,9 @@
 
 <!--https://github.com/andreasonny83/angular2-cookie-law-->
 <!--#cookieLaw set reference into @ViewChild example https://github.com/andreasonny83/angular2-cookie-law/issues/14-->
-<app-cookie-law #cookieLaw position="top" (dismiss)="agree()" name="FaangCookieLaw">
+<!--expiration date set to be 1000 days-->
+<!--whenever the new privacy policy released, increase the [version] value, and the banner will turn up again-->
+<app-cookie-law #cookieLaw position="top" (dismiss)="agree()" name="FaangCookieLaw" expiration=1000 [version]=1>
     Hello! Faang Cookie Law privacy version {{version}}
     <a href="/help">
       Click here for more info
