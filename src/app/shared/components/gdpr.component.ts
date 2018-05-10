@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @Component({
   selector: 'app-gdpr',
   templateUrl: './gdpr.component.html',
-//  styleUrls: ['./gdpr.component.css']
+  styleUrls: ['./gdpr.component.css']
 })
 export class GdprComponent implements OnInit {
   @Input() version: number;

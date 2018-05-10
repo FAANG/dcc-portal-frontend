@@ -1,0 +1,8 @@
+.gdpr-confirm-button:disabled {
+  color: #888;
+}
+
+.gdpr-confirm-button {
+  background: #333;
+  color: #fff
+}
