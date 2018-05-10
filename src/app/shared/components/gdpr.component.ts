@@ -25,6 +25,10 @@ export class GdprComponent implements OnInit {
     this.accepted = !this.accepted;
   }
 
+  public isAccepted(): boolean {
+    return this.accepted
+  }
+
   constructor() { }
 
   ngOnInit() {
