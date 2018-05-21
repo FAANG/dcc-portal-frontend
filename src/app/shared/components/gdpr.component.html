@@ -4,14 +4,16 @@
 <!--expiration date set to be 1000 days-->
 <!--whenever the new privacy policy released, increase the [version] value, and the banner will turn up again-->
 <!--when version is set to be 0, then the banner will be disabled-->
-<app-cookie-law #cookieLaw position="top" (dismiss)="agree()" name="FaangCookieLaw" expiration=1000 [version]=0>
-    Hello! Faang Cookie Law privacy
-    <a href="/help">
-      Click here for more info
-    </a>
-    <div align="right">
-      <input type="checkbox" name="accepted" value="agree" (change)="changeAccepted($event)"> I have read the privacy policy and accepted it 
-      <button class="gdpr-confirm-button" type="button" [disabled] = "!isAccepted()" (click)="agree()">Confirm</button>
+<app-cookie-law #cookieLaw position="top" (dismiss)="agree()" name="FaangCookieLaw" expiration=1000 [version]=1>
+    <div style="float: left; width: 50%; padding:20px">
+        This website requires cookies, and the limited processing of your personal data in order to function. 
+        By using the site you are agreeing to this as outlined in our 
+        <a href="/privacy">Privacy Notice</a> and 
+        <a href="/terms">Terms of Use</a>
+    </div>
+    <div style="float: right; width: 50%" align="right">
+        <div style="padding:20px"></div>
+      <button class="gdpr-confirm-button" type="button" (click)="agree()">I agree, dismiss this banner</button>
     </div>
   </app-cookie-law>
   
