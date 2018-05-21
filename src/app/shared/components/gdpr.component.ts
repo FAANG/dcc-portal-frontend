@@ -9,7 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export class GdprComponent implements OnInit {
   @ViewChild('cookieLaw')
   private cookieLawEl: any;
-  private accepted = false;
+  // accepted variable used in the check box pattern, initial value to be false
+  private accepted = true;
 
   public agree(): void {
 //    console.log(this.cookieLawEl);
