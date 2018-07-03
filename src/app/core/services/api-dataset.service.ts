@@ -86,7 +86,6 @@ export class ApiDatasetService {
 //          one.push(hit.experiment.target);
           result.push(one);
         }
-        console.log("HAHAHA"+result.length);
         return result;
       })
     );

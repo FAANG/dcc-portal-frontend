@@ -17,7 +17,6 @@ export class CookieLawService {
   }
 
   public storeCookie(cookieName: string, expiration?: number): void {
-    console.log('set cookie ' + cookieName + ' for ' + expiration );
     return this.setCookie(cookieName, expiration);
   }
 
@@ -62,12 +61,9 @@ export class CookieLawService {
   private setCookie(name: string, expiration?: number): void {
     const date = new Date();
     let expires;
-    console.log(expiration);
     date.setTime(date.getTime() + expiration * 86400000);
-    console.log(date);
     expires = '; expires=' + date.toUTCString();
 
     document.cookie = encodeURIComponent(name) + '=true; path=/' + expires;
-    console.log(document.cookie);
   }
 }

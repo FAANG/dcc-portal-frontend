@@ -119,7 +119,6 @@ export class ApiFileService {
           one.push(hit.run.sequencingLongitude);
           result.push(one);
         }
-        console.log("HAHAHA"+result.length);
         return result;
       })
     );

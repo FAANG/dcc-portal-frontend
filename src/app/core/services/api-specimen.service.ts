@@ -125,7 +125,6 @@ export class ApiSpecimenService{
         var result:Array<Array<string>> = new Array<Array<string>>();
         result.push(this.header);
         let json = r.json() as SpecimenList;
-        console.log("AHHHHH: "+json.hits.total);
         for ( let index in json.hits.hits){
           var one:Array<string> = new Array<string>();
           let hit : Specimen = json.hits.hits[index]['_source'];
@@ -213,7 +212,6 @@ export class ApiSpecimenService{
           }
           result.push(one);
         }
-        console.log("within service result length: "+result.length);
         return result;
       })
     );
