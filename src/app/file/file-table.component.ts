@@ -65,7 +65,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
     this.query['sort'] = [{name: "asc"}];
     this.titleService.setTitle('FAANG files');
     this.fileSource = new Subject<Observable<FileList>>();
-    this.fileSubscription = this.fileSource;
+    this.fileSubscription = this.fileSource
         .switchMap((o: Observable<FileList>):Observable<FileList> => o) //first Observable is the type of the parameter, second is the expected type of the output. 
         .subscribe((e: FileList) => {
           this.fileList = e;
