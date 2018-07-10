@@ -101,8 +101,8 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {archive: string, species: string, instrument: string, standard: string}) => {
         this.datasetOffset = 0;
-        this.query['from'] = this.datasetOffset
-        this.query['size'] = this.pageLimit
+        this.query['from'] = this.datasetOffset;
+        this.query['size'] = this.pageLimit;
         this.initAggRelatedVariables();
 
         if (queryParams.archive || queryParams.species || queryParams.instrument || queryParams.standard) { //exist any query, add the query
@@ -141,7 +141,7 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
 
             //flag which filters are selected
             for (let filter of speciesParams){
-              this.isSpeciesFiltered[filter] = true
+              this.isSpeciesFiltered[filter] = true;
             }
           }
 
@@ -173,7 +173,7 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
             this.query['aggs']['all_dataset']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'instrument' : instrumentParams}})             
 
             for (let filter of instrumentParams){
-              this.isInstrumentFiltered[filter] = true
+              this.isInstrumentFiltered[filter] = true;
             }
           }
 
@@ -203,7 +203,7 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
             this.query['aggs']['all_dataset']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'archive' : archiveParams}})             
             this.query['aggs']['all_dataset']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'archive' : archiveParams}})             
             for (let filter of archiveParams){
-              this.isArchiveFiltered[filter] = true
+              this.isArchiveFiltered[filter] = true;
             }
           }
 
@@ -232,11 +232,11 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
             this.query['aggs']['all_dataset']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
             this.query['aggs']['all_dataset']['aggs']['archive']['filter']['bool']['must'].push({'terms': {'standardMet' : standardParams}})
             for (let filter of standardParams){
-              this.isStandardFiltered[filter] = true
+              this.isStandardFiltered[filter] = true;
             }
           }
         }else{
-          delete this.query['query']
+          delete this.query['query'];
         }
         this.getDatasetList();
 //        console.log("dataset table datasetList onInit");
@@ -284,7 +284,7 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
  
   resetSort(){
     this.query['sort'] = [{accession: "asc"}];
-    this.getDatasetList()
+    this.getDatasetList();
   }
 
   notDefaultSort(){
@@ -313,10 +313,10 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
                               }
                             }
                           }
-    this.isSpeciesFiltered = {}
-    this.isInstrumentFiltered = {}
-    this.isArchiveFiltered = {}
-    this.isStandardFiltered = {}
+    this.isSpeciesFiltered = {};
+    this.isInstrumentFiltered = {};
+    this.isArchiveFiltered = {};
+    this.isStandardFiltered = {};
   }
 
   ngOnDestroy() {
@@ -353,24 +353,24 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
   hasActiveFilters():boolean {
     for (var key in this.isSpeciesFiltered){
       if (this.isSpeciesFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isInstrumentFiltered){
       if (this.isInstrumentFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isArchiveFiltered){
       if (this.isArchiveFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isStandardFiltered){
       if (this.isStandardFiltered[key]){
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 };

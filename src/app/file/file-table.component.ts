@@ -32,19 +32,19 @@ let fileTableStyles: string = `
 export class FileTableComponent implements OnInit, OnDestroy { 
 
   // public properties
-  fileList: FileList
-  fileOffset: number
-  isStandardFiltered: {[key: string] : boolean} = {}
-  isStudyFiltered: {[key: string] : boolean} = {}
-  isSpeciesFiltered: {[key: string] : boolean} = {}
-  isAssayFiltered: {[key: string] : boolean} = {}
-  isInstrumentFiltered: {[key: string] : boolean} = {}
+  fileList: FileList;
+  fileOffset: number;
+  isStandardFiltered: {[key: string] : boolean} = {};
+  isStudyFiltered: {[key: string] : boolean} = {};
+  isSpeciesFiltered: {[key: string] : boolean} = {};
+  isAssayFiltered: {[key: string] : boolean} = {};
+  isInstrumentFiltered: {[key: string] : boolean} = {};
   //bucket size counters
-  standardAggs: {key: string, doc_count: number}[]
-  studyAggs: {key: string, doc_count: number}[]
-  speciesAggs: {key: string, doc_count: number}[]
-  assayAggs: {key: string, doc_count: number}[]
-  instrumentAggs: {key: string, doc_count: number}[]
+  standardAggs: {key: string, doc_count: number}[];
+  studyAggs: {key: string, doc_count: number}[];
+  speciesAggs: {key: string, doc_count: number}[];
+  assayAggs: {key: string, doc_count: number}[];
+  instrumentAggs: {key: string, doc_count: number}[];
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -62,10 +62,10 @@ export class FileTableComponent implements OnInit, OnDestroy {
   ){ };
 
   ngOnInit() {
-    this.query['sort'] = [{name: "asc"}]
+    this.query['sort'] = [{name: "asc"}];
     this.titleService.setTitle('FAANG files');
     this.fileSource = new Subject<Observable<FileList>>();
-    this.fileSubscription = this.fileSource
+    this.fileSubscription = this.fileSource;
         .switchMap((o: Observable<FileList>):Observable<FileList> => o) //first Observable is the type of the parameter, second is the expected type of the output. 
         .subscribe((e: FileList) => {
           this.fileList = e;
@@ -106,17 +106,17 @@ export class FileTableComponent implements OnInit, OnDestroy {
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {standard: string, study: string, species: string, assay: string, instrument: string}) => {
         this.fileOffset = 0;
-        this.query['from'] = this.fileOffset
-        this.query['size'] = this.pageLimit
+        this.query['from'] = this.fileOffset;
+        this.query['size'] = this.pageLimit;
         this.initAggRelatedVariables();
 
         if (queryParams.standard || queryParams.study || queryParams.species || queryParams.assay || queryParams.instrument) { //exist any query, add the query
           this.query['query'] = {"filtered" : {"filter" : {"bool": {"must": []}}}}
 
           if (queryParams.standard){
-            let standardParams = queryParams.standard.split("|")
+            let standardParams = queryParams.standard.split("|");
             //add to the filter at the same level as global aggs using terms bool filter
-            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'file.experiment.standardMet' : standardParams}})
+            this.query['query']['filtered']['filter']['bool']['must'].push({'terms': {'file.experiment.standardMet' : standardParams}});
             //add study filter to all other aggs in two steps:
             //1. initialize the filter if no filter existant for other aggs
             if(this.query['aggs']['all_file']['aggs']['study']['terms']){
@@ -151,7 +151,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
             
             //flag which filters are selected
             for (let filter of standardParams){
-              this.isStandardFiltered[filter] = true
+              this.isStandardFiltered[filter] = true;
             }
 
 
@@ -195,7 +195,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
             
             //flag which filters are selected
             for (let filter of studyParams){
-              this.isStudyFiltered[filter] = true
+              this.isStudyFiltered[filter] = true;
             }
           }
 
@@ -234,7 +234,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
             this.query['aggs']['all_file']['aggs']['assay']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
             this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'species.text' : speciesParams}})             
             for (let filter of speciesParams){
-              this.isSpeciesFiltered[filter] = true
+              this.isSpeciesFiltered[filter] = true;
             }
           }
 
@@ -272,7 +272,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
             this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})             
             this.query['aggs']['all_file']['aggs']['instrument']['filter']['bool']['must'].push({'terms': {'file.experiment.assayType' : assayParams}})             
             for (let filter of assayParams){
-              this.isAssayFiltered[filter] = true
+              this.isAssayFiltered[filter] = true;
             }
           }
 
@@ -310,11 +310,11 @@ export class FileTableComponent implements OnInit, OnDestroy {
             this.query['aggs']['all_file']['aggs']['species']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
             this.query['aggs']['all_file']['aggs']['assay']['filter']['bool']['must'].push({'terms': {'run.instrument' : instrumentParams}})             
             for (let filter of instrumentParams){
-              this.isInstrumentFiltered[filter] = true
+              this.isInstrumentFiltered[filter] = true;
             }
           }
         }else{
-          delete this.query['query']
+          delete this.query['query'];
         }
         this.getFileList();
       });
@@ -343,7 +343,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
  
   resetSort(){
     this.query['sort'] = [{name: "asc"}];
-    this.getFileList()
+    this.getFileList();
   }
 
   notDefaultSort(){
@@ -357,7 +357,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
     delete this.query['query'];
     this.initAggRelatedVariables();
     this.getFileList();
-    this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: {}})
+    this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: {}});
   }
   
   initAggRelatedVariables(){
@@ -372,12 +372,12 @@ export class FileTableComponent implements OnInit, OnDestroy {
                                 'instrument': {'terms': {'field': 'run.instrument', 'size': 50}}
                               }
                             }
-                          }
-    this.isStandardFiltered = {}
-    this.isStudyFiltered = {}
-    this.isSpeciesFiltered = {}
-    this.isAssayFiltered = {}
-    this.isInstrumentFiltered = {}
+                          };
+    this.isStandardFiltered = {};
+    this.isStudyFiltered = {};
+    this.isSpeciesFiltered = {};
+    this.isAssayFiltered = {};
+    this.isInstrumentFiltered = {};
   }
 
   ngOnDestroy() {
@@ -392,14 +392,14 @@ export class FileTableComponent implements OnInit, OnDestroy {
   tableNext() {
     if (this.tableHasMore()) {
       this.fileOffset += this.pageLimit;
-      this.query['from'] = this.fileOffset
+      this.query['from'] = this.fileOffset;
       this.getFileList();
     }
   }
   tablePrevious() {
     if (this.fileList && this.fileList.hits) {
       this.fileOffset = (this.fileOffset >= this.pageLimit) ? this.fileOffset - this.pageLimit : 0;
-      this.query['from'] = this.fileOffset
+      this.query['from'] = this.fileOffset;
       this.getFileList();
     }
   }
@@ -414,29 +414,29 @@ export class FileTableComponent implements OnInit, OnDestroy {
   hasActiveFilters():boolean {
     for (var key in this.isStandardFiltered){
       if (this.isStandardFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isStudyFiltered){
       if (this.isStudyFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isSpeciesFiltered){
       if (this.isSpeciesFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isAssayFiltered){
       if (this.isAssayFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isInstrumentFiltered){
       if (this.isInstrumentFiltered[key]){
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 };

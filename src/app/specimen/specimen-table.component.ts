@@ -32,21 +32,21 @@ let specimenTableStyles: string = `
 })
 export class SpecimenTableComponent implements OnInit, OnDestroy { 
   // public properties
-  specimenList: SpecimenList
-  specimenOffset: number
-  isSexFiltered: {[key: string] : boolean} = {}
-  isMaterialFiltered: {[key: string] : boolean} = {}
-  isOrganismFiltered: {[key: string] : boolean} = {}
-  isOrganismPartFiltered: {[key: string] : boolean} = {}
-  isBreedFiltered: {[key: string] : boolean} = {}
-  isStandardFiltered: {[key: string] : boolean} = {}
+  specimenList: SpecimenList;
+  specimenOffset: number;
+  isSexFiltered: {[key: string] : boolean} = {};
+  isMaterialFiltered: {[key: string] : boolean} = {};
+  isOrganismFiltered: {[key: string] : boolean} = {};
+  isOrganismPartFiltered: {[key: string] : boolean} = {};
+  isBreedFiltered: {[key: string] : boolean} = {};
+  isStandardFiltered: {[key: string] : boolean} = {};
   //bucket size counters
-  sexAggs: {key: string, doc_count: number}[]
-  materialAggs: {key: string, doc_count: number}[]
-  organismAggs: {key: string, doc_count: number}[]
-  organismPartAggs: {key: string, doc_count: number}[]
-  breedAggs: {key: string, doc_count: number}[]
-  standardAggs: {key: string, doc_count: number}[]
+  sexAggs: {key: string, doc_count: number}[];
+  materialAggs: {key: string, doc_count: number}[];
+  organismAggs: {key: string, doc_count: number}[];
+  organismPartAggs: {key: string, doc_count: number}[];
+  breedAggs: {key: string, doc_count: number}[];
+  standardAggs: {key: string, doc_count: number}[];
 
   // private properties
   private routeSubscription: Subscription = null;
@@ -111,8 +111,8 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     this.routeSubscription =
       this.activatedRoute.queryParams.subscribe((queryParams: {sex: string, material: string, organism: string, organismPart: string, breed: string, standard: string}) => {
         this.specimenOffset = 0;
-        this.query['from'] = this.specimenOffset
-        this.query['size'] = this.pageLimit
+        this.query['from'] = this.specimenOffset;
+        this.query['size'] = this.pageLimit;
 //        this.query['sort'] = [{biosampleId: "desc"}]
         this.initAggRelatedVariables();
         if (queryParams.sex || queryParams.material || queryParams.organism || queryParams.organismPart || queryParams.breed || queryParams.standard) {
@@ -164,7 +164,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
 
             //flag which filters are selected
             for (let filter of sexParams){
-              this.isSexFiltered[filter] = true
+              this.isSexFiltered[filter] = true;
             }
           }
 
@@ -215,7 +215,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
 
             //flag which filters are selected
             for (let filter of materialParams){
-              this.isMaterialFiltered[filter] = true
+              this.isMaterialFiltered[filter] = true;
             }
           }
 
@@ -303,7 +303,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             this.query['aggs']['all_specimen']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
             this.query['aggs']['all_specimen']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'specimen.cellType.text' : organismPartParams}})
             for (let filter of organismPartParams){
-              this.isOrganismPartFiltered[filter] = true
+              this.isOrganismPartFiltered[filter] = true;
             }
           }
 
@@ -347,7 +347,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             this.query['aggs']['all_specimen']['aggs']['organismPart']['filter']['bool']['must'].push({'terms': {'specimen.organism.breed.text' : breedParams}})
             this.query['aggs']['all_specimen']['aggs']['standard']['filter']['bool']['must'].push({'terms': {'specimen.organism.breed.text' : breedParams}})
             for (let filter of breedParams){
-              this.isBreedFiltered[filter] = true
+              this.isBreedFiltered[filter] = true;
             }
           }
 
@@ -391,11 +391,11 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
             this.query['aggs']['all_specimen']['aggs']['organismPart']['filter']['bool']['must'].push({'terms': {'specimen.standardMet' : standardParams}})
             this.query['aggs']['all_specimen']['aggs']['breed']['filter']['bool']['must'].push({'terms': {'specimen.standardMet' : standardParams}})
             for (let filter of standardParams){
-              this.isStandardFiltered[filter] = true
+              this.isStandardFiltered[filter] = true;
             }
           }
         }else{
-          delete this.query['query']
+          delete this.query['query'];
         }
         this.getSpecimenList();
      });
@@ -458,7 +458,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
     delete this.query['query'];
     this.initAggRelatedVariables();
     this.getSpecimenList();
-    this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: {}})
+    this.router.navigate([], {relativeTo:this.activatedRoute, queryParams: {}});
 
 //    window.alert(this.activatedRoute.url);
   }
@@ -476,13 +476,13 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
                               'standard': {'terms': {'field': 'specimen.standardMet', 'size': 1000}}
                             }
                           }
-                        }
-    this.isSexFiltered = {}
-    this.isMaterialFiltered = {}
-    this.isOrganismFiltered = {}
-    this.isOrganismPartFiltered = {}
-    this.isBreedFiltered = {}
-    this.isStandardFiltered = {}
+                        };
+    this.isSexFiltered = {};
+    this.isMaterialFiltered = {};
+    this.isOrganismFiltered = {};
+    this.isOrganismPartFiltered = {};
+    this.isBreedFiltered = {};
+    this.isStandardFiltered = {};
   }
 
   ngOnDestroy() {
@@ -497,14 +497,14 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   tableNext() {
     if (this.tableHasMore()) {
       this.specimenOffset += this.pageLimit;
-      this.query['from'] = this.specimenOffset
+      this.query['from'] = this.specimenOffset;
       this.getSpecimenList();
     }
   }
   tablePrevious() {
     if (this.specimenList && this.specimenList.hits) {
       this.specimenOffset = (this.specimenOffset >= this.pageLimit) ? this.specimenOffset - this.pageLimit : 0;
-      this.query['from'] = this.specimenOffset
+      this.query['from'] = this.specimenOffset;
       this.getSpecimenList();
     }
   }
@@ -519,34 +519,34 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
   hasActiveFilters():boolean {
     for (var key in this.isOrganismFiltered){
       if (this.isOrganismFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isSexFiltered){
       if (this.isSexFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isMaterialFiltered){
       if (this.isMaterialFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isOrganismPartFiltered){
       if (this.isOrganismPartFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isBreedFiltered){
       if (this.isBreedFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isStandardFiltered){
       if (this.isStandardFiltered[key]){
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 };

@@ -337,24 +337,24 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
   hasActiveFilters():boolean {
     for (var key in this.isSexFiltered){
       if (this.isSexFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isOrganismFiltered){
       if (this.isOrganismFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isBreedFiltered){
       if (this.isBreedFiltered[key]){
-        return true
+        return true;
       }
     }
     for (var key in this.isStandardFiltered){
       if (this.isStandardFiltered[key]){
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 };
