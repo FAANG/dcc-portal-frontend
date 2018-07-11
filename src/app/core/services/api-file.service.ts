@@ -9,11 +9,12 @@ import { FileList } from '../../shared/file-list';
 import { ApiHits } from '../../shared/api-types/api-hits';
 import { ApiTimeoutService } from './api-timeout.service';
 import { ApiErrorService } from './api-error.service';
+import { HostSetting } from './host-setting';
 
 @Injectable()
 export class ApiFileService {
-//  private host:string = "http://ves-hx-e4:9200/faang_build_2/file/";
-  private host:string = "/api/file/";
+  hostSetting = new HostSetting;
+  private host:string = this.hostSetting.host + 'file/';
 
   constructor(
     private http: Http,
@@ -166,6 +167,7 @@ export class ApiFileService {
       ).map((r: Response) => r.json() as FileList)
     );
   }
+  
   search(hitsPerPage: number, from: number, query: any): Observable<ApiHits>{
     let body = {
       from: from,

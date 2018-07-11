@@ -9,12 +9,13 @@ import { SpecimenList } from '../../shared/specimen-list';
 import { ApiHits } from '../../shared/api-types/api-hits';
 import { ApiTimeoutService } from './api-timeout.service';
 import { ApiErrorService } from './api-error.service';
+import { HostSetting } from './host-setting';
 
 @Injectable()
 export class ApiSpecimenService{
-//  private host:string = "http://ves-hx-e4:9200/faang_build_3/specimen/";
-//  private host:string = "http://data.faang.org/api/specimen/";
-  private host:string = "/api/specimen/";
+  hostSetting = new HostSetting;
+  private host:string = this.hostSetting.host + 'specimen/';
+
   //headers for different sections
   private header:Array<string> = ["BiosampleId",
                                   "Name",

@@ -9,17 +9,17 @@ import { OrganismList } from '../../shared/organism-list';
 import { ApiHits } from '../../shared/api-types/api-hits';
 import { ApiTimeoutService } from './api-timeout.service';
 import { ApiErrorService } from './api-error.service';
+import { HostSetting } from './host-setting';
 
 @Injectable()
 export class ApiOrganismService {
-//  private host:string = "http://ves-hx-e4:9200/faang_build_3/organism/";
-//  private host:string = "http://test.faang.org/api/organism/";
-  private host:string = "/api/organism/";
+  hostSetting = new HostSetting;
+  private host:string = this.hostSetting.host + 'organism/';
 
   constructor(
     private http: Http,
     private apiTimeoutService: ApiTimeoutService,
-    private apiErrorService: ApiErrorService,
+    private apiErrorService: ApiErrorService
   ) {}
 
   // public methods

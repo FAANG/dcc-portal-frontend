@@ -9,13 +9,12 @@ import { DatasetList } from '../../shared/dataset-list';
 import { ApiHits } from '../../shared/api-types/api-hits';
 import { ApiTimeoutService } from './api-timeout.service';
 import { ApiErrorService } from './api-error.service';
+import { HostSetting } from './host-setting';
 
 @Injectable()
 export class ApiDatasetService {
-//  private host:string = "http://ves-hx-e4:9200/faang_build_1/dataset/";
-//  private host:string = "http://ves-pg-e4:9200/faang/file/";
-//  private host:string = "http://data.faang.org/api/file/";
-  private host:string = "/api/dataset/";
+  hostSetting = new HostSetting;
+  private host:string = this.hostSetting.host + 'dataset/';
 
   constructor(
     private http: Http,
