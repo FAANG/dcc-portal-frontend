@@ -106,6 +106,7 @@ export class DatasetTableComponent implements OnInit, OnDestroy {
         this.datasetOffset = 0;
         this.query['from'] = this.datasetOffset;
         this.query['size'] = this.pageLimit;
+        this.query['_source'] = ["accession","title","species.text","archive","experiment.accession","file.name","specimen.biosampleId","standardMet"];
         this.initAggRelatedVariables();
         // exist any query, add the query
         if (queryParams.archive || queryParams.species || queryParams.instrument || queryParams.standard) {

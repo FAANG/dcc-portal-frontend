@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
 //  host: 'http://test.faang.org/api/'
-  host: 'http://ves-hx-e4:9200/faang_build_3/'
+  host: 'http://ves-hx-e4:9200/faang_build_2/'
 //  host: 'http://ves-pg-e4:9200/faang/'
 //  host: '/api/'
 };
