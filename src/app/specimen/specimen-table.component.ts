@@ -113,6 +113,7 @@ export class SpecimenTableComponent implements OnInit, OnDestroy {
         this.specimenOffset = 0;
         this.query['from'] = this.specimenOffset;
         this.query['size'] = this.pageLimit;
+        this.query['_source'] = ["biosampleId","material.text","cellType.text","organism.sex.text","organism.organism.text","organism.breed.text","standardMet"];
 //        this.query['sort'] = [{biosampleId: "desc"}]
         this.initAggRelatedVariables();
         if (queryParams.sex || queryParams.material || queryParams.organism || queryParams.organismPart || queryParams.breed || queryParams.standard) {

@@ -108,6 +108,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
         this.fileOffset = 0;
         this.query['from'] = this.fileOffset;
         this.query['size'] = this.pageLimit;
+        this.query['_source'] = ["study.accession","experiment.accession","species.text","experiment.assayType","specimen","run.instrument","experiment.standardMet"];
         this.initAggRelatedVariables();
 
         if (queryParams.standard || queryParams.study || queryParams.species || queryParams.assay || queryParams.instrument) { //exist any query, add the query

@@ -102,6 +102,7 @@ export class OrganismTableComponent implements OnInit, OnDestroy {
         this.organismOffset = 0;
         this.query['from'] = this.organismOffset
         this.query['size'] = this.pageLimit
+        this.query['_source'] = ["biosampleId","sex.text","organism.text","breed.text","standardMet"]
         this.initAggRelatedVariables();
 
         if (queryParams.sex || queryParams.organism || queryParams.breed || queryParams.standard) { //exist any query, add the query
