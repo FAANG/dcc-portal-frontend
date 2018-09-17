@@ -1,24 +1,76 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserModule, Title } from '@angular/platform-browser';
-// import { BusyModule } from 'angular2-busy';
-// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-import { SpecimenModule } from './specimen/specimen.module';
-import { OrganismModule } from './organism/organism.module';
-import { FileModule } from './file/file.module';
-import { DatasetModule } from './dataset/dataset.module';
-import { SearchModule } from './search/search.module';
+import { FileTableComponent } from './file-table/file-table.component';
+import { AppRoutingModule } from './/app-routing.module';
+import {ApiFileService} from './services/api-file.service';
+import {AggregationService} from './services/aggregation.service';
+import { FilterComponent } from './shared/filter/filter.component';
+import {SortPipe} from './pipes/sort.pipe';
+import {FilterPipe} from './pipes/filter.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {HttpClientModule} from '@angular/common/http';
+import { ActiveFilterComponent } from './shared/active-filter/active-filter.component';
+import { ExportComponent } from './shared/export/export.component';
+import { HomeComponent } from './home/home.component';
+import { OrganismComponent } from './organism/organism.component';
+import { SpecimenComponent } from './specimen/specimen.component';
+import { DatasetComponent } from './dataset/dataset.component';
+import { SearchComponent } from './search/search.component';
+import { HelpComponent } from './help/help.component';
+import { HeaderComponent } from './shared/header/header.component';
+import {Angular2CsvModule} from 'angular2-csv';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {ExportService} from './services/export.service';
+import { FileDetailComponent } from './file-table/file-detail/file-detail.component';
+import { RobustLinkComponent } from './shared/robust-link/robust-link.component';
+import { RunFilesComponent } from './shared/run-files/run-files.component';
+import { OrganismDetailComponent } from './organism/organism-detail/organism-detail.component';
+import { OrganismSpecimenComponent } from './organism/organism-specimen/organism-specimen.component';
+import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-detail.component';
+import { SpecimenFilesComponent } from './specimen/specimen-files/specimen-files.component';
+import { SearchTemplateComponent } from './search/search-template/search-template.component';
+import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
+import { DatasetRelatedTemplateComponent } from './dataset/dataset-related-template/dataset-related-template.component';
+import {SearchService} from './services/search.service';
 
 @NgModule({
-  imports: [ BrowserModule, CoreModule, AppRoutingModule, SharedModule,
-  SpecimenModule, OrganismModule, FileModule, DatasetModule, SearchModule ],
-  declarations: [ AppComponent ],
-  providers: [ Title ],
-  bootstrap: [ AppComponent ]
+  declarations: [
+    AppComponent,
+    FileTableComponent,
+    FilterComponent,
+    SortPipe,
+    FilterPipe,
+    ActiveFilterComponent,
+    ExportComponent,
+    HomeComponent,
+    OrganismComponent,
+    SpecimenComponent,
+    DatasetComponent,
+    SearchComponent,
+    HelpComponent,
+    HeaderComponent,
+    FileDetailComponent,
+    RobustLinkComponent,
+    RunFilesComponent,
+    OrganismDetailComponent,
+    OrganismSpecimenComponent,
+    SpecimenDetailComponent,
+    SpecimenFilesComponent,
+    SearchTemplateComponent,
+    DatasetDetailComponent,
+    DatasetRelatedTemplateComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgxPaginationModule,
+    Angular2CsvModule,
+    NgxSpinnerModule
+  ],
+  providers: [ApiFileService, AggregationService, ExportService, SearchService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,0 @@
-{
-  "/api/*": {
-    "target": "http://ves-hx-79:8000",
-    "secure": false
-  }
-}

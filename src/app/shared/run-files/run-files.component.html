@@ -1,0 +1,31 @@
+<div *ngIf="fileList?.hits.total > 0">
+  <h3>Related Downloads</h3>
+
+  <div class="fails-table center-block">
+
+    <table class="table table-striped table-hover table-responsive">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>File size</th>
+        <th>Checksum</th>
+        <th>Checksum method</th>
+        <th>Download</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let file of fileList?.hits.hits;">
+        <tr>
+          <td>
+            <app-robust-link prefix="ftp://" [link]="file?._source.url" [text]="file?._source.name"></app-robust-link>
+          </td>
+          <td>{{file?._source.size}} ({{file?._source.readableSize}})</td>
+          <td>{{file?._source.checksum}}</td>
+          <td>{{file?._source.checksumMethod}}</td>
+          <td><a href="ftp://{{file?._source.url}}"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

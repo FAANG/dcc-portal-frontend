@@ -1,0 +1,6 @@
+<ng-container *ngIf="link">
+  <a *ngIf="prefix" [href]="prefix + link" target="_blank">{{text}}</a>
+
+  <a *ngIf="!prefix" [href]="link" target="_blank">{{text}}</a>
+</ng-container>
+<ng-container *ngIf="!link">{{text}}</ng-container>

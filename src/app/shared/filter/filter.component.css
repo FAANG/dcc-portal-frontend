@@ -1,0 +1,13 @@
+li.list-group-item.title {
+  cursor: default;
+}
+ul.long-list {
+  max-height: 300px;
+  overflow: scroll;
+}
+ul.list-group {
+  margin-top: 0px;
+}
+span.badge {
+  margin-left: 3px;
+}

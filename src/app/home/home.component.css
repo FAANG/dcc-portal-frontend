@@ -1,0 +1,11 @@
+div.intro {
+  margin-bottom: 20px;
+}
+img.faang-logo {
+  max-width: 100%;
+}
+@media (max-width: 767px) {
+  img.faang-logo {
+    width: 300px;
+  }
+}

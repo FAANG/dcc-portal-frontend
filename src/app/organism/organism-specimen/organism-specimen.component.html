@@ -1,0 +1,34 @@
+<h3>Specimens</h3>
+<div class="fails-table center-block">
+
+  <table class="table table-striped table-hover table-responsive">
+    <thead>
+    <tr>
+      <th>BioSample ID</th>
+      <th>Organism part/Cell type</th>
+      <th>Material type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let specimen of specimenList?.hits.hits | paginate: { itemsPerPage: 10, currentPage: p }"
+        class="clickable"
+        [routerLink]="['/specimen', specimen?._source?.biosampleId]">
+      <td>
+        <a style="cursor: pointer">{{specimen?._source.biosampleId}}</a>
+      </td>
+      <td [ngSwitch]="specimen?._source?.material?.text">
+        <ng-template ngSwitchCase="specimen from organism">{{specimen?._source?.specimenFromOrganism?.organismPart?.text}}</ng-template>
+        <!--should be in the form of commented one, but due to backend data structure, the [0] is used. Expected to change in the future when data structure fixed-->
+        <!--  <ng-template ngSwitchCase="cell specimen">{{specimen?._source?.cellSpecimen?.cellType?.text}}</ng-template>-->
+        <ng-template ngSwitchCase="cell specimen">{{specimen?._source?.cellSpecimen?.cellType[0]?.text}}</ng-template>
+        <ng-template ngSwitchCase="pool of specimens"></ng-template>
+        <ng-template ngSwitchCase="cell culture">{{specimen?._source?.cellCulture?.cellType?.text}}</ng-template>
+        <ng-template ngSwitchCase="cell line">{{specimen?._source?.cellLine?.cellType?.text}}</ng-template>
+        <ng-template ngSwitchDefault>Unknown</ng-template>
+      </td>
+      <td>{{specimen?._source?.material?.text}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

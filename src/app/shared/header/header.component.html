@@ -1,0 +1,27 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle getFile grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" aria-expanded="false" (click)="toggleCollapse()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/home"><img alt="FAANG logo" src="https://www.faang.org/icons/FAANG/FAANG_logo_RGBc.png"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div [ngClass]="collapsed ? 'collapse navbar-collapse' : ''">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/home">Home <span class="sr-only">(current)</span></a></li>
+        <li routerLinkActive="active"><a routerLink="/organism">Organisms</a></li>
+        <li routerLinkActive="active"><a routerLink="/specimen">Specimens</a></li>
+        <li routerLinkActive="active"><a routerLink="/dataset">Datasets</a></li>
+        <li routerLinkActive="active"><a routerLink="/file">Files</a></li>
+        <li routerLinkActive="active"><a routerLink="/search">Search</a></li>
+        <li routerLinkActive="active"><a routerLink="/help">Help</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

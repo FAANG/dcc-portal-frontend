@@ -1,0 +1,244 @@
+<div class="container">
+  <app-header></app-header>
+  <h1 class="text-center">{{biosampleId}}</h1>
+  <dl class="dl-horizontal">
+    <dt>Name:</dt><dd>{{specimen?.name}}</dd>
+    <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a></dd>
+    <dt>Release date:</dt><dd>{{specimen?.releaseDate}}</dd>
+    <dt>Update date:</dt><dd>{{specimen?.updateDate}}</dd>
+    <ng-container *ngIf="(specimen?.material?.text !== 'pool of specimens' && specimen?.material?.text !=='cell line')">
+      <dt>Sex:</dt><dd>
+      <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.sex?.ontologyTerms" [text]="specimen?.organism?.sex?.text"></app-robust-link>
+    </dd>
+      <dt>Organism BioSample Id:</dt><dd>
+      <app-robust-link prefix="../organism/" [link]="specimen?.organism?.biosampleId" [text]="specimen?.organism?.biosampleId"></app-robust-link>
+      <dt>Organism:</dt><dd>
+      <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.organism?.ontologyTerms" [text]="specimen?.organism?.organism?.text"></app-robust-link>
+    </dd>
+      <dt>Breed:</dt><dd>
+      <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.breed?.ontologyTerms" [text]="specimen?.organism?.breed?.text"></app-robust-link>
+    </dd>
+      <dt>Health status:</dt><dd>
+      <ng-container *ngFor="let status of specimen?.organism?.healthStatus;">
+        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="status.ontologyTerms" [text]="status.text"></app-robust-link>
+      </ng-container>
+    </dd>
+    </ng-container>
+    <div *ngIf="specimen?.description">
+      <dt>Description:</dt><dd>{{specimen?.description}}</dd>
+    </div>
+    <dt>Standard met:</dt><dd>{{specimen?.standardMet}}</dd>
+    <dt>Project:</dt><dd>{{specimen?.project}}</dd>
+    <div *ngIf="specimen?.availability">
+      <dt>Availability:</dt><dd><a href={{specimen?.availability}}>{{dealWithAvailability(specimen?.availability)}}</a></dd>
+    </div>
+    <dt>Organisation:</dt><dd>
+    <ng-container *ngFor="let organization of specimen?.organization;">
+      <app-robust-link [link]="organization.URL" [text]="organization.name"></app-robust-link> ( {{organization.role}})
+    </ng-container>
+  </dd>
+    <dt>Material:</dt><dd>
+    <app-robust-link  prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.material?.ontologyTerms" [text]="specimen?.material?.text"></app-robust-link>
+  </dd>
+    <div *ngIf="specimen?.sameAs">
+      <dt>Same as:</dt><dd>{{specimen?.sameAs}}</dd>
+    </div>
+    <div *ngIf="specimen?.derivedFrom">
+      <dt>Derived from:</dt><dd>
+      <ng-container [ngSwitch]="specimen?.material?.text">
+        <ng-template ngSwitchCase="pool of specimens">
+          <ng-container *ngFor="let derived of specimen?.derivedFrom;">
+            <!--            <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>-->
+            <app-robust-link prefix="../specimen/" [link]="derived" [text]="derived"></app-robust-link>
+          </ng-container>
+        </ng-template>
+        <ng-template ngSwitchCase="cell specimen"> <!--ruleset constrain: specimen from organism-->
+          <app-robust-link prefix="../specimen/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></app-robust-link>
+        </ng-template>
+        <ng-template ngSwitchCase="cell culture"> <!--ruleset constrain: specimen from organism or cell specimen-->
+          <app-robust-link prefix="../specimen/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></app-robust-link>
+        </ng-template>
+        <ng-template ngSwitchDefault>
+          <app-robust-link prefix="../organism/" [link]="specimen?.derivedFrom" [text]="specimen?.derivedFrom"></app-robust-link>
+        </ng-template>
+      </ng-container>
+    </dd>
+    </div>
+    <ng-container [ngSwitch]="specimen?.material?.text">
+      <ng-template ngSwitchCase="specimen from organism">
+        <dt>Specimen collection date:</dt><dd>{{specimen?.specimenFromOrganism?.specimenCollectionDate?.text}}</dd>
+        <dt>Animal age at collection:</dt><dd>{{specimen?.specimenFromOrganism?.animalAgeAtCollection?.text}} {{specimen?.specimenFromOrganism?.animalAgeAtCollection?.unit}}</dd>
+        <dt>Developmental stage:</dt><dd>
+        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.specimenFromOrganism?.developmentalStage?.ontologyTerms" [text]="specimen?.specimenFromOrganism?.developmentalStage?.text"></app-robust-link>
+      </dd>
+        <dt>Organism part:</dt><dd>
+        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.specimenFromOrganism?.organismPart?.ontologyTerms" [text]="specimen?.specimenFromOrganism?.organismPart?.text"></app-robust-link>
+      </dd>
+        <dt>Specimen collection protocol:</dt><dd>
+        <ng-container *ngIf="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
+          <app-robust-link [link]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url" [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename"></app-robust-link>
+          <a href={{specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+        </ng-container>
+        <ng-container *ngIf="!specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
+          <app-robust-link [link]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url" [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename"></app-robust-link>
+        </ng-container>
+      </dd>
+        <div *ngIf="specimen?.specimenFromOrganism?.fastedStatus">
+          <dt>Fasted status:</dt><dd>{{specimen?.specimenFromOrganism?.fastedStatus}}</dd>
+        </div>
+        <div *ngIf="specimen?.specimenFromOrganism?.numberOfPieces?.text">
+          <dt>Number of pieces:</dt><dd>{{specimen?.specimenFromOrganism?.numberOfPieces?.text}}</dd>
+        </div>
+        <div *ngIf="specimen?.specimenFromOrganism?.specimenVolume?.text">
+          <dt>Specimen volume:</dt><dd>{{specimen?.specimenFromOrganism?.specimenVolume?.text}} {{specimen?.specimenFromOrganism?.specimenVolume?.unit}}</dd>
+        </div>
+        <div *ngIf="specimen?.specimenFromOrganism?.specimenSize?.text">
+          <dt>Specimen size:</dt><dd>{{specimen?.specimenFromOrganism?.specimenSize?.text}} {{specimen?.specimenFromOrganism?.specimenSize?.unit}}</dd>
+        </div>
+        <div *ngIf="specimen?.specimenFromOrganism?.specimenWeight?.text">
+          <dt>Specimen weight:</dt><dd>{{specimen?.specimenFromOrganism?.specimenWeight?.text}} {{specimen?.specimenFromOrganism?.specimenWeight?.unit}}</dd>
+        </div>
+        <div *ngIf="specimen?.specimenFromOrganism?.specimenPictureUrl">
+          <dt>Specimen picture URL:</dt><dd>
+          <app-robust-link [link]="specimen?.specimenFromOrganism?.specimenPictureUrl" [text]="specimen?.specimenFromOrganism?.specimenPictureUrl"></app-robust-link>
+        </dd>
+        </div>
+        <div *ngIf="specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text">
+          <dt>Gestational age at sample collection:</dt><dd>{{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text}} {{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.unit}}</dd>
+        </div>
+      </ng-template>
+      <ng-template ngSwitchCase="pool of specimens">
+        <dt>Pool creation date:</dt><dd>{{specimen.poolOfSpecimens.poolCreationDate.text}}</dd>
+        <dt>Pool creation protocol:</dt><dd>
+        <ng-container *ngIf="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
+          <app-robust-link [link]="specimen?.poolOfSpecimens?.poolCreationProtocol?.url" [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename"></app-robust-link>
+          <a href={{specimen?.poolOfSpecimens?.poolCreationProtocol?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+        </ng-container>
+        <ng-container *ngIf="!specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
+          <app-robust-link [link]="specimen?.poolOfSpecimens?.poolCreationProtocol?.url" [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename"></app-robust-link>
+        </ng-container>
+      </dd>
+        <div *ngIf="specimen?.poolOfSpecimens?.specimenVolume?.text">
+          <dt>Specimen volume:</dt><dd>{{specimen.poolOfSpecimens.specimenVolume.text}} {{specimen.poolOfSpecimens.specimenVolume.unit}}</dd>
+        </div>
+        <div *ngIf="specimen?.poolOfSpecimens?.specimenSize?.text">
+          <dt>Specimen size:</dt><dd>{{specimen.poolOfSpecimens.specimenSize.text}} {{specimen.poolOfSpecimens.specimenSize.unit}}</dd>
+        </div>
+        <div *ngIf="specimen?.poolOfSpecimens?.specimenWeight?.text">
+          <dt>Specimen weight:</dt><dd>{{specimen.poolOfSpecimens.specimenWeight.text}} {{specimen.poolOfSpecimens.specimenWeight.unit}}</dd>
+        </div>
+        <div *ngIf="specimen?.poolOfSpecimens?.specimenPictureUrl">
+          <dt>Specimen picture URL:</dt><dd>
+          <app-robust-link [link]="specimen.poolOfSpecimens.specimenPictureUrl" [text]="specimen.poolOfSpecimens.specimenPictureUrl"></app-robust-link>
+        </dd>
+        </div>
+      </ng-template>
+      <ng-template ngSwitchCase="cell specimen">
+        <div *ngIf="specimen?.cellSpecimen?.markers">
+          <dt>Markers:</dt><dd>{{specimen.cellSpecimen.markers}}</dd>
+        </div>
+        <dt>Cell type:</dt><dd>
+        <ng-container *ngFor="let type of specimen?.cellSpecimen?.cellType;">
+          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="type?.ontologyTerms[0]" [text]="type?.text"></app-robust-link>
+        </ng-container>
+      </dd>
+        <dt>Purification protocol:</dt><dd>
+        <ng-container *ngIf="specimen?.cellSpecimen?.purificationProtocol?.filename">
+          <app-robust-link [link]="specimen?.cellSpecimen?.purificationProtocol?.url" [text]="specimen?.cellSpecimen?.purificationProtocol?.filename"></app-robust-link>
+          <a href={{specimen?.cellSpecimen?.purificationProtocol?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+        </ng-container>
+        <ng-container *ngIf="!specimen?.cellSpecimen?.purificationProtocol?.filename">
+          <app-robust-link [link]="specimen?.cellSpecimen?.purificationProtocol?.url" [text]="specimen?.cellSpecimen?.purificationProtocol?.url"></app-robust-link>
+        </ng-container>
+      </dd>
+      </ng-template>
+      <ng-template ngSwitchCase="cell culture">
+        <dt>Culture type:</dt><dd>
+        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellCulture?.cultureType?.ontologyTerms" [text]="specimen?.cellCulture?.cultureType?.text"></app-robust-link>
+      </dd>
+        <dt>Cell type:</dt><dd>
+        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellCulture?.cellType?.ontologyTerms" [text]="specimen?.cellCulture?.cellType?.text"></app-robust-link>
+      </dd>
+        <dt>Cell culture protocol:</dt><dd>
+        <ng-container *ngIf="specimen?.cellCulture?.cellCultureProtocol?.filename">
+          <app-robust-link [link]="specimen?.cellCulture?.cellCultureProtocol?.url" [text]="specimen?.cellCulture?.cellCultureProtocol?.filename"></app-robust-link>
+          <a href={{specimen?.cellCulture?.cellCultureProtocol?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+        </ng-container>
+        <ng-container *ngIf="!specimen?.cellCulture?.cellCultureProtocol?.filename">
+          <app-robust-link [link]="specimen?.cellCulture?.cellCultureProtocol?.url" [text]="specimen?.cellCulture?.cellCultureProtocol?.url"></app-robust-link>
+        </ng-container>
+      </dd>
+        <dt>Culture conditions:</dt><dd>{{specimen?.cellCulture?.cultureConditions}}</dd>
+        <dt>Number of passages:</dt><dd>{{specimen?.cellCulture?.numberOfPassages}}</dd>
+      </ng-template>
+      <ng-template ngSwitchCase="cell line">
+        <dt>Cell line:</dt><dd>{{specimen?.cellLine?.cellLine}}</dd>
+        <dt>Organism: </dt><dd>
+        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellLine?.organism?.ontologyTerms" [text]="specimen?.cellLine?.organism?.text"></app-robust-link>
+      </dd>
+        <dt>Sex: </dt><dd>
+        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellLine?.sex?.ontologyTerms" [text]="specimen?.cellLine?.sex?.text"></app-robust-link>
+      </dd>
+        <dt>Biomaterial provider:</dt><dd>{{specimen?.cellLine?.biomaterialProvider}}</dd>
+        <div *ngIf="specimen?.cellLine?.catalogueNumber">
+          <dt>Catalogue number:</dt><dd>{{specimen.cellLine.catalogueNumber}}</dd>
+        </div>
+        <div *ngIf="specimen?.cellLine?.numberOfPassages">
+          <dt>Number of passages:</dt><dd>{{specimen?.cellLine?.numberOfPassages}}</dd>
+        </div>
+        <div *ngIf="specimen?.cellLine?.dateEstablished">
+          <dt>Date established:</dt><dd>{{specimen?.cellLine?.dateEstablished.text}}</dd>
+        </div>
+        <div *ngIf="specimen?.cellLine?.publication">
+          <dt>Publication:</dt><dd>{{specimen.cellLine.publication}}</dd>
+        </div>
+        <div *ngIf="specimen?.cellLine?.breed?.text">
+          <dt>Breed:</dt><dd>
+          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen.cellLine.breed.ontologyTerms" [text]="specimen.cellLine.breed.text"></app-robust-link>
+        </dd>
+        </div>
+        <div *ngIf="specimen?.cellLine?.cellType?.text">
+          <dt>Cell type:</dt><dd>
+          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.cellLine?.cellType?.ontologyTerms" [text]="specimen?.cellLine?.cellType?.text"></app-robust-link>
+        </dd>
+        </div>
+        <div *ngIf="specimen?.cellLine?.cultureConditions">
+          <dt>Culture conditions:</dt><dd>{{specimen.cellLine.cultureConditions}}</dd>
+        </div>
+        <div *ngIf="specimen?.cellLine?.cultureProtocol?.url">
+          <dt>Culture protocol:</dt><dd>
+          <ng-container *ngIf="specimen.cellLine.cultureprotocol.filename">
+            <app-robust-link [link]="specimen.cellLine.cultureProtocol.url" [text]="specimen.cellLine.cultureProtocol.filename"></app-robust-link>
+            <a href={{specimen?.cellLine.cultureProtocol.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+          </ng-container>
+          <ng-container *ngIf="!specimen.cellLine.cultureprotocol.filename">
+            <app-robust-link [link]="specimen.cellLine.cultureProtocol.url" [text]="specimen.cellLine.cultureProtocol.url"></app-robust-link>
+          </ng-container>
+        </dd>
+        </div>
+        <div *ngIf="specimen?.cellLine?.disease?.text">
+          <dt>Disease:</dt><dd>
+          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen.cellLine.disease.ontologyTerms" [text]="specimen.cellLine.disease.text"></app-robust-link>
+        </dd>
+        </div>
+        <div *ngIf="specimen?.cellLine?.karyotype">
+          <dt>Karyotype:</dt><dd>{{specimen.cellLine.karyotype}}</dd>
+        </div>
+      </ng-template>
+      <ng-template ngSwitchDefault>Unrecgonizable specimen type</ng-template>
+    </ng-container>
+
+    <div *ngIf="specimen?.customField?.length > 0;">
+      <ng-container *ngFor="let field of specimen?.customField;">
+        <dt>{{field.name}}:</dt><dd>
+        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="field.ontologyTerms" [text]="field.value"></app-robust-link>  {{field?.unit}}
+      </dd>
+      </ng-container>
+    </div>
+
+  </dl>
+  <app-specimen-files [biosampleId]="biosampleId" *ngIf="biosampleId"></app-specimen-files>
+  <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
+</div>
+
+

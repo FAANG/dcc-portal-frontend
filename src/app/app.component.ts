@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'body',
-    templateUrl: './app.component.html',
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent{};
+export class AppComponent {
+  title = 'faang-portal-frontend-angular6-second';
+}
