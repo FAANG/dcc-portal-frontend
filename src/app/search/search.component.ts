@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchService} from '../services/search.service';
+import {Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -14,8 +15,9 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('FAANG Search');
   }
 
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService, private titleService: Title) { }
 
 }
