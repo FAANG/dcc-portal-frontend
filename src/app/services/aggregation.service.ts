@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {FileTable} from '../shared/interfaces';
+import {Subject} from 'rxjs';
+
+import {male_values} from '../shared/sexvalues';
 
 @Injectable({
   providedIn: 'root'
@@ -71,8 +72,10 @@ export class AggregationService {
         let all_data;
 
         for (const item of fileList) {
+          let sex_value: string;
+          male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : sex_value = 'female';
           standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
-          sex.hasOwnProperty(item['sex']) ? sex[item['sex']] += 1 : sex[item['sex']] = 1;
+          sex.hasOwnProperty(sex_value) ? sex[sex_value] += 1 : sex[sex_value] = 1;
           organism.hasOwnProperty(item['organism']) ? organism[item['organism']] += 1 : organism[item['organism']] = 1;
           breed.hasOwnProperty(item['breed']) ? breed[item['breed']] += 1 : breed[item['breed']] = 1;
         }
@@ -102,8 +105,10 @@ export class AggregationService {
       let all_data;
 
       for (const item of fileList) {
+        let sex_value: string;
+        male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : sex_value = 'female';
         standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
-        sex.hasOwnProperty(item['sex']) ? sex[item['sex']] += 1 : sex[item['sex']] = 1;
+        sex.hasOwnProperty(sex_value) ? sex[sex_value] += 1 : sex[sex_value] = 1;
         organism.hasOwnProperty(item['organism']) ? organism[item['organism']] += 1 : organism[item['organism']] = 1;
         material.hasOwnProperty(item['material']) ? material[item['material']] += 1 : material[item['material']] = 1;
         organismpart_celltype.hasOwnProperty(item['organismpart_celltype']) ? organismpart_celltype[item['organismpart_celltype']] += 1 :
