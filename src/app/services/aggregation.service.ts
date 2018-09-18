@@ -163,7 +163,6 @@ export class AggregationService {
           return b[1] - a[1];
         }),
       };
-      console.log(all_data);
       this.data.next(all_data);
     }
   }

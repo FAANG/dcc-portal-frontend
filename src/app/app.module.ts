@@ -34,6 +34,8 @@ import { SearchTemplateComponent } from './search/search-template/search-templat
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
 import { DatasetRelatedTemplateComponent } from './dataset/dataset-related-template/dataset-related-template.component';
 import {SearchService} from './services/search.service';
+import {CookieLawModule} from 'angular2-cookie-law';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import {SearchService} from './services/search.service';
     HttpClientModule,
     NgxPaginationModule,
     Angular2CsvModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
+    CookieLawModule
   ],
   providers: [ApiFileService, AggregationService, ExportService, SearchService],
   bootstrap: [AppComponent]
