@@ -16,11 +16,27 @@ export class FilterPipe implements PipeTransform {
       return [];
     }
     if (typeof  filter_field === 'undefined') {
-      this.exportService.data.next(value);
+      if (type === 'dataset') {
+        const results_for_download = [];
+        for (const item of value) {
+          const item_for_download = JSON.parse(JSON.stringify(item));
+          const species = [];
+          for (const data of item['species']['_source']['species']) {
+            species.push(data['text']);
+          }
+          item_for_download['species'] = species.join(',');
+          results_for_download.push(item_for_download);
+        }
+        this.exportService.data.next(results_for_download);
+      } else {
+        this.exportService.data.next(value);
+      }
       return value;
     } else {
       const results = [];
+      const results_for_download = [];
       for (const item of value) {
+        const item_for_download = JSON.parse(JSON.stringify(item));
         let will_be_in = true;
         for (const key of Object.keys(filter_field)) {
           for (const data_field of filter_field[key]) {
@@ -36,7 +52,7 @@ export class FilterPipe implements PipeTransform {
               if (!found) {
                 will_be_in = false;
               }
-              // console.log(species.join(','));
+              item_for_download['species'] = species.join(',');
             } else if (type === 'dataset' && key === 'archive') {
               let found = false;
               for (const data of item['archive']) {
@@ -62,10 +78,11 @@ export class FilterPipe implements PipeTransform {
         }
         if (will_be_in) {
           results.push(item);
+          results_for_download.push(item_for_download);
         }
       }
       this.aggregationService.getAggregations(results, type);
-      this.exportService.data.next(results);
+      this.exportService.data.next(results_for_download);
       return results;
     }
   }
