@@ -48,7 +48,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let file of files | filter: filter_field: 'file' | sort: sort_field | paginate: { itemsPerPage: 25, currentPage: p }">
+          <tr *ngFor="let file of files | sort: sort_field | filter: filter_field: 'file' | paginate: { itemsPerPage: 25, currentPage: p }">
             <td><a style="cursor: pointer" [routerLink]="file['fileName']">{{file['fileName']}}</a></td>
             <td>{{file['study']}}</td>
             <td>{{file['experiment']}}</td>
