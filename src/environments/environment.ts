@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'http://data.faang.org/api/'
+  host: 'http://test.faang.org/api/'
 };
 
 /*

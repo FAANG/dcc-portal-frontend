@@ -25,10 +25,10 @@
   ],
   "dataGroups": [
     {
-      "name": "data.faang.org",
-      "urls": ["http://data.faang.org/api/**"],
+      "name": "file",
+      "urls": ["http://data.faang.org/api/*"],
       "cacheConfig": {
-        "maxSize": 3,
+        "maxSize": 10,
         "maxAge": "7d",
         "strategy": "performance"
       }
