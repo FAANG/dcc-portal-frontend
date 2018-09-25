@@ -29,7 +29,7 @@
       "urls": ["http://data.faang.org/api/*"],
       "cacheConfig": {
         "maxSize": 10,
-        "maxAge": "7d",
+        "maxAge": "1d",
         "strategy": "performance"
       }
     }
