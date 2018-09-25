@@ -37,29 +37,58 @@
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
           Export as Tabular file
         </app-export>
-      <table class="table table-striped table-hover table-responsive">
-        <thead>
-        <tr>
-          <th *ngFor="let column of columnNames">
-            {{ column }}
-            <span [ngClass]="column === selectedColumn ? spanClass : defaultClass" style="cursor: pointer" (click)="onTableClick($event)" [id]="column" *ngIf="column !== 'Standard'"></span>
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let file of fileList | sort: sort_field | filter: filter_field: 'file' | paginate: { itemsPerPage: 25, currentPage: p }">
-          <td><a style="cursor: pointer" [routerLink]="file['fileName']">{{file['fileName']}}</a></td>
-          <td>{{file['study']}}</td>
-          <td>{{file['experiment']}}</td>
-          <td>{{file['species']}}</td>
-          <td>{{file['assayType']}}</td>
-          <td>{{file['specimen']}}</td>
-          <td>{{file['instrument']}}</td>
-          <td>{{file['standard']}}</td>
-        </tr>
-        </tbody>
-      </table>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <div *ngIf="(fileListLong | async) as files; else loading">
+        <table class="table table-striped table-hover table-responsive">
+          <thead>
+          <tr>
+            <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
+              {{ column }}
+              <span [ngClass]="column === selectedColumn ? spanClass : defaultClass" *ngIf="column !== 'Standard'" [id]="column"></span>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let file of files | filter: filter_field: 'file' | sort: sort_field | paginate: { itemsPerPage: 25, currentPage: p }">
+            <td><a style="cursor: pointer" [routerLink]="file['fileName']">{{file['fileName']}}</a></td>
+            <td>{{file['study']}}</td>
+            <td>{{file['experiment']}}</td>
+            <td>{{file['species']}}</td>
+            <td>{{file['assayType']}}</td>
+            <td>{{file['specimen']}}</td>
+            <td>{{file['instrument']}}</td>
+            <td>{{file['standard']}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <ng-template #loading>
+        <table class="table table-striped table-hover table-responsive">
+          <thead>
+          <tr>
+            <th *ngFor="let column of columnNames">
+              {{ column }}
+              <span [ngClass]="defaultClass" *ngIf="column !== 'Standard'"></span>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let file of fileListShort">
+            <td><a style="cursor: pointer" [routerLink]="file['fileName']">{{file['fileName']}}</a></td>
+            <td>{{file['study']}}</td>
+            <td>{{file['experiment']}}</td>
+            <td>{{file['species']}}</td>
+            <td>{{file['assayType']}}</td>
+            <td>{{file['specimen']}}</td>
+            <td>{{file['instrument']}}</td>
+            <td>{{file['standard']}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div>
+          Loading...
+        </div>
+      </ng-template>
       <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
     </div>
   </div>

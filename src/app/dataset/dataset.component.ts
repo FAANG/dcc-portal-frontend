@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DatasetTable, SortParams} from '../shared/interfaces';
-import {Subject, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ApiFileService} from '../services/api-file.service';
 import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-dataset',
@@ -13,12 +14,14 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./dataset.component.css']
 })
 export class DatasetComponent implements OnInit, OnDestroy {
-  datasetList: Subject<DatasetTable[]>;
+  datasetListShort: Observable<DatasetTable[]>;
+  datasetListLong: Observable<DatasetTable[]>;
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive', 'Number of Experiments', 'Number of Specimens',
     'Number of Files', 'Standard'];
   filter_field: {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
+  datasetListLongSubscription: Subscription;
   downloadData = false;
 
   optionsCsv;
@@ -31,7 +34,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
   private query = {
     'sort': [{'accession': 'asc'}],
     'from': 0,
-    'size': 20,
     '_source': [
       'accession',
       'title',
@@ -41,26 +43,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'file.name',
       'specimen.biosampleId',
       'standardMet'],
-    'aggs': {
-      'all_dataset': {
-        'global': {},
-        'aggs': {
-          'species': {
-            'terms': {
-              'field': 'species.text',
-              'size': 50}},
-          'instrument': {
-            'terms': {
-              'field': 'instrument',
-              'size': 50}},
-          'archive': {
-            'terms': {
-              'field': 'archive',
-              'size': 50}},
-          'standard': {
-            'terms': {
-              'field': 'standardMet',
-              'size': 50}}}}}};
+  };
   error: string;
 
   constructor(private apiFileService: ApiFileService,
@@ -76,19 +59,22 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
-    this.apiFileService.getAllDatasets(this.query).subscribe(
+    this.apiFileService.getAllDatasets(this.query, 25).subscribe(
       data => {
-        this.datasetList = data;
-        if (this.datasetList) {
+        this.datasetListShort = data;
+        if (this.datasetListShort) {
           this.spinner.hide();
         }
-        this.aggregationService.getAggregations(this.datasetList, 'dataset');
       },
       error => {
         this.error = error;
         this.spinner.hide();
       }
     );
+    this.datasetListLong = this.apiFileService.getAllDatasets(this.query, -1);
+    this.datasetListLongSubscription = this.datasetListLong.subscribe((data) => {
+      this.aggregationService.getAggregations(data, 'dataset');
+    });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       this.filter_field = data;
     });
@@ -143,5 +129,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
+    this.datasetListLongSubscription.unsubscribe();
   }
 }

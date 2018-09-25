@@ -26,14 +26,17 @@ export class FilterPipe implements PipeTransform {
           for (const data_field of filter_field[key]) {
             if (type === 'dataset' && key === 'species') {
               let found = false;
+              const species = [];
               for (const data of item['species']['_source']['species']) {
                 if (data['text'] === data_field) {
                   found = true;
                 }
+                species.push(data['text']);
               }
               if (!found) {
                 will_be_in = false;
               }
+              // console.log(species.join(','));
             } else if (type === 'dataset' && key === 'archive') {
               let found = false;
               for (const data of item['archive']) {

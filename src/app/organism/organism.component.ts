@@ -13,7 +13,8 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./organism.component.css']
 })
 export class OrganismComponent implements OnInit, OnDestroy {
-  organismList: Observable<OrganismTable[]>;
+  organismListShort: Observable<OrganismTable[]>;
+  organismListLong: Observable<OrganismTable[]>;
 
   columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard'];
   spanClass = 'glyphicon glyphicon-arrow-down';
@@ -23,6 +24,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   filter_field: {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
+  organismListLongSubscription: Subscription;
   downloadData = false;
 
   optionsCsv;
@@ -35,35 +37,15 @@ export class OrganismComponent implements OnInit, OnDestroy {
   error: string;
 
   private query = {
-    'sort': [{'id_number': 'desc'}],
+    'sort': [{'biosampleId': 'asc'}],
     'from': 0,
-    'size': 1000000,
     '_source': [
       'biosampleId',
       'sex.text',
       'organism.text',
       'breed.text',
       'standardMet'],
-    'aggs': {
-      'all_organism': {
-        'global': {},
-        'aggs': {
-          'sex': {
-            'terms': {
-              'field': 'sex.text',
-              'size': 50}},
-          'organism': {
-            'terms': {
-              'field': 'organism.organism.text',
-              'size': 50}},
-          'breed': {
-            'terms': {
-              'field': 'breed.text',
-              'size': 50}},
-          'standard': {
-            'terms': {
-              'field': 'standardMet',
-              'size': 50}}}}}};
+  };
 
   constructor(private apiFileService: ApiFileService,
               private aggregationService: AggregationService,
@@ -79,19 +61,22 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
     this.sort_field = {id: 'bioSampleId', direction: 'asc'};
-    this.apiFileService.getAllOrganisms(this.query).subscribe(
+    this.apiFileService.getAllOrganisms(this.query, 25).subscribe(
       (data) => {
-        this.organismList = data;
-        if (this.organismList) {
+        this.organismListShort = data;
+        if (this.organismListShort) {
           this.spinner.hide();
         }
-        this.aggregationService.getAggregations(this.organismList, 'organism');
       },
       error => {
         this.error = error;
         this.spinner.hide();
       }
     );
+    this.organismListLong = this.apiFileService.getAllOrganisms(this.query, -1);
+    this.organismListLongSubscription = this.organismListLong.subscribe((data) => {
+      this.aggregationService.getAggregations(data, 'organism');
+    });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       this.filter_field = data;
     });
@@ -101,7 +86,12 @@ export class OrganismComponent implements OnInit, OnDestroy {
   }
 
   onTableClick(event: any) {
-    const event_class = event['srcElement']['className'];
+    let event_class;
+    if (event['srcElement']['firstElementChild']) {
+      event_class = event['srcElement']['firstElementChild']['classList']['value'];
+    } else {
+      event_class = event['srcElement']['className'];
+    }
     this.selectedColumn = event['srcElement']['id'];
     this.selectColumn();
     this.chooseClass(event_class);
@@ -126,7 +116,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
       } else {
         this.spanClass = 'glyphicon glyphicon-sort';
         this.sort_field['direction'] = 'asc';
-        this.sort_field['id'] = '_id';
+        this.sort_field['id'] = 'bioSampleId';
         this.selectedColumn = 'BioSample ID';
         this.spanClass = 'glyphicon glyphicon-arrow-down';
       }
@@ -187,5 +177,6 @@ export class OrganismComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
+    this.organismListLongSubscription.unsubscribe();
   }
 }

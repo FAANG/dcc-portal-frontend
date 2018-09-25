@@ -34,28 +34,56 @@
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
           Export as Tabular file
         </app-export>
-      <table class="table table-striped table-hover table-responsive">
-        <thead>
-        <tr>
-          <th *ngFor="let column of columnNames">
-            {{ column }}
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let dataset of datasetList | filter: filter_field: 'dataset' | paginate: { itemsPerPage: 25, currentPage: p }">
-          <td><a style="cursor: pointer" [routerLink]="[dataset['datasetAccession']]">{{dataset['datasetAccession']}}</a></td>
-          <td>{{dataset['title']}}</td>
-          <td>{{getSpeciesStr(dataset['species'])}}</td>
-          <td>{{convertArrayToStr(dataset['archive'])}}</td>
-          <td>{{dataset['numberOfExperiments']}}</td>
-          <td>{{dataset['numberOfSpecimens']}}</td>
-          <td>{{dataset['numberOfFiles']}}</td>
-          <td>{{dataset['standard']}}</td>
-        </tr>
-        </tbody>
-      </table>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <div *ngIf="(datasetListLong | async) as datasets; else loading">
+        <table class="table table-striped table-hover table-responsive">
+          <thead>
+          <tr>
+            <th *ngFor="let column of columnNames">
+              {{ column }}
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let dataset of datasets | filter: filter_field: 'dataset' | paginate: { itemsPerPage: 25, currentPage: p }">
+            <td><a style="cursor: pointer" [routerLink]="[dataset['datasetAccession']]">{{dataset['datasetAccession']}}</a></td>
+            <td>{{dataset['title']}}</td>
+            <td>{{getSpeciesStr(dataset['species'])}}</td>
+            <td>{{convertArrayToStr(dataset['archive'])}}</td>
+            <td>{{dataset['numberOfExperiments']}}</td>
+            <td>{{dataset['numberOfSpecimens']}}</td>
+            <td>{{dataset['numberOfFiles']}}</td>
+            <td>{{dataset['standard']}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <ng-template #loading>
+        <table class="table table-striped table-hover table-responsive">
+          <thead>
+          <tr>
+            <th *ngFor="let column of columnNames">
+              {{ column }}
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let dataset of datasetListShort">
+            <td><a style="cursor: pointer" [routerLink]="[dataset['datasetAccession']]">{{dataset['datasetAccession']}}</a></td>
+            <td>{{dataset['title']}}</td>
+            <td>{{getSpeciesStr(dataset['species'])}}</td>
+            <td>{{convertArrayToStr(dataset['archive'])}}</td>
+            <td>{{dataset['numberOfExperiments']}}</td>
+            <td>{{dataset['numberOfSpecimens']}}</td>
+            <td>{{dataset['numberOfFiles']}}</td>
+            <td>{{dataset['standard']}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div>
+          Loading...
+        </div>
+      </ng-template>
       <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
     </div>
   </div>

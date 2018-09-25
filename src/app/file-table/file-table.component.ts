@@ -14,7 +14,8 @@ import {FileTable} from '../shared/interfaces';
   styleUrls: ['./file-table.component.css']
 })
 export class FileTableComponent implements OnInit, OnDestroy {
-  fileList: Observable<FileTable[]>;
+  fileListShort: Observable<FileTable[]>;
+  fileListLong: Observable<FileTable[]>;
   columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Specimen', 'Instrument', 'Standard'];
   spanClass = 'glyphicon glyphicon-arrow-down';
   defaultClass = 'glyphicon glyphicon-sort';
@@ -23,6 +24,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
   filter_field: {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
+  fileListLongSubscription: Subscription;
   downloadData = false;
 
   optionsCsv;
@@ -36,7 +38,6 @@ export class FileTableComponent implements OnInit, OnDestroy {
   private query = {
     'sort': [{'name': 'asc'}],
     'from': 0,
-    'size': 1000000,
     '_source': [
       'study.accession',
       'experiment.accession',
@@ -45,30 +46,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
       'specimen',
       'run.instrument',
       'experiment.standardMet'],
-    'aggs': {
-      'all_file': {
-        'global': {},
-        'aggs': {
-          'standard': {
-            'terms': {
-              'field': 'file.experiment.standardMet',
-              'size': 50}},
-          'study': {
-            'terms': {
-              'field': 'study.accession',
-              'size': 1000}},
-          'species': {
-            'terms': {
-              'field': 'species.text',
-              'size': 50}},
-          'assay': {
-            'terms': {
-              'field': 'file.experiment.assayType',
-              'size': 50}},
-          'instrument': {
-            'terms': {
-              'field': 'run.instrument',
-              'size': 50}}}}}};
+  };
   error: string;
 
   constructor(private apiFileService: ApiFileService,
@@ -85,19 +63,22 @@ export class FileTableComponent implements OnInit, OnDestroy {
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
     this.sort_field = {id: 'fileName', direction: 'asc'};
-    this.apiFileService.getAllFiles(this.query).subscribe(
-      (data) => {
-        this.fileList = data;
-        if (this.fileList) {
+    this.apiFileService.getAllFiles(this.query, 25).subscribe(
+      data => {
+        this.fileListShort = data;
+        if (this.fileListShort) {
           this.spinner.hide();
         }
-        this.aggregationService.getAggregations(this.fileList, 'file');
       },
       error => {
         this.error = error;
         this.spinner.hide();
       }
     );
+    this.fileListLong = this.apiFileService.getAllFiles(this.query, -1);
+    this.fileListLongSubscription = this.fileListLong.subscribe((data) => {
+      this.aggregationService.getAggregations(data, 'file');
+    });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       this.filter_field = data;
     });
@@ -107,7 +88,12 @@ export class FileTableComponent implements OnInit, OnDestroy {
   }
 
   onTableClick(event: any) {
-    const event_class = event['srcElement']['className'];
+    let event_class;
+    if (event['srcElement']['firstElementChild']) {
+      event_class = event['srcElement']['firstElementChild']['classList']['value'];
+    } else {
+      event_class = event['srcElement']['className'];
+    }
     this.selectedColumn = event['srcElement']['id'];
     this.selectColumn();
     this.chooseClass(event_class);
@@ -132,7 +118,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
       } else {
         this.spanClass = 'glyphicon glyphicon-sort';
         this.sort_field['direction'] = 'asc';
-        this.sort_field['id'] = '_id';
+        this.sort_field['id'] = 'fileName';
         this.selectedColumn = 'File name';
         this.spanClass = 'glyphicon glyphicon-arrow-down';
       }
@@ -199,11 +185,19 @@ export class FileTableComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
   }
 
+  callAggregation() {
+    console.log('here');
+    this.fileListLong.subscribe((data) => {
+      this.aggregationService.getAggregations(data, 'file');
+    });
+  }
+
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
       this.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
+    this.fileListLongSubscription.unsubscribe();
   }
 }

@@ -14,8 +14,8 @@ export class ApiFileService {
 
   constructor(private http: HttpClient) { }
 
-  getAllFiles(query: any) {
-    const url = this.hostSetting.host + 'file/' + '_search';
+  getAllFiles(query: any, size: number) {
+    const url = this.hostSetting.host + 'file/' + '_search' + '?size=' + size;
     return this.http.post(url, query).pipe(
       map((data: any) => {
         return data.hits.hits.map(entry => ({
@@ -62,8 +62,8 @@ export class ApiFileService {
     );
   }
 
-  getAllOrganisms(query: any) {
-    const url = this.hostSetting.host + 'organism/' + '_search';
+  getAllOrganisms(query: any, size: number) {
+    const url = this.hostSetting.host + 'organism/' + '_search' + '?size=' + size;
     return this.http.post(url, query).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
@@ -108,8 +108,8 @@ export class ApiFileService {
     );
   }
 
-  getAllSpecimens(query: any) {
-    const url = this.hostSetting.host + 'specimen/' + '_search';
+  getAllSpecimens(query: any, size: number) {
+    const url = this.hostSetting.host + 'specimen/' + '_search' + '?size=' + size;
     return this.http.post(url, query).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
@@ -157,8 +157,8 @@ export class ApiFileService {
     );
   }
 
-  getAllDatasets(query: any) {
-    const url = this.hostSetting.host + 'dataset/' + '_search';
+  getAllDatasets(query: any, size: number) {
+    const url = this.hostSetting.host + 'dataset/' + '_search' + '?size=' + size;
     return this.http.post(url, query).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
@@ -188,8 +188,8 @@ export class ApiFileService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
+      // A client-side or network errorSubject occurred. Handle it accordingly.
+      console.error('An errorSubject occurred:', error.error.message);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
@@ -197,7 +197,7 @@ export class ApiFileService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
-    // return an observable with a user-facing error message
+    // return an observable with a user-facing errorSubject message
     return throwError(
       'Something bad happened; please try again later.');
   }

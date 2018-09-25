@@ -36,6 +36,8 @@ import { DatasetRelatedTemplateComponent } from './dataset/dataset-related-templ
 import {SearchService} from './services/search.service';
 import {CookieLawModule} from 'angular2-cookie-law';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     Angular2CsvModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    CookieLawModule
+    CookieLawModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ApiFileService, AggregationService, ExportService, SearchService],
   bootstrap: [AppComponent]

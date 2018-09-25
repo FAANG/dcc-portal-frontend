@@ -13,7 +13,8 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./specimen.component.css']
 })
 export class SpecimenComponent implements OnInit, OnDestroy {
-  specimenList: Observable<SpecimenTable[]>;
+  specimenListShort: Observable<SpecimenTable[]>;
+  specimenListLong: Observable<SpecimenTable[]>;
   columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard'];
   spanClass = 'glyphicon glyphicon-arrow-down';
   defaultClass = 'glyphicon glyphicon-sort';
@@ -22,6 +23,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   filter_field: {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
+  specimenListLongSubscription: Subscription;
   downloadData = false;
 
   optionsCsv;
@@ -32,9 +34,8 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   p = 1;
 
   private query = {
-    'sort': [{'id_number': 'desc'}],
+    'sort': [{'biosampleId': 'asc'}],
     'from': 0,
-    'size': 1000000,
     '_source': [
       'biosampleId',
       'material.text',
@@ -43,34 +44,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       'organism.organism.text',
       'organism.breed.text',
       'standardMet'],
-    'aggs': {
-      'all_specimen': {
-        'global': {},
-        'aggs': {
-          'sex': {
-            'terms': {
-              'field': 'specimen.organism.sex.text',
-              'size': 50}},
-          'material': {
-            'terms': {
-              'field': 'specimen.material.text',
-              'size': 50}},
-          'organism': {
-            'terms': {
-              'field': 'specimen.organism.organism.text',
-              'size': 50}},
-          'organismPart': {
-            'terms': {
-              'field': 'specimen.specimenFromOrganism.organismPart.text',
-              'size': 1000}},
-          'breed': {
-            'terms': {
-              'field': 'specimen.organism.breed.text',
-              'size': 1000}},
-          'standard': {
-            'terms': {
-              'field': 'specimen.standardMet',
-              'size': 1000}}}}}};
+  };
   error: string;
 
   constructor(private apiFileService: ApiFileService,
@@ -87,19 +61,22 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
     this.sort_field = {id: 'bioSampleId', direction: 'asc'};
-    this.apiFileService.getAllSpecimens(this.query).subscribe(
+    this.apiFileService.getAllSpecimens(this.query, 30).subscribe(
       data => {
-        this.specimenList = data;
-        if (this.specimenList) {
+        this.specimenListShort = data;
+        if (this.specimenListShort) {
           this.spinner.hide();
         }
-        this.aggregationService.getAggregations(this.specimenList, 'specimen');
       },
       error => {
         this.error = error;
         this.spinner.hide();
       }
     );
+    this.specimenListLong = this.apiFileService.getAllSpecimens(this.query, -1);
+    this.specimenListLongSubscription = this.specimenListLong.subscribe((data) => {
+      this.aggregationService.getAggregations(data, 'specimen');
+    });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       this.filter_field = data;
     });
@@ -109,7 +86,12 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   }
 
   onTableClick(event: any) {
-    const event_class = event['srcElement']['className'];
+    let event_class;
+    if (event['srcElement']['firstElementChild']) {
+      event_class = event['srcElement']['firstElementChild']['classList']['value'];
+    } else {
+      event_class = event['srcElement']['className'];
+    }
     this.selectedColumn = event['srcElement']['id'];
     this.selectColumn();
     this.chooseClass(event_class);
@@ -134,7 +116,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       } else {
         this.spanClass = 'glyphicon glyphicon-sort';
         this.sort_field['direction'] = 'asc';
-        this.sort_field['id'] = '_id';
+        this.sort_field['id'] = 'bioSampleId';
         this.selectedColumn = 'BioSample ID';
         this.spanClass = 'glyphicon glyphicon-arrow-down';
       }
@@ -203,6 +185,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
+    this.specimenListLongSubscription.unsubscribe();
   }
 
 }
