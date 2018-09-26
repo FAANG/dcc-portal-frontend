@@ -15,7 +15,7 @@
           </tr>
           </thead>
           <tbody>
-          <ng-container *ngFor="let file of data | paginate: { itemsPerPage: 10, currentPage: p }">
+          <ng-container *ngFor="let file of data | paginate: { itemsPerPage: 10, currentPage: p, id: entity }">
             <tr>
               <td>
                 <app-robust-link prefix="../file/" [link]="file?.fileId" [text]="file?.name"></app-robust-link>
@@ -34,7 +34,7 @@
             <th>BioSample ID</th><th>Material</th><th>Cell type</th><th>Sex</th><th>Species</th><th>Breed</th>
           </tr></thead>
           <tbody>
-          <ng-container *ngFor="let specimen of data | paginate: { itemsPerPage: 10, currentPage: p }">
+          <ng-container *ngFor="let specimen of data | paginate: { itemsPerPage: 10, currentPage: p, id: entity }">
             <tr>
               <td>
                 <app-robust-link prefix="../specimen/" [link]="specimen?.biosampleId" [text]="specimen?.biosampleId"></app-robust-link>
@@ -50,6 +50,6 @@
         </ng-template>
       </ng-container>
     </table>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <pagination-controls (pageChange)="p = $event" [id]="entity"></pagination-controls>
 </div>
 
