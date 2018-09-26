@@ -149,7 +149,9 @@ export class AggregationService {
           species.hasOwnProperty(spec['text']) ? species[spec['text']] += 1 : species[spec['text']] = 1;
         }
         archive.hasOwnProperty(item['archive']) ? archive[item['archive']] += 1 : archive[item['archive']] = 1;
-        assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;
+        for (const type of item['assayType']) {
+          assay_type.hasOwnProperty(type) ? assay_type[type] += 1 : assay_type[type] = 1;
+        }
       }
 
       all_data = {
