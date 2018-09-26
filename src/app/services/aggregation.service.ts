@@ -140,7 +140,7 @@ export class AggregationService {
     } else if (type === 'dataset') {
       const standard = {};
       const species = {};
-      const instrument = {};
+      const assay_type = {};
       const archive = {};
       let all_data;
       for (const item of fileList) {
@@ -148,10 +148,8 @@ export class AggregationService {
         for (const spec of item['species']['_source']['species']) {
           species.hasOwnProperty(spec['text']) ? species[spec['text']] += 1 : species[spec['text']] = 1;
         }
-        // for (const value of item['instrument']) {
-        //   instrument.hasOwnProperty(value) ? instrument[value] += 1 : instrument[value] = 1;
-        // }
         archive.hasOwnProperty(item['archive']) ? archive[item['archive']] += 1 : archive[item['archive']] = 1;
+        assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;
       }
 
       all_data = {
@@ -161,7 +159,7 @@ export class AggregationService {
         species: Object.entries(species).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
-        instrument: Object.entries(instrument).sort(function (a: any, b: any) {
+        assay_type: Object.entries(assay_type).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
         archive: Object.entries(archive).sort(function (a: any, b: any) {

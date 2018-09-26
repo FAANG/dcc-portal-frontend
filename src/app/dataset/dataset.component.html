@@ -18,7 +18,7 @@
           <app-filter title="Species" [filterSize]=6></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Instrument" [filterSize]=6></app-filter>
+          <app-filter title="Assay type" [filterSize]=6></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
           <app-filter title="Archive" [filterSize]=6></app-filter>
@@ -49,6 +49,7 @@
             <td>{{dataset['title']}}</td>
             <td>{{getSpeciesStr(dataset['species'])}}</td>
             <td>{{convertArrayToStr(dataset['archive'])}}</td>
+            <td>{{convertArrayToStr(dataset['assayType'])}}</td>
             <td>{{dataset['numberOfExperiments']}}</td>
             <td>{{dataset['numberOfSpecimens']}}</td>
             <td>{{dataset['numberOfFiles']}}</td>
@@ -73,6 +74,7 @@
             <td>{{dataset['title']}}</td>
             <td>{{getSpeciesStr(dataset['species'])}}</td>
             <td>{{convertArrayToStr(dataset['archive'])}}</td>
+            <td>{{convertArrayToStr(dataset['assayType'])}}</td>
             <td>{{dataset['numberOfExperiments']}}</td>
             <td>{{dataset['numberOfSpecimens']}}</td>
             <td>{{dataset['numberOfFiles']}}</td>

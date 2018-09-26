@@ -169,6 +169,7 @@ export class ApiFileService {
           numberOfExperiments: entry['_source']['experiment']['length'],
           numberOfSpecimens: entry['_source']['specimen']['length'],
           numberOfFiles: entry['_source']['file']['length'],
+          assayType: entry['_source']['type'],
           standard: entry['_source']['standardMet']
           } as DatasetTable)
         );

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DatasetTable, SortParams} from '../shared/interfaces';
+import {DatasetTable} from '../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {ApiFileService} from '../services/api-file.service';
 import {AggregationService} from '../services/aggregation.service';
@@ -16,8 +16,8 @@ import {Observable} from 'rxjs/internal/Observable';
 export class DatasetComponent implements OnInit, OnDestroy {
   datasetListShort: Observable<DatasetTable[]>;
   datasetListLong: Observable<DatasetTable[]>;
-  columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive', 'Number of Experiments', 'Number of Specimens',
-    'Number of Files', 'Standard'];
+  columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
+    'Number of Specimens', 'Number of Files', 'Standard'];
   filter_field: {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
@@ -32,7 +32,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
   p = 1;
 
   private query = {
-    'sort': [{'accession': 'asc'}],
     'from': 0,
     '_source': [
       'accession',
@@ -42,6 +41,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'experiment.accession',
       'file.name',
       'specimen.biosampleId',
+      'type',
       'standardMet'],
   };
   error: string;

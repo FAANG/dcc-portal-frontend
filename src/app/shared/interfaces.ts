@@ -40,5 +40,6 @@ export interface DatasetTable {
   numberOfExperiments: string;
   numberOfSpecimens: string;
   numberOfFiles: string;
+  assayType: string;
   standard: string;
 }
