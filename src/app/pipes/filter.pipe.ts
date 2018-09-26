@@ -24,7 +24,8 @@ export class FilterPipe implements PipeTransform {
           for (const data of item['species']['_source']['species']) {
             species.push(data['text']);
           }
-          item_for_download['species'] = species.join(',');
+          item_for_download['species'] = species.join(';');
+          item_for_download['assayType'] = item_for_download['assayType'].join(';');
           results_for_download.push(item_for_download);
         }
         this.exportService.data.next(results_for_download);
@@ -37,25 +38,40 @@ export class FilterPipe implements PipeTransform {
       const results_for_download = [];
       for (const item of value) {
         const item_for_download = JSON.parse(JSON.stringify(item));
+        if (type === 'dataset') {
+          const species = [];
+          for (const data of item['species']['_source']['species']) {
+            species.push(data['text']);
+          }
+          item_for_download['species'] = species.join(';');
+          item_for_download['assayType'] = item_for_download['assayType'].join(';');
+        }
         let will_be_in = true;
         for (const key of Object.keys(filter_field)) {
           for (const data_field of filter_field[key]) {
             if (type === 'dataset' && key === 'species') {
               let found = false;
-              const species = [];
               for (const data of item['species']['_source']['species']) {
                 if (data['text'] === data_field) {
                   found = true;
                 }
-                species.push(data['text']);
               }
               if (!found) {
                 will_be_in = false;
               }
-              item_for_download['species'] = species.join(',');
             } else if (type === 'dataset' && key === 'archive') {
               let found = false;
               for (const data of item['archive']) {
+                if (data === data_field) {
+                  found = true;
+                }
+              }
+              if (!found) {
+                will_be_in = false;
+              }
+            } else if (type === 'dataset' && key === 'assayType') {
+              let found = false;
+              for (const data of item['assayType']) {
                 if (data === data_field) {
                   found = true;
                 }
@@ -81,6 +97,7 @@ export class FilterPipe implements PipeTransform {
           results_for_download.push(item_for_download);
         }
       }
+      console.log(results_for_download);
       this.aggregationService.getAggregations(results, type);
       this.exportService.data.next(results_for_download);
       return results;

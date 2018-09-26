@@ -37,9 +37,9 @@ export interface DatasetTable {
   title: string;
   species: string;
   archive: string;
+  assayType: string;
   numberOfExperiments: string;
   numberOfSpecimens: string;
   numberOfFiles: string;
-  assayType: string;
   standard: string;
 }
