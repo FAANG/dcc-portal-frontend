@@ -30,14 +30,14 @@
     </div>
 
     <div class="fails-table col-md-10">
-      <button class="btn btn-success" (click)="onDownloadData()">Dowload data</button>
+      <div *ngIf="(fileListLong | async) as files; else loading">
+        <button class="btn btn-success" (click)="onDownloadData()">Dowload data</button>
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
           Export as CSV file
         </app-export>
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
           Export as Tabular file
         </app-export>
-      <div *ngIf="(fileListLong | async) as files; else loading">
         <table class="table table-striped table-hover table-responsive">
           <thead>
           <tr>
@@ -68,7 +68,6 @@
           <tr>
             <th *ngFor="let column of columnNames">
               {{ column }}
-              <span [ngClass]="defaultClass" *ngIf="column !== 'Standard'"></span>
             </th>
           </tr>
           </thead>
