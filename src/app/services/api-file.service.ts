@@ -166,7 +166,7 @@ export class ApiFileService {
           title: entry['_source']['title'],
           species: entry,
           archive: entry['_source']['archive'],
-          assayType: entry['_source']['type'],
+          assayType: entry['_source']['assayType'],
           numberOfExperiments: entry['_source']['experiment']['length'],
           numberOfSpecimens: entry['_source']['specimen']['length'],
           numberOfFiles: entry['_source']['file']['length'],

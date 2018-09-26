@@ -41,7 +41,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'experiment.accession',
       'file.name',
       'specimen.biosampleId',
-      'type',
+      'assayType',
       'standardMet'],
   };
   error: string;
