@@ -20,6 +20,7 @@ export interface OrganismTable {
   organism: string;
   breed: string;
   standard: string;
+  idNumber: number;
 }
 
 export interface SpecimenTable {
@@ -30,6 +31,7 @@ export interface SpecimenTable {
   organism: string;
   breed: string;
   standard: string;
+  idNumber: number;
 }
 
 export interface DatasetTable {

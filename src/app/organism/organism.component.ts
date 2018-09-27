@@ -37,14 +37,15 @@ export class OrganismComponent implements OnInit, OnDestroy {
   error: string;
 
   private query = {
-    'sort': [{'biosampleId': 'asc'}],
+    'sort': [{'id_number': 'desc'}],
     'from': 0,
     '_source': [
       'biosampleId',
       'sex.text',
       'organism.text',
       'breed.text',
-      'standardMet'],
+      'standardMet',
+      'id_number'],
   };
 
   constructor(private apiFileService: ApiFileService,
@@ -60,7 +61,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'bioSampleId', direction: 'asc'};
+    this.sort_field = {id: 'idNumber', direction: 'desc'};
     this.apiFileService.getAllOrganisms(this.query, 25).subscribe(
       (data) => {
         this.organismListShort = data;
@@ -101,22 +102,22 @@ export class OrganismComponent implements OnInit, OnDestroy {
     if (this.selectedColumn === 'BioSample ID') {
       if (event_class === 'glyphicon glyphicon-arrow-down') {
         this.spanClass = 'glyphicon glyphicon-arrow-up';
-        this.sort_field['direction'] = 'desc';
+        this.sort_field['direction'] = 'asc';
       } else {
         this.spanClass = 'glyphicon glyphicon-arrow-down';
-        this.sort_field['direction'] = 'asc';
+        this.sort_field['direction'] = 'desc';
       }
     } else {
       if (event_class === this.defaultClass) {
         this.spanClass = 'glyphicon glyphicon-arrow-down';
-        this.sort_field['direction'] = 'asc';
+        this.sort_field['direction'] = 'desc';
       } else if (event_class === 'glyphicon glyphicon-arrow-down') {
         this.spanClass = 'glyphicon glyphicon-arrow-up';
-        this.sort_field['direction'] = 'desc';
+        this.sort_field['direction'] = 'asc';
       } else {
         this.spanClass = 'glyphicon glyphicon-sort';
-        this.sort_field['direction'] = 'asc';
-        this.sort_field['id'] = 'bioSampleId';
+        this.sort_field['direction'] = 'desc';
+        this.sort_field['id'] = 'idNumber';
         this.selectedColumn = 'BioSample ID';
         this.spanClass = 'glyphicon glyphicon-arrow-down';
       }
@@ -126,7 +127,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   selectColumn() {
     switch (this.selectedColumn) {
       case 'BioSample ID': {
-        this.sort_field['id'] = 'bioSampleId';
+        this.sort_field['id'] = 'idNumber';
         break;
       }
       case 'Sex': {

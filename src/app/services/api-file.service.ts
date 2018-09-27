@@ -71,7 +71,8 @@ export class ApiFileService {
           sex: entry['_source']['sex']['text'],
           organism: entry['_source']['organism']['text'],
           breed: entry['_source']['breed']['text'],
-          standard: entry['_source']['standardMet']
+          standard: entry['_source']['standardMet'],
+          idNumber: +entry['_source']['id_number'],
         } as OrganismTable)
         );
       }),
@@ -119,7 +120,8 @@ export class ApiFileService {
           sex: this.checkField(entry['_source']['organism']['sex']),
           organism: this.checkField(entry['_source']['organism']['sex']),
           breed: this.checkField(entry['_source']['organism']['breed']),
-          standard: entry['_source']['standardMet']
+          standard: entry['_source']['standardMet'],
+          idNumber: +entry['_source']['id_number'],
           } as SpecimenTable)
         );
       }),

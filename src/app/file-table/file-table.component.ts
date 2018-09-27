@@ -36,7 +36,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
   p = 1;
 
   private query = {
-    'sort': [{'name': 'asc'}],
+    'sort': [{'name': 'desc'}],
     'from': 0,
     '_source': [
       'study.accession',
@@ -62,7 +62,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'fileName', direction: 'asc'};
+    this.sort_field = {id: 'fileName', direction: 'desc'};
     this.apiFileService.getAllFiles(this.query, 25).subscribe(
       data => {
         this.fileListShort = data;
@@ -103,21 +103,21 @@ export class FileTableComponent implements OnInit, OnDestroy {
     if (this.selectedColumn === 'File name') {
       if (event_class === 'glyphicon glyphicon-arrow-down') {
         this.spanClass = 'glyphicon glyphicon-arrow-up';
-        this.sort_field['direction'] = 'desc';
+        this.sort_field['direction'] = 'asc';
       } else {
         this.spanClass = 'glyphicon glyphicon-arrow-down';
-        this.sort_field['direction'] = 'asc';
+        this.sort_field['direction'] = 'desc';
       }
     } else {
       if (event_class === this.defaultClass) {
         this.spanClass = 'glyphicon glyphicon-arrow-down';
-        this.sort_field['direction'] = 'asc';
+        this.sort_field['direction'] = 'desc';
       } else if (event_class === 'glyphicon glyphicon-arrow-down') {
         this.spanClass = 'glyphicon glyphicon-arrow-up';
-        this.sort_field['direction'] = 'desc';
+        this.sort_field['direction'] = 'asc';
       } else {
         this.spanClass = 'glyphicon glyphicon-sort';
-        this.sort_field['direction'] = 'asc';
+        this.sort_field['direction'] = 'desc';
         this.sort_field['id'] = 'fileName';
         this.selectedColumn = 'File name';
         this.spanClass = 'glyphicon glyphicon-arrow-down';

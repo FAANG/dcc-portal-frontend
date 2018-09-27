@@ -29,6 +29,14 @@ export class FilterPipe implements PipeTransform {
           results_for_download.push(item_for_download);
         }
         this.exportService.data.next(results_for_download);
+      } else if (type === 'organism' || type === 'specimen') {
+        const results_for_download = [];
+        for (const item of value) {
+          const item_for_download = JSON.parse(JSON.stringify(item));
+          delete item_for_download['idNumber'];
+          results_for_download.push(item_for_download);
+        }
+        this.exportService.data.next(results_for_download);
       } else {
         this.exportService.data.next(value);
       }
