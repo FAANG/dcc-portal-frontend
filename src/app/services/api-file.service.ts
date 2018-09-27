@@ -114,11 +114,11 @@ export class ApiFileService {
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
-          material: entry['_source']['material']['text'],
-          organismpart_celltype: entry['_source']['cellType']['text'],
-          sex: entry['_source']['organism']['sex']['text'],
-          organism: entry['_source']['organism']['organism']['text'],
-          breed: entry['_source']['organism']['breed']['text'],
+          material: this.checkField(entry['_source']['material']),
+          organismpart_celltype: this.checkField(entry['_source']['cellType']),
+          sex: this.checkField(entry['_source']['organism']['sex']),
+          organism: this.checkField(entry['_source']['organism']['sex']),
+          breed: this.checkField(entry['_source']['organism']['breed']),
           standard: entry['_source']['standardMet']
           } as SpecimenTable)
         );
@@ -126,6 +126,15 @@ export class ApiFileService {
       retry(3),
       catchError(this.handleError),
     );
+  }
+
+  // Todo preserve JSON structure on backend part
+  private checkField(field: any) {
+    if (typeof field !== 'undefined') {
+      return field['text'];
+    } else {
+      return '';
+    }
   }
 
   getSpecimen(biosampleId: string) {
@@ -197,6 +206,7 @@ export class ApiFileService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
+      console.error(error);
     }
     // return an observable with a user-facing errorSubject message
     return throwError(
