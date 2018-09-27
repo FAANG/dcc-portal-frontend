@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
-import {male_values} from '../shared/sexvalues';
+import {female_values, male_values} from '../shared/sexvalues';
 
 @Pipe({
   name: 'filter',
@@ -89,7 +89,8 @@ export class FilterPipe implements PipeTransform {
               }
             } else if (key === 'sex') {
               let comparison_value: string;
-              male_values.indexOf(item[key]) > -1 ? comparison_value = 'male' : comparison_value = 'female';
+              male_values.indexOf(item[key]) > -1 ? comparison_value = 'male' : (female_values.indexOf(item[key]) > -1 ?
+                comparison_value = 'female' : comparison_value = 'not determined');
               if (comparison_value !== data_field) {
                 will_be_in = false;
               }

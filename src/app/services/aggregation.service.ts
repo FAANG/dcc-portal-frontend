@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
 
-import {male_values} from '../shared/sexvalues';
+import {female_values, male_values} from '../shared/sexvalues';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +73,8 @@ export class AggregationService {
 
         for (const item of fileList) {
           let sex_value: string;
-          male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : sex_value = 'female';
+          male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
+            sex_value = 'not determined');
           standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
           sex.hasOwnProperty(sex_value) ? sex[sex_value] += 1 : sex[sex_value] = 1;
           organism.hasOwnProperty(item['organism']) ? organism[item['organism']] += 1 : organism[item['organism']] = 1;
@@ -106,7 +107,8 @@ export class AggregationService {
 
       for (const item of fileList) {
         let sex_value: string;
-        male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : sex_value = 'female';
+        male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
+          sex_value = 'not determined');
         standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
         sex.hasOwnProperty(sex_value) ? sex[sex_value] += 1 : sex[sex_value] = 1;
         organism.hasOwnProperty(item['organism']) ? organism[item['organism']] += 1 : organism[item['organism']] = 1;

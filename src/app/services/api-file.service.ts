@@ -118,7 +118,7 @@ export class ApiFileService {
           material: this.checkField(entry['_source']['material']),
           organismpart_celltype: this.checkField(entry['_source']['cellType']),
           sex: this.checkField(entry['_source']['organism']['sex']),
-          organism: this.checkField(entry['_source']['organism']['sex']),
+          organism: this.checkField(entry['_source']['organism']['organism']),
           breed: this.checkField(entry['_source']['organism']['breed']),
           standard: entry['_source']['standardMet'],
           idNumber: +entry['_source']['id_number'],
