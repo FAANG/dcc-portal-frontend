@@ -54,6 +54,9 @@ export class FilterPipe implements PipeTransform {
           item_for_download['species'] = species.join(';');
           item_for_download['assayType'] = item_for_download['assayType'].join(';');
         }
+        if (type === 'specimen' || type === 'organism') {
+          delete item_for_download['idNumber'];
+        }
         let will_be_in = true;
         for (const key of Object.keys(filter_field)) {
           for (const data_field of filter_field[key]) {
