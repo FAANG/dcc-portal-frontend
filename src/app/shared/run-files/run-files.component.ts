@@ -9,11 +9,23 @@ import {ApiFileService} from '../../services/api-file.service';
 export class RunFilesComponent implements OnInit {
   @Input() runId: string;
   fileList: any;
+  private query = {
+    'query': {
+      'filtered': {
+        'filter': {
+          'term': {'run.accession' : this.runId}
+        }
+      }
+    },
+    'sort': [
+      {'name': 'asc'}
+    ]
+  };
 
   constructor(private apiFileService: ApiFileService) { }
 
   ngOnInit() {
-    this.apiFileService.getFilesByRun(this.runId).subscribe((data) => {
+    this.apiFileService.getFilesByRun(this.query).subscribe((data) => {
       this.fileList = data;
     });
   }
