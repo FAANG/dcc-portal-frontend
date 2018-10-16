@@ -109,7 +109,6 @@ export class FilterPipe implements PipeTransform {
           results_for_download.push(item_for_download);
         }
       }
-      console.log(results_for_download);
       this.aggregationService.getAggregations(results, type);
       this.exportService.data.next(results_for_download);
       return results;
