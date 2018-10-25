@@ -75,7 +75,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       }
     );
-    this.fileListLong = this.apiFileService.getAllFiles(this.query, -1);
+    this.fileListLong = this.apiFileService.getAllFiles(this.query, 1000000);
     this.fileListLongSubscription = this.fileListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'file');
     });

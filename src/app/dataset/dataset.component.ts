@@ -71,7 +71,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       }
     );
-    this.datasetListLong = this.apiFileService.getAllDatasets(this.query, -1);
+    this.datasetListLong = this.apiFileService.getAllDatasets(this.query, 1000000);
     this.datasetListLongSubscription = this.datasetListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'dataset');
     });
