@@ -11,6 +11,7 @@ import {FileDetailComponent} from './file-table/file-detail/file-detail.componen
 import {OrganismDetailComponent} from './organism/organism-detail/organism-detail.component';
 import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detail.component';
 import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
+import {ApiComponent} from './help/api/api.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: 'file', component: FileTableComponent},
   {path: 'file/:id', component: FileDetailComponent},
   {path: 'search', component: SearchComponent},
-  {path: 'help', component: HelpComponent}
+  {path: 'help', component: HelpComponent},
+  {path: 'help/api', component: ApiComponent}
 ];
 
 @NgModule({

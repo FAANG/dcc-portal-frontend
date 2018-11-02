@@ -107,7 +107,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   getSpeciesStr(dataset: any): string {
     const species: any[] = dataset['_source']['species'];
-    let value: string = '';
+    let value = '';
     for (let i = species.length - 1; i >= 0; i--) {
       value += species[i]['text'] + ',';
     }

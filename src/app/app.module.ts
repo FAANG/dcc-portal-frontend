@@ -38,6 +38,7 @@ import {CookieLawModule} from 'angular2-cookie-law';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ApiComponent } from './help/api/api.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { environment } from '../environments/environment';
     SearchTemplateComponent,
     DatasetDetailComponent,
     DatasetRelatedTemplateComponent,
+    ApiComponent,
   ],
   imports: [
     BrowserModule,
