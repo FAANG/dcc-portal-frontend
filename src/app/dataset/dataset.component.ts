@@ -62,6 +62,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.apiFileService.getAllDatasets(this.query, 25).subscribe(
       data => {
         this.datasetListShort = data;
+        console.log(data);
         if (this.datasetListShort) {
           this.spinner.hide();
         }
@@ -107,14 +108,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
     let value: string = '';
     for (let i = species.length - 1; i >= 0; i--) {
       value += species[i]['text'] + ',';
-    }
-    return value.substring(0, value.length - 1);
-  }
-
-  convertArrayToStr(data: string[]) {
-    let value: string = '';
-    for (let i = 0; i < data.length; i++) {
-      value += data[i] + ',';
     }
     return value.substring(0, value.length - 1);
   }

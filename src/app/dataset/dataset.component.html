@@ -48,8 +48,8 @@
             <td><a style="cursor: pointer" [routerLink]="[dataset['datasetAccession']]">{{dataset['datasetAccession']}}</a></td>
             <td>{{dataset['title']}}</td>
             <td>{{getSpeciesStr(dataset['species'])}}</td>
-            <td>{{convertArrayToStr(dataset['archive'])}}</td>
-            <td>{{convertArrayToStr(dataset['assayType'])}}</td>
+            <td>{{dataset['archive'].toString()}}</td>
+            <td>{{dataset['assayType'].toString()}}</td>
             <td>{{dataset['numberOfExperiments']}}</td>
             <td>{{dataset['numberOfSpecimens']}}</td>
             <td>{{dataset['numberOfFiles']}}</td>
