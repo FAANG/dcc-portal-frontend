@@ -44,7 +44,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let dataset of datasets | filter: filter_field: 'dataset' | paginate: { itemsPerPage: 25, currentPage: p }">
+          <tr *ngFor="let dataset of datasets | sort: sort_field | filter: filter_field: 'dataset' | paginate: { itemsPerPage: 25, currentPage: p }">
             <td><a style="cursor: pointer" [routerLink]="[dataset['datasetAccession']]">{{dataset['datasetAccession']}}</a></td>
             <td>{{dataset['title']}}</td>
             <td>{{getSpeciesStr(dataset['species'])}}</td>

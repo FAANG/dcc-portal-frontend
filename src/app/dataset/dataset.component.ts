@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DatasetTable} from '../shared/interfaces';
+import {DatasetTable, SortParams} from '../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {ApiFileService} from '../services/api-file.service';
 import {AggregationService} from '../services/aggregation.service';
@@ -18,6 +18,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   datasetListLong: Observable<DatasetTable[]>;
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
     'Number of Specimens', 'Number of Files', 'Standard'];
+  sort_field: SortParams;
   filter_field: {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
@@ -59,6 +60,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
+    this.sort_field = {id: 'standard', direction: 'asc'};
     this.apiFileService.getAllDatasets(this.query, 25).subscribe(
       data => {
         this.datasetListShort = data;
