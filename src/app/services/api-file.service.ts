@@ -78,9 +78,9 @@ export class ApiFileService {
     );
   }
 
-  getOrganismsSpecimens(query: any) {
-    const url = this.hostSetting.host + 'specimen/' + '_search';
-    return this.http.get<any>(url, query).pipe(
+  getOrganismsSpecimens(biosampleId: any) {
+    const url = this.hostSetting.host + 'specimen/_search?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
+    return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
     );
