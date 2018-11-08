@@ -124,9 +124,9 @@ export class ApiFileService {
     );
   }
 
-  getSpecimenFiles(query: any) {
-    const url = this.hostSetting.host + 'file/' + '_search';
-    return this.http.get<any>(url, query).pipe(
+  getSpecimenFiles(biosampleId: any) {
+    const url = this.hostSetting.host + 'file/_search?q=specimen:' + biosampleId + '&size=100000' + '&sort=run.accession:asc'  + '&sort=name:asc';
+    return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError)
     );
