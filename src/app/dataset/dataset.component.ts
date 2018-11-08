@@ -64,7 +64,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.apiFileService.getAllDatasets(this.query, 25).subscribe(
       data => {
         this.datasetListShort = data;
-        console.log(data);
         if (this.datasetListShort) {
           this.spinner.hide();
         }

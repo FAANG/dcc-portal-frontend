@@ -28,7 +28,7 @@
       "name": "file",
       "urls": ["http://data.faang.org/api/file/_search*"],
       "cacheConfig": {
-        "maxSize": 1,
+        "maxSize": 10,
         "maxAge": "1d",
         "strategy": "performance"
       }
@@ -37,7 +37,7 @@
       "name": "organism",
       "urls": ["http://data.faang.org/api/organism/_search*"],
       "cacheConfig": {
-        "maxSize": 1,
+        "maxSize": 10,
         "maxAge": "1d",
         "strategy": "performance"
       }
@@ -46,7 +46,7 @@
       "name": "specimen",
       "urls": ["http://data.faang.org/api/specimen/_search*"],
       "cacheConfig": {
-        "maxSize": 1,
+        "maxSize": 10,
         "maxAge": "1d",
         "strategy": "performance"
       }
@@ -55,7 +55,7 @@
       "name": "dataset",
       "urls": ["http://data.faang.org/api/dataset/_search*"],
       "cacheConfig": {
-        "maxSize": 1,
+        "maxSize": 10,
         "maxAge": "1d",
         "strategy": "performance"
       }
