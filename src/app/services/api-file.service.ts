@@ -117,7 +117,7 @@ export class ApiFileService {
   }
 
   getSpecimen(biosampleId: string) {
-    const url = this.hostSetting.host + 'specimen/' + biosampleId;
+    const url = this.hostSetting.host + 'specimen/_search?q=_id:' + biosampleId;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -126,7 +126,6 @@ export class ApiFileService {
 
   getSpecimenFiles(query: any) {
     const url = this.hostSetting.host + 'file/' + '_search';
-    console.log(url);
     return this.http.get<any>(url, query).pipe(
       retry(3),
       catchError(this.handleError)

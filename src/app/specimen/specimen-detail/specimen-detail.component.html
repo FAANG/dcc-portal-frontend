@@ -2,10 +2,18 @@
   <app-header></app-header>
   <h1 class="text-center">{{biosampleId}}</h1>
   <dl class="dl-horizontal">
-    <dt>Name:</dt><dd>{{specimen?.name}}</dd>
-    <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a></dd>
-    <dt>Release date:</dt><dd>{{specimen?.releaseDate}}</dd>
-    <dt>Update date:</dt><dd>{{specimen?.updateDate}}</dd>
+    <ng-container *ngIf="specimen && specimen.hasOwnProperty('name')">
+      <dt>Name:</dt><dd>{{specimen?.name}}</dd>
+    </ng-container>
+    <ng-container *ngIf="specimen && specimen.hasOwnProperty('biosampleId')">
+      <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a></dd>
+    </ng-container>
+    <ng-container *ngIf="specimen && specimen.hasOwnProperty('releaseDate')">
+      <dt>Release date:</dt><dd>{{specimen?.releaseDate}}</dd>
+    </ng-container>
+    <ng-container *ngIf="specimen && specimen.hasOwnProperty('updateDate')">
+      <dt>Update date:</dt><dd>{{specimen?.updateDate}}</dd>
+    </ng-container>
     <ng-container *ngIf="(specimen?.material?.text !== 'pool of specimens' && specimen?.material?.text !=='cell line')">
       <dt>Sex:</dt><dd>
       <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.organism?.sex?.ontologyTerms" [text]="specimen?.organism?.sex?.text"></app-robust-link>
@@ -27,8 +35,12 @@
     <div *ngIf="specimen?.description">
       <dt>Description:</dt><dd>{{specimen?.description}}</dd>
     </div>
-    <dt>Standard met:</dt><dd>{{specimen?.standardMet}}</dd>
-    <dt>Project:</dt><dd>{{specimen?.project}}</dd>
+    <ng-container *ngIf="specimen && specimen.hasOwnProperty('standardMet')">
+      <dt>Standard met:</dt><dd>{{specimen?.standardMet}}</dd>
+    </ng-container>
+    <ng-container *ngIf="specimen && specimen.hasOwnProperty('project')">
+      <dt>Project:</dt><dd>{{specimen?.project}}</dd>
+    </ng-container>
     <div *ngIf="specimen?.availability">
       <dt>Availability:</dt><dd><a href={{specimen?.availability}}>{{dealWithAvailability(specimen?.availability)}}</a></dd>
     </div>

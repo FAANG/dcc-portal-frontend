@@ -27,7 +27,7 @@ export class SpecimenDetailComponent implements OnInit {
     });
     this.apiFileService.getSpecimen(this.biosampleId).subscribe(
       (data: any) => {
-        this.specimen = data['_source'];
+        this.specimen = data['hits']['hits'][0]['_source'];
         if (this.specimen) {
           this.spinner.hide();
         }
