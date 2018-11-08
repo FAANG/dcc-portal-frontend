@@ -27,7 +27,7 @@ export class OrganismDetailComponent implements OnInit {
     });
     this.apiFileService.getOrganism(this.biosampleId).subscribe(
       (data: any) => {
-        this.organism = data['_source'];
+        this.organism = data['hits']['hits'][0]['_source'];
         if (this.organism) {
           this.spinner.hide();
         }

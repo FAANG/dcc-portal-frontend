@@ -27,7 +27,7 @@ export class FileDetailComponent implements OnInit {
     });
     this.apiFileService.getFile(this.fileId).subscribe(
       (data: any) => {
-        this.file = data['_source'];
+        this.file = data['hits']['hits'][0]['_source'];
         if (this.file) {
           this.spinner.hide();
         }

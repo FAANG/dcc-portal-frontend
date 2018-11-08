@@ -74,7 +74,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       }
     );
-    this.organismListLong = this.apiFileService.getAllOrganisms(this.query, 1000000);
+    this.organismListLong = this.apiFileService.getAllOrganisms(this.query, 100000);
     this.organismListLongSubscription = this.organismListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'organism');
     });

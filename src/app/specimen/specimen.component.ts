@@ -74,7 +74,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       }
     );
-    this.specimenListLong = this.apiFileService.getAllSpecimens(this.query, 1000000);
+    this.specimenListLong = this.apiFileService.getAllSpecimens(this.query, 100000);
     this.specimenListLongSubscription = this.specimenListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'specimen');
     });

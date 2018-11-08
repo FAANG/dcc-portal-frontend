@@ -2,34 +2,54 @@
   <app-header></app-header>
   <h1 class="text-center">{{biosampleId}}</h1>
   <dl class="dl-horizontal">
-    <dt>Name:</dt> <dd>{{organism?.name}}</dd>
-    <dt>BioSample ID:</dt> <dd>
+    <ng-container *ngIf="organism && organism.hasOwnProperty('name')">
+      <dt>Name:</dt> <dd>{{organism?.name}}</dd>
+    </ng-container>
+    <ng-container *ngIf="organism && organism.hasOwnProperty('biosampleId')">
+      <dt>BioSample ID:</dt> <dd>
       <a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a>
     </dd>
-    <dt>Release date:</dt> <dd>{{organism?.releaseDate}}</dd>
-    <dt>Update date:</dt> <dd>{{organism?.updateDate}}</dd>
-    <dt>Sex:</dt><dd>
+    </ng-container>
+    <ng-container *ngIf="organism && organism.hasOwnProperty('releaseDate')">
+      <dt>Release date:</dt> <dd>{{organism?.releaseDate}}</dd>
+    </ng-container>
+    <ng-container *ngIf="organism && organism.hasOwnProperty('updateDate')">
+      <dt>Update date:</dt> <dd>{{organism?.updateDate}}</dd>
+    </ng-container>
+    <ng-container *ngIf="organism && organism.hasOwnProperty('sex')">
+      <dt>Sex:</dt><dd>
       <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.sex?.ontologyTerms" [text]="organism?.sex?.text"></app-robust-link>
     </dd>
-    <dt>Organism:</dt><dd>
+    </ng-container>
+    <ng-container *ngIf="organism && organism.hasOwnProperty('organism')">
+      <dt>Organism:</dt><dd>
       <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></app-robust-link>
     </dd>
-    <dt>Breed:</dt> <dd>
+    </ng-container>
+    <ng-container *ngIf="organism && organism.hasOwnProperty('breed')">
+      <dt>Breed:</dt> <dd>
       <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.breed.ontologyTerms" [text]="organism?.breed?.text"></app-robust-link>
     </dd>
+    </ng-container>
     <dt>Material:</dt> <dd>
       <a href="https://www.ebi.ac.uk/ols/terms?iri=http://purl.obolibrary.org/obo/UBERON_0000468" target="_blank">organism</a>
     </dd>
-    <dt>Standard met:</dt> <dd>{{organism?.standardMet}}</dd>
-    <dt>Project:</dt> <dd>{{organism?.project}}</dd>
+    <ng-container  *ngIf="organism && organism.hasOwnProperty('standardMet')">
+      <dt>Standard met:</dt> <dd>{{organism?.standardMet}}</dd>
+    </ng-container>
+    <ng-container  *ngIf="organism && organism.hasOwnProperty('project')">
+      <dt>Project:</dt> <dd>{{organism?.project}}</dd>
+    </ng-container>
     <div *ngIf="organism?.availability">
       <dt>Availability:</dt> <dd><a href={{organism?.availability}}>{{dealWithAvailability(organism?.availability)}}</a></dd>
     </div>
-    <dt>Organisation:</dt><dd>
+    <ng-container  *ngIf="organism && organism.hasOwnProperty('organization')">
+      <dt>Organisation:</dt><dd>
       <ng-container *ngFor="let organization of organism?.organization;">
         <app-robust-link [link]="organization.URL" [text]="organization.name"></app-robust-link> ( {{organization.role}})
       </ng-container>
     </dd>
+    </ng-container>
     <div *ngIf="organism?.description">
       <dt>Description:</dt> <dd>{{organism?.description}}</dd>
     </div>

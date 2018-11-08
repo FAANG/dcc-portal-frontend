@@ -36,16 +36,16 @@ export class ApiFileService {
   }
 
   getFile(fileId: string) {
-    const url = this.hostSetting.host + 'file/' + fileId;
+    const url = this.hostSetting.host + 'file/_search?q=_id:' + fileId;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
     );
   }
 
-  getFilesByRun(query: any) {
-    const url = this.hostSetting.host + 'file/' + '_search';
-    return this.http.get<any>(url, query).pipe(
+  getFilesByRun(runId: any) {
+    const url = this.hostSetting.host + 'file/_search?q=run.accession:' + runId + '&sort=name:asc';
+    return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
     );
@@ -71,7 +71,7 @@ export class ApiFileService {
   }
 
   getOrganism(biosampleId: string) {
-    const url = this.hostSetting.host + 'organism/' + biosampleId;
+    const url = this.hostSetting.host + 'organism/_search?q=_id:' + biosampleId;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
