@@ -63,7 +63,7 @@ export class SearchService {
           'name.std',
           'sameAs.std',
           'description.std',
-          'organism.organism.text.autocomp',
+          'organism.text.autocomp',
           'sex.text.autocomp',
           'breed.text.autocomp',
           'healthStatus.text.autocomp',
@@ -125,16 +125,7 @@ export class SearchService {
     if (!text.trim()) { return of([]); }
     const query = {
       multi_match: {
-        query: text,
-        fields: [
-          'accession',
-          'title.autocomp',
-          'specimen.biosampleId.std',
-          'specimen.cellType.autocomp',
-          'specimen.breed.autocomp',
-          'species.text.autocomp',
-          'instrument.autocomp'
-        ],
+        query: text
       }
     };
     let body = {
