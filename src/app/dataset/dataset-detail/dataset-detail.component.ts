@@ -27,7 +27,7 @@ export class DatasetDetailComponent implements OnInit {
     });
     this.apiFileService.getDataset(this.accession).subscribe(
       (data: any) => {
-        this.dataset = data['_source'];
+        this.dataset = data['hits']['hits'][0]['_source'];
         if (this.dataset) {
           this.spinner.hide();
         }

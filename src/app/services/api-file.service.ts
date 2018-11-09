@@ -155,7 +155,7 @@ export class ApiFileService {
   }
 
   getDataset(accession: string) {
-    const url = this.hostSetting.host + 'dataset/' + accession;
+    const url = this.hostSetting.host + 'dataset/_search?q=_id:' + accession;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
