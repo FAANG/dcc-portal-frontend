@@ -125,7 +125,16 @@ export class SearchService {
     if (!text.trim()) { return of([]); }
     const query = {
       multi_match: {
-        query: text
+        query: text,
+        fields: [
+          'accession',
+          'title.autocomp',
+          'specimen.biosampleId.std',
+          'specimen.cellType.autocomp',
+          'specimen.breed.autocomp',
+          'species.text.autocomp',
+          'instrument.autocomp'
+        ],
       }
     };
     let body = {

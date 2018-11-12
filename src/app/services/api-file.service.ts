@@ -16,7 +16,7 @@ export class ApiFileService {
 
   getAllFiles(query: any, size: number) {
     const url = this.hostSetting.host + 'file/' + '_search' + '?size=' + size;
-    return this.http.get(url, query).pipe(
+    return this.http.post(url, query).pipe(
       map((data: any) => {
         return data.hits.hits.map(entry => ({
           fileName: entry['_id'],
@@ -53,7 +53,7 @@ export class ApiFileService {
 
   getAllOrganisms(query: any, size: number) {
     const url = this.hostSetting.host + 'organism/' + '_search' + '?size=' + size;
-    return this.http.get(url, query).pipe(
+    return this.http.post(url, query).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
@@ -88,7 +88,7 @@ export class ApiFileService {
 
   getAllSpecimens(query: any, size: number) {
     const url = this.hostSetting.host + 'specimen/' + '_search' + '?size=' + size;
-    return this.http.get(url, query).pipe(
+    return this.http.post(url, query).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
@@ -134,7 +134,7 @@ export class ApiFileService {
 
   getAllDatasets(query: any, size: number) {
     const url = this.hostSetting.host + 'dataset/' + '_search' + '?size=' + size;
-    return this.http.get(url, query).pipe(
+    return this.http.post(url, query).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           datasetAccession: entry['_source']['accession'],
