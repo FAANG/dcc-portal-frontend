@@ -6,7 +6,7 @@
       <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
         <!--<input type="text" class="form-control" placeholder="Search FAANG" (keyup)="search($event.target.value)">-->
-        <input type="text" class="form-control" (keyup)="search($event.target.value)" id="name" placeholder="Search FAANG"/>
+        <input type="text" class="form-control" (keyup)="search($event.target.value)" (keydown)="preventReload($event)" id="name" placeholder="Search FAANG"/>
       </div>
     </form>
   </div>

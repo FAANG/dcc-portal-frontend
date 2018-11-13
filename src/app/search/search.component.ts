@@ -18,6 +18,12 @@ export class SearchComponent implements OnInit {
     this.titleService.setTitle('FAANG Search');
   }
 
+  preventReload(event: any) {
+    if (event.code === 'Enter') {
+      return false;
+    }
+  }
+
   constructor(private searchService: SearchService, private titleService: Title) { }
 
 }
