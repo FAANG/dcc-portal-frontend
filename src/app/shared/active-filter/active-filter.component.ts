@@ -18,7 +18,6 @@ export class ActiveFilterComponent implements OnInit {
   }
 
   clearFilter(field: string) {
-    console.log(field);
     const index = this.aggregationService.current_active_filters.indexOf(field);
     this.aggregationService.current_active_filters.splice(index, 1);
     for (const key of Object.keys(this.data)) {
@@ -27,6 +26,7 @@ export class ActiveFilterComponent implements OnInit {
         this.data[key].splice(index, 1);
       }
     }
+    this.aggregationService.field.next(this.data);
   }
 
 }
