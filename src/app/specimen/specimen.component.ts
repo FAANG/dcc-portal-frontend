@@ -6,6 +6,7 @@ import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-specimen',
@@ -49,6 +50,8 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   error: string;
 
   constructor(private apiFileService: ApiFileService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
               private aggregationService: AggregationService,
               private exportService: ExportService,
               private spinner: NgxSpinnerService,
@@ -57,6 +60,27 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.titleService.setTitle('FAANG specimens');
     this.spinner.show();
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      const filters = {};
+      for (const key in params) {
+        if (Array.isArray(params[key])) {
+          filters[key] = params[key];
+          for (const value of params[key]) {
+            if (this.aggregationService.current_active_filters.indexOf(value) === -1) {
+              this.aggregationService.current_active_filters.push(value);
+              this.aggregationService.active_filters[key].push(value);
+            }
+          }
+        } else {
+          filters[key] = [params[key]];
+          if (this.aggregationService.current_active_filters.indexOf(params[key]) === -1) {
+            this.aggregationService.current_active_filters.push(params[key]);
+            this.aggregationService.active_filters[key].push(params[key]);
+          }
+        }
+      }
+      this.filter_field = filters;
+    });
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
@@ -79,7 +103,13 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       this.aggregationService.getAggregations(data, 'specimen');
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
-      this.filter_field = data;
+      const params = {};
+      for (const key in data) {
+        if (data[key].length !== 0) {
+          params[key] = data[key];
+        }
+      }
+      this.router.navigate(['specimen'], {queryParams: params});
     });
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
@@ -170,10 +200,12 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   }
 
   resetFilter() {
-    for (const key of Object.keys(this.filter_field)) {
-      this.filter_field[key] = [];
-      this.aggregationService.current_active_filters = [];
+    for (const key of Object.keys(this.aggregationService.active_filters)) {
+      this.aggregationService.active_filters[key] = [];
     }
+    this.aggregationService.current_active_filters = [];
+    this.filter_field = {};
+    this.router.navigate(['specimen'], {queryParams: {}});
   }
 
   onDownloadData() {

@@ -47,7 +47,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'standardMet'],
   };
   error: string;
-  queryParams: Params = {};
 
   constructor(private apiFileService: ApiFileService,
               private activatedRoute: ActivatedRoute,
@@ -68,12 +67,14 @@ export class DatasetComponent implements OnInit, OnDestroy {
           for (const value of params[key]) {
             if (this.aggregationService.current_active_filters.indexOf(value) === -1) {
               this.aggregationService.current_active_filters.push(value);
+              this.aggregationService.active_filters[key].push(value);
             }
           }
         } else {
           filters[key] = [params[key]];
           if (this.aggregationService.current_active_filters.indexOf(params[key]) === -1) {
             this.aggregationService.current_active_filters.push(params[key]);
+            this.aggregationService.active_filters[key].push(params[key]);
           }
         }
       }
@@ -131,9 +132,8 @@ export class DatasetComponent implements OnInit, OnDestroy {
       this.aggregationService.active_filters[key] = [];
     }
     this.aggregationService.current_active_filters = [];
-    this.queryParams = {};
     this.filter_field = {};
-    this.router.navigate(['dataset'], {queryParams: this.queryParams});
+    this.router.navigate(['dataset'], {queryParams: {}});
   }
 
   getSpeciesStr(dataset: any): string {
