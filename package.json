@@ -26,7 +26,9 @@
     "angular2-csv": "^0.2.9",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.4",
+    "ngx-bootstrap": "^3.1.2",
     "ngx-pagination": "^3.2.0",
+    "ngx-smart-modal": "^7.1.0",
     "ngx-spinner": "^6.1.2",
     "rxjs": "^6.3.3",
     "zone.js": "~0.8.26"

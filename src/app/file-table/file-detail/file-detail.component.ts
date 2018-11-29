@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {ApiFileService} from '../../services/api-file.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import {NgxSmartModalService} from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-file-detail',
@@ -12,12 +13,49 @@ import {Title} from '@angular/platform-browser';
 export class FileDetailComponent implements OnInit {
   fileId: string;
   file: any;
+  experiment: any = {};
   error: any;
+  open = false;
+  fieldNames = {
+    assayType: 'Assay type',
+    sampleStorage: 'Sample storage',
+    sampleStorageProcessing: 'Sample storage processing',
+    samplingToPreparationInterval: 'Sampling to preparation interval',
+    experimentalProtocol: 'Experimental protocol',
+    extractionProtocol: 'Extraction protocol',
+    libraryPreparationLocation: 'Library preparation location',
+    libraryPreparationLocationLongitude: 'Library preparation location longitude',
+    libraryPreparationLocationLatitude: 'Library preparation location latitude',
+    libraryPreparationDate: 'Library preparation date',
+    sequencingLocation: 'Sequencing location',
+    sequencingLocationLatitude: 'Sequencing location latitude',
+    sequencingLocationLongitude: 'Sequencing location longitude',
+    sequencingDate: 'Sequencing date',
+    experimentTarget: 'Experiment target',
+    rnaPreparation3AdapterLigationProtocol: 'Rna preparation 3\' adapter ligation protocol',
+    rnaPreparation5AdapterLigationProtocol: 'Rna preparation 5\' adapter ligation protocol',
+    libraryGenerationPcrProductIsolationProtocol: 'Library generation PCR product isolation protocol',
+    preparationReverseTranscriptionProtocol: 'Preparation reverse transcription protocol',
+    libraryGenerationProtocol: 'Library generation protocol',
+    readStrand: 'Read strand',
+    rnaPurity260230ratio: 'Rna purity - 260:230 ratio',
+    rnaPurity260280ratio: 'Rna purity - 260:280 ratio',
+    rnaIntegrityNumber: 'Rna integrity number',
+  };
+
+  fieldExcludeNames = {
+    accession: 'accession',
+    standardMet: 'standard Met',
+    versionLastStandardMet: 'version last standard met',
+  };
+
+  objectKeys = Object.keys;
 
   constructor(private route: ActivatedRoute,
               private apiFileService: ApiFileService,
               private spinner: NgxSpinnerService,
-              private titleService: Title) { }
+              private titleService: Title,
+              public ngxSmartModalService: NgxSmartModalService) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -30,6 +68,17 @@ export class FileDetailComponent implements OnInit {
         this.file = data['hits']['hits'][0]['_source'];
         if (this.file) {
           this.spinner.hide();
+          if (this.file && this.file.hasOwnProperty('experiment')) {
+            this.apiFileService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
+              (data: any) => {
+                this.expandObject(data['hits']['hits'][0]['_source']);
+                console.log(this.experiment);
+              },
+              error => {
+                this.error = error;
+              }
+            );
+          }
         }
       },
       error => {
@@ -37,5 +86,29 @@ export class FileDetailComponent implements OnInit {
         this.spinner.hide();
       }
     );
+  }
+
+  expandObject(myObject: any) {
+    for (const key in myObject) {
+      if (key in this.fieldNames) {
+        if (typeof myObject[key] === 'object') {
+          for (const secondaryKey in myObject[key]) {
+            if (myObject[key][secondaryKey] !== '') {
+              this.experiment[key] = myObject[key];
+            }
+          }
+        } else {
+          if (myObject[key] !== '') {
+            this.experiment[key] = myObject[key];
+          }
+        }
+      } else {
+        if (key in this.fieldExcludeNames) {
+          continue;
+        } else {
+          this.expandObject(myObject[key]);
+        }
+      }
+    }
   }
 }

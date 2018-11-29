@@ -39,6 +39,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ApiComponent } from './help/api/api.component';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { ApiComponent } from './help/api/api.component';
     NgxSpinnerModule,
     BrowserAnimationsModule,
     CookieLawModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    NgxSmartModalModule.forRoot(),
   ],
   providers: [ApiFileService, AggregationService, ExportService, SearchService],
   bootstrap: [AppComponent]

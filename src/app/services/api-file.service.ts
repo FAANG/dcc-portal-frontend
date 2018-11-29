@@ -51,6 +51,14 @@ export class ApiFileService {
     );
   }
 
+  getFilesExperiment(experimentId: string) {
+    const url = this.hostSetting.host + 'experiment/_search?q=_id:' + experimentId;
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getAllOrganisms(query: any, size: number) {
     const url = this.hostSetting.host + 'organism/' + '_search' + '?size=' + size;
     return this.http.post(url, query).pipe(
