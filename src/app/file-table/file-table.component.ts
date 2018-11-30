@@ -131,7 +131,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
 
   chooseClass(event_class: string) {
     if (this.selectedColumn === 'File name') {
-      if (event_class === 'glyphicon glyphicon-arrow-down') {
+      if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
         this.spanClass = 'glyphicon glyphicon-arrow-up';
         this.sort_field['direction'] = 'asc';
       } else {
@@ -139,10 +139,10 @@ export class FileTableComponent implements OnInit, OnDestroy {
         this.sort_field['direction'] = 'desc';
       }
     } else {
-      if (event_class === this.defaultClass) {
+      if (event_class.indexOf(this.defaultClass) !== -1) {
         this.spanClass = 'glyphicon glyphicon-arrow-down';
         this.sort_field['direction'] = 'desc';
-      } else if (event_class === 'glyphicon glyphicon-arrow-down') {
+      } else if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
         this.spanClass = 'glyphicon glyphicon-arrow-up';
         this.sort_field['direction'] = 'asc';
       } else {
