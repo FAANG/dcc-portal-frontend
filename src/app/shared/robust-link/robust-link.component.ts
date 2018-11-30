@@ -14,6 +14,9 @@ export class RobustLinkComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.text && this.text.length === 62) {
+      this.text = this.text + '...';
+    }
   }
 
 }

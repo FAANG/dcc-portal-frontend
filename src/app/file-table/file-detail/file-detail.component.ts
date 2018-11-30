@@ -15,7 +15,6 @@ export class FileDetailComponent implements OnInit {
   file: any;
   experiment: any = {};
   error: any;
-  open = false;
   fieldNames = {
     assayType: 'Assay type',
     sampleStorage: 'Sample storage',
@@ -41,6 +40,22 @@ export class FileDetailComponent implements OnInit {
     rnaPurity260230ratio: 'Rna purity - 260:230 ratio',
     rnaPurity260280ratio: 'Rna purity - 260:280 ratio',
     rnaIntegrityNumber: 'Rna integrity number',
+    librarySelection: 'Library selection',
+    bisulfiteConversionProtocol: 'Bisulfite conversion protocol',
+    pcrProductIsolationProtocol: 'PCR product isolation protocol',
+    bisulfiteConversionPercent: 'Bisulfite conversion percent',
+    restrictionEnzyme: 'Restriction enzyme',
+    maxFragmentSizeSelectionRange: 'Max fragment size selection range',
+    minFragmentSizeSelectionRange: 'Min fragment size selection range',
+    transposaseProtocol: 'Transposase protocol',
+    dnaseProtocol: 'DNase protocol',
+    restrictionSite: 'Restriction site',
+    chipProtocol: 'ChIP protocol',
+    chipAntibodyProvider: 'ChIP antibody provider',
+    chipAntibodyCatalog: 'ChIP antibody catalog',
+    chipAntibodyLot: 'ChIP antibody lot',
+    libraryGenerationMaxFragmentSizeRange: 'Library generation max fragment size range',
+    libraryGenerationMinFragmentSizeRange: 'Library generation min fragment size range'
   };
 
   fieldExcludeNames = {
@@ -68,11 +83,11 @@ export class FileDetailComponent implements OnInit {
         this.file = data['hits']['hits'][0]['_source'];
         if (this.file) {
           this.spinner.hide();
-          if (this.file && this.file.hasOwnProperty('experiment')) {
+          if (this.file.hasOwnProperty('experiment')) {
             this.apiFileService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
               (data: any) => {
                 this.expandObject(data['hits']['hits'][0]['_source']);
-                console.log(this.experiment);
+                console.log(data['hits']['hits'][0]['_source']);
               },
               error => {
                 this.error = error;
@@ -109,6 +124,14 @@ export class FileDetailComponent implements OnInit {
           this.expandObject(myObject[key]);
         }
       }
+    }
+  }
+
+  checkIsObject(value: any) {
+    if (typeof value === 'object') {
+      return true;
+    } else {
+      return false;
     }
   }
 }

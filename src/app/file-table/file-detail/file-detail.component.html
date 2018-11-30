@@ -44,27 +44,43 @@
     <dt *ngIf="file?.run?.platform">Platform:</dt> <dd>{{file?.run?.platform}}</dd>
     <dt *ngIf="file?.run?.instrument">Instrument:</dt> <dd>{{file?.run?.instrument}}</dd>
     <dt *ngIf="file?.run?.centerName">Center name:</dt> <dd>{{file?.run?.centerName}}</dd>
-    <!--<dt *ngIf="file?.run?.sequencingDate">Sequencing date:</dt><dd>{{file?.run?.sequencingDate}}</dd>-->
-    <!--<dt *ngIf="file?.run?.sequencingLocation">Sequencing location:</dt> <dd>{{file?.run?.sequencingLocation}}</dd>-->
-    <dt *ngIf="file?.run?.sequencingLatitude">Sequencing latitude:</dt> <dd>{{file?.run?.sequencingLatitude}}</dd>
-    <dt *ngIf="file?.run?.sequencingLongitude">Sequencing longitude:</dt> <dd>{{file?.run?.sequencingLongitude}}</dd>
+    <dt *ngIf="file?.run?.sequencingDate">Sequencing date:</dt><dd>{{file?.run?.sequencingDate}}</dd>
+    <dt *ngIf="file?.run?.sequencingLocation">Sequencing location:</dt> <dd>{{file?.run?.sequencingLocation}}</dd>
+    <dt *ngIf="file?.run?.sequencingLatitude">Sequencing latitude:</dt> <dd *ngIf="file?.run?.sequencingLatitude">{{file?.run?.sequencingLatitude}} decimal degrees</dd>
+    <dt *ngIf="file?.run?.sequencingLongitude">Sequencing longitude:</dt> <dd *ngIf="file?.run?.sequencingLongitude">{{file?.run?.sequencingLongitude}} decimal degrees</dd>
   </dl>
   <app-run-files [runId]="file?.run?.accession" *ngIf="file?.run?.accession"></app-run-files>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
-</div>
+  <ngx-smart-modal #myModal identifier="myModal" class="nsm-dialog-animation-fade" width="200%" customClass="msg-modal">
+    <h3>{{file?.experiment?.accession}}</h3>
+    <hr>
+    <ng-container *ngIf="experiment && fieldNames">
+      <ng-container *ngFor="let key of objectKeys(fieldNames)">
 
+        <ng-container *ngIf="experiment.hasOwnProperty(key) && checkIsObject(experiment[key])">
+          <ng-container *ngIf="experiment[key].hasOwnProperty('filename')">
+            <p>
+              <b>{{fieldNames[key]}}: </b> <br>
+              <app-robust-link [link]="experiment[key]['url']" [text]="experiment[key]['filename'] | slice:0:62"></app-robust-link>
+            </p>
+          </ng-container>
+          <ng-container *ngIf="experiment[key].hasOwnProperty('text')">
+            <p>
+              <b>{{fieldNames[key]}}: </b> <br>
+              {{experiment[key]['text']}} {{experiment[key]['unit']}}
+            </p>
+          </ng-container>
+        </ng-container>
 
-<ngx-smart-modal #myModal identifier="myModal" class="nsm-dialog-animation-fade" width="100%">
-  <h1>{{file?.experiment?.accession}}</h1>
-  <hr>
-  <ng-container *ngIf="experiment && fieldNames">
-    <ng-container *ngFor="let key of objectKeys(fieldNames)">
-      <!--<p>-->
-        <b>{{fieldNames[key]}}:</b>
-        {{experiment[key]}}
-      <br>
-      <!--</p>-->
+        <ng-container *ngIf="experiment.hasOwnProperty(key) && !checkIsObject(experiment[key])">
+          <p>
+            <b>{{fieldNames[key]}}: </b> <br>
+            {{experiment[key]}}
+          </p>
+        </ng-container>
+
+      </ng-container>
     </ng-container>
-  </ng-container>
-  <button (click)="myModal.close()" type="button" class="btn btn-success">Close</button>
-</ngx-smart-modal>
+    <button (click)="myModal.close()" type="button" class="btn btn-success">Close</button>
+  </ngx-smart-modal>
+</div>
