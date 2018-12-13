@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HostSetting } from './host-setting';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import {DatasetTable, FileTable, OrganismTable, SpecimenTable} from '../shared/interfaces';
@@ -15,8 +15,9 @@ export class ApiFileService {
   constructor(private http: HttpClient) { }
 
   getAllFiles(query: any, size: number) {
-    const url = this.hostSetting.host + 'file/' + '_search' + '?size=' + size;
-    return this.http.post(url, query).pipe(
+    const url = this.hostSetting.host + 'file/' + '_search/' + '?size=' + size;
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         return data.hits.hits.map(entry => ({
           fileName: entry['_id'],
@@ -36,7 +37,7 @@ export class ApiFileService {
   }
 
   getFile(fileId: string) {
-    const url = this.hostSetting.host + 'file/_search?q=_id:' + fileId;
+    const url = this.hostSetting.host + 'file/' + fileId;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -44,7 +45,7 @@ export class ApiFileService {
   }
 
   getFilesByRun(runId: any) {
-    const url = this.hostSetting.host + 'file/_search?q=run.accession:' + runId + '&sort=name:asc';
+    const url = this.hostSetting.host + 'file/_search/?q=run.accession:' + runId + '&sort=name:asc';
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -60,8 +61,9 @@ export class ApiFileService {
   }
 
   getAllOrganisms(query: any, size: number) {
-    const url = this.hostSetting.host + 'organism/' + '_search' + '?size=' + size;
-    return this.http.post(url, query).pipe(
+    const url = this.hostSetting.host + 'organism/' + '_search/' + '?size=' + size;
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
@@ -79,7 +81,7 @@ export class ApiFileService {
   }
 
   getOrganism(biosampleId: string) {
-    const url = this.hostSetting.host + 'organism/_search?q=_id:' + biosampleId;
+    const url = this.hostSetting.host + 'organism/' + biosampleId;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -87,7 +89,7 @@ export class ApiFileService {
   }
 
   getOrganismsSpecimens(biosampleId: any) {
-    const url = this.hostSetting.host + 'specimen/_search?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
+    const url = this.hostSetting.host + 'specimen/_search/?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -95,8 +97,9 @@ export class ApiFileService {
   }
 
   getAllSpecimens(query: any, size: number) {
-    const url = this.hostSetting.host + 'specimen/' + '_search' + '?size=' + size;
-    return this.http.post(url, query).pipe(
+    const url = this.hostSetting.host + 'specimen/' + '_search/' + '?size=' + size;
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
@@ -125,7 +128,7 @@ export class ApiFileService {
   }
 
   getSpecimen(biosampleId: string) {
-    const url = this.hostSetting.host + 'specimen/_search?q=_id:' + biosampleId;
+    const url = this.hostSetting.host + 'specimen/' + biosampleId;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -133,7 +136,7 @@ export class ApiFileService {
   }
 
   getSpecimenFiles(biosampleId: any) {
-    const url = this.hostSetting.host + 'file/_search?q=specimen:' + biosampleId + '&size=100000' + '&sort=run.accession:asc'  + '&sort=name:asc';
+    const url = this.hostSetting.host + 'file/_search/?q=specimen:' + biosampleId + '&size=100000' + '&sort=run.accession:asc,name:asc';
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError)
@@ -141,8 +144,9 @@ export class ApiFileService {
   }
 
   getAllDatasets(query: any, size: number) {
-    const url = this.hostSetting.host + 'dataset/' + '_search' + '?size=' + size;
-    return this.http.post(url, query).pipe(
+    const url = this.hostSetting.host + 'dataset/' + '_search/' + '?size=' + size;
+    const params = new HttpParams().set('_source', query['_source'].toString());
+    return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           datasetAccession: entry['_source']['accession'],
@@ -163,7 +167,7 @@ export class ApiFileService {
   }
 
   getDataset(accession: string) {
-    const url = this.hostSetting.host + 'dataset/_search?q=_id:' + accession;
+    const url = this.hostSetting.host + 'dataset/' + accession;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),

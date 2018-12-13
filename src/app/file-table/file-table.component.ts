@@ -37,8 +37,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
   p = 1;
 
   private query = {
-    'sort': [{'name': 'desc'}],
-    'from': 0,
+    'sort': 'name:desc',
     '_source': [
       'study.accession',
       'experiment.accession',

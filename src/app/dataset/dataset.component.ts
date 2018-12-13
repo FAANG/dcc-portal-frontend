@@ -34,7 +34,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
   p = 1;
 
   private query = {
-    'from': 0,
     '_source': [
       'accession',
       'title',

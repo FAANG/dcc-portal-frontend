@@ -38,8 +38,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   error: string;
 
   private query = {
-    'sort': [{'id_number': 'desc'}],
-    'from': 0,
+    'sort': 'id_number:desc',
     '_source': [
       'biosampleId',
       'sex.text',

@@ -35,8 +35,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   p = 1;
 
   private query = {
-    'sort': [{'id_number': 'desc'}],
-    'from': 0,
+    'sort': 'id_number:desc',
     '_source': [
       'biosampleId',
       'material.text',

@@ -26,7 +26,7 @@ export class SearchService {
   }
 
   searchFile(text: any) {
-    const host = this.hostSetting.host + 'file/' + '_search';
+    const host = this.hostSetting.host + 'file/' + '_search/';
     if (!text.trim()) { return of([]); }
     const query = {
       multi_match: {
@@ -53,13 +53,14 @@ export class SearchService {
   }
 
   searchOrganism(text: any) {
-    const host = this.hostSetting.host + 'organism/' + '_search';
+    const host = this.hostSetting.host + 'organism/' + '_search/';
     if (!text.trim()) { return of([]); }
     const query = {
       multi_match: {
         query: text,
         fields: [
           'biosampleId.std',
+          'alternativeId.std',
           'name.std',
           'sameAs.std',
           'description.std',
@@ -82,13 +83,14 @@ export class SearchService {
   }
 
   searchSpecimen(text: any) {
-    const host = this.hostSetting.host + 'specimen/' + '_search';
+    const host = this.hostSetting.host + 'specimen/' + '_search/';
     if (!text.trim()) { return of([]); }
     const query = {
       multi_match: {
         query: text,
         fields: [
           'biosampleId.std',
+          'alternativeId.std',
           'name.std',
           'description.std',
           'sameAs.std',
@@ -121,7 +123,7 @@ export class SearchService {
   }
 
   searchDataset(text: any) {
-    const host = this.hostSetting.host + 'dataset/' + '_search';
+    const host = this.hostSetting.host + 'dataset/' + '_search/';
     if (!text.trim()) { return of([]); }
     const query = {
       multi_match: {
