@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiFileService} from '../../services/api-file.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
@@ -15,9 +15,14 @@ export class OrganismDetailComponent implements OnInit {
   error: any;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private apiFileService: ApiFileService,
               private spinner: NgxSpinnerService,
-              private titleService: Title) { }
+              private titleService: Title) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+  }
 
   ngOnInit() {
     this.spinner.show();
@@ -28,6 +33,9 @@ export class OrganismDetailComponent implements OnInit {
     this.apiFileService.getOrganism(this.biosampleId).subscribe(
       (data: any) => {
         this.organism = data['hits']['hits'][0]['_source'];
+        if (this.biosampleId !== this.organism.biosampleId) {
+          this.router.navigate(['/organism', this.organism.biosampleId]);
+        }
         if (this.organism) {
           this.spinner.hide();
         }

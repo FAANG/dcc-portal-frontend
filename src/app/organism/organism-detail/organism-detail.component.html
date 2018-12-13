@@ -10,6 +10,10 @@
       <a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a>
     </dd>
     </ng-container>
+    <ng-container *ngIf="organism && organism.hasOwnProperty('alternativeId') && organism.alternativeId.length !== 0">
+      <dt>Alternative ID:</dt>
+      <dd>{{organism.alternativeId.toString()}}</dd>
+    </ng-container>
     <ng-container *ngIf="organism && organism.hasOwnProperty('releaseDate')">
       <dt>Release date:</dt> <dd>{{organism?.releaseDate}}</dd>
     </ng-container>

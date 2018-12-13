@@ -8,6 +8,10 @@
     <ng-container *ngIf="specimen && specimen.hasOwnProperty('biosampleId')">
       <dt>BioSample ID:</dt><dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a></dd>
     </ng-container>
+    <ng-container *ngIf="specimen && specimen.hasOwnProperty('alternativeId') && specimen.alternativeId.length !== 0">
+      <dt>Alternative ID:</dt>
+      <dd>{{specimen.alternativeId.toString()}}</dd>
+    </ng-container>
     <ng-container *ngIf="specimen && specimen.hasOwnProperty('releaseDate')">
       <dt>Release date:</dt><dd>{{specimen?.releaseDate}}</dd>
     </ng-container>
