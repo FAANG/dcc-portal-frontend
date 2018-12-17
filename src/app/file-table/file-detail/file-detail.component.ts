@@ -87,7 +87,6 @@ export class FileDetailComponent implements OnInit {
             this.apiFileService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
               (data: any) => {
                 this.expandObject(data['hits']['hits'][0]['_source']);
-                console.log(data['hits']['hits'][0]['_source']);
               },
               error => {
                 this.error = error;
