@@ -19,9 +19,6 @@ export class OrganismDetailComponent implements OnInit {
               private apiFileService: ApiFileService,
               private spinner: NgxSpinnerService,
               private titleService: Title) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
   }
 
   ngOnInit() {
@@ -34,7 +31,9 @@ export class OrganismDetailComponent implements OnInit {
       (data: any) => {
         this.organism = data['hits']['hits'][0]['_source'];
         if (this.biosampleId !== this.organism.biosampleId) {
-          this.router.navigate(['/organism', this.organism.biosampleId]);
+          this.router.navigate(['/']).then(() => {
+            this.router.navigate(['/organism', this.organism.biosampleId]);
+          });
         }
         if (this.organism) {
           this.spinner.hide();

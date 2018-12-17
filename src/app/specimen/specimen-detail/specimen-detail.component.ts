@@ -19,9 +19,6 @@ export class SpecimenDetailComponent implements OnInit {
               private apiFileService: ApiFileService,
               private spinner: NgxSpinnerService,
               private titleService: Title) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
   }
 
   ngOnInit() {
@@ -34,7 +31,10 @@ export class SpecimenDetailComponent implements OnInit {
       (data: any) => {
         this.specimen = data['hits']['hits'][0]['_source'];
         if (this.biosampleId !== this.specimen.biosampleId) {
-          this.router.navigate(['/specimen', this.specimen.biosampleId]);
+          // this.router.navigate(['/specimen', this.specimen.biosampleId]);
+          this.router.navigate(['/']).then(() => {
+            this.router.navigate(['/specimen', this.specimen.biosampleId]);
+          });
         }
         if (this.specimen) {
           this.spinner.hide();
