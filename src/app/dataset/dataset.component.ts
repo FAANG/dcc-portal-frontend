@@ -132,6 +132,10 @@ export class DatasetComponent implements OnInit, OnDestroy {
     }
     this.aggregationService.current_active_filters = [];
     this.filter_field = {};
+  }
+
+  removeFilter() {
+    this.resetFilter();
     this.router.navigate(['dataset'], {queryParams: {}});
   }
 

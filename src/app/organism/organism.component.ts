@@ -196,6 +196,10 @@ export class OrganismComponent implements OnInit, OnDestroy {
     }
     this.aggregationService.current_active_filters = [];
     this.filter_field = {};
+  }
+
+  removeFilter() {
+    this.resetFilter();
     this.router.navigate(['organism'], {queryParams: {}});
   }
 
