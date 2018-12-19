@@ -40,6 +40,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ApiComponent } from './help/api/api.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { ProtocolComponent } from './protocol/protocol.component';
+import { ProtocolDetailComponent } from './protocol/protocol-detail/protocol-detail.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
     DatasetDetailComponent,
     DatasetRelatedTemplateComponent,
     ApiComponent,
+    ProtocolComponent,
+    ProtocolDetailComponent,
   ],
   imports: [
     BrowserModule,

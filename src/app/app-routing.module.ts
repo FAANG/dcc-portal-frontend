@@ -12,6 +12,8 @@ import {OrganismDetailComponent} from './organism/organism-detail/organism-detai
 import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detail.component';
 import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
 import {ApiComponent} from './help/api/api.component';
+import {ProtocolComponent} from './protocol/protocol.component';
+import {ProtocolDetailComponent} from './protocol/protocol-detail/protocol-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -24,6 +26,8 @@ const routes: Routes = [
   {path: 'dataset/:id', component: DatasetDetailComponent},
   {path: 'file', component: FileTableComponent},
   {path: 'file/:id', component: FileDetailComponent},
+  {path: 'protocol', component: ProtocolComponent},
+  {path: 'protocol/:id', component: ProtocolDetailComponent},
   {path: 'search', component: SearchComponent},
   {path: 'help', component: HelpComponent},
   {path: 'help/api', component: ApiComponent}
