@@ -24,7 +24,7 @@
     "@angular/service-worker": "^7.0.1",
     "angular2-cookie-law": "^6.0.4",
     "angular2-csv": "^0.2.9",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.0",
     "core-js": "^2.5.4",
     "ngx-bootstrap": "^3.1.2",
     "ngx-pagination": "^3.2.0",
