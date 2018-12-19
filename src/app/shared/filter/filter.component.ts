@@ -44,6 +44,14 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['organismpart_celltype'];
         } else if (this.title === 'Archive') {
           this.aggregation = data['archive'];
+        } else if (this.title === 'Protocol Name') {
+          this.aggregation = data['protocol_name'];
+        } else if (this.title === 'University') {
+          this.aggregation = data['university_name'];
+        } else if (this.title === 'Protocol Year') {
+          this.aggregation = data['protocol_date'];
+        } else if (this.title === 'Protocol type') {
+          this.aggregation = data['protocol_type'];
         }
       }
     );
@@ -94,6 +102,18 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Archive': {
         data_key = 'archive';
+        break;
+      }
+      case 'University': {
+        data_key = 'university_name';
+        break;
+      }
+      case 'Protocol Year': {
+        data_key = 'protocol_date';
+        break;
+      }
+      case 'Protocol type': {
+        data_key = 'protocol_type';
         break;
       }
     }

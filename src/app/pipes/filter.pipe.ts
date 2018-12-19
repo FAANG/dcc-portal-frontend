@@ -37,6 +37,14 @@ export class FilterPipe implements PipeTransform {
           results_for_download.push(item_for_download);
         }
         this.exportService.data.next(results_for_download);
+      } else if (type === 'protocol') {
+        const results_for_download = [];
+        for (const item of value) {
+          const item_for_download = JSON.parse(JSON.stringify(item));
+          delete item_for_download['key'];
+          results_for_download.push(item_for_download);
+        }
+        this.exportService.data.next(results_for_download);
       } else {
         this.exportService.data.next(value);
       }
@@ -56,6 +64,9 @@ export class FilterPipe implements PipeTransform {
         }
         if (type === 'specimen' || type === 'organism') {
           delete item_for_download['idNumber'];
+        }
+        if (type === 'protocol') {
+          delete item_for_download['key'];
         }
         let will_be_in = true;
         for (const key of Object.keys(filter_field)) {

@@ -20,6 +20,10 @@ export class AggregationService {
     material: [],
     organismpart_celltype: [],
     archive: [],
+    protocol_name: [],
+    university_name: [],
+    protocol_date: [],
+    protocol_type: [],
   };
 
   current_active_filters = [];
@@ -65,36 +69,36 @@ export class AggregationService {
       };
       this.data.next(all_data);
     } else if (type === 'organism') {
-        const standard = {};
-        const sex = {};
-        const organism = {};
-        const breed = {};
-        let all_data;
+      const standard = {};
+      const sex = {};
+      const organism = {};
+      const breed = {};
+      let all_data;
 
-        for (const item of fileList) {
-          let sex_value: string;
-          male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
-            sex_value = 'not determined');
-          standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
-          sex.hasOwnProperty(sex_value) ? sex[sex_value] += 1 : sex[sex_value] = 1;
-          organism.hasOwnProperty(item['organism']) ? organism[item['organism']] += 1 : organism[item['organism']] = 1;
-          breed.hasOwnProperty(item['breed']) ? breed[item['breed']] += 1 : breed[item['breed']] = 1;
-        }
+      for (const item of fileList) {
+        let sex_value: string;
+        male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
+          sex_value = 'not determined');
+        standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
+        sex.hasOwnProperty(sex_value) ? sex[sex_value] += 1 : sex[sex_value] = 1;
+        organism.hasOwnProperty(item['organism']) ? organism[item['organism']] += 1 : organism[item['organism']] = 1;
+        breed.hasOwnProperty(item['breed']) ? breed[item['breed']] += 1 : breed[item['breed']] = 1;
+      }
 
-        all_data = {
-          standard: Object.entries(standard).sort(function (a: any, b: any) {
-            return b[1] - a[1];
-          }),
-          sex: Object.entries(sex).sort(function (a: any, b: any) {
-            return b[1] - a[1];
-          }),
-          organism: Object.entries(organism).sort(function (a: any, b: any) {
-            return b[1] - a[1];
-          }),
-          breed: Object.entries(breed).sort(function (a: any, b: any) {
-            return b[1] - a[1];
-          }),
-        };
+      all_data = {
+        standard: Object.entries(standard).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        sex: Object.entries(sex).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        organism: Object.entries(organism).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        breed: Object.entries(breed).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+      };
       this.data.next(all_data);
     } else if (type === 'specimen') {
       const standard = {};
@@ -170,6 +174,37 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         archive: Object.entries(archive).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+      };
+      this.data.next(all_data);
+    } else if (type === 'protocol') {
+      const protocol_name = {};
+      const university_name = {};
+      const protocol_date = {};
+      const protocol_type = {};
+      let all_data;
+      for (const item of fileList) {
+        protocol_name.hasOwnProperty(item['protocol_name']) ? protocol_name[item['protocol_name']] += 1 :
+          protocol_name[item['protocol_name']] = 1;
+        university_name.hasOwnProperty((item['university_name'])) ? university_name[item['university_name']] += 1 :
+          university_name[item['university_name']] = 1;
+        protocol_date.hasOwnProperty(item['protocol_date']) ? protocol_date[item['protocol_date']] += 1 :
+          protocol_date[item['protocol_date']] = 1;
+        protocol_type.hasOwnProperty(item['protocol_type']) ? protocol_type[item['protocol_type']] += 1 :
+          protocol_type[item['protocol_type']] = 1;
+      }
+      all_data = {
+        protocol_name: Object.entries(protocol_name).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        university_name: Object.entries(university_name).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        protocol_date: Object.entries(protocol_date).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        protocol_type: Object.entries(protocol_type).sort(function(a: any, b: any) {
           return b[1] - a[1];
         }),
       };
