@@ -19,7 +19,7 @@ export class ProtocolComponent implements OnInit, OnDestroy {
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
   columnNames: string[] = ['Protocol name', 'University name', 'Year of protocol', 'Protocol type'];
-  exportNames: string[] = ['Protocol name', 'Protocol type', 'University name', 'Protocol Year'];
+  exportNames: string[] = ['University name', 'Protocol name', 'Protocol Year', 'Protocol type'];
   filter_field: {};
   downloadData = false;
 

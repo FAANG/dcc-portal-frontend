@@ -55,7 +55,8 @@ export class FileDetailComponent implements OnInit {
     chipAntibodyCatalog: 'ChIP antibody catalog',
     chipAntibodyLot: 'ChIP antibody lot',
     libraryGenerationMaxFragmentSizeRange: 'Library generation max fragment size range',
-    libraryGenerationMinFragmentSizeRange: 'Library generation min fragment size range'
+    libraryGenerationMinFragmentSizeRange: 'Library generation min fragment size range',
+    'hi-cProtocol': 'Protocol',
   };
 
   fieldExcludeNames = {
