@@ -13,7 +13,10 @@ import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detai
 import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
 import {ApiComponent} from './help/api/api.component';
 import {ProtocolComponent} from './protocol/protocol.component';
-import {ProtocolDetailComponent} from './protocol/protocol-detail/protocol-detail.component';
+import {ProtocolSamplesComponent} from './protocol/protocol-samples/protocol-samples.component';
+import {ProtocolExperimentsComponent} from './protocol/protocol-experiments/protocol-experiments.component';
+import {ProtocolSamplesDetailComponent} from './protocol/protocol-samples/protocol-samples-detail/protocol-samples-detail.component';
+import {ProtocolExperimentsDetailComponent} from './protocol/protocol-experiments/protocol-experiments-detail/protocol-experiments-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -27,7 +30,10 @@ const routes: Routes = [
   {path: 'file', component: FileTableComponent},
   {path: 'file/:id', component: FileDetailComponent},
   {path: 'protocol', component: ProtocolComponent},
-  {path: 'protocol/:id', component: ProtocolDetailComponent},
+  {path: 'protocol/samples', component: ProtocolSamplesComponent},
+  {path: 'protocol/samples/:id', component: ProtocolSamplesDetailComponent},
+  {path: 'protocol/experiments', component: ProtocolExperimentsComponent},
+  {path: 'protocol/experiments/:id', component: ProtocolExperimentsDetailComponent},
   {path: 'search', component: SearchComponent},
   {path: 'help', component: HelpComponent},
   {path: 'help/api', component: ApiComponent}

@@ -42,6 +42,10 @@ import { ApiComponent } from './help/api/api.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolComponent } from './protocol/protocol.component';
 import { ProtocolDetailComponent } from './protocol/protocol-detail/protocol-detail.component';
+import { ProtocolSamplesComponent } from './protocol/protocol-samples/protocol-samples.component';
+import { ProtocolExperimentsComponent } from './protocol/protocol-experiments/protocol-experiments.component';
+import { ProtocolSamplesDetailComponent } from './protocol/protocol-samples/protocol-samples-detail/protocol-samples-detail.component';
+import { ProtocolExperimentsDetailComponent } from './protocol/protocol-experiments/protocol-experiments-detail/protocol-experiments-detail.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +76,10 @@ import { ProtocolDetailComponent } from './protocol/protocol-detail/protocol-det
     ApiComponent,
     ProtocolComponent,
     ProtocolDetailComponent,
+    ProtocolSamplesComponent,
+    ProtocolExperimentsComponent,
+    ProtocolSamplesDetailComponent,
+    ProtocolExperimentsDetailComponent,
   ],
   imports: [
     BrowserModule,
