@@ -41,7 +41,6 @@ import { environment } from '../environments/environment';
 import { ApiComponent } from './help/api/api.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolComponent } from './protocol/protocol.component';
-import { ProtocolDetailComponent } from './protocol/protocol-detail/protocol-detail.component';
 import { ProtocolSamplesComponent } from './protocol/protocol-samples/protocol-samples.component';
 import { ProtocolExperimentsComponent } from './protocol/protocol-experiments/protocol-experiments.component';
 import { ProtocolSamplesDetailComponent } from './protocol/protocol-samples/protocol-samples-detail/protocol-samples-detail.component';
@@ -75,7 +74,6 @@ import { ProtocolExperimentsDetailComponent } from './protocol/protocol-experime
     DatasetRelatedTemplateComponent,
     ApiComponent,
     ProtocolComponent,
-    ProtocolDetailComponent,
     ProtocolSamplesComponent,
     ProtocolExperimentsComponent,
     ProtocolSamplesDetailComponent,
