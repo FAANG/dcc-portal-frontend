@@ -1,12 +1,12 @@
 <div class="container">
   <app-header></app-header>
   <h2>Faang protocols:
-    <button type="button" class="btn btn-default" aria-label="Left Align" [ngClass]="{'active' : samplesActive}"
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="{'active' : samplesActive}"
             (click)="onClick()">
       Samples
       <span [ngClass]="samplesClass" aria-hidden="true"></span>
     </button>
-    <button type="button" class="btn btn-default" aria-label="Left Align" [ngClass]="{'active' : experimentsActive}"
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="{'active' : experimentsActive}"
             (click)="onClick()">
       Experiments
       <span [ngClass]="experimentsClass" aria-hidden="true"></span>
