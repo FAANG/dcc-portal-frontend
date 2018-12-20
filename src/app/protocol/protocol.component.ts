@@ -7,9 +7,9 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ProtocolComponent implements OnInit {
   activeComponent = 'samples';
-  current = 'glyphicon glyphicon-option-vertical';
-  next = 'glyphicon glyphicon-menu-right';
-  previous = 'glyphicon glyphicon-menu-left';
+  current = 'glyphicon glyphicon-home';
+  next = 'glyphicon glyphicon-circle-arrow-right';
+  previous = 'glyphicon glyphicon-circle-arrow-left';
   samplesActive = true;
   experimentsActive = false;
   samplesClass = this.current;
