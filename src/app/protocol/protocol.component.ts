@@ -30,6 +30,13 @@ export class ProtocolComponent implements OnInit, OnDestroy {
   // Local variable for pagination
   p = 1;
   error: string;
+  current = 'glyphicon glyphicon-option-vertical';
+  next = 'glyphicon glyphicon-menu-right';
+  previous = 'glyphicon glyphicon-menu-left';
+  samplesActive = true;
+  experimentsActive = false;
+  samplesClass = this.current;
+  experimentsClass = this.next;
 
   constructor(private apiFileService: ApiFileService,
               private activatedRoute: ActivatedRoute,
@@ -113,6 +120,18 @@ export class ProtocolComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  onClick() {
+    this.samplesActive = !this.samplesActive;
+    this.experimentsActive = !this.experimentsActive;
+    if (this.experimentsClass === this.next) {
+      this.experimentsClass = this.current;
+      this.samplesClass = this.previous;
+    } else {
+      this.experimentsClass = this.next;
+      this.samplesClass = this.current;
+    }
   }
 
   ngOnDestroy() {
