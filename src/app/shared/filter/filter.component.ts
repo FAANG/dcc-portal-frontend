@@ -52,6 +52,12 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['protocol_date'];
         } else if (this.title === 'Protocol type') {
           this.aggregation = data['protocol_type'];
+        } else if (this.title === 'Protocol') {
+          this.aggregation = data['protocol_type'];
+        } else if (this.title === 'Assay type') {
+          this.aggregation = data['assay_type'];
+        } else if (this.title === 'Target') {
+          this.aggregation = data['experiment_target'];
         }
       }
     );
@@ -114,6 +120,18 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Protocol type': {
         data_key = 'protocol_type';
+        break;
+      }
+      case 'Protocol': {
+        data_key = 'name';
+        break;
+      }
+      case 'Target': {
+        data_key = 'experiment_target';
+        break;
+      }
+      case 'Assay type': {
+        data_key = 'assay_type';
         break;
       }
     }

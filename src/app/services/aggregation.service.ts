@@ -24,6 +24,24 @@ export class AggregationService {
     university_name: [],
     protocol_date: [],
     protocol_type: [],
+    protocol: [],
+    assay_type: [],
+    experiment_target: []
+  };
+
+  protocolNames = {
+    experimentalProtocol: 'Experimental protocol',
+    extractionProtocol: 'Extraction protocol',
+    rnaPreparation3AdapterLigationProtocol: "Rna preparation 3' adapter ligation protocol",
+    rnaPreparation5AdapterLigationProtocol: "Rna preparation 5' adapter ligation protocol",
+    libraryGenerationPcrProductIsolationProtocol: 'Library generation PCR product isolation protocol',
+    preparationReverseTranscriptionProtocol: 'Preparation reverse transcription protocol',
+    libraryGenerationProtocol: 'Library generation protocol',
+    bisulfiteConversionProtocol: 'Bisulfite conversion protocol',
+    pcrProductIsolationProtocol: 'PCR product isolation protocol',
+    transposaseProtocol: 'Transposase protocol',
+    dnaseProtocol: 'DNase protocol',
+    chipProtocol: 'ChIP protocol'
   };
 
   current_active_filters = [];
@@ -32,6 +50,10 @@ export class AggregationService {
   field = new Subject();
 
   constructor() { }
+
+  getHumanName(data) {
+    return this.protocolNames[data];
+  }
 
   getAggregations(fileList: any, type: string) {
     if (type === 'file') {
@@ -205,6 +227,30 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         protocol_type: Object.entries(protocol_type).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+      };
+      this.data.next(all_data);
+    } else if (type === 'protocol_experiments') {
+      const protocol_type = {};
+      const experiment_target = {};
+      const assay_type = {};
+      let all_data;
+      for (const item of fileList) {
+        item['name'] = this.getHumanName(item['name']);
+        protocol_type.hasOwnProperty(item['name']) ? protocol_type[item['name']] += 1 : protocol_type[item['name']] = 1;
+        experiment_target.hasOwnProperty(item['experimentTarget']) ? experiment_target[item['experimentTarget']] += 1 :
+          experiment_target[item['experimentTarget']] = 1;
+        assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;
+      }
+      all_data = {
+        protocol_type: Object.entries(protocol_type).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        experiment_target: Object.entries(experiment_target).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        assay_type: Object.entries(assay_type).sort(function(a: any, b: any) {
           return b[1] - a[1];
         }),
       };

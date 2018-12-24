@@ -18,7 +18,7 @@ export class ProtocolExperimentsComponent implements OnInit, OnDestroy {
   protocolListSubscription: Subscription;
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
-  columnNames: string[] = ['Protocol name', 'University name', 'Year of protocol', 'Protocol type'];
+  columnNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];
   exportNames: string[] = ['University name', 'Protocol name', 'Protocol Year', 'Protocol type'];
   filter_field: {};
   downloadData = false;
@@ -30,6 +30,21 @@ export class ProtocolExperimentsComponent implements OnInit, OnDestroy {
   // Local variable for pagination
   p = 1;
   error: string;
+
+  protocolNames = {
+    experimentalProtocol: 'Experimental protocol',
+    extractionProtocol: 'Extraction protocol',
+    rnaPreparation3AdapterLigationProtocol: "Rna preparation 3' adapter ligation protocol",
+    rnaPreparation5AdapterLigationProtocol: "Rna preparation 5' adapter ligation protocol",
+    libraryGenerationPcrProductIsolationProtocol: 'Library generation PCR product isolation protocol',
+    preparationReverseTranscriptionProtocol: 'Preparation reverse transcription protocol',
+    libraryGenerationProtocol: 'Library generation protocol',
+    bisulfiteConversionProtocol: 'Bisulfite conversion protocol',
+    pcrProductIsolationProtocol: 'PCR product isolation protocol',
+    transposaseProtocol: 'Transposase protocol',
+    dnaseProtocol: 'DNase protocol',
+    chipProtocol: 'ChIP protocol'
+  };
 
   constructor(private apiFileService: ApiFileService,
               private activatedRoute: ActivatedRoute,
@@ -67,10 +82,10 @@ export class ProtocolExperimentsComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.exportNames;
     this.optionsTabular['headers'] = this.exportNames;
-    this.protocolList = this.apiFileService.getAllProtocols();
+    this.protocolList = this.apiFileService.getAllExperimentsProtocols();
     this.spinner.hide();
     this.protocolListSubscription = this.protocolList.subscribe( data => {
-      this.aggregationService.getAggregations(data, 'protocol');
+      this.aggregationService.getAggregations(data, 'protocol_experiments');
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -113,6 +128,10 @@ export class ProtocolExperimentsComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  getHumanName(data) {
+    return this.protocolNames[data];
   }
 
   ngOnDestroy() {

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-protocol',
@@ -15,7 +16,7 @@ export class ProtocolComponent implements OnInit {
   samplesClass = this.current;
   experimentsClass = this.next;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {}
 

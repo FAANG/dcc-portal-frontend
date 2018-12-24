@@ -27,7 +27,7 @@ export class ProtocolSamplesDetailComponent implements OnInit {
       this.fileId = params['id'];
       this.titleService.setTitle(`${this.fileId} | FAANG protocol`);
     });
-    this.apiFileService.getProtocol(this.fileId).subscribe(data => {
+    this.apiFileService.getSampleProtocol(this.fileId).subscribe(data => {
         this.file = data[0];
         if (this.file) {
           this.spinner.hide();

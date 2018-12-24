@@ -174,8 +174,8 @@ export class ApiFileService {
     );
   }
 
-  getAllProtocols() {
-    const url = this.hostSetting.host + 'protocol/_search/';
+  getAllSamplesProtocols() {
+    const url = this.hostSetting.host + 'protocol_samples/_search/';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -185,10 +185,21 @@ export class ApiFileService {
     );
   }
 
-  getProtocol(id: string) {
-    const url = this.hostSetting.host + 'protocol/' + id + '/';
+  getSampleProtocol(id: string) {
+    const url = this.hostSetting.host + 'protocol_samples/' + id + '/';
     return this.http.get(url).pipe(
       map( (data: any) => {
+        return data;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllExperimentsProtocols() {
+    const url = this.hostSetting.host + 'protocol_files/_search/';
+    return this.http.get(url).pipe(
+      map((data: any) => {
         return data;
       }),
       retry(3),

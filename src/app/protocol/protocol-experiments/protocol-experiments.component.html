@@ -8,13 +8,13 @@
   <div class="col-md-2">
     <div class="row">
       <div class="col-md-12 col-sm-6 faang-filter">
-        <app-filter title="University" [filterSize]=5></app-filter>
+        <app-filter title="Protocol" [filterSize]=3></app-filter>
       </div>
       <div class="col-md-12 col-sm-6 faang-filter">
-        <app-filter title="Protocol Year" [filterSize]=5></app-filter>
+        <app-filter title="Target" [filterSize]=5></app-filter>
       </div>
       <div class="col-md-12 col-sm-6 faang-filter">
-        <app-filter title="Protocol type" [filterSize]=5></app-filter>
+        <app-filter title="Assay type" [filterSize]=3></app-filter>
       </div>
     </div>
   </div>
@@ -38,11 +38,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let protocol of protocols | filter: filter_field: 'protocol' | paginate: { itemsPerPage: 25, currentPage: p }">
-          <td><a style="cursor: pointer" [routerLink]="['samples', protocol['key']]">{{protocol['protocol_name']}}</a></td>
-          <td>{{protocol['university_name']}}</td>
-          <td>{{protocol['protocol_date']}}</td>
-          <td>{{protocol['protocol_type']}}</td>
+        <tr *ngFor="let protocol of protocols | paginate: { itemsPerPage: 25, currentPage: p }">
+          <td><a style="cursor: pointer" [routerLink]="['experiments', protocol['name']]">{{protocol['name']}}</a></td>
+          <td>{{protocol['experimentTarget']}}</td>
+          <td>{{protocol['assayType']}}</td>
         </tr>
         </tbody>
       </table>

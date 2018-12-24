@@ -67,7 +67,7 @@ export class ProtocolSamplesComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.exportNames;
     this.optionsTabular['headers'] = this.exportNames;
-    this.protocolList = this.apiFileService.getAllProtocols();
+    this.protocolList = this.apiFileService.getAllSamplesProtocols();
     this.spinner.hide();
     this.protocolListSubscription = this.protocolList.subscribe( data => {
       this.aggregationService.getAggregations(data, 'protocol');
