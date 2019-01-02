@@ -7,6 +7,7 @@ import {AggregationService} from '../../services/aggregation.service';
 import {ExportService} from '../../services/export.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import {protocolNames} from '../../shared/protocolnames';
 
 @Component({
   selector: 'app-protocol-experiments',
@@ -30,21 +31,6 @@ export class ProtocolExperimentsComponent implements OnInit, OnDestroy {
   // Local variable for pagination
   p = 1;
   error: string;
-
-  protocolNames = {
-    experimentalProtocol: 'Experimental protocol',
-    extractionProtocol: 'Extraction protocol',
-    rnaPreparation3AdapterLigationProtocol: "Rna preparation 3' adapter ligation protocol",
-    rnaPreparation5AdapterLigationProtocol: "Rna preparation 5' adapter ligation protocol",
-    libraryGenerationPcrProductIsolationProtocol: 'Library generation PCR product isolation protocol',
-    preparationReverseTranscriptionProtocol: 'Preparation reverse transcription protocol',
-    libraryGenerationProtocol: 'Library generation protocol',
-    bisulfiteConversionProtocol: 'Bisulfite conversion protocol',
-    pcrProductIsolationProtocol: 'PCR product isolation protocol',
-    transposaseProtocol: 'Transposase protocol',
-    dnaseProtocol: 'DNase protocol',
-    chipProtocol: 'ChIP protocol'
-  };
 
   constructor(private apiFileService: ApiFileService,
               private activatedRoute: ActivatedRoute,
@@ -131,7 +117,7 @@ export class ProtocolExperimentsComponent implements OnInit, OnDestroy {
   }
 
   getHumanName(data) {
-    return this.protocolNames[data];
+    return protocolNames[data];
   }
 
   ngOnDestroy() {

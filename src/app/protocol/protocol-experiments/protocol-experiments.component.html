@@ -39,7 +39,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let protocol of protocols | paginate: { itemsPerPage: 25, currentPage: p }">
-          <td><a style="cursor: pointer" [routerLink]="['experiments', protocol['name']]">{{getHumanName(protocol['name'])}}</a></td>
+          <td><a style="cursor: pointer" [routerLink]="['experiments', protocol['key']]">{{getHumanName(protocol['name'])}}</a></td>
           <td>{{protocol['experimentTarget']}}</td>
           <td>{{protocol['assayType']}}</td>
         </tr>
