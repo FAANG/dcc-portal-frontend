@@ -1,4 +1,15 @@
 <div class="container">
   <app-header></app-header>
   <h1 class="text-center">{{getHumanName(protocolId.split("-")[0])}}</h1>
+  <dl class="dl-horizontal">
+    <dt>Protocol: </dt>
+    <dd>
+      <app-robust-link [link]="protocol?.url" [text]="protocol?.filename"></app-robust-link>
+      <a href={{protocol?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+    </dd>
+    <dt>Experiment target: </dt>
+    <dd>{{protocol?.experimentTarget}}</dd>
+    <dt>Assay type: </dt>
+    <dd>{{protocol?.assayType}}</dd>
+  </dl>
 </div>

@@ -12,6 +12,10 @@ import {protocolNames} from '../../../shared/protocolnames';
 })
 export class ProtocolExperimentsDetailComponent implements OnInit {
   protocolId: string;
+  protocol: any;
+  error: any;
+
+  p = 1;
 
   constructor(private route: ActivatedRoute,
               private apiFileService: ApiFileService,
@@ -25,7 +29,16 @@ export class ProtocolExperimentsDetailComponent implements OnInit {
       this.titleService.setTitle(`${this.protocolId.split('-')[0]} | FAANG protocol`);
       console.log(this.protocolId);
     });
-    this.spinner.hide();
+    this.apiFileService.getExperimentProtocol(this.protocolId).subscribe(data => {
+      this.protocol = data[0];
+      if (this.protocol) {
+        this.spinner.hide();
+      }
+    },
+      error => {
+      this.spinner.hide();
+      this.error = error;
+      });
   }
 
   getHumanName(data) {
