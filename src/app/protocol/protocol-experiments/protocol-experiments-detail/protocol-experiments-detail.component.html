@@ -24,14 +24,45 @@
       </thead>
       <tbody>
       <tr *ngFor="let sample of protocol?.experiments | paginate: { itemsPerPage: 10, currentPage: p }">
-        <!--<td><a [routerLink]="['/specimen', sample.id]">{{sample.id}}</a></td>-->
-        <td>{{sample.split("|")[0]}}</td>
+        <td><a style="cursor:pointer" (click)="onClick(sample.split('|')[0]); ngxSmartModalService.getModal('myModal').open()">{{sample.split("|")[0]}}</a></td>
         <td>{{sample.split("|")[1]}}</td>
         <td>{{sample.split("|")[2]}}</td>
-        <!--<td><a [routerLink]="['/organism', sample.derived_from]">{{sample.derived_from}}</a></td>-->
       </tr>
       </tbody>
     </table>
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
+
+  <ngx-smart-modal #myModal identifier="myModal" class="nsm-dialog-animation-fade" width="200%" customClass="msg-modal">
+    <h3>{{experimentId}}</h3>
+    <hr>
+    <ng-container *ngIf="experiment && fieldNames">
+      <ng-container *ngFor="let key of objectKeys(fieldNames)">
+
+        <ng-container *ngIf="experiment.hasOwnProperty(key) && checkIsObject(experiment[key])">
+          <ng-container *ngIf="experiment[key].hasOwnProperty('filename')">
+            <p>
+              <b>{{fieldNames[key]}}: </b> <br>
+              <app-robust-link [link]="experiment[key]['url']" [text]="experiment[key]['filename'] | slice:0:62"></app-robust-link>
+            </p>
+          </ng-container>
+          <ng-container *ngIf="experiment[key].hasOwnProperty('text')">
+            <p>
+              <b>{{fieldNames[key]}}: </b> <br>
+              {{experiment[key]['text']}} ({{experiment[key]['unit']}})
+            </p>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="experiment.hasOwnProperty(key) && !checkIsObject(experiment[key])">
+          <p>
+            <b>{{fieldNames[key]}}: </b> <br>
+            {{experiment[key]}}
+          </p>
+        </ng-container>
+
+      </ng-container>
+    </ng-container>
+    <button (click)="myModal.close()" type="button" class="btn btn-success">Close</button>
+  </ngx-smart-modal>
 </div>

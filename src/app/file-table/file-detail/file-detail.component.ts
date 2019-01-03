@@ -4,6 +4,7 @@ import {ApiFileService} from '../../services/api-file.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
+import {FIELDEXCLUDENAMES, FIELDNAMES} from '../../shared/fieldnames';
 
 @Component({
   selector: 'app-file-detail',
@@ -15,55 +16,8 @@ export class FileDetailComponent implements OnInit {
   file: any;
   experiment: any = {};
   error: any;
-  fieldNames = {
-    assayType: 'Assay type',
-    sampleStorage: 'Sample storage',
-    sampleStorageProcessing: 'Sample storage processing',
-    samplingToPreparationInterval: 'Sampling to preparation interval',
-    experimentalProtocol: 'Experimental protocol',
-    extractionProtocol: 'Extraction protocol',
-    libraryPreparationLocation: 'Library preparation location',
-    libraryPreparationLocationLongitude: 'Library preparation location longitude',
-    libraryPreparationLocationLatitude: 'Library preparation location latitude',
-    libraryPreparationDate: 'Library preparation date',
-    sequencingLocation: 'Sequencing location',
-    sequencingLocationLatitude: 'Sequencing location latitude',
-    sequencingLocationLongitude: 'Sequencing location longitude',
-    sequencingDate: 'Sequencing date',
-    experimentTarget: 'Experiment target',
-    rnaPreparation3AdapterLigationProtocol: 'Rna preparation 3\' adapter ligation protocol',
-    rnaPreparation5AdapterLigationProtocol: 'Rna preparation 5\' adapter ligation protocol',
-    libraryGenerationPcrProductIsolationProtocol: 'Library generation PCR product isolation protocol',
-    preparationReverseTranscriptionProtocol: 'Preparation reverse transcription protocol',
-    libraryGenerationProtocol: 'Library generation protocol',
-    readStrand: 'Read strand',
-    rnaPurity260230ratio: 'Rna purity - 260:230 ratio',
-    rnaPurity260280ratio: 'Rna purity - 260:280 ratio',
-    rnaIntegrityNumber: 'Rna integrity number',
-    librarySelection: 'Library selection',
-    bisulfiteConversionProtocol: 'Bisulfite conversion protocol',
-    pcrProductIsolationProtocol: 'PCR product isolation protocol',
-    bisulfiteConversionPercent: 'Bisulfite conversion percent',
-    restrictionEnzyme: 'Restriction enzyme',
-    maxFragmentSizeSelectionRange: 'Max fragment size selection range',
-    minFragmentSizeSelectionRange: 'Min fragment size selection range',
-    transposaseProtocol: 'Transposase protocol',
-    dnaseProtocol: 'DNase protocol',
-    restrictionSite: 'Restriction site',
-    chipProtocol: 'ChIP protocol',
-    chipAntibodyProvider: 'ChIP antibody provider',
-    chipAntibodyCatalog: 'ChIP antibody catalog',
-    chipAntibodyLot: 'ChIP antibody lot',
-    libraryGenerationMaxFragmentSizeRange: 'Library generation max fragment size range',
-    libraryGenerationMinFragmentSizeRange: 'Library generation min fragment size range',
-    'hi-cProtocol': 'Protocol',
-  };
-
-  fieldExcludeNames = {
-    accession: 'accession',
-    standardMet: 'standard Met',
-    versionLastStandardMet: 'version last standard met',
-  };
+  fieldNames = FIELDNAMES;
+  fieldExcludeNames = FIELDEXCLUDENAMES;
 
   objectKeys = Object.keys;
 
