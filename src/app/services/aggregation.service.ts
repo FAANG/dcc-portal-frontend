@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
 
 import {female_values, male_values} from '../shared/sexvalues';
+import {protocolNames} from '../shared/protocolnames';
 
 @Injectable({
   providedIn: 'root'
@@ -29,20 +30,7 @@ export class AggregationService {
     experiment_target: []
   };
 
-  protocolNames = {
-    experimentalProtocol: 'Experimental protocol',
-    extractionProtocol: 'Extraction protocol',
-    rnaPreparation3AdapterLigationProtocol: "Rna preparation 3' adapter ligation protocol",
-    rnaPreparation5AdapterLigationProtocol: "Rna preparation 5' adapter ligation protocol",
-    libraryGenerationPcrProductIsolationProtocol: 'Library generation PCR product isolation protocol',
-    preparationReverseTranscriptionProtocol: 'Preparation reverse transcription protocol',
-    libraryGenerationProtocol: 'Library generation protocol',
-    bisulfiteConversionProtocol: 'Bisulfite conversion protocol',
-    pcrProductIsolationProtocol: 'PCR product isolation protocol',
-    transposaseProtocol: 'Transposase protocol',
-    dnaseProtocol: 'DNase protocol',
-    chipProtocol: 'ChIP protocol'
-  };
+  protocolNames = protocolNames;
 
   current_active_filters = [];
 

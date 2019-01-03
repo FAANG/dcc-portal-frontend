@@ -39,7 +39,7 @@ export const FIELDNAMES = {
   chipAntibodyLot: 'ChIP antibody lot',
   libraryGenerationMaxFragmentSizeRange: 'Library generation max fragment size range',
   libraryGenerationMinFragmentSizeRange: 'Library generation min fragment size range',
-  'hi-cProtocol': 'Protocol',
+  'hi-cProtocol': 'Hi-C protocol',
 };
 
 export const FIELDEXCLUDENAMES = {

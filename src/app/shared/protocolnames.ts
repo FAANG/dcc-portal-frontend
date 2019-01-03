@@ -10,5 +10,6 @@ export const protocolNames = {
   pcrProductIsolationProtocol: 'PCR product isolation protocol',
   transposaseProtocol: 'Transposase protocol',
   dnaseProtocol: 'DNase protocol',
-  chipProtocol: 'ChIP protocol'
+  chipProtocol: 'ChIP protocol',
+  'hi-cProtocol': 'Hi-C protocol',
 };
