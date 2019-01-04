@@ -12,9 +12,10 @@ import {OrganismDetailComponent} from './organism/organism-detail/organism-detai
 import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detail.component';
 import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
 import {ApiComponent} from './help/api/api.component';
-import {ProtocolComponent} from './protocol/protocol.component';
-import {ProtocolSamplesDetailComponent} from './protocol/protocol-samples/protocol-samples-detail/protocol-samples-detail.component';
-import {ProtocolExperimentsDetailComponent} from './protocol/protocol-experiments/protocol-experiments-detail/protocol-experiments-detail.component';
+import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.component';
+import {ProtocolExperimentComponent} from './protocol-experiment/protocol-experiment.component';
+import {ProtocolSampleDetailsComponent} from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
+import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -27,9 +28,10 @@ const routes: Routes = [
   {path: 'dataset/:id', component: DatasetDetailComponent},
   {path: 'file', component: FileTableComponent},
   {path: 'file/:id', component: FileDetailComponent},
-  {path: 'protocol', component: ProtocolComponent},
-  {path: 'protocol/samples/:id', component: ProtocolSamplesDetailComponent},
-  {path: 'protocol/experiments/:id', component: ProtocolExperimentsDetailComponent},
+  {path: 'protocol/samples', component: ProtocolSampleComponent},
+  {path: 'protocol/samples/:id', component: ProtocolSampleDetailsComponent},
+  {path: 'protocol/experiments', component: ProtocolExperimentComponent},
+  {path: 'protocol/experiments/:id', component: ProtocolExperimentDetailsComponent},
   {path: 'search', component: SearchComponent},
   {path: 'help', component: HelpComponent},
   {path: 'help/api', component: ApiComponent}

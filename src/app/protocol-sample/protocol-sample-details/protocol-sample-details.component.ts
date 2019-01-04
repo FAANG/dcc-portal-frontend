@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {ApiFileService} from '../../../services/api-file.service';
+import {ApiFileService} from '../../services/api-file.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-protocol-samples-detail',
-  templateUrl: './protocol-samples-detail.component.html',
-  styleUrls: ['./protocol-samples-detail.component.css']
+  selector: 'app-protocol-sample-details',
+  templateUrl: './protocol-sample-details.component.html',
+  styleUrls: ['./protocol-sample-details.component.css']
 })
-export class ProtocolSamplesDetailComponent implements OnInit {
+export class ProtocolSampleDetailsComponent implements OnInit {
   fileId: string;
   file: any;
   error: any;
@@ -38,4 +38,5 @@ export class ProtocolSamplesDetailComponent implements OnInit {
         this.error = error;
       });
   }
+
 }

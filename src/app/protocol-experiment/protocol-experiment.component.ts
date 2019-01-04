@@ -1,20 +1,20 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/internal/Observable';
 import {Subscription} from 'rxjs/internal/Subscription';
-import {ApiFileService} from '../../services/api-file.service';
+import {ApiFileService} from '../services/api-file.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {AggregationService} from '../../services/aggregation.service';
-import {ExportService} from '../../services/export.service';
+import {AggregationService} from '../services/aggregation.service';
+import {ExportService} from '../services/export.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
-import {protocolNames} from '../../shared/protocolnames';
+import {protocolNames} from '../shared/protocolnames';
 
 @Component({
-  selector: 'app-protocol-experiments',
-  templateUrl: './protocol-experiments.component.html',
-  styleUrls: ['./protocol-experiments.component.css']
+  selector: 'app-protocol-experiment',
+  templateUrl: './protocol-experiment.component.html',
+  styleUrls: ['./protocol-experiment.component.css']
 })
-export class ProtocolExperimentsComponent implements OnInit, OnDestroy {
+export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   protocolList: Observable<any[]>;
   protocolListSubscription: Subscription;
   aggrSubscription: Subscription;
@@ -62,7 +62,9 @@ export class ProtocolExperimentsComponent implements OnInit, OnDestroy {
           }
         }
       }
-      this.filter_field = filters;
+      if (Object.keys(filters).length !== 0) {
+        this.filter_field = filters;
+      }
     });
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;
@@ -128,4 +130,5 @@ export class ProtocolExperimentsComponent implements OnInit, OnDestroy {
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
   }
+
 }

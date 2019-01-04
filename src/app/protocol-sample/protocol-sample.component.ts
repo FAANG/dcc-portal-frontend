@@ -1,25 +1,25 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/internal/Observable';
 import {Subscription} from 'rxjs/internal/Subscription';
-import {ApiFileService} from '../../services/api-file.service';
+import {ApiFileService} from '../services/api-file.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {AggregationService} from '../../services/aggregation.service';
-import {ExportService} from '../../services/export.service';
+import {AggregationService} from '../services/aggregation.service';
+import {ExportService} from '../services/export.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-protocol-samples',
-  templateUrl: './protocol-samples.component.html',
-  styleUrls: ['./protocol-samples.component.css']
+  selector: 'app-protocol-sample',
+  templateUrl: './protocol-sample.component.html',
+  styleUrls: ['./protocol-sample.component.css']
 })
-export class ProtocolSamplesComponent implements OnInit, OnDestroy {
+export class ProtocolSampleComponent implements OnInit, OnDestroy {
   protocolList: Observable<any[]>;
   protocolListSubscription: Subscription;
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
   columnNames: string[] = ['Protocol name', 'University name', 'Year of protocol', 'Protocol type'];
-  exportNames: string[] = ['University name', 'Protocol name', 'Protocol Year', 'Protocol type'];
+  exportNames: string[] = ['Protocol name', 'Protocol type', 'University name', 'Protocol Year'];
   filter_field: {};
   downloadData = false;
 
@@ -61,7 +61,9 @@ export class ProtocolSamplesComponent implements OnInit, OnDestroy {
           }
         }
       }
-      this.filter_field = filters;
+      if (Object.keys(filters).length !== 0) {
+        this.filter_field = filters;
+      }
     });
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;
@@ -79,7 +81,7 @@ export class ProtocolSamplesComponent implements OnInit, OnDestroy {
           params[key] = data[key];
         }
       }
-      this.router.navigate(['protocol'], {queryParams: params});
+      this.router.navigate(['protocol', 'samples'], {queryParams: params});
     });
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
@@ -108,7 +110,7 @@ export class ProtocolSamplesComponent implements OnInit, OnDestroy {
 
   removeFilter() {
     this.resetFilter();
-    this.router.navigate(['protocol'], {queryParams: {}});
+    this.router.navigate(['protocol', 'samples'], {queryParams: {}});
   }
 
   onDownloadData() {
