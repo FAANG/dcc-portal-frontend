@@ -61,9 +61,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
           }
         }
       }
-      if (Object.keys(filters).length !== 0) {
-        this.filter_field = filters;
-      }
+      this.filter_field = filters;
     });
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;

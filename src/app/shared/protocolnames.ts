@@ -13,3 +13,19 @@ export const protocolNames = {
   chipProtocol: 'ChIP protocol',
   'hi-cProtocol': 'Hi-C protocol',
 };
+
+export const reverseProtocolNames = {
+  'Experimental protocol': 'experimentalProtocol',
+  'Extraction protocol': 'extractionProtocol',
+  "Rna preparation 3' adapter ligation protocol": 'rnaPreparation3AdapterLigationProtocol',
+  "Rna preparation 5' adapter ligation protocol": 'rnaPreparation5AdapterLigationProtocol',
+  'Library generation PCR product isolation protocol': 'libraryGenerationPcrProductIsolationProtocol',
+  'Preparation reverse transcription protocol': 'preparationReverseTranscriptionProtocol',
+  'Library generation protocol': 'libraryGenerationProtocol',
+  'Bisulfite conversion protocol': 'bisulfiteConversionProtocol',
+  'PCR product isolation protocol': 'pcrProductIsolationProtocol',
+  'Transposase protocol': 'transposaseProtocol',
+  'DNase protocol': 'dnaseProtocol',
+  'ChIP protocol': 'chipProtocol',
+  'Hi-C protocol': 'hi-cProtocol'
+};

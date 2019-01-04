@@ -20,7 +20,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
   columnNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];
-  exportNames: string[] = ['University name', 'Protocol name', 'Protocol Year', 'Protocol type'];
+  exportNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];
   filter_field: {};
   downloadData = false;
 
@@ -62,9 +62,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
           }
         }
       }
-      if (Object.keys(filters).length !== 0) {
-        this.filter_field = filters;
-      }
+      this.filter_field = filters;
     });
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;
@@ -82,7 +80,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
           params[key] = data[key];
         }
       }
-      this.router.navigate(['protocol'], {queryParams: params});
+      this.router.navigate(['protocol', 'experiments'], {queryParams: params});
     });
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
@@ -111,7 +109,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
 
   removeFilter() {
     this.resetFilter();
-    this.router.navigate(['protocol'], {queryParams: {}});
+    this.router.navigate(['protocol', 'experiments'], {queryParams: {}});
   }
 
   onDownloadData() {

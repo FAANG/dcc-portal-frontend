@@ -52,7 +52,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let protocol of protocols | paginate: { itemsPerPage: 25, currentPage: p }">
+          <tr *ngFor="let protocol of protocols | filter: filter_field: 'protocol_experiments' | paginate: { itemsPerPage: 25, currentPage: p }">
             <td><a style="cursor: pointer" [routerLink]="[protocol['key']]">{{getHumanName(protocol['name'])}}</a></td>
             <td>{{protocol['experimentTarget']}}</td>
             <td>{{protocol['assayType']}}</td>

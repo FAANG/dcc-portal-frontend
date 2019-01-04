@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit, Input} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AggregationService} from '../../services/aggregation.service';
+import {reverseProtocolNames} from '../protocolnames';
 
 @Component({
   selector: 'app-filter',
@@ -124,14 +125,11 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Protocol': {
         data_key = 'name';
+        key = this.getReverseHumanName(key);
         break;
       }
       case 'Target': {
-        data_key = 'experiment_target';
-        break;
-      }
-      case 'Assay type': {
-        data_key = 'assay_type';
+        data_key = 'experimentTarget';
         break;
       }
     }
@@ -160,6 +158,10 @@ export class FilterComponent implements OnInit, OnDestroy {
       this.itemLimit = this.filterSize;
       this.isCollapsed = true;
     }
+  }
+
+  getReverseHumanName(data) {
+    return reverseProtocolNames[data];
   }
 
   ngOnDestroy() {

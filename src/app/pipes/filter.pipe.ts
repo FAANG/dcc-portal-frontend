@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
 import {female_values, male_values} from '../shared/sexvalues';
+import {protocolNames} from '../shared/protocolnames';
 
 @Pipe({
   name: 'filter',
@@ -65,8 +66,9 @@ export class FilterPipe implements PipeTransform {
         if (type === 'specimen' || type === 'organism') {
           delete item_for_download['idNumber'];
         }
-        if (type === 'protocol') {
+        if (type === 'protocol' || type === 'protocol_experiments') {
           delete item_for_download['key'];
+          item_for_download['name'] = protocolNames[item_for_download['name']];
         }
         let will_be_in = true;
         for (const key of Object.keys(filter_field)) {

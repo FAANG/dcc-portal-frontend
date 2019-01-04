@@ -9,7 +9,21 @@
         *ngIf="aggregation?.length > filterSize">{{ isCollapsed ? '+' : '-' }}</button>
     </h4>
   </div>
-  <ul class="list-group" [ngClass]="{'long-list': itemLimit > filterSize}">
+  <ul class="list-group" [ngClass]="{'long-list': itemLimit > filterSize}" *ngIf="title === 'Protocol'">
+    <ng-container class="list-group-item disabled" *ngFor="let aggr of aggregation; let i = index">
+      <button
+        class="list-group-item"
+        type="button"
+        (click)="onButtonClick(aggr[0], title)"
+        *ngIf="i<itemLimit && aggr[0] != ''"
+        [ngClass]="{'active': aggregationService.current_active_filters && aggregationService.current_active_filters.indexOf(getReverseHumanName(aggr[0]))>-1}">
+        <span class="badge">{{ aggr[1] }}</span>
+        {{ aggr[0] }}
+      </button>
+    </ng-container>
+  </ul>
+
+  <ul class="list-group" [ngClass]="{'long-list': itemLimit > filterSize}" *ngIf="title !== 'Protocol'">
     <ng-container class="list-group-item disabled" *ngFor="let aggr of aggregation; let i = index">
       <button
         class="list-group-item"

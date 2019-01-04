@@ -25,9 +25,8 @@ export class AggregationService {
     university_name: [],
     protocol_date: [],
     protocol_type: [],
-    protocol: [],
-    assay_type: [],
-    experiment_target: []
+    name: [],
+    experimentTarget: []
   };
 
   protocolNames = protocolNames;
@@ -225,8 +224,8 @@ export class AggregationService {
       const assay_type = {};
       let all_data;
       for (const item of fileList) {
-        item['name'] = this.getHumanName(item['name']);
-        protocol_type.hasOwnProperty(item['name']) ? protocol_type[item['name']] += 1 : protocol_type[item['name']] = 1;
+        const name = this.getHumanName(item['name']);
+        protocol_type.hasOwnProperty(name) ? protocol_type[name] += 1 : protocol_type[name] = 1;
         experiment_target.hasOwnProperty(item['experimentTarget']) ? experiment_target[item['experimentTarget']] += 1 :
           experiment_target[item['experimentTarget']] = 1;
         assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;

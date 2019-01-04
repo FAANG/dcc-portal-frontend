@@ -40,11 +40,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ApiComponent } from './help/api/api.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
-import { ProtocolComponent } from './protocol/protocol.component';
-import { ProtocolSamplesComponent } from './protocol/protocol-samples/protocol-samples.component';
-import { ProtocolExperimentsComponent } from './protocol/protocol-experiments/protocol-experiments.component';
-import { ProtocolSamplesDetailComponent } from './protocol/protocol-samples/protocol-samples-detail/protocol-samples-detail.component';
-import { ProtocolExperimentsDetailComponent } from './protocol/protocol-experiments/protocol-experiments-detail/protocol-experiments-detail.component';
 import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
@@ -77,11 +72,6 @@ import { ProtocolExperimentDetailsComponent } from './protocol-experiment/protoc
     DatasetDetailComponent,
     DatasetRelatedTemplateComponent,
     ApiComponent,
-    ProtocolComponent,
-    ProtocolSamplesComponent,
-    ProtocolExperimentsComponent,
-    ProtocolSamplesDetailComponent,
-    ProtocolExperimentsDetailComponent,
     ProtocolSampleComponent,
     ProtocolExperimentComponent,
     ProtocolSampleDetailsComponent,
