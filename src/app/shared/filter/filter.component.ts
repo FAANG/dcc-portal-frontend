@@ -47,7 +47,7 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['archive'];
         } else if (this.title === 'Protocol Name') {
           this.aggregation = data['protocol_name'];
-        } else if (this.title === 'University') {
+        } else if (this.title === 'Organisation') {
           this.aggregation = data['university_name'];
         } else if (this.title === 'Protocol Year') {
           this.aggregation = data['protocol_date'];
@@ -111,7 +111,7 @@ export class FilterComponent implements OnInit, OnDestroy {
         data_key = 'archive';
         break;
       }
-      case 'University': {
+      case 'Organisation': {
         data_key = 'university_name';
         break;
       }
