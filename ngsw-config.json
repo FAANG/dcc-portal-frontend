@@ -26,7 +26,7 @@
   "dataGroups": [
     {
       "name": "file",
-      "urls": ["http://wp-np2-e4.ebi.ac.uk/api/file/_search/*"],
+      "urls": ["http://data.faang.org/api/file/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -35,7 +35,7 @@
     },
     {
       "name": "organism",
-      "urls": ["http://wp-np2-e4.ebi.ac.uk/api/organism/_search/*"],
+      "urls": ["http://data.faang.org/api/organism/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -44,7 +44,7 @@
     },
     {
       "name": "specimen",
-      "urls": ["http://wp-np2-e4.ebi.ac.uk/api/specimen/_search/*"],
+      "urls": ["http://data.faang.org/api/specimen/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -53,7 +53,25 @@
     },
     {
       "name": "dataset",
-      "urls": ["http://wp-np2-e4.ebi.ac.uk/api/dataset/_search/*"],
+      "urls": ["http://data.faang.org/api/dataset/_search/*"],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1d",
+        "strategy": "performance"
+      }
+    },
+    {
+      "name": "protocol_samples",
+      "urls": ["http://data.faang.org/api/protocol_samples/_search/*"],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1d",
+        "strategy": "performance"
+      }
+    },
+    {
+      "name": "protocol_files",
+      "urls": ["http://data.faang.org/api/protocol_files/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
