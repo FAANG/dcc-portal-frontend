@@ -1,24 +1,30 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SearchService} from '../../services/search.service';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {Subscription} from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-search-template',
   templateUrl: './search-template.component.html',
   styleUrls: ['./search-template.component.css']
 })
-export class SearchTemplateComponent implements OnInit {
+export class SearchTemplateComponent implements OnInit, OnDestroy {
   @Input() entity: string;
   hits;
   display = false;
+  clicked: boolean;
+  clickedSubscription: Subscription;
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
+    this.clickedSubscription = this.searchService.clicked.subscribe(data => {
+      this.clicked = data;
+    });
     this.searchService.searchText$.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap(text => this.searchService.search(this.entity, text))
+      switchMap(text => this.searchService.search(this.entity, text, this.clicked))
     ).subscribe(
       data => {
         this.hits = data['hits'];
@@ -60,6 +66,10 @@ export class SearchTemplateComponent implements OnInit {
       }
     }
     return value.substring(0, value.length - 1);
+  }
+
+  ngOnDestroy(): void {
+    this.clickedSubscription.unsubscribe();
   }
 
 }

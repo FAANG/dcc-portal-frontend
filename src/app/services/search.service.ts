@@ -10,38 +10,48 @@ import {catchError} from 'rxjs/operators';
 export class SearchService {
   searchText$ = new Subject<string>();
   hostSetting = new HostSetting;
+  clicked = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }
 
-  search(type: string, text: any) {
+  search(type: string, text: any, clicked: boolean) {
     if (type === 'file') {
-      return this.searchFile(text);
+      return this.searchFile(text, clicked);
     } else if (type === 'organism') {
-      return this.searchOrganism(text);
+      return this.searchOrganism(text, clicked);
     } else if (type === 'specimen') {
-      return this.searchSpecimen(text);
+      return this.searchSpecimen(text, clicked);
     } else if (type === 'dataset') {
-      return this.searchDataset(text);
+      return this.searchDataset(text, clicked);
     }
   }
 
-  searchFile(text: any) {
+  searchFile(text: any, clicked: boolean) {
     const host = this.hostSetting.host + 'file/' + '_search/';
     if (!text.trim()) { return of([]); }
     const query = {
-      multi_match: {
-        query: text,
-        fields: [
-          'study.accession',
-          'experiment.accession',
-          'specimen.std',
-          'organism.std',
-          'species.text.autocomp',
-          'name',
-          'url.keywords'
-        ],
+      'bool': {
+        'must': {
+          multi_match: {
+            query: text,
+            fields: [
+              'study.accession',
+              'experiment.accession',
+              'specimen.std',
+              'organism.std',
+              'species.text.autocomp',
+              'name',
+              'url.keywords'
+            ],
+          }
+        }
       }
     };
+    if (clicked === true) {
+      query['bool']['filter'] = {
+        'term' : {'experiment.standardMet' : 'FAANG'}
+      };
+    }
     const body = {
       from: 0,
       size: 100,
@@ -52,26 +62,35 @@ export class SearchService {
     );
   }
 
-  searchOrganism(text: any) {
+  searchOrganism(text: any, clicked: boolean) {
     const host = this.hostSetting.host + 'organism/' + '_search/';
     if (!text.trim()) { return of([]); }
     const query = {
-      multi_match: {
-        query: text,
-        fields: [
-          'biosampleId.std',
-          'alternativeId.std',
-          'name.std',
-          'sameAs.std',
-          'description.std',
-          'organism.text.autocomp',
-          'sex.text.autocomp',
-          'breed.text.autocomp',
-          'healthStatus.text.autocomp',
-          'organization.name.std'
-        ],
+      'bool': {
+        'must': {
+          multi_match: {
+            query: text,
+            fields: [
+              'biosampleId.std',
+              'alternativeId.std',
+              'name.std',
+              'sameAs.std',
+              'description.std',
+              'organism.text.autocomp',
+              'sex.text.autocomp',
+              'breed.text.autocomp',
+              'healthStatus.text.autocomp',
+              'organization.name.std'
+            ],
+          }
+        }
       }
     };
+    if (clicked === true) {
+      query['bool']['filter'] = {
+        'term' : {'standardMet' : 'FAANG'}
+      };
+    }
     const body = {
       from: 0,
       size: 100,
@@ -82,36 +101,45 @@ export class SearchService {
     );
   }
 
-  searchSpecimen(text: any) {
+  searchSpecimen(text: any, clicked: boolean) {
     const host = this.hostSetting.host + 'specimen/' + '_search/';
     if (!text.trim()) { return of([]); }
     const query = {
-      multi_match: {
-        query: text,
-        fields: [
-          'biosampleId.std',
-          'alternativeId.std',
-          'name.std',
-          'description.std',
-          'sameAs.std',
-          'derivedFrom.std',
-          'organization.name.std',
-          'specimenFromOrganism.developmentalStage.text.autocomp',
-          'specimenFromOrganism.healthStatusAtCollection.text.autocomp',
-          'specimenFromOrganism.organismPart.text.autocomp',
-          'organism.biosampleId.std',
-          'organism.organism.text.autocomp',
-          'organism.sex.text.autocomp',
-          'organism.breed.text.autocomp',
-          'organism.healthStatus.text.autocomp',
-          'cellLine.organism.text.autocomp',
-          'cellLine.sex.text.autocomp',
-          'cellLine.breed.text.autocomp',
-          'cellLine.cellLine.std',
-          'cellLine.disease.autocomp',
-        ],
+      'bool': {
+        'must': {
+          multi_match: {
+            query: text,
+            fields: [
+              'biosampleId.std',
+              'alternativeId.std',
+              'name.std',
+              'description.std',
+              'sameAs.std',
+              'derivedFrom.std',
+              'organization.name.std',
+              'specimenFromOrganism.developmentalStage.text.autocomp',
+              'specimenFromOrganism.healthStatusAtCollection.text.autocomp',
+              'specimenFromOrganism.organismPart.text.autocomp',
+              'organism.biosampleId.std',
+              'organism.organism.text.autocomp',
+              'organism.sex.text.autocomp',
+              'organism.breed.text.autocomp',
+              'organism.healthStatus.text.autocomp',
+              'cellLine.organism.text.autocomp',
+              'cellLine.sex.text.autocomp',
+              'cellLine.breed.text.autocomp',
+              'cellLine.cellLine.std',
+              'cellLine.disease.autocomp',
+            ],
+          }
+        }
       }
     };
+    if (clicked === true) {
+      query['bool']['filter'] = {
+        'term' : {'standardMet' : 'FAANG'}
+      };
+    }
     const body = {
       from: 0,
       size: 100,
@@ -122,23 +150,32 @@ export class SearchService {
     );
   }
 
-  searchDataset(text: any) {
+  searchDataset(text: any, clicked: boolean) {
     const host = this.hostSetting.host + 'dataset/' + '_search/';
     if (!text.trim()) { return of([]); }
     const query = {
-      multi_match: {
-        query: text,
-        fields: [
-          'accession',
-          'title.autocomp',
-          'specimen.biosampleId.std',
-          'specimen.cellType.autocomp',
-          'specimen.breed.autocomp',
-          'species.text.autocomp',
-          'instrument.autocomp'
-        ],
+      'bool': {
+        'must': {
+          multi_match: {
+            query: text,
+            fields: [
+              'accession',
+              'title.autocomp',
+              'specimen.biosampleId.std',
+              'specimen.cellType.autocomp',
+              'specimen.breed.autocomp',
+              'species.text.autocomp',
+              'instrument.autocomp'
+            ],
+          }
+        }
       }
     };
+    if (clicked === true) {
+      query['bool']['filter'] = {
+        'term' : {'standardMet' : 'FAANG'}
+      };
+    }
     let body = {
       from: 0,
       size: 100,

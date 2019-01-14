@@ -9,6 +9,8 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  searchText: string;
+  clicked = false;
 
   search(text: string) {
     this.searchService.searchText$.next(text);
@@ -25,5 +27,20 @@ export class SearchComponent implements OnInit {
   }
 
   constructor(private searchService: SearchService, private titleService: Title) { }
+
+  onCheckboxClick() {
+    this.clicked = !this.clicked;
+    this.searchService.clicked.next(this.clicked);
+    if (typeof this.searchText !== 'undefined') {
+      this.searchService.searchText$.next('');
+      setTimeout(() => {
+        this.searchService.searchText$.next(this.searchText);
+      }, 500);
+    }
+  }
+
+  addValue(text: string) {
+    this.searchText = text;
+  }
 
 }

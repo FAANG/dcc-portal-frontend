@@ -6,7 +6,10 @@
       <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
         <!--<input type="text" class="form-control" placeholder="Search FAANG" (keyup)="search($event.target.value)">-->
-        <input type="text" class="form-control" (keyup)="search($event.target.value)" (keydown)="preventReload($event)" id="name" placeholder="Search FAANG"/>
+        <input type="text" class="form-control" (keyup)="search($event.target.value); addValue($event.target.value)" (keydown)="preventReload($event)" id="name" placeholder="Search FAANG"/>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" (click)="onCheckboxClick()">Show only FAANG data (exclude legacy data)</label>
       </div>
     </form>
   </div>
