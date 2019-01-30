@@ -54,4 +54,12 @@ export class SpecimenDetailComponent implements OnInit {
       return input;
     }
   }
+
+  getProtocolLink() {
+    if (this.specimen.specimenFromOrganism.specimenCollectionProtocol.url.split('//')[0] === 'ftp:') {
+      return 'http://' + this.specimen.specimenFromOrganism.specimenCollectionProtocol.url.split('//')[1];
+    } else {
+      return this.specimen.specimenFromOrganism.specimenCollectionProtocol.url;
+    }
+  }
 }

@@ -39,4 +39,12 @@ export class ProtocolSampleDetailsComponent implements OnInit {
       });
   }
 
+  getProtocolLink() {
+    if (this.file.url.split('//')[0] === 'ftp:') {
+      return 'http://' + this.file.url.split('//')[1];
+    } else {
+      return this.file.url;
+    }
+  }
+
 }
