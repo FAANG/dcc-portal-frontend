@@ -13,7 +13,7 @@ export class ProtocolSampleDetailsComponent implements OnInit {
   fileId: string;
   file: any;
   error: any;
-
+  link: string;
   p = 1;
 
   constructor(private route: ActivatedRoute,
@@ -28,9 +28,10 @@ export class ProtocolSampleDetailsComponent implements OnInit {
       this.titleService.setTitle(`${this.fileId} | FAANG protocol`);
     });
     this.apiFileService.getSampleProtocol(this.fileId).subscribe(data => {
-        this.file = data[0];
+        this.file = data['hits']['hits'][0]['_source'];
         if (this.file) {
           this.spinner.hide();
+          this.getProtocolLink();
         }
       },
       error => {
@@ -41,9 +42,9 @@ export class ProtocolSampleDetailsComponent implements OnInit {
 
   getProtocolLink() {
     if (this.file.url.split('//')[0] === 'ftp:') {
-      return 'http://' + this.file.url.split('//')[1];
+      this.link = 'http://' + this.file.url.split('//')[1];
     } else {
-      return this.file.url;
+      this.link = this.file.url;
     }
   }
 

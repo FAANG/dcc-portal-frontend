@@ -29,6 +29,14 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
 
   // Local variable for pagination
   p = 1;
+  private query = {
+    '_source': [
+      'key',
+      'protocolName',
+      'universityName',
+      'protocolDate',
+      'protocolType'],
+  };
   error: string;
 
   constructor(private apiFileService: ApiFileService,
@@ -67,7 +75,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.exportNames;
     this.optionsTabular['headers'] = this.exportNames;
-    this.protocolList = this.apiFileService.getAllSamplesProtocols();
+    this.protocolList = this.apiFileService.getAllSamplesProtocols(this.query);
     this.spinner.hide();
     this.protocolListSubscription = this.protocolList.subscribe( data => {
       this.aggregationService.getAggregations(data, 'protocol');

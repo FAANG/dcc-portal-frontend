@@ -4,13 +4,13 @@
   <dl class="dl-horizontal">
     <dt>Specimen collection protocol:</dt>
     <dd>
-      <app-robust-link [link]="getProtocolLink()" [text]="file?.key"></app-robust-link>
+      <app-robust-link [link]="link" [text]="file?.key"></app-robust-link>
       <a href={{file?.url}}><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
     </dd>
     <dt>Organisation:</dt>
-    <dd>{{file?.university_name}}</dd>
+    <dd>{{file?.universityName}}</dd>
     <dt>Protocol date:</dt>
-    <dd>{{file?.protocol_date}}</dd>
+    <dd>{{file?.protocolDate}}</dd>
   </dl>
 
   <h3>Related Specimens and Organisms</h3>
@@ -28,10 +28,10 @@
       <tbody>
       <tr *ngFor="let sample of file?.specimen | paginate: { itemsPerPage: 10, currentPage: p }">
         <td><a [routerLink]="['/specimen', sample.id]">{{sample.id}}</a></td>
-        <td>{{sample.organism_part_cell_type}}</td>
+        <td>{{sample.organismPartCellType}}</td>
         <td>{{sample.organism}}</td>
         <td>{{sample.breed}}</td>
-        <td><a [routerLink]="['/organism', sample.derived_from]">{{sample.derived_from}}</a></td>
+        <td><a [routerLink]="['/organism', sample.derivedFrom]">{{sample.derivedFrom}}</a></td>
       </tr>
       </tbody>
     </table>

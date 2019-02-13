@@ -37,7 +37,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
       this.titleService.setTitle(`${this.protocolId.split('-')[0]} | FAANG protocol`);
     });
     this.apiFileService.getExperimentProtocol(this.protocolId).subscribe(data => {
-        this.protocol = data[0];
+        this.protocol = data['hits']['hits'][0]['_source'];
         if (this.protocol) {
           this.spinner.hide();
         }

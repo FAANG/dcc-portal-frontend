@@ -3,7 +3,7 @@ import { HostSetting } from './host-setting';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
-import {DatasetTable, FileTable, OrganismTable, SpecimenTable} from '../shared/interfaces';
+import {DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
 
 
 @Injectable({
@@ -174,11 +174,19 @@ export class ApiFileService {
     );
   }
 
-  getAllSamplesProtocols() {
-    const url = this.hostSetting.host + 'protocol_samples/_search/';
-    return this.http.get(url).pipe(
+  getAllSamplesProtocols(query: any) {
+    const url = this.hostSetting.host + 'protocol_samples/_search/' + '?size=100';
+    const params = new HttpParams().set('_source', query['_source'].toString());
+    return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data;
+        return data.hits.hits.map(entry => ({
+          key: entry['_source']['key'],
+          protocol_name: entry['_source']['protocolName'],
+          university_name: entry['_source']['universityName'],
+          protocol_date: entry['_source']['protocolDate'],
+          protocol_type: entry['_source']['protocolType']
+          } as ProtocolSample)
+        );
       }),
       retry(3),
       catchError(this.handleError),
@@ -186,7 +194,7 @@ export class ApiFileService {
   }
 
   getSampleProtocol(id: string) {
-    const url = this.hostSetting.host + 'protocol_samples/' + id + '/';
+    const url = this.hostSetting.host + 'protocol_samples/' + id;
     return this.http.get(url).pipe(
       map( (data: any) => {
         return data;
@@ -196,11 +204,18 @@ export class ApiFileService {
     );
   }
 
-  getAllExperimentsProtocols() {
-    const url = this.hostSetting.host + 'protocol_files/_search/';
-    return this.http.get(url).pipe(
+  getAllExperimentsProtocols(query: any) {
+    const url = this.hostSetting.host + 'protocol_files/_search/' + '?size=100';
+    const params = new HttpParams().set('_source', query['_source'].toString());
+    return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data;
+        return data.hits.hits.map(entry => ({
+          name: entry['_source']['name'],
+          experimentTarget: entry['_source']['experimentTarget'],
+          assayType: entry['_source']['assayType'],
+          key: entry['_source']['key']
+          } as ProtocolFile)
+        );
       }),
       retry(3),
       catchError(this.handleError),
@@ -208,7 +223,7 @@ export class ApiFileService {
   }
 
   getExperimentProtocol(id: string) {
-    const url = this.hostSetting.host + 'protocol_files/' + id + '/';
+    const url = this.hostSetting.host + 'protocol_files/' + id;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;

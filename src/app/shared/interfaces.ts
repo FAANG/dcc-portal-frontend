@@ -45,3 +45,18 @@ export interface DatasetTable {
   numberOfFiles: string;
   standard: string;
 }
+
+export interface ProtocolFile {
+  name: string;
+  experimentTarget: string;
+  assayType: string;
+  key: string;
+}
+
+export interface ProtocolSample {
+  key: string;
+  protocol_name: string;
+  university_name: string;
+  protocol_date: string;
+  protocol_type: string;
+}

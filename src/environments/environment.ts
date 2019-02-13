@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   // host: 'http://wp-np3-e3:9200/'
   // host: 'http://ves-hx-e4:9200/faang_build_2/'
-  host: 'http://127.0.0.1:8000/api/'
+  host: 'http://test.faang.org/api/'
 };
 
 /*

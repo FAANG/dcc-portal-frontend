@@ -24,9 +24,9 @@
       </thead>
       <tbody>
       <tr *ngFor="let sample of protocol?.experiments | paginate: { itemsPerPage: 10, currentPage: p }">
-        <td><a style="cursor:pointer" (click)="onClick(sample.split('|')[0]); ngxSmartModalService.getModal('myModal').open()">{{sample.split("|")[0]}}</a></td>
-        <td>{{sample.split("|")[1]}}</td>
-        <td>{{sample.split("|")[2]}}</td>
+        <td><a style="cursor:pointer" (click)="onClick(sample.accession); ngxSmartModalService.getModal('myModal').open()">{{sample.accession}}</a></td>
+        <td>{{sample.sampleStorage}}</td>
+        <td>{{sample.sampleStorageProcessing}}</td>
       </tr>
       </tbody>
     </table>
