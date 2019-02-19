@@ -16,7 +16,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 export class SpecimenComponent implements OnInit, OnDestroy {
   specimenListShort: Observable<SpecimenTable[]>;
   specimenListLong: Observable<SpecimenTable[]>;
-  columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard'];
+  columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard',
+    'Paper published'];
   spanClass = 'glyphicon glyphicon-arrow-down';
   defaultClass = 'glyphicon glyphicon-sort';
   selectedColumn = 'BioSample ID';
@@ -44,7 +45,8 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       'organism.organism.text',
       'organism.breed.text',
       'standardMet',
-      'id_number'],
+      'id_number',
+      'paperPublished'],
   };
   error: string;
 
@@ -213,6 +215,14 @@ export class SpecimenComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  wasPublished(published: any) {
+    return published === 'true';
+  }
+
+  isGreen(published: any) {
+    return published === 'true' ? 'green' : 'default';
   }
 
   ngOnDestroy() {

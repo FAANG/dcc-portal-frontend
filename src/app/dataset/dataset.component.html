@@ -54,6 +54,12 @@
             <td>{{dataset['numberOfSpecimens']}}</td>
             <td>{{dataset['numberOfFiles']}}</td>
             <td>{{dataset['standard']}}</td>
+            <td *ngIf="wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
+              <span class="glyphicon glyphicon-ok-circle"></span>
+            </td>
+            <td *ngIf="!wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
+              <span class="glyphicon glyphicon-remove-circle"></span>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -82,6 +88,12 @@
             <td>{{dataset['numberOfSpecimens']}}</td>
             <td>{{dataset['numberOfFiles']}}</td>
             <td>{{dataset['standard']}}</td>
+            <td *ngIf="wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
+              <span class="glyphicon glyphicon-ok-circle"></span>
+            </td>
+            <td *ngIf="!wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
+              <span class="glyphicon glyphicon-remove-circle"></span>
+            </td>
           </tr>
           </tbody>
         </table>

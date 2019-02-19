@@ -160,7 +160,8 @@ export class ApiFileService {
           numberOfExperiments: entry['_source']['experiment']['length'],
           numberOfSpecimens: entry['_source']['specimen']['length'],
           numberOfFiles: entry['_source']['file']['length'],
-          standard: entry['_source']['standardMet']
+          standard: entry['_source']['standardMet'],
+          paperPublished: entry['_source']['paperPublished']
           } as DatasetTable)
         );
       }),

@@ -18,7 +18,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   datasetListShort: Observable<DatasetTable[]>;
   datasetListLong: Observable<DatasetTable[]>;
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
-    'Number of Specimens', 'Number of Files', 'Standard'];
+    'Number of Specimens', 'Number of Files', 'Standard', 'Paper published'];
   sort_field: SortParams;
   filter_field = {};
   aggrSubscription: Subscription;
@@ -43,7 +43,8 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'file.name',
       'specimen.biosampleId',
       'assayType',
-      'standardMet'],
+      'standardMet',
+      'paperPublished'],
   };
   error: string;
 
@@ -150,6 +151,14 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  wasPublished(published: any) {
+    return published === 'true';
+  }
+
+  isGreen(published: any) {
+    return published === 'true' ? 'green' : 'default';
   }
 
   ngOnDestroy() {

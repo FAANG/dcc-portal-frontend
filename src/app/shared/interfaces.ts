@@ -47,6 +47,7 @@ export interface DatasetTable {
   numberOfSpecimens: string;
   numberOfFiles: string;
   standard: string;
+  paperPublished: string;
 }
 
 export interface ProtocolFile {
