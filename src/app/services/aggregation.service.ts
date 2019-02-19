@@ -26,7 +26,8 @@ export class AggregationService {
     protocol_date: [],
     protocol_type: [],
     name: [],
-    experimentTarget: []
+    experimentTarget: [],
+    paper_published: [],
   };
 
   protocolNames = protocolNames;
@@ -49,6 +50,7 @@ export class AggregationService {
       const species = {};
       const assay_type = {};
       const instrument = {};
+      let paper_published = {};
       let all_data;
 
       for (const item of fileList) {
@@ -57,6 +59,11 @@ export class AggregationService {
         species.hasOwnProperty(item['species']) ? species[item['species']] += 1 : species[item['species']] = 1;
         assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;
         instrument.hasOwnProperty(item['instrument']) ? instrument[item['instrument']] += 1 : instrument[item['instrument']] = 1;
+        if (item['paperPublished'] === 'true') {
+          paper_published.hasOwnProperty('Yes') ? paper_published['Yes'] += 1 : paper_published['Yes'] = 1;
+        } else {
+          paper_published.hasOwnProperty('No') ? paper_published['No'] += 1 : paper_published['No'] = 1;
+        }
       }
 
       all_data = {
@@ -73,6 +80,9 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         instrument: Object.entries(instrument).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        paper_published: Object.entries(paper_published).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
       };

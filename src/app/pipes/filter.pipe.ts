@@ -110,6 +110,16 @@ export class FilterPipe implements PipeTransform {
               if (comparison_value !== data_field) {
                 will_be_in = false;
               }
+            } else if (key === 'paper_published') {
+              if (data_field === 'Yes') {
+                if (item['paperPublished'] !== 'true') {
+                  will_be_in = false;
+                }
+              } else if (data_field === 'No') {
+                if (item['paperPublished'] === 'true') {
+                  will_be_in = false;
+                }
+              }
             } else {
               if (item[key] !== data_field) {
                 will_be_in = false;

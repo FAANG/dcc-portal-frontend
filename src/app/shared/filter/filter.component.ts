@@ -59,6 +59,8 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['assay_type'];
         } else if (this.title === 'Target') {
           this.aggregation = data['experiment_target'];
+        } else if (this.title === 'Paper published') {
+          this.aggregation = data['paper_published'];
         }
       }
     );
@@ -130,6 +132,10 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Target': {
         data_key = 'experimentTarget';
+        break;
+      }
+      case 'Paper published': {
+        data_key = 'paper_published';
         break;
       }
     }
