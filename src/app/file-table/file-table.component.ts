@@ -17,7 +17,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 export class FileTableComponent implements OnInit, OnDestroy {
   fileListShort: Observable<FileTable[]>;
   fileListLong: Observable<FileTable[]>;
-  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Specimen', 'Instrument', 'Standard'];
+  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Specimen', 'Instrument', 'Standard',
+    'Paper published'];
   spanClass = 'glyphicon glyphicon-arrow-down';
   defaultClass = 'glyphicon glyphicon-sort';
   selectedColumn = 'File name';
@@ -45,7 +46,8 @@ export class FileTableComponent implements OnInit, OnDestroy {
       'experiment.assayType',
       'specimen',
       'run.instrument',
-      'experiment.standardMet'],
+      'experiment.standardMet',
+      'paperPublished'],
   };
   error: string;
 
@@ -218,6 +220,14 @@ export class FileTableComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  wasPublished(published: any) {
+    return published === 'true';
+  }
+
+  isGreen(published: any) {
+    return published === 'true' ? 'green' : 'default';
   }
 
   ngOnDestroy() {

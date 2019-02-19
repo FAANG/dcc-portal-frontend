@@ -40,7 +40,8 @@
           <tr>
             <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
               {{ column }}
-              <span [ngClass]="column === selectedColumn ? spanClass : defaultClass" *ngIf="column !== 'Standard'" [id]="column"></span>
+              <span [ngClass]="column === selectedColumn ? spanClass : defaultClass" *ngIf="column !== 'Standard' &&
+              column !== 'Paper published'" [id]="column"></span>
             </th>
           </tr>
           </thead>
@@ -54,6 +55,12 @@
             <td>{{file['specimen']}}</td>
             <td>{{file['instrument']}}</td>
             <td>{{file['standard']}}</td>
+            <td *ngIf="wasPublished(file['paperPublished'])" [ngClass]="isGreen(file['paperPublished'])">
+              <span class="glyphicon glyphicon-ok-circle"></span>
+            </td>
+            <td *ngIf="!wasPublished(file['paperPublished'])" [ngClass]="isGreen(file['paperPublished'])">
+              <span class="glyphicon glyphicon-remove-circle"></span>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -81,6 +88,12 @@
             <td>{{file['specimen']}}</td>
             <td>{{file['instrument']}}</td>
             <td>{{file['standard']}}</td>
+            <td *ngIf="wasPublished(file['paperPublished'])" [ngClass]="isGreen(file['paperPublished'])">
+              <span class="glyphicon glyphicon-ok-circle"></span>
+            </td>
+            <td *ngIf="!wasPublished(file['paperPublished'])" [ngClass]="isGreen(file['paperPublished'])">
+              <span class="glyphicon glyphicon-remove-circle"></span>
+            </td>
           </tr>
           </tbody>
         </table>

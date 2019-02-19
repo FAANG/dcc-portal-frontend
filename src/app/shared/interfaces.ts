@@ -12,6 +12,7 @@ export interface FileTable {
   specimen: string;
   instrument: string;
   standard: string;
+  paperPublished: string;
 }
 
 export interface OrganismTable {

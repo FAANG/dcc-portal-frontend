@@ -27,7 +27,8 @@ export class ApiFileService {
           assayType: entry['_source']['experiment']['assayType'],
           specimen: entry['_source']['specimen'],
           instrument: entry['_source']['run']['instrument'],
-          standard: entry['_source']['experiment']['standardMet']
+          standard: entry['_source']['experiment']['standardMet'],
+          paperPublished: entry['_source']['paperPublished']
           } as FileTable )
         );
       }),
