@@ -50,7 +50,7 @@ export class AggregationService {
       const species = {};
       const assay_type = {};
       const instrument = {};
-      let paper_published = {};
+      const paper_published = {};
       let all_data;
 
       for (const item of fileList) {
@@ -92,6 +92,7 @@ export class AggregationService {
       const sex = {};
       const organism = {};
       const breed = {};
+      const paper_published = {};
       let all_data;
 
       for (const item of fileList) {
@@ -102,6 +103,11 @@ export class AggregationService {
         sex.hasOwnProperty(sex_value) ? sex[sex_value] += 1 : sex[sex_value] = 1;
         organism.hasOwnProperty(item['organism']) ? organism[item['organism']] += 1 : organism[item['organism']] = 1;
         breed.hasOwnProperty(item['breed']) ? breed[item['breed']] += 1 : breed[item['breed']] = 1;
+        if (item['paperPublished'] === 'true') {
+          paper_published.hasOwnProperty('Yes') ? paper_published['Yes'] += 1 : paper_published['Yes'] = 1;
+        } else {
+          paper_published.hasOwnProperty('No') ? paper_published['No'] += 1 : paper_published['No'] = 1;
+        }
       }
 
       all_data = {
@@ -115,6 +121,9 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         breed: Object.entries(breed).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        paper_published: Object.entries(paper_published).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
       };
