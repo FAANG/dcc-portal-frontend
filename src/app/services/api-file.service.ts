@@ -73,6 +73,7 @@ export class ApiFileService {
           breed: entry['_source']['breed']['text'],
           standard: entry['_source']['standardMet'],
           idNumber: +entry['_source']['id_number'],
+            paperPublished: entry['_source']['paperPublished'],
         } as OrganismTable)
         );
       }),

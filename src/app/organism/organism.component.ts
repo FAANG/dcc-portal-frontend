@@ -17,7 +17,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   organismListShort: Observable<OrganismTable[]>;
   organismListLong: Observable<OrganismTable[]>;
 
-  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard'];
+  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published'];
   spanClass = 'glyphicon glyphicon-arrow-down';
   defaultClass = 'glyphicon glyphicon-sort';
   selectedColumn = 'BioSample ID';
@@ -45,7 +45,8 @@ export class OrganismComponent implements OnInit, OnDestroy {
       'organism.text',
       'breed.text',
       'standardMet',
-      'id_number'],
+      'id_number',
+      'paperPublished'],
   };
 
   constructor(private apiFileService: ApiFileService,
@@ -205,6 +206,14 @@ export class OrganismComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  wasPublished(published: any) {
+    return published === 'true';
+  }
+
+  isGreen(published: any) {
+    return published === 'true' ? 'green' : 'default';
   }
 
   ngOnDestroy() {

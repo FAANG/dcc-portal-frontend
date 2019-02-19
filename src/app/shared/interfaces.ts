@@ -22,6 +22,7 @@ export interface OrganismTable {
   breed: string;
   standard: string;
   idNumber: number;
+  paperPublished: string;
 }
 
 export interface SpecimenTable {
