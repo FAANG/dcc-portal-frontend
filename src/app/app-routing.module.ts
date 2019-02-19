@@ -16,6 +16,7 @@ import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.compone
 import {ProtocolExperimentComponent} from './protocol-experiment/protocol-experiment.component';
 import {ProtocolSampleDetailsComponent} from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
+import {ArticleComponent} from './article/article.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -34,7 +35,8 @@ const routes: Routes = [
   {path: 'protocol/experiments/:id', component: ProtocolExperimentDetailsComponent},
   {path: 'search', component: SearchComponent},
   {path: 'help', component: HelpComponent},
-  {path: 'help/api', component: ApiComponent}
+  {path: 'help/api', component: ApiComponent},
+  {path: 'article', component: ArticleComponent}
 ];
 
 @NgModule({
