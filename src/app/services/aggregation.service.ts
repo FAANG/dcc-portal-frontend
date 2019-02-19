@@ -135,6 +135,7 @@ export class AggregationService {
       const material = {};
       const organismpart_celltype = {};
       const breed = {};
+      const paper_published = {};
       let all_data;
 
       for (const item of fileList) {
@@ -148,6 +149,11 @@ export class AggregationService {
         organismpart_celltype.hasOwnProperty(item['organismpart_celltype']) ? organismpart_celltype[item['organismpart_celltype']] += 1 :
           organismpart_celltype[item['organismpart_celltype']] = 1;
         breed.hasOwnProperty(item['breed']) ? breed[item['breed']] += 1 : breed[item['breed']] = 1;
+        if (item['paperPublished'] === 'true') {
+          paper_published.hasOwnProperty('Yes') ? paper_published['Yes'] += 1 : paper_published['Yes'] = 1;
+        } else {
+          paper_published.hasOwnProperty('No') ? paper_published['No'] += 1 : paper_published['No'] = 1;
+        }
       }
 
       all_data = {
@@ -167,6 +173,9 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         breed: Object.entries(breed).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        paper_published: Object.entries(paper_published).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
       };
