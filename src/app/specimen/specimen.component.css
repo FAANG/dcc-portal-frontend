@@ -25,3 +25,16 @@ span.glyphicon.glyphicon-arrow-up {
 button {
   margin-left: 5px;
 }
+
+.green {
+  background-color: palegreen;
+  text-align: center;
+}
+
+.default {
+  text-align: center;
+}
+
+.glyphicon.glyphicon-ok-circle, .glyphicon.glyphicon-remove-circle  {
+  font-size: 17px;
+}

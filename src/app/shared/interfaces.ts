@@ -34,6 +34,7 @@ export interface SpecimenTable {
   breed: string;
   standard: string;
   idNumber: number;
+  paperPublished: string;
 }
 
 export interface DatasetTable {

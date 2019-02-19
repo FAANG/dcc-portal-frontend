@@ -112,6 +112,7 @@ export class ApiFileService {
           breed: this.checkField(entry['_source']['organism']['breed']),
           standard: entry['_source']['standardMet'],
           idNumber: +entry['_source']['id_number'],
+          paperPublished: entry['_source']['paperPublished'],
           } as SpecimenTable)
         );
       }),
