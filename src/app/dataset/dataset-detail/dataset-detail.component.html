@@ -44,6 +44,15 @@
     </div>
     <dt>Standard:</dt>
     <dd>{{dataset?.standardMet}}</dd>
+
+    <div *ngIf="dataset?.paperPublished === 'true'">
+      <dt>Published papers: </dt>
+      <dd>
+        <ng-container *ngFor="let paper of dataset.publishedArticles">
+          <a [routerLink]="['/article', paper.pubmedId]">{{paper.pubmedId}} </a>
+        </ng-container>
+      </dd>
+    </div>
   </dl>
 
 
