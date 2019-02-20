@@ -3,7 +3,7 @@ import { HostSetting } from './host-setting';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
-import {DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
+import {ArticleTable, DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
 
 
 @Injectable({
@@ -231,6 +231,24 @@ export class ApiFileService {
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllArticles(query: any, size: number) {
+    const url = this.hostSetting.host + 'article/' + '_search/' + '?size=' + size;
+    const params = new HttpParams().set('_source', query['_source'].toString());
+    return this.http.get(url, {params: params}).pipe(
+      map((data: any) => {
+        return data.hits.hits.map(entry => ({
+          pubmedId: entry['_source']['pmcid'],
+          publicationYear: entry['_source']['pubYear'],
+          journal: entry['_source']['journalTitle'],
+          citations: entry['_source']['citedByCount'],
+          } as ArticleTable )
+        );
       }),
       retry(3),
       catchError(this.handleError),

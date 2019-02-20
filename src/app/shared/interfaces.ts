@@ -64,3 +64,10 @@ export interface ProtocolSample {
   protocol_date: string;
   protocol_type: string;
 }
+
+export interface ArticleTable {
+  pubmedId: string;
+  publicationYear: string;
+  journal: string;
+  citations: string;
+}
