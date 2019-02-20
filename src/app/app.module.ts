@@ -45,6 +45,7 @@ import { ProtocolExperimentComponent } from './protocol-experiment/protocol-expe
 import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 import { ProtocolExperimentDetailsComponent } from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
 import { ArticleComponent } from './article/article.component';
+import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ArticleComponent } from './article/article.component';
     ProtocolSampleDetailsComponent,
     ProtocolExperimentDetailsComponent,
     ArticleComponent,
+    ArticleDetailComponent,
   ],
   imports: [
     BrowserModule,
