@@ -48,6 +48,15 @@
     <dt *ngIf="file?.run?.sequencingLocation">Sequencing location:</dt> <dd>{{file?.run?.sequencingLocation}}</dd>
     <dt *ngIf="file?.run?.sequencingLatitude">Sequencing latitude:</dt> <dd *ngIf="file?.run?.sequencingLatitude">{{file?.run?.sequencingLatitude}} (decimal degrees)</dd>
     <dt *ngIf="file?.run?.sequencingLongitude">Sequencing longitude:</dt> <dd *ngIf="file?.run?.sequencingLongitude">{{file?.run?.sequencingLongitude}} (decimal degrees)</dd>
+
+    <div *ngIf="file?.paperPublished === 'true'">
+      <dt>Published papers: </dt>
+      <dd>
+        <ng-container *ngFor="let paper of file.publishedArticles">
+          <a [routerLink]="['/article', paper.pubmedId]">{{paper.pubmedId}} </a>
+        </ng-container>
+      </dd>
+    </div>
   </dl>
   <app-run-files [runId]="file?.run?.accession" *ngIf="file?.run?.accession"></app-run-files>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
