@@ -284,20 +284,15 @@ export class AggregationService {
       this.data.next(all_data);
     } else if (type === 'article') {
       const journal_title = {};
-      const citations = {};
       const publication_year = {};
       let all_data;
       for (const item of fileList) {
         journal_title.hasOwnProperty(item['journal']) ? journal_title[item['journal']] += 1 : journal_title[item['journal']] = 1;
-        citations.hasOwnProperty(item['citations']) ? citations[item['citations']] += 1 : citations[item['citations']] = 1;
         publication_year.hasOwnProperty(item['publicationYear']) ? publication_year[item['publicationYear']] += 1 :
           publication_year[item['publicationYear']] = 1;
       }
       all_data = {
         journal_title: Object.entries(journal_title).sort(function(a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        citations: Object.entries(citations).sort(function(a: any, b: any) {
           return b[1] - a[1];
         }),
         publication_year: Object.entries(publication_year).sort(function(a: any, b: any) {

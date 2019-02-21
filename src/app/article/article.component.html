@@ -12,13 +12,10 @@
     <div class="col-md-2">
       <div class="row">
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Journal title" [filterSize]=5></app-filter>
+          <app-filter title="Journal title" [filterSize]=10></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Citations" [filterSize]=5></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Year" [filterSize]=5></app-filter>
+          <app-filter title="Year" [filterSize]=10></app-filter>
         </div>
       </div>
     </div>
@@ -41,7 +38,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let article of articles | paginate: { itemsPerPage: 25, currentPage: p }">
+          <tr *ngFor="let article of articles | filter: filter_field: 'article' | paginate: { itemsPerPage: 25, currentPage: p }">
             <td><a style="cursor: pointer" [routerLink]="article['pubmedId']">{{article['pubmedId']}}</a></td>
             <td>{{article['journal']}}</td>
             <td>{{article['citations']}}</td>

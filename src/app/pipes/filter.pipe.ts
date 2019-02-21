@@ -120,6 +120,14 @@ export class FilterPipe implements PipeTransform {
                   will_be_in = false;
                 }
               }
+            } else if (key === 'journal_title') {
+              if (item['journal'] !== data_field) {
+                will_be_in = false;
+              }
+            } else if (key === 'publication_year') {
+              if (item['publicationYear'] !== data_field) {
+                will_be_in = false;
+              }
             } else {
               if (item[key] !== data_field) {
                 will_be_in = false;
