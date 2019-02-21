@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {Observable} from 'rxjs/internal/Observable';
-import {ArticleTable} from '../shared/interfaces';
+import {ArticleTable, SortParams} from '../shared/interfaces';
 import {Subscription} from 'rxjs/internal/Subscription';
 import {ApiFileService} from '../services/api-file.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -17,6 +17,10 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class ArticleComponent implements OnInit, OnDestroy {
   articleListLong: Observable<ArticleTable[]>;
   columnNames: string[] = ['Pubmed ID', 'Journal', 'Number of citations', 'Publication year'];
+  spanClass = 'glyphicon glyphicon-arrow-down';
+  defaultClass = 'glyphicon glyphicon-sort';
+  selectedColumn = 'Publication year';
+  sort_field: SortParams;
   filter_field: {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
@@ -77,6 +81,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
+    this.sort_field = {id: 'publicationYear', direction: 'desc'};
     this.articleListLong = this.apiFileService.getAllArticles(this.query, 100000);
     this.articleListLongSubscription = this.articleListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'article');
@@ -93,6 +98,65 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
     });
+  }
+
+  onTableClick(event: any) {
+    let event_class;
+    if (event['srcElement']['firstElementChild']) {
+      event_class = event['srcElement']['firstElementChild']['classList']['value'];
+    } else {
+      event_class = event['srcElement']['className'];
+    }
+    this.selectedColumn = event['srcElement']['id'];
+    this.selectColumn();
+    this.chooseClass(event_class);
+  }
+
+  chooseClass(event_class: string) {
+    if (this.selectedColumn === 'Publication year') {
+      if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
+        this.spanClass = 'glyphicon glyphicon-arrow-up';
+        this.sort_field['direction'] = 'asc';
+      } else {
+        this.spanClass = 'glyphicon glyphicon-arrow-down';
+        this.sort_field['direction'] = 'desc';
+      }
+    } else {
+      if (event_class.indexOf(this.defaultClass) !== -1) {
+        this.spanClass = 'glyphicon glyphicon-arrow-down';
+        this.sort_field['direction'] = 'desc';
+      } else if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
+        this.spanClass = 'glyphicon glyphicon-arrow-up';
+        this.sort_field['direction'] = 'asc';
+      } else {
+        this.spanClass = 'glyphicon glyphicon-sort';
+        this.sort_field['direction'] = 'desc';
+        this.sort_field['id'] = 'publicationYear';
+        this.selectedColumn = 'Publication year';
+        this.spanClass = 'glyphicon glyphicon-arrow-down';
+      }
+    }
+  }
+
+  selectColumn() {
+    switch (this.selectedColumn) {
+      case 'Publication year': {
+        this.sort_field['id'] = 'publicationYear';
+        break;
+      }
+      case 'Number of citations': {
+        this.sort_field['id'] = 'citations';
+        break;
+      }
+      case 'Journal': {
+        this.sort_field['id'] = 'journal';
+        break;
+      }
+      case 'Pubmed ID': {
+        this.sort_field['id'] = 'pubmedId';
+        break;
+      }
+    }
   }
 
   hasActiveFilters() {
