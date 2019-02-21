@@ -61,6 +61,12 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['experiment_target'];
         } else if (this.title === 'Paper published') {
           this.aggregation = data['paper_published'];
+        } else if (this.title === 'Journal title') {
+          this.aggregation = data['journal_title'];
+        } else if (this.title === 'Citations') {
+          this.aggregation = data['citations'];
+        } else if (this.title === 'Year') {
+          this.aggregation = data['publication_year'];
         }
       }
     );
@@ -136,6 +142,18 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Paper published': {
         data_key = 'paper_published';
+        break;
+      }
+      case 'Journal title': {
+        data_key = 'journal_title';
+        break;
+      }
+      case 'Citations': {
+        data_key = 'citations';
+        break;
+      }
+      case 'Year': {
+        data_key = 'publication_year';
         break;
       }
     }
