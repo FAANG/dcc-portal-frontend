@@ -32,7 +32,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   p = 1;
 
   private query = {
-    'sort': 'name:desc',
+    'sort': 'pubYear:desc',
     '_source': [
       'pmcid',
       'pubYear',

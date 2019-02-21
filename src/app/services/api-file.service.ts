@@ -239,7 +239,7 @@ export class ApiFileService {
 
   getAllArticles(query: any, size: number) {
     const url = this.hostSetting.host + 'article/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString());
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         return data.hits.hits.map(entry => ({
