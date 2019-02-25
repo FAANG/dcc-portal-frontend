@@ -38,6 +38,8 @@ export class FileDetailComponent implements OnInit {
         this.file = data['hits']['hits'][0]['_source'];
         if (this.file) {
           this.spinner.hide();
+          this.file.publishedArticles = this.file.publishedArticles.sort((a,b) => (a.year > b.year) ? -1 :
+            ((b.year > a.year) ? 1 : 0));
           if (this.file.hasOwnProperty('experiment')) {
             this.apiFileService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
               (data: any) => {

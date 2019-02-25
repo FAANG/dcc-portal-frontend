@@ -48,16 +48,29 @@
     <dt *ngIf="file?.run?.sequencingLocation">Sequencing location:</dt> <dd>{{file?.run?.sequencingLocation}}</dd>
     <dt *ngIf="file?.run?.sequencingLatitude">Sequencing latitude:</dt> <dd *ngIf="file?.run?.sequencingLatitude">{{file?.run?.sequencingLatitude}} (decimal degrees)</dd>
     <dt *ngIf="file?.run?.sequencingLongitude">Sequencing longitude:</dt> <dd *ngIf="file?.run?.sequencingLongitude">{{file?.run?.sequencingLongitude}} (decimal degrees)</dd>
-
-    <div *ngIf="file?.paperPublished === 'true'">
-      <dt>Published papers: </dt>
-      <dd>
-        <ng-container *ngFor="let paper of file.publishedArticles">
-          <a [routerLink]="['/article', paper.pubmedId]">{{paper.pubmedId}} </a>
-        </ng-container>
-      </dd>
-    </div>
   </dl>
+
+  <hr>
+  <div *ngIf="file?.paperPublished === 'true'">
+    <h3>Published papers</h3>
+    <table class="table table-striped table-hover table-responsive">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Journal</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let paper of file.publishedArticles">
+        <td><app-robust-link prefix="https://doi.org/" [link]="paper.doi" [text]="paper.title"></app-robust-link></td>
+        <td>{{paper.year}}</td>
+        <td>{{paper.journal}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
   <app-run-files [runId]="file?.run?.accession" *ngIf="file?.run?.accession"></app-run-files>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
   <ngx-smart-modal #myModal identifier="myModal" class="nsm-dialog-animation-fade" width="200%" customClass="msg-modal">

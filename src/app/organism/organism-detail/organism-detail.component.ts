@@ -37,6 +37,8 @@ export class OrganismDetailComponent implements OnInit {
         }
         if (this.organism) {
           this.spinner.hide();
+          this.organism.publishedArticles = this.organism.publishedArticles.sort((a,b) => (a.year > b.year) ? -1 :
+            ((b.year > a.year) ? 1 : 0));
         }
       },
       error => {

@@ -380,17 +380,28 @@
       </dd>
       </ng-container>
     </div>
-
-    <div *ngIf="specimen?.paperPublished === 'true'">
-      <dt>Published papers: </dt>
-      <dd>
-        <ng-container *ngFor="let paper of specimen.publishedArticles">
-          <a [routerLink]="['/article', paper.pubmedId]">{{paper.pubmedId}} </a>
-        </ng-container>
-      </dd>
-    </div>
-
   </dl>
+
+  <hr>
+  <div *ngIf="specimen?.paperPublished === 'true'">
+    <h3>Published papers</h3>
+    <table class="table table-striped table-hover table-responsive">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Journal</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let paper of specimen.publishedArticles">
+        <td><app-robust-link prefix="https://doi.org/" [link]="paper.doi" [text]="paper.title"></app-robust-link></td>
+        <td>{{paper.year}}</td>
+        <td>{{paper.journal}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
   <app-specimen-files [biosampleId]="biosampleId" *ngIf="biosampleId"></app-specimen-files>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>

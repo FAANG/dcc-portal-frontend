@@ -44,17 +44,28 @@
     </div>
     <dt>Standard:</dt>
     <dd>{{dataset?.standardMet}}</dd>
-
-    <div *ngIf="dataset?.paperPublished === 'true'">
-      <dt>Published papers: </dt>
-      <dd>
-        <ng-container *ngFor="let paper of dataset.publishedArticles">
-          <a [routerLink]="['/article', paper.pubmedId]">{{paper.pubmedId}} </a>
-        </ng-container>
-      </dd>
-    </div>
   </dl>
 
+  <hr>
+  <div *ngIf="dataset?.paperPublished === 'true'">
+      <h3>Published papers</h3>
+      <table class="table table-striped table-hover table-responsive">
+        <thead>
+        <tr>
+          <th>Title</th>
+          <th>Year</th>
+          <th>Journal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let paper of dataset.publishedArticles">
+          <td><app-robust-link prefix="https://doi.org/" [link]="paper.doi" [text]="paper.title"></app-robust-link></td>
+          <td>{{paper.year}}</td>
+          <td>{{paper.journal}}</td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
 
   <app-dataset-related-template [data]="dataset?.specimen" entity="Specimens"></app-dataset-related-template>
   <app-dataset-related-template [data]="dataset?.file" entity="Files"></app-dataset-related-template>

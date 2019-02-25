@@ -13,6 +13,7 @@ export class DatasetDetailComponent implements OnInit {
   accession: string;
   dataset: any;
   error: any;
+  publishedArticles: any;
 
   constructor(private route: ActivatedRoute,
               private apiFileService: ApiFileService,
@@ -30,6 +31,8 @@ export class DatasetDetailComponent implements OnInit {
         this.dataset = data['hits']['hits'][0]['_source'];
         if (this.dataset) {
           this.spinner.hide();
+          this.dataset.publishedArticles = this.dataset.publishedArticles.sort((a,b) => (a.year > b.year) ? -1 :
+            ((b.year > a.year) ? 1 : 0));
         }
       },
       error => {
