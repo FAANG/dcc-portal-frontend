@@ -44,8 +44,6 @@ import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.compo
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 import { ProtocolExperimentDetailsComponent } from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
-import { ArticleComponent } from './article/article.component';
-import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
 
 @NgModule({
   declarations: [
@@ -78,8 +76,6 @@ import { ArticleDetailComponent } from './article/article-detail/article-detail.
     ProtocolExperimentComponent,
     ProtocolSampleDetailsComponent,
     ProtocolExperimentDetailsComponent,
-    ArticleComponent,
-    ArticleDetailComponent,
   ],
   imports: [
     BrowserModule,
