@@ -38,8 +38,10 @@ export class SpecimenDetailComponent implements OnInit {
         }
         if (this.specimen) {
           this.spinner.hide();
-          this.specimen.publishedArticles = this.specimen.publishedArticles.sort((a,b) => (a.year > b.year) ? -1 :
-            ((b.year > a.year) ? 1 : 0));
+          if (this.specimen.hasOwnProperty('publishedArticles')) {
+            this.specimen.publishedArticles = this.specimen.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
+              ((b.year > a.year) ? 1 : 0));
+          }
         }
       },
       error => {

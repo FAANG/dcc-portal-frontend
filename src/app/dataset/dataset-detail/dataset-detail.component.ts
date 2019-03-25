@@ -31,8 +31,10 @@ export class DatasetDetailComponent implements OnInit {
         this.dataset = data['hits']['hits'][0]['_source'];
         if (this.dataset) {
           this.spinner.hide();
-          this.dataset.publishedArticles = this.dataset.publishedArticles.sort((a,b) => (a.year > b.year) ? -1 :
-            ((b.year > a.year) ? 1 : 0));
+          if (this.dataset.hasOwnProperty('publishedArticles')) {
+            this.dataset.publishedArticles = this.dataset.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
+              ((b.year > a.year) ? 1 : 0));
+          }
         }
       },
       error => {

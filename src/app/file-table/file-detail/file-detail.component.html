@@ -48,6 +48,9 @@
     <dt *ngIf="file?.run?.sequencingLocation">Sequencing location:</dt> <dd>{{file?.run?.sequencingLocation}}</dd>
     <dt *ngIf="file?.run?.sequencingLatitude">Sequencing latitude:</dt> <dd *ngIf="file?.run?.sequencingLatitude">{{file?.run?.sequencingLatitude}} (decimal degrees)</dd>
     <dt *ngIf="file?.run?.sequencingLongitude">Sequencing longitude:</dt> <dd *ngIf="file?.run?.sequencingLongitude">{{file?.run?.sequencingLongitude}} (decimal degrees)</dd>
+    <ng-container  *ngIf="file && file.hasOwnProperty('experiment') && file.experiment.hasOwnProperty('standardMet')">
+      <dt>Standard met:</dt> <dd>{{file.experiment.standardMet}}</dd>
+    </ng-container>
   </dl>
 
   <hr>
