@@ -375,9 +375,14 @@
 
     <div *ngIf="specimen?.customField?.length > 0;">
       <ng-container *ngFor="let field of specimen?.customField;">
-        <dt>{{field.name}}:</dt><dd>
-        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="field.ontologyTerms" [text]="field.value"></app-robust-link>  {{field?.unit}}
-      </dd>
+        <div *ngIf="field.name !== 'Sex'">
+          <div *ngIf="field.ontologyTerms || field.value">
+            <dt>{{field.name}}:</dt>
+            <dd>
+              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="field.ontologyTerms" [text]="field.value"></app-robust-link>  {{field?.unit}}
+            </dd>
+          </div>
+        </div>
       </ng-container>
     </div>
   </dl>
