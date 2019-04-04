@@ -1,0 +1,39 @@
+<div class="container">
+  <app-header></app-header>
+  <h2>Faang Summary
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="allClasses['Organisms'] === homeClass ? 'active' : ''" (click)="onClick('Organisms');randomize()">
+      Organisms
+      <span [ngClass]="allClasses['Organisms']" aria-hidden="true"></span>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="allClasses['Specimens'] === homeClass ? 'active' : ''" (click)="onClick('Specimens');randomize()">
+      Specimens
+      <span [ngClass]="allClasses['Specimens']" aria-hidden="true"></span>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="allClasses['Datasets'] === homeClass ? 'active' : ''" (click)="onClick('Datasets');randomize()">
+      Datasets
+      <span [ngClass]="allClasses['Datasets']" aria-hidden="true"></span>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="allClasses['Files'] === homeClass ? 'active' : ''" (click)="onClick('Files');randomize()">
+      Files
+      <span [ngClass]="allClasses['Files']" aria-hidden="true"></span>
+    </button>
+  </h2>
+  <div>
+    <div>
+      <div style="display: block">
+        <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+        </canvas>
+      </div>
+      <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
+    </div>
+  </div>
+</div>

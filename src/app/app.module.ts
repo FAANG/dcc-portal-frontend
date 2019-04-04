@@ -44,6 +44,8 @@ import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.compo
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 import { ProtocolExperimentDetailsComponent } from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
+import { SummaryComponent } from './summary/summary.component';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,7 @@ import { ProtocolExperimentDetailsComponent } from './protocol-experiment/protoc
     ProtocolExperimentComponent,
     ProtocolSampleDetailsComponent,
     ProtocolExperimentDetailsComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,6 +89,7 @@ import { ProtocolExperimentDetailsComponent } from './protocol-experiment/protoc
     NgxSpinnerModule,
     BrowserAnimationsModule,
     CookieLawModule,
+    ChartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
   ],
