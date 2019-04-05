@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ChartOptions, ChartType} from 'chart.js';
 import {Label} from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import {SlicePipe} from '@angular/common';
 
 @Component({
   selector: 'app-organisms-summary',
@@ -61,17 +62,22 @@ export class OrganismsSummaryComponent implements OnInit {
   };
 
 
-  constructor() { }
+  constructor(private splicePipe: SlicePipe) { }
 
   ngOnInit() {
     const tmp = Object.entries(this.breeds);
     tmp.sort(function (a, b) {
       return b[1] - a[1];
     });
-    for (const entry of tmp) {
-      this.breedLabels.push(entry[0]);
-      this.breedData.push(entry[1]);
-    }
+    tmp.forEach((item, index) => {
+      if (index <= 10) {
+        if (item[0].length > 29) {
+          item[0] = this.splicePipe.transform(item[0], 0, 30) + '...';
+        }
+        this.breedLabels.push(item[0]);
+        this.breedData.push(item[1]);
+      }
+    });
   }
 
   onClick(currentClass: string) {

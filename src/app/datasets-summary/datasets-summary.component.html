@@ -22,4 +22,71 @@
       <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
     </button>
   </h2>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Standard</h3>
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+                    [data]="standardChartData"
+                    [labels]="standardChartLabels"
+                    [chartType]="'doughnut'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Paper published</h3>
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+                    [data]="paperChartData"
+                    [labels]="paperChartLabels"
+                    [chartType]="'pie'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Species</h3>
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+                    [data]="speciesData"
+                    [labels]="speciesLabels"
+                    [chartType]="'pie'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Assay type</h3>
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+                    [data]="assayData"
+                    [labels]="assayLabels"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="false"
+                    [chartType]="'bar'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

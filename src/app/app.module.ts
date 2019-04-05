@@ -49,6 +49,7 @@ import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary
 import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
 import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
 import { FilesSummaryComponent } from './files-summary/files-summary.component';
+import {SlicePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,7 @@ import { FilesSummaryComponent } from './files-summary/files-summary.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
   ],
-  providers: [ApiFileService, AggregationService, ExportService, SearchService],
+  providers: [ApiFileService, AggregationService, ExportService, SearchService, SlicePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
