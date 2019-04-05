@@ -44,8 +44,11 @@ import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.compo
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 import { ProtocolExperimentDetailsComponent } from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
-import { SummaryComponent } from './summary/summary.component';
 import {ChartsModule} from 'ng2-charts';
+import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
+import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
+import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
+import { FilesSummaryComponent } from './files-summary/files-summary.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +81,10 @@ import {ChartsModule} from 'ng2-charts';
     ProtocolExperimentComponent,
     ProtocolSampleDetailsComponent,
     ProtocolExperimentDetailsComponent,
-    SummaryComponent,
+    OrganismsSummaryComponent,
+    SpecimensSummaryComponent,
+    DatasetsSummaryComponent,
+    FilesSummaryComponent,
   ],
   imports: [
     BrowserModule,

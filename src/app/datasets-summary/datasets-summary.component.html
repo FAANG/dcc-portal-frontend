@@ -1,0 +1,25 @@
+<div class="container">
+  <app-header></app-header>
+  <h2>Faang Summary
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/summary', 'organisms']">
+      Organisms
+      <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/summary', 'specimens']">
+      Specimens
+      <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
+            [routerLink]="['/summary', 'datasets']">
+      Datasets
+      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/summary', 'files']">
+      Files
+      <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+    </button>
+  </h2>
+</div>

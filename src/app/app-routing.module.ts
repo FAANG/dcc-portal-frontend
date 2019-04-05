@@ -16,7 +16,10 @@ import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.compone
 import {ProtocolExperimentComponent} from './protocol-experiment/protocol-experiment.component';
 import {ProtocolSampleDetailsComponent} from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
-import {SummaryComponent} from './summary/summary.component';
+import {OrganismsSummaryComponent} from './organisms-summary/organisms-summary.component';
+import {SpecimensSummaryComponent} from './specimens-summary/specimens-summary.component';
+import {DatasetsSummaryComponent} from './datasets-summary/datasets-summary.component';
+import {FilesSummaryComponent} from './files-summary/files-summary.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -36,7 +39,10 @@ const routes: Routes = [
   {path: 'search', component: SearchComponent},
   {path: 'help', component: HelpComponent},
   {path: 'help/api', component: ApiComponent},
-  {path: 'summary', component: SummaryComponent}
+  {path: 'summary/organisms', component: OrganismsSummaryComponent},
+  {path: 'summary/specimens', component: SpecimensSummaryComponent},
+  {path: 'summary/datasets', component: DatasetsSummaryComponent},
+  {path: 'summary/files', component: FilesSummaryComponent}
 ];
 
 @NgModule({
