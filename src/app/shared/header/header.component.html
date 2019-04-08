@@ -19,8 +19,8 @@
         <li routerLinkActive="active"><a routerLink="/specimen">Specimens</a></li>
         <li routerLinkActive="active"><a routerLink="/dataset">Datasets</a></li>
         <li routerLinkActive="active"><a routerLink="/file">Files</a></li>
-        <li routerLinkActive="active"><a routerLink="/protocol/samples">Protocols</a></li>
-        <li routerLinkActive="active"><a routerLink="/summary/organisms">Summary</a></li>
+        <li [ngClass]="isActiveProtocols()"><a routerLink="/protocol/samples">Protocols</a></li>
+        <li [ngClass]="isActiveSummary()"><a routerLink="/summary/organisms">Summary</a></li>
         <li routerLinkActive="active"><a routerLink="/search">Search</a></li>
         <li routerLinkActive="active"><a routerLink="/help">Help</a></li>
       </ul>
