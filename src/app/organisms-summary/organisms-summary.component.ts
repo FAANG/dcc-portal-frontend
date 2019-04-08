@@ -10,6 +10,7 @@ import {SlicePipe} from '@angular/common';
   styleUrls: ['./organisms-summary.component.css']
 })
 export class OrganismsSummaryComponent implements OnInit {
+  name: string;
   sexData = {'female': 186, 'male': 333};
   paperPublishedData = {'yes': 64, 'no': 455};
   organismData = {'Bos indicus': 65, 'Bos taurus': 166, 'Sus scrofa': 64, 'Gallus gallus': 132, 'Ovis aries': 63, 'Capra hircus': 11,
@@ -65,6 +66,7 @@ export class OrganismsSummaryComponent implements OnInit {
   constructor(private splicePipe: SlicePipe) { }
 
   ngOnInit() {
+    this.name = 'Bos indicus';
     const tmp = Object.entries(this.breeds);
     tmp.sort(function (a, b) {
       return b[1] - a[1];
@@ -88,5 +90,9 @@ export class OrganismsSummaryComponent implements OnInit {
         this.allClasses[key] = this.arrowRightClass;
       }
     }
+  }
+
+  onItemClick(name: string) {
+    this.name = name;
   }
 }
