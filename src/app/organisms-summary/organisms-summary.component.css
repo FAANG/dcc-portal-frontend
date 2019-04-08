@@ -5,3 +5,7 @@ button {
 .subheader {
   color: darkgrey;
 }
+
+.dropdown-toggle {
+  margin-bottom: 10px;
+}

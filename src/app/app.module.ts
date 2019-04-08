@@ -50,6 +50,7 @@ import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary
 import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
 import { FilesSummaryComponent } from './files-summary/files-summary.component';
 import {SlicePipe} from '@angular/common';
+import {BsDropdownModule} from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import {SlicePipe} from '@angular/common';
     BrowserAnimationsModule,
     CookieLawModule,
     ChartsModule,
+    BsDropdownModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
   ],

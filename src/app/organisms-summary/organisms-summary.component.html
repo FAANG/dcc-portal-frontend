@@ -75,7 +75,23 @@
 
     <div class="col-md-6">
       <h3>Breeds</h3>
-      <p class="subheader">10 most frequent</p>
+      <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-info dropdown-toggle"
+                aria-controls="dropdown-basic">
+          Choose organism <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" href="#">Bos indicus</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Bos taurus</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Sus scrofa</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Gallus gallus</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Ovis aries</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Capra hircus</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Bubalus bubalis</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Equus caballus</a></li>
+        </ul>
+      </div>
       <div>
         <div>
           <div style="display: block">
