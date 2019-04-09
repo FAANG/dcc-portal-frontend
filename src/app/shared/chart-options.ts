@@ -19,15 +19,7 @@ export const barChartOptions: ChartOptions = {
   responsive: true,
   // We use these empty structures as placeholders for dynamic theming.
   scales: { xAxes: [{
-      ticks: {
-        callback: function (value) {
-          if (value.length > 4) {
-            return value.substr(0, 4) + '...';
-          } else {
-            return value;
-          }
-        }
-      }
+      display: false
     }], yAxes: [{
       ticks: {
         beginAtZero: true,

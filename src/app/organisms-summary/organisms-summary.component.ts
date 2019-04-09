@@ -55,7 +55,7 @@ export class OrganismsSummaryComponent implements OnInit {
   public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+      backgroundColor: ['#5bc0de', '#5cb85c'],
     },
   ];
 

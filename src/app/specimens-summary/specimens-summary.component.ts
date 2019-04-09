@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ChartOptions} from 'chart.js';
-import {Label} from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import {SlicePipe} from '@angular/common';
 import {barChartOptions, pieChartOptions} from '../shared/chart-options';
 
 @Component({
@@ -633,7 +630,7 @@ export class SpecimensSummaryComponent implements OnInit {
   public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+      backgroundColor: ['#5bc0de', '#5cb85c', '#428bca', 'rgba(217,83,79,0.5)', '#f9f9f9'],
     },
   ];
 
