@@ -33,7 +33,9 @@
             <canvas baseChart
                     [data]="standardChartData"
                     [labels]="standardChartLabels"
-                    [chartType]="'doughnut'">
+                    [chartType]="'doughnut'"
+                    [colors]="pieChartColors"
+                    [legend]="true">
             </canvas>
           </div>
         </div>
@@ -49,7 +51,11 @@
             <canvas baseChart
                     [data]="paperChartData"
                     [labels]="paperChartLabels"
-                    [chartType]="'pie'">
+                    [chartType]="'pie'"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [colors]="pieChartColors"
+                    [legend]="true">
             </canvas>
           </div>
         </div>
@@ -60,14 +66,17 @@
   <div class="row">
     <div class="col-md-6">
       <h3>Species</h3>
-      <p class="subheader">click on legend to exclude item</p>
+      <p class="subheader">hover over bar to see full name</p>
       <div>
         <div>
           <div style="display: block">
             <canvas baseChart
-                    [data]="speciesData"
-                    [labels]="speciesLabels"
-                    [chartType]="'pie'">
+                    [data]="speciesChartData"
+                    [labels]="speciesChartLabels"
+                    [chartType]="'bar'"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="false">
             </canvas>
           </div>
         </div>
@@ -76,17 +85,17 @@
 
     <div class="col-md-6">
       <h3>Assay type</h3>
-      <p class="subheader">10 most frequent</p>
+      <p class="subheader">hover over bar to see full name</p>
       <div>
         <div>
           <div style="display: block">
             <canvas baseChart
-                    [data]="assayData"
-                    [labels]="assayLabels"
+                    [data]="assayTypeChartData"
+                    [labels]="assayTypeChartLabels"
+                    [chartType]="'bar'"
                     [options]="barChartOptions"
                     [plugins]="barChartPlugins"
-                    [legend]="false"
-                    [chartType]="'bar'">
+                    [legend]="false">
             </canvas>
           </div>
         </div>

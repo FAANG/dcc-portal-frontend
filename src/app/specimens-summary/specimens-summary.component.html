@@ -33,13 +33,16 @@
             <canvas baseChart
                     [data]="sexChartData"
                     [labels]="sexChartLabels"
-                    [chartType]="'doughnut'">
+                    [chartType]="'pie'"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [colors]="pieChartColors"
+                    [legend]="true">
             </canvas>
           </div>
         </div>
       </div>
     </div>
-
     <div class="col-md-6">
       <h3>Paper published</h3>
       <p class="subheader">click on legend to exclude item</p>
@@ -49,7 +52,49 @@
             <canvas baseChart
                     [data]="paperChartData"
                     [labels]="paperChartLabels"
-                    [chartType]="'pie'">
+                    [chartType]="'pie'"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [colors]="pieChartColors"
+                    [legend]="true">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Standard</h3>
+      <p class="subheader">click on legend to exclude item</p>
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+                    [data]="standardChartData"
+                    [labels]="standardChartLabels"
+                    [chartType]="'doughnut'"
+                    [colors]="pieChartColors"
+                    [legend]="true">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h3>Organism part/Cell type</h3>
+      <p class="subheader">10 most frequent | hover over bar to see full name</p>
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+                    [data]="cellsChartData"
+                    [labels]="cellsChartLabels"
+                    [chartType]="'bar'"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="false">
             </canvas>
           </div>
         </div>
@@ -60,54 +105,17 @@
   <div class="row">
     <div class="col-md-6">
       <h3>Organisms</h3>
-      <p class="subheader">click on legend to exclude item</p>
+      <p class="subheader">hover over bar to see full name</p>
       <div>
         <div>
           <div style="display: block">
             <canvas baseChart
                     [data]="organismChartData"
                     [labels]="organismChartLabels"
-                    [chartType]="'pie'">
-            </canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <h3>Breeds</h3>
-      <p class="subheader">10 most frequent</p>
-      <div>
-        <div>
-          <div style="display: block">
-            <canvas baseChart
-                    [data]="breedChartData"
-                    [labels]="breedChartLabels"
+                    [chartType]="'bar'"
                     [options]="barChartOptions"
                     [plugins]="barChartPlugins"
-                    [legend]="false"
-                    [chartType]="'bar'">
-            </canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
-      <h3>Organism part/Cell type</h3>
-      <p class="subheader">10 most frequent</p>
-      <div>
-        <div>
-          <div style="display: block">
-            <canvas baseChart
-                    [data]="cellsData"
-                    [labels]="cellsLabels"
-                    [options]="barChartOptions"
-                    [plugins]="barChartPlugins"
-                    [legend]="false"
-                    [chartType]="'bar'">
+                    [legend]="false">
             </canvas>
           </div>
         </div>
@@ -121,13 +129,49 @@
         <div>
           <div style="display: block">
             <canvas baseChart
-                    [data]="materialData"
-                    [labels]="materialLabels"
-                    [chartType]="'doughnut'">
+                    [data]="materialChartData"
+                    [labels]="materialChartLabels"
+                    [chartType]="'doughnut'"
+                    [colors]="pieChartColors"
+                    [legend]="true">
             </canvas>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Breeds of <i class="subheader">{{name}}</i></h3>
+      <p class="subheader">10 most frequent (when appropriate) | hover over bar to see full name</p>
+      <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-info dropdown-toggle"
+                aria-controls="dropdown-basic">
+          Choose organism <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem" *ngFor="let breed of breedKeys">
+            <a class="dropdown-item" (click)="onItemClick(breed)" style="cursor: pointer">{{breed}}</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+                    [data]="breedChartData"
+                    [labels]="breedChartLabels"
+                    [chartType]="'bar'"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="false">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
