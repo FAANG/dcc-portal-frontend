@@ -237,26 +237,41 @@ export class ApiFileService {
     );
   }
 
-  getAllArticles(query: any, size: number) {
-    const url = this.hostSetting.host + 'article/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
-    return this.http.get(url, {params: params}).pipe(
+  getOrganismSummary(id: string) {
+    const url = this.hostSetting.host + 'summary_organism/' + id;
+    return this.http.get(url).pipe(
       map((data: any) => {
-        return data.hits.hits.map(entry => ({
-          pubmedId: entry['_source']['pmcid'],
-          publicationYear: entry['_source']['pubYear'],
-          journal: entry['_source']['journalTitle'],
-          citations: entry['_source']['citedByCount'],
-          } as ArticleTable )
-        );
+        return data;
       }),
       retry(3),
       catchError(this.handleError),
     );
   }
 
-  getArticle(id: string) {
-    const url = this.hostSetting.host + 'article/' + '_search/' + '?q=pmcid:' + id;
+  getSpecimenSummary(id: string) {
+    const url = this.hostSetting.host + 'summary_specimen/' + id;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getDatasetSummary(id: string) {
+    const url = this.hostSetting.host + 'summary_dataset/' + id;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getFileSummary(id: string) {
+    const url = this.hostSetting.host + 'summary_file/' + id;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;

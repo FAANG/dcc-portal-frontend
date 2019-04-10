@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {barChartOptions, pieChartOptions} from '../shared/chart-options';
+import {ApiFileService} from '../services/api-file.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-files-summary',
@@ -8,14 +10,7 @@ import {barChartOptions, pieChartOptions} from '../shared/chart-options';
   styleUrls: ['./files-summary.component.css']
 })
 export class FilesSummaryComponent implements OnInit {
-  standardData = {'Legacy': 37888, 'FAANG': 16122};
-  paperPublishedData = {'yes': 32046, 'no': 21964};
-  speciesData = {'Gallus gallus': 7487, 'Sus scrofa': 6955, 'Bubalus bubalis': 4902, 'Bos taurus': 16705, 'Ovis aries': 12233,
-    'Capra hircus': 2889, 'Equus': 2667, 'Bos indicus': 172};
-
-  assayTypeData = {'whole genome sequencing assay': 33438, 'transcription profiling by high throughput sequencing': 14316, 'Hi-C': 2500,
-    'methylation profiling by high throughput sequencing': 1719, 'RNA-seq of coding RNA': 1007, 'ChIP-seq': 702, 'ATAC-seq': 162,
-    'microRNA profiling by high throughput sequencing': 68, 'RNA-seq of non coding RNA': 68, 'DNase-Hypersensitivity seq': 30};
+  error: string;
 
   public pieChartOptions = pieChartOptions;
   public barChartOptions = barChartOptions;
@@ -27,22 +22,49 @@ export class FilesSummaryComponent implements OnInit {
     },
   ];
 
-  public standardChartLabels = Object.keys(this.standardData);
-  public standardChartData = Object.values(this.standardData);
+  public standardChartLabels = [];
+  public standardChartData = [];
 
-  public paperChartLabels = Object.keys(this.paperPublishedData);
-  public paperChartData = Object.values(this.paperPublishedData);
+  public paperChartLabels = [];
+  public paperChartData = [];
 
-  public speciesChartLabels = Object.keys(this.speciesData);
-  public speciesChartData = Object.values(this.speciesData);
+  public speciesChartLabels = [];
+  public speciesChartData = [];
 
-  public assayTypeChartLabels = Object.keys(this.assayTypeData);
-  public assayTypeChartData = Object.values(this.assayTypeData);
+  public assayTypeChartLabels = [];
+  public assayTypeChartData = [];
 
-  constructor() { }
+  constructor(private apiFileService: ApiFileService, private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('FAANG summary|files');
+    this.apiFileService.getFileSummary('summary_file').subscribe(
+      data => {
+        this.assignChartData(data['hits']['hits'][0]['_source']);
+      },
+      error => {
+        this.error = error;
+      }
+    );
+  }
 
+  assignChartData(data: any) {
+    for (const item of data['standardSummary']) {
+      this.standardChartLabels.push(item['name']);
+      this.standardChartData.push(item['value']);
+    }
+    for (const item of data['paperPublishedSummary']) {
+      this.paperChartLabels.push(item['name']);
+      this.paperChartData.push(item['value']);
+    }
+    for (const item of data['specieSummary']) {
+      this.speciesChartLabels.push(item['name']);
+      this.speciesChartData.push(item['value']);
+    }
+    for (const item of data['assayTypeSummary']) {
+      this.assayTypeChartLabels.push(item['name']);
+      this.assayTypeChartData.push(item['value']);
+    }
   }
 
 }
