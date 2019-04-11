@@ -51,6 +51,7 @@ import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.co
 import { FilesSummaryComponent } from './files-summary/files-summary.component';
 import {SlicePipe} from '@angular/common';
 import {BsDropdownModule} from 'ngx-bootstrap';
+import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import {BsDropdownModule} from 'ngx-bootstrap';
     SpecimensSummaryComponent,
     DatasetsSummaryComponent,
     FilesSummaryComponent,
+    ProtocolAnalysisComponent,
   ],
   imports: [
     BrowserModule,

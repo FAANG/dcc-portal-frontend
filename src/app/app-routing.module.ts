@@ -20,6 +20,7 @@ import {OrganismsSummaryComponent} from './organisms-summary/organisms-summary.c
 import {SpecimensSummaryComponent} from './specimens-summary/specimens-summary.component';
 import {DatasetsSummaryComponent} from './datasets-summary/datasets-summary.component';
 import {FilesSummaryComponent} from './files-summary/files-summary.component';
+import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'protocol/samples/:id', component: ProtocolSampleDetailsComponent},
   {path: 'protocol/experiments', component: ProtocolExperimentComponent},
   {path: 'protocol/experiments/:id', component: ProtocolExperimentDetailsComponent},
+  {path: 'protocol/analysis', component: ProtocolAnalysisComponent},
   {path: 'search', component: SearchComponent},
   {path: 'help', component: HelpComponent},
   {path: 'help/api', component: ApiComponent},
