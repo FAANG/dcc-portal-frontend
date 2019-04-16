@@ -83,16 +83,50 @@ import {by, element, browser} from 'protractor';
 //   });
 // });
 
-describe('Test dataset page', () => {
+// describe('Test dataset page', () => {
+//   let page: AppPage;
+//
+//   beforeEach(() => {
+//     page = new AppPage();
+//     page.navigateToDatset();
+//   });
+//
+//   it('should display FAANG datasets', () => {
+//     expect(page.getParagraphTextForPages()).toEqual('FAANG datasets');
+//   });
+//
+//   it('should filter table', () => {
+//     const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+//     element.all(by.css('.list-group-item')).get(2).click().then(function() {
+//       browser.sleep(1000);
+//       const after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+//       expect(before).toBeGreaterThan(after);
+//     });
+//   });
+// });
+
+describe('Test file page', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
-    page.navigateToDatset();
+    page.navigateToFile();
   });
 
-  it('should display FAANG datasets on dataset path', () => {
-    expect(page.getParagraphTextForPages()).toEqual('FAANG datasets');
+  it('should display FAANG files', () => {
+    expect(page.getParagraphTextForPages()).toEqual('FAANG files');
+  });
+
+  it('should sort table', () => {
+    expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Gallus gallus');
+    element.all(by.css('th')).get(3).click().then(function() {
+      browser.sleep(1000);
+      expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Sus scrofa');
+      element.all(by.css('th')).get(3).click().then(function() {
+        browser.sleep(1000);
+        expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Bos indicus');
+      });
+    });
   });
 
   it('should filter table', () => {
@@ -105,19 +139,6 @@ describe('Test dataset page', () => {
   });
 });
 
-// describe('Test file page', () => {
-//   let page: AppPage;
-//
-//   beforeEach(() => {
-//     page = new AppPage();
-//   });
-//
-//   it('should display FAANG files on file path', () => {
-//     page.navigateToFile();
-//     expect(page.getParagraphTextForPages()).toEqual('FAANG files');
-//   });
-// });
-//
 // describe('Test protocol/samples page', () => {
 //   let page: AppPage;
 //
