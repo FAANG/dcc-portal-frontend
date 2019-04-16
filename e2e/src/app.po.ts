@@ -13,6 +13,10 @@ export class AppPage {
     return browser.get('/organism');
   }
 
+  navigateToOrganismDetails() {
+    return browser.get('organism/SAMEA104728877');
+  }
+
   navigateToSpecimen() {
     return browser.get('/specimen');
   }

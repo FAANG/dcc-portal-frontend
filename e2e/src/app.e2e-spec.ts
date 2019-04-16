@@ -48,7 +48,21 @@ import {by, element, browser} from 'protractor';
 //     });
 //   });
 // });
-//
+
+describe('Test organisms detail page', () => {
+  let page: AppPage;
+
+  beforeEach(() => {
+    page = new AppPage();
+    page.navigateToOrganismDetails();
+  });
+
+  it('should display FAANG organisms', () => {
+    expect(element(by.css('h1')).getText()).toEqual('SAMEA104728877');
+    expect(element.all(by.css('dd')).first().getText()).toEqual('ECA_UCD_AH2');
+  });
+});
+
 // describe('Test specimens page', () => {
 //   let page: AppPage;
 //
@@ -82,7 +96,7 @@ import {by, element, browser} from 'protractor';
 //     });
 //   });
 // });
-
+//
 // describe('Test dataset page', () => {
 //   let page: AppPage;
 //
@@ -104,7 +118,7 @@ import {by, element, browser} from 'protractor';
 //     });
 //   });
 // });
-
+//
 // describe('Test file page', () => {
 //   let page: AppPage;
 //
@@ -138,58 +152,66 @@ import {by, element, browser} from 'protractor';
 //     });
 //   });
 // });
-
-describe('Test protocol/samples page', () => {
-  let page: AppPage;
-
-  beforeEach(() => {
-    page = new AppPage();
-    page.navigateToProtocolSamples();
-  });
-
-  it('should display FAANG protocols', () => {
-    expect(page.getParagraphTextForPages()).toContain('FAANG protocols');
-  });
-
-  it('should filter table', () => {
-    element.all(by.css('.list-group-item')).get(3).click().then(function() {
-      browser.sleep(1000);
-      const after = element.all(by.css('.list-group-item')).get(4).getText();
-      expect(after).toContain('samples');
-    });
-  });
-});
-
-describe('Test protocol/experiments page', () => {
-  let page: AppPage;
-
-  beforeEach(() => {
-    page = new AppPage();
-    page.navigateToProtocolExperiments();
-  });
-
-  it('should display FAANG protocols', () => {
-    expect(page.getParagraphTextForPages()).toContain('FAANG protocols');
-  });
-
-  it('should filter table', () => {
-    element.all(by.css('.list-group-item')).get(0).click().then(function() {
-      const after = element.all(by.css('.list-group-item')).get(1).getText();
-      expect(after).toContain('CHEBI_33697');
-    });
-  });
-});
-
+//
+// describe('Test protocol/samples page', () => {
+//   let page: AppPage;
+//
+//   beforeEach(() => {
+//     page = new AppPage();
+//     page.navigateToProtocolSamples();
+//   });
+//
+//   it('should display FAANG protocols', () => {
+//     expect(page.getParagraphTextForPages()).toContain('FAANG protocols');
+//   });
+//
+//   it('should filter table', () => {
+//     element.all(by.css('.list-group-item')).get(3).click().then(function() {
+//       browser.sleep(1000);
+//       const after = element.all(by.css('.list-group-item')).get(4).getText();
+//       expect(after).toContain('samples');
+//     });
+//   });
+// });
+//
+// describe('Test protocol/experiments page', () => {
+//   let page: AppPage;
+//
+//   beforeEach(() => {
+//     page = new AppPage();
+//     page.navigateToProtocolExperiments();
+//   });
+//
+//   it('should display FAANG protocols', () => {
+//     expect(page.getParagraphTextForPages()).toContain('FAANG protocols');
+//   });
+//
+//   it('should filter table', () => {
+//     element.all(by.css('.list-group-item')).get(0).click().then(function() {
+//       const after = element.all(by.css('.list-group-item')).get(1).getText();
+//       expect(after).toContain('CHEBI_33697');
+//     });
+//   });
+// });
+//
 // describe('Test summary/organisms page', () => {
 //   let page: AppPage;
 //
 //   beforeEach(() => {
 //     page = new AppPage();
+//     page.navigateToSummaryOrganisms();
 //   });
 //
-//   it('should display FAANG Summary on summary/organisms path', () => {
-//     page.navigateToSummaryOrganisms();
+//   it('should display FAANG Summary', () => {
 //     expect(page.getParagraphTextForPages()).toContain('FAANG Summary');
+//   });
+//
+//   it('should display charts', () => {
+//     expect(element.all(by.css('h3')).get(0).getText()).toEqual('Sex');
+//     expect(element.all(by.css('h3')).get(1).getText()).toEqual('Paper published');
+//     expect(element.all(by.css('h3')).get(2).getText()).toEqual('Organisms');
+//     expect(element.all(by.css('h3')).get(3).getText()).toEqual('Standard');
+//     expect(element.all(by.css('h3')).get(4).getText()).toContain('Breeds of');
 //   });
 // });
 //
@@ -198,11 +220,21 @@ describe('Test protocol/experiments page', () => {
 //
 //   beforeEach(() => {
 //     page = new AppPage();
+//     page.navigateToSummarySpecimens();
 //   });
 //
-//   it('should display FAANG Summary on summary/specimens path', () => {
-//     page.navigateToSummarySpecimens();
+//   it('should display FAANG Summary', () => {
 //     expect(page.getParagraphTextForPages()).toContain('FAANG Summary');
+//   });
+//
+//   it('should display charts', () => {
+//     expect(element.all(by.css('h3')).get(0).getText()).toEqual('Sex');
+//     expect(element.all(by.css('h3')).get(1).getText()).toEqual('Paper published');
+//     expect(element.all(by.css('h3')).get(2).getText()).toEqual('Standard');
+//     expect(element.all(by.css('h3')).get(3).getText()).toEqual('Organism part/Cell type');
+//     expect(element.all(by.css('h3')).get(4).getText()).toEqual('Organisms');
+//     expect(element.all(by.css('h3')).get(5).getText()).toEqual('Materials');
+//     expect(element.all(by.css('h3')).get(6).getText()).toContain('Breeds of');
 //   });
 // });
 //
@@ -211,11 +243,18 @@ describe('Test protocol/experiments page', () => {
 //
 //   beforeEach(() => {
 //     page = new AppPage();
+//     page.navigateToSummaryDatasets();
 //   });
 //
-//   it('should display FAANG Summary on summary/datasets path', () => {
-//     page.navigateToSummaryDatasets();
+//   it('should display FAANG Summary', () => {
 //     expect(page.getParagraphTextForPages()).toContain('FAANG Summary');
+//   });
+//
+//   it('should display charts', () => {
+//     expect(element.all(by.css('h3')).get(0).getText()).toEqual('Standard');
+//     expect(element.all(by.css('h3')).get(1).getText()).toEqual('Paper published');
+//     expect(element.all(by.css('h3')).get(2).getText()).toEqual('Species');
+//     expect(element.all(by.css('h3')).get(3).getText()).toEqual('Assay type');
 //   });
 // });
 //
@@ -224,14 +263,21 @@ describe('Test protocol/experiments page', () => {
 //
 //   beforeEach(() => {
 //     page = new AppPage();
+//     page.navigateToSummaryFiles();
 //   });
 //
 //   it('should display FAANG Summary on summary/files path', () => {
-//     page.navigateToSummaryFiles();
 //     expect(page.getParagraphTextForPages()).toContain('FAANG Summary');
 //   });
+//
+//   it('should display FAANG Summary on summary/files path', () => {
+//     expect(element.all(by.css('h3')).get(0).getText()).toEqual('Standard');
+//     expect(element.all(by.css('h3')).get(1).getText()).toEqual('Paper published');
+//     expect(element.all(by.css('h3')).get(2).getText()).toEqual('Species');
+//     expect(element.all(by.css('h3')).get(3).getText()).toEqual('Assay type');
+//   });
 // });
-
+//
 // describe('Test search page', () => {
 //   let page: AppPage;
 //
@@ -262,7 +308,7 @@ describe('Test protocol/experiments page', () => {
 //     });
 //   });
 // });
-
+//
 // describe('Test help page', () => {
 //   let page: AppPage;
 //
