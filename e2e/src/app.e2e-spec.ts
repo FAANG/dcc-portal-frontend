@@ -1,18 +1,18 @@
 import { AppPage } from './app.po';
 import {by, element} from 'protractor';
 
-// describe('Test home page', () => {
-//   let page: AppPage;
-//
-//   beforeEach(() => {
-//     page = new AppPage();
-//   });
-//
-//   it('should display welcome message on home page', () => {
-//     page.navigateTo();
-//     expect(page.getParagraphText()).toEqual('Data Portal');
-//   });
-// });
+describe('Test home page', () => {
+  let page: AppPage;
+
+  beforeEach(() => {
+    page = new AppPage();
+  });
+
+  it('should display welcome message on home page', () => {
+    page.navigateTo();
+    expect(page.getParagraphText()).toEqual('Data Portal');
+  });
+});
 //
 // describe('Test organisms page', () => {
 //   let page: AppPage;
@@ -175,15 +175,25 @@ describe('Test search page', () => {
   });
 });
 
-// describe('Test help page', () => {
-//   let page: AppPage;
-//
-//   beforeEach(() => {
-//     page = new AppPage();
-//   });
-//
-//   it('should display FAANG Summary on summary/files path', () => {
-//     page.navigateToHelp();
-//     expect(page.getParagraphTextForPages()).toEqual('Frequently Asked Questions:');
-//   });
-// });
+describe('Test help page', () => {
+  let page: AppPage;
+
+  beforeEach(() => {
+    page = new AppPage();
+    page.navigateToHelp();
+  });
+
+  it('should display Frequently Asked Questions on help path', () => {
+    expect(page.getParagraphTextForPages()).toEqual('Frequently Asked Questions:');
+  });
+
+  it('should display How do I get involved with the FAANG project? on help path', () => {
+    expect(element.all(by.css('h4')).first().getText()).toEqual('How do I get involved with the FAANG project?');
+  });
+
+  it('should display some text when click on arrow on help path', () => {
+    element.all(by.css('summary')).first().click().then(function() {
+      expect(element.all(by.css('details')).first().getText()).toContain('Please register');
+    });
+  });
+});
