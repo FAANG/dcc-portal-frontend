@@ -14,34 +14,68 @@ import {by, element, browser} from 'protractor';
 //   });
 // });
 
-describe('Test organisms page', () => {
+// describe('Test organisms page', () => {
+//   let page: AppPage;
+//
+//   beforeEach(() => {
+//     page = new AppPage();
+//     page.navigateToOrganism();
+//   });
+//
+//   it('should display FAANG organisms on organism path', () => {
+//
+//     expect(page.getParagraphTextForPages()).toEqual('FAANG organisms');
+//   });
+//
+//   it('should sort table on organism path', () => {
+//     expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Equus caballus');
+//     element.all(by.css('th')).get(2).click().then(function() {
+//       browser.sleep(1000);
+//       expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Sus scrofa');
+//       element.all(by.css('th')).get(2).click().then(function() {
+//         browser.sleep(1000);
+//         expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Bos indicus');
+//       });
+//     });
+//   });
+//
+//   it('should filter table on organism path', () => {
+//     const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+//     element.all(by.css('.list-group-item')).get(1).click().then(function() {
+//       browser.sleep(1000);
+//       const after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+//       expect(before).toBeGreaterThan(after);
+//     });
+//   });
+// });
+
+describe('Test specimens page', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
-    page.navigateToOrganism();
+    page.navigateToSpecimen();
   });
 
-  it('should display FAANG organisms on organism path', () => {
-
-    expect(page.getParagraphTextForPages()).toEqual('FAANG organisms');
+  it('should display FAANG specimens on specimens path', () => {
+    expect(page.getParagraphTextForPages()).toEqual('FAANG specimens');
   });
 
-  it('should sort table on organism path', () => {
-    expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Equus caballus');
-    element.all(by.css('th')).get(2).click().then(function() {
+  it('should sort table on specimens path', () => {
+    expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(1).getText()).toEqual('specimen from organism');
+    element.all(by.css('th')).get(1).click().then(function() {
       browser.sleep(1000);
-      expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Sus scrofa');
-      element.all(by.css('th')).get(2).click().then(function() {
+      expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(1).getText()).toEqual('specimen from organism');
+      element.all(by.css('th')).get(1).click().then(function() {
         browser.sleep(1000);
-        expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Bos indicus');
+        expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(1).getText()).toEqual('cell culture');
       });
     });
   });
 
-  it('should filter table on organism path', () => {
+  it('should filter table on specimens path', () => {
     const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
-    element.all(by.css('.list-group-item')).get(1).click().then(function() {
+    element.all(by.css('.list-group-item')).get(2).click().then(function() {
       browser.sleep(1000);
       const after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
       expect(before).toBeGreaterThan(after);
@@ -49,19 +83,6 @@ describe('Test organisms page', () => {
   });
 });
 
-// describe('Test specimens page', () => {
-//   let page: AppPage;
-//
-//   beforeEach(() => {
-//     page = new AppPage();
-//   });
-//
-//   it('should display FAANG specimens on specimens path', () => {
-//     page.navigateToSpecimen();
-//     expect(page.getParagraphTextForPages()).toEqual('FAANG specimens');
-//   });
-// });
-//
 // describe('Test dataset page', () => {
 //   let page: AppPage;
 //
@@ -74,7 +95,7 @@ describe('Test organisms page', () => {
 //     expect(page.getParagraphTextForPages()).toEqual('FAANG datasets');
 //   });
 // });
-//
+
 // describe('Test file page', () => {
 //   let page: AppPage;
 //
