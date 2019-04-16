@@ -105,66 +105,81 @@ import {by, element, browser} from 'protractor';
 //   });
 // });
 
-describe('Test file page', () => {
+// describe('Test file page', () => {
+//   let page: AppPage;
+//
+//   beforeEach(() => {
+//     page = new AppPage();
+//     page.navigateToFile();
+//   });
+//
+//   it('should display FAANG files', () => {
+//     expect(page.getParagraphTextForPages()).toEqual('FAANG files');
+//   });
+//
+//   it('should sort table', () => {
+//     expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Gallus gallus');
+//     element.all(by.css('th')).get(3).click().then(function() {
+//       browser.sleep(1000);
+//       expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Sus scrofa');
+//       element.all(by.css('th')).get(3).click().then(function() {
+//         browser.sleep(1000);
+//         expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Bos indicus');
+//       });
+//     });
+//   });
+//
+//   it('should filter table', () => {
+//     const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+//     element.all(by.css('.list-group-item')).get(2).click().then(function() {
+//       browser.sleep(1000);
+//       const after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+//       expect(before).toBeGreaterThan(after);
+//     });
+//   });
+// });
+
+describe('Test protocol/samples page', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
-    page.navigateToFile();
+    page.navigateToProtocolSamples();
   });
 
-  it('should display FAANG files', () => {
-    expect(page.getParagraphTextForPages()).toEqual('FAANG files');
-  });
-
-  it('should sort table', () => {
-    expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Gallus gallus');
-    element.all(by.css('th')).get(3).click().then(function() {
-      browser.sleep(1000);
-      expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Sus scrofa');
-      element.all(by.css('th')).get(3).click().then(function() {
-        browser.sleep(1000);
-        expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Bos indicus');
-      });
-    });
+  it('should display FAANG protocols', () => {
+    expect(page.getParagraphTextForPages()).toContain('FAANG protocols');
   });
 
   it('should filter table', () => {
-    const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
-    element.all(by.css('.list-group-item')).get(2).click().then(function() {
+    element.all(by.css('.list-group-item')).get(3).click().then(function() {
       browser.sleep(1000);
-      const after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
-      expect(before).toBeGreaterThan(after);
+      const after = element.all(by.css('.list-group-item')).get(4).getText();
+      expect(after).toContain('samples');
     });
   });
 });
 
-// describe('Test protocol/samples page', () => {
-//   let page: AppPage;
-//
-//   beforeEach(() => {
-//     page = new AppPage();
-//   });
-//
-//   it('should display FAANG protocols on protocol/samples path', () => {
-//     page.navigateToProtocolSamples();
-//     expect(page.getParagraphTextForPages()).toContain('FAANG protocols');
-//   });
-// });
-//
-// describe('Test protocol/experiments page', () => {
-//   let page: AppPage;
-//
-//   beforeEach(() => {
-//     page = new AppPage();
-//   });
-//
-//   it('should display FAANG protocols on protocol/experiments path', () => {
-//     page.navigateToProtocolExperiments();
-//     expect(page.getParagraphTextForPages()).toContain('FAANG protocols');
-//   });
-// });
-//
+describe('Test protocol/experiments page', () => {
+  let page: AppPage;
+
+  beforeEach(() => {
+    page = new AppPage();
+    page.navigateToProtocolExperiments();
+  });
+
+  it('should display FAANG protocols', () => {
+    expect(page.getParagraphTextForPages()).toContain('FAANG protocols');
+  });
+
+  it('should filter table', () => {
+    element.all(by.css('.list-group-item')).get(0).click().then(function() {
+      const after = element.all(by.css('.list-group-item')).get(1).getText();
+      expect(after).toContain('CHEBI_33697');
+    });
+  });
+});
+
 // describe('Test summary/organisms page', () => {
 //   let page: AppPage;
 //
