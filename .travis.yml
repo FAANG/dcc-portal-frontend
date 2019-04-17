@@ -1,13 +1,18 @@
 language: node_js
 node_js:
-  - "9"
-dist: trusty
-sudo: required
+  - "11.9.0"
+sudo: true
+
+addons:
+  chrome: stable
+
 branches:
   only:
     - master
+
 before_script:
   - npm install -g @angular/cli
+
 script:
   - ng lint
   - ng e2e
