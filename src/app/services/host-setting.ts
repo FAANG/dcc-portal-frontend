@@ -7,7 +7,7 @@ export class HostSetting {
     return this.host;
   }
 
-  setHost(host:string) {
+  setHost(host: string) {
     this.host = host;
   }
 }

@@ -199,8 +199,8 @@ export class AggregationService {
         for (const arch of item['archive']) {
           archive.hasOwnProperty(arch) ? archive[arch] += 1 : archive[arch] = 1;
         }
-        for (const type of item['assayType']) {
-          assay_type.hasOwnProperty(type) ? assay_type[type] += 1 : assay_type[type] = 1;
+        for (const my_type of item['assayType']) {
+          assay_type.hasOwnProperty(my_type) ? assay_type[my_type] += 1 : assay_type[my_type] = 1;
         }
         if (item['paperPublished'] === 'true') {
           paper_published.hasOwnProperty('Yes') ? paper_published['Yes'] += 1 : paper_published['Yes'] = 1;

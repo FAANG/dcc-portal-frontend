@@ -176,7 +176,7 @@ export class SearchService {
         'term' : {'standardMet' : 'FAANG'}
       };
     }
-    let body = {
+    const body = {
       from: 0,
       size: 100,
     };

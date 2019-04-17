@@ -44,8 +44,8 @@ export class FileDetailComponent implements OnInit {
           }
           if (this.file.hasOwnProperty('experiment')) {
             this.apiFileService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
-              (data: any) => {
-                this.expandObject(data['hits']['hits'][0]['_source']);
+              (experiment_data: any) => {
+                this.expandObject(experiment_data['hits']['hits'][0]['_source']);
               },
               error => {
                 this.error = error;

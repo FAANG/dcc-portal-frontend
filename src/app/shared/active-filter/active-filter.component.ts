@@ -21,9 +21,9 @@ export class ActiveFilterComponent implements OnInit {
     const index = this.aggregationService.current_active_filters.indexOf(field);
     this.aggregationService.current_active_filters.splice(index, 1);
     for (const key of Object.keys(this.data)) {
-      const index = this.data[key].indexOf(field);
-      if (index > -1) {
-        this.data[key].splice(index, 1);
+      const my_index = this.data[key].indexOf(field);
+      if (my_index > -1) {
+        this.data[key].splice(my_index, 1);
       }
     }
     this.aggregationService.field.next(this.data);

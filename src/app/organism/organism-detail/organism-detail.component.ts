@@ -51,9 +51,9 @@ export class OrganismDetailComponent implements OnInit {
   }
 
   dealWithAvailability(input: string): string {
-    if (input.substr(0,6) === 'mailto') {
+    if (input.substr(0, 6) === 'mailto') {
       return input.substr(7);
-    } else{
+    } else {
       return input;
     }
   }

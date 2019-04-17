@@ -99,19 +99,19 @@ export class SpecimensSummaryComponent implements OnInit {
     for (const item of data['breedSummary']) {
       this.breedKeys.push(item['name']);
       const labels = [];
-      const data = [];
+      const breed_data = [];
       item['value'].sort(function (a: any, b: any) {
         return b['value'] - a['value'];
       });
       item['value'].forEach((v, i) => {
         if (i <= 10) {
           labels.push(v['name']);
-          data.push(v['value']);
+          breed_data.push(v['value']);
         }
       });
       this.breedData[item['name']] = {
         'labels': labels,
-        'data': data
+        'data': breed_data
       };
     }
     this.name = this.breedKeys[0];

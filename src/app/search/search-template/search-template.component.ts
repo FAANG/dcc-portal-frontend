@@ -50,16 +50,16 @@ export class SearchTemplateComponent implements OnInit, OnDestroy {
       cellType = hit['_source']['cellCulture']['cellType']['text'];
     }
 
-    if (hit['_source']['cellLine'] && hit['_source']['cellLine']['cellType']){
+    if (hit['_source']['cellLine'] && hit['_source']['cellLine']['cellType']) {
       cellType = hit['_source']['cellLine']['cellType']['text'];
     }
     return cellType;
   }
 
   convertArrayToStr(data: string[], subelement: string): string {
-    let value: string = '';
-    for (var i = 0; i < data.length; i++) {
-      if (subelement === ''){
+    let value = '';
+    for (let i = 0; i < data.length; i++) {
+      if (subelement === '') {
         value += data[i] + ',';
       } else {
         value += data[i][subelement] + ',';

@@ -75,14 +75,14 @@ export class OrganismsSummaryComponent implements OnInit {
     for (const item of data['breedSummary']) {
       this.breedKeys.push(item['name']);
       const labels = [];
-      const data = [];
+      const breed_data = [];
       for (const tmp of item['value']) {
         labels.push(tmp['name']);
-        data.push(tmp['value']);
+        breed_data.push(tmp['value']);
       }
       this.breedsData[item['name']] = {
         'labels': labels,
-        'data': data
+        'data': breed_data
       };
     }
     this.name = this.breedKeys[0];
