@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/FAANG/faang-portal-frontend.svg?branch=master)](https://travis-ci.org/FAANG/faang-portal-frontend)
+
 # FaangPortalFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.4.
