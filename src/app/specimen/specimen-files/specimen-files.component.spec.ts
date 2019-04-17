@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SpecimenFilesComponent } from './specimen-files.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('SpecimenFilesComponent', () => {
   let component: SpecimenFilesComponent;
@@ -8,7 +11,14 @@ describe('SpecimenFilesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpecimenFilesComponent ]
+      declarations: [
+        SpecimenFilesComponent,
+        RobustLinkComponent
+      ],
+      imports: [
+        NgxPaginationModule,
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
   }));

@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrganismsSummaryComponent } from './organisms-summary.component';
+import {HeaderComponent} from '../shared/header/header.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ChartsModule} from 'ng2-charts';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('OrganismsSummaryComponent', () => {
   let component: OrganismsSummaryComponent;
@@ -8,7 +12,15 @@ describe('OrganismsSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrganismsSummaryComponent ]
+      declarations: [
+        OrganismsSummaryComponent,
+        HeaderComponent
+      ],
+      imports: [
+        RouterTestingModule,
+        ChartsModule,
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
   }));

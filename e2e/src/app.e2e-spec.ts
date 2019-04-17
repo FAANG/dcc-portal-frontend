@@ -93,7 +93,6 @@ describe('Test specimens page', () => {
   it('should filter table', () => {
     const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
     element.all(by.css('.list-group-item')).get(2).click().then(function() {
-      browser.sleep(1000);
       const after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
       expect(before).toBeGreaterThan(after);
     });
@@ -168,11 +167,9 @@ describe('Test file page', () => {
       expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Sus scrofa');
     });
     element.all(by.css('th')).get(3).click().then(function() {
-      browser.sleep(1000);
       expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Bos indicus');
     });
     element.all(by.css('th')).get(3).click().then(function() {
-      browser.sleep(1000);
       expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(3).getText()).toEqual('Gallus gallus');
     });
   });
