@@ -6,14 +6,11 @@ sudo: true
 addons:
   chrome: stable
 
-branches:
-  only:
-    - master
-
 before_script:
   - npm install -g @angular/cli
 
 script:
   - ng lint
   - ng e2e
+  - ng test --watch=false --browsers=ChromeHeadless
   - ng build --prod --base-href https://github.com/FAANG/faang-portal-frontend/
