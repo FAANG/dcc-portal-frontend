@@ -144,4 +144,24 @@ describe('ApiFileService', () => {
       expect(data['hits']['hits'][0]['_source']['accession']).toEqual('PRJEB28219');
     });
   }));
+
+  it('should return 23 sample protocols', inject([ApiFileService], (service: ApiFileService) => {
+    const query = {
+      '_source': [
+        'key',
+        'protocolName',
+        'universityName',
+        'protocolDate',
+        'protocolType'],
+    };
+    service.getAllSamplesProtocols(query).subscribe(data => {
+      expect(data.length).toEqual(23);
+    });
+  }));
+
+  it('should return detailed information about particular sample protocols', inject([ApiFileService], (service: ApiFileService) => {
+    service.getSampleProtocol('ROSLIN_SOP_Harvest_of_Large_Animal_Tissues_20160516.pdf').subscribe(data => {
+      expect(data['hits']['hits'][0]['_source']['key']).toEqual('ROSLIN_SOP_Harvest_of_Large_Animal_Tissues_20160516.pdf');
+    });
+  }));
 });
