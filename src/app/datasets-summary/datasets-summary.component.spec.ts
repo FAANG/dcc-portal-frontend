@@ -34,4 +34,45 @@ describe('DatasetsSummaryComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create data for charts', () => {
+    const data = {
+      standardSummary: [
+        {
+          name: 'FAANG',
+          value: 10
+        }
+      ],
+      paperPublishedSummary: [
+        {
+          name: 'Yes',
+          value: 1
+        }
+      ],
+      specieSummary: [
+        {
+          name: 'Bos taurus',
+          value: 1
+        }
+      ],
+      assayTypeSummary: [
+        {
+          name: 'whole genome sequencing assay',
+          value: 1
+        }
+      ]
+    };
+    component.assignChartData(data);
+    expect(component.standardChartLabels).toEqual(['FAANG']);
+    expect(component.standardChartData).toEqual([10]);
+
+    expect(component.paperChartLabels).toEqual(['Yes']);
+    expect(component.paperChartData).toEqual([1]);
+
+    expect(component.speciesChartLabels).toEqual(['Bos taurus']);
+    expect(component.speciesChartData).toEqual([1]);
+
+    expect(component.assayTypeChartLabels).toEqual(['whole genome sequencing assay']);
+    expect(component.assayTypeChartData).toEqual([1]);
+  });
 });
