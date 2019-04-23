@@ -52,7 +52,7 @@ describe('FileDetailComponent', () => {
 
   it('expandObject should assign right values to experiment', () => {
     const data = {standardMet: 'Legacy', accession: 'SRX339479', assayType: 'whole genome sequencing assay', experimentTarget: 'input DNA'};
-    component.expandObject(data)
+    component.expandObject(data);
     expect(component.experiment).toEqual({assayType: 'whole genome sequencing assay', experimentTarget: 'input DNA'});
   });
 });
