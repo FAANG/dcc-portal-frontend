@@ -41,4 +41,18 @@ describe('FileDetailComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('checkIsObject should return true if input is object', () => {
+    expect(component.checkIsObject({})).toEqual(true);
+  });
+
+  it('checkIsObject should return false if input is not object', () => {
+    expect(component.checkIsObject('')).toEqual(false);
+  });
+
+  it('expandObject should assign right values to experiment', () => {
+    const data = {standardMet: 'Legacy', accession: 'SRX339479', assayType: 'whole genome sequencing assay', experimentTarget: 'input DNA'};
+    component.expandObject(data)
+    expect(component.experiment).toEqual({assayType: 'whole genome sequencing assay', experimentTarget: 'input DNA'});
+  });
 });
