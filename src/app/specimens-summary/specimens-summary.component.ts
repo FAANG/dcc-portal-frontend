@@ -97,19 +97,19 @@ export class SpecimensSummaryComponent implements OnInit {
       this.materialChartData.push(item['value']);
     }
     for (const item of data['breedSummary']) {
-      this.breedKeys.push(item['name']);
+      this.breedKeys.push(item['speciesName']);
       const labels = [];
       const breed_data = [];
-      item['value'].sort(function (a: any, b: any) {
-        return b['value'] - a['value'];
+      item['speciesValue'].sort(function (a: any, b: any) {
+        return b['breedsValue'] - a['breedsValue'];
       });
-      item['value'].forEach((v, i) => {
+      item['speciesValue'].forEach((v, i) => {
         if (i <= 10) {
-          labels.push(v['name']);
-          breed_data.push(v['value']);
+          labels.push(v['breedsName']);
+          breed_data.push(v['breedsValue']);
         }
       });
-      this.breedData[item['name']] = {
+      this.breedData[item['speciesName']] = {
         'labels': labels,
         'data': breed_data
       };

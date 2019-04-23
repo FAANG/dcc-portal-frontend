@@ -73,14 +73,14 @@ export class OrganismsSummaryComponent implements OnInit {
       this.standardChartData.push(item['value']);
     }
     for (const item of data['breedSummary']) {
-      this.breedKeys.push(item['name']);
+      this.breedKeys.push(item['speciesName']);
       const labels = [];
       const breed_data = [];
-      for (const tmp of item['value']) {
-        labels.push(tmp['name']);
-        breed_data.push(tmp['value']);
+      for (const tmp of item['speciesValue']) {
+        labels.push(tmp['breedsName']);
+        breed_data.push(tmp['breedsValue']);
       }
-      this.breedsData[item['name']] = {
+      this.breedsData[item['speciesName']] = {
         'labels': labels,
         'data': breed_data
       };
