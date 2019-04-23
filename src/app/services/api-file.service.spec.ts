@@ -159,9 +159,52 @@ describe('ApiFileService', () => {
     });
   }));
 
-  it('should return detailed information about particular sample protocols', inject([ApiFileService], (service: ApiFileService) => {
+  it('should return detailed information about particular sample protocol', inject([ApiFileService], (service: ApiFileService) => {
     service.getSampleProtocol('ROSLIN_SOP_Harvest_of_Large_Animal_Tissues_20160516.pdf').subscribe(data => {
       expect(data['hits']['hits'][0]['_source']['key']).toEqual('ROSLIN_SOP_Harvest_of_Large_Animal_Tissues_20160516.pdf');
+    });
+  }));
+
+  it('should return 68 experiments protocols', inject([ApiFileService], (service: ApiFileService) => {
+    const query = {
+      '_source': [
+        'name',
+        'experimentTarget',
+        'assayType',
+        'key'],
+    };
+    service.getAllExperimentsProtocols(query).subscribe(data => {
+      expect(data.length).toEqual(68);
+    });
+  }));
+
+  it('should return detailed information about particular experiment protocol', inject([ApiFileService], (service: ApiFileService) => {
+    service.getExperimentProtocol('libraryGenerationProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA').subscribe(data => {
+      expect(data['hits']['hits'][0]['_source']['key']).toEqual('libraryGenerationProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA');
+    });
+  }));
+
+  it('should return information about organisms summary', inject([ApiFileService], (service: ApiFileService) => {
+    service.getOrganismSummary('summary_organism').subscribe(data => {
+      expect(data['hits']['hits'][0]['_id']).toEqual('summary_organism');
+    });
+  }));
+
+  it('should return information about specimens summary', inject([ApiFileService], (service: ApiFileService) => {
+    service.getSpecimenSummary('summary_specimen').subscribe(data => {
+      expect(data['hits']['hits'][0]['_id']).toEqual('summary_specimen');
+    });
+  }));
+
+  it('should return information about datasets summary', inject([ApiFileService], (service: ApiFileService) => {
+    service.getDatasetSummary('summary_dataset').subscribe(data => {
+      expect(data['hits']['hits'][0]['_id']).toEqual('summary_dataset');
+    });
+  }));
+
+  it('should return information about files summary', inject([ApiFileService], (service: ApiFileService) => {
+    service.getFileSummary('summary_file').subscribe(data => {
+      expect(data['hits']['hits'][0]['_id']).toEqual('summary_file');
     });
   }));
 });
