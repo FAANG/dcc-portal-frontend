@@ -77,6 +77,42 @@
         "maxAge": "1d",
         "strategy": "performance"
       }
+    },
+    {
+      "name": "summary_organism",
+      "urls": ["https://data.faang.org/api/summary_organism/summary_organism"],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1d",
+        "strategy": "performance"
+      }
+    },
+    {
+      "name": "summary_specimen",
+      "urls": ["https://data.faang.org/api/summary_specimen/summary_specimen"],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1d",
+        "strategy": "performance"
+      }
+    },
+    {
+      "name": "summary_dataset",
+      "urls": ["https://data.faang.org/api/summary_dataset/summary_dataset"],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1d",
+        "strategy": "performance"
+      }
+    },
+    {
+      "name": "summary_file",
+      "urls": ["https://data.faang.org/api/summary_file/summary_file"],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1d",
+        "strategy": "performance"
+      }
     }
   ]
 }
