@@ -38,4 +38,8 @@ describe('OrganismDetailComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('dealWithAvailability', () => {
+    expect(component.dealWithAvailability('mailto:test@test.com')).toEqual('test@test.com');
+  });
 });
