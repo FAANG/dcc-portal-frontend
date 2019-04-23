@@ -44,4 +44,97 @@ describe('FileTableComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('hasActiveFilters should return false if filter_field is empty', () => {
+    expect(component.hasActiveFilters()).toEqual(false);
+  });
+
+  it('hasActiveFilters should return true if filter_field has data', () => {
+    component.filter_field = {
+      standard: ['FAANG']
+    };
+    expect(component.hasActiveFilters()).toEqual(true);
+  });
+
+  it('resetFilter should reset all filters in filter_field', () => {
+    component.filter_field = {
+      standard: ['FAANG']
+    };
+    component.resetFilter();
+    expect(component.filter_field).toEqual({});
+  });
+
+  it('wasPublished should return true if published equals to string with true', () => {
+    expect(component.wasPublished('true')).toEqual(true);
+  });
+
+  it('wasPublished should return false if published equals to string with false', () => {
+    expect(component.wasPublished('false')).toEqual(false);
+  });
+
+  it('isGreen should return green if article was published for this record', () => {
+    expect(component.isGreen('true')).toEqual('green');
+  });
+
+  it('isGreen should return default if article was not published for this record', () => {
+    expect(component.isGreen('false')).toEqual('default');
+  });
+
+  it('selectColumn should assign right value for sort_field', () => {
+    component.selectedColumn = 'File name';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('fileName');
+
+    component.selectedColumn = 'Study';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('study');
+
+    component.selectedColumn = 'Experiment';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('experiment');
+
+    component.selectedColumn = 'Species';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('species');
+
+    component.selectedColumn = 'Assay type';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('assayType');
+
+    component.selectedColumn = 'Specimen';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('specimen');
+
+    component.selectedColumn = 'Instrument';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('instrument');
+
+    component.selectedColumn = 'Standard';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('standard');
+  });
+
+  it('chooseClass should assign right values for spanClass and sort_field', () => {
+    component.selectedColumn = 'File name';
+    component.chooseClass('glyphicon glyphicon-arrow-down');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-up');
+    expect(component.sort_field['direction']).toEqual('asc');
+
+    component.chooseClass('glyphicon glyphicon-arrow-up');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-down');
+    expect(component.sort_field['direction']).toEqual('desc');
+
+    component.selectedColumn = 'Study';
+    component.chooseClass('glyphicon glyphicon-sort');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-down');
+    expect(component.sort_field['direction']).toEqual('desc');
+
+    component.chooseClass('glyphicon glyphicon-arrow-down');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-up');
+    expect(component.sort_field['direction']).toEqual('asc');
+
+    component.chooseClass('glyphicon glyphicon-arrow-up');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-down');
+    expect(component.sort_field['direction']).toEqual('desc');
+  });
 });
