@@ -19,7 +19,7 @@
     "@angular/http": "^7.0.1",
     "@angular/platform-browser": "^7.0.1",
     "@angular/platform-browser-dynamic": "^7.0.1",
-    "@angular/pwa": "^0.8.3",
+    "@angular/pwa": "^0.13.8",
     "@angular/router": "^7.0.1",
     "@angular/service-worker": "^7.0.1",
     "angular2-cookie-law": "^6.0.4",
@@ -37,7 +37,7 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.3",
+    "@angular-devkit/build-angular": "^0.13.8",
     "@angular/cli": "~6.1.4",
     "@angular/compiler-cli": "^7.2.6",
     "@angular/language-service": "^7.0.1",
@@ -45,6 +45,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.2.1",
+    "coveralls": "^3.0.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.0.1",
