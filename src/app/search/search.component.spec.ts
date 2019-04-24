@@ -34,4 +34,16 @@ describe('SearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('preventReload should return false if event.code equals to Enter', () => {
+    const event = {
+     code: 'Enter'
+    };
+    expect(component.preventReload(event)).toEqual(false);
+  });
+
+  it('addValue should add text to searchText variable', () => {
+    component.addValue('test');
+    expect(component.searchText).toEqual('test');
+  });
 });
