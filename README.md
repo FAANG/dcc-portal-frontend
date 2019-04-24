@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/FAANG/faang-portal-frontend/badge.svg?branch=master)](https://coveralls.io/github/FAANG/faang-portal-frontend?branch=master)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-# FaangPortalFrontend
+# FAANG portal-frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.4.
 
@@ -43,9 +43,9 @@ Each component fetches data from the server only upon creation and then all basi
 sort.pipe.ts and filter.pipe.ts for sorting and filtering respectively.
 
 ## Future plans
-1. Add comprehensive test suite
+1. ~~Add comprehensive test suite~~
 2. Pre-render application on the fly from the server using Angular Universal
-2. Add offline capabilities with Service Workers
+2. ~~Add offline capabilities with Service Workers~~
 
 ## Further help
 
