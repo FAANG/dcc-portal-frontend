@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/FAANG/faang-portal-frontend.svg?branch=master)](https://travis-ci.org/FAANG/faang-portal-frontend)
+[![Coverage Status](https://coveralls.io/repos/github/FAANG/faang-portal-frontend/badge.svg?branch=master)](https://coveralls.io/github/FAANG/faang-portal-frontend?branch=master)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # FaangPortalFrontend
