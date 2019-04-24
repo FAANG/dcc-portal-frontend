@@ -30,4 +30,76 @@ describe('SearchTemplateComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('toggleDisplay should toggle a value of display', () => {
+    expect(component.display).toEqual(false);
+    component.toggleDisplay();
+    expect(component.display).toEqual(true);
+    component.toggleDisplay();
+    expect(component.display).toEqual(false);
+  });
+
+  it('getCellType should get cell type from data with specimenFromOrganism field', () => {
+    const hit = {
+      _source: {
+        specimenFromOrganism: {
+          organismPart: {
+            text: 'test'
+          }
+        }
+      }
+    };
+    expect(component.getCellType(hit)).toEqual('test');
+  });
+
+  it('getCellType should get cell type from data with cellSpecimen field', () => {
+    const hit = {
+      _source: {
+        cellSpecimen: {
+          cellType: [
+            {
+              text: 'test'
+            }
+          ]
+        }
+      }
+    };
+    expect(component.getCellType(hit)).toEqual('test');
+  });
+
+  it('getCellType should get cell type from data with cellCulture field', () => {
+    const hit = {
+      _source: {
+        cellCulture: {
+          cellType: {
+            text: 'test'
+          }
+        }
+      }
+    };
+    expect(component.getCellType(hit)).toEqual('test');
+  });
+
+  it('getCellType should get cell type from data with cellLine field', () => {
+    const hit = {
+      _source: {
+        cellLine: {
+          cellType: {
+            text: 'test'
+          }
+        }
+      }
+    };
+    expect(component.getCellType(hit)).toEqual('test');
+  });
+
+  it('convertArrayToStr should return string representation of array without subelement', () => {
+    const data = ['test1', 'test2'];
+    expect(component.convertArrayToStr(data, '')).toEqual('test1,test2');
+  });
+
+  it('convertArrayToStr should return string representation of array with subelement', () => {
+    const data = ['test1', 'test2'];
+    expect(component.convertArrayToStr(data, '0')).toEqual('t,t');
+  });
 });
