@@ -126,7 +126,9 @@ describe('Test dataset page', () => {
   });
 
   it('should filter table', () => {
+    browser.sleep(5000);
     const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+    browser.sleep(5000);
     element.all(by.css('.list-group-item')).get(2).click().then(function() {
       browser.sleep(5000);
       const after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
