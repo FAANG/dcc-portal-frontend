@@ -37,7 +37,8 @@ describe('ApiFileService', () => {
     });
   }));
 
-  it('should return detailed information about particular file', inject([ApiFileService], (service: ApiFileService) => {
+  it('should return detailed information about particular file', inject([ApiFileService],
+    (service: ApiFileService) => {
     service.getFile('SRR958466_2').subscribe(data => {
       expect(data['hits']['hits'][0]['_source']['name']).toEqual('SRR958466_2.fastq.gz');
     });
@@ -77,13 +78,15 @@ describe('ApiFileService', () => {
     });
   }));
 
-  it('should return detailed information about particular organism', inject([ApiFileService], (service: ApiFileService) => {
+  it('should return detailed information about particular organism', inject([ApiFileService],
+    (service: ApiFileService) => {
     service.getOrganism('SAMEA104728877').subscribe(data => {
       expect(data['hits']['hits'][0]['_source']['name']).toEqual('ECA_UCD_AH2');
     });
   }));
 
-  it('should return information about specimens of organism', inject([ApiFileService], (service: ApiFileService) => {
+  it('should return information about specimens of organism', inject([ApiFileService],
+    (service: ApiFileService) => {
     service.getOrganismsSpecimens('SAMEA104728877').subscribe(data => {
       expect(data['hits']['hits'][0]['_source']['name']).toEqual('ECA_UCD_S116');
     });
@@ -108,13 +111,15 @@ describe('ApiFileService', () => {
     });
   }));
 
-  it('should return detailed information about particular specimen', inject([ApiFileService], (service: ApiFileService) => {
+  it('should return detailed information about particular specimen', inject([ApiFileService],
+    (service: ApiFileService) => {
     service.getSpecimen('SAMEA104728909').subscribe(data => {
       expect(data['hits']['hits'][0]['_source']['name']).toEqual('ECA_UCD_S63');
     });
   }));
 
-  it('should return files information about particular specimen', inject([ApiFileService], (service: ApiFileService) => {
+  it('should return files information about particular specimen', inject([ApiFileService],
+    (service: ApiFileService) => {
     service.getSpecimenFiles('SAMEA104728903').subscribe(data => {
       expect(data['hits']['hits'].length).toEqual(4);
     });
@@ -139,7 +144,8 @@ describe('ApiFileService', () => {
     });
   }));
 
-  it('should return detailed information about particular dataset', inject([ApiFileService], (service: ApiFileService) => {
+  it('should return detailed information about particular dataset', inject([ApiFileService],
+    (service: ApiFileService) => {
     service.getDataset('PRJEB28219').subscribe(data => {
       expect(data['hits']['hits'][0]['_source']['accession']).toEqual('PRJEB28219');
     });
@@ -159,7 +165,8 @@ describe('ApiFileService', () => {
     });
   }));
 
-  it('should return detailed information about particular sample protocol', inject([ApiFileService], (service: ApiFileService) => {
+  it('should return detailed information about particular sample protocol', inject([ApiFileService],
+    (service: ApiFileService) => {
     service.getSampleProtocol('ROSLIN_SOP_Harvest_of_Large_Animal_Tissues_20160516.pdf').subscribe(data => {
       expect(data['hits']['hits'][0]['_source']['key']).toEqual('ROSLIN_SOP_Harvest_of_Large_Animal_Tissues_20160516.pdf');
     });
@@ -178,9 +185,12 @@ describe('ApiFileService', () => {
     });
   }));
 
-  it('should return detailed information about particular experiment protocol', inject([ApiFileService], (service: ApiFileService) => {
-    service.getExperimentProtocol('libraryGenerationProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA').subscribe(data => {
-      expect(data['hits']['hits'][0]['_source']['key']).toEqual('libraryGenerationProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA');
+  it('should return detailed information about particular experiment protocol', inject([ApiFileService],
+    (service: ApiFileService) => {
+    service.getExperimentProtocol('libraryGenerationProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA').subscribe(
+      data => {
+      expect(data['hits']['hits'][0]['_source']['key']).toEqual(
+        'libraryGenerationProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA');
     });
   }));
 

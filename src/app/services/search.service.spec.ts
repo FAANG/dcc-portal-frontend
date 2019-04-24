@@ -25,7 +25,8 @@ describe('SearchService', () => {
     });
   }));
 
-  it('should return 1033 result files when search for scrofa with excluding legacy data', inject([SearchService], (service: SearchService) => {
+  it('should return 1033 result files when search for scrofa with excluding legacy data', inject([SearchService],
+    (service: SearchService) => {
     service.searchFile('scrofa', true).subscribe(data => {
       expect(data['hits']['total']).toEqual(1033);
     });
@@ -37,19 +38,22 @@ describe('SearchService', () => {
     });
   }));
 
-  it('should return 64 result organisms when search for scrofa with excluding legacy data', inject([SearchService], (service: SearchService) => {
+  it('should return 64 result organisms when search for scrofa with excluding legacy data', inject([SearchService],
+    (service: SearchService) => {
     service.searchOrganism('scrofa', true).subscribe(data => {
       expect(data['hits']['total']).toEqual(64);
     });
   }));
 
-  it('should return 3431 result specimens when search for scrofa', inject([SearchService], (service: SearchService) => {
+  it('should return 3431 result specimens when search for scrofa', inject([SearchService],
+    (service: SearchService) => {
     service.searchSpecimen('scrofa', false).subscribe(data => {
       expect(data['hits']['total']).toEqual(3431);
     });
   }));
 
-  it('should return 1454 result specimens when search for scrofa with excluding legacy data', inject([SearchService], (service: SearchService) => {
+  it('should return 1454 result specimens when search for scrofa with excluding legacy data', inject([SearchService],
+    (service: SearchService) => {
     service.searchSpecimen('scrofa', true).subscribe(data => {
       expect(data['hits']['total']).toEqual(1454);
     });
@@ -61,7 +65,8 @@ describe('SearchService', () => {
     });
   }));
 
-  it('should return 11 result datasets when search for scrofa with excluding legacy data', inject([SearchService], (service: SearchService) => {
+  it('should return 11 result datasets when search for scrofa with excluding legacy data', inject([SearchService],
+    (service: SearchService) => {
     service.searchDataset('scrofa', true).subscribe(data => {
       expect(data['hits']['total']).toEqual(11);
     });

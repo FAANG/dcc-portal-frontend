@@ -19,12 +19,14 @@ describe('Pipe: FilterPipe', () => {
       .compileComponents();
   }));
 
-  it('should be created', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should be created', inject([AggregationService, ExportService], (aggregation_service: AggregationService,
+                                                                       export_service: ExportService) => {
     pipe = new FilterPipe(aggregation_service, export_service);
     expect(pipe.transform('', {}, 'file')).toEqual([]);
   }));
 
-  it('should not filter dataset', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should not filter dataset', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         species: {
@@ -65,7 +67,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, {}, 'dataset');
   }));
 
-  it('should not filter specimen and organism', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should not filter specimen and organism', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         idNumber: 1,
@@ -84,7 +87,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, {}, 'organism');
   }));
 
-  it('should not filter protocol/protocol_experiments', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should not filter protocol/protocol_experiments', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         key: 1,
@@ -105,7 +109,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, {}, 'organism');
   }));
 
-  it('should not filter other types', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should not filter other types', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         key: 1,
@@ -126,7 +131,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, {}, 'file');
   }));
 
-  it('should filter dataset by species field', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should filter dataset by species field', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         species: {
@@ -169,7 +175,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, filter_field, 'dataset');
   }));
 
-  it('should filter dataset by archive field', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should filter dataset by archive field', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         species: {
@@ -212,7 +219,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, filter_field, 'dataset');
   }));
 
-  it('should filter dataset by assayType field', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should filter dataset by assayType field', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         species: {
@@ -255,7 +263,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, filter_field, 'dataset');
   }));
 
-  it('should filter specimen and organism by sex field', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should filter specimen and organism by sex field', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         idNumber: 1,
@@ -276,7 +285,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, filter_field, 'organism');
   }));
 
-  it('should filter all types by paperPublished field', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should filter all types by paperPublished field', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         idNumber: 1,
@@ -297,7 +307,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, filter_field, 'organism');
   }));
 
-  it('should filter all types by journal title field', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should filter all types by journal title field', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         idNumber: 1,
@@ -318,7 +329,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, filter_field, 'organism');
   }));
 
-  it('should filter all types by publication year field', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should filter all types by publication year field', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         idNumber: 1,
@@ -339,7 +351,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, filter_field, 'organism');
   }));
 
-  it('should filter all types by any other field', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should filter all types by any other field', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         idNumber: 1,
@@ -360,7 +373,8 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, filter_field, 'organism');
   }));
 
-  it('should filter protocol/protocol_experiments types by any other field', inject([AggregationService, ExportService], (aggregation_service: AggregationService, export_service: ExportService) => {
+  it('should filter protocol/protocol_experiments types by any other field', inject([AggregationService, ExportService],
+    (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
         key: 1,

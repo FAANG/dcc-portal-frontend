@@ -63,11 +63,11 @@ describe('OrganismsSummaryComponent', () => {
       ],
       breedSummary: [
         {
-          name: 'Bos taurus',
-          value: [
+          speciesName: 'Bos taurus',
+          speciesValue: [
             {
-              name: 'Brahman',
-              value: 1
+              breedsName: 'Brahman',
+              breedsValue: 1
             }
           ]
         }
