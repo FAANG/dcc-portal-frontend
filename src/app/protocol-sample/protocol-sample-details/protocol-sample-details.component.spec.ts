@@ -36,4 +36,20 @@ describe('ProtocolSampleDetailsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('getProtocolLink should change ftp on http in url link', () => {
+    component.file = {
+      url: 'ftp://test.com'
+    };
+    component.getProtocolLink();
+    expect(component.link).toEqual('http://test.com');
+  });
+
+  it('getProtocolLink should not change http in url link', () => {
+    component.file = {
+      url: 'http://test.com'
+    };
+    component.getProtocolLink();
+    expect(component.link).toEqual('http://test.com');
+  });
 });
