@@ -214,7 +214,7 @@ describe('Test protocol/samples page', () => {
 
   it('should filter table', () => {
     element.all(by.css('.list-group-item')).get(3).click().then(function() {
-      const after = element.all(by.css('.list-group-item')).get(4).getText();
+      const after = element.all(by.css('.list-group-item')).get(3).getText();
       expect(after).toContain('samples');
     });
   });
