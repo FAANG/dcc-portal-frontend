@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrganismSpecimenComponent } from './organism-specimen.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('OrganismSpecimenComponent', () => {
   let component: OrganismSpecimenComponent;
@@ -8,7 +11,14 @@ describe('OrganismSpecimenComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrganismSpecimenComponent ]
+      declarations: [
+        OrganismSpecimenComponent
+      ],
+      imports: [
+        NgxPaginationModule,
+        RouterTestingModule,
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
   }));

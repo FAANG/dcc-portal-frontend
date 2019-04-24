@@ -11,11 +11,8 @@ export class ExportService {
     decimalseparator: '.',
     showLabels: false,
     headers: [],
-    // showTitle: true,
-    // title: 'asfasf',
     useBom: false,
     removeNewLines: true,
-    // keys: ['approved','age','name' ]
   };
 
   optionsTabular = {
@@ -24,11 +21,8 @@ export class ExportService {
     decimalseparator: '.',
     showLabels: false,
     headers: [],
-    // showTitle: true,
-    // title: 'asfasf',
     useBom: false,
     removeNewLines: true,
-    // keys: ['approved','age','name' ]
   };
 
   data = new Subject();

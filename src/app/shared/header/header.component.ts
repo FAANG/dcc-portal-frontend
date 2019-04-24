@@ -19,14 +19,13 @@ export class HeaderComponent implements OnInit {
   }
 
   isActiveSummary() {
-    if (this.router.url === '/summary/organisms' || this.router.url === '/summary/specimens' || this.router.url === '/summary/datasets' ||
-      this.router.url === '/summary/files') {
+    if (this.router.url.includes('summary')) {
       return 'active';
     }
   }
 
   isActiveProtocols() {
-    if (this.router.url === '/protocol/samples' || this.router.url === '/protocol/experiments') {
+    if (this.router.url.includes('protocol')) {
       return 'active';
     }
   }

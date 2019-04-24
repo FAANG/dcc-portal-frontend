@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProtocolSampleDetailsComponent } from './protocol-sample-details.component';
+import {HeaderComponent} from '../../shared/header/header.component';
+import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('ProtocolSampleDetailsComponent', () => {
   let component: ProtocolSampleDetailsComponent;
@@ -8,7 +13,16 @@ describe('ProtocolSampleDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProtocolSampleDetailsComponent ]
+      declarations: [
+        ProtocolSampleDetailsComponent,
+        HeaderComponent,
+        RobustLinkComponent
+      ],
+      imports: [
+        NgxPaginationModule,
+        RouterTestingModule,
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
   }));
@@ -21,5 +35,21 @@ describe('ProtocolSampleDetailsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('getProtocolLink should change ftp on http in url link', () => {
+    component.file = {
+      url: 'ftp://test.com'
+    };
+    component.getProtocolLink();
+    expect(component.link).toEqual('http://test.com');
+  });
+
+  it('getProtocolLink should not change http in url link', () => {
+    component.file = {
+      url: 'http://test.com'
+    };
+    component.getProtocolLink();
+    expect(component.link).toEqual('http://test.com');
   });
 });

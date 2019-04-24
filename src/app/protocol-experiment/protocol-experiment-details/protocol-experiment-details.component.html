@@ -1,6 +1,6 @@
 <div class="container">
   <app-header></app-header>
-  <h1 class="text-center">{{getHumanName(protocolId.split("-")[0])}}</h1>
+  <h1 class="text-center" *ngIf="protocolId">{{getHumanName(protocolId.split("-")[0])}}</h1>
   <dl class="dl-horizontal">
     <dt>Protocol: </dt>
     <dd>

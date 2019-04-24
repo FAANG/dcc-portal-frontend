@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatasetRelatedTemplateComponent } from './dataset-related-template.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 
 describe('DatasetRelatedTemplateComponent', () => {
   let component: DatasetRelatedTemplateComponent;
@@ -8,7 +10,13 @@ describe('DatasetRelatedTemplateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatasetRelatedTemplateComponent ]
+      declarations: [
+        DatasetRelatedTemplateComponent,
+        RobustLinkComponent
+      ],
+      imports: [
+        NgxPaginationModule
+      ]
     })
     .compileComponents();
   }));

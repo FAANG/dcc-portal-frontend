@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileDetailComponent } from './file-detail.component';
+import {HeaderComponent} from '../../shared/header/header.component';
+import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
+import {NgxSmartModalModule, NgxSmartModalService} from 'ngx-smart-modal';
+import {RunFilesComponent} from '../../shared/run-files/run-files.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('FileDetailComponent', () => {
   let component: FileDetailComponent;
@@ -8,7 +14,20 @@ describe('FileDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileDetailComponent ]
+      declarations: [
+        FileDetailComponent,
+        HeaderComponent,
+        RobustLinkComponent,
+        RunFilesComponent
+      ],
+      imports: [
+        NgxSmartModalModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+      ],
+      providers: [
+        NgxSmartModalService
+      ]
     })
     .compileComponents();
   }));
@@ -21,5 +40,19 @@ describe('FileDetailComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('checkIsObject should return true if input is object', () => {
+    expect(component.checkIsObject({})).toEqual(true);
+  });
+
+  it('checkIsObject should return false if input is not object', () => {
+    expect(component.checkIsObject('')).toEqual(false);
+  });
+
+  it('expandObject should assign right values to experiment', () => {
+    const data = {standardMet: 'Legacy', accession: 'SRX339479', assayType: 'whole genome sequencing assay', experimentTarget: 'input DNA'};
+    component.expandObject(data);
+    expect(component.experiment).toEqual({assayType: 'whole genome sequencing assay', experimentTarget: 'input DNA'});
   });
 });
