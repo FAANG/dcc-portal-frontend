@@ -34,7 +34,9 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.protocolId = params['id'];
-      this.titleService.setTitle(`${this.protocolId.split('-')[0]} | FAANG protocol`);
+      if (this.protocolId) {
+        this.titleService.setTitle(`${this.protocolId.split('-')[0]} | FAANG protocol`);
+      }
     });
     this.apiFileService.getExperimentProtocol(this.protocolId).subscribe(data => {
         this.protocol = data['hits']['hits'][0]['_source'];
