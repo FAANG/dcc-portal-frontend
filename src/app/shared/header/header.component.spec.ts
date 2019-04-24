@@ -28,4 +28,12 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('toggleCollapse should toggle value of collapsed variable', () => {
+    expect(component.collapsed).toEqual(true);
+    component.toggleCollapse();
+    expect(component.collapsed).toEqual(false);
+    component.toggleCollapse();
+    expect(component.collapsed).toEqual(true);
+  });
 });
