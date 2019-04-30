@@ -55,14 +55,6 @@ export class FilterPipe implements PipeTransform {
       const results_for_download = [];
       for (const item of value) {
         const item_for_download = JSON.parse(JSON.stringify(item));
-        if (type === 'dataset') {
-          const species = [];
-          for (const data of item['species']['_source']['species']) {
-            species.push(data['text']);
-          }
-          item_for_download['species'] = species.join(';');
-          item_for_download['assayType'] = item_for_download['assayType'].join(';');
-        }
         if (type === 'specimen' || type === 'organism') {
           delete item_for_download['idNumber'];
         }
@@ -75,8 +67,8 @@ export class FilterPipe implements PipeTransform {
           for (const data_field of filter_field[key]) {
             if (type === 'dataset' && key === 'species') {
               let found = false;
-              for (const data of item['species']['_source']['species']) {
-                if (data['text'] === data_field) {
+              for (const data of item['species'].split(',')) {
+                if (data === data_field) {
                   found = true;
                 }
               }
@@ -85,7 +77,7 @@ export class FilterPipe implements PipeTransform {
               }
             } else if (type === 'dataset' && key === 'archive') {
               let found = false;
-              for (const data of item['archive']) {
+              for (const data of item['archive'].split(',')) {
                 if (data === data_field) {
                   found = true;
                 }
@@ -95,7 +87,7 @@ export class FilterPipe implements PipeTransform {
               }
             } else if (type === 'dataset' && key === 'assayType') {
               let found = false;
-              for (const data of item['assayType']) {
+              for (const data of item['assayType'].split(',')) {
                 if (data === data_field) {
                   found = true;
                 }

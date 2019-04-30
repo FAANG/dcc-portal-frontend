@@ -192,13 +192,13 @@ export class AggregationService {
       let all_data;
       for (const item of fileList) {
         standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
-        for (const spec of item['species']['_source']['species']) {
-          species.hasOwnProperty(spec['text']) ? species[spec['text']] += 1 : species[spec['text']] = 1;
+        for (const spec of item['species'].split(',')) {
+          species.hasOwnProperty(spec) ? species[spec] += 1 : species[spec] = 1;
         }
-        for (const arch of item['archive']) {
+        for (const arch of item['archive'].split(',')) {
           archive.hasOwnProperty(arch) ? archive[arch] += 1 : archive[arch] = 1;
         }
-        for (const my_type of item['assayType']) {
+        for (const my_type of item['assayType'].split(',')) {
           assay_type.hasOwnProperty(my_type) ? assay_type[my_type] += 1 : assay_type[my_type] = 1;
         }
         if (item['paperPublished'] === 'true') {

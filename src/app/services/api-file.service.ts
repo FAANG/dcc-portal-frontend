@@ -3,7 +3,7 @@ import { HostSetting } from './host-setting';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
-import {ArticleTable, DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
+import {DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
 
 
 @Injectable({
@@ -148,15 +148,15 @@ export class ApiFileService {
 
   getAllDatasets(query: any, size: number) {
     const url = this.hostSetting.host + 'dataset/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString());
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           datasetAccession: entry['_source']['accession'],
           title: entry['_source']['title'],
-          species: entry,
-          archive: entry['_source']['archive'],
-          assayType: entry['_source']['assayType'],
+          species: this.getSpeciesStr(entry),
+          archive: this.convertArrayToString(entry['_source']['archive']),
+          assayType: this.convertArrayToString(entry['_source']['assayType']),
           numberOfExperiments: entry['_source']['experiment']['length'],
           numberOfSpecimens: entry['_source']['specimen']['length'],
           numberOfFiles: entry['_source']['file']['length'],
@@ -168,6 +168,19 @@ export class ApiFileService {
       retry(3),
       catchError(this.handleError),
     );
+  }
+
+  getSpeciesStr(dataset: any): string {
+    const species: any[] = dataset['_source']['species'];
+    let value = '';
+    for (let i = species.length - 1; i >= 0; i--) {
+      value += species[i]['text'] + ',';
+    }
+    return value.substring(0, value.length - 1);
+  }
+
+  convertArrayToString(array: any): string {
+    return array.toString();
   }
 
   getDataset(accession: string) {

@@ -19,6 +19,9 @@ export class DatasetComponent implements OnInit, OnDestroy {
   datasetListLong: Observable<DatasetTable[]>;
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
     'Number of Specimens', 'Number of Files', 'Standard', 'Paper published'];
+  spanClass = 'glyphicon glyphicon-arrow-down';
+  defaultClass = 'glyphicon glyphicon-sort';
+  selectedColumn = 'Dataset accession';
   sort_field: SortParams;
   filter_field = {};
   aggrSubscription: Subscription;
@@ -34,6 +37,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   p = 1;
 
   private query = {
+    'sort': 'accession:desc',
     '_source': [
       'accession',
       'title',
@@ -84,7 +88,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'standard', direction: 'asc'};
+    this.sort_field = {id: 'datasetAccession', direction: 'desc'};
     this.apiFileService.getAllDatasets(this.query, 25).subscribe(
       data => {
         this.datasetListShort = data;
@@ -115,6 +119,69 @@ export class DatasetComponent implements OnInit, OnDestroy {
     });
   }
 
+  onTableClick(event: any) {
+    let event_class;
+    if (event['srcElement']['firstElementChild']) {
+      event_class = event['srcElement']['firstElementChild']['classList']['value'];
+    } else {
+      event_class = event['srcElement']['className'];
+    }
+    this.selectedColumn = event['srcElement']['id'];
+    this.selectColumn();
+    this.chooseClass(event_class);
+  }
+
+  chooseClass(event_class: string) {
+    if (this.selectedColumn === 'Dataset accession') {
+      if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
+        this.spanClass = 'glyphicon glyphicon-arrow-up';
+        this.sort_field['direction'] = 'asc';
+      } else {
+        this.spanClass = 'glyphicon glyphicon-arrow-down';
+        this.sort_field['direction'] = 'desc';
+      }
+    } else {
+      if (event_class.indexOf(this.defaultClass) !== -1) {
+        this.spanClass = 'glyphicon glyphicon-arrow-down';
+        this.sort_field['direction'] = 'desc';
+      } else if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
+        this.spanClass = 'glyphicon glyphicon-arrow-up';
+        this.sort_field['direction'] = 'asc';
+      } else {
+        this.spanClass = 'glyphicon glyphicon-sort';
+        this.sort_field['direction'] = 'desc';
+        this.sort_field['id'] = 'datasetAccession';
+        this.selectedColumn = 'Dataset accession';
+        this.spanClass = 'glyphicon glyphicon-arrow-down';
+      }
+    }
+  }
+
+  selectColumn() {
+    switch (this.selectedColumn) {
+      case 'Datset accession': {
+        this.sort_field['id'] = 'datasetAccession';
+        break;
+      }
+      case 'Title': {
+        this.sort_field['id'] = 'title';
+        break;
+      }
+      case 'Species': {
+        this.sort_field['id'] = 'species';
+        break;
+      }
+      case 'Archive': {
+        this.sort_field['id'] = 'archive';
+        break;
+      }
+      case 'Assay type': {
+        this.sort_field['id'] = 'assayType';
+        break;
+      }
+    }
+  }
+
   hasActiveFilters() {
     if (typeof this.filter_field === 'undefined') {
       return false;
@@ -138,15 +205,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.resetFilter();
     this.router.navigate(['dataset'], {queryParams: {}});
-  }
-
-  getSpeciesStr(dataset: any): string {
-    const species: any[] = dataset['_source']['species'];
-    let value = '';
-    for (let i = species.length - 1; i >= 0; i--) {
-      value += species[i]['text'] + ',';
-    }
-    return value.substring(0, value.length - 1);
   }
 
   onDownloadData() {
