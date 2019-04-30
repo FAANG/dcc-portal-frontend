@@ -21,6 +21,7 @@ import {SpecimensSummaryComponent} from './specimens-summary/specimens-summary.c
 import {DatasetsSummaryComponent} from './datasets-summary/datasets-summary.component';
 import {FilesSummaryComponent} from './files-summary/files-summary.component';
 import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.component';
+import {NonExistingComponent} from './non-existing/non-existing.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -44,7 +45,9 @@ const routes: Routes = [
   {path: 'summary/organisms', component: OrganismsSummaryComponent},
   {path: 'summary/specimens', component: SpecimensSummaryComponent},
   {path: 'summary/datasets', component: DatasetsSummaryComponent},
-  {path: 'summary/files', component: FilesSummaryComponent}
+  {path: 'summary/files', component: FilesSummaryComponent},
+  {path: '404', component: NonExistingComponent},
+  {path: '**', component: NonExistingComponent}
 ];
 
 @NgModule({

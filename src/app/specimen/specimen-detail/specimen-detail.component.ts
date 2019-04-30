@@ -29,18 +29,23 @@ export class SpecimenDetailComponent implements OnInit {
     });
     this.apiFileService.getSpecimen(this.biosampleId).subscribe(
       (data: any) => {
-        this.specimen = data['hits']['hits'][0]['_source'];
-        if (this.biosampleId !== this.specimen.biosampleId) {
-          // this.router.navigate(['/specimen', this.specimen.biosampleId]);
-          this.router.navigate(['/']).then(() => {
-            this.router.navigate(['/specimen', this.specimen.biosampleId]);
-          });
-        }
-        if (this.specimen) {
+        if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
-          if (this.specimen.hasOwnProperty('publishedArticles')) {
-            this.specimen.publishedArticles = this.specimen.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-              ((b.year > a.year) ? 1 : 0));
+          this.router.navigate(['404']);
+        } else {
+          this.specimen = data['hits']['hits'][0]['_source'];
+          if (this.biosampleId !== this.specimen.biosampleId) {
+            // this.router.navigate(['/specimen', this.specimen.biosampleId]);
+            this.router.navigate(['/']).then(() => {
+              this.router.navigate(['/specimen', this.specimen.biosampleId]);
+            });
+          }
+          if (this.specimen) {
+            this.spinner.hide();
+            if (this.specimen.hasOwnProperty('publishedArticles')) {
+              this.specimen.publishedArticles = this.specimen.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
+                ((b.year > a.year) ? 1 : 0));
+            }
           }
         }
       },

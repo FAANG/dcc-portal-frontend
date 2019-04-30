@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiFileService} from '../../services/api-file.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
@@ -16,6 +16,7 @@ export class DatasetDetailComponent implements OnInit {
   publishedArticles: any;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private apiFileService: ApiFileService,
               private spinner: NgxSpinnerService,
               private titleService: Title) { }
@@ -28,12 +29,17 @@ export class DatasetDetailComponent implements OnInit {
     });
     this.apiFileService.getDataset(this.accession).subscribe(
       (data: any) => {
-        this.dataset = data['hits']['hits'][0]['_source'];
-        if (this.dataset) {
+        if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
-          if (this.dataset.hasOwnProperty('publishedArticles')) {
-            this.dataset.publishedArticles = this.dataset.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-              ((b.year > a.year) ? 1 : 0));
+          this.router.navigate(['404']);
+        } else {
+          this.dataset = data['hits']['hits'][0]['_source'];
+          if (this.dataset) {
+            this.spinner.hide();
+            if (this.dataset.hasOwnProperty('publishedArticles')) {
+              this.dataset.publishedArticles = this.dataset.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
+                ((b.year > a.year) ? 1 : 0));
+            }
           }
         }
       },

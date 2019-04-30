@@ -29,17 +29,22 @@ export class OrganismDetailComponent implements OnInit {
     });
     this.apiFileService.getOrganism(this.biosampleId).subscribe(
       (data: any) => {
-        this.organism = data['hits']['hits'][0]['_source'];
-        if (this.biosampleId !== this.organism.biosampleId) {
-          this.router.navigate(['/']).then(() => {
-            this.router.navigate(['/organism', this.organism.biosampleId]);
-          });
-        }
-        if (this.organism) {
+        if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
-          if (this.organism.hasOwnProperty('publishedArticles')) {
-            this.organism.publishedArticles = this.organism.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-              ((b.year > a.year) ? 1 : 0));
+          this.router.navigate(['404']);
+        } else {
+          this.organism = data['hits']['hits'][0]['_source'];
+          if (this.biosampleId !== this.organism.biosampleId) {
+            this.router.navigate(['/']).then(() => {
+              this.router.navigate(['/organism', this.organism.biosampleId]);
+            });
+          }
+          if (this.organism) {
+            this.spinner.hide();
+            if (this.organism.hasOwnProperty('publishedArticles')) {
+              this.organism.publishedArticles = this.organism.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
+                ((b.year > a.year) ? 1 : 0));
+            }
           }
         }
       },

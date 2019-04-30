@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiFileService} from '../../services/api-file.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
@@ -17,6 +17,7 @@ export class ProtocolSampleDetailsComponent implements OnInit {
   p = 1;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private apiFileService: ApiFileService,
               private spinner: NgxSpinnerService,
               private titleService: Title) { }
@@ -28,10 +29,15 @@ export class ProtocolSampleDetailsComponent implements OnInit {
       this.titleService.setTitle(`${this.fileId} | FAANG protocol`);
     });
     this.apiFileService.getSampleProtocol(this.fileId).subscribe(data => {
-        this.file = data['hits']['hits'][0]['_source'];
-        if (this.file) {
+        if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
-          this.getProtocolLink();
+          this.router.navigate(['404']);
+        } else {
+          this.file = data['hits']['hits'][0]['_source'];
+          if (this.file) {
+            this.spinner.hide();
+            this.getProtocolLink();
+          }
         }
       },
       error => {

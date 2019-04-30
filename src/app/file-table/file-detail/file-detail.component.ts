@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiFileService} from '../../services/api-file.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
@@ -22,6 +22,7 @@ export class FileDetailComponent implements OnInit {
   objectKeys = Object.keys;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private apiFileService: ApiFileService,
               private spinner: NgxSpinnerService,
               private titleService: Title,
@@ -35,22 +36,27 @@ export class FileDetailComponent implements OnInit {
     });
     this.apiFileService.getFile(this.fileId).subscribe(
       (data: any) => {
-        this.file = data['hits']['hits'][0]['_source'];
-        if (this.file) {
+        if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
-          if (this.file.hasOwnProperty('publishedArticles')) {
-            this.file.publishedArticles = this.file.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-              ((b.year > a.year) ? 1 : 0));
-          }
-          if (this.file.hasOwnProperty('experiment')) {
-            this.apiFileService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
-              (experiment_data: any) => {
-                this.expandObject(experiment_data['hits']['hits'][0]['_source']);
-              },
-              error => {
-                this.error = error;
-              }
-            );
+          this.router.navigate(['404']);
+        } else {
+          this.file = data['hits']['hits'][0]['_source'];
+          if (this.file) {
+            this.spinner.hide();
+            if (this.file.hasOwnProperty('publishedArticles')) {
+              this.file.publishedArticles = this.file.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
+                ((b.year > a.year) ? 1 : 0));
+            }
+            if (this.file.hasOwnProperty('experiment')) {
+              this.apiFileService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
+                (experiment_data: any) => {
+                  this.expandObject(experiment_data['hits']['hits'][0]['_source']);
+                },
+                error => {
+                  this.error = error;
+                }
+              );
+            }
           }
         }
       },
