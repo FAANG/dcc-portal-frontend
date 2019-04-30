@@ -62,6 +62,11 @@ describe('Test organisms detail page', () => {
     expect(element(by.css('h1')).getText()).toEqual('SAMEA104728877');
     expect(element.all(by.css('dd')).first().getText()).toEqual('ECA_UCD_AH2');
   });
+
+  it('should redirect to 404 when navigate to non-existing path', () => {
+    browser.get('/organism/SAMEA1047288778');
+    expect(element(by.css('h2')).getText()).toEqual('Sorry, this page doesn\'t exist...');
+  });
 });
 
 describe('Test specimens page', () => {
@@ -110,6 +115,11 @@ describe('Test specimen detail page', () => {
   it('should display "SAMEA104728909" in title and detailed information', () => {
     expect(element(by.css('h1')).getText()).toEqual('SAMEA104728909');
     expect(element.all(by.css('dd')).first().getText()).toEqual('ECA_UCD_S63');
+  });
+
+  it('should redirect to 404 when navigate to non-existing path', () => {
+    browser.get('/specimen/SAMEA1047288778');
+    expect(element(by.css('h2')).getText()).toEqual('Sorry, this page doesn\'t exist...');
   });
 });
 
@@ -162,6 +172,11 @@ describe('Test dataset detail page', () => {
     expect(element(by.css('h1')).getText()).toEqual('PRJEB28219');
     expect(element.all(by.css('dd')).first().getText()).toEqual('PRJEB28219');
   });
+
+  it('should redirect to 404 when navigate to non-existing path', () => {
+    browser.get('/dataset/SAMEA1047288778');
+    expect(element(by.css('h2')).getText()).toEqual('Sorry, this page doesn\'t exist...');
+  });
 });
 
 describe('Test file page', () => {
@@ -211,6 +226,11 @@ describe('Test file detail page', () => {
     expect(element(by.css('h1')).getText()).toEqual('SRR958466_2');
     expect(element.all(by.css('dd')).first().getText()).toEqual('SRR958466_2.fastq.gz');
   });
+
+  it('should redirect to 404 when navigate to non-existing path', () => {
+    browser.get('/file/SAMEA1047288778');
+    expect(element(by.css('h2')).getText()).toEqual('Sorry, this page doesn\'t exist...');
+  });
 });
 
 describe('Test protocol/samples page', () => {
@@ -245,6 +265,11 @@ describe('Test protocol/samples detail page', () => {
     expect(element(by.css('h1')).getText()).toEqual('Harvest of Large Animal Tissues');
     expect(element.all(by.css('dd')).get(1).getText()).toEqual('Roslin Institute (Edinburgh, UK)');
   });
+
+  it('should redirect to 404 when navigate to non-existing path', () => {
+    browser.get('/protocol/samples/SAMEA1047288778');
+    expect(element(by.css('h2')).getText()).toEqual('Sorry, this page doesn\'t exist...');
+  });
 });
 
 describe('Test protocol/experiments page', () => {
@@ -278,6 +303,11 @@ describe('Test protocol/experiments detail page', () => {
   it('should display "Library generation protocol" in title and detailed information', () => {
     expect(element(by.css('h1')).getText()).toEqual('Library generation protocol');
     expect(element.all(by.css('dd')).get(1).getText()).toEqual('total RNA');
+  });
+
+  it('should redirect to 404 when navigate to non-existing path', () => {
+    browser.get('/protocol/experiments/SAMEA1047288778');
+    expect(element(by.css('h2')).getText()).toEqual('Sorry, this page doesn\'t exist...');
   });
 });
 
@@ -416,5 +446,19 @@ describe('Test help page', () => {
     element.all(by.css('summary')).first().click().then(function() {
       expect(element.all(by.css('details')).first().getText()).toContain('Please register');
     });
+  });
+});
+
+
+describe('Test 404 page', () => {
+  let page: AppPage;
+
+  beforeEach(() => {
+    page = new AppPage();
+    page.navigateToNonExistingPage();
+  });
+
+  it('should redirect to 404 when navigate to non-existing path', () => {
+    expect(element(by.css('h2')).getText()).toEqual('Sorry, this page doesn\'t exist...');
   });
 });

@@ -77,6 +77,10 @@ export class AppPage {
     return browser.get('/search');
   }
 
+  navigateToNonExistingPage() {
+    return browser.get('/404');
+  }
+
   getParagraphText() {
     return element(by.css('app-root h1')).getText();
   }
