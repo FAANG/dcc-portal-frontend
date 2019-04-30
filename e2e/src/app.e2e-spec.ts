@@ -125,6 +125,19 @@ describe('Test dataset page', () => {
     expect(page.getParagraphTextForPages()).toEqual('FAANG datasets');
   });
 
+  it('should sort table', () => {
+    expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Equus caballus');
+    element.all(by.css('th')).get(2).click().then(function() {
+      expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Sus scrofa,Gallus gallus');
+    });
+    element.all(by.css('th')).get(2).click().then(function() {
+      expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Bos indicus');
+    });
+    element.all(by.css('th')).get(2).click().then(function() {
+      expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Equus caballus');
+    });
+  });
+
   it('should filter table', () => {
     browser.sleep(5000);
     const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();

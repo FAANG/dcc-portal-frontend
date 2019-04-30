@@ -29,32 +29,16 @@ describe('Pipe: FilterPipe', () => {
     (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
-        species: {
-          _source: {
-            species: [
-              {
-                text: 'test1'
-              }
-            ]
-          }
-        },
-        assayType: ['RNA-seq of non coding RNA', 'microRNA profiling by high throughput sequencing'],
-        archive: ['ENA'],
+        species: 'test1',
+        assayType: 'RNA-seq of non coding RNA,microRNA profiling by high throughput sequencing',
+        archive: 'ENA',
         standard: 'FAANG',
         paperPublished: 'true'
       },
       {
-        species: {
-          _source: {
-            species: [
-              {
-                text: 'test2'
-              }
-            ]
-          }
-        },
-        assayType: ['RNA-seq of non coding RNA', 'microRNA profiling by high throughput sequencing'],
-        archive: ['ENA'],
+        species: 'test2',
+        assayType: 'RNA-seq of non coding RNA,microRNA profiling by high throughput sequencing',
+        archive: 'ENA',
         standard: 'FAANG',
         paperPublished: 'true'
       },
@@ -135,32 +119,16 @@ describe('Pipe: FilterPipe', () => {
     (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
-        species: {
-          _source: {
-            species: [
-              {
-                text: 'test1'
-              }
-            ]
-          }
-        },
-        assayType: ['RNA-seq of non coding RNA', 'microRNA profiling by high throughput sequencing'],
-        archive: ['ENA'],
+        species: 'test1',
+        assayType: 'RNA-seq of non coding RNA,microRNA profiling by high throughput sequencing',
+        archive: 'ENA',
         standard: 'FAANG',
         paperPublished: 'true'
       },
       {
-        species: {
-          _source: {
-            species: [
-              {
-                text: 'test2'
-              }
-            ]
-          }
-        },
-        assayType: ['RNA-seq of non coding RNA', 'microRNA profiling by high throughput sequencing'],
-        archive: ['ENA'],
+        species: 'test2',
+        assayType: 'RNA-seq of non coding RNA,microRNA profiling by high throughput sequencing',
+        archive: 'ENA',
         standard: 'FAANG',
         paperPublished: 'true'
       },
@@ -179,32 +147,16 @@ describe('Pipe: FilterPipe', () => {
     (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
-        species: {
-          _source: {
-            species: [
-              {
-                text: 'test1'
-              }
-            ]
-          }
-        },
-        assayType: ['RNA-seq of non coding RNA', 'microRNA profiling by high throughput sequencing'],
-        archive: ['ENA'],
+        species: 'test1',
+        assayType: 'RNA-seq of non coding RNA,microRNA profiling by high throughput sequencing',
+        archive: 'ENA',
         standard: 'FAANG',
         paperPublished: 'true'
       },
       {
-        species: {
-          _source: {
-            species: [
-              {
-                text: 'test2'
-              }
-            ]
-          }
-        },
-        assayType: ['RNA-seq of non coding RNA', 'microRNA profiling by high throughput sequencing'],
-        archive: ['SRA'],
+        species: 'test2',
+        assayType: 'RNA-seq of non coding RNA,microRNA profiling by high throughput sequencing',
+        archive: 'SRA',
         standard: 'FAANG',
         paperPublished: 'true'
       },
@@ -214,7 +166,7 @@ describe('Pipe: FilterPipe', () => {
     };
     pipe = new FilterPipe(aggregation_service, export_service);
     export_service.data.subscribe(data => {
-      expect(data[0]['archive']).toEqual(['SRA']);
+      expect(data[0]['archive']).toEqual('SRA');
     });
     pipe.transform(value, filter_field, 'dataset');
   }));
@@ -223,32 +175,16 @@ describe('Pipe: FilterPipe', () => {
     (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [
       {
-        species: {
-          _source: {
-            species: [
-              {
-                text: 'test1'
-              }
-            ]
-          }
-        },
-        assayType: ['microRNA profiling by high throughput sequencing'],
-        archive: ['ENA'],
+        species: 'test1',
+        assayType: 'RNA-seq of non coding RNA',
+        archive: 'ENA',
         standard: 'FAANG',
         paperPublished: 'true'
       },
       {
-        species: {
-          _source: {
-            species: [
-              {
-                text: 'test2'
-              }
-            ]
-          }
-        },
-        assayType: ['RNA-seq of non coding RNA'],
-        archive: ['SRA'],
+        species: 'test2',
+        assayType: 'microRNA profiling by high throughput sequencing',
+        archive: 'ENA',
         standard: 'FAANG',
         paperPublished: 'true'
       },

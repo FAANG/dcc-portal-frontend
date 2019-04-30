@@ -64,22 +64,6 @@ describe('DatasetComponent', () => {
     expect(component.filter_field).toEqual({});
   });
 
-  it('getSpeciesStr should return string with species', () => {
-    const dataset = {
-      _source: {
-        species: [
-          {
-            text: 'Gallus gallus'
-          },
-          {
-            text: 'Sus scrofa'
-          }
-        ]
-      }
-    };
-    expect(component.getSpeciesStr(dataset)).toEqual('Sus scrofa,Gallus gallus');
-  });
-
   it('wasPublished should return true if published equals to string with true', () => {
     expect(component.wasPublished('true')).toEqual(true);
   });
@@ -94,5 +78,51 @@ describe('DatasetComponent', () => {
 
   it('isGreen should return default if article was not published for this record', () => {
     expect(component.isGreen('false')).toEqual('default');
+  });
+
+  it('selectColumn should assign right value for sort_field', () => {
+    component.selectedColumn = 'Datset accession';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('datasetAccession');
+
+    component.selectedColumn = 'Title';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('title');
+
+    component.selectedColumn = 'Species';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('species');
+
+    component.selectedColumn = 'Archive';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('archive');
+
+    component.selectedColumn = 'Assay type';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('assayType');
+  });
+
+  it('chooseClass should assign right values for spanClass and sort_field', () => {
+    component.selectedColumn = 'File name';
+    component.chooseClass('glyphicon glyphicon-arrow-down');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-up');
+    expect(component.sort_field['direction']).toEqual('asc');
+
+    component.chooseClass('glyphicon glyphicon-arrow-up');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-down');
+    expect(component.sort_field['direction']).toEqual('desc');
+
+    component.selectedColumn = 'Study';
+    component.chooseClass('glyphicon glyphicon-sort');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-down');
+    expect(component.sort_field['direction']).toEqual('desc');
+
+    component.chooseClass('glyphicon glyphicon-arrow-down');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-up');
+    expect(component.sort_field['direction']).toEqual('asc');
+
+    component.chooseClass('glyphicon glyphicon-arrow-up');
+    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-down');
+    expect(component.sort_field['direction']).toEqual('desc');
   });
 });

@@ -123,28 +123,16 @@ describe('AggregationService', () => {
     const test_list = [
       {
         'standard': 'Faang',
-        'species': {
-          '_source': {
-            'species': [
-              {'text': 'Bos taurus'}
-            ]
-          }
-        },
-        'archive': ['ENA'],
-        'assayType': ['RNA-seq of non coding RNA', 'microRNA profiling by high throughput sequencing'],
+        'species': 'Bos taurus',
+        'archive': 'ENA',
+        'assayType': 'RNA-seq of non coding RNA,microRNA profiling by high throughput sequencing',
         'paperPublished': 'true'
       },
       {
         'standard': 'Faang',
-        'species': {
-          '_source': {
-            'species': [
-              {'text': 'Bos taurus'}
-            ]
-          }
-        },
-        'archive': ['ENA'],
-        'assayType': ['RNA-seq of non coding RNA', 'microRNA profiling by high throughput sequencing'],
+        'species': 'Bos taurus',
+        'archive': 'ENA',
+        'assayType': 'RNA-seq of non coding RNA,microRNA profiling by high throughput sequencing',
         'paperPublished': 'false'
       },
     ];

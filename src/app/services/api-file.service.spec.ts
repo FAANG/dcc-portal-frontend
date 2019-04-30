@@ -127,6 +127,7 @@ describe('ApiFileService', () => {
 
   it('should return first 10 datasets', inject([ApiFileService], (service: ApiFileService) => {
     const query = {
+      'sort': 'accession:desc',
       '_source': [
         'accession',
         'title',
@@ -143,6 +144,29 @@ describe('ApiFileService', () => {
       expect(data.length).toEqual(10);
     });
   }));
+
+  it('getSpeciesStr should return string with species', inject([ApiFileService],
+    (service: ApiFileService) => {
+      const dataset = {
+        _source: {
+          species: [
+            {
+              text: 'Gallus gallus'
+            },
+            {
+              text: 'Sus scrofa'
+            }
+          ]
+        }
+      };
+      expect(service.getSpeciesStr(dataset)).toEqual('Sus scrofa,Gallus gallus');
+    }));
+
+  it('convertArrayToString should return string with items from array', inject([ApiFileService],
+    (service: ApiFileService) => {
+      const dataset = ['1', '2'];
+      expect(service.convertArrayToString(dataset)).toEqual('1,2');
+    }));
 
   it('should return detailed information about particular dataset', inject([ApiFileService],
     (service: ApiFileService) => {
