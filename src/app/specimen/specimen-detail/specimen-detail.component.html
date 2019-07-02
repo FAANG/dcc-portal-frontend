@@ -97,8 +97,9 @@
       <dt>Derived from:</dt><dd>
       <ng-container [ngSwitch]="specimen?.material?.text">
         <ng-template ngSwitchCase="pool of specimens">
-          <ng-container *ngFor="let derived of specimen?.derivedFrom;">
+          <ng-container *ngFor="let derived of specimen?.derivedFrom; let i = index">
             <!--            <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>-->
+            <ng-container *ngIf="i > 0">, </ng-container>
             <app-robust-link prefix="../specimen/" [link]="derived" [text]="derived"></app-robust-link>
           </ng-container>
         </ng-template>
