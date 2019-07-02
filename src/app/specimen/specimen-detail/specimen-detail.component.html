@@ -173,12 +173,13 @@
           <dt>Specimen weight:</dt><dd>{{specimen?.specimenFromOrganism?.specimenWeight?.text}} {{specimen?.specimenFromOrganism?.specimenWeight?.unit}}</dd>
         </div>
 
-        <div *ngIf="specimen?.specimenFromOrganism?.specimenPictureUrl">
+        <ng-container *ngIf="specimen && specimen.specimenFromOrganism?.hasOwnProperty('specimenPictureUrl') && specimen.specimenFromOrganism.specimenPictureUrl.length !== 0">
           <dt>Specimen picture URL:</dt>
-          <dd>
+          <dd>{{specimen.specimenFromOrganism.specimenPictureUrl.toString()}}</dd>
+<!--          <dd>
             <app-robust-link [link]="specimen?.specimenFromOrganism?.specimenPictureUrl" [text]="specimen?.specimenFromOrganism?.specimenPictureUrl"></app-robust-link>
-          </dd>
-        </div>
+          </dd>-->
+        </ng-container>
 
         <div *ngIf="specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text">
           <dt>Gestational age at sample collection:</dt><dd>{{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text}} {{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.unit}}</dd>
@@ -215,12 +216,13 @@
           <dt>Specimen weight:</dt><dd>{{specimen.poolOfSpecimens.specimenWeight.text}} {{specimen.poolOfSpecimens.specimenWeight.unit}}</dd>
         </div>
 
-        <div *ngIf="specimen?.poolOfSpecimens?.specimenPictureUrl">
+        <ng-container *ngIf="specimen && specimen.poolOfSpecimens?.hasOwnProperty('specimenPictureUrl') && specimen.poolOfSpecimens.specimenPictureUrl.length !== 0">
           <dt>Specimen picture URL:</dt>
-          <dd>
-            <app-robust-link [link]="specimen.poolOfSpecimens.specimenPictureUrl" [text]="specimen.poolOfSpecimens.specimenPictureUrl"></app-robust-link>
-          </dd>
-        </div>
+          <dd>{{specimen.poolOfSpecimens.specimenPictureUrl.toString()}}</dd>
+<!--          <dd>
+            <app-robust-link [link]="specimen?.specimenFromOrganism?.specimenPictureUrl" [text]="specimen?.specimenFromOrganism?.specimenPictureUrl"></app-robust-link>
+          </dd>-->
+        </ng-container>
       </ng-template>
 
       <ng-template ngSwitchCase="cell specimen">
