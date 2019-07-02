@@ -147,7 +147,8 @@ export class ApiFileService {
   }
 
   getSpecimenRelationships(biosampleId: any) {
-    const url = this.hostSetting.host + 'specimen/_search/?q=allDeriveFromSpecimens:' + biosampleId + '&size=100000' + '&sort=biosampleId:asc';
+    const url = this.hostSetting.host + 'specimen/_search/?q=allDeriveFromSpecimens:' + biosampleId +
+      '&size=100000' + '&sort=biosampleId:asc';
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError)

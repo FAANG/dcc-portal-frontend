@@ -9,7 +9,7 @@ import {ApiFileService} from '../../services/api-file.service';
 export class SpecimenRelationshipComponent implements OnInit {
   @Input() biosampleId: string;
   specimenList: any;
-  p = 1; //page number for html template
+  p = 1; // page number for html template
 
   constructor(private apiFileService: ApiFileService) { }
 
