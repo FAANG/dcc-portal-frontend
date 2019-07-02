@@ -407,6 +407,7 @@
       </tbody>
     </table>
   </div>
+  <app-specimen-relationship [biosampleId]="biosampleId" *ngIf="biosampleId"></app-specimen-relationship>
   <app-specimen-files [biosampleId]="biosampleId" *ngIf="biosampleId"></app-specimen-files>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>

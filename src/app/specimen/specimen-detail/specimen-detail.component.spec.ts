@@ -4,6 +4,7 @@ import { SpecimenDetailComponent } from './specimen-detail.component';
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 import {SpecimenFilesComponent} from '../specimen-files/specimen-files.component';
+import {SpecimenRelationshipComponent} from '../specimen-relationship/specimen-relationship.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -18,7 +19,8 @@ describe('SpecimenDetailComponent', () => {
         SpecimenDetailComponent,
         HeaderComponent,
         RobustLinkComponent,
-        SpecimenFilesComponent
+        SpecimenFilesComponent,
+        SpecimenRelationshipComponent
       ],
       imports: [
         NgxPaginationModule,
