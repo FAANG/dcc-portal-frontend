@@ -411,16 +411,16 @@ describe('Test search page', () => {
     expect(element(by.css('.checkbox')).element(by.tagName('label')).getText()).toEqual('Show only FAANG data (exclude legacy data)');
   });
 
-  it('should display 87 matching datasets on a search path when search for sus scrofa', () => {
+  it('should display 89 matching datasets on a search path when search for sus scrofa', () => {
     element(by.css('.form-control')).sendKeys('sus scrofa').then(function () {
-      expect(element.all(by.css('h4')).last().getText()).toEqual('87 matching datasets');
+      expect(element.all(by.css('h4')).last().getText()).toEqual('89 matching datasets');
     });
   });
 
-  it('should display 9 matching datasets on a search path when search for sus scrofa with legacy data excluded', () => {
+  it('should display 11 matching datasets on a search path when search for sus scrofa with legacy data excluded', () => {
     element(by.css('.form-control')).sendKeys('sus scrofa').then(function () {
       element(by.css('.checkbox')).element(by.tagName('label')).element(by.tagName('input')).click().then(function() {
-        expect(element.all(by.css('h4')).last().getText()).toEqual('9 matching datasets');
+        expect(element.all(by.css('h4')).last().getText()).toEqual('11 matching datasets');
       });
     });
   });
