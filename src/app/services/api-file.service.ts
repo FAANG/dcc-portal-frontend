@@ -146,6 +146,15 @@ export class ApiFileService {
     );
   }
 
+  getSpecimenRelationships(biosampleId: any) {
+    const url = this.hostSetting.host + 'specimen/_search/?q=allDeriveFromSpecimens:' + biosampleId +
+      '&size=100000' + '&sort=biosampleId:asc';
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+
   getAllDatasets(query: any, size: number) {
     const url = this.hostSetting.host + 'dataset/' + '_search/' + '?size=' + size;
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);

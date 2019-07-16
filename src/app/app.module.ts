@@ -30,6 +30,7 @@ import { OrganismDetailComponent } from './organism/organism-detail/organism-det
 import { OrganismSpecimenComponent } from './organism/organism-specimen/organism-specimen.component';
 import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-detail.component';
 import { SpecimenFilesComponent } from './specimen/specimen-files/specimen-files.component';
+import { SpecimenRelationshipComponent } from './specimen/specimen-relationship/specimen-relationship.component';
 import { SearchTemplateComponent } from './search/search-template/search-template.component';
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
 import { DatasetRelatedTemplateComponent } from './dataset/dataset-related-template/dataset-related-template.component';
@@ -77,6 +78,7 @@ import { NonExistingComponent } from './non-existing/non-existing.component';
     OrganismSpecimenComponent,
     SpecimenDetailComponent,
     SpecimenFilesComponent,
+    SpecimenRelationshipComponent,
     SearchTemplateComponent,
     DatasetDetailComponent,
     DatasetRelatedTemplateComponent,

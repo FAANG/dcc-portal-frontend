@@ -19,49 +19,49 @@ describe('SearchService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should return 6955 result files when search for scrofa', inject([SearchService], (service: SearchService) => {
+  it('should return 8194 result files when search for scrofa', inject([SearchService], (service: SearchService) => {
     service.searchFile('scrofa', false).subscribe(data => {
-      expect(data['hits']['total']).toEqual(6955);
+      expect(data['hits']['total']).toEqual(8194);
     });
   }));
 
-  it('should return 1033 result files when search for scrofa with excluding legacy data', inject([SearchService],
+  it('should return 1204 result files when search for scrofa with excluding legacy data', inject([SearchService],
     (service: SearchService) => {
     service.searchFile('scrofa', true).subscribe(data => {
-      expect(data['hits']['total']).toEqual(1033);
+      expect(data['hits']['total']).toEqual(1204);
     });
   }));
 
-  it('should return 64 result organisms when search for scrofa', inject([SearchService], (service: SearchService) => {
+  it('should return 160 result organisms when search for scrofa', inject([SearchService], (service: SearchService) => {
     service.searchOrganism('scrofa', false).subscribe(data => {
-      expect(data['hits']['total']).toEqual(64);
+      expect(data['hits']['total']).toEqual(160);
     });
   }));
 
-  it('should return 64 result organisms when search for scrofa with excluding legacy data', inject([SearchService],
+  it('should return 160 result organisms when search for scrofa with excluding legacy data', inject([SearchService],
     (service: SearchService) => {
     service.searchOrganism('scrofa', true).subscribe(data => {
-      expect(data['hits']['total']).toEqual(64);
+      expect(data['hits']['total']).toEqual(160);
     });
   }));
 
-  it('should return 3431 result specimens when search for scrofa', inject([SearchService],
+  it('should return 4535 result specimens when search for scrofa', inject([SearchService],
     (service: SearchService) => {
     service.searchSpecimen('scrofa', false).subscribe(data => {
-      expect(data['hits']['total']).toEqual(3431);
+      expect(data['hits']['total']).toEqual(4535);
     });
   }));
 
-  it('should return 1454 result specimens when search for scrofa with excluding legacy data', inject([SearchService],
+  it('should return 1912 result specimens when search for scrofa with excluding legacy data', inject([SearchService],
     (service: SearchService) => {
     service.searchSpecimen('scrofa', true).subscribe(data => {
-      expect(data['hits']['total']).toEqual(1454);
+      expect(data['hits']['total']).toEqual(1912);
     });
   }));
 
-  it('should return 77 result datasets when search for scrofa', inject([SearchService], (service: SearchService) => {
+  it('should return 88 result datasets when search for scrofa', inject([SearchService], (service: SearchService) => {
     service.searchDataset('scrofa', false).subscribe(data => {
-      expect(data['hits']['total']).toEqual(77);
+      expect(data['hits']['total']).toEqual(88);
     });
   }));
 
