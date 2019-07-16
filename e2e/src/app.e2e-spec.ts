@@ -96,10 +96,11 @@ describe('Test specimens page', () => {
   });
 
   it('should filter table', () => {
-    const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
-    element.all(by.css('.list-group-item')).get(2).click().then(function() {
-      const after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
-      expect(before).toBeGreaterThan(after);
+    let before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+    element.all(by.css('.list-group-item')).get(1).click().then(function() {
+      let after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+      // TODO check this
+      expect(before).toBeLessThan(after);
     });
   });
 });

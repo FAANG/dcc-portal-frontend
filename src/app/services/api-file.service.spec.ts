@@ -196,7 +196,7 @@ describe('ApiFileService', () => {
     });
   }));
 
-  it('should return 68 experiments protocols', inject([ApiFileService], (service: ApiFileService) => {
+  it('should return 75 experiments protocols', inject([ApiFileService], (service: ApiFileService) => {
     const query = {
       '_source': [
         'name',
@@ -205,7 +205,7 @@ describe('ApiFileService', () => {
         'key'],
     };
     service.getAllExperimentsProtocols(query).subscribe(data => {
-      expect(data.length).toEqual(68);
+      expect(data.length).toEqual(75);
     });
   }));
 
