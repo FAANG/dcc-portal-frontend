@@ -98,7 +98,7 @@ describe('Test specimens page', () => {
   it('should filter table', () => {
     const before = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
     element.all(by.css('.list-group-item')).get(1).click().then(function() {
-      let const = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
+      const after = element.all(by.css('.list-group-item')).first().all(by.css('span')).first().getText();
       // TODO check this
       expect(before).toBeLessThan(after);
     });
