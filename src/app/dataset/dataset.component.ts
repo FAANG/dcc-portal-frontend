@@ -89,18 +89,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
     this.sort_field = {id: 'datasetAccession', direction: 'desc'};
-    this.apiFileService.getAllDatasets(this.query, 25).subscribe(
-      data => {
-        this.datasetListShort = data;
-        if (this.datasetListShort) {
-          this.spinner.hide();
-        }
-      },
-      error => {
-        this.error = error;
-        this.spinner.hide();
-      }
-    );
+    this.spinner.hide();
     this.datasetListLong = this.apiFileService.getAllDatasets(this.query, 100000);
     this.datasetListLongSubscription = this.datasetListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'dataset');

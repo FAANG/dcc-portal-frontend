@@ -23,8 +23,20 @@ export class SortPipe implements PipeTransform {
       first = -1;
       second = 1;
     }
-    return value.sort(function (a, b) {
-      return a[parameters] > b[parameters] ? first : (b[parameters] > a[parameters] ? second : 0);
-    });
+
+    if (parameters === 'datasetAccession') {
+      return value.sort(function (a, b) {
+        if (a['standard'] === b['standard']) {
+          const one = parseInt(a[parameters].match(/[a-zA-z]+([0-9]+)$/)[1], 10);
+          const two = parseInt(b[parameters].match(/[a-zA-z]+([0-9]+)$/)[1], 10);
+          return one > two ? first : (two > one ? second : 0);
+        }
+        return a['standard'] > b['standard'] ? 1 : -1;
+      });
+    } else {
+      return value.sort(function (a, b) {
+        return a[parameters] > b[parameters] ? first : (b[parameters] > a[parameters] ? second : 0);
+      });
+    }
   }
 }

@@ -137,7 +137,7 @@ describe('Test dataset page', () => {
   });
 
   it('should sort table', () => {
-    expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Equus caballus');
+    expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Ovis aries');
     element.all(by.css('th')).get(2).click().then(function() {
       expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Sus scrofa,Gallus gallus');
     });
@@ -145,7 +145,7 @@ describe('Test dataset page', () => {
       expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Bos indicus');
     });
     element.all(by.css('th')).get(2).click().then(function() {
-      expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Equus caballus');
+      expect(element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).get(2).getText()).toEqual('Ovis aries');
     });
   });
 
