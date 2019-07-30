@@ -62,7 +62,7 @@ describe('DatasetsSummaryComponent', () => {
         }
       ]
     };
-    component.assignChartData(data);
+    component.assignChartData(data, false);
     expect(component.standardChartLabels).toEqual(['FAANG']);
     expect(component.standardChartData).toEqual([10]);
 

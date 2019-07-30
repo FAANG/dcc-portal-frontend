@@ -73,7 +73,7 @@ describe('OrganismsSummaryComponent', () => {
         }
       ]
     };
-    component.assignChartData(data);
+    component.assignChartData(data, false);
     expect(component.sexChartLabels).toEqual(['male']);
     expect(component.sexChartData).toEqual([1]);
 
