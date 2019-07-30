@@ -12,6 +12,9 @@ import {Title} from '@angular/platform-browser';
 export class OrganismsSummaryComponent implements OnInit {
   name: string;
   error: string;
+  chartData;
+  excludeLegacyData = true;
+
   breedsData = {};
   breedKeys = [];
 
@@ -47,7 +50,8 @@ export class OrganismsSummaryComponent implements OnInit {
     this.titleService.setTitle('FAANG summary|organisms');
     this.apiFileService.getOrganismSummary('summary_organism').subscribe(
       data => {
-        this.assignChartData(data['hits']['hits'][0]['_source']);
+        this.chartData = data['hits']['hits'][0]['_source'];
+        this.assignChartData(this.chartData, this.excludeLegacyData);
       },
       error => {
         this.error = error;
@@ -55,24 +59,36 @@ export class OrganismsSummaryComponent implements OnInit {
     );
   }
 
-  assignChartData(data: any) {
-    for (const item of data['sexSummary']) {
+  assignChartData(data: any, excludeLegacy: boolean) {
+    let sexSummaryName = 'sexSummary';
+    let paperPublishedSummaryName = 'paperPublishedSummary';
+    let standard_summary_name = 'standardSummary';
+    let organism_summary_name = 'organismSummary';
+    let breed_summary_name = 'breedSummary';
+    if (excludeLegacy === true) {
+      sexSummaryName = 'sexSummaryFAANGOnly';
+      paperPublishedSummaryName = 'paperPublishedSummaryFAANGOnly';
+      standard_summary_name = 'standardSummaryFAANGOnly';
+      organism_summary_name = 'organismSummaryFAANGOnly';
+      breed_summary_name = 'breedSummaryFAANGOnly';
+    }
+    for (const item of data[sexSummaryName]) {
       this.sexChartLabels.push(item['name']);
       this.sexChartData.push(item['value']);
     }
-    for (const item of data['paperPublishedSummary']) {
+    for (const item of data[paperPublishedSummaryName]) {
       this.paperChartLabels.push(item['name']);
       this.paperChartData.push(item['value']);
     }
-    for (const item of data['organismSummary']) {
+    for (const item of data[organism_summary_name]) {
       this.organismChartLabels.push(item['name']);
       this.organismChartData.push(item['value']);
     }
-    for (const item of data['standardSummary']) {
+    for (const item of data[standard_summary_name]) {
       this.standardChartLabels.push(item['name']);
       this.standardChartData.push(item['value']);
     }
-    for (const item of data['breedSummary']) {
+    for (const item of data[breed_summary_name]) {
       this.breedKeys.push(item['speciesName']);
       const labels = [];
       const breed_data = [];
@@ -94,5 +110,28 @@ export class OrganismsSummaryComponent implements OnInit {
     this.name = name;
     this.breedChartLabels = this.breedsData[this.name]['labels'];
     this.breedChartData = this.breedsData[this.name]['data'];
+  }
+
+  clearChartData() {
+    this.sexChartLabels = [];
+    this.sexChartData = [];
+
+    this.paperChartLabels = [];
+    this.paperChartData = [];
+
+    this.standardChartLabels = [];
+    this.standardChartData = [];
+
+    this.organismChartLabels = [];
+    this.organismChartData = [];
+
+    this.breedChartLabels = [];
+    this.breedChartData = [];
+  }
+
+  onCheckboxClick() {
+    this.excludeLegacyData = !this.excludeLegacyData;
+    this.clearChartData();
+    this.assignChartData(this.chartData, this.excludeLegacyData);
   }
 }
