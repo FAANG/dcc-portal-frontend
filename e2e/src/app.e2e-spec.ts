@@ -412,9 +412,9 @@ describe('Test search page', () => {
     expect(element(by.css('.checkbox')).element(by.tagName('label')).getText()).toEqual('Show only FAANG data (exclude legacy data)');
   });
 
-  it('should display 89 matching datasets on a search path when search for sus scrofa', () => {
+  it('should display 95 matching datasets on a search path when search for sus scrofa', () => {
     element(by.css('.form-control')).sendKeys('sus scrofa').then(function () {
-      expect(element.all(by.css('h4')).last().getText()).toEqual('89 matching datasets');
+      expect(element.all(by.css('h4')).last().getText()).toEqual('95 matching datasets');
     });
   });
 

@@ -1,5 +1,9 @@
 <div *ngIf="fileList?.hits.total > 0">
-  <h3>Files</h3>
+  <h3>
+    Files
+    <button type="button" class="btn btn-success" (click)="downloadAllFiles()" [disabled]="disableButton()">Download all files ({{getUrlsLength()}})</button>
+  </h3>
+  <p class="subheader">For batch download please disable "Ask where to save each file before downloading" function in your browser</p>
     <table class="table table-striped table-hover table-responsive">
       <thead>
       <tr>
@@ -25,7 +29,9 @@
           </td>
           <td>{{file?._source.experiment?.assayType}}</td>
           <td>{{file?._source.experiment?.target}}</td>
-          <td><a href="ftp://{{file?._source.url}}"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></td>
+          <td>
+            <input type="checkbox" (click)="onCheckboxClick(file._source.url)" [checked]="CheckboxChecked(file._source.url)">
+          </td>
         </tr>
       </ng-container>
       </tbody>

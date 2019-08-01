@@ -67,7 +67,7 @@
       </table>
   </div>
 
-  <app-dataset-related-template [data]="dataset?.specimen" entity="Specimens"></app-dataset-related-template>
-  <app-dataset-related-template [data]="dataset?.file" entity="Files"></app-dataset-related-template>
+  <app-dataset-related-template [data]="dataset.specimen" entity="Specimens" *ngIf="dataset"></app-dataset-related-template>
+  <app-dataset-related-template [data]="dataset.file" entity="Files" *ngIf="dataset"></app-dataset-related-template>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>
