@@ -12,7 +12,7 @@ branches:
 
 before_script:
   - npm install -g @angular/cli
-  - bundle exec rails runner "Webdrivers::Chromedriver.update"
+  - chromedriver-update 74.0.3729.6
 
 script:
   - ng lint
