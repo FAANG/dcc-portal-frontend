@@ -3,7 +3,6 @@
     Related {{entity}}
     <button type="button" class="btn btn-success" (click)="downloadAllFiles()" [disabled]="disableButton()" *ngIf="showButton()">Download all files ({{getUrlsLength()}})</button>
   </h3>
-  <p class="subheader" *ngIf="showButton()">For batch download please disable "Ask where to save each file before downloading" function in your browser</p>
   <div class="fails-table center-block">
 
     <table class="table table-striped table-hover table-responsive">
@@ -15,7 +14,10 @@
             <th>Experiment</th>
             <th>Archive</th>
             <th>File size</th>
-            <th>Download</th>
+            <th>
+              Download
+              <input type="checkbox" [checked]="checked" (click)="mainCheckboxClicked()">
+            </th>
           </tr>
           </thead>
           <tbody>

@@ -1,6 +1,5 @@
 <div *ngIf="fileList?.hits.total > 0">
   <h3>Related Downloads <button type="button" class="btn btn-success" (click)="downloadAllFiles()" [disabled]="disableButton()">Download all files ({{getUrlsLength()}})</button> </h3>
-  <p class="subheader">For batch download please disable "Ask where to save each file before downloading" function in your browser</p>
 
   <div class="fails-table center-block">
 
@@ -11,7 +10,10 @@
         <th>File size</th>
         <th>Checksum</th>
         <th>Checksum method</th>
-        <th>Download</th>
+        <th>
+          Download
+          <input type="checkbox" [checked]="checked" (click)="mainCheckboxClicked()">
+        </th>
       </tr>
       </thead>
       <tbody>

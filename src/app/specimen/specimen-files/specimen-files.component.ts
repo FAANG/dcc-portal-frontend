@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ApiFileService} from '../../services/api-file.service';
-import * as multiDownload from 'multi-download';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-specimen-files',
@@ -11,6 +11,7 @@ export class SpecimenFilesComponent implements OnInit {
   @Input() biosampleId: string;
   fileList: any;
   urls = [];
+  checked = true;
   p = 1;
 
   constructor(private apiFileService: ApiFileService) { }
@@ -26,7 +27,7 @@ export class SpecimenFilesComponent implements OnInit {
   }
 
   downloadAllFiles() {
-    multiDownload(this.urls);
+    this.urls.forEach(url => FileSaver.saveAs(url));
   }
 
   disableButton() {
@@ -51,6 +52,21 @@ export class SpecimenFilesComponent implements OnInit {
   CheckboxChecked(url: string) {
     url = 'ftp://' + url;
     return this.urls.indexOf(url) !== -1;
+  }
+
+  mainCheckboxClicked() {
+    if (this.checked === true) {
+      this.urls = [];
+    } else {
+      for (const file of this.fileList['hits']['hits']) {
+        const url = 'ftp://' + file['_source']['url'];
+        const index = this.urls.indexOf(url);
+        if (index === -1) {
+          this.urls.push(url);
+        }
+      }
+    }
+    this.checked = !this.checked;
   }
 
 }

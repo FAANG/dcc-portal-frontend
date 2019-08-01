@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ApiFileService} from '../../services/api-file.service';
-import * as multiDownload from 'multi-download';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-run-files',
@@ -11,6 +11,7 @@ export class RunFilesComponent implements OnInit {
   @Input() runId: string;
   fileList: any;
   urls = [];
+  checked = true;
   constructor(private apiFileService: ApiFileService) { }
 
   ngOnInit() {
@@ -23,7 +24,7 @@ export class RunFilesComponent implements OnInit {
   }
 
   downloadAllFiles() {
-    multiDownload(this.urls);
+    this.urls.forEach(url => FileSaver.saveAs(url));
   }
 
   onCheckboxClick(url: string) {
@@ -47,6 +48,21 @@ export class RunFilesComponent implements OnInit {
   CheckboxChecked(url: string) {
     url = 'ftp://' + url;
     return this.urls.indexOf(url) !== -1;
+  }
+
+  mainCheckboxClicked() {
+    if (this.checked === true) {
+      this.urls = [];
+    } else {
+      for (const file of this.fileList['hits']['hits']) {
+        const url = 'ftp://' + file['_source']['url'];
+        const index = this.urls.indexOf(url);
+        if (index === -1) {
+          this.urls.push(url);
+        }
+      }
+    }
+    this.checked = !this.checked;
   }
 
 }
