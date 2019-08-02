@@ -87,7 +87,10 @@ export class FilterPipe implements PipeTransform {
               }
             } else if (type === 'dataset' && key === 'assayType') {
               let found = false;
-              for (const data of item['assayType'].split(',')) {
+              for (let data of item['assayType'].split(',')) {
+                if (data === 'transcription profiling by high throughput sequencing') {
+                  data = 'RNA-Seq';
+                }
                 if (data === data_field) {
                   found = true;
                 }
@@ -118,6 +121,16 @@ export class FilterPipe implements PipeTransform {
               }
             } else if (key === 'publication_year') {
               if (item['publicationYear'] !== data_field) {
+                will_be_in = false;
+              }
+            } else if (type === 'file' && key === 'assayType') {
+              let search_for;
+              if (item[key] === 'transcription profiling by high throughput sequencing') {
+                search_for = 'RNA-Seq';
+              } else {
+                search_for = item[key];
+              }
+              if (search_for !== data_field) {
                 will_be_in = false;
               }
             } else {

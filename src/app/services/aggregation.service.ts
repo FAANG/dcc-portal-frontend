@@ -57,6 +57,9 @@ export class AggregationService {
       let all_data;
 
       for (const item of fileList) {
+        if (item['assayType'] === 'transcription profiling by high throughput sequencing') {
+          item['assayType'] = 'RNA-Seq';
+        }
         standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
         study.hasOwnProperty(item['study']) ? study[item['study']] += 1 : study[item['study']] = 1;
         species.hasOwnProperty(item['species']) ? species[item['species']] += 1 : species[item['species']] = 1;
@@ -198,7 +201,10 @@ export class AggregationService {
         for (const arch of item['archive'].split(',')) {
           archive.hasOwnProperty(arch) ? archive[arch] += 1 : archive[arch] = 1;
         }
-        for (const my_type of item['assayType'].split(',')) {
+        for (let my_type of item['assayType'].split(',')) {
+          if (my_type === 'transcription profiling by high throughput sequencing') {
+            my_type = 'RNA-Seq';
+          }
           assay_type.hasOwnProperty(my_type) ? assay_type[my_type] += 1 : assay_type[my_type] = 1;
         }
         if (item['paperPublished'] === 'true') {
