@@ -15,6 +15,5 @@ before_script:
 
 script:
   - ng lint
-  - ng e2e
   - ng test --watch=false --browsers=ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
   - ng build --prod --base-href https://github.com/FAANG/faang-portal-frontend/
