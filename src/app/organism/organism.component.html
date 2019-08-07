@@ -1,7 +1,7 @@
 <div class="container">
   <app-header></app-header>
   <h2>FAANG organisms</h2>
-  <h3 class="col-md-10 offset-md-1 text-primary" *ngIf="hasActiveFilters()">
+  <h3 class="col-md-10 offset-md-1 text-info" *ngIf="hasActiveFilters()">
     Active filters:
     <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
     <button class="btn btn-light" type = "button" (click)="removeFilter()">Remove all filters</button>
@@ -42,8 +42,6 @@
           <tr>
             <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
               {{ column }}
-<!--              <span [ngClass]="column === selectedColumn ? spanClass : defaultClass" *ngIf="column !== 'Standard' &&-->
-<!--              column !== 'Paper published'" [id]="column"></span>-->
               <i class="material-icons sorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column === selectedColumn" [id]="column">{{spanClass}}</i>
               <i class="material-icons unsorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column !== selectedColumn" [id]="column">{{defaultClass}}</i>
             </th>
