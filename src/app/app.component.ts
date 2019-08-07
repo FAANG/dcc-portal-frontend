@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.cookieLawSeen = this.cookieLawEl.cookieLawSeen;
+    if (environment.production) {
+      if (location.protocol === 'http:') {
+        window.location.href = location.href.replace('http', 'https');
+      }
+    }
   }
 
   dismiss(): void {

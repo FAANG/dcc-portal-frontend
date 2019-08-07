@@ -1,11 +1,16 @@
 div.intro {
-  margin-bottom: 20px;
+  margin-top: 10px;
 }
 img.faang-logo {
   max-width: 100%;
 }
+
 @media (max-width: 767px) {
   img.faang-logo {
     width: 300px;
   }
+}
+
+.card {
+  margin-top: 10px;
 }
