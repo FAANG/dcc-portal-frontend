@@ -8,6 +8,14 @@ ul.long-list {
 ul.list-group {
   margin-top: 0px;
 }
-span.badge {
-  margin-left: 3px;
+/*span.badge {*/
+/*  margin-left: px;*/
+/*}*/
+
+.card-header {
+  font-size: 14px;
+}
+
+.list-group-item {
+  font-size: 14px;
 }

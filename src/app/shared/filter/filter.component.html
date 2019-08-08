@@ -1,5 +1,5 @@
 <div class="card bg-lite mb-3">
-  <h6 class="card-header text-primary">
+  <h6 class="card-header text-secondary">
     {{ title }}
     <!--      <button-->
     <!--        type="button"-->
@@ -24,13 +24,13 @@
   <ul class="list-group list-group-flush" [ngClass]="{'long-list': itemLimit > filterSize}" *ngIf="title !== 'Protocol'">
     <ng-container *ngFor="let aggr of aggregation; let i = index">
       <button
-        class="list-group-item btn btn-light"
+        class="list-group-item d-flex justify-content-between align-items-center btn btn-light"
         type="button"
         (click)="onButtonClick(aggr[0], title)"
         *ngIf="i<itemLimit && aggr[0] != ''"
         [ngClass]="{'active': aggregationService.current_active_filters && aggregationService.current_active_filters.indexOf(aggr[0])>-1}">
         {{aggr[0]}}
-        <span class="badge badge-pill badge-secondary float-right">{{aggr[1]}}</span>
+        <span class="badge badge-pill badge-secondary">{{aggr[1]}}</span>
       </button>
     </ng-container>
   </ul>
