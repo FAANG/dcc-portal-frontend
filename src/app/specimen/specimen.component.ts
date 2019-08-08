@@ -18,8 +18,8 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   specimenListLong: Observable<SpecimenTable[]>;
   columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard',
     'Paper published'];
-  spanClass = 'glyphicon glyphicon-arrow-down';
-  defaultClass = 'glyphicon glyphicon-sort';
+  spanClass = 'expand_more';
+  defaultClass = 'unfold_more';
   selectedColumn = 'BioSample ID';
   sort_field: SortParams;
   filter_field: {};
@@ -120,9 +120,9 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   onTableClick(event: any) {
     let event_class;
     if (event['srcElement']['firstElementChild']) {
-      event_class = event['srcElement']['firstElementChild']['classList']['value'];
+      event_class = event['srcElement']['firstElementChild']['innerText'];
     } else {
-      event_class = event['srcElement']['className'];
+      event_class = event['srcElement']['innerText'];
     }
     this.selectedColumn = event['srcElement']['id'];
     this.selectColumn();
@@ -131,26 +131,26 @@ export class SpecimenComponent implements OnInit, OnDestroy {
 
   chooseClass(event_class: string) {
     if (this.selectedColumn === 'BioSample ID') {
-      if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
-        this.spanClass = 'glyphicon glyphicon-arrow-up';
+      if (event_class === 'expand_more') {
+        this.spanClass = 'expand_less';
         this.sort_field['direction'] = 'asc';
       } else {
-        this.spanClass = 'glyphicon glyphicon-arrow-down';
+        this.spanClass = 'expand_more';
         this.sort_field['direction'] = 'desc';
       }
     } else {
-      if (event_class.indexOf(this.defaultClass) !== -1) {
-        this.spanClass = 'glyphicon glyphicon-arrow-down';
+      if (event_class === this.defaultClass) {
+        this.spanClass = 'expand_more';
         this.sort_field['direction'] = 'desc';
-      } else if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
-        this.spanClass = 'glyphicon glyphicon-arrow-up';
+      } else if (event_class === 'expand_more') {
+        this.spanClass = 'expand_less';
         this.sort_field['direction'] = 'asc';
       } else {
-        this.spanClass = 'glyphicon glyphicon-sort';
+        this.spanClass = 'unfold_more';
         this.sort_field['direction'] = 'desc';
         this.sort_field['id'] = 'idNumber';
         this.selectedColumn = 'BioSample ID';
-        this.spanClass = 'glyphicon glyphicon-arrow-down';
+        this.spanClass = 'expand_more';
       }
     }
   }
