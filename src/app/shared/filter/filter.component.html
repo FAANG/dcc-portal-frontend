@@ -1,25 +1,27 @@
 <div class="card bg-lite mb-3">
   <h6 class="card-header text-secondary">
     {{ title }}
-    <!--      <button-->
-    <!--        type="button"-->
-    <!--        class="btn btn-primary btn-xs pull-right"-->
-    <!--        (click)="toggleCollapse()"-->
-    <!--        *ngIf="aggregation?.length > filterSize">{{ isCollapsed ? '+' : '-' }}</button>-->
+<!--          <button-->
+<!--            type="button"-->
+<!--            class="btn btn-secondary btn-sm float-right"-->
+<!--            (click)="toggleCollapse()"-->
+<!--            *ngIf="aggregation?.length > filterSize">{{ isCollapsed ? '+' : '-' }}</button>-->
+    <i class="material-icons float-right" *ngIf="aggregation?.length > filterSize && isCollapsed" (click)="toggleCollapse()">add</i>
+    <i class="material-icons float-right" *ngIf="aggregation?.length > filterSize && !isCollapsed" (click)="toggleCollapse()">remove</i>
   </h6>
-  <!--    <ul class="list-group" [ngClass]="{'long-list': itemLimit > filterSize}" *ngIf="title === 'Protocol'">-->
-  <!--      <ng-container class="list-group-item disabled" *ngFor="let aggr of aggregation; let i = index">-->
-  <!--        <button-->
-  <!--          class="list-group-item"-->
-  <!--          type="button"-->
-  <!--          (click)="onButtonClick(aggr[0], title)"-->
-  <!--          *ngIf="i<itemLimit && aggr[0] != ''"-->
-  <!--          [ngClass]="{'active': aggregationService.current_active_filters && aggregationService.current_active_filters.indexOf(getReverseHumanName(aggr[0]))>-1}">-->
-  <!--          <span class="badge">{{ aggr[1] }}</span>-->
-  <!--          {{ aggr[0] }}-->
-  <!--        </button>-->
-  <!--      </ng-container>-->
-  <!--    </ul>-->
+      <ul class="list-group list-group-flush" [ngClass]="{'long-list': itemLimit > filterSize}" *ngIf="title === 'Protocol'">
+        <ng-container *ngFor="let aggr of aggregation; let i = index">
+          <button
+            class="list-group-item d-flex justify-content-between align-items-center btn btn-light"
+            type="button"
+            (click)="onButtonClick(aggr[0], title)"
+            *ngIf="i<itemLimit && aggr[0] != ''"
+            [ngClass]="{'active': aggregationService.current_active_filters && aggregationService.current_active_filters.indexOf(getReverseHumanName(aggr[0]))>-1}">
+            {{ aggr[0] }}
+            <span class="badge badge-pill badge-secondary">{{aggr[1]}}</span>
+          </button>
+        </ng-container>
+      </ul>
 
   <ul class="list-group list-group-flush" [ngClass]="{'long-list': itemLimit > filterSize}" *ngIf="title !== 'Protocol'">
     <ng-container *ngFor="let aggr of aggregation; let i = index">

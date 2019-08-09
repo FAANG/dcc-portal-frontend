@@ -8,9 +8,10 @@ ul.long-list {
 ul.list-group {
   margin-top: 0px;
 }
-/*span.badge {*/
-/*  margin-left: px;*/
-/*}*/
+
+i {
+  cursor: pointer;
+}
 
 .card-header {
   font-size: 14px;
