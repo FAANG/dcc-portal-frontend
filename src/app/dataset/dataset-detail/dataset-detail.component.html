@@ -1,55 +1,69 @@
 <div class="container">
   <app-header></app-header>
-  <h1 class="text-center">{{dataset?.accession}}</h1>
-  <dl class="dl-horizontal">
-    <dt>Study name:</dt>
-    <dd>
+  <h3 class="text-center">{{dataset?.accession}}</h3>
+  <dl class="row">
+
+    <dt class="col-sm-3">Study name:</dt>
+    <dd class="col-sm-9">
       <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="dataset?.accession" [text]="dataset?.accession"></app-robust-link>
     </dd>
-    <dt>Title:</dt> <dd>{{dataset?.title}}</dd>
-    <div *ngIf="dataset?.alias">
-      <dt>Alias:</dt> <dd>{{dataset?.alias}}</dd>
-    </div>
-    <div *ngIf="dataset?.type">
-      <dt>Type:</dt> <dd>{{dataset?.type}}</dd>
-    </div>
-    <div *ngIf="dataset?.secondaryAccession">
-      <dt>Secondary accession:</dt>
-      <dd><app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="dataset?.secondaryAccession" [text]="dataset?.secondaryAccession"></app-robust-link></dd>
-    </div>
-    <dt>Species</dt>
-    <dd>
+
+    <dt class="col-sm-3">Title:</dt> <dd class="col-sm-9">{{dataset?.title}}</dd>
+
+    <ng-container *ngIf="dataset?.alias">
+      <dt class="col-sm-3">Alias:</dt> <dd class="col-sm-9">{{dataset?.alias}}</dd>
+    </ng-container>
+
+    <ng-container *ngIf="dataset?.type">
+      <dt class="col-sm-3">Type:</dt> <dd class="col-sm-9">{{dataset?.type}}</dd>
+    </ng-container>
+
+    <ng-container *ngIf="dataset?.secondaryAccession">
+      <dt class="col-sm-3">Secondary accession:</dt>
+      <dd class="col-sm-9"> <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="dataset?.secondaryAccession" [text]="dataset?.secondaryAccession"></app-robust-link></dd>
+    </ng-container>
+
+    <dt class="col-sm-3">Species</dt>
+    <dd class="col-sm-9">
       <ng-container *ngFor="let organism of dataset?.species">
         <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.ontologyTerms" [text]="organism?.text"></app-robust-link>
         &nbsp;
       </ng-container>
     </dd>
-    <div *ngIf="dataset?.experiment">
-      <dt>Experiment accessions:</dt><dd>
+
+    <ng-container *ngIf="dataset?.experiment">
+      <dt class="col-sm-3">Experiment accessions:</dt>
+      <dd class="col-sm-9">
       <ng-container *ngFor="let experiment of dataset?.experiment">
         <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="experiment.accession" [text]="experiment.accession"></app-robust-link>
         &nbsp;
       </ng-container>
     </dd>
-    </div>
-    <div *ngIf="dataset?.instrument">
-      <dt>Instruments:</dt><dd>
-      <ng-container *ngFor="let instrument of dataset?.instrument">{{instrument}}  </ng-container>
-    </dd>
-    </div>
-    <div *ngIf="dataset?.centerName">
-      <dt>Sequencing center:</dt><dd>
-      <ng-container *ngFor="let center of dataset?.centerName">{{center}}</ng-container>
-    </dd>
-    </div>
-    <dt>Standard:</dt>
-    <dd>{{dataset?.standardMet}}</dd>
+    </ng-container>
+
+    <ng-container *ngIf="dataset?.instrument">
+      <dt class="col-sm-3">Instruments:</dt>
+      <dd class="col-sm-9">
+        <ng-container *ngFor="let instrument of dataset?.instrument">{{instrument}}
+        </ng-container>
+      </dd>
+    </ng-container>
+
+    <ng-container *ngIf="dataset?.centerName">
+      <dt class="col-sm-3">Sequencing center:</dt>
+      <dd class="col-sm-9">
+        <ng-container *ngFor="let center of dataset?.centerName">{{center}}</ng-container>
+      </dd>
+    </ng-container>
+
+    <dt class="col-sm-3">Standard:</dt>
+    <dd class="col-sm-9">{{dataset?.standardMet}}</dd>
   </dl>
 
   <hr>
-  <div *ngIf="dataset?.paperPublished === 'true'">
+  <div *ngIf="dataset?.paperPublished === 'true'" class="table-responsive">
       <h3>Published papers</h3>
-      <table class="table table-striped table-hover table-responsive">
+      <table class="table table-striped table-hover table-borderless table-sm">
         <thead>
         <tr>
           <th>Title</th>
