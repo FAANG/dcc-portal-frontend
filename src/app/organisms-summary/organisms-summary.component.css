@@ -9,3 +9,11 @@ button {
 .dropdown-toggle {
   margin-bottom: 10px;
 }
+
+i {
+  margin-left: 5px;
+}
+
+button {
+  font-size: 14px;
+}
