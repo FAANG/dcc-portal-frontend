@@ -1,9 +1,9 @@
-<div *ngIf="fileList?.hits.total > 0">
+<div *ngIf="fileList?.hits.total > 0" class="table-responsive">
   <h3>
     Files
     <button type="button" class="btn btn-success" (click)="downloadAllFiles()" [disabled]="disableButton()">Download all files ({{getUrlsLength()}})</button>
   </h3>
-    <table class="table table-striped table-hover table-responsive">
+    <table class="table table-striped table-hover table-borderless table-sm">
       <thead>
       <tr>
         <th>Name</th>
