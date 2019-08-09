@@ -1,7 +1,7 @@
 <h3>Specimens</h3>
-<div class="fails-table center-block">
+<div class="table-responsive">
 
-  <table class="table table-striped table-hover table-responsive">
+  <table class="table table-striped table-hover table-borderless table-sm">
     <thead>
     <tr>
       <th>BioSample ID</th>
@@ -10,11 +10,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let specimen of specimenList?.hits.hits | paginate: { itemsPerPage: 10, currentPage: p }"
-        class="clickable"
-        [routerLink]="['/specimen', specimen?._source?.biosampleId]">
+    <tr *ngFor="let specimen of specimenList?.hits.hits | paginate: { itemsPerPage: 10, currentPage: p }">
       <td>
-        <a style="cursor: pointer">{{specimen?._source.biosampleId}}</a>
+        <a style="cursor: pointer" [routerLink]="['/specimen', specimen?._source?.biosampleId]">{{specimen?._source.biosampleId}}</a>
       </td>
       <td [ngSwitch]="specimen?._source?.material?.text">
         <ng-template ngSwitchCase="specimen from organism">{{specimen?._source?.specimenFromOrganism?.organismPart?.text}}</ng-template>
