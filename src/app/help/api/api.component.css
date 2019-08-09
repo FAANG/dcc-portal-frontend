@@ -1,0 +1,12 @@
+a {
+  color: steelblue;
+}
+
+p {
+  font-size: 14px;
+}
+
+pre {
+  background-color: lightgrey;
+  border: 1px solid darkgrey;
+}
