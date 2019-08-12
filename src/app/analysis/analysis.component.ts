@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DatasetTable, SortParams} from '../shared/interfaces';
+import {AnalysisTable, SortParams} from '../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {ApiFileService} from '../services/api-file.service';
 import {AggregationService} from '../services/aggregation.service';
@@ -15,18 +15,18 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./analysis.component.css']
 })
 export class AnalysisComponent implements OnInit, OnDestroy {
-  analysisListShort: Observable<DatasetTable[]>;
-  analysisListLong: Observable<DatasetTable[]>;
-  columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
-    'Number of Specimens', 'Number of Files', 'Standard', 'Paper published'];
+  analysisListShort: Observable<AnalysisTable[]>;
+  analysisListLong: Observable<AnalysisTable[]>;
+  columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard'];
+
   spanClass = 'glyphicon glyphicon-arrow-down';
   defaultClass = 'glyphicon glyphicon-sort';
-  selectedColumn = 'Dataset accession';
+  selectedColumn = 'Analysis accession';
   sort_field: SortParams;
   filter_field = {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
-  datasetListLongSubscription: Subscription;
+  analysisListLongSubscription: Subscription;
   downloadData = false;
 
   optionsCsv;
@@ -40,17 +40,15 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     'sort': 'accession:desc',
     '_source': [
       'accession',
+      'datasetAccession',
       'title',
-      'species.text',
-      'archive',
-      'experiment.accession',
-      'file.name',
-      'specimen.biosampleId',
-      'assayType',
-      'standardMet',
-      'paperPublished'],
+      'organism.text',
+      // 'assayType',
+      'analysisType',
+      'standardMet'],
   };
   error: string;
+
 
   constructor(private apiFileService: ApiFileService,
               private activatedRoute: ActivatedRoute,
@@ -88,20 +86,20 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'datasetAccession', direction: 'desc'};
+    this.sort_field = {id: 'accession', direction: 'desc'};
     this.spinner.hide();
-    this.analysisListLong = this.apiFileService.getAllDatasets(this.query, 100000);
-    this.datasetListLongSubscription = this.analysisListLong.subscribe((data) => {
-      this.aggregationService.getAggregations(data, 'dataset');
+    this.analysisListLong = this.apiFileService.getAllAnalyses(this.query, 100000);
+    this.analysisListLongSubscription = this.analysisListLong.subscribe((data) => {
+      this.aggregationService.getAggregations(data, 'analysis');
     });
-    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
+    this.aggrSubscription = this.aggregationService.field.subscribe((data: any) => {
       const params = {};
       for (const key in data) {
         if (data[key].length !== 0) {
           params[key] = data[key];
         }
       }
-      this.router.navigate(['dataset'], {queryParams: params});
+      this.router.navigate(['analysis'], {queryParams: params});
     });
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
@@ -121,7 +119,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   }
 
   chooseClass(event_class: string) {
-    if (this.selectedColumn === 'Dataset accession') {
+    if (this.selectedColumn === 'Analysis accession') {
       if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
         this.spanClass = 'glyphicon glyphicon-arrow-up';
         this.sort_field['direction'] = 'asc';
@@ -139,8 +137,8 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       } else {
         this.spanClass = 'glyphicon glyphicon-sort';
         this.sort_field['direction'] = 'desc';
-        this.sort_field['id'] = 'datasetAccession';
-        this.selectedColumn = 'Dataset accession';
+        this.sort_field['id'] = 'accession';
+        this.selectedColumn = 'Analysis accession';
         this.spanClass = 'glyphicon glyphicon-arrow-down';
       }
     }
@@ -148,7 +146,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
 
   selectColumn() {
     switch (this.selectedColumn) {
-      case 'Datset accession': {
+      case 'Datset': {
         this.sort_field['id'] = 'datasetAccession';
         break;
       }
@@ -160,8 +158,8 @@ export class AnalysisComponent implements OnInit, OnDestroy {
         this.sort_field['id'] = 'species';
         break;
       }
-      case 'Archive': {
-        this.sort_field['id'] = 'archive';
+      case 'Analysis accession': {
+        this.sort_field['id'] = 'accession';
         break;
       }
       case 'Assay type': {
@@ -214,6 +212,6 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
-    this.datasetListLongSubscription.unsubscribe();
+    this.analysisListLongSubscription.unsubscribe();
   }
 }
