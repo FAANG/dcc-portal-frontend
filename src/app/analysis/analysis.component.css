@@ -1,0 +1,40 @@
+span.glyphicon.glyphicon-sort {
+  color: lightgrey;
+}
+span.glyphicon.glyphicon-arrow-down {
+  color: black;
+}
+
+span.glyphicon.glyphicon-arrow-up {
+  color: black;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  div.faang-filter {
+    width: 300px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+button {
+  margin-left: 5px;
+}
+
+.green {
+  background-color: palegreen;
+  text-align: center;
+}
+
+.default {
+  text-align: center;
+}
+
+.glyphicon.glyphicon-ok-circle, .glyphicon.glyphicon-remove-circle  {
+  font-size: 17px;
+}

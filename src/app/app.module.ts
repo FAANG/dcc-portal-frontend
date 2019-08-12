@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { OrganismComponent } from './organism/organism.component';
 import { SpecimenComponent } from './specimen/specimen.component';
 import { DatasetComponent } from './dataset/dataset.component';
+import { AnalysisComponent } from './analysis/analysis.component';
 import { SearchComponent } from './search/search.component';
 import { HelpComponent } from './help/help.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -34,9 +35,10 @@ import { SpecimenRelationshipComponent } from './specimen/specimen-relationship/
 import { SearchTemplateComponent } from './search/search-template/search-template.component';
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
 import { DatasetRelatedTemplateComponent } from './dataset/dataset-related-template/dataset-related-template.component';
-import {SearchService} from './services/search.service';
-import {CookieLawModule} from 'angular2-cookie-law';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
+import { SearchService } from './services/search.service';
+import { CookieLawModule } from 'angular2-cookie-law';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ApiComponent } from './help/api/api.component';
@@ -44,8 +46,8 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
-import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
-import {ChartsModule} from 'ng2-charts';
+import { ProtocolExperimentDetailsComponent } from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
+import { ChartsModule } from 'ng2-charts';
 import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
 import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
 import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
@@ -68,6 +70,7 @@ import { NonExistingComponent } from './non-existing/non-existing.component';
     OrganismComponent,
     SpecimenComponent,
     DatasetComponent,
+    AnalysisComponent,
     SearchComponent,
     HelpComponent,
     HeaderComponent,
@@ -82,6 +85,7 @@ import { NonExistingComponent } from './non-existing/non-existing.component';
     SearchTemplateComponent,
     DatasetDetailComponent,
     DatasetRelatedTemplateComponent,
+    AnalysisDetailComponent,
     ApiComponent,
     ProtocolSampleComponent,
     ProtocolExperimentComponent,
