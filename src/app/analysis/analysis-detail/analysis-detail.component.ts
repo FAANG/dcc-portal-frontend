@@ -11,7 +11,7 @@ import {Title} from '@angular/platform-browser';
 })
 export class AnalysisDetailComponent implements OnInit {
   accession: string;
-  dataset: any;
+  analysis: any;
   error: any;
 
   constructor(private route: ActivatedRoute,
@@ -26,21 +26,18 @@ export class AnalysisDetailComponent implements OnInit {
       this.accession = params['id'];
       this.titleService.setTitle(`${this.accession} | FAANG analysis`);
     });
-    this.apiFileService.getDataset(this.accession).subscribe(
+    this.apiFileService.getAnalysis(this.accession).subscribe(
       (data: any) => {
-        if (data['hits']['hits'].length === 0) {
-          this.spinner.hide();
-          this.router.navigate(['404']);
-        } else {
-          this.dataset = data['hits']['hits'][0]['_source'];
-          if (this.dataset) {
+        // if (data['hits']['hits'].length === 0) {
+        //   this.spinner.hide();
+        //   this.router.navigate(['404']);
+        // } else {
+          // this.analysis = data['hits']['hits'][0]['_source'];
+          this.analysis = data['_source'];
+          if (this.analysis) {
             this.spinner.hide();
-            if (this.dataset.hasOwnProperty('publishedArticles')) {
-              this.dataset.publishedArticles = this.dataset.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-                ((b.year > a.year) ? 1 : 0));
-            }
           }
-        }
+        // }
       },
       error => {
         this.error = error;

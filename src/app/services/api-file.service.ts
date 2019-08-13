@@ -220,7 +220,7 @@ export class ApiFileService {
 
   getAnalysis(accession: string) {
 //    const url = this.hostSetting.host + 'analysis/' + accession;
-    const url = 'wp-np3-e2:9200/faang_build_1_analysis/_doc/' + accession;
+    const url = 'http://wp-np3-e2:9200/faang_build_1_analysis/_doc/' + accession;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
