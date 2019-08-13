@@ -69,6 +69,10 @@ describe('AnalysisComponent', () => {
     component.selectColumn();
     expect(component.sort_field['id']).toEqual('accession');
 
+    component.selectedColumn = 'Dataset';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('datasetAccession');
+
     component.selectedColumn = 'Title';
     component.selectColumn();
     expect(component.sort_field['id']).toEqual('title');
@@ -76,10 +80,6 @@ describe('AnalysisComponent', () => {
     component.selectedColumn = 'Species';
     component.selectColumn();
     expect(component.sort_field['id']).toEqual('species');
-
-    component.selectedColumn = 'Dataset';
-    component.selectColumn();
-    expect(component.sort_field['id']).toEqual('datasetAccession');
 
     component.selectedColumn = 'Assay type';
     component.selectColumn();

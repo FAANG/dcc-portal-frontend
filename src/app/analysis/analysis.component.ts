@@ -146,7 +146,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
 
   selectColumn() {
     switch (this.selectedColumn) {
-      case 'Datset': {
+      case 'Dataset': {
         this.sort_field['id'] = 'datasetAccession';
         break;
       }
@@ -164,6 +164,10 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       }
       case 'Assay type': {
         this.sort_field['id'] = 'assayType';
+        break;
+      }
+      case 'Analysis type': {
+        this.sort_field['id'] = 'analysisType';
         break;
       }
     }
