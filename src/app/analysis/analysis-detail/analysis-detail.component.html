@@ -19,7 +19,7 @@
     </dd>
     <dt>Analysis type:</dt>
     <dd>
-      {{analysis.analysisType}}
+      {{analysis?.analysisType}}
     </dd>
     <div *ngIf="analysis?.standardMet">
       <dt>Standard:</dt> <dd>{{analysis?.standardMet}}</dd>
@@ -62,8 +62,39 @@
       </dd>
     </div>
   </dl>
+  <div *ngIf="analysis?.files.length > 0">
+    <hr>
+    <h3>Analysis Files</h3>
+    <table class="table table-striped table-hover table-responsive">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>checksum</th>
+<!--         <th>
+          Download
+           <input type="checkbox" [checked]="checked" (click)="mainCheckboxClicked()">
+        </th>
+ -->       </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let file of analysis?.files | paginate: { itemsPerPage: 10, currentPage: p}">
+        <tr>
+          <td>
+            <app-robust-link prefix="ftp://" [link]="file.url" [text]="file.name"></app-robust-link>
+          </td>
+          <td>{{file.type}}</td>
+          <td>{{file.size}}</td>
+          <td>{{file.checksum}}</td>
+<!--            <td>
+            <input type="checkbox" (click)="onCheckboxClick(file.url)" [checked]="CheckboxChecked(file.url)">
+          </td>
+ -->         </tr>
+      </ng-container>
+      </tbody>
+    </table>
 
-  <hr>
-  
 
+  </div>
 </div>
