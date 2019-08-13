@@ -46,7 +46,7 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
-import { ProtocolExperimentDetailsComponent } from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
+import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
 import { ChartsModule } from 'ng2-charts';
 import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
 import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';

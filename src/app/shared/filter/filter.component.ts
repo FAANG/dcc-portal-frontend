@@ -74,7 +74,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   onButtonClick(key: string, title: string) {
     let data_key: string;
-    //the data_key refers to active_filters defined in service/aggregatin_service.ts
+    // the data_key refers to active_filters defined in service/aggregatin_service.ts
     switch (title) {
       case 'Standard': {
         data_key = 'standard';

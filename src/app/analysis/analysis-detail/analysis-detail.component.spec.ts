@@ -1,24 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DatasetDetailComponent } from './dataset-detail.component';
+import { AnalysisDetailComponent } from './analysis-detail.component';
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
-import {DatasetRelatedTemplateComponent} from '../dataset-related-template/dataset-related-template.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
-describe('DatasetDetailComponent', () => {
-  let component: DatasetDetailComponent;
-  let fixture: ComponentFixture<DatasetDetailComponent>;
+describe('AnalysisDetailComponent', () => {
+  let component: AnalysisDetailComponent;
+  let fixture: ComponentFixture<AnalysisDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DatasetDetailComponent,
+        AnalysisDetailComponent,
         HeaderComponent,
-        RobustLinkComponent,
-        DatasetRelatedTemplateComponent
+        RobustLinkComponent
       ],
       imports: [
         NgxPaginationModule,
@@ -30,7 +28,7 @@ describe('DatasetDetailComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatasetDetailComponent);
+    fixture = TestBed.createComponent(AnalysisDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

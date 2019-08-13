@@ -11,7 +11,7 @@ import {SortPipe} from '../pipes/sort.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
-describe('DatasetComponent', () => {
+describe('AnalysisComponent', () => {
   let component: AnalysisComponent;
   let fixture: ComponentFixture<AnalysisComponent>;
 
@@ -64,26 +64,10 @@ describe('DatasetComponent', () => {
     expect(component.filter_field).toEqual({});
   });
 
-  it('wasPublished should return true if published equals to string with true', () => {
-    expect(component.wasPublished('true')).toEqual(true);
-  });
-
-  it('wasPublished should return false if published equals to string with false', () => {
-    expect(component.wasPublished('false')).toEqual(false);
-  });
-
-  it('isGreen should return green if article was published for this record', () => {
-    expect(component.isGreen('true')).toEqual('green');
-  });
-
-  it('isGreen should return default if article was not published for this record', () => {
-    expect(component.isGreen('false')).toEqual('default');
-  });
-
   it('selectColumn should assign right value for sort_field', () => {
-    component.selectedColumn = 'Datset accession';
+    component.selectedColumn = 'Analysis accession';
     component.selectColumn();
-    expect(component.sort_field['id']).toEqual('datasetAccession');
+    expect(component.sort_field['id']).toEqual('accession');
 
     component.selectedColumn = 'Title';
     component.selectColumn();
@@ -93,13 +77,17 @@ describe('DatasetComponent', () => {
     component.selectColumn();
     expect(component.sort_field['id']).toEqual('species');
 
-    component.selectedColumn = 'Archive';
+    component.selectedColumn = 'Dataset';
     component.selectColumn();
-    expect(component.sort_field['id']).toEqual('archive');
+    expect(component.sort_field['id']).toEqual('datasetAccession');
 
     component.selectedColumn = 'Assay type';
     component.selectColumn();
     expect(component.sort_field['id']).toEqual('assayType');
+
+    component.selectedColumn = 'Analysis type';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('analysisType');
   });
 
   it('chooseClass should assign right values for spanClass and sort_field', () => {
