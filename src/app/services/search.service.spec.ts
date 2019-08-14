@@ -59,9 +59,9 @@ describe('SearchService', () => {
     });
   }));
 
-  it('should return 480 result datasets when search for scrofa', inject([SearchService], (service: SearchService) => {
+  it('should return 487 result datasets when search for scrofa', inject([SearchService], (service: SearchService) => {
     service.searchDataset('scrofa', false).subscribe(data => {
-      expect(data['hits']['total']).toEqual(480);
+      expect(data['hits']['total']).toEqual(487);
     });
   }));
 
