@@ -19,9 +19,9 @@ describe('SearchService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should return 19733 result files when search for scrofa', inject([SearchService], (service: SearchService) => {
+  it('should return 20002 file matches when search for scrofa', inject([SearchService], (service: SearchService) => {
     service.searchFile('scrofa', false).subscribe(data => {
-      expect(data['hits']['total']).toEqual(19733);
+      expect(data['hits']['total']).toEqual(20002);
     });
   }));
 
@@ -32,7 +32,7 @@ describe('SearchService', () => {
     });
   }));
 
-  it('should return 160 result organisms when search for scrofa', inject([SearchService], (service: SearchService) => {
+  it('should return 160 organisms when search for scrofa', inject([SearchService], (service: SearchService) => {
     service.searchOrganism('scrofa', false).subscribe(data => {
       expect(data['hits']['total']).toEqual(160);
     });
@@ -45,10 +45,10 @@ describe('SearchService', () => {
     });
   }));
 
-  it('should return 10600 result specimens when search for scrofa', inject([SearchService],
+  it('should return 10657 result specimens when search for scrofa', inject([SearchService],
     (service: SearchService) => {
     service.searchSpecimen('scrofa', false).subscribe(data => {
-      expect(data['hits']['total']).toEqual(10600);
+      expect(data['hits']['total']).toEqual(10657);
     });
   }));
 
