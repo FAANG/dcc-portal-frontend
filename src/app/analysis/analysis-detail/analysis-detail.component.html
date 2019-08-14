@@ -42,7 +42,7 @@
     <div *ngIf="analysis?.sampleAccessions">
       <dt>Related Sample</dt>
       <dd>
-        <app-robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="analysis?.sampleAccessions" [text]= "analysis?.sampleAccessions"></app-robust-link>
+        <app-robust-link prefix="../specimen/" [link]="analysis?.sampleAccessions" [text]= "analysis?.sampleAccessions"></app-robust-link>
       </dd>
     </div>
     <div *ngIf="analysis?.experimentAccessions && analysis?.experimentAccessions.length > 0">
@@ -62,39 +62,6 @@
       </dd>
     </div>
   </dl>
-  <div *ngIf="analysis?.files.length > 0">
-    <hr>
-    <h3>Analysis Files</h3>
-    <table class="table table-striped table-hover table-responsive">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Size</th>
-        <th>checksum</th>
-<!--         <th>
-          Download
-           <input type="checkbox" [checked]="checked" (click)="mainCheckboxClicked()">
-        </th>
- -->       </tr>
-      </thead>
-      <tbody>
-      <ng-container *ngFor="let file of analysis?.files | paginate: { itemsPerPage: 10, currentPage: p}">
-        <tr>
-          <td>
-            <app-robust-link prefix="ftp://" [link]="file.url" [text]="file.name"></app-robust-link>
-          </td>
-          <td>{{file.type}}</td>
-          <td>{{file.size}}</td>
-          <td>{{file.checksum}}</td>
-<!--            <td>
-            <input type="checkbox" (click)="onCheckboxClick(file.url)" [checked]="CheckboxChecked(file.url)">
-          </td>
- -->         </tr>
-      </ng-container>
-      </tbody>
-    </table>
 
-
-  </div>
+  <app-related-items source_type="analysis" target_type="file" [record_id]="analysis.accession"></app-related-items>
 </div>

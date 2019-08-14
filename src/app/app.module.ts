@@ -26,6 +26,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {ExportService} from './services/export.service';
 import { FileDetailComponent } from './file-table/file-detail/file-detail.component';
 import { RobustLinkComponent } from './shared/robust-link/robust-link.component';
+import { RelatedItemsComponent } from './shared/related-items/related-items.component';
 import { RunFilesComponent } from './shared/run-files/run-files.component';
 import { OrganismDetailComponent } from './organism/organism-detail/organism-detail.component';
 import { OrganismSpecimenComponent } from './organism/organism-specimen/organism-specimen.component';
@@ -76,6 +77,7 @@ import { NonExistingComponent } from './non-existing/non-existing.component';
     HeaderComponent,
     FileDetailComponent,
     RobustLinkComponent,
+    RelatedItemsComponent,
     RunFilesComponent,
     OrganismDetailComponent,
     OrganismSpecimenComponent,
