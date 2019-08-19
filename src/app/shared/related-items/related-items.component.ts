@@ -37,10 +37,18 @@ export class RelatedItemsComponent implements OnInit {
     this.field_names.set('analysis-file', ['Name', 'Type', 'Size', 'Checksum']);
     this.field_values.set('analysis-file', ['name', 'type', 'size', 'checksum']);
     this.field_values_having_links.set('analysis-file-name', ['ftp://', 'url']);
+    // papers in the dataset detail page
+    this.field_names.set('dataset-paper', ['Title', 'Year', 'Journal']);
+    this.field_values.set('dataset-paper', ['title', 'year', 'journal']);
+    this.field_values_having_links.set('dataset-paper-title', ['https://doi.org/', 'doi']);
     // sepcimens in the dataset detail page
     this.field_names.set('dataset-specimen', ['BioSamples ID', 'Material', 'Cell type', 'Sex', 'Species', 'Breed']);
     this.field_values.set('dataset-specimen', ['biosampleId', 'material.text', 'cellType.text', 'sex.text', 'organism.text', 'breed.text']);
     this.field_values_having_links.set('dataset-specimen-biosampleId', ['../specimen/', 'biosampleId']);
+    // files in the dataset detail page
+    this.field_names.set('dataset-file', ['File name', 'Experiment', 'Archive', 'File size']);
+    this.field_values.set('dataset-file', ['name', 'experiment', 'archive', 'readableSize']);
+    this.field_values_having_links.set('dataset-file-name', ['../file/', 'fileId']);
   }
 
   ngOnInit() {
@@ -54,6 +62,16 @@ export class RelatedItemsComponent implements OnInit {
       this.apiFileService.getDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['specimen'];
+        });
+    } else if (relationship_type === 'dataset-file') {
+      this.apiFileService.getDataset(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'][0]['_source']['file'];
+        });
+    } else if (relationship_type === 'dataset-paper') {
+      this.apiFileService.getDataset(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
     }
 

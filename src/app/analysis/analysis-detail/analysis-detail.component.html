@@ -1,68 +1,81 @@
 <div class="container">
   <app-header></app-header>
-  <h1 class="text-center">{{analysis?.accession}}</h1>
-  <dl class="dl-horizontal">
-    <dt>Analysis accession:</dt>
-    <dd>
-      <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="analysis?.accession" [text]="analysis?.accession"></app-robust-link>
-    </dd>
-    <dt>Title:</dt> <dd>{{analysis?.title}}</dd>
-    <div *ngIf="analysis?.alias">
-      <dt>Alias:</dt> <dd>{{analysis?.alias}}</dd>
-    </div>
-    <div *ngIf="analysis?.type">
-      <dt>Type:</dt> <dd>{{analysis?.type}}</dd>
-    </div>
-    <dt>Dataset accession:</dt>
-    <dd>
-      <app-robust-link prefix="../dataset/" [link]="analysis?.datasetAccession" [text]="analysis?.datasetAccession"></app-robust-link>
-    </dd>
-    <dt>Analysis type:</dt>
-    <dd>
-      {{analysis?.analysisType}}
-    </dd>
-    <div *ngIf="analysis?.standardMet">
-      <dt>Standard:</dt> <dd>{{analysis?.standardMet}}</dd>
-    </div>
-    <div *ngIf="analysis?.analysisCenter">
-      <dt>Analysis center:</dt> <dd>{{analysis?.analysisCenter}}</dd>
-    </div>
-    <div *ngIf="analysis?.releaseDate">
-      <dt>Release date:</dt> <dd>{{analysis?.releaseDate}}</dd>
-    </div>
-    <div *ngIf="analysis?.updateDate">
-      <dt>Update date:</dt> <dd>{{analysis?.updateDate}}</dd>
-    </div>
-    <div *ngIf="analysis?.organism">
-      <dt>Species</dt>
+  <ng-container *ngIf="analysis">
+    <h1 class="text-center">{{analysis.accession}}</h1>
+    <dl class="dl-horizontal">
+      <dt>Analysis accession:</dt>
       <dd>
-        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="analysis?.organism?.ontologyTerms" [text]="analysis?.organism?.text"></app-robust-link>
+        <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="analysis?.accession"
+                         [text]="analysis?.accession"></app-robust-link>
       </dd>
-    </div>
-    <div *ngIf="analysis?.sampleAccessions">
-      <dt>Related Sample</dt>
+      <dt>Title:</dt>
+      <dd>{{analysis?.title}}</dd>
+      <div *ngIf="analysis?.alias">
+        <dt>Alias:</dt>
+        <dd>{{analysis?.alias}}</dd>
+      </div>
+      <div *ngIf="analysis?.type">
+        <dt>Type:</dt>
+        <dd>{{analysis?.type}}</dd>
+      </div>
+      <dt>Dataset accession:</dt>
       <dd>
-        <app-robust-link prefix="../specimen/" [link]="analysis?.sampleAccessions" [text]= "analysis?.sampleAccessions"></app-robust-link>
+        <app-robust-link prefix="../dataset/" [link]="analysis?.datasetAccession"
+                         [text]="analysis?.datasetAccession"></app-robust-link>
       </dd>
-    </div>
-    <div *ngIf="analysis?.experimentAccessions && analysis?.experimentAccessions.length > 0">
-      <dt>Related Experiments</dt>
+      <dt>Analysis type:</dt>
       <dd>
-        <ng-container *ngFor="let exp of analysis?.experimentAccessions">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="exp" [text]= "exp"></app-robust-link>
-        </ng-container>
+        {{analysis?.analysisType}}
       </dd>
-    </div>
-    <div *ngIf="analysis?.runAccessions && analysis?.runAccessions.length > 0">
-      <dt>Related Runs</dt>
-      <dd>
-        <ng-container *ngFor="let run of analysis?.runAccessions">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="run" [text]= "run"></app-robust-link>
-        </ng-container>
-      </dd>
-    </div>
-  </dl>
+      <div *ngIf="analysis?.standardMet">
+        <dt>Standard:</dt>
+        <dd>{{analysis?.standardMet}}</dd>
+      </div>
+      <div *ngIf="analysis?.analysisCenter">
+        <dt>Analysis center:</dt>
+        <dd>{{analysis?.analysisCenter}}</dd>
+      </div>
+      <div *ngIf="analysis?.releaseDate">
+        <dt>Release date:</dt>
+        <dd>{{analysis?.releaseDate}}</dd>
+      </div>
+      <div *ngIf="analysis?.updateDate">
+        <dt>Update date:</dt>
+        <dd>{{analysis?.updateDate}}</dd>
+      </div>
+      <div *ngIf="analysis?.organism">
+        <dt>Species</dt>
+        <dd>
+          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="analysis?.organism?.ontologyTerms"
+                           [text]="analysis?.organism?.text"></app-robust-link>
+        </dd>
+      </div>
+      <div *ngIf="analysis?.sampleAccessions">
+        <dt>Related Sample</dt>
+        <dd>
+          <app-robust-link prefix="../specimen/" [link]="analysis?.sampleAccessions"
+                           [text]="analysis?.sampleAccessions"></app-robust-link>
+        </dd>
+      </div>
+      <div *ngIf="analysis?.experimentAccessions && analysis?.experimentAccessions.length > 0">
+        <dt>Related Experiments</dt>
+        <dd>
+          <ng-container *ngFor="let exp of analysis?.experimentAccessions">
+            <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="exp" [text]="exp"></app-robust-link>
+          </ng-container>
+        </dd>
+      </div>
+      <div *ngIf="analysis?.runAccessions && analysis?.runAccessions.length > 0">
+        <dt>Related Runs</dt>
+        <dd>
+          <ng-container *ngFor="let run of analysis?.runAccessions">
+            <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="run" [text]="run"></app-robust-link>
+          </ng-container>
+        </dd>
+      </div>
+    </dl>
 
-  <app-related-items source_type="analysis" target_type="file"
-                     download_key="url" [record_id]="analysis.accession"></app-related-items>
+    <app-related-items source_type="analysis" target_type="file"
+                       download_key="url" [record_id]="analysis.accession"></app-related-items>
+  </ng-container>
 </div>
