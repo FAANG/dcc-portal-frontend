@@ -14,7 +14,7 @@
       </ng-container>
       <th *ngIf="download_key.length>0">
         Download
-        <input type="checkbox" [checked]="checked" (click)="mainCheckboxClicked()">
+        <input type="checkbox" [checked]="mainCheckboxChecked() == 2" (click)="mainCheckboxClicked()">
       </th>
     </tr>
     </thead>

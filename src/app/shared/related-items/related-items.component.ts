@@ -15,7 +15,7 @@ export class RelatedItemsComponent implements OnInit {
 
   records: any;
   urls: string[] = [];
-  checked = true;
+  checked = false;
 
   p = 1; // page number for html template
   // field names and values must match  i.e. same length and order
@@ -41,37 +41,31 @@ export class RelatedItemsComponent implements OnInit {
       this.apiFileService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
           this.records = data['_source']['files'];
-          const url_location = this.download_key.split('.');
-          if (this.download_key.length > 0) {
-            for (const record of this.records) {
-              let curr: any = record;
-              for (const index of url_location) {
-                curr = curr[index];
-              }
-              this.urls.push('ftp://' + curr);
-            }
-          }
         });
     }
 
 
   }
 
+  // get table headers
   get_field_names() {
     const relationship_type = `${this.source_type}-${this.target_type}`;
     return this.field_names.get(relationship_type);
   }
 
+  // get the attribute names to populate the table
   get_field_values() {
     const relationship_type = `${this.source_type}-${this.target_type}`;
     return this.field_values.get(relationship_type);
   }
 
+  // the attributes to render the link
   get_field_values_for_links(attr: string) {
     const key_value = `${this.source_type}-${this.target_type}-${attr}`;
     return this.field_values_having_links.get(key_value);
   }
 
+  // only show the download button when the target is files
   showButton() {
     return this.target_type === 'file';
   }
@@ -80,6 +74,16 @@ export class RelatedItemsComponent implements OnInit {
     this.urls.forEach(url => FileSaver.saveAs(url));
   }
 
+  disableButton() {
+    return this.urls.length === 0;
+  }
+
+  // get the number of files selected
+  getUrlsLength() {
+    return this.urls.length;
+  }
+
+  // the behaviour of the checkbox in the table under Download column
   onCheckboxClick(url: string) {
     url = 'ftp://' + url;
     const index = this.urls.indexOf(url);
@@ -88,22 +92,36 @@ export class RelatedItemsComponent implements OnInit {
     } else {
       this.urls.push(url);
     }
-    console.log(this.urls.length);
   }
 
-  disableButton() {
-    return this.urls.length === 0;
-  }
-
-  getUrlsLength() {
-    return this.urls.length;
-  }
-
+  // the checked status of the checkbox in the table under Download column
   CheckboxChecked(url: string) {
     url = 'ftp://' + url;
     return this.urls.indexOf(url) !== -1;
   }
 
+  // determine the checked status of the checkbox in the table header, which is mat-checkbox ready
+  // return 2 means all files selected (mat-checkbox checked), 1 means partially files selected (mat-checkbox indeterminate)
+  // and 0 means none selected
+  mainCheckboxChecked() {
+    if (this.records) {
+      if (this.urls.length === this.records.length) {
+        this.checked = true;
+        return 2;
+      } else {
+        this.checked = false;
+        if (this.urls.length > 0) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    } else {
+      return 0;
+    }
+  }
+
+  // the behaviour of the checkbox in the table header
   mainCheckboxClicked() {
     if (this.checked === true) {
       this.urls = [];
@@ -120,7 +138,6 @@ export class RelatedItemsComponent implements OnInit {
           this.urls.push(url);
         }
       }
-
     }
     this.checked = !this.checked;
   }

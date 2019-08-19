@@ -9,6 +9,7 @@ import {Title} from '@angular/platform-browser';
   templateUrl: './dataset-detail.component.html',
   styleUrls: ['./dataset-detail.component.css']
 })
+
 export class DatasetDetailComponent implements OnInit {
   accession: string;
   dataset: any;
