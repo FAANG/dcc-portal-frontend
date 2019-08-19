@@ -2,13 +2,20 @@
   <!--<div *ngIf="get_field_names().length > 0 specimenList?.hits.total > 0">&ndash;&gt;-->
 
   <hr>
-  <h3>Related {{target_type}}s</h3>
+  <h3>
+    Related {{target_type}}s
+    <button type="button" class="btn btn-success" (click)="downloadAllFiles()" [disabled]="disableButton()" *ngIf="showButton()">Download all files ({{getUrlsLength()}})</button>
+  </h3>
   <table class="table table-striped table-hover table-responsive">
     <thead>
     <tr>
       <ng-container *ngFor="let field of get_field_names()">
         <th>{{field}}</th>
       </ng-container>
+      <th *ngIf="download_key.length>0">
+        Download
+        <input type="checkbox" [checked]="checked" (click)="mainCheckboxClicked()">
+      </th>
     </tr>
     </thead>
     <tbody>
@@ -17,32 +24,21 @@
       <ng-container *ngFor="let attr of get_field_values()">
         <td>
           <span *ngIf="get_field_values_for_links(attr) && get_field_values_for_links(attr).length>0; else plainBlock">
-          <app-robust-link [prefix]="get_field_values_for_links(attr)[0]"
-                           [link]="record[get_field_values_for_links(attr)[1]]"
-                           [text]="record[attr]">
-          </app-robust-link>
+            <app-robust-link [prefix]="get_field_values_for_links(attr)[0]"
+                             [link]="record[get_field_values_for_links(attr)[1]]"
+                             [text]="record[attr]">
+            </app-robust-link>
           </span>
           <ng-template #plainBlock>
-          {{record[attr]}}
+            {{record[attr]}}
           </ng-template>
         </td>
       </ng-container>
+        <td *ngIf="download_key.length>0">
+          <input type="checkbox" (click)="onCheckboxClick(record[download_key])"
+                 [checked]="CheckboxChecked(record[download_key])">
+        </td>
       </tr>
-
-      <!--        <tr>-->
-      <!--          <td><app-robust-link prefix="../specimen/" [link]="specimen?._id" [text]="specimen?._id"></app-robust-link></td>-->
-      <!--          <td [ngSwitch]="specimen?._source?.material?.text">-->
-      <!--            <ng-template ngSwitchCase="specimen from organism">{{specimen?._source?.specimenFromOrganism?.organismPart?.text}}</ng-template>-->
-      <!--            &lt;!&ndash;should be in the form of commented one, but due to backend data structure, the [0] is used. Expected to change in the future when data structure fixed&ndash;&gt;-->
-      <!--            &lt;!&ndash;  <ng-template ngSwitchCase="cell specimen">{{specimen?._source?.cellSpecimen?.cellType?.text}}</ng-template>&ndash;&gt;-->
-      <!--            <ng-template ngSwitchCase="cell specimen">{{specimen?._source?.cellSpecimen?.cellType[0]?.text}}</ng-template>-->
-      <!--            <ng-template ngSwitchCase="pool of specimens"></ng-template>-->
-      <!--            <ng-template ngSwitchCase="cell culture">{{specimen?._source?.cellCulture?.cellType?.text}}</ng-template>-->
-      <!--            <ng-template ngSwitchCase="cell line">{{specimen?._source?.cellLine?.cellType?.text}}</ng-template>-->
-      <!--            <ng-template ngSwitchDefault>Unknown</ng-template>-->
-      <!--          </td>-->
-      <!--          <td>{{specimen?._source?.material?.text}}</td>-->
-      <!--        </tr>-->
     </ng-container>
     </tbody>
   </table>
