@@ -8,10 +8,10 @@ import * as FileSaver from 'file-saver';
   styleUrls: ['./related-items.component.css']
 })
 export class RelatedItemsComponent implements OnInit {
-  @Input() record_id: string;
-  @Input() source_type: string;
-  @Input() target_type: string;
-  @Input() download_key: string;
+  @Input() record_id: string; // the record id used to retrieve particular record
+  @Input() source_type: string; // equal to the type of detail page, e.g. to list files in the dataset detail page, set to be dataset
+  @Input() target_type: string; // the related entities, e.g. to list files in the dataset detail page, set to be file
+  @Input() download_key: string; // if download not needed (nomrally not file), set to empty string, otherwise to the link attribute
 
   records: any;
   urls: string[] = [];
@@ -26,13 +26,21 @@ export class RelatedItemsComponent implements OnInit {
   field_names = new Map<string, string[]>();
   field_values = new Map<string, string[]>();
   field_values_having_links = new Map<string, string[]>();
-
+  // to use this component, 4 steps:
+  // Step 1: add corresponding setting in the constructor
+  // Step 2: in ngOnInit, add else if to retrieve the data
+  // Step 3: add in the detail page
+  // Step 4: make necessary adjustment (i.e. debugging)
 
   constructor(private apiFileService: ApiFileService) {
     // files in the analysis detail page
     this.field_names.set('analysis-file', ['Name', 'Type', 'Size', 'Checksum']);
     this.field_values.set('analysis-file', ['name', 'type', 'size', 'checksum']);
     this.field_values_having_links.set('analysis-file-name', ['ftp://', 'url']);
+    // sepcimens in the dataset detail page
+    this.field_names.set('dataset-specimen', ['BioSamples ID', 'Material', 'Cell type', 'Sex', 'Species', 'Breed']);
+    this.field_values.set('dataset-specimen', ['biosampleId', 'material.text', 'cellType.text', 'sex.text', 'organism.text', 'breed.text']);
+    this.field_values_having_links.set('dataset-specimen-biosampleId', ['../specimen/', 'biosampleId']);
   }
 
   ngOnInit() {
@@ -41,6 +49,11 @@ export class RelatedItemsComponent implements OnInit {
       this.apiFileService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
           this.records = data['_source']['files'];
+        });
+    } else if (relationship_type === 'dataset-specimen') {
+      this.apiFileService.getDataset(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'][0]['_source']['specimen'];
         });
     }
 
@@ -81,6 +94,15 @@ export class RelatedItemsComponent implements OnInit {
   // get the number of files selected
   getUrlsLength() {
     return this.urls.length;
+  }
+
+  getValue(record: any, attr: string){
+    const elmts = attr.split('.');
+    let curr: any = record;
+    for (const elmt of elmts) {
+      curr = curr[elmt];
+    }
+    return curr;
   }
 
   // the behaviour of the checkbox in the table under Download column
@@ -140,5 +162,9 @@ export class RelatedItemsComponent implements OnInit {
       }
     }
     this.checked = !this.checked;
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

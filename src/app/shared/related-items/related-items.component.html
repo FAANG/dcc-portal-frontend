@@ -3,7 +3,7 @@
 
   <hr>
   <h3>
-    Related {{target_type}}s
+    Related {{capitalizeFirstLetter(target_type)}}s
     <button type="button" class="btn btn-success" (click)="downloadAllFiles()" [disabled]="disableButton()" *ngIf="showButton()">Download all files ({{getUrlsLength()}})</button>
   </h3>
   <table class="table table-striped table-hover table-responsive">
@@ -30,7 +30,7 @@
             </app-robust-link>
           </span>
           <ng-template #plainBlock>
-            {{record[attr]}}
+            {{getValue(record, attr)}}
           </ng-template>
         </td>
       </ng-container>
@@ -42,5 +42,5 @@
     </ng-container>
     </tbody>
   </table>
-  <!--  <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
