@@ -33,6 +33,7 @@ export class RelatedItemsComponent implements OnInit {
   // Step 4: make necessary adjustment (i.e. debugging)
 
   constructor(private apiFileService: ApiFileService) {
+    // better to have the following setting in a separate file
     // files in the analysis detail page
     this.field_names.set('analysis-file', ['Name', 'Type', 'Size', 'Checksum']);
     this.field_values.set('analysis-file', ['name', 'type', 'size', 'checksum']);
@@ -49,6 +50,14 @@ export class RelatedItemsComponent implements OnInit {
     this.field_names.set('dataset-file', ['File name', 'Experiment', 'Archive', 'File size']);
     this.field_values.set('dataset-file', ['name', 'experiment', 'archive', 'readableSize']);
     this.field_values_having_links.set('dataset-file-name', ['../file/', 'fileId']);
+    // papers in the organism detail page
+    this.field_names.set('organism-paper', ['Title', 'Year', 'Journal']);
+    this.field_values.set('organism-paper', ['title', 'year', 'journal']);
+    this.field_values_having_links.set('organism-paper-title', ['https://doi.org/', 'doi']);
+    // papers in the organism detail page
+    this.field_names.set('organism-specimen', ['BioSample ID', 'Organism part/Cell type', 'Material type']);
+    this.field_values.set('organism-specimen', ['_source.biosampleId', '_source.cellType.text', '_source.material.text']);
+    this.field_values_having_links.set('organism-specimen-_source.biosampleId', ['../specimen/', '_source.biosampleId']);
   }
 
   ngOnInit() {
@@ -72,6 +81,16 @@ export class RelatedItemsComponent implements OnInit {
       this.apiFileService.getDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+        });
+    } else if (relationship_type === 'organism-paper') {
+      this.apiFileService.getOrganism(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+        });
+    } else if (relationship_type === 'organism-specimen') {
+      this.apiFileService.getOrganismsSpecimens(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'];
         });
     }
 
@@ -114,7 +133,7 @@ export class RelatedItemsComponent implements OnInit {
     return this.urls.length;
   }
 
-  getValue(record: any, attr: string){
+  getValue(record: any, attr: string) {
     const elmts = attr.split('.');
     let curr: any = record;
     for (const elmt of elmts) {

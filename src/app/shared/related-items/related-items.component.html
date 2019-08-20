@@ -26,8 +26,8 @@
         <td>
           <span *ngIf="get_field_values_for_links(attr) && get_field_values_for_links(attr).length>0; else plainBlock">
             <app-robust-link [prefix]="get_field_values_for_links(attr)[0]"
-                             [link]="record[get_field_values_for_links(attr)[1]]"
-                             [text]="record[attr]">
+                             [link]="getValue(record, get_field_values_for_links(attr)[1])"
+                             [text]="getValue(record, attr)">
             </app-robust-link>
           </span>
           <ng-template #plainBlock>

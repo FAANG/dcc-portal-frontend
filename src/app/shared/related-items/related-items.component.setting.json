@@ -1,0 +1,70 @@
+{
+  "analysis": {
+    "file": {
+      "field_names": [
+        "Name",
+        "Type",
+        "Size",
+        "Checksum"
+      ],
+      "field_values": [
+        "name",
+        "type",
+        "size",
+        "checksum"
+      ],
+      "field_values_having_links": [
+        {
+          "name": {
+            "prefix": "ftp://",
+            "url": "url"
+          }
+        }
+      ]
+    }
+  },
+  "dataset": {
+    "paper": {
+      "field_names": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "field_values": [
+        "title",
+        "year",
+        "journal"
+      ],
+      "field_values_having_links": [
+        {
+          "title": {
+            "prefix": "https://doi.org/",
+            "url": "doi"
+          }
+        }
+      ]
+    },
+    "file": {
+      "field_names": [
+        "File name",
+        "Experiment",
+        "Archive",
+        "File size"
+      ],
+      "field_values": [
+        "name",
+        "experiment",
+        "archive",
+        "readableSize"
+      ],
+      "field_values_having_links": [
+        {
+          "name": {
+            "prefix": "../file/",
+            "url": "fileId"
+          }
+        }
+      ]
+    }
+  }
+}
