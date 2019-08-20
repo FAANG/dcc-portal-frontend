@@ -57,6 +57,7 @@ import {SlicePipe} from '@angular/common';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { NonExistingComponent } from './non-existing/non-existing.component';
     HttpClientModule,
     NgxPaginationModule,
     Angular2CsvModule,
+    MatCheckboxModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
     CookieLawModule,

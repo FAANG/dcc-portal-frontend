@@ -13,8 +13,9 @@
         <th>{{field}}</th>
       </ng-container>
       <th *ngIf="download_key.length>0">
-        Download
-        <input type="checkbox" [checked]="mainCheckboxChecked() == 2" (click)="mainCheckboxClicked()">
+        <mat-checkbox (change)="mainCheckboxClicked()" [indeterminate]="mainCheckboxChecked() == 1"
+                      [checked]="mainCheckboxChecked() == 2">Download</mat-checkbox>
+<!--        <input type="checkbox" [checked]="mainCheckboxChecked() == 2" (click)="mainCheckboxClicked()">-->
       </th>
     </tr>
     </thead>
@@ -35,6 +36,8 @@
         </td>
       </ng-container>
         <td *ngIf="download_key.length>0">
+<!--          <mat-checkbox (change)="onCheckboxClick(record[download_key])"-->
+<!--                        [checked]="CheckboxChecked(record[download_key])"></mat-checkbox>-->
           <input type="checkbox" (click)="onCheckboxClick(record[download_key])"
                  [checked]="CheckboxChecked(record[download_key])">
         </td>
