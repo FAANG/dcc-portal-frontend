@@ -54,10 +54,29 @@ export class RelatedItemsComponent implements OnInit {
     this.field_names.set('organism-paper', ['Title', 'Year', 'Journal']);
     this.field_values.set('organism-paper', ['title', 'year', 'journal']);
     this.field_values_having_links.set('organism-paper-title', ['https://doi.org/', 'doi']);
-    // papers in the organism detail page
+    // specimens in the organism detail page
     this.field_names.set('organism-specimen', ['BioSample ID', 'Organism part/Cell type', 'Material type']);
     this.field_values.set('organism-specimen', ['_source.biosampleId', '_source.cellType.text', '_source.material.text']);
     this.field_values_having_links.set('organism-specimen-_source.biosampleId', ['../specimen/', '_source.biosampleId']);
+
+    // papers in the specimen detail page
+    this.field_names.set('specimen-paper', ['Title', 'Year', 'Journal']);
+    this.field_values.set('specimen-paper', ['title', 'year', 'journal']);
+    this.field_values_having_links.set('specimen-paper-title', ['https://doi.org/', 'doi']);
+    // sepcimens in the specimen detail page
+    this.field_names.set('specimen-specimen', ['BioSamples ID', 'Organism part/Cell type', 'Material type']);
+    this.field_values.set('specimen-specimen',
+      ['_source.biosampleId', '_source.cellType.text', '_source.material.text']);
+    this.field_values_having_links.set('specimen-specimen-_source.biosampleId', ['../specimen/', '_source.biosampleId']);
+    // files in the specimen detail page
+    this.field_names.set('specimen-file', ['Name', 'Archive', 'Experiment', 'Run', 'Assay type', 'Experiment target']);
+    this.field_values.set('specimen-file', ['_id', '_source.archive', '_source.experiment.accession', '_source.run.accession',
+      '_source.experiment.assayType', '_source.experiment.target']);
+    this.field_values_having_links.set('specimen-file-_id', ['../file/', '_id']);
+    this.field_values_having_links.set('specimen-file-_source.experiment.accession',
+      ['http://www.ebi.ac.uk/ena/data/view/', '_source.experiment.accession']);
+    this.field_values_having_links.set('specimen-file-_source.run.accession',
+      ['http://www.ebi.ac.uk/ena/data/view/', '_source.run.accession']);
   }
 
   ngOnInit() {
@@ -89,6 +108,21 @@ export class RelatedItemsComponent implements OnInit {
         });
     } else if (relationship_type === 'organism-specimen') {
       this.apiFileService.getOrganismsSpecimens(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'];
+        });
+    } else if (relationship_type === 'specimen-paper') {
+      this.apiFileService.getSpecimen(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+        });
+    } else if (relationship_type === 'specimen-specimen') {
+      this.apiFileService.getSpecimenRelationships(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'];
+        });
+    } else if (relationship_type === 'specimen-file') {
+      this.apiFileService.getSpecimenFiles(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
         });

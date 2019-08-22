@@ -36,10 +36,10 @@
         </td>
       </ng-container>
         <td *ngIf="download_key.length>0">
-<!--          <mat-checkbox (change)="onCheckboxClick(record[download_key])"-->
-<!--                        [checked]="CheckboxChecked(record[download_key])"></mat-checkbox>-->
-          <input type="checkbox" (click)="onCheckboxClick(record[download_key])"
-                 [checked]="CheckboxChecked(record[download_key])">
+<!--          <mat-checkbox (change)="onCheckboxClick(get(record,download_key))"-->
+<!--                        [checked]="CheckboxChecked(get(record,download_key))"></mat-checkbox>-->
+          <input type="checkbox" (click)="onCheckboxClick(getValue(record,download_key))"
+                 [checked]="CheckboxChecked(getValue(record, download_key))">
         </td>
       </tr>
     </ng-container>
