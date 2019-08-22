@@ -13,16 +13,15 @@
         "size",
         "checksum"
       ],
-      "field_values_having_links": [
-        {
-          "name": {
-            "prefix": "ftp://",
-            "url": "url"
-          }
+      "field_values_having_links": {
+        "name": {
+          "prefix": "ftp://",
+          "url": "url"
         }
-      ]
+      }
     }
   },
+
   "dataset": {
     "paper": {
       "field_names": [
@@ -35,11 +34,35 @@
         "year",
         "journal"
       ],
+      "field_values_having_links": {
+        "title": {
+          "prefix": "https://doi.org/",
+          "url": "doi"
+        }
+      }
+    },
+    "specimen": {
+      "field_names": [
+        "BioSamples ID",
+        "Material",
+        "Cell type",
+        "Sex",
+        "Species",
+        "Breed"
+      ],
+      "field_values": [
+        "biosampleId",
+        "material.text",
+        "cellType.text",
+        "sex.text",
+        "organism.text",
+        "breed.text"
+      ],
       "field_values_having_links": [
         {
-          "title": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+          "biosampleId": {
+            "prefix": "../specimen/",
+            "url": "biosampleId"
           }
         }
       ]
@@ -57,14 +80,124 @@
         "archive",
         "readableSize"
       ],
-      "field_values_having_links": [
-        {
-          "name": {
-            "prefix": "../file/",
-            "url": "fileId"
-          }
+      "field_values_having_links": {
+        "name": {
+          "prefix": "../file/",
+          "url": "fileId"
         }
-      ]
+      }
+    }
+  },
+
+  "organism": {
+    "paper": {
+      "field_names": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "field_values": [
+        "title",
+        "year",
+        "journal"
+      ],
+      "field_values_having_links": {
+        "title": {
+          "prefix": "https://doi.org/",
+          "url": "doi"
+        }
+      }
+    },
+    "specimen": {
+      "field_names": [
+        "BioSamples ID",
+        "Organism part/Cell type",
+        "Material type"
+      ],
+      "field_values": [
+        "_source.biosampleId",
+        "_source.cellType.text",
+        "_source.material.text"
+      ],
+      "field_values_having_links": {
+        "_source.biosampleId": {
+          "prefix": "../specimen/",
+          "url": "_source.biosampleId"
+        }
+      }
+    }
+  },
+
+  "specimen": {
+    "paper": {
+      "field_names": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "field_values": [
+        "title",
+        "year",
+        "journal"
+      ],
+      "field_values_having_links": {
+        "title": {
+          "prefix": "https://doi.org/",
+          "url": "doi"
+        }
+      }
+    },
+    "specimen": {
+      "field_names": [
+        "BioSamples ID",
+        "Organism part/Cell type",
+        "Material type"
+      ],
+      "field_values": [
+        "_source.biosampleId",
+        "_source.cellType.text",
+        "_source.material.text"
+      ],
+      "field_values_having_links": {
+        "_source.biosampleId": {
+          "prefix": "../specimen/",
+          "url": "_source.biosampleId"
+        }
+      }
+    },
+    "file": {
+      "field_names": [
+        "Name",
+        "Archive",
+        "Experiment",
+        "Run",
+        "Assay type",
+        "Experiment target",
+        "File size"
+      ],
+      "field_values": [
+        "_id",
+        "_source.archive",
+        "_source.experiment.accession",
+        "_source.run.accession",
+        "_source.experiment.assayType",
+        "_source.experiment.target",
+        "_source.readableSize"
+      ],
+      "field_values_having_links": {
+        "_id": {
+          "prefix": "../file/",
+          "url": "_id"
+        },
+        "_source.experiment.accession": {
+          "prefix": "http://www.ebi.ac.uk/ena/data/view/",
+          "url": "_source.experiment.accession"
+        },
+        "_source.run.accession": {
+          "prefix": "http://www.ebi.ac.uk/ena/data/view/",
+          "url": "_source.run.accession"
+        }
+      }
     }
   }
 }

@@ -24,9 +24,9 @@
       <tr>
       <ng-container *ngFor="let attr of get_field_values()">
         <td>
-          <span *ngIf="get_field_values_for_links(attr) && get_field_values_for_links(attr).length>0; else plainBlock">
-            <app-robust-link [prefix]="get_field_values_for_links(attr)[0]"
-                             [link]="getValue(record, get_field_values_for_links(attr)[1])"
+          <span *ngIf="get_field_values_for_links(attr); else plainBlock">
+            <app-robust-link [prefix]="get_field_values_for_links(attr)['prefix']"
+                             [link]="getValue(record, get_field_values_for_links(attr)['url'])"
                              [text]="getValue(record, attr)">
             </app-robust-link>
           </span>

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ApiFileService} from '../../services/api-file.service';
 import * as FileSaver from 'file-saver';
+import setting from './related-items.component.setting.json';
 
 @Component({
   selector: 'app-related-items',
@@ -33,50 +34,6 @@ export class RelatedItemsComponent implements OnInit {
   // Step 4: make necessary adjustment (i.e. debugging)
 
   constructor(private apiFileService: ApiFileService) {
-    // better to have the following setting in a separate file
-    // files in the analysis detail page
-    this.field_names.set('analysis-file', ['Name', 'Type', 'Size', 'Checksum']);
-    this.field_values.set('analysis-file', ['name', 'type', 'size', 'checksum']);
-    this.field_values_having_links.set('analysis-file-name', ['ftp://', 'url']);
-    // papers in the dataset detail page
-    this.field_names.set('dataset-paper', ['Title', 'Year', 'Journal']);
-    this.field_values.set('dataset-paper', ['title', 'year', 'journal']);
-    this.field_values_having_links.set('dataset-paper-title', ['https://doi.org/', 'doi']);
-    // sepcimens in the dataset detail page
-    this.field_names.set('dataset-specimen', ['BioSamples ID', 'Material', 'Cell type', 'Sex', 'Species', 'Breed']);
-    this.field_values.set('dataset-specimen', ['biosampleId', 'material.text', 'cellType.text', 'sex.text', 'organism.text', 'breed.text']);
-    this.field_values_having_links.set('dataset-specimen-biosampleId', ['../specimen/', 'biosampleId']);
-    // files in the dataset detail page
-    this.field_names.set('dataset-file', ['File name', 'Experiment', 'Archive', 'File size']);
-    this.field_values.set('dataset-file', ['name', 'experiment', 'archive', 'readableSize']);
-    this.field_values_having_links.set('dataset-file-name', ['../file/', 'fileId']);
-    // papers in the organism detail page
-    this.field_names.set('organism-paper', ['Title', 'Year', 'Journal']);
-    this.field_values.set('organism-paper', ['title', 'year', 'journal']);
-    this.field_values_having_links.set('organism-paper-title', ['https://doi.org/', 'doi']);
-    // specimens in the organism detail page
-    this.field_names.set('organism-specimen', ['BioSample ID', 'Organism part/Cell type', 'Material type']);
-    this.field_values.set('organism-specimen', ['_source.biosampleId', '_source.cellType.text', '_source.material.text']);
-    this.field_values_having_links.set('organism-specimen-_source.biosampleId', ['../specimen/', '_source.biosampleId']);
-
-    // papers in the specimen detail page
-    this.field_names.set('specimen-paper', ['Title', 'Year', 'Journal']);
-    this.field_values.set('specimen-paper', ['title', 'year', 'journal']);
-    this.field_values_having_links.set('specimen-paper-title', ['https://doi.org/', 'doi']);
-    // sepcimens in the specimen detail page
-    this.field_names.set('specimen-specimen', ['BioSamples ID', 'Organism part/Cell type', 'Material type']);
-    this.field_values.set('specimen-specimen',
-      ['_source.biosampleId', '_source.cellType.text', '_source.material.text']);
-    this.field_values_having_links.set('specimen-specimen-_source.biosampleId', ['../specimen/', '_source.biosampleId']);
-    // files in the specimen detail page
-    this.field_names.set('specimen-file', ['Name', 'Archive', 'Experiment', 'Run', 'Assay type', 'Experiment target']);
-    this.field_values.set('specimen-file', ['_id', '_source.archive', '_source.experiment.accession', '_source.run.accession',
-      '_source.experiment.assayType', '_source.experiment.target']);
-    this.field_values_having_links.set('specimen-file-_id', ['../file/', '_id']);
-    this.field_values_having_links.set('specimen-file-_source.experiment.accession',
-      ['http://www.ebi.ac.uk/ena/data/view/', '_source.experiment.accession']);
-    this.field_values_having_links.set('specimen-file-_source.run.accession',
-      ['http://www.ebi.ac.uk/ena/data/view/', '_source.run.accession']);
   }
 
   ngOnInit() {
@@ -127,26 +84,21 @@ export class RelatedItemsComponent implements OnInit {
           this.records = data['hits']['hits'];
         });
     }
-
-
   }
 
   // get table headers
   get_field_names() {
-    const relationship_type = `${this.source_type}-${this.target_type}`;
-    return this.field_names.get(relationship_type);
+    return setting[this.source_type][this.target_type]['field_names'];
   }
 
   // get the attribute names to populate the table
   get_field_values() {
-    const relationship_type = `${this.source_type}-${this.target_type}`;
-    return this.field_values.get(relationship_type);
+    return setting[this.source_type][this.target_type]['field_values'];
   }
 
   // the attributes to render the link
   get_field_values_for_links(attr: string) {
-    const key_value = `${this.source_type}-${this.target_type}-${attr}`;
-    return this.field_values_having_links.get(key_value);
+    return setting[this.source_type][this.target_type]['field_values_having_links'][attr];
   }
 
   // only show the download button when the target is files
