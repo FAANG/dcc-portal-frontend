@@ -29,13 +29,9 @@ import { RobustLinkComponent } from './shared/robust-link/robust-link.component'
 import { RelatedItemsComponent } from './shared/related-items/related-items.component';
 import { RunFilesComponent } from './shared/run-files/run-files.component';
 import { OrganismDetailComponent } from './organism/organism-detail/organism-detail.component';
-import { OrganismSpecimenComponent } from './organism/organism-specimen/organism-specimen.component';
 import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-detail.component';
-import { SpecimenFilesComponent } from './specimen/specimen-files/specimen-files.component';
-import { SpecimenRelationshipComponent } from './specimen/specimen-relationship/specimen-relationship.component';
 import { SearchTemplateComponent } from './search/search-template/search-template.component';
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
-import { DatasetRelatedTemplateComponent } from './dataset/dataset-related-template/dataset-related-template.component';
 import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
 import { SearchService } from './services/search.service';
 import { CookieLawModule } from 'angular2-cookie-law';
@@ -81,13 +77,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     RelatedItemsComponent,
     RunFilesComponent,
     OrganismDetailComponent,
-    OrganismSpecimenComponent,
     SpecimenDetailComponent,
-    SpecimenFilesComponent,
-    SpecimenRelationshipComponent,
     SearchTemplateComponent,
     DatasetDetailComponent,
-    DatasetRelatedTemplateComponent,
     AnalysisDetailComponent,
     ApiComponent,
     ProtocolSampleComponent,
