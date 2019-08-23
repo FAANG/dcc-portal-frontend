@@ -3,8 +3,11 @@
 
   <hr>
   <h3>
-    Related {{capitalizeFirstLetter(target_type)}}s
-    <button type="button" class="btn btn-success" (click)="downloadAllFiles()" [disabled]="disableButton()" *ngIf="showButton()">Download all files ({{getUrlsLength()}})</button>
+    Related
+    <ng-container *ngIf="target_type == 'analysis'">Analyses </ng-container>
+    <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s </ng-container>
+    <button type="button" class="btn btn-success" (click)="downloadAllFiles()" [disabled]="disableButton()"
+            *ngIf="showButton()">Download all files ({{getUrlsLength()}})</button>
   </h3>
   <table class="table table-striped table-hover table-responsive">
     <thead>

@@ -19,19 +19,11 @@ export class RelatedItemsComponent implements OnInit {
   checked = false;
 
   p = 1; // page number for html template
-  // field names and values must match  i.e. same length and order
-  // field names are the table headers
-  // field values are the actual value in the table
-  // field values having links have value of 'prefix', 'url', 'display'
-  // and keys as source_type-target_entity-display
-  field_names = new Map<string, string[]>();
-  field_values = new Map<string, string[]>();
-  field_values_having_links = new Map<string, string[]>();
   // to use this component, 4 steps:
-  // Step 1: add corresponding setting in the constructor
+  // Step 1: add corresponding setting in the setting json file
   // Step 2: in ngOnInit, add else if to retrieve the data
-  // Step 3: add in the detail page
-  // Step 4: make necessary adjustment (i.e. debugging)
+  // Step 3: add this component into the detail page
+  // Step 4: make necessary adjustment (i.e. debugging) to the setting
 
   constructor(private apiFileService: ApiFileService) {
   }
@@ -58,6 +50,12 @@ export class RelatedItemsComponent implements OnInit {
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
+    } else if (relationship_type === 'dataset-analysis') {
+      this.apiFileService.getAnalysesByDataset(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'];
+          console.log(this.records);
+        });
     } else if (relationship_type === 'organism-paper') {
       this.apiFileService.getOrganism(this.record_id).subscribe(
         (data: any) => {
@@ -80,6 +78,11 @@ export class RelatedItemsComponent implements OnInit {
         });
     } else if (relationship_type === 'specimen-file') {
       this.apiFileService.getSpecimenFiles(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'];
+        });
+    } else if (relationship_type === 'specimen-analysis') {
+      this.apiFileService.getAnalysesBySample(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
         });

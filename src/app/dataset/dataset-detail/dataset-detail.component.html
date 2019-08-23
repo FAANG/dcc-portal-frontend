@@ -65,6 +65,8 @@
                        download_key="" [record_id]="dataset.accession"></app-related-items>
     <app-related-items source_type="dataset" target_type="file"
                        download_key="url" [record_id]="dataset.accession"></app-related-items>
+    <app-related-items source_type="dataset" target_type="analysis"
+                       download_key="" [record_id]="dataset.accession"></app-related-items>
   </ng-container>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>

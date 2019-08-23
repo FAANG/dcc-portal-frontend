@@ -218,6 +218,24 @@ export class ApiFileService {
     );
   }
 
+  getAnalysesBySample(sampleId: any) {
+    const url = 'http://wp-np3-e2:9200/faang_build_1_analysis/_search/?q=sampleAccessions:' + sampleId + '&sort=accession:asc&size=10000';
+    // const url = this.hostSetting.host + 'analysis/_search/?q=sampleAccessions:' + sampleId + '&sort=accession:asc';
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAnalysesByDataset(accession: any) {
+    const url = 'http://wp-np3-e2:9200/faang_build_1_analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc&size=10000';
+    // const url = this.hostSetting.host + 'analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc';
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getAnalysis(accession: string) {
 //    const url = this.hostSetting.host + 'analysis/' + accession;
     const url = 'http://wp-np3-e2:9200/faang_build_1_analysis/_doc/' + accession;

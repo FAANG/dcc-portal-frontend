@@ -58,14 +58,13 @@
         "organism.text",
         "breed.text"
       ],
-      "field_values_having_links": [
+      "field_values_having_links":
         {
           "biosampleId": {
             "prefix": "../specimen/",
             "url": "biosampleId"
           }
         }
-      ]
     },
     "file": {
       "field_names": [
@@ -84,6 +83,22 @@
         "name": {
           "prefix": "../file/",
           "url": "fileId"
+        }
+      }
+    },
+    "analysis": {
+      "field_names": [
+        "Accession",
+        "Type"
+      ],
+      "field_values": [
+        "_id",
+        "_source.analysisType"
+      ],
+      "field_values_having_links": {
+        "_id": {
+          "prefix": "../analysis/",
+          "url": "_id"
         }
       }
     }
@@ -196,6 +211,28 @@
         "_source.run.accession": {
           "prefix": "http://www.ebi.ac.uk/ena/data/view/",
           "url": "_source.run.accession"
+        }
+      }
+    },
+    "analysis": {
+      "field_names": [
+        "Accession",
+        "Type",
+        "Dataset"
+      ],
+      "field_values": [
+        "_id",
+        "_source.analysisType",
+        "_source.datasetAccession"
+      ],
+      "field_values_having_links": {
+        "_id": {
+          "prefix": "../analysis/",
+          "url": "_id"
+        },
+        "_source.datasetAccession": {
+          "prefix": "http://www.ebi.ac.uk/ena/data/view/",
+          "url": "_source.datasetAccession"
         }
       }
     }
