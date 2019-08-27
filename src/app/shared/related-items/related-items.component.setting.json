@@ -1,48 +1,68 @@
 {
   "analysis": {
     "file": {
-      "field_names": [
+      "display": [
         "Name",
         "Type",
         "Size",
         "Checksum"
       ],
-      "field_values": [
-        "name",
-        "type",
-        "size",
-        "checksum"
+      "all": [
+        "Name",
+        "Type",
+        "Size",
+        "Checksum"
       ],
-      "field_values_having_links": {
-        "name": {
-          "prefix": "ftp://",
-          "url": "url"
+      "fields": {
+        "Name": {
+          "value": "name",
+          "link": {
+            "prefix": "ftp://",
+            "url": "url"
+          }
+        },
+        "Type": {
+          "value": "type"
+        },
+        "Size": {
+          "value": "size"
+        },
+        "Checksum": {
+          "value": "checksum"
         }
       }
     }
   },
-
   "dataset": {
     "paper": {
-      "field_names": [
+      "display": [
         "Title",
         "Year",
         "Journal"
       ],
-      "field_values": [
-        "title",
-        "year",
-        "journal"
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
       ],
-      "field_values_having_links": {
-        "title": {
-          "prefix": "https://doi.org/",
-          "url": "doi"
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "https://doi.org/",
+            "url": "doi"
+          }
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
         }
       }
     },
     "specimen": {
-      "field_names": [
+      "display": [
         "BioSamples ID",
         "Material",
         "Cell type",
@@ -50,138 +70,207 @@
         "Species",
         "Breed"
       ],
-      "field_values": [
-        "biosampleId",
-        "material.text",
-        "cellType.text",
-        "sex.text",
-        "organism.text",
-        "breed.text"
+      "all": [
+        "BioSamples ID",
+        "Material",
+        "Cell type",
+        "Sex",
+        "Species",
+        "Breed"
       ],
-      "field_values_having_links":
-        {
-          "biosampleId": {
+      "fields": {
+        "BioSamples ID": {
+          "value": "biosampleId",
+          "link": {
             "prefix": "../specimen/",
             "url": "biosampleId"
           }
+        },
+        "Material": {
+          "value": "material.text"
+        },
+        "Cell type": {
+          "value": "cellType.text"
+        },
+        "Sex": {
+          "value": "sex.text"
+        },
+        "Species": {
+          "value": "organism.text"
+        },
+        "Breed": {
+          "value": "breed.text"
         }
+      }
     },
     "file": {
-      "field_names": [
+      "display": [
         "File name",
         "Experiment",
         "Archive",
         "File size"
       ],
-      "field_values": [
-        "name",
-        "experiment",
-        "archive",
-        "readableSize"
+      "all": [
+        "File name",
+        "Experiment",
+        "Archive",
+        "File size"
       ],
-      "field_values_having_links": {
-        "name": {
-          "prefix": "../file/",
-          "url": "fileId"
+      "fields": {
+        "File name": {
+          "value": "name",
+          "link": {
+            "prefix": "../file/",
+            "url": "fileId"
+          }
+        },
+        "Experiment": {
+          "value": "experiment"
+        },
+        "Archive": {
+          "value": "archive"
+        },
+        "File size": {
+          "value": "readableSize"
         }
       }
     },
     "analysis": {
-      "field_names": [
+      "display": [
         "Accession",
         "Type"
       ],
-      "field_values": [
-        "_id",
-        "_source.analysisType"
+      "all": [
+        "Accession",
+        "Type"
       ],
-      "field_values_having_links": {
-        "_id": {
-          "prefix": "../analysis/",
-          "url": "_id"
+      "fields": {
+        "Accession": {
+          "value": "_id",
+          "link": {
+            "prefix": "../analysis/",
+            "url": "_id"
+          }
+        },
+        "Type": {
+          "value": "_source.analysisType"
         }
       }
     }
   },
-
   "organism": {
     "paper": {
-      "field_names": [
+      "display": [
         "Title",
         "Year",
         "Journal"
       ],
-      "field_values": [
-        "title",
-        "year",
-        "journal"
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
       ],
-      "field_values_having_links": {
-        "title": {
-          "prefix": "https://doi.org/",
-          "url": "doi"
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "https://doi.org/",
+            "url": "doi"
+          }
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
         }
       }
     },
     "specimen": {
-      "field_names": [
+      "display": [
         "BioSamples ID",
         "Organism part/Cell type",
         "Material type"
       ],
-      "field_values": [
-        "_source.biosampleId",
-        "_source.cellType.text",
-        "_source.material.text"
+      "all": [
+        "BioSamples ID",
+        "Organism part/Cell type",
+        "Material type"
       ],
-      "field_values_having_links": {
-        "_source.biosampleId": {
-          "prefix": "../specimen/",
-          "url": "_source.biosampleId"
+      "fields": {
+        "BioSamples ID": {
+          "value": "_source.biosampleId",
+          "link": {
+            "prefix": "../specimen/",
+            "url": "_source.biosampleId"
+          }
+        },
+        "Organism part/Cell type": {
+          "value": "_source.cellType.text"
+        },
+        "Material type": {
+          "value": "_source.material.text"
         }
       }
     }
   },
-
   "specimen": {
     "paper": {
-      "field_names": [
+      "display": [
         "Title",
         "Year",
         "Journal"
       ],
-      "field_values": [
-        "title",
-        "year",
-        "journal"
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
       ],
-      "field_values_having_links": {
-        "title": {
-          "prefix": "https://doi.org/",
-          "url": "doi"
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "https://doi.org/",
+            "url": "doi"
+          }
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
         }
       }
     },
     "specimen": {
-      "field_names": [
+      "display": [
         "BioSamples ID",
         "Organism part/Cell type",
         "Material type"
       ],
-      "field_values": [
-        "_source.biosampleId",
-        "_source.cellType.text",
-        "_source.material.text"
+      "all": [
+        "BioSamples ID",
+        "Organism part/Cell type",
+        "Material type"
       ],
-      "field_values_having_links": {
-        "_source.biosampleId": {
-          "prefix": "../specimen/",
-          "url": "_source.biosampleId"
+      "fields": {
+        "BioSamples ID": {
+          "value": "_source.biosampleId",
+          "link": {
+            "prefix": "../specimen/",
+            "url": "_source.biosampleId"
+          }
+        },
+        "Organism part/Cell type": {
+          "value": "_source.cellType.text"
+        },
+        "Material type": {
+          "value": "_source.material.text"
         }
       }
     },
     "file": {
-      "field_names": [
+      "display": [
         "Name",
         "Archive",
         "Experiment",
@@ -190,49 +279,79 @@
         "Experiment target",
         "File size"
       ],
-      "field_values": [
-        "_id",
-        "_source.archive",
-        "_source.experiment.accession",
-        "_source.run.accession",
-        "_source.experiment.assayType",
-        "_source.experiment.target",
-        "_source.readableSize"
+      "all": [
+        "Name",
+        "Archive",
+        "Experiment",
+        "Run",
+        "Assay type",
+        "Experiment target",
+        "File size"
       ],
-      "field_values_having_links": {
-        "_id": {
-          "prefix": "../file/",
-          "url": "_id"
+      "fields": {
+        "Name": {
+          "value": "_id",
+          "link": {
+            "prefix": "../file/",
+            "url": "_id"
+          }
         },
-        "_source.experiment.accession": {
-          "prefix": "http://www.ebi.ac.uk/ena/data/view/",
-          "url": "_source.experiment.accession"
+        "Archive": {
+          "value": "_source.archive"
         },
-        "_source.run.accession": {
-          "prefix": "http://www.ebi.ac.uk/ena/data/view/",
-          "url": "_source.run.accession"
+        "Experiment": {
+          "value": "_source.experiment.accession",
+          "link": {
+            "prefix": "http://www.ebi.ac.uk/ena/data/view/",
+            "url": "_source.experiment.accession"
+          }
+        },
+        "Run": {
+          "value": "_source.run.accession",
+          "link": {
+            "prefix": "http://www.ebi.ac.uk/ena/data/view/",
+            "url": "_source.run.accession"
+          }
+        },
+        "Assay type": {
+          "value": "_source.experiment.assayType"
+        },
+        "Experiment target": {
+          "value": "_source.experiment.target"
+        },
+        "File size": {
+          "value": "_source.readableSize"
         }
       }
     },
     "analysis": {
-      "field_names": [
+      "display": [
         "Accession",
         "Type",
         "Dataset"
       ],
-      "field_values": [
-        "_id",
-        "_source.analysisType",
-        "_source.datasetAccession"
+      "all": [
+        "Accession",
+        "Type",
+        "Dataset"
       ],
-      "field_values_having_links": {
-        "_id": {
-          "prefix": "../analysis/",
-          "url": "_id"
+      "fields": {
+        "Accession": {
+          "value": "_id",
+          "link": {
+            "prefix": "../analysis/",
+            "url": "_id"
+          }
         },
-        "_source.datasetAccession": {
-          "prefix": "http://www.ebi.ac.uk/ena/data/view/",
-          "url": "_source.datasetAccession"
+        "Type": {
+          "value": "_source.analysisType"
+        },
+        "Dataset": {
+          "value": "_source.datasetAccession",
+          "link": {
+            "prefix": "http://www.ebi.ac.uk/ena/data/view/",
+            "url": "_source.datasetAccession"
+          }
         }
       }
     }

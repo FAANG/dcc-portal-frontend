@@ -1,4 +1,4 @@
-<div *ngIf="get_field_names()?.length > 0 && records && records.length > 0">
+<div *ngIf="get_displayed_fields()?.length > 0 && records && records.length > 0">
   <!--<div *ngIf="get_field_names().length > 0 specimenList?.hits.total > 0">&ndash;&gt;-->
 
   <hr>
@@ -12,7 +12,7 @@
   <table class="table table-striped table-hover table-responsive">
     <thead>
     <tr>
-      <ng-container *ngFor="let field of get_field_names()">
+      <ng-container *ngFor="let field of get_displayed_fields()">
         <th>{{field}}</th>
       </ng-container>
       <th *ngIf="download_key.length>0">
@@ -25,16 +25,16 @@
     <tbody>
     <ng-container *ngFor="let record of records |  paginate: { itemsPerPage: 10, currentPage: p, id: target_type }">
       <tr>
-      <ng-container *ngFor="let attr of get_field_values()">
+      <ng-container *ngFor="let attr of get_displayed_fields()">
         <td>
           <span *ngIf="get_field_values_for_links(attr); else plainBlock">
             <app-robust-link [prefix]="get_field_values_for_links(attr)['prefix']"
                              [link]="getValue(record, get_field_values_for_links(attr)['url'])"
-                             [text]="getValue(record, attr)">
+                             [text]="getValue(record, get_attr(attr))">
             </app-robust-link>
           </span>
           <ng-template #plainBlock>
-            {{getValue(record, attr)}}
+            {{getValue(record, get_attr(attr))}}
           </ng-template>
         </td>
       </ng-container>

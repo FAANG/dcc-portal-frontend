@@ -17,6 +17,7 @@ export class RelatedItemsComponent implements OnInit {
   records: any;
   urls: string[] = [];
   checked = false;
+  selected: Map<string, boolean> = new Map();
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -29,6 +30,15 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   ngOnInit() {
+    for (let i = 0; i < setting[this.source_type][this.target_type]['display'].length; i++) {
+      this.selected.set(setting[this.source_type][this.target_type]['display'][i], true);
+    }
+    for (let i = 0; i < setting[this.source_type][this.target_type]['all'].length; i++) {
+      const curr = setting[this.source_type][this.target_type]['all'][i];
+      if (!this.selected.has(curr)) {
+        this.selected.set(curr, false);
+      }
+    }
     const relationship_type = `${this.source_type}-${this.target_type}`;
     if (relationship_type === 'analysis-file') {
       this.apiFileService.getAnalysis(this.record_id).subscribe(
@@ -54,7 +64,6 @@ export class RelatedItemsComponent implements OnInit {
       this.apiFileService.getAnalysesByDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
-          console.log(this.records);
         });
     } else if (relationship_type === 'organism-paper') {
       this.apiFileService.getOrganism(this.record_id).subscribe(
@@ -90,18 +99,31 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   // get table headers
-  get_field_names() {
-    return setting[this.source_type][this.target_type]['field_names'];
+  get_all_fields() {
+    return setting[this.source_type][this.target_type]['all'];
+  }
+
+  get_displayed_fields() {
+    let results: string[] = [];
+    const all_fields = this.get_all_fields();
+    // use all_fields to conserve the display order
+    for (let i = 0; i < all_fields.length; i++) {
+      const curr = all_fields[i];
+      if (this.isDisplayed(curr)){
+        results.push(curr);
+      }
+    }
+    return results;
   }
 
   // get the attribute names to populate the table
-  get_field_values() {
-    return setting[this.source_type][this.target_type]['field_values'];
+  get_attr(field: string) {
+    return setting[this.source_type][this.target_type]['fields'][field]['value'];
   }
 
   // the attributes to render the link
   get_field_values_for_links(attr: string) {
-    return setting[this.source_type][this.target_type]['field_values_having_links'][attr];
+    return setting[this.source_type][this.target_type]['fields'][attr]['link'];
   }
 
   // only show the download button when the target is files
@@ -120,6 +142,10 @@ export class RelatedItemsComponent implements OnInit {
   // get the number of files selected
   getUrlsLength() {
     return this.urls.length;
+  }
+
+  isDisplayed(field_name: string) {
+    return this.selected.get(field_name);
   }
 
   getValue(record: any, attr: string) {
