@@ -16,6 +16,7 @@ export function asyncError<T>(errorObject: any) {
 describe('SearchService', () => {
   let httpClientSpy: { post: jasmine.Spy };
   let searchService: SearchService;
+  const host = 'http://test.faang.org/api/';
   const expectedRecords = [{id: 1, name: 'recordA'}, {id: 2, name: 'recordB'}];
   const fileQuery = {
     'bool': {
@@ -123,7 +124,7 @@ describe('SearchService', () => {
       size: 100,
     };
     body['query'] = fileQuery;
-    expect(httpClientSpy.post.calls.allArgs()).toEqual([['http://test.faang.org/api/file/_search/', body]]);
+    expect(httpClientSpy.post.calls.allArgs()).toEqual([[host + 'file/_search/', body]]);
   });
 
   it('should return only FAANG standard files', () => {
@@ -142,7 +143,7 @@ describe('SearchService', () => {
       'term' : {'experiment.standardMet' : 'FAANG'}
     };
     body['query'] = excludeLegacyDataQuery;
-    expect(httpClientSpy.post.calls.allArgs()).toEqual([['http://test.faang.org/api/file/_search/', body]]);
+    expect(httpClientSpy.post.calls.allArgs()).toEqual([[host + 'file/_search/', body]]);
   });
 
   it('should return an error when the server returns a 404 for files search', () => {
@@ -169,7 +170,7 @@ describe('SearchService', () => {
       size: 100,
     };
     body['query'] = organismQuery;
-    expect(httpClientSpy.post.calls.allArgs()).toEqual([['http://test.faang.org/api/organism/_search/', body]]);
+    expect(httpClientSpy.post.calls.allArgs()).toEqual([[host + 'organism/_search/', body]]);
   });
 
   it('should return only FAANG standard organisms', () => {
@@ -188,7 +189,7 @@ describe('SearchService', () => {
       'term' : {'standardMet' : 'FAANG'}
     };
     body['query'] = excludeLegacyDataQuery;
-    expect(httpClientSpy.post.calls.allArgs()).toEqual([['http://test.faang.org/api/organism/_search/', body]]);
+    expect(httpClientSpy.post.calls.allArgs()).toEqual([[host + 'organism/_search/', body]]);
   });
 
   it('should return an error when the server returns a 404 for organisms search', () => {
@@ -215,7 +216,7 @@ describe('SearchService', () => {
       size: 100,
     };
     body['query'] = specimenQuery;
-    expect(httpClientSpy.post.calls.allArgs()).toEqual([['http://test.faang.org/api/specimen/_search/', body]]);
+    expect(httpClientSpy.post.calls.allArgs()).toEqual([[host + 'specimen/_search/', body]]);
   });
 
   it('should return only FAANG standard specimens', () => {
@@ -234,7 +235,7 @@ describe('SearchService', () => {
       'term' : {'standardMet' : 'FAANG'}
     };
     body['query'] = excludeLegacyDataQuery;
-    expect(httpClientSpy.post.calls.allArgs()).toEqual([['http://test.faang.org/api/specimen/_search/', body]]);
+    expect(httpClientSpy.post.calls.allArgs()).toEqual([[host + 'specimen/_search/', body]]);
   });
 
   it('should return an error when the server returns a 404 for specimens search', () => {
@@ -261,7 +262,7 @@ describe('SearchService', () => {
       size: 100,
     };
     body['query'] = datasetQuery;
-    expect(httpClientSpy.post.calls.allArgs()).toEqual([['http://test.faang.org/api/dataset/_search/', body]]);
+    expect(httpClientSpy.post.calls.allArgs()).toEqual([[host + 'dataset/_search/', body]]);
   });
 
   it('should return only FAANG standard datasets', () => {
@@ -280,7 +281,7 @@ describe('SearchService', () => {
       'term' : {'standardMet' : 'FAANG'}
     };
     body['query'] = excludeLegacyDataQuery;
-    expect(httpClientSpy.post.calls.allArgs()).toEqual([['http://test.faang.org/api/dataset/_search/', body]]);
+    expect(httpClientSpy.post.calls.allArgs()).toEqual([[host + 'dataset/_search/', body]]);
   });
 
   it('should return an error when the server returns a 404 for specimens search', () => {
