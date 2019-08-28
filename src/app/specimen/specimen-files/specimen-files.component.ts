@@ -46,7 +46,11 @@ export class SpecimenFilesComponent implements OnInit {
     } else {
       this.urls.push(url);
     }
-    console.log(this.urls.length);
+    if (this.disableButton() === true) {
+      this.checked = false;
+    } else {
+      this.checked = true;
+    }
   }
 
   CheckboxChecked(url: string) {

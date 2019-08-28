@@ -40,7 +40,11 @@ export class DatasetRelatedTemplateComponent implements OnInit {
     } else {
       this.urls.push(url);
     }
-    console.log(this.urls.length);
+    if (this.disableButton() === true) {
+      this.checked = false;
+    } else {
+      this.checked = true;
+    }
   }
 
   disableButton() {

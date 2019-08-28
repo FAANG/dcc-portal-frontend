@@ -35,6 +35,11 @@ export class RunFilesComponent implements OnInit {
     } else {
       this.urls.push(url);
     }
+    if (this.disableButton() === true) {
+      this.checked = false;
+    } else {
+      this.checked = true;
+    }
   }
 
   disableButton() {
