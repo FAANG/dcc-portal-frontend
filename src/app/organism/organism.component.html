@@ -1,7 +1,7 @@
 <div class="container">
   <app-header></app-header>
   <h2>FAANG organisms</h2>
-  <h3 class="col-md-10 offset-md-1 text-info" *ngIf="hasActiveFilters()">
+  <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
     Active filters:
     <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
     <button class="btn btn-light" type = "button" (click)="removeFilter()">Remove all filters</button>

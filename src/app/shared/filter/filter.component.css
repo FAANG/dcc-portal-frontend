@@ -9,14 +9,32 @@ ul.list-group {
   margin-top: 0px;
 }
 
+li {
+  cursor: pointer;
+}
+
 i {
   cursor: pointer;
 }
 
 .card-header {
-  font-size: 14px;
+  background-color: #DCEDF5;
+  color: #577C95;
 }
 
 .list-group-item {
+  font-size: 14px;
+}
+
+.active {
+  background-color: #477AAF;
+}
+
+.active>span {
+  background-color: white;
+  color: #477AAF;
+}
+
+h6 {
   font-size: 14px;
 }

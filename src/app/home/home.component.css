@@ -16,5 +16,10 @@ img.faang-logo {
 }
 
 p {
-  font-size: 13px;
+  font-size: 14px;
+  font-family: Arial;
+}
+
+a {
+  color: steelblue;
 }
