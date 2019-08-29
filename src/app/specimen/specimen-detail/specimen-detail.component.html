@@ -195,7 +195,8 @@
 
       <ng-template ngSwitchCase="pool of specimens">
         <ng-container *ngIf="specimen && specimen.poolOfSpecimens.hasOwnProperty('poolCreationDate')">
-          <dt>Pool creation date:</dt><dd>{{specimen.poolOfSpecimens.poolCreationDate.text}}</dd>
+          <dt class="col-sm-3">Pool creation date:</dt>
+          <dd class="col-sm-9">{{specimen.poolOfSpecimens.poolCreationDate.text}}</dd>
         </ng-container>
 
         <ng-container *ngIf="specimen && specimen?.poolOfSpecimens?.hasOwnProperty('poolCreationProtocol')">
