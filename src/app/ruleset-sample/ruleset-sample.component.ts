@@ -9,6 +9,7 @@ import {ApiFileService} from '../services/api-file.service';
 })
 export class RulesetSampleComponent implements OnInit {
   error: string;
+  data: any;
 
   constructor(private titleService: Title, private apiFileService: ApiFileService) { }
 
@@ -16,6 +17,7 @@ export class RulesetSampleComponent implements OnInit {
     this.titleService.setTitle('FAANG Rule set|samples');
     this.apiFileService.getRulesetSample().subscribe(
       data => {
+        this.data = data;
         console.log(data);
       },
       error => {

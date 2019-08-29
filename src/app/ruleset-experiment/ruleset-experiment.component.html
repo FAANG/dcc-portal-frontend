@@ -17,4 +17,23 @@
       <i class="material-icons float-right">menu</i>
     </button>
   </h2>
+
+  <dl class="row">
+    <dt class="col-sm-3">Name:</dt>
+    <dd class="col-sm-9">{{ data?.name }}</dd>
+
+    <dt class="col-sm-3">Description:</dt>
+    <dd class="col-sm-9">{{ data?.description }}</dd>
+
+    <dt class="col-sm-3">Further details:</dt>
+    <dd class="col-sm-9">
+      <a href="data?.further_details_iri">{{ data?.further_details_iri }}</a>
+    </dd>
+  </dl>
+
+  <hr>
+
+  <div class="row">
+    <h3>Rule groups</h3>
+  </div>
 </div>
