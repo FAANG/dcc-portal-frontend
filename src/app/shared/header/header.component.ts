@@ -30,4 +30,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  isActiveRuleset() {
+    if (this.router.url.includes('ruleset')) {
+      return 'active';
+    }
+  }
+
 }

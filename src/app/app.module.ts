@@ -54,6 +54,9 @@ import {SlicePipe} from '@angular/common';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
+import { RulesetSampleComponent } from './ruleset-sample/ruleset-sample.component';
+import { RulesetExperimentComponent } from './ruleset-experiment/ruleset-experiment.component';
+import { RulesetAnalysisComponent } from './ruleset-analysis/ruleset-analysis.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +96,9 @@ import { NonExistingComponent } from './non-existing/non-existing.component';
     FilesSummaryComponent,
     ProtocolAnalysisComponent,
     NonExistingComponent,
+    RulesetSampleComponent,
+    RulesetExperimentComponent,
+    RulesetAnalysisComponent,
   ],
   imports: [
     BrowserModule,

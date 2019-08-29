@@ -22,6 +22,9 @@ import {DatasetsSummaryComponent} from './datasets-summary/datasets-summary.comp
 import {FilesSummaryComponent} from './files-summary/files-summary.component';
 import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.component';
 import {NonExistingComponent} from './non-existing/non-existing.component';
+import {RulesetSampleComponent} from './ruleset-sample/ruleset-sample.component';
+import {RulesetExperimentComponent} from './ruleset-experiment/ruleset-experiment.component';
+import {RulesetAnalysisComponent} from './ruleset-analysis/ruleset-analysis.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -46,6 +49,9 @@ const routes: Routes = [
   {path: 'summary/specimens', component: SpecimensSummaryComponent},
   {path: 'summary/datasets', component: DatasetsSummaryComponent},
   {path: 'summary/files', component: FilesSummaryComponent},
+  {path: 'ruleset/samples', component: RulesetSampleComponent},
+  {path: 'ruleset/experiments', component: RulesetExperimentComponent},
+  {path: 'ruleset/analyses', component: RulesetAnalysisComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];
