@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Title} from '@angular/platform-browser';
+import {ApiFileService} from '../services/api-file.service';
 
 @Component({
   selector: 'app-ruleset-sample',
@@ -7,11 +8,20 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./ruleset-sample.component.css']
 })
 export class RulesetSampleComponent implements OnInit {
+  error: string;
 
-  constructor(private titleService: Title) { }
+  constructor(private titleService: Title, private apiFileService: ApiFileService) { }
 
   ngOnInit() {
     this.titleService.setTitle('FAANG Rule set|samples');
+    this.apiFileService.getRulesetSample().subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        this.error = error;
+      }
+    );
   }
 
 }

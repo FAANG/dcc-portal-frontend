@@ -303,6 +303,17 @@ export class ApiFileService {
     );
   }
 
+  getRulesetSample() {
+    const url = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/faang_samples.metadata_rules.json';
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.
