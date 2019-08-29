@@ -54,6 +54,7 @@ import {BsDropdownModule} from 'ngx-bootstrap';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     Angular2CsvModule,
     MatCheckboxModule,
     NgxSpinnerModule,
+    NgbDropdownModule,
     BrowserAnimationsModule,
     CookieLawModule,
     ChartsModule,

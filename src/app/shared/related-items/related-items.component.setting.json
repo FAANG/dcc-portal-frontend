@@ -4,8 +4,7 @@
       "display": [
         "Name",
         "Type",
-        "Size",
-        "Checksum"
+        "Size"
       ],
       "all": [
         "Name",
@@ -107,7 +106,6 @@
       "display": [
         "File name",
         "Experiment",
-        "Archive",
         "File size"
       ],
       "all": [

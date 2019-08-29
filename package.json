@@ -24,6 +24,7 @@
     "@angular/pwa": "^0.13.8",
     "@angular/router": "^7.0.1",
     "@angular/service-worker": "^7.0.1",
+    "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "angular2-cookie-law": "^6.0.4",
     "angular2-csv": "^0.2.9",
     "bootstrap": "^3.4.1",

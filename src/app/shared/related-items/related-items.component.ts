@@ -219,4 +219,10 @@ export class RelatedItemsComponent implements OnInit {
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  toggleSelectedColumn(column: string) {
+    if (this.selected.has(column)) {
+      this.selected.set(column, !this.selected.get(column));
+    }
+  }
 }
