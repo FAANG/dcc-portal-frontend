@@ -19,3 +19,17 @@ table {
   font-size: 14px;
 }
 
+.left {
+  border-right: 1px solid lightgrey;
+}
+
+p {
+  color: steelblue;
+  cursor: pointer;
+}
+
+.center {
+  max-height: 400px;
+  overflow: scroll;
+}
+
