@@ -46,4 +46,36 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
     return this.removeSpaces(category) === this.fragment;
   }
 
+  allowMultiple(rule: any) {
+    if (rule && rule['allow_multiple'] === 1) {
+      return 'Yes';
+    } else {
+      return 'No';
+    }
+  }
+
+  getValidItems(rule: any, section_name: string) {
+    if (rule[section_name]) {
+      return rule[section_name].map(function(el) {
+        return '"' + el + '"';
+      }).join(', ');
+    }
+  }
+
+  getLink(link: string) {
+    return link.split('/').slice(-1)[0];
+  }
+
+  getCondition(condition: any) {
+    if (condition['attribute_value_match']['Material'].length === 1) {
+      return ' Material is "' + condition['attribute_value_match']['Material'][0] + '"';
+    } else {
+      let str_to_return = ' Material is one of ';
+      for (const el of condition['attribute_value_match']['Material']) {
+        str_to_return += '"' + el + '" ';
+      }
+      return str_to_return;
+    }
+  }
+
 }

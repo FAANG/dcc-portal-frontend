@@ -76,11 +76,21 @@
             <td>{{rule.description}}</td>
             <td>{{rule.type}}</td>
             <td>{{rule.mandatory}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{allowMultiple(rule)}}</td>
+            <td>{{getValidItems(rule, 'valid_values')}}</td>
+            <td>{{getValidItems(rule, 'valid_units')}}</td>
+            <td>
+              <ng-container *ngIf="rule['valid_terms']">
+                <div *ngFor="let link of rule['valid_terms']">
+                  <a href="https://www.ebi.ac.uk/ols/ontologies/obi/terms?iri={{link['term_iri']}}" >{{getLink(link['term_iri'])}}</a>
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="rule['condition']">
+                Must meet condition:{{getCondition(rule['condition'])}}
+              </ng-container>
+            </td>
           </tr>
           </tbody>
         </table>
