@@ -53,8 +53,8 @@ import {SlicePipe} from '@angular/common';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { IndeterminateDirective } from './shared/indeterminate';
 
 @NgModule({
   declarations: [
@@ -93,6 +93,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     FilesSummaryComponent,
     ProtocolAnalysisComponent,
     NonExistingComponent,
+    IndeterminateDirective
   ],
   imports: [
     BrowserModule,
@@ -100,7 +101,6 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     NgxPaginationModule,
     Angular2CsvModule,
-    MatCheckboxModule,
     NgxSpinnerModule,
     NgbDropdownModule,
     BrowserAnimationsModule,

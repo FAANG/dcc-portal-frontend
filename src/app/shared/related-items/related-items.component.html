@@ -23,15 +23,13 @@
   <table class="table table-striped table-hover table-responsive">
     <thead>
     <tr>
-<!--      <ng-container *ngFor="let field of get_displayed_fields()">-->
       <ng-container *ngFor="let field of get_all_fields()">
         <th [ngClass]="{'hide-column': !isDisplayed(field)}">{{field}}</th>
       </ng-container>
       <th *ngIf="download_key.length>0">
-        <mat-checkbox (change)="mainCheckboxClicked()" [indeterminate]="mainCheckboxChecked() == 1"
-                      [checked]="mainCheckboxChecked() == 2">Download
-        </mat-checkbox>
-        <!--        <input type="checkbox" [checked]="mainCheckboxChecked() == 2" (click)="mainCheckboxClicked()">-->
+        <label for="mainBox">Download </label>
+        <input id="mainBox" type="checkbox" [checked]="mainCheckboxChecked() == 2"
+               [indeterminate]="mainCheckboxChecked() == 1" (click)="mainCheckboxClicked()">
       </th>
     </tr>
     </thead>
@@ -52,8 +50,6 @@
           </td>
         </ng-container>
         <td *ngIf="download_key.length>0">
-          <!--          <mat-checkbox (change)="onCheckboxClick(get(record,download_key))"-->
-          <!--                        [checked]="CheckboxChecked(get(record,download_key))"></mat-checkbox>-->
           <input type="checkbox" (click)="onCheckboxClick(getValue(record,download_key))"
                  [checked]="CheckboxChecked(getValue(record, download_key))">
         </td>

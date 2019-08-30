@@ -175,8 +175,8 @@ export class RelatedItemsComponent implements OnInit {
     return this.urls.indexOf(url) !== -1;
   }
 
-  // determine the checked status of the checkbox in the table header, which is mat-checkbox ready
-  // return 2 means all files selected (mat-checkbox checked), 1 means partially files selected (mat-checkbox indeterminate)
+  // determine the checked status of the checkbox in the table header
+  // return 2 means all files selected (checkbox checked status), 1 means partially files selected (checkbox indeterminate status)
   // and 0 means none selected
   mainCheckboxChecked() {
     if (this.records) {
