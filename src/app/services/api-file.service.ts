@@ -197,8 +197,7 @@ export class ApiFileService {
   }
 
   getAllAnalyses(query: any, size: number) {
-    const url = 'http://wp-np3-e2:9200/faang_build_1_analysis/_search/' + '?size=' + size;
-//    const url = this.hostSetting.host + 'analysis/' + '_search/' + '?size=' + size;
+    const url = this.hostSetting.host + 'analysis/' + '_search/' + '?size=' + size;
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
@@ -219,8 +218,7 @@ export class ApiFileService {
   }
 
   getAnalysesBySample(sampleId: any) {
-    const url = 'http://wp-np3-e2:9200/faang_build_1_analysis/_search/?q=sampleAccessions:' + sampleId + '&sort=accession:asc&size=10000';
-    // const url = this.hostSetting.host + 'analysis/_search/?q=sampleAccessions:' + sampleId + '&sort=accession:asc';
+    const url = this.hostSetting.host + 'analysis/_search/?q=sampleAccessions:' + sampleId + '&sort=accession:asc&size=10000';
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -228,8 +226,7 @@ export class ApiFileService {
   }
 
   getAnalysesByDataset(accession: any) {
-    const url = 'http://wp-np3-e2:9200/faang_build_1_analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc&size=10000';
-    // const url = this.hostSetting.host + 'analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc';
+    const url = this.hostSetting.host + 'analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc&size=10000';
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -237,8 +234,7 @@ export class ApiFileService {
   }
 
   getAnalysis(accession: string) {
-//    const url = this.hostSetting.host + 'analysis/' + accession;
-    const url = 'http://wp-np3-e2:9200/faang_build_1_analysis/_doc/' + accession;
+    const url = this.hostSetting.host + 'analysis/' + accession;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),

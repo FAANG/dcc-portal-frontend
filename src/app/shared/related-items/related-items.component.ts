@@ -30,6 +30,7 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Read in the initial column display settings
     for (let i = 0; i < setting[this.source_type][this.target_type]['display'].length; i++) {
       this.selected.set(setting[this.source_type][this.target_type]['display'][i], true);
     }
@@ -43,7 +44,7 @@ export class RelatedItemsComponent implements OnInit {
     if (relationship_type === 'analysis-file') {
       this.apiFileService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
-          this.records = data['_source']['files'];
+          this.records = data['hits']['hits'][0]['_source']['files'];
         });
     } else if (relationship_type === 'dataset-specimen') {
       this.apiFileService.getDataset(this.record_id).subscribe(

@@ -28,16 +28,15 @@ export class AnalysisDetailComponent implements OnInit {
     });
     this.apiFileService.getAnalysis(this.accession).subscribe(
       (data: any) => {
-        // if (data['hits']['hits'].length === 0) {
-        //   this.spinner.hide();
-        //   this.router.navigate(['404']);
-        // } else {
-          // this.analysis = data['hits']['hits'][0]['_source'];
-          this.analysis = data['_source'];
+        if (data['hits']['hits'].length === 0) {
+          this.spinner.hide();
+          this.router.navigate(['404']);
+        } else {
+          this.analysis = data['hits']['hits'][0]['_source'];
           if (this.analysis) {
             this.spinner.hide();
           }
-        // }
+        }
       },
       error => {
         this.error = error;
