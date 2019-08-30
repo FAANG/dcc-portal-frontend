@@ -11,6 +11,9 @@ import {ActivatedRoute} from '@angular/router';
 export class RulesetSampleComponent implements OnInit, AfterViewChecked {
   error: string;
   data: any;
+  all_data: any;
+  mandatory_data: any;
+  clicked = false;
   fragment: string;
 
   constructor(private titleService: Title, private apiFileService: ApiFileService, private route: ActivatedRoute) { }
@@ -20,6 +23,8 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
     this.apiFileService.getRulesetSample().subscribe(
       data => {
         this.data = data;
+        this.all_data = data;
+        this.mandatory_data = this.getMandatoryData(data);
       },
       error => {
         this.error = error;
@@ -75,6 +80,36 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
         str_to_return += '"' + el + '" ';
       }
       return str_to_return;
+    }
+  }
+
+  getMandatoryData(data: any) {
+    const data_to_return = {};
+    data_to_return['description'] = data['description'];
+    data_to_return['name'] = data['name'];
+    data_to_return['further_details_iri'] = data['further_details_iri'];
+    data_to_return['rule_groups'] = [];
+    for (const rule of data['rule_groups']) {
+      const tmp = {};
+      tmp['name'] = rule['name'];
+      tmp['rules'] = [];
+      for (const el of rule['rules']) {
+        if (el['mandatory'] === 'mandatory') {
+          tmp['rules'].push(el);
+        }
+      }
+      data_to_return['rule_groups'].push(tmp);
+    }
+    return data_to_return;
+  }
+
+  onCheckBoxClick() {
+    if (this.clicked === false) {
+      this.data = this.mandatory_data;
+      this.clicked = true;
+    } else {
+      this.data = this.all_data;
+      this.clicked = false;
     }
   }
 
