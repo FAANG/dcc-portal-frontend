@@ -13,8 +13,8 @@
       <ul ngbDropdownMenu aria-labelledby="dropdown">
         <ng-container *ngFor="let col of get_all_fields(); let i = index">
           <li ngbDropdownItem *ngIf="i>0">
-            <input type="checkbox" [value]="col" [checked]="isDisplayed(col)"
-                   (click)="toggleSelectedColumn(col)"> {{col}}</li>
+            <input type="checkbox" [value]="col" [checked]="isDisplayed(col)" [id]="col"
+                   (click)="toggleSelectedColumn(col)"><label [for]="col">{{col}}</label></li>
         </ng-container>
       </ul>
 
