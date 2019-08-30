@@ -92,6 +92,8 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
     for (const rule of data['rule_groups']) {
       const tmp = {};
       tmp['name'] = rule['name'];
+      tmp['consistency_check'] = rule['consistency_check'];
+      tmp['imports'] = rule['imports'];
       tmp['rules'] = [];
       for (const el of rule['rules']) {
         if (el['mandatory'] === 'mandatory') {
@@ -111,6 +113,10 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
       this.data = this.all_data;
       this.clicked = false;
     }
+  }
+
+  getLength(data: any) {
+    return data.length;
   }
 
 }

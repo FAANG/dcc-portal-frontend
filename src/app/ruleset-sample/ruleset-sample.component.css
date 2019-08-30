@@ -40,3 +40,11 @@ p {
 .active a {
   color: white;
 }
+
+button a {
+  color: white;
+}
+
+.card-bottom {
+  margin-top: 15px;
+}
