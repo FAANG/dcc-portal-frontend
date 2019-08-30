@@ -32,6 +32,66 @@
       }
     }
   },
+  "file": {
+    "paper": {
+      "display": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "https://doi.org/",
+            "url": "doi"
+          }
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
+        }
+      }
+    },
+    "download": {
+      "display": [
+        "Name",
+        "File size",
+        "Checksum"
+      ],
+      "all": [
+        "Name",
+        "File size",
+        "Checksum",
+        "Checksum method"
+      ],
+      "fields": {
+        "Name": {
+          "value": "_source.name",
+          "link": {
+            "prefix": "ftp://",
+            "url": "_source.url"
+          }
+        },
+        "File size": {
+          "value": "_source.readableSize"
+        },
+        "Checksum": {
+          "value": "_source.checksum"
+        },
+        "Checksum method": {
+          "value": "_source.checksumMethod"
+        }
+      }
+    }
+  },
   "dataset": {
     "paper": {
       "display": [

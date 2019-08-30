@@ -27,7 +27,6 @@ import {ExportService} from './services/export.service';
 import { FileDetailComponent } from './file-table/file-detail/file-detail.component';
 import { RobustLinkComponent } from './shared/robust-link/robust-link.component';
 import { RelatedItemsComponent } from './shared/related-items/related-items.component';
-import { RunFilesComponent } from './shared/run-files/run-files.component';
 import { OrganismDetailComponent } from './organism/organism-detail/organism-detail.component';
 import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-detail.component';
 import { SearchTemplateComponent } from './search/search-template/search-template.component';
@@ -76,7 +75,6 @@ import { IndeterminateDirective } from './shared/indeterminate';
     FileDetailComponent,
     RobustLinkComponent,
     RelatedItemsComponent,
-    RunFilesComponent,
     OrganismDetailComponent,
     SpecimenDetailComponent,
     SearchTemplateComponent,

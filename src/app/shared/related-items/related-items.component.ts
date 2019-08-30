@@ -46,6 +46,16 @@ export class RelatedItemsComponent implements OnInit {
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['files'];
         });
+    } else if (relationship_type === 'file-download') {
+      this.apiFileService.getFilesByRun(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'];
+        });
+    } else if (relationship_type === 'file-paper') {
+      this.apiFileService.getFile(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+        });
     } else if (relationship_type === 'dataset-specimen') {
       this.apiFileService.getDataset(this.record_id).subscribe(
         (data: any) => {
@@ -129,7 +139,7 @@ export class RelatedItemsComponent implements OnInit {
 
   // only show the download button when the target is files
   showButton() {
-    return this.target_type === 'file';
+    return this.target_type === 'file' || this.target_type === 'download';
   }
 
   downloadAllFiles() {
