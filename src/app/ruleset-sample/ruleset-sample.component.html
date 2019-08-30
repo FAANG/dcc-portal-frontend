@@ -50,12 +50,12 @@
   <div class="row" *ngIf="data">
     <div class="col-md-2 left">
       <ul *ngFor="let category of data['rule_groups']" class="list-group list-group-flush">
-        <li class="list-group-item"><a href="#specimen">{{category['name']}}</a></li>
+        <li class="list-group-item" [ngClass]="{'active': checkIsActive(category['name'])}"><a [routerLink]="['/ruleset', 'samples']" fragment="{{removeSpaces(category['name'])}}">{{category['name']}}</a></li>
       </ul>
     </div>
     <div class="col-md-10 table-responsive center">
       <ng-container *ngFor="let category of data['rule_groups']">
-        <h3>{{category['name']}}</h3>
+        <h3 id="{{removeSpaces(category['name'])}}">{{category['name']}}</h3>
         <table class="table table-striped table-hover table-borderless table-sm">
           <thead>
           <tr>

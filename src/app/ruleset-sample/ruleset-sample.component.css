@@ -33,3 +33,10 @@ p {
   overflow: scroll;
 }
 
+.active {
+  background-color: #477AAF;;
+}
+
+.active a {
+  color: white;
+}
