@@ -18,6 +18,7 @@ export class FileDetailComponent implements OnInit {
   error: any;
   fieldNames = FIELDNAMES;
   fieldExcludeNames = FIELDEXCLUDENAMES;
+  showExperimentDetail = false;
 
   objectKeys = Object.keys;
 
@@ -97,5 +98,9 @@ export class FileDetailComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  toggleExperiment() {
+    this.showExperimentDetail = !this.showExperimentDetail;
   }
 }
