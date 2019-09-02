@@ -2,7 +2,7 @@
   <app-header></app-header>
   <h2>FAANG Rule sets
     <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
-            [routerLink]="['/ruleset', 'samples']">
+            [routerLink]="['/ruleset', 'samples']" fragment="standard">
       Samples
       <i class="material-icons float-right">home</i>
     </button>
@@ -12,7 +12,7 @@
       <i class="material-icons float-right">menu</i>
     </button>
 
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/ruleset', 'analyses']">
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/ruleset', 'analyses']" fragment="faang">
       Analyses
       <i class="material-icons float-right">menu</i>
     </button>

@@ -6,13 +6,13 @@
       <i class="material-icons float-right">menu</i>
     </button>
 
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/ruleset', 'experiments']">
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/ruleset', 'experiments']" fragment="standard">
       Experiments
       <i class="material-icons float-right">menu</i>
     </button>
 
     <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
-            [routerLink]="['/ruleset', 'analyses']">
+            [routerLink]="['/ruleset', 'analyses']" fragment="faang">
       Analyses
       <i class="material-icons float-right">home</i>
     </button>
@@ -34,7 +34,98 @@
   <hr>
 
   <div class="row">
-    <h3>Rule groups</h3>
+    <div class="col-md-2"><h3>Rule groups</h3></div>
+    <div class="col-md-10">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="onCheckBoxClick()">
+        <label class="form-check-label" for="defaultCheck1">
+          Show only mandatory fields
+        </label>
+        <button type="button" class="btn btn-success">
+          <a href="https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/faang_sample_metadata_empty_template_20181212.xlsx?version=1&modificationDate=1544608044067&api=v2">Download template</a>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="data">
+    <div class="col-md-2 left">
+      <ul *ngFor="let category of data['rule_groups']" class="list-group list-group-flush">
+        <li class="list-group-item" [ngClass]="{'active': checkIsActive(category['name'])}"><a [routerLink]="['/ruleset', 'analyses']" fragment="{{removeSpaces(category['name'])}}">{{category['name']}}</a></li>
+      </ul>
+    </div>
+    <div class="col-md-10 table-responsive center">
+      <ng-container *ngFor="let category of data['rule_groups']">
+        <h3 id="{{removeSpaces(category['name'])}}">{{category['name']}} ({{getLength(category['rules'])}} rules)</h3>
+        <table class="table table-striped table-hover table-borderless table-sm">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Required?</th>
+            <th>Allow multiple?</th>
+            <th>Valid values</th>
+            <th>Valid units</th>
+            <th>Valid terms</th>
+            <th>Condition</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let rule of category['rules']">
+            <td>{{rule.name}}</td>
+            <td>{{rule.description}}</td>
+            <td>{{rule.type}}</td>
+            <td>{{rule.mandatory}}</td>
+            <td>{{allowMultiple(rule)}}</td>
+            <td>{{getValidItems(rule, 'valid_values')}}</td>
+            <td>{{getValidItems(rule, 'valid_units')}}</td>
+            <td>
+              <ng-container *ngIf="rule['valid_terms']">
+                <div *ngFor="let link of rule['valid_terms']">
+                  <a href="https://www.ebi.ac.uk/ols/ontologies/obi/terms?iri={{link['term_iri']}}" >{{getLink(link['term_iri'])}}</a>
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="rule['condition']">
+                Must meet condition:{{getCondition(rule['condition'])}}
+              </ng-container>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="card" *ngIf="category['imports']">
+          <div class="card-header">
+            Imports available ({{getLength(category['imports'])}} sources)
+          </div>
+          <div class="card-body">
+            In addition, attributes from the sources listed can be used:
+            <ol>
+              <li *ngFor="let import_rule of category['imports']">
+                <a href="https://www.ebi.ac.uk/ols/ontologies/vt/terms?iri={{import_rule['term']['term_iri']}}">{{getLink(import_rule['term']['term_iri'])}}</a> (include descendants)
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card card-bottom" *ngIf="category['name'] === 'animal'">
+          <div class="card-header">
+            Consistency checks (2 checks)
+          </div>
+          <div class="card-body">
+            The following consistency checks will be made:
+            <dl class="row">
+              <dt class="col-sm-3">Breed/species</dt>
+              <dd class="col-sm-9">Ensure that the animal breed is consistent with the species reported.</dd>
+
+              <dt class="col-sm-3">Child/parents ID</dt>
+              <dd class="col-sm-9">Ensure that the parent is not listing the child as its parent.</dd>
+            </dl>
+          </div>
+        </div>
+      </ng-container>
+    </div>
   </div>
 
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
