@@ -41,9 +41,6 @@
         <label class="form-check-label" for="defaultCheck1">
           Show only mandatory fields
         </label>
-        <button type="button" class="btn btn-success">
-          <a href="https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/faang_sample_metadata_empty_template_20181212.xlsx?version=1&modificationDate=1544608044067&api=v2">Download template</a>
-        </button>
       </div>
     </div>
   </div>
@@ -57,6 +54,11 @@
     <div class="col-md-10 table-responsive center">
       <ng-container *ngFor="let category of data['rule_groups']">
         <h3 id="{{removeSpaces(category['name'])}}">{{category['name']}} ({{getLength(category['rules'])}} rules)</h3>
+        <p *ngIf="category['name'] === 'faang'">faang-specific rule sets</p>
+        <p *ngIf="category['name'] === 'ena'">
+          the fields required by the ENA analysis xsd <a href="https://github.com/FAANG/faang-metadata/blob/master/rulesets/faang_analyses.metadata_rules.json">https://github.com/FAANG/faang-metadata/blob/master/rulesets/faang_analyses.metadata_rules.json</a>
+        </p>
+        <p>Applied to all entities</p>
         <table class="table table-striped table-hover table-borderless table-sm">
           <thead>
           <tr>

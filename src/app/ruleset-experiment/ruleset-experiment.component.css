@@ -24,8 +24,8 @@ table {
 }
 
 p {
-  color: steelblue;
-  cursor: pointer;
+  color: grey;
+  font-size: 14px;
 }
 
 .center {

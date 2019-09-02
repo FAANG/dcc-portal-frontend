@@ -91,6 +91,7 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
     data_to_return['rule_groups'] = [];
     for (const rule of data['rule_groups']) {
       const tmp = {};
+      tmp['condition'] = rule['condition'];
       tmp['name'] = rule['name'];
       tmp['consistency_check'] = rule['consistency_check'];
       tmp['imports'] = rule['imports'];
