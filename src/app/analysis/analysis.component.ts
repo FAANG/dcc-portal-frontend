@@ -43,7 +43,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       'datasetAccession',
       'title',
       'organism.text',
-      // 'assayType',
+      'assayType',
       'analysisType',
       'standardMet'],
   };

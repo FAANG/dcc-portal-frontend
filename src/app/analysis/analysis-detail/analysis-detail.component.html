@@ -27,6 +27,10 @@
       <dd>
         {{analysis?.analysisType}}
       </dd>
+      <dt>Assay type:</dt>
+      <dd>
+        {{analysis?.assayType}}
+      </dd>
       <div *ngIf="analysis?.standardMet">
         <dt>Standard:</dt>
         <dd>{{analysis?.standardMet}}</dd>
@@ -72,6 +76,11 @@
             <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="run" [text]="run"></app-robust-link>
           </ng-container>
         </dd>
+      </div>
+      <div *ngIf="analysis?.analysisProtocol">
+        <dt>Analysis Protocol:</dt>
+        <dd><app-robust-link prefix="" [link]="analysis.analysisProtocol.url"
+                             [text]="analysis.analysisProtocol.filename"></app-robust-link></dd>
       </div>
     </dl>
 

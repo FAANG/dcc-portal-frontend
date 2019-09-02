@@ -206,7 +206,7 @@ export class ApiFileService {
           datasetAccession: entry['_source']['datasetAccession'],
           title: entry['_source']['title'],
           species: entry['_source']['organism']['text'],
-//          assayType: this.convertArrayToString(entry['_source']['assayType']),
+          assayType: entry['_source']['assayType'],
           analysisType: entry['_source']['analysisType'],
           standard: entry['_source']['standardMet']
           } as AnalysisTable)
