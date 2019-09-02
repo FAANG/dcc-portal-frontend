@@ -18,3 +18,33 @@ a {
 table {
   font-size: 14px;
 }
+
+.left {
+  border-right: 1px solid lightgrey;
+}
+
+p {
+  color: steelblue;
+  cursor: pointer;
+}
+
+.center {
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.active {
+  background-color: #477AAF;;
+}
+
+.active a {
+  color: white;
+}
+
+button a {
+  color: white;
+}
+
+.card-bottom {
+  margin-top: 15px;
+}
