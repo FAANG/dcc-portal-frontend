@@ -1,10 +1,10 @@
 <div class="container">
   <app-header></app-header>
   <div class="row intro">
-    <div class="col-md-4 col-sm-4">
+    <div class="col-12 col-md-4">
       <a href="http://www.faang.org"><img src="https://www.faang.org/icons/FAANG/FAANG_WebLogo.png" alt="logo" class="center-block faang-logo"></a>
     </div>
-    <div class="col-md-7 col-md-offset-1 col-sm-8 col-sm-offset-0">
+    <div class="col-12 col-md-7 offset-md-1">
       <h1 class="text-center">Data Portal</h1>
       <p>
         <a href="http://www.faang.org">FAANG</a> is the
@@ -21,10 +21,10 @@
   </div><!--end of row intro-->
 
   <div class="row">
-    <div class="col-md-6 col-md-offset-0 col-sm-10 col-sm-offset-1">
-      <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title">Using this site</h3></div>
-        <div class="panel-body">
+    <div class="col-12 col-md-6">
+      <div class="card">
+        <h6 class="card-header">Using this site</h6>
+        <div class="card-body">
           <p>
             The <a routerLink="/organism">Organisms</a> page lets you search for any organism in the FAANG data set.
             We use the term "organism" to mean any individual animal that has contributed a biological specimen.
@@ -54,28 +54,24 @@
       </div>
     </div>
 
-    <div class="clearfix visible-xs-block visible-sm-block"></div>
+    <div class="col-12 col-md-6">
 
-    <div class="col-md-6 col-md-offset-0 col-sm-10 col-sm-offset-1">
-      <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title">Contribute to FAANG</h3></div>
-        <div class="panel-body">
+      <div class="card">
+        <h6 class="card-header">Contribute to FAANG</h6>
+        <div class="card-body">
           <p><a href="http://www.faang.org/cgi-bin/host/misc/FAANG/mem" target="_blank">Sign up to become part of the FAANG community</a> and join the working commitees.</p>
           <p>Instructions on how to submit your samples and analyses to FAANG are detailed on the <a href="https://www.ebi.ac.uk/seqdb/confluence/display/FAANG/FAANG+Archive+Submission+guidelines" target="_blank">FAANG wiki site archive submission guidelines</a>.</p>
         </div>
       </div>
-    </div>
 
-    <div class="clearfix visible-xs-block visible-sm-block"></div>
-
-    <div class="col-md-6 col-md-offset-0 col-sm-10 col-sm-offset-1">
-      <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title">It's good to share</h3></div>
-        <div class="panel-body">
+      <div class="card">
+        <h6 class="card-header">It's good to share</h6>
+        <div class="card-body">
           <p>FAANG is committed to sharing data rapidly, before publication. All members have agreed to the <a href="https://www.faang.org/data-share-principle" target="_blank">FAANG Data Sharing Statement</a> for pre-publication data release.</p>
           <p>FAANG is also committed to making regular public releases of primary and secondary analysis results to provide access to the wider community.</p>
         </div>
       </div>
+
     </div>
 
   </div>

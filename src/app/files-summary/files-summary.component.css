@@ -5,3 +5,11 @@ button {
 .subheader {
   color: darkgrey;
 }
+
+i {
+  margin-left: 5px;
+}
+
+button {
+  font-size: 14px;
+}

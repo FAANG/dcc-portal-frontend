@@ -1,10 +1,10 @@
 <div class="container">
   <app-header></app-header>
   <h2>FAANG organisms</h2>
-  <h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
+  <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
     Active filters:
     <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
-    <button class="btn btn-default" type = "button" (click)="removeFilter()">Remove all filters</button>
+    <button class="btn btn-light" type = "button" (click)="removeFilter()">Remove all filters</button>
   </h3>
 
   <div class="row">
@@ -17,10 +17,10 @@
           <app-filter title="Sex" [filterSize]=2></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Organism" [filterSize]=5></app-filter>
+          <app-filter title="Organism" [filterSize]=3></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Breed" [filterSize]=5></app-filter>
+          <app-filter title="Breed" [filterSize]=3></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
           <app-filter title="Paper published" [filterSize]=2></app-filter>
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="fails-table col-md-10">
+    <div class="col-md-10 table-responsive">
       <div *ngIf="(organismListLong | async) as organisms; else loading">
         <button class="btn btn-success" (click)="onDownloadData()">Dowload data</button>
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
@@ -37,13 +37,13 @@
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
           Export as Tabular file
         </app-export>
-        <table class="table table-striped table-hover table-responsive">
+        <table class="table table-striped table-hover table-borderless table-sm">
           <thead>
           <tr>
             <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
               {{ column }}
-              <span [ngClass]="column === selectedColumn ? spanClass : defaultClass" *ngIf="column !== 'Standard' &&
-              column !== 'Paper published'" [id]="column"></span>
+              <i class="material-icons sorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column === selectedColumn" [id]="column">{{spanClass}}</i>
+              <i class="material-icons unsorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column !== selectedColumn" [id]="column">{{defaultClass}}</i>
             </th>
           </tr>
           </thead>
@@ -55,10 +55,10 @@
             <td>{{organism['breed']}}</td>
             <td>{{organism['standard']}}</td>
             <td *ngIf="wasPublished(organism['paperPublished'])" [ngClass]="isGreen(organism['paperPublished'])">
-              <span class="glyphicon glyphicon-ok-circle"></span>
+              <i class="material-icons">check_circle_outline</i>
             </td>
             <td *ngIf="!wasPublished(organism['paperPublished'])" [ngClass]="isGreen(organism['paperPublished'])">
-              <span class="glyphicon glyphicon-remove-circle"></span>
+              <i class="material-icons">highlight_off</i>
             </td>
           </tr>
           </tbody>
@@ -69,7 +69,7 @@
         <div>
           Loading...
         </div>
-        <table class="table table-striped table-hover table-responsive">
+        <table class="table table-striped table-hover table-borderless table-sm">
           <thead>
           <tr>
             <th *ngFor="let column of columnNames">
@@ -85,10 +85,10 @@
             <td>{{organism['breed']}}</td>
             <td>{{organism['standard']}}</td>
             <td *ngIf="wasPublished(organism['paperPublished'])" [ngClass]="isGreen(organism['paperPublished'])">
-              <span class="glyphicon glyphicon-ok-circle"></span>
+              <i class="material-icons">check_circle_outline</i>
             </td>
             <td *ngIf="!wasPublished(organism['paperPublished'])" [ngClass]="isGreen(organism['paperPublished'])">
-              <span class="glyphicon glyphicon-remove-circle"></span>
+              <i class="material-icons">highlight_off</i>
             </td>
           </tr>
           </tbody>

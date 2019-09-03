@@ -6,6 +6,7 @@ import {RobustLinkComponent} from '../../shared/robust-link/robust-link.componen
 import {NgxPaginationModule} from 'ngx-pagination';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RelatedItemsComponent} from '../../shared/related-items/related-items.component';
 
 describe('AnalysisDetailComponent', () => {
   let component: AnalysisDetailComponent;
@@ -16,7 +17,8 @@ describe('AnalysisDetailComponent', () => {
       declarations: [
         AnalysisDetailComponent,
         HeaderComponent,
-        RobustLinkComponent
+        RobustLinkComponent,
+        RelatedItemsComponent,
       ],
       imports: [
         NgxPaginationModule,

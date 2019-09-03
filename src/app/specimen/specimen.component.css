@@ -1,12 +1,5 @@
-span.glyphicon.glyphicon-sort {
+.unsorted {
   color: lightgrey;
-}
-span.glyphicon.glyphicon-arrow-down {
-  color: black;
-}
-
-span.glyphicon.glyphicon-arrow-up {
-  color: black;
 }
 
 .clickable {
@@ -35,6 +28,14 @@ button {
   text-align: center;
 }
 
-.glyphicon.glyphicon-ok-circle, .glyphicon.glyphicon-remove-circle  {
-  font-size: 17px;
+a {
+  color: steelblue;
+}
+
+table {
+  font-size: 14px;
+}
+
+h3 {
+  color: #477AAF;
 }

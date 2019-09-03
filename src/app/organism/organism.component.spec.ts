@@ -104,25 +104,25 @@ describe('OrganismComponent', () => {
 
   it('chooseClass should assign right values for spanClass and sort_field', () => {
     component.selectedColumn = 'BioSample ID';
-    component.chooseClass('glyphicon glyphicon-arrow-down');
-    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-up');
+    component.chooseClass('expand_more');
+    expect(component.spanClass).toEqual('expand_less');
     expect(component.sort_field['direction']).toEqual('asc');
 
-    component.chooseClass('glyphicon glyphicon-arrow-up');
-    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-down');
+    component.chooseClass('expand_less');
+    expect(component.spanClass).toEqual('expand_more');
     expect(component.sort_field['direction']).toEqual('desc');
 
     component.selectedColumn = 'Organism';
-    component.chooseClass('glyphicon glyphicon-sort');
-    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-down');
+    component.chooseClass('unfold_more');
+    expect(component.spanClass).toEqual('expand_more');
     expect(component.sort_field['direction']).toEqual('desc');
 
-    component.chooseClass('glyphicon glyphicon-arrow-down');
-    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-up');
+    component.chooseClass('expand_more');
+    expect(component.spanClass).toEqual('expand_less');
     expect(component.sort_field['direction']).toEqual('asc');
 
-    component.chooseClass('glyphicon glyphicon-arrow-up');
-    expect(component.spanClass).toEqual('glyphicon glyphicon-arrow-down');
+    component.chooseClass('expand_less');
+    expect(component.spanClass).toEqual('expand_more');
     expect(component.sort_field['direction']).toEqual('desc');
   });
 });

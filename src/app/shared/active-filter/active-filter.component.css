@@ -1,3 +1,10 @@
 button {
   margin-left: 5px;
+  font-size: 14px;
+  background-color: #477AAF;
+  color: white;
+}
+
+i {
+  margin-left: 5px;
 }

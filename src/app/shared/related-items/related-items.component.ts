@@ -12,7 +12,7 @@ export class RelatedItemsComponent implements OnInit {
   @Input() record_id: string; // the record id used to retrieve particular record
   @Input() source_type: string; // equal to the type of detail page, e.g. to list files in the dataset detail page, set to be dataset
   @Input() target_type: string; // the related entities, e.g. to list files in the dataset detail page, set to be file
-  @Input() download_key: string; // if download not needed (nomrally not file), set to empty string, otherwise to the link attribute
+  @Input() download_key: string; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
 
   records: any;
   urls: string[] = [];

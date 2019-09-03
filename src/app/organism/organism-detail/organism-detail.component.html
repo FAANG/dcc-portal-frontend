@@ -1,146 +1,164 @@
 <div class="container">
   <app-header></app-header>
   <ng-container *ngIf="organism">
-  <h1 class="text-center">{{biosampleId}}</h1>
-  <dl class="dl-horizontal">
+    <h1 class="text-center">{{biosampleId}}</h1>
+    <dl class="row">
 
-    <ng-container *ngIf="organism && organism.hasOwnProperty('name')">
-      <dt>Name:</dt> <dd>{{organism?.name}}</dd>
-    </ng-container>
+      <ng-container *ngIf="organism && organism.hasOwnProperty('name')">
+        <dt class="col-sm-3">Name:</dt>
+        <dd class="col-sm-9">{{organism?.name}}</dd>
+      </ng-container>
 
-    <ng-container *ngIf="organism && organism.hasOwnProperty('biosampleId')">
-      <dt>BioSample ID:</dt>
-      <dd>
-        <a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a>
-      </dd>
-    </ng-container>
-
-    <ng-container *ngIf="organism && organism.hasOwnProperty('alternativeId') && organism.alternativeId.length !== 0">
-      <dt>Alternative ID:</dt>
-      <dd>{{organism.alternativeId.toString()}}</dd>
-    </ng-container>
-
-    <ng-container *ngIf="organism && organism.hasOwnProperty('releaseDate')">
-      <dt>Release date:</dt> <dd>{{organism?.releaseDate}}</dd>
-    </ng-container>
-
-    <ng-container *ngIf="organism && organism.hasOwnProperty('updateDate')">
-      <dt>Update date:</dt> <dd>{{organism?.updateDate}}</dd>
-    </ng-container>
-
-    <ng-container *ngIf="organism && organism.hasOwnProperty('sex')">
-      <dt>Sex:</dt>
-      <dd>
-        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.sex?.ontologyTerms" [text]="organism?.sex?.text"></app-robust-link>
-      </dd>
-    </ng-container>
-
-    <ng-container *ngIf="organism && organism.hasOwnProperty('organism')">
-      <dt>Organism:</dt>
-      <dd>
-        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></app-robust-link>
-      </dd>
-    </ng-container>
-
-    <ng-container *ngIf="organism && organism.hasOwnProperty('breed')">
-      <dt>Breed:</dt>
-      <dd>
-        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.breed.ontologyTerms" [text]="organism?.breed?.text"></app-robust-link>
-      </dd>
-    </ng-container>
-
-    <dt>Material:</dt>
-    <dd>
-      <a href="https://www.ebi.ac.uk/ols/terms?iri=http://purl.obolibrary.org/obo/UBERON_0000468" target="_blank">organism</a>
-    </dd>
-
-    <ng-container  *ngIf="organism && organism.hasOwnProperty('standardMet')">
-      <dt>Standard met:</dt> <dd>{{organism?.standardMet}}</dd>
-    </ng-container>
-
-    <ng-container  *ngIf="organism && organism.hasOwnProperty('project')">
-      <dt>Project:</dt> <dd>{{organism?.project}}</dd>
-    </ng-container>
-
-    <div *ngIf="organism?.availability">
-      <dt>Availability:</dt> <dd><a href={{organism?.availability}}>{{dealWithAvailability(organism?.availability)}}</a></dd>
-    </div>
-
-    <ng-container  *ngIf="organism && organism.hasOwnProperty('organization')">
-      <dt>Organisation:</dt>
-      <dd>
-        <ng-container *ngFor="let organization of organism?.organization;">
-          <app-robust-link [link]="organization.URL" [text]="organization.name"></app-robust-link> ( {{organization.role}})
-        </ng-container>
-      </dd>
-    </ng-container>
-
-    <div *ngIf="organism?.description">
-      <dt>Description:</dt> <dd>{{organism?.description}}</dd>
-    </div>
-
-    <div *ngIf="organism?.birthDate?.text">
-      <dt>Birth date:</dt> <dd>{{organism?.birthDate?.text}}</dd>
-    </div>
-
-    <div *ngIf="organism?.birthLocation">
-      <dt>Birth location:</dt> <dd>{{organism?.birthLocation}}</dd>
-    </div>
-
-    <div *ngIf="organism?.birthLocationLongitude?.text">
-      <dt>Birth longitude:</dt> <dd>{{organism?.birthLocationLongitude?.text}} {{organism?.birthLocationLongitude.unit}}</dd>
-    </div>
-
-    <div *ngIf="organism?.birthLocationLatitude?.text">
-      <dt>Birth latitude:</dt> <dd>{{organism?.birthLocationLatitude?.text}} {{organism?.birthLocationLatitude?.unit}}</dd>
-    </div>
-
-    <div *ngIf="organism?.birthWeight?.text">
-      <dt>Birth weight:</dt> <dd>{{organism?.birthWeight?.text}} {{organism?.birthWeight?.unit}}</dd>
-    </div>
-
-    <div *ngIf="organism?.placentalWeight?.text">
-      <dt>Placental weight:</dt> <dd>{{organism?.placentalWeight?.text}} {{organism?.placentalWeight?.unit}}</dd>
-    </div>
-
-    <div *ngIf="organism?.pregnancyLength?.text">
-      <dt>Pregnancy length:</dt> <dd>{{organism?.pregnancyLength?.text}} {{organism?.pregnancyLength?.unit}}</dd>
-    </div>
-
-    <div *ngIf="organism?.deliveryTiming">
-      <dt>Delivery timing:</dt> <dd>{{organism?.deliveryTiming}}</dd>
-    </div>
-
-    <div *ngIf="organism?.deliveryEase">
-      <dt>Delivery ease:</dt> <dd>{{organism?.deliveryEase}}</dd>
-    </div>
-
-    <div *ngIf="organism?.sameAs">
-      <dt>Same as:</dt> <dd>{{organism?.sameAs}}</dd>
-    </div>
-
-    <div *ngIf="organism?.childOf">
-      <dt>Child of:</dt>
-      <dd>
-        <ng-container *ngFor="let child of organism?.childOf;">
-          <app-robust-link prefix="../organism/" [link]="child" [text]="child"></app-robust-link>
-        </ng-container>
-      </dd>
-    </div>
-
-    <div *ngIf="organism?.pedigree">
-      <dt>Pedigree:</dt> <dd><a href={{organism?.pedigree}}>{{organism?.pedigree}}</a></dd>
-    </div>
-
-    <div *ngIf="organism?.customField?.length > 0;">
-      <ng-container *ngFor="let field of organism?.customField;">
-        <dt>{{field.name}}:</dt>
-        <dd>
-          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="field.ontologyTerms" [text]="field.value"></app-robust-link>  {{field?.unit}}
+      <ng-container *ngIf="organism && organism.hasOwnProperty('biosampleId')">
+        <dt class="col-sm-3">BioSample ID:</dt>
+        <dd class="col-sm-9">
+          <a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a>
         </dd>
       </ng-container>
-    </div>
-  </dl>
+
+      <ng-container *ngIf="organism && organism.hasOwnProperty('alternativeId') && organism.alternativeId.length !== 0">
+        <dt class="col-sm-3">Alternative ID:</dt>
+        <dd class="col-sm-9">{{organism.alternativeId.toString()}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism && organism.hasOwnProperty('releaseDate')">
+        <dt class="col-sm-3">Release date:</dt>
+        <dd class="col-sm-9">{{organism?.releaseDate}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism && organism.hasOwnProperty('updateDate')">
+        <dt class="col-sm-3">Update date:</dt>
+        <dd class="col-sm-9">{{organism?.updateDate}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism && organism.hasOwnProperty('sex')">
+        <dt class="col-sm-3">Sex:</dt>
+        <dd class="col-sm-9">
+          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.sex?.ontologyTerms" [text]="organism?.sex?.text"></app-robust-link>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism && organism.hasOwnProperty('organism')">
+        <dt class="col-sm-3">Organism:</dt>
+        <dd class="col-sm-9">
+          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></app-robust-link>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism && organism.hasOwnProperty('breed')">
+        <dt class="col-sm-3">Breed:</dt>
+        <dd class="col-sm-9">
+          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.breed.ontologyTerms" [text]="organism?.breed?.text"></app-robust-link>
+        </dd>
+      </ng-container>
+
+      <dt class="col-sm-3">Material:</dt>
+      <dd class="col-sm-9">
+        <a href="https://www.ebi.ac.uk/ols/terms?iri=http://purl.obolibrary.org/obo/UBERON_0000468" target="_blank">organism</a>
+      </dd>
+
+      <ng-container  *ngIf="organism && organism.hasOwnProperty('standardMet')">
+        <dt class="col-sm-3">Standard met:</dt>
+        <dd class="col-sm-9">{{organism?.standardMet}}</dd>
+      </ng-container>
+
+      <ng-container  *ngIf="organism && organism.hasOwnProperty('project')">
+        <dt class="col-sm-3">Project:</dt>
+        <dd class="col-sm-9">{{organism?.project}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.availability">
+        <dt class="col-sm-3">Availability:</dt>
+        <dd class="col-sm-9"><a href={{organism?.availability}}>{{dealWithAvailability(organism?.availability)}}</a></dd>
+      </ng-container>
+
+      <ng-container  *ngIf="organism && organism.hasOwnProperty('organization')">
+        <dt class="col-sm-3">Organisation:</dt>
+        <dd class="col-sm-9">
+          <ng-container *ngFor="let organization of organism?.organization;">
+            <app-robust-link [link]="organization.URL" [text]="organization.name"></app-robust-link> ( {{organization.role}})
+          </ng-container>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.description">
+        <dt class="col-sm-3">Description:</dt>
+        <dd class="col-sm-9">{{organism?.description}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.birthDate?.text">
+        <dt class="col-sm-3">Birth date:</dt>
+        <dd class="col-sm-9">{{organism?.birthDate?.text}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.birthLocation">
+        <dt class="col-sm-3">Birth location:</dt>
+        <dd class="col-sm-9">{{organism?.birthLocation}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.birthLocationLongitude?.text">
+        <dt class="col-sm-3">Birth longitude:</dt>
+        <dd class="col-sm-9">{{organism?.birthLocationLongitude?.text}} {{organism?.birthLocationLongitude.unit}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.birthLocationLatitude?.text">
+        <dt class="col-sm-3">Birth latitude:</dt>
+        <dd class="col-sm-9">{{organism?.birthLocationLatitude?.text}} {{organism?.birthLocationLatitude?.unit}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.birthWeight?.text">
+        <dt class="col-sm-3">Birth weight:</dt>
+        <dd class="col-sm-9">{{organism?.birthWeight?.text}} {{organism?.birthWeight?.unit}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.placentalWeight?.text">
+        <dt class="col-sm-3">Placental weight:</dt>
+        <dd class="col-sm-9">{{organism?.placentalWeight?.text}} {{organism?.placentalWeight?.unit}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.pregnancyLength?.text">
+        <dt class="col-sm-3">Pregnancy length:</dt>
+        <dd class="col-sm-9">{{organism?.pregnancyLength?.text}} {{organism?.pregnancyLength?.unit}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.deliveryTiming">
+        <dt class="col-sm-3">Delivery timing:</dt>
+        <dd class="col-sm-9">{{organism?.deliveryTiming}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.deliveryEase">
+        <dt class="col-sm-3">Delivery ease:</dt>
+        <dd class="col-sm-9">{{organism?.deliveryEase}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.sameAs">
+        <dt class="col-sm-3">Same as:</dt>
+        <dd class="col-sm-9">{{organism?.sameAs}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.childOf">
+        <dt class="col-sm-3">Child of:</dt>
+        <dd class="col-sm-9">
+          <ng-container *ngFor="let child of organism?.childOf;">
+            <app-robust-link prefix="../organism/" [link]="child" [text]="child"></app-robust-link>
+          </ng-container>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.pedigree">
+        <dt class="col-sm-3">Pedigree:</dt>
+        <dd class="col-sm-9"><a href={{organism?.pedigree}}>{{organism?.pedigree}}</a></dd>
+      </ng-container>
+
+      <ng-container *ngIf="organism?.customField?.length > 0;">
+        <ng-container *ngFor="let field of organism?.customField;">
+          <dt class="col-sm-3">{{field.name}}:</dt>
+          <dd class="col-sm-9">
+            <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="field.ontologyTerms" [text]="field.value"></app-robust-link>  {{field?.unit}}
+          </dd>
+        </ng-container>
+      </ng-container>
+    </dl>
 
     <app-related-items source_type="organism" target_type="paper"
                        download_key="" [record_id]="biosampleId"></app-related-items>

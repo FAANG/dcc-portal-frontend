@@ -9,4 +9,21 @@
 
 button {
   margin-left: 5px;
+  font-size: 14px;
+}
+
+i {
+  margin-left: 5px;
+}
+
+a {
+  color: steelblue;
+}
+
+table {
+  font-size: 14px;
+}
+
+h3 {
+  color: #477AAF;
 }

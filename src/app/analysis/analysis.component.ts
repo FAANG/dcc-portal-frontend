@@ -19,8 +19,8 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   analysisListLong: Observable<AnalysisTable[]>;
   columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard'];
 
-  spanClass = 'glyphicon glyphicon-arrow-down';
-  defaultClass = 'glyphicon glyphicon-sort';
+  spanClass = 'expand_more';
+  defaultClass = 'unfold_more';
   selectedColumn = 'Analysis accession';
   sort_field: SortParams;
   filter_field = {};
@@ -109,9 +109,9 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   onTableClick(event: any) {
     let event_class;
     if (event['srcElement']['firstElementChild']) {
-      event_class = event['srcElement']['firstElementChild']['classList']['value'];
+      event_class = event['srcElement']['firstElementChild']['innerText'];
     } else {
-      event_class = event['srcElement']['className'];
+      event_class = event['srcElement']['innerText'];
     }
     this.selectedColumn = event['srcElement']['id'];
     this.selectColumn();
@@ -120,26 +120,26 @@ export class AnalysisComponent implements OnInit, OnDestroy {
 
   chooseClass(event_class: string) {
     if (this.selectedColumn === 'Analysis accession') {
-      if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
-        this.spanClass = 'glyphicon glyphicon-arrow-up';
+      if (event_class === 'expand_more') {
+        this.spanClass = 'expand_less';
         this.sort_field['direction'] = 'asc';
       } else {
-        this.spanClass = 'glyphicon glyphicon-arrow-down';
+        this.spanClass = 'expand_more';
         this.sort_field['direction'] = 'desc';
       }
     } else {
-      if (event_class.indexOf(this.defaultClass) !== -1) {
-        this.spanClass = 'glyphicon glyphicon-arrow-down';
+      if (event_class === this.defaultClass) {
+        this.spanClass = 'expand_more';
         this.sort_field['direction'] = 'desc';
-      } else if (event_class.indexOf('glyphicon glyphicon-arrow-down') !== -1) {
-        this.spanClass = 'glyphicon glyphicon-arrow-up';
+      } else if (event_class === 'expand_more') {
+        this.spanClass = 'expand_less';
         this.sort_field['direction'] = 'asc';
       } else {
-        this.spanClass = 'glyphicon glyphicon-sort';
+        this.spanClass = 'unfold_more';
         this.sort_field['direction'] = 'desc';
-        this.sort_field['id'] = 'accession';
+        this.sort_field['id'] = 'datasetAccession';
         this.selectedColumn = 'Analysis accession';
-        this.spanClass = 'glyphicon glyphicon-arrow-down';
+        this.spanClass = 'expand_more';
       }
     }
   }

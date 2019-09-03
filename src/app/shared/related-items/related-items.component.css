@@ -1,3 +1,19 @@
 .hide-column {
   display: none;
 }
+
+table {
+  font-size: 14px;
+}
+
+button {
+  margin-left: 5px;
+}
+
+input {
+  margin-left: 5px;
+}
+
+.inner-input {
+  margin-right: 5px;
+}

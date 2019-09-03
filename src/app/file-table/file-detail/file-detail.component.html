@@ -3,108 +3,158 @@
   <ng-container *ngIf="file">
 
     <h1 class="text-center">{{fileId}}</h1>
-    <dl class="dl-horizontal">
-      <dt>File name:</dt>
-      <dd>{{ file?.name }}</dd>
-      <dt>Release date:</dt>
-      <dd>{{file?.releaseDate}}</dd>
-      <dt>Update date:</dt>
-      <dd>{{file?.updateDate}}</dd>
-      <dt>Organism:</dt>
-      <dd>
+    <dl class="row">
+      <dt class="col-sm-3">File name:</dt>
+      <dd class="col-sm-9">{{ file?.name }}</dd>
+
+      <dt class="col-sm-3">Release date:</dt>
+      <dd class="col-sm-9">{{file?.releaseDate}}</dd>
+
+      <dt class="col-sm-3">Update date:</dt>
+      <dd class="col-sm-9">{{file?.updateDate}}</dd>
+
+      <dt class="col-sm-3">Organism:</dt>
+      <dd class="col-sm-9">
         <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="file?.species?.ontologyTerms"
                          [text]="file?.species?.text"></app-robust-link>
       </dd>
-      <dt>Specimen:</dt>
-      <dd>
+
+      <dt class="col-sm-3">Specimen:</dt>
+      <dd class="col-sm-9">
         <app-robust-link prefix="../specimen/" [link]="file?.specimen" [text]="file?.specimen"></app-robust-link>
       </dd>
-      <div *ngIf="file?.organism">
-        <dt>BioSample ID:</dt>
-        <dd>
+
+      <ng-container *ngIf="file?.organism">
+        <dt class="col-sm-3">BioSample ID:</dt>
+        <dd class="col-sm-9">
           <app-robust-link prefix="../organism/" [link]="file?.organism" [text]="file?.organism"></app-robust-link>
         </dd>
-      </div>
-      <dt>File size:</dt>
-      <dd>{{file?.size}} ({{file?.readableSize}})</dd>
-      <dt>Archive:</dt>
-      <dd>{{file?.archive}}</dd>
-      <dt *ngIf="file?.readCount">Read count:</dt>
-      <dd>{{file?.readCount}}</dd>
-      <dt *ngIf="file?.baseCount">Base count:</dt>
-      <dd>{{file?.baseCount}}</dd>
-      <dt *ngIf="file?.submission">Submission:</dt>
-      <dd>
-        <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="file?.submission"
-                         [text]="file?.submission"></app-robust-link>
-      </dd>
-      <dt *ngIf="file?.experiment?.accession">Experiment:</dt>
-      <dd>
-        <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="file?.experiment?.accession"
-                         [text]="file?.experiment?.accession"></app-robust-link>
-        <button class="btn btn-info btn-xs" id="exp_dropdown" (click)="toggleExperiment()">Experiment details</button>
-        <dl class="dl-horizontal" *ngIf="showExperimentDetail">
-          <b>Details:</b>
-          <hr>
-          <ng-container *ngIf="experiment && fieldNames">
-            <ng-container *ngFor="let key of objectKeys(fieldNames)">
+      </ng-container>
 
-              <ng-container *ngIf="experiment.hasOwnProperty(key) && checkIsObject(experiment[key])">
-                <ng-container *ngIf="experiment[key].hasOwnProperty('filename')">
+      <dt class="col-sm-3">File size:</dt>
+      <dd class="col-sm-9">{{file?.size}} ({{file?.readableSize}})</dd>
+
+      <dt class="col-sm-3">Archive:</dt>
+      <dd class="col-sm-9">{{file?.archive}}</dd>
+
+      <ng-container *ngIf="file?.readCount">
+        <dt class="col-sm-3">Read count:</dt>
+        <dd class="col-sm-9">{{file?.readCount}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.baseCount">
+        <dt class="col-sm-3">Base count:</dt>
+        <dd class="col-sm-9">{{file?.baseCount}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.submission">
+        <dt class="col-sm-3">Submission:</dt>
+        <dd class="col-sm-9">
+          <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="file?.submission"
+                           [text]="file?.submission"></app-robust-link>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.experiment?.accession">
+        <dt class="col-sm-3">Experiment:</dt>
+        <dd class="col-sm-9">
+          <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="file?.experiment?.accession"
+                           [text]="file?.experiment?.accession"></app-robust-link>
+          <button class="btn btn-info btn-sm" id="exp_dropdown" (click)="toggleExperiment()">Experiment details</button>
+          <ng-container  *ngIf="showExperimentDetail">
+            <hr>
+            <ng-container *ngIf="experiment && fieldNames">
+              <ng-container *ngFor="let key of objectKeys(fieldNames)">
+
+                <ng-container *ngIf="experiment.hasOwnProperty(key) && checkIsObject(experiment[key])">
+                  <ng-container *ngIf="experiment[key].hasOwnProperty('filename')">
+                    <p>
+                      <b>{{fieldNames[key]}}:</b><br>
+                      <app-robust-link [link]="experiment[key]['url']"
+                                       [text]="experiment[key]['filename'] | slice:0:62"></app-robust-link>
+                    </p>
+                  </ng-container>
+                  <ng-container *ngIf="experiment[key].hasOwnProperty('text')">
+                    <p>
+                      <b>{{fieldNames[key]}}: </b><br>
+                      {{experiment[key]['text']}} ({{experiment[key]['unit']}})
+                    </p>
+                  </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="experiment.hasOwnProperty(key) && !checkIsObject(experiment[key])">
                   <p>
                     <b>{{fieldNames[key]}}:</b><br>
-                    <app-robust-link [link]="experiment[key]['url']"
-                                     [text]="experiment[key]['filename'] | slice:0:62"></app-robust-link>
+                    {{experiment[key]}}
                   </p>
                 </ng-container>
-                <ng-container *ngIf="experiment[key].hasOwnProperty('text')">
-                  <p>
-                    <b>{{fieldNames[key]}}: </b><br>
-                    {{experiment[key]['text']}} ({{experiment[key]['unit']}})
-                  </p>
-                </ng-container>
-              </ng-container>
 
-              <ng-container *ngIf="experiment.hasOwnProperty(key) && !checkIsObject(experiment[key])">
-                <p>
-                  <b>{{fieldNames[key]}}:</b><br>
-                  {{experiment[key]}}
-                </p>
               </ng-container>
-
             </ng-container>
+            <hr>
           </ng-container>
-        </dl>
-      </dd>
-      <dt *ngIf="file?.study?.accession">Study:</dt>
-      <dd>
-        <app-robust-link prefix="../dataset/" [link]="file?.study?.accession"
-                         [text]="file?.study?.accession"></app-robust-link>
-      </dd>
-      <dt *ngIf="file?.study?.title">Study title:</dt>
-      <dd>{{file?.study?.title}}</dd>
-      <dt *ngIf="file?.run?.accession">Run:</dt>
-      <dd>
-        <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="file?.run?.accession"
-                         [text]="file?.run?.accession"></app-robust-link>
-      </dd>
-      <dt *ngIf="file?.run?.platform">Platform:</dt>
-      <dd>{{file?.run?.platform}}</dd>
-      <dt *ngIf="file?.run?.instrument">Instrument:</dt>
-      <dd>{{file?.run?.instrument}}</dd>
-      <dt *ngIf="file?.run?.centerName">Center name:</dt>
-      <dd>{{file?.run?.centerName}}</dd>
-      <dt *ngIf="file?.run?.sequencingDate">Sequencing date:</dt>
-      <dd>{{file?.run?.sequencingDate}}</dd>
-      <dt *ngIf="file?.run?.sequencingLocation">Sequencing location:</dt>
-      <dd>{{file?.run?.sequencingLocation}}</dd>
-      <dt *ngIf="file?.run?.sequencingLatitude">Sequencing latitude:</dt>
-      <dd *ngIf="file?.run?.sequencingLatitude">{{file?.run?.sequencingLatitude}} (decimal degrees)</dd>
-      <dt *ngIf="file?.run?.sequencingLongitude">Sequencing longitude:</dt>
-      <dd *ngIf="file?.run?.sequencingLongitude">{{file?.run?.sequencingLongitude}} (decimal degrees)</dd>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.study?.accession">
+        <dt class="col-sm-3">Study:</dt>
+        <dd class="col-sm-9">
+          <app-robust-link prefix="../dataset/" [link]="file?.study?.accession"
+                           [text]="file?.study?.accession"></app-robust-link>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.study?.title">
+        <dt class="col-sm-3">Study title:</dt>
+        <dd class="col-sm-9">{{file?.study?.title}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.run?.accession">
+        <dt class="col-sm-3">Run:</dt>
+        <dd class="col-sm-9">
+          <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="file?.run?.accession"
+                           [text]="file?.run?.accession"></app-robust-link>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.run?.platform">
+        <dt class="col-sm-3">Platform:</dt>
+        <dd class="col-sm-9">{{file?.run?.platform}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.run?.instrument">
+        <dt class="col-sm-3">Instrument:</dt>
+        <dd class="col-sm-9">{{file?.run?.instrument}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.run?.centerName">
+        <dt class="col-sm-3">Center name:</dt>
+        <dd class="col-sm-9">{{file?.run?.centerName}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.run?.sequencingDate">
+        <dt class="col-sm-3">Sequencing date:</dt>
+        <dd class="col-sm-9">{{file?.run?.sequencingDate}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.run?.sequencingLocation">
+        <dt class="col-sm-3">Sequencing location:</dt>
+        <dd class="col-sm-9">{{file?.run?.sequencingLocation}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.run?.sequencingLatitude">
+        <dt class="col-sm-3">Sequencing latitude:</dt>
+        <dd class="col-sm-9">{{file?.run?.sequencingLatitude}} (decimal degrees)</dd>
+      </ng-container>
+
+      <ng-container *ngIf="file?.run?.sequencingLongitude">
+        <dt class="col-sm-3">Sequencing longitude:</dt>
+        <dd class="col-sm-9">{{file?.run?.sequencingLongitude}} (decimal degrees)</dd>
+      </ng-container>
+
       <ng-container *ngIf="file && file.hasOwnProperty('experiment') && file.experiment.hasOwnProperty('standardMet')">
-        <dt>Standard met:</dt>
-        <dd>{{file.experiment.standardMet}}</dd>
+        <dt class="col-sm-3">Standard met:</dt>
+        <dd class="col-sm-9">{{file.experiment.standardMet}}</dd>
       </ng-container>
     </dl>
 

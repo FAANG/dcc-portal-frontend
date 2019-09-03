@@ -2,33 +2,33 @@
   <app-header></app-header>
   <ng-container *ngIf="specimen">
     <h1 class="text-center">{{biosampleId}}</h1>
-    <dl class="dl-horizontal">
+    <dl class="row">
       <ng-container *ngIf="specimen && specimen.hasOwnProperty('name')">
-        <dt>Name:</dt>
-        <dd>{{specimen?.name}}</dd>
+        <dt class="col-sm-3">Name:</dt>
+        <dd class="col-sm-9">{{specimen?.name}}</dd>
       </ng-container>
       <ng-container *ngIf="specimen && specimen.hasOwnProperty('biosampleId')">
-        <dt>BioSample ID:</dt>
-        <dd><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a>
+        <dt class="col-sm-3">BioSample ID:</dt>
+        <dd class="col-sm-9"><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a>
         </dd>
       </ng-container>
       <ng-container *ngIf="specimen && specimen.hasOwnProperty('alternativeId') && specimen.alternativeId.length !== 0">
-        <dt>Alternative ID:</dt>
-        <dd>{{specimen.alternativeId.toString()}}</dd>
+        <dt class="col-sm-3">Alternative ID:</dt>
+        <dd class="col-sm-9">{{specimen.alternativeId.toString()}}</dd>
       </ng-container>
       <ng-container *ngIf="specimen && specimen.hasOwnProperty('releaseDate')">
-        <dt>Release date:</dt>
-        <dd>{{specimen?.releaseDate}}</dd>
+        <dt class="col-sm-3">Release date:</dt>
+        <dd class="col-sm-9">{{specimen?.releaseDate}}</dd>
       </ng-container>
       <ng-container *ngIf="specimen && specimen.hasOwnProperty('updateDate')">
-        <dt>Update date:</dt>
-        <dd>{{specimen?.updateDate}}</dd>
+        <dt class="col-sm-3">Update date:</dt>
+        <dd class="col-sm-9">{{specimen?.updateDate}}</dd>
       </ng-container>
       <ng-container
         *ngIf="(specimen?.material?.text !== 'pool of specimens' && specimen?.material?.text !=='cell line')">
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('sex')">
-          <dt>Sex:</dt>
-          <dd>
+          <dt class="col-sm-3">Sex:</dt>
+          <dd class="col-sm-9">
             <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                              [link]="specimen?.organism?.sex?.ontologyTerms"
                              [text]="specimen?.organism?.sex?.text"></app-robust-link>
@@ -36,16 +36,16 @@
         </ng-container>
 
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('biosampleId')">
-          <dt>Organism BioSample Id:</dt>
-          <dd>
+          <dt class="col-sm-3">Organism BioSample Id:</dt>
+          <dd class="col-sm-9">
             <app-robust-link prefix="../organism/" [link]="specimen?.organism?.biosampleId"
                              [text]="specimen?.organism?.biosampleId"></app-robust-link>
           </dd>
         </ng-container>
 
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('organism')">
-          <dt>Organism:</dt>
-          <dd>
+          <dt class="col-sm-3">Organism:</dt>
+          <dd class="col-sm-9">
             <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                              [link]="specimen?.organism?.organism?.ontologyTerms"
                              [text]="specimen?.organism?.organism?.text"></app-robust-link>
@@ -53,8 +53,8 @@
         </ng-container>
 
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('breed')">
-          <dt>Breed:</dt>
-          <dd>
+          <dt class="col-sm-3">Breed:</dt>
+          <dd class="col-sm-9">
             <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                              [link]="specimen?.organism?.breed?.ontologyTerms"
                              [text]="specimen?.organism?.breed?.text"></app-robust-link>
@@ -62,8 +62,8 @@
         </ng-container>
 
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('healthStatus')">
-          <dt>Health status:</dt>
-          <dd>
+          <dt class="col-sm-3">Health status:</dt>
+          <dd class="col-sm-9">
             <ng-container *ngFor="let status of specimen?.organism?.healthStatus;">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="status.ontologyTerms"
                                [text]="status.text"></app-robust-link>
@@ -72,29 +72,29 @@
         </ng-container>
       </ng-container>
 
-      <div *ngIf="specimen?.description">
-        <dt>Description:</dt>
-        <dd>{{specimen?.description}}</dd>
-      </div>
+      <ng-container *ngIf="specimen?.description">
+        <dt class="col-sm-3">Description:</dt>
+        <dd class="col-sm-9">{{specimen?.description}}</dd>
+      </ng-container>
 
       <ng-container *ngIf="specimen && specimen.hasOwnProperty('standardMet')">
-        <dt>Standard met:</dt>
-        <dd>{{specimen?.standardMet}}</dd>
+        <dt class="col-sm-3">Standard met:</dt>
+        <dd class="col-sm-9">{{specimen?.standardMet}}</dd>
       </ng-container>
 
       <ng-container *ngIf="specimen && specimen.hasOwnProperty('project')">
-        <dt>Project:</dt>
-        <dd>{{specimen?.project}}</dd>
+        <dt class="col-sm-3">Project:</dt>
+        <dd class="col-sm-9">{{specimen?.project}}</dd>
       </ng-container>
 
-      <div *ngIf="specimen?.availability">
-        <dt>Availability:</dt>
-        <dd><a href={{specimen?.availability}}>{{dealWithAvailability(specimen?.availability)}}</a></dd>
-      </div>
+      <ng-container *ngIf="specimen?.availability">
+        <dt class="col-sm-3">Availability:</dt>
+        <dd class="col-sm-9"><a href={{specimen?.availability}}>{{dealWithAvailability(specimen?.availability)}}</a></dd>
+      </ng-container>
 
       <ng-container *ngIf="specimen && specimen?.hasOwnProperty('organization')">
-        <dt>Organisation:</dt>
-        <dd>
+        <dt class="col-sm-3">Organisation:</dt>
+        <dd class="col-sm-9">
           <ng-container *ngFor="let organization of specimen?.organization;">
             <app-robust-link [link]="organization.URL" [text]="organization.name"></app-robust-link>
             ( {{organization.role}})
@@ -103,21 +103,21 @@
       </ng-container>
 
       <ng-container *ngIf="specimen && specimen?.hasOwnProperty('material')">
-        <dt>Material:</dt>
-        <dd>
+        <dt class="col-sm-3">Material:</dt>
+        <dd class="col-sm-9">
           <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.material?.ontologyTerms"
                            [text]="specimen?.material?.text"></app-robust-link>
         </dd>
       </ng-container>
 
-      <div *ngIf="specimen?.sameAs">
-        <dt>Same as:</dt>
-        <dd>{{specimen?.sameAs}}</dd>
-      </div>
+      <ng-container *ngIf="specimen?.sameAs">
+        <dt class="col-sm-3">Same as:</dt>
+        <dd class="col-sm-9">{{specimen?.sameAs}}</dd>
+      </ng-container>
 
-      <div *ngIf="specimen?.derivedFrom">
-        <dt>Derived from:</dt>
-        <dd>
+      <ng-container *ngIf="specimen?.derivedFrom">
+        <dt class="col-sm-3">Derived from:</dt>
+        <dd class="col-sm-9">
           <ng-container [ngSwitch]="specimen?.material?.text">
             <ng-template ngSwitchCase="pool of specimens">
               <ng-container *ngFor="let derived of specimen?.derivedFrom; let i = index">
@@ -140,23 +140,23 @@
             </ng-template>
           </ng-container>
         </dd>
-      </div>
+      </ng-container>
 
       <ng-container [ngSwitch]="specimen?.material?.text">
         <ng-template ngSwitchCase="specimen from organism">
           <ng-container *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('specimenCollectionDate')">
-            <dt>Specimen collection date:</dt>
-            <dd>{{specimen?.specimenFromOrganism?.specimenCollectionDate?.text}}</dd>
+            <dt class="col-sm-3">Specimen collection date:</dt>
+            <dd class="col-sm-9">{{specimen?.specimenFromOrganism?.specimenCollectionDate?.text}}</dd>
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('animalAgeAtCollection')">
-            <dt>Animal age at collection:</dt>
-            <dd>{{specimen?.specimenFromOrganism?.animalAgeAtCollection?.text}} {{specimen?.specimenFromOrganism?.animalAgeAtCollection?.unit}}</dd>
+            <dt class="col-sm-3">Animal age at collection:</dt>
+            <dd class="col-sm-9">{{specimen?.specimenFromOrganism?.animalAgeAtCollection?.text}} {{specimen?.specimenFromOrganism?.animalAgeAtCollection?.unit}}</dd>
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('developmentalStage')">
-            <dt>Developmental stage:</dt>
-            <dd>
+            <dt class="col-sm-3">Developmental stage:</dt>
+            <dd class="col-sm-9">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                                [link]="specimen?.specimenFromOrganism?.developmentalStage?.ontologyTerms"
                                [text]="specimen?.specimenFromOrganism?.developmentalStage?.text"></app-robust-link>
@@ -164,8 +164,8 @@
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('organismPart')">
-            <dt>Organism part:</dt>
-            <dd>
+            <dt class="col-sm-3">Organism part:</dt>
+            <dd class="col-sm-9">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                                [link]="specimen?.specimenFromOrganism?.organismPart?.ontologyTerms"
                                [text]="specimen?.specimenFromOrganism?.organismPart?.text"></app-robust-link>
@@ -174,8 +174,8 @@
 
           <ng-container
             *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('specimenCollectionProtocol')">
-            <dt>Specimen collection protocol:</dt>
-            <dd>
+            <dt class="col-sm-3">Specimen collection protocol:</dt>
+            <dd class="col-sm-9">
               <ng-container *ngIf="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
                 <app-robust-link [link]="getProtocolLink()"
                                  [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename"></app-robust-link>
@@ -189,55 +189,52 @@
             </dd>
           </ng-container>
 
-          <div *ngIf="specimen?.specimenFromOrganism?.fastedStatus">
-            <dt>Fasted status:</dt>
-            <dd>{{specimen?.specimenFromOrganism?.fastedStatus}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.specimenFromOrganism?.fastedStatus">
+            <dt class="col-sm-3">Fasted status:</dt>
+            <dd class="col-sm-9">{{specimen?.specimenFromOrganism?.fastedStatus}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.specimenFromOrganism?.numberOfPieces?.text">
-            <dt>Number of pieces:</dt>
-            <dd>{{specimen?.specimenFromOrganism?.numberOfPieces?.text}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.specimenFromOrganism?.numberOfPieces?.text">
+            <dt class="col-sm-3">Number of pieces:</dt>
+            <dd class="col-sm-9">{{specimen?.specimenFromOrganism?.numberOfPieces?.text}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.specimenFromOrganism?.specimenVolume?.text">
-            <dt>Specimen volume:</dt>
-            <dd>{{specimen?.specimenFromOrganism?.specimenVolume?.text}} {{specimen?.specimenFromOrganism?.specimenVolume?.unit}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.specimenFromOrganism?.specimenVolume?.text">
+            <dt class="col-sm-3">Specimen volume:</dt>
+            <dd class="col-sm-9">{{specimen?.specimenFromOrganism?.specimenVolume?.text}} {{specimen?.specimenFromOrganism?.specimenVolume?.unit}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.specimenFromOrganism?.specimenSize?.text">
-            <dt>Specimen size:</dt>
-            <dd>{{specimen?.specimenFromOrganism?.specimenSize?.text}} {{specimen?.specimenFromOrganism?.specimenSize?.unit}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.specimenFromOrganism?.specimenSize?.text">
+            <dt class="col-sm-3">Specimen size:</dt>
+            <dd class="col-sm-9">{{specimen?.specimenFromOrganism?.specimenSize?.text}} {{specimen?.specimenFromOrganism?.specimenSize?.unit}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.specimenFromOrganism?.specimenWeight?.text">
-            <dt>Specimen weight:</dt>
-            <dd>{{specimen?.specimenFromOrganism?.specimenWeight?.text}} {{specimen?.specimenFromOrganism?.specimenWeight?.unit}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.specimenFromOrganism?.specimenWeight?.text">
+            <dt class="col-sm-3">Specimen weight:</dt>
+            <dd class="col-sm-9">{{specimen?.specimenFromOrganism?.specimenWeight?.text}} {{specimen?.specimenFromOrganism?.specimenWeight?.unit}}</dd>
+          </ng-container>
 
           <ng-container
             *ngIf="specimen && specimen.specimenFromOrganism?.hasOwnProperty('specimenPictureUrl') && specimen.specimenFromOrganism.specimenPictureUrl.length !== 0">
-            <dt>Specimen picture URL:</dt>
-            <dd>{{specimen.specimenFromOrganism.specimenPictureUrl.toString()}}</dd>
-            <!--          <dd>
-                        <app-robust-link [link]="specimen?.specimenFromOrganism?.specimenPictureUrl" [text]="specimen?.specimenFromOrganism?.specimenPictureUrl"></app-robust-link>
-                      </dd>-->
+            <dt class="col-sm-3">Specimen picture URL:</dt>
+            <dd class="col-sm-9">{{specimen.specimenFromOrganism.specimenPictureUrl.toString()}}</dd>
           </ng-container>
 
-          <div *ngIf="specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text">
-            <dt>Gestational age at sample collection:</dt>
-            <dd>{{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text}} {{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.unit}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text">
+            <dt class="col-sm-3">Gestational age at sample collection:</dt>
+            <dd class="col-sm-9">{{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text}} {{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.unit}}</dd>
+          </ng-container>
         </ng-template>
 
         <ng-template ngSwitchCase="pool of specimens">
           <ng-container *ngIf="specimen && specimen.poolOfSpecimens.hasOwnProperty('poolCreationDate')">
-            <dt>Pool creation date:</dt>
-            <dd>{{specimen.poolOfSpecimens.poolCreationDate.text}}</dd>
+            <dt class="col-sm-3">Pool creation date:</dt>
+            <dd class="col-sm-9">{{specimen.poolOfSpecimens.poolCreationDate.text}}</dd>
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.poolOfSpecimens?.hasOwnProperty('poolCreationProtocol')">
-            <dt>Pool creation protocol:</dt>
-            <dd>
+            <dt class="col-sm-3">Pool creation protocol:</dt>
+            <dd class="col-sm-9">
               <ng-container *ngIf="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
                 <app-robust-link [link]="specimen?.poolOfSpecimens?.poolCreationProtocol?.url"
                                  [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename"></app-robust-link>
@@ -251,41 +248,38 @@
             </dd>
           </ng-container>
 
-          <div *ngIf="specimen?.poolOfSpecimens?.specimenVolume?.text">
-            <dt>Specimen volume:</dt>
-            <dd>{{specimen.poolOfSpecimens.specimenVolume.text}} {{specimen.poolOfSpecimens.specimenVolume.unit}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.poolOfSpecimens?.specimenVolume?.text">
+            <dt class="col-sm-3">Specimen volume:</dt>
+            <dd class="col-sm-9">{{specimen.poolOfSpecimens.specimenVolume.text}} {{specimen.poolOfSpecimens.specimenVolume.unit}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.poolOfSpecimens?.specimenSize?.text">
-            <dt>Specimen size:</dt>
-            <dd>{{specimen.poolOfSpecimens.specimenSize.text}} {{specimen.poolOfSpecimens.specimenSize.unit}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.poolOfSpecimens?.specimenSize?.text">
+            <dt class="col-sm-3">Specimen size:</dt>
+            <dd class="col-sm-9">{{specimen.poolOfSpecimens.specimenSize.text}} {{specimen.poolOfSpecimens.specimenSize.unit}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.poolOfSpecimens?.specimenWeight?.text">
-            <dt>Specimen weight:</dt>
-            <dd>{{specimen.poolOfSpecimens.specimenWeight.text}} {{specimen.poolOfSpecimens.specimenWeight.unit}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.poolOfSpecimens?.specimenWeight?.text">
+            <dt class="col-sm-3">Specimen weight:</dt>
+            <dd class="col-sm-9">{{specimen.poolOfSpecimens.specimenWeight.text}} {{specimen.poolOfSpecimens.specimenWeight.unit}}</dd>
+          </ng-container>
 
           <ng-container
             *ngIf="specimen && specimen.poolOfSpecimens?.hasOwnProperty('specimenPictureUrl') && specimen.poolOfSpecimens.specimenPictureUrl.length !== 0">
-            <dt>Specimen picture URL:</dt>
-            <dd>{{specimen.poolOfSpecimens.specimenPictureUrl.toString()}}</dd>
-            <!--          <dd>
-                        <app-robust-link [link]="specimen?.specimenFromOrganism?.specimenPictureUrl" [text]="specimen?.specimenFromOrganism?.specimenPictureUrl"></app-robust-link>
-                      </dd>-->
+            <dt class="col-sm-3">Specimen picture URL:</dt>
+            <dd class="col-sm-9">{{specimen.poolOfSpecimens.specimenPictureUrl.toString()}}</dd>
           </ng-container>
         </ng-template>
 
         <ng-template ngSwitchCase="cell specimen">
 
-          <div *ngIf="specimen?.cellSpecimen?.markers">
-            <dt>Markers:</dt>
-            <dd>{{specimen.cellSpecimen.markers}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.cellSpecimen?.markers">
+            <dt class="col-sm-3">Markers:</dt>
+            <dd class="col-sm-9">{{specimen.cellSpecimen.markers}}</dd>
+          </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.cellSpecimen?.hasOwnProperty('cellType')">
-            <dt>Cell type:</dt>
-            <dd>
+            <dt class="col-sm-3">Cell type:</dt>
+            <dd class="col-sm-9">
               <ng-container *ngFor="let type of specimen?.cellSpecimen?.cellType;">
                 <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="type?.ontologyTerms[0]"
                                  [text]="type?.text"></app-robust-link>
@@ -294,8 +288,8 @@
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.cellSpecimen?.hasOwnProperty('purificationProtocol')">
-            <dt>Purification protocol:</dt>
-            <dd>
+            <dt class="col-sm-3">Purification protocol:</dt>
+            <dd class="col-sm-9">
               <ng-container *ngIf="specimen?.cellSpecimen?.purificationProtocol?.filename">
                 <app-robust-link [link]="specimen?.cellSpecimen?.purificationProtocol?.url"
                                  [text]="specimen?.cellSpecimen?.purificationProtocol?.filename"></app-robust-link>
@@ -308,13 +302,12 @@
               </ng-container>
             </dd>
           </ng-container>
-
         </ng-template>
 
         <ng-template ngSwitchCase="cell culture">
           <ng-container *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cultureType')">
-            <dt>Culture type:</dt>
-            <dd>
+            <dt class="col-sm-3">Culture type:</dt>
+            <dd class="col-sm-9">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                                [link]="specimen?.cellCulture?.cultureType?.ontologyTerms"
                                [text]="specimen?.cellCulture?.cultureType?.text"></app-robust-link>
@@ -322,8 +315,8 @@
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cellType')">
-            <dt>Cell type:</dt>
-            <dd>
+            <dt class="col-sm-3">Cell type:</dt>
+            <dd class="col-sm-9">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                                [link]="specimen?.cellCulture?.cellType?.ontologyTerms"
                                [text]="specimen?.cellCulture?.cellType?.text"></app-robust-link>
@@ -331,8 +324,8 @@
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cellCultureProtocol')">
-            <dt>Cell culture protocol:</dt>
-            <dd>
+            <dt class="col-sm-3">Cell culture protocol:</dt>
+            <dd class="col-sm-9">
               <ng-container *ngIf="specimen?.cellCulture?.cellCultureProtocol?.filename">
                 <app-robust-link [link]="specimen?.cellCulture?.cellCultureProtocol?.url"
                                  [text]="specimen?.cellCulture?.cellCultureProtocol?.filename"></app-robust-link>
@@ -347,25 +340,25 @@
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cultureConditions')">
-            <dt>Culture conditions:</dt>
-            <dd>{{specimen?.cellCulture?.cultureConditions}}</dd>
+            <dt class="col-sm-3">Culture conditions:</dt>
+            <dd class="col-sm-9">{{specimen?.cellCulture?.cultureConditions}}</dd>
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('numberOfPassages')">
-            <dt>Number of passages:</dt>
-            <dd>{{specimen?.cellCulture?.numberOfPassages}}</dd>
+            <dt class="col-sm-3">Number of passages:</dt>
+            <dd class="col-sm-9">{{specimen?.cellCulture?.numberOfPassages}}</dd>
           </ng-container>
         </ng-template>
 
         <ng-template ngSwitchCase="cell line">
           <ng-container *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('cellLine')">
-            <dt>Cell line:</dt>
-            <dd>{{specimen?.cellLine?.cellLine}}</dd>
+            <dt class="col-sm-3">Cell line:</dt>
+            <dd class="col-sm-9">{{specimen?.cellLine?.cellLine}}</dd>
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('organism')">
-            <dt>Organism:</dt>
-            <dd>
+            <dt class="col-sm-3">Organism:</dt>
+            <dd class="col-sm-9">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                                [link]="specimen?.cellLine?.organism?.ontologyTerms"
                                [text]="specimen?.cellLine?.organism?.text"></app-robust-link>
@@ -373,8 +366,8 @@
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('sex')">
-            <dt>Sex:</dt>
-            <dd>
+            <dt class="col-sm-3">Sex:</dt>
+            <dd class="col-sm-9">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                                [link]="specimen?.cellLine?.sex?.ontologyTerms"
                                [text]="specimen?.cellLine?.sex?.text"></app-robust-link>
@@ -382,56 +375,56 @@
           </ng-container>
 
           <ng-container *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('biomaterialProvider')">
-            <dt>Biomaterial provider:</dt>
-            <dd>{{specimen?.cellLine?.biomaterialProvider}}</dd>
+            <dt class="col-sm-3">Biomaterial provider:</dt>
+            <dd class="col-sm-9">{{specimen?.cellLine?.biomaterialProvider}}</dd>
           </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.catalogueNumber">
-            <dt>Catalogue number:</dt>
-            <dd>{{specimen.cellLine.catalogueNumber}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.cellLine?.catalogueNumber">
+            <dt class="col-sm-3">Catalogue number:</dt>
+            <dd class="col-sm-3">{{specimen.cellLine.catalogueNumber}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.numberOfPassages">
-            <dt>Number of passages:</dt>
-            <dd>{{specimen?.cellLine?.numberOfPassages}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.cellLine?.numberOfPassages">
+            <dt class="col-sm-3">Number of passages:</dt>
+            <dd class="col-sm-9">{{specimen?.cellLine?.numberOfPassages}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.dateEstablished">
-            <dt>Date established:</dt>
-            <dd>{{specimen?.cellLine?.dateEstablished.text}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.cellLine?.dateEstablished">
+            <dt class="col-sm-3">Date established:</dt>
+            <dd class="col-sm-9">{{specimen?.cellLine?.dateEstablished.text}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.publication">
-            <dt>Publication:</dt>
-            <dd>{{specimen.cellLine.publication}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.cellLine?.publication">
+            <dt class="col-sm-3">Publication:</dt>
+            <dd class="col-sm-9">{{specimen.cellLine.publication}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.breed?.text">
-            <dt>Breed:</dt>
-            <dd>
+          <ng-container *ngIf="specimen?.cellLine?.breed?.text">
+            <dt class="col-sm-3">Breed:</dt>
+            <dd class="col-sm-9">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                                [link]="specimen.cellLine.breed.ontologyTerms"
                                [text]="specimen.cellLine.breed.text"></app-robust-link>
             </dd>
-          </div>
+          </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.cellType?.text">
-            <dt>Cell type:</dt>
-            <dd>
+          <ng-container *ngIf="specimen?.cellLine?.cellType?.text">
+            <dt class="col-sm-3">Cell type:</dt>
+            <dd class="col-sm-9">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                                [link]="specimen?.cellLine?.cellType?.ontologyTerms"
                                [text]="specimen?.cellLine?.cellType?.text"></app-robust-link>
             </dd>
-          </div>
+          </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.cultureConditions">
-            <dt>Culture conditions:</dt>
-            <dd>{{specimen.cellLine.cultureConditions}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.cellLine?.cultureConditions">
+            <dt class="col-sm-3">Culture conditions:</dt>
+            <dd class="col-sm-9">{{specimen.cellLine.cultureConditions}}</dd>
+          </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.cultureProtocol?.url">
-            <dt>Culture protocol:</dt>
-            <dd>
+          <ng-container *ngIf="specimen?.cellLine?.cultureProtocol?.url">
+            <dt class="col-sm-3">Culture protocol:</dt>
+            <dd class="col-sm-9">
               <ng-container *ngIf="specimen.cellLine.cultureprotocol.filename">
                 <app-robust-link [link]="specimen.cellLine.cultureProtocol.url"
                                  [text]="specimen.cellLine.cultureProtocol.filename"></app-robust-link>
@@ -443,39 +436,39 @@
                                  [text]="specimen.cellLine.cultureProtocol.url"></app-robust-link>
               </ng-container>
             </dd>
-          </div>
+          </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.disease?.text">
-            <dt>Disease:</dt>
-            <dd>
+          <ng-container *ngIf="specimen?.cellLine?.disease?.text">
+            <dt class="col-sm-3">Disease:</dt>
+            <dd class="col-sm-9">
               <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
                                [link]="specimen.cellLine.disease.ontologyTerms"
                                [text]="specimen.cellLine.disease.text"></app-robust-link>
             </dd>
-          </div>
+          </ng-container>
 
-          <div *ngIf="specimen?.cellLine?.karyotype">
-            <dt>Karyotype:</dt>
-            <dd>{{specimen.cellLine.karyotype}}</dd>
-          </div>
+          <ng-container *ngIf="specimen?.cellLine?.karyotype">
+            <dt class="col-sm-3">Karyotype:</dt>
+            <dd class="col-sm-9">{{specimen.cellLine.karyotype}}</dd>
+          </ng-container>
         </ng-template>
         <ng-template ngSwitchDefault>Unrecgonizable specimen type</ng-template>
       </ng-container>
 
-      <div *ngIf="specimen?.customField?.length > 0;">
+      <ng-container *ngIf="specimen?.customField?.length > 0;">
         <ng-container *ngFor="let field of specimen?.customField;">
-          <div *ngIf="field.name !== 'Sex'">
-            <div *ngIf="field.ontologyTerms || field.value">
-              <dt>{{field.name}}:</dt>
-              <dd>
+          <ng-container *ngIf="field.name !== 'Sex'">
+            <ng-container *ngIf="field.ontologyTerms || field.value">
+              <dt class="col-sm-3">{{field.name}}:</dt>
+              <dd class="col-sm-9">
                 <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="field.ontologyTerms"
                                  [text]="field.value"></app-robust-link>
                 {{field?.unit}}
               </dd>
-            </div>
-          </div>
+            </ng-container>
+          </ng-container>
         </ng-container>
-      </div>
+      </ng-container>
     </dl>
 
     <app-related-items source_type="specimen" target_type="paper"
@@ -489,5 +482,4 @@
   </ng-container>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>
-
 

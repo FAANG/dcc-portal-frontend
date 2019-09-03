@@ -1,6 +1,15 @@
-.dl-horizontal dt {
-  width: 220px;
+dl {
+  font-size: 14px;
 }
-.dl-horizontal dd {
-  margin-left: 240px;
+
+a {
+  color: steelblue;
+}
+
+table {
+  font-size: 14px;
+}
+
+p {
+  font-size: 14px;
 }

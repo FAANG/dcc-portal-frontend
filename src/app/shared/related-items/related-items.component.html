@@ -5,57 +5,61 @@
       Related
       <ng-container *ngIf="target_type == 'analysis'">Analyses</ng-container>
       <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s</ng-container>
-      <button type="button" class="btn btn-success" (click)="downloadAllFiles()" [disabled]="disableButton()"
+      <button type="button" class="btn btn-success btn-sm" (click)="downloadAllFiles()" [disabled]="disableButton()"
               *ngIf="showButton()">Download all files ({{getUrlsLength()}})
       </button>
 
-      <button class="btn btn-success" id="dropdown" ngbDropdownToggle>Column selection</button>
+      <button class="btn btn-success btn-sm" id="dropdown" ngbDropdownToggle>Column selection</button>
       <ul ngbDropdownMenu aria-labelledby="dropdown">
         <ng-container *ngFor="let col of get_all_fields(); let i = index">
           <li ngbDropdownItem *ngIf="i>0">
             <input type="checkbox" [value]="col" [checked]="isDisplayed(col)" [id]="col"
-                   (click)="toggleSelectedColumn(col)"><label [for]="col">{{col}}</label></li>
+                   (click)="toggleSelectedColumn(col)" class="inner-input">
+            <label [for]="col">{{col}}</label>
+          </li>
         </ng-container>
       </ul>
 
     </h3>
   </div>
-  <table class="table table-striped table-hover table-responsive">
-    <thead>
-    <tr>
-      <ng-container *ngFor="let field of get_all_fields()">
-        <th [ngClass]="{'hide-column': !isDisplayed(field)}">{{field}}</th>
-      </ng-container>
-      <th *ngIf="download_key.length>0">
-        <label for="mainBox">Download </label>
-        <input id="mainBox" type="checkbox" [checked]="mainCheckboxChecked() == 2"
-               [indeterminate]="mainCheckboxChecked() == 1" (click)="mainCheckboxClicked()">
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngFor="let record of records |  paginate: { itemsPerPage: 10, currentPage: p, id: target_type }">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-borderless table-sm">
+      <thead>
       <tr>
-        <ng-container *ngFor="let attr of get_displayed_fields()">
-          <td>
+        <ng-container *ngFor="let field of get_all_fields()">
+          <th [ngClass]="{'hide-column': !isDisplayed(field)}">{{field}}</th>
+        </ng-container>
+        <th *ngIf="download_key.length>0">
+          <label for="mainBox">Download </label>
+          <input id="mainBox" type="checkbox" [checked]="mainCheckboxChecked() == 2"
+                 [indeterminate]="mainCheckboxChecked() == 1" (click)="mainCheckboxClicked()">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let record of records |  paginate: { itemsPerPage: 10, currentPage: p, id: target_type }">
+        <tr>
+          <ng-container *ngFor="let attr of get_displayed_fields()">
+            <td>
           <span *ngIf="get_field_values_for_links(attr); else plainBlock">
             <app-robust-link [prefix]="get_field_values_for_links(attr)['prefix']"
                              [link]="getValue(record, get_field_values_for_links(attr)['url'])"
                              [text]="getValue(record, get_attr(attr))">
             </app-robust-link>
           </span>
-            <ng-template #plainBlock>
-              {{getValue(record, get_attr(attr))}}
-            </ng-template>
+              <ng-template #plainBlock>
+                {{getValue(record, get_attr(attr))}}
+              </ng-template>
+            </td>
+          </ng-container>
+          <td *ngIf="download_key.length>0">
+            <input type="checkbox" (click)="onCheckboxClick(getValue(record,download_key))"
+                   [checked]="CheckboxChecked(getValue(record, download_key))">
           </td>
-        </ng-container>
-        <td *ngIf="download_key.length>0">
-          <input type="checkbox" (click)="onCheckboxClick(getValue(record,download_key))"
-                 [checked]="CheckboxChecked(getValue(record, download_key))">
-        </td>
-      </tr>
-    </ng-container>
-    </tbody>
-  </table>
-  <pagination-controls (pageChange)="p = $event" [id]="target_type"></pagination-controls>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event" [id]="target_type"></pagination-controls>
+  </div>
 </div>

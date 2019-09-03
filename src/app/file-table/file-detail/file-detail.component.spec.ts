@@ -4,9 +4,10 @@ import { FileDetailComponent } from './file-detail.component';
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 import {NgxSmartModalModule, NgxSmartModalService} from 'ngx-smart-modal';
-import {RunFilesComponent} from '../../shared/run-files/run-files.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RelatedItemsComponent} from '../../shared/related-items/related-items.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 describe('FileDetailComponent', () => {
   let component: FileDetailComponent;
@@ -18,12 +19,13 @@ describe('FileDetailComponent', () => {
         FileDetailComponent,
         HeaderComponent,
         RobustLinkComponent,
-        RunFilesComponent
+        RelatedItemsComponent,
       ],
       imports: [
         NgxSmartModalModule,
         RouterTestingModule,
         HttpClientTestingModule,
+        NgxPaginationModule,
       ],
       providers: [
         NgxSmartModalService

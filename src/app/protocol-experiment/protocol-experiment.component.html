@@ -3,16 +3,16 @@
   <h2>FAANG protocols
     <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/protocol', 'samples']">
       Samples
-      <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+      <i class="material-icons float-right">arrow_back</i>
     </button>
     <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
             [routerLink]="['/protocol', 'experiments']">
       Experiments
-      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+      <i class="material-icons float-right">home</i>
     </button>
   </h2>
 
-  <h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
+  <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
     Active filters:
     <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
     <button class="btn btn-default" type = "button" (click)="removeFilter()">Remove all filters</button>
@@ -22,18 +22,18 @@
     <div class="col-md-2">
       <div class="row">
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Protocol" [filterSize]=3></app-filter>
+          <app-filter title="Protocol" [filterSize]=2></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Target" [filterSize]=5></app-filter>
+          <app-filter title="Target" [filterSize]=3></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Assay type" [filterSize]=3></app-filter>
+          <app-filter title="Assay type" [filterSize]=2></app-filter>
         </div>
       </div>
     </div>
 
-    <div class="fails-table col-md-10">
+    <div class="col-md-10 table-responsive">
       <div *ngIf="(protocolList | async) as protocols; else loading">
         <button class="btn btn-success" (click)="onDownloadData()">Dowload data</button>
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
@@ -42,12 +42,11 @@
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
           Export as Tabular file
         </app-export>
-        <table class="table table-striped table-hover table-responsive">
+        <table class="table table-striped table-hover table-borderless table-sm">
           <thead>
           <tr>
-            <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
+            <th *ngFor="let column of columnNames" style="cursor: pointer" [id]="column">
               {{ column }}
-              <span [ngClass]="column === selectedColumn ? spanClass : defaultClass" *ngIf="column !== 'Standard'" [id]="column"></span>
             </th>
           </tr>
           </thead>
@@ -65,7 +64,7 @@
         <div>
           Loading...
         </div>
-        <table class="table table-striped table-hover table-responsive">
+        <table class="table table-striped table-hover table-borderless table-sm">
           <thead>
           <tr>
             <th *ngFor="let column of columnNames">

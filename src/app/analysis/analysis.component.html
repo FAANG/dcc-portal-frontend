@@ -2,10 +2,10 @@
   <app-header></app-header>
   <h2>FAANG analyses</h2>
 
-  <h3 class="col-md-10 col-md-offset-1 text-primary" *ngIf="hasActiveFilters()">
+  <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
     Active filters:
     <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
-    <button class="btn btn-default" type = "button" (click)="removeFilter()">Remove all filters</button>
+    <button class="btn btn-light" type = "button" (click)="removeFilter()">Remove all filters</button>
   </h3>
 
   <div class="row">
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="fails-table col-md-10">
+    <div class="col-md-10 table-responsive">
       <div *ngIf="(analysisListLong | async) as analyses; else loading">
         <button class="btn btn-success" (click)="onDownloadData()">Dowload data</button>
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
@@ -40,12 +40,13 @@
           Export as Tabular file
         </app-export>
 
-         <table class="table table-striped table-hover table-responsive">
+         <table class="table table-striped table-hover table-borderless table-sm">
           <thead>
           <tr>
             <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
               {{ column }}
-              <span [ngClass]="column === selectedColumn ? spanClass : defaultClass" [id]="column"></span>
+              <i class="material-icons sorted" *ngIf="column === selectedColumn" [id]="column">{{spanClass}}</i>
+              <i class="material-icons unsorted" *ngIf="column !== selectedColumn" [id]="column">{{defaultClass}}</i>
             </th>
            </tr>
           </thead>
@@ -67,7 +68,7 @@
         <div>
           Loading...
         </div>
-        <table class="table table-striped table-hover table-responsive">
+        <table class="table table-striped table-hover table-borderless table-sm">
           <thead>
           <tr>
             <th *ngFor="let column of columnNames">
