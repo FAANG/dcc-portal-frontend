@@ -31,15 +31,14 @@ export class RelatedItemsComponent implements OnInit {
 
   ngOnInit() {
     // Read in the initial column display settings
-    for (let i = 0; i < setting[this.source_type][this.target_type]['display'].length; i++) {
-      this.selected.set(setting[this.source_type][this.target_type]['display'][i], true);
+    // set those selected to be displayed
+    for (const column of setting[this.source_type][this.target_type]['all']) {
+      this.selected.set(column, false);
     }
-    for (let i = 0; i < setting[this.source_type][this.target_type]['all'].length; i++) {
-      const curr = setting[this.source_type][this.target_type]['all'][i];
-      if (!this.selected.has(curr)) {
-        this.selected.set(curr, false);
-      }
+    for (const column of setting[this.source_type][this.target_type]['display']) {
+      this.selected.set(column, true);
     }
+
     const relationship_type = `${this.source_type}-${this.target_type}`;
     if (relationship_type === 'analysis-file') {
       this.apiFileService.getAnalysis(this.record_id).subscribe(
@@ -115,13 +114,12 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   get_displayed_fields() {
-    let results: string[] = [];
+    const results: string[] = [];
     const all_fields = this.get_all_fields();
     // use all_fields to conserve the display order
-    for (let i = 0; i < all_fields.length; i++) {
-      const curr = all_fields[i];
-      if (this.isDisplayed(curr)){
-        results.push(curr);
+    for (const column of all_fields) {
+      if (this.isDisplayed(column)) {
+        results.push(column);
       }
     }
     return results;

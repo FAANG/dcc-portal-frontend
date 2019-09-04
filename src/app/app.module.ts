@@ -53,7 +53,7 @@ import {BsDropdownModule} from 'ngx-bootstrap';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { IndeterminateDirective } from './shared/indeterminate';
+import { IndeterminateDirective } from './shared/indeterminate.directive';
 
 @NgModule({
   declarations: [

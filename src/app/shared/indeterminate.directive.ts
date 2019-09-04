@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 
-@Directive({ selector: '[indeterminate]' })
+@Directive({ selector: '[appIndeterminate]' })
 export class IndeterminateDirective {
    @Input()
    set indeterminate(value) {
