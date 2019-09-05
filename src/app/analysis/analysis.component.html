@@ -45,8 +45,8 @@
           <tr>
             <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
               {{ column }}
-              <i class="material-icons sorted" *ngIf="column === selectedColumn" [id]="column">{{spanClass}}</i>
-              <i class="material-icons unsorted" *ngIf="column !== selectedColumn" [id]="column">{{defaultClass}}</i>
+              <i class="material-icons sorted" *ngIf="column !== 'Standard' && column === selectedColumn" [id]="column">{{spanClass}}</i>
+              <i class="material-icons unsorted" *ngIf="column !== 'Standard' && column !== selectedColumn" [id]="column">{{defaultClass}}</i>
             </th>
            </tr>
           </thead>
