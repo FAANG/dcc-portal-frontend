@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
-import {female_values, male_values} from '../shared/sexvalues';
+import {female_values, male_values} from '../shared/constants';
 import {protocolNames} from '../shared/protocolnames';
 
 @Pipe({

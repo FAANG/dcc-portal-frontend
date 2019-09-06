@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FileTableComponent } from './file-table/file-table.component';
 import { AppRoutingModule } from './/app-routing.module';
-import {ApiFileService} from './services/api-file.service';
+import {ApiDataService} from './services/api-data.service';
 import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
 import {SortPipe} from './pipes/sort.pipe';
@@ -108,7 +108,7 @@ import { IndeterminateDirective } from './shared/indeterminate.directive';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
   ],
-  providers: [ApiFileService, AggregationService, ExportService, SearchService, SlicePipe],
+  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

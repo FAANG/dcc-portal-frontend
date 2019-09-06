@@ -9,7 +9,7 @@ import { AnalysisTable, DatasetTable, FileTable, OrganismTable, ProtocolFile, Pr
 @Injectable({
   providedIn: 'root'
 })
-export class ApiFileService {
+export class ApiDataService {
   hostSetting = new HostSetting;
 
   constructor(private http: HttpClient) { }

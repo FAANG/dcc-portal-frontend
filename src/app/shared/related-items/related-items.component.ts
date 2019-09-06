@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ApiFileService} from '../../services/api-file.service';
+import {ApiDataService} from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
 
@@ -26,7 +26,7 @@ export class RelatedItemsComponent implements OnInit {
   // Step 3: add this component into the detail page
   // Step 4: make necessary adjustment (i.e. debugging) to the setting
 
-  constructor(private apiFileService: ApiFileService) {
+  constructor(private dataService: ApiDataService) {
   }
 
   ngOnInit() {
@@ -41,67 +41,67 @@ export class RelatedItemsComponent implements OnInit {
 
     const relationship_type = `${this.source_type}-${this.target_type}`;
     if (relationship_type === 'analysis-file') {
-      this.apiFileService.getAnalysis(this.record_id).subscribe(
+      this.dataService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['files'];
         });
     } else if (relationship_type === 'file-download') {
-      this.apiFileService.getFilesByRun(this.record_id).subscribe(
+      this.dataService.getFilesByRun(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
         });
     } else if (relationship_type === 'file-paper') {
-      this.apiFileService.getFile(this.record_id).subscribe(
+      this.dataService.getFile(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
     } else if (relationship_type === 'dataset-specimen') {
-      this.apiFileService.getDataset(this.record_id).subscribe(
+      this.dataService.getDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['specimen'];
         });
     } else if (relationship_type === 'dataset-file') {
-      this.apiFileService.getDataset(this.record_id).subscribe(
+      this.dataService.getDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['file'];
         });
     } else if (relationship_type === 'dataset-paper') {
-      this.apiFileService.getDataset(this.record_id).subscribe(
+      this.dataService.getDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
     } else if (relationship_type === 'dataset-analysis') {
-      this.apiFileService.getAnalysesByDataset(this.record_id).subscribe(
+      this.dataService.getAnalysesByDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
         });
     } else if (relationship_type === 'organism-paper') {
-      this.apiFileService.getOrganism(this.record_id).subscribe(
+      this.dataService.getOrganism(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
     } else if (relationship_type === 'organism-specimen') {
-      this.apiFileService.getOrganismsSpecimens(this.record_id).subscribe(
+      this.dataService.getOrganismsSpecimens(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
         });
     } else if (relationship_type === 'specimen-paper') {
-      this.apiFileService.getSpecimen(this.record_id).subscribe(
+      this.dataService.getSpecimen(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
     } else if (relationship_type === 'specimen-specimen') {
-      this.apiFileService.getSpecimenRelationships(this.record_id).subscribe(
+      this.dataService.getSpecimenRelationships(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
         });
     } else if (relationship_type === 'specimen-file') {
-      this.apiFileService.getSpecimenFiles(this.record_id).subscribe(
+      this.dataService.getSpecimenFiles(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
         });
     } else if (relationship_type === 'specimen-analysis') {
-      this.apiFileService.getAnalysesBySample(this.record_id).subscribe(
+      this.dataService.getAnalysesBySample(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
         });

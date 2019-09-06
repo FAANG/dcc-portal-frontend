@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ApiFileService} from '../../services/api-file.service';
+import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 
@@ -16,7 +16,7 @@ export class AnalysisDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private apiFileService: ApiFileService,
+              private dataService: ApiDataService,
               private spinner: NgxSpinnerService,
               private titleService: Title) { }
 
@@ -26,7 +26,7 @@ export class AnalysisDetailComponent implements OnInit {
       this.accession = params['id'];
       this.titleService.setTitle(`${this.accession} | FAANG analysis`);
     });
-    this.apiFileService.getAnalysis(this.accession).subscribe(
+    this.dataService.getAnalysis(this.accession).subscribe(
       (data: any) => {
         if (data['hits']['hits'].length === 0) {
           this.spinner.hide();

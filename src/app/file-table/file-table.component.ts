@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ApiFileService} from '../services/api-file.service';
+import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
 import {SortParams} from '../shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
@@ -51,7 +51,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
   };
   error: string;
 
-  constructor(private apiFileService: ApiFileService,
+  constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
@@ -88,7 +88,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
     this.sort_field = {id: 'fileName', direction: 'desc'};
-    this.apiFileService.getAllFiles(this.query, 25).subscribe(
+    this.dataService.getAllFiles(this.query, 25).subscribe(
       data => {
         this.fileListShort = data;
         if (this.fileListShort) {
@@ -100,7 +100,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       }
     );
-    this.fileListLong = this.apiFileService.getAllFiles(this.query, 1000000);
+    this.fileListLong = this.dataService.getAllFiles(this.query, 1000000);
     this.fileListLongSubscription = this.fileListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'file');
     });

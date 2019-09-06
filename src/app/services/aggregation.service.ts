@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
 
-import {female_values, male_values} from '../shared/sexvalues';
+import {female_values, male_values} from '../shared/constants';
 import {protocolNames} from '../shared/protocolnames';
 
 @Injectable({

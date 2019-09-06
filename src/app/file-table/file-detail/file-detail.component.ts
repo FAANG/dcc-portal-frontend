@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ApiFileService} from '../../services/api-file.service';
+import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
-import {NgxSmartModalService} from 'ngx-smart-modal';
 import {FIELDEXCLUDENAMES, FIELDNAMES} from '../../shared/fieldnames';
 
 @Component({
@@ -24,10 +23,9 @@ export class FileDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private apiFileService: ApiFileService,
+              private dataService: ApiDataService,
               private spinner: NgxSpinnerService,
-              private titleService: Title,
-              public ngxSmartModalService: NgxSmartModalService) { }
+              private titleService: Title) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -35,7 +33,7 @@ export class FileDetailComponent implements OnInit {
       this.fileId = params['id'];
       this.titleService.setTitle(`${this.fileId} | FAANG file`);
     });
-    this.apiFileService.getFile(this.fileId).subscribe(
+    this.dataService.getFile(this.fileId).subscribe(
       (data: any) => {
         if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
@@ -49,7 +47,7 @@ export class FileDetailComponent implements OnInit {
                 ((b.year > a.year) ? 1 : 0));
             }
             if (this.file.hasOwnProperty('experiment')) {
-              this.apiFileService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
+              this.dataService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
                 (experiment_data: any) => {
                   this.expandObject(experiment_data['hits']['hits'][0]['_source']);
                 },

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {ApiFileService} from '../services/api-file.service';
+import {ApiDataService} from '../services/api-data.service';
 import {OrganismTable, SortParams} from '../shared/interfaces';
 import {AggregationService} from '../services/aggregation.service';
 import {Observable, Subscription} from 'rxjs';
@@ -49,7 +49,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
       'paperPublished'],
   };
 
-  constructor(private apiFileService: ApiFileService,
+  constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
@@ -86,7 +86,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
     this.sort_field = {id: 'idNumber', direction: 'desc'};
-    this.apiFileService.getAllOrganisms(this.query, 25).subscribe(
+    this.dataService.getAllOrganisms(this.query, 25).subscribe(
       (data) => {
         this.organismListShort = data;
         if (this.organismListShort) {
@@ -98,7 +98,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       }
     );
-    this.organismListLong = this.apiFileService.getAllOrganisms(this.query, 100000);
+    this.organismListLong = this.dataService.getAllOrganisms(this.query, 100000);
     this.organismListLongSubscription = this.organismListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'organism');
     });
