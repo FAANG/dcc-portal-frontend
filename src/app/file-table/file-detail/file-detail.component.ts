@@ -4,6 +4,7 @@ import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {FIELDEXCLUDENAMES, FIELDNAMES} from '../../shared/fieldnames';
+import {external_ena_prefix, external_ols_prefix, internal_dataset, internal_organism, internal_specimen} from '../../shared/constants';
 
 @Component({
   selector: 'app-file-detail',
@@ -18,6 +19,11 @@ export class FileDetailComponent implements OnInit {
   fieldNames = FIELDNAMES;
   fieldExcludeNames = FIELDEXCLUDENAMES;
   showExperimentDetail = false;
+  readonly ena_prefix = external_ena_prefix;
+  readonly ols_prefix = external_ols_prefix;
+  readonly organism_prefix = internal_organism;
+  readonly specimen_prefix = internal_specimen;
+  readonly dataset_prefix = internal_dataset;
 
   objectKeys = Object.keys;
 

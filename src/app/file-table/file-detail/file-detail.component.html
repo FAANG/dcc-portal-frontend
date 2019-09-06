@@ -15,19 +15,19 @@
 
       <dt class="col-sm-3">Organism:</dt>
       <dd class="col-sm-9">
-        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="file?.species?.ontologyTerms"
+        <app-robust-link [prefix]="ols_prefix" [link]="file?.species?.ontologyTerms"
                          [text]="file?.species?.text"></app-robust-link>
       </dd>
 
       <dt class="col-sm-3">Specimen:</dt>
       <dd class="col-sm-9">
-        <app-robust-link prefix="../specimen/" [link]="file?.specimen" [text]="file?.specimen"></app-robust-link>
+        <app-robust-link [prefix]="specimen_prefix" [link]="file?.specimen" [text]="file?.specimen"></app-robust-link>
       </dd>
 
       <ng-container *ngIf="file?.organism">
         <dt class="col-sm-3">BioSample ID:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="../organism/" [link]="file?.organism" [text]="file?.organism"></app-robust-link>
+          <app-robust-link [prefix]="organism_prefix" [link]="file?.organism" [text]="file?.organism"></app-robust-link>
         </dd>
       </ng-container>
 
@@ -50,7 +50,7 @@
       <ng-container *ngIf="file?.submission">
         <dt class="col-sm-3">Submission:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="file?.submission"
+          <app-robust-link [prefix]="ena_prefix" [link]="file?.submission"
                            [text]="file?.submission"></app-robust-link>
         </dd>
       </ng-container>
@@ -58,7 +58,7 @@
       <ng-container *ngIf="file?.experiment?.accession">
         <dt class="col-sm-3">Experiment:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="file?.experiment?.accession"
+          <app-robust-link [prefix]="ena_prefix" [link]="file?.experiment?.accession"
                            [text]="file?.experiment?.accession"></app-robust-link>
           <button class="btn btn-info btn-sm" id="exp_dropdown" (click)="toggleExperiment()">Experiment details</button>
           <ng-container  *ngIf="showExperimentDetail">
@@ -99,7 +99,7 @@
       <ng-container *ngIf="file?.study?.accession">
         <dt class="col-sm-3">Study:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="../dataset/" [link]="file?.study?.accession"
+          <app-robust-link [prefix]="dataset_prefix" [link]="file?.study?.accession"
                            [text]="file?.study?.accession"></app-robust-link>
         </dd>
       </ng-container>
@@ -112,7 +112,7 @@
       <ng-container *ngIf="file?.run?.accession">
         <dt class="col-sm-3">Run:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="file?.run?.accession"
+          <app-robust-link [prefix]="ena_prefix" [link]="file?.run?.accession"
                            [text]="file?.run?.accession"></app-robust-link>
         </dd>
       </ng-container>

@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import { external_ena_prefix, external_ols_prefix } from '../../shared/constants';
 
 @Component({
   selector: 'app-dataset-detail',
@@ -15,6 +16,8 @@ export class DatasetDetailComponent implements OnInit {
   dataset: any;
   error: any;
   publishedArticles: any;
+  readonly ena_prefix = external_ena_prefix;
+  readonly ols_prefix = external_ols_prefix;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

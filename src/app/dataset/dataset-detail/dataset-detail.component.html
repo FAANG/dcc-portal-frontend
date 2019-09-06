@@ -6,7 +6,7 @@
 
       <dt class="col-sm-3">Study name:</dt>
       <dd class="col-sm-9">
-        <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="dataset?.accession"
+        <app-robust-link [prefix]="ena_prefix" [link]="dataset?.accession"
                          [text]="dataset?.accession"></app-robust-link>
       </dd>
 
@@ -26,7 +26,7 @@
       <ng-container *ngIf="dataset?.secondaryAccession">
         <dt class="col-sm-3">Secondary accession:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="dataset?.secondaryAccession"
+          <app-robust-link [prefix]="ena_prefix" [link]="dataset?.secondaryAccession"
                            [text]="dataset?.secondaryAccession"></app-robust-link>
         </dd>
       </ng-container>
@@ -34,7 +34,7 @@
       <dt class="col-sm-3">Species</dt>
       <dd class="col-sm-9">
         <ng-container *ngFor="let organism of dataset?.species">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.ontologyTerms"
+          <app-robust-link [prefix]="ols_prefix" [link]="organism?.ontologyTerms"
                            [text]="organism?.text"></app-robust-link>
           &nbsp;
         </ng-container>
@@ -44,7 +44,7 @@
         <dt class="col-sm-3">Experiment accessions:</dt>
         <dd class="col-sm-9">
           <ng-container *ngFor="let experiment of dataset?.experiment">
-            <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="experiment.accession"
+            <app-robust-link [prefix]="ena_prefix" [link]="experiment.accession"
                              [text]="experiment.accession"></app-robust-link>
             &nbsp;
           </ng-container>

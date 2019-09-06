@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import {external_ols_prefix, internal_organism} from '../../shared/constants';
 
 @Component({
   selector: 'app-organism-detail',
@@ -13,6 +14,8 @@ export class OrganismDetailComponent implements OnInit {
   biosampleId: string;
   organism: any;
   error: any;
+  readonly ols_prefix = external_ols_prefix;
+  readonly organism_prefix = internal_organism;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

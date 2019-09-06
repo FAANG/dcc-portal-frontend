@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import { external_ena_prefix, external_ols_prefix, internal_dataset, internal_specimen } from '../../shared/constants';
 
 @Component({
   selector: 'app-analysis-detail',
@@ -13,6 +14,10 @@ export class AnalysisDetailComponent implements OnInit {
   accession: string;
   analysis: any;
   error: any;
+  readonly ena_prefix = external_ena_prefix;
+  readonly ols_prefix = external_ols_prefix;
+  readonly specimen_prefix = internal_specimen;
+  readonly dataset_prefix = internal_dataset;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

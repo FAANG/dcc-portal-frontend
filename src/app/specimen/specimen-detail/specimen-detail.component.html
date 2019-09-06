@@ -29,7 +29,7 @@
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('sex')">
           <dt class="col-sm-3">Sex:</dt>
           <dd class="col-sm-9">
-            <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+            <app-robust-link [prefix]="ols_prefix"
                              [link]="specimen?.organism?.sex?.ontologyTerms"
                              [text]="specimen?.organism?.sex?.text"></app-robust-link>
           </dd>
@@ -38,7 +38,7 @@
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('biosampleId')">
           <dt class="col-sm-3">Organism BioSample Id:</dt>
           <dd class="col-sm-9">
-            <app-robust-link prefix="../organism/" [link]="specimen?.organism?.biosampleId"
+            <app-robust-link [prefix]="organism_prefix" [link]="specimen?.organism?.biosampleId"
                              [text]="specimen?.organism?.biosampleId"></app-robust-link>
           </dd>
         </ng-container>
@@ -46,7 +46,7 @@
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('organism')">
           <dt class="col-sm-3">Organism:</dt>
           <dd class="col-sm-9">
-            <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+            <app-robust-link [prefix]="ols_prefix"
                              [link]="specimen?.organism?.organism?.ontologyTerms"
                              [text]="specimen?.organism?.organism?.text"></app-robust-link>
           </dd>
@@ -55,7 +55,7 @@
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('breed')">
           <dt class="col-sm-3">Breed:</dt>
           <dd class="col-sm-9">
-            <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+            <app-robust-link [prefix]="ols_prefix"
                              [link]="specimen?.organism?.breed?.ontologyTerms"
                              [text]="specimen?.organism?.breed?.text"></app-robust-link>
           </dd>
@@ -65,7 +65,7 @@
           <dt class="col-sm-3">Health status:</dt>
           <dd class="col-sm-9">
             <ng-container *ngFor="let status of specimen?.organism?.healthStatus;">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="status.ontologyTerms"
+              <app-robust-link [prefix]="ols_prefix" [link]="status.ontologyTerms"
                                [text]="status.text"></app-robust-link>
             </ng-container>
           </dd>
@@ -105,7 +105,7 @@
       <ng-container *ngIf="specimen && specimen?.hasOwnProperty('material')">
         <dt class="col-sm-3">Material:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="specimen?.material?.ontologyTerms"
+          <app-robust-link [prefix]="ols_prefix" [link]="specimen?.material?.ontologyTerms"
                            [text]="specimen?.material?.text"></app-robust-link>
         </dd>
       </ng-container>
@@ -123,19 +123,19 @@
               <ng-container *ngFor="let derived of specimen?.derivedFrom; let i = index">
                 <!--            <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>-->
                 <ng-container *ngIf="i > 0">,</ng-container>
-                <app-robust-link prefix="../specimen/" [link]="derived" [text]="derived"></app-robust-link>
+                <app-robust-link [prefix]="specimen_prefix" [link]="derived" [text]="derived"></app-robust-link>
               </ng-container>
             </ng-template>
             <ng-template ngSwitchCase="cell specimen"> <!--ruleset constrain: specimen from organism-->
-              <app-robust-link prefix="../specimen/" [link]="specimen?.derivedFrom"
+              <app-robust-link [prefix]="specimen_prefix" [link]="specimen?.derivedFrom"
                                [text]="specimen?.derivedFrom"></app-robust-link>
             </ng-template>
             <ng-template ngSwitchCase="cell culture"> <!--ruleset constrain: specimen from organism or cell specimen-->
-              <app-robust-link prefix="../specimen/" [link]="specimen?.derivedFrom"
+              <app-robust-link [prefix]="specimen_prefix" [link]="specimen?.derivedFrom"
                                [text]="specimen?.derivedFrom"></app-robust-link>
             </ng-template>
             <ng-template ngSwitchDefault>
-              <app-robust-link prefix="../organism/" [link]="specimen?.derivedFrom"
+              <app-robust-link [prefix]="organism_prefix" [link]="specimen?.derivedFrom"
                                [text]="specimen?.derivedFrom"></app-robust-link>
             </ng-template>
           </ng-container>
@@ -157,7 +157,7 @@
           <ng-container *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('developmentalStage')">
             <dt class="col-sm-3">Developmental stage:</dt>
             <dd class="col-sm-9">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+              <app-robust-link [prefix]="ols_prefix"
                                [link]="specimen?.specimenFromOrganism?.developmentalStage?.ontologyTerms"
                                [text]="specimen?.specimenFromOrganism?.developmentalStage?.text"></app-robust-link>
             </dd>
@@ -166,7 +166,7 @@
           <ng-container *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('organismPart')">
             <dt class="col-sm-3">Organism part:</dt>
             <dd class="col-sm-9">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+              <app-robust-link [prefix]="ols_prefix"
                                [link]="specimen?.specimenFromOrganism?.organismPart?.ontologyTerms"
                                [text]="specimen?.specimenFromOrganism?.organismPart?.text"></app-robust-link>
             </dd>
@@ -281,7 +281,7 @@
             <dt class="col-sm-3">Cell type:</dt>
             <dd class="col-sm-9">
               <ng-container *ngFor="let type of specimen?.cellSpecimen?.cellType;">
-                <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="type?.ontologyTerms[0]"
+                <app-robust-link [prefix]="ols_prefix" [link]="type?.ontologyTerms[0]"
                                  [text]="type?.text"></app-robust-link>
               </ng-container>
             </dd>
@@ -308,7 +308,7 @@
           <ng-container *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cultureType')">
             <dt class="col-sm-3">Culture type:</dt>
             <dd class="col-sm-9">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+              <app-robust-link [prefix]="ols_prefix"
                                [link]="specimen?.cellCulture?.cultureType?.ontologyTerms"
                                [text]="specimen?.cellCulture?.cultureType?.text"></app-robust-link>
             </dd>
@@ -317,7 +317,7 @@
           <ng-container *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cellType')">
             <dt class="col-sm-3">Cell type:</dt>
             <dd class="col-sm-9">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+              <app-robust-link [prefix]="ols_prefix"
                                [link]="specimen?.cellCulture?.cellType?.ontologyTerms"
                                [text]="specimen?.cellCulture?.cellType?.text"></app-robust-link>
             </dd>
@@ -359,7 +359,7 @@
           <ng-container *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('organism')">
             <dt class="col-sm-3">Organism:</dt>
             <dd class="col-sm-9">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+              <app-robust-link [prefix]="ols_prefix"
                                [link]="specimen?.cellLine?.organism?.ontologyTerms"
                                [text]="specimen?.cellLine?.organism?.text"></app-robust-link>
             </dd>
@@ -368,7 +368,7 @@
           <ng-container *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('sex')">
             <dt class="col-sm-3">Sex:</dt>
             <dd class="col-sm-9">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+              <app-robust-link [prefix]="ols_prefix"
                                [link]="specimen?.cellLine?.sex?.ontologyTerms"
                                [text]="specimen?.cellLine?.sex?.text"></app-robust-link>
             </dd>
@@ -402,7 +402,7 @@
           <ng-container *ngIf="specimen?.cellLine?.breed?.text">
             <dt class="col-sm-3">Breed:</dt>
             <dd class="col-sm-9">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+              <app-robust-link [prefix]="ols_prefix"
                                [link]="specimen.cellLine.breed.ontologyTerms"
                                [text]="specimen.cellLine.breed.text"></app-robust-link>
             </dd>
@@ -411,7 +411,7 @@
           <ng-container *ngIf="specimen?.cellLine?.cellType?.text">
             <dt class="col-sm-3">Cell type:</dt>
             <dd class="col-sm-9">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+              <app-robust-link [prefix]="ols_prefix"
                                [link]="specimen?.cellLine?.cellType?.ontologyTerms"
                                [text]="specimen?.cellLine?.cellType?.text"></app-robust-link>
             </dd>
@@ -441,7 +441,7 @@
           <ng-container *ngIf="specimen?.cellLine?.disease?.text">
             <dt class="col-sm-3">Disease:</dt>
             <dd class="col-sm-9">
-              <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri="
+              <app-robust-link [prefix]="ols_prefix"
                                [link]="specimen.cellLine.disease.ontologyTerms"
                                [text]="specimen.cellLine.disease.text"></app-robust-link>
             </dd>
@@ -461,7 +461,7 @@
             <ng-container *ngIf="field.ontologyTerms || field.value">
               <dt class="col-sm-3">{{field.name}}:</dt>
               <dd class="col-sm-9">
-                <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="field.ontologyTerms"
+                <app-robust-link [prefix]="ols_prefix" [link]="field.ontologyTerms"
                                  [text]="field.value"></app-robust-link>
                 {{field?.unit}}
               </dd>

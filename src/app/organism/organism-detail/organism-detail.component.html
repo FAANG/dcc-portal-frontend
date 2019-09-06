@@ -34,21 +34,21 @@
       <ng-container *ngIf="organism && organism.hasOwnProperty('sex')">
         <dt class="col-sm-3">Sex:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.sex?.ontologyTerms" [text]="organism?.sex?.text"></app-robust-link>
+          <app-robust-link [prefix]="ols_prefix" [link]="organism?.sex?.ontologyTerms" [text]="organism?.sex?.text"></app-robust-link>
         </dd>
       </ng-container>
 
       <ng-container *ngIf="organism && organism.hasOwnProperty('organism')">
         <dt class="col-sm-3">Organism:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></app-robust-link>
+          <app-robust-link [prefix]="ols_prefix" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></app-robust-link>
         </dd>
       </ng-container>
 
       <ng-container *ngIf="organism && organism.hasOwnProperty('breed')">
         <dt class="col-sm-3">Breed:</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.breed.ontologyTerms" [text]="organism?.breed?.text"></app-robust-link>
+          <app-robust-link [prefix]="ols_prefix" [link]="organism?.breed.ontologyTerms" [text]="organism?.breed?.text"></app-robust-link>
         </dd>
       </ng-container>
 
@@ -140,7 +140,7 @@
         <dt class="col-sm-3">Child of:</dt>
         <dd class="col-sm-9">
           <ng-container *ngFor="let child of organism?.childOf;">
-            <app-robust-link prefix="../organism/" [link]="child" [text]="child"></app-robust-link>
+            <app-robust-link [prefix]="organism_prefix" [link]="child" [text]="child"></app-robust-link>
           </ng-container>
         </dd>
       </ng-container>
@@ -154,7 +154,7 @@
         <ng-container *ngFor="let field of organism?.customField;">
           <dt class="col-sm-3">{{field.name}}:</dt>
           <dd class="col-sm-9">
-            <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?id=" [link]="field.ontologyTerms" [text]="field.value"></app-robust-link>  {{field?.unit}}
+            <app-robust-link [prefix]="ols_prefix" [link]="field.ontologyTerms" [text]="field.value"></app-robust-link>  {{field?.unit}}
           </dd>
         </ng-container>
       </ng-container>

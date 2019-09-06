@@ -5,7 +5,7 @@
     <dl class="row">
       <dt class="col-sm-3">Analysis accession:</dt>
       <dd class="col-sm-9">
-        <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="analysis?.accession"
+        <app-robust-link [prefix]="ena_prefix" [link]="analysis?.accession"
                          [text]="analysis?.accession"></app-robust-link>
       </dd>
 
@@ -24,7 +24,7 @@
 
       <dt class="col-sm-3">Dataset accession:</dt>
       <dd class="col-sm-9">
-        <app-robust-link prefix="../dataset/" [link]="analysis?.datasetAccession"
+        <app-robust-link [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
                          [text]="analysis?.datasetAccession"></app-robust-link>
       </dd>
 
@@ -61,7 +61,7 @@
       <ng-container *ngIf="analysis?.organism">
         <dt class="col-sm-3">Species</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="analysis?.organism?.ontologyTerms"
+          <app-robust-link [prefix]="ols_prefix" [link]="analysis?.organism?.ontologyTerms"
                            [text]="analysis?.organism?.text"></app-robust-link>
         </dd>
       </ng-container>
@@ -69,7 +69,7 @@
       <ng-container *ngIf="analysis?.sampleAccessions">
         <dt class="col-sm-3">Related Sample</dt>
         <dd class="col-sm-9">
-          <app-robust-link prefix="../specimen/" [link]="analysis?.sampleAccessions"
+          <app-robust-link [prefix]="specimen_prefix" [link]="analysis?.sampleAccessions"
                            [text]="analysis?.sampleAccessions"></app-robust-link>
         </dd>
       </ng-container>
@@ -78,7 +78,7 @@
         <dt class="col-sm-3">Related Experiments</dt>
         <dd class="col-sm-9">
           <ng-container *ngFor="let exp of analysis?.experimentAccessions">
-            <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="exp" [text]="exp"></app-robust-link>
+            <app-robust-link [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
           </ng-container>
         </dd>
       </ng-container>
@@ -87,7 +87,7 @@
         <dt class="col-sm-3">Related Runs</dt>
         <dd class="col-sm-9">
           <ng-container *ngFor="let run of analysis?.runAccessions">
-            <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="run" [text]="run"></app-robust-link>
+            <app-robust-link [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
           </ng-container>
         </dd>
       </ng-container>
