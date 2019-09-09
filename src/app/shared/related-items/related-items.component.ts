@@ -154,7 +154,10 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   isDisplayed(field_name: string) {
-    return this.selected.get(field_name);
+    if (this.selected.has(field_name)) {
+      return this.selected.get(field_name);
+    }
+    return false;
   }
 
   getValue(record: any, attr: string) {
