@@ -3,8 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RelatedItemsComponent } from './related-items.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {HeaderComponent} from '../header/header.component';
+import {ApiDataService} from '../../services/api-data.service';
+import * as FileSaver from 'file-saver';
+import setting from './related-items.component.setting.json';
 
 describe('RelatedItemsComponent', () => {
   let component: RelatedItemsComponent;
@@ -14,12 +15,13 @@ describe('RelatedItemsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         RelatedItemsComponent,
-        HeaderComponent,
+        ApiDataService,
         RobustLinkComponent,
+        FileSaver,
+        setting
       ],
       imports: [
-        NgxPaginationModule,
-        HttpClientTestingModule
+        NgxPaginationModule
       ]
     })
     .compileComponents();
