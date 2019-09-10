@@ -70,8 +70,4 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  getLength(data: any) {
-    return data.length;
-  }
-
 }
