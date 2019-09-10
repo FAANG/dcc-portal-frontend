@@ -111,5 +111,7 @@ describe('RelatedItemsComponent', () => {
     expect(component.isDisplayed(field)).toEqual(false);
     component.toggleSelectedColumn(field);
     expect(component.isDisplayed(field)).toEqual(true);
+    component.toggleSelectedColumn(field);
+    expect(component.isDisplayed(field)).toEqual(false);
   });
 });

@@ -195,19 +195,11 @@ export class AnalysisComponent implements OnInit, OnDestroy {
 
   removeFilter() {
     this.resetFilter();
-    this.router.navigate(['dataset'], {queryParams: {}});
+    this.router.navigate(['analysis'], {queryParams: {}});
   }
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
-  }
-
-  wasPublished(published: any) {
-    return published === 'true';
-  }
-
-  isGreen(published: any) {
-    return published === 'true' ? 'green' : 'default';
   }
 
   ngOnDestroy() {

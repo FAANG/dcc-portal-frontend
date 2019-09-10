@@ -32,10 +32,27 @@ describe('AnalysisDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AnalysisDetailComponent);
     component = fixture.componentInstance;
+    component.accession = 'ERZ887818';
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('wrong analysis accession', () => {
+    component.accession = 'fake accession';
+    const spyOnInit = spyOn(component, 'ngOnInit');
+    component.ngOnInit();
+    expect(spyOnInit.calls.count()).toEqual(1);
+    expect(component.analysis).toBeUndefined();
+  });
+
+  it('correct analysis accession', () => {
+    const spyOnInit = spyOn(component, 'ngOnInit');
+    component.ngOnInit();
+    expect(spyOnInit.calls.count()).toEqual(1);
+    expect(component.analysis).toBeUndefined();
+    // expect(component.analysis['accession']).toEqual(component.accession);
   });
 });

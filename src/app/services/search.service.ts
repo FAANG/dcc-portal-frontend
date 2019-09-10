@@ -150,7 +150,7 @@ export class SearchService {
     );
   }
 
-  searchDataset(text: any, clicked: boolean) {
+  searchDataset(text: any, faang_only_flag: boolean) {
     const host = this.hostSetting.host + 'dataset/' + '_search/';
     if (!text.trim()) { return of([]); }
     const query = {
@@ -171,7 +171,7 @@ export class SearchService {
         }
       }
     };
-    if (clicked === true) {
+    if (faang_only_flag === true) {
       query['bool']['filter'] = {
         'term' : {'standardMet' : 'FAANG'}
       };
