@@ -1,6 +1,6 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {ApiFileService} from '../services/api-file.service';
+import {ApiDataService} from '../services/api-data.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
   clicked = false;
   fragment: string;
 
-  constructor(private titleService: Title, private apiFileService: ApiFileService, private route: ActivatedRoute) { }
+  constructor(private titleService: Title, private apiFileService: ApiDataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.titleService.setTitle('FAANG Rule set|samples');

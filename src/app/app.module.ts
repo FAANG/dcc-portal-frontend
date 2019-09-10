@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FileTableComponent } from './file-table/file-table.component';
 import { AppRoutingModule } from './/app-routing.module';
-import {ApiFileService} from './services/api-file.service';
+import {ApiDataService} from './services/api-data.service';
 import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
 import {SortPipe} from './pipes/sort.pipe';
@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { OrganismComponent } from './organism/organism.component';
 import { SpecimenComponent } from './specimen/specimen.component';
 import { DatasetComponent } from './dataset/dataset.component';
+import { AnalysisComponent } from './analysis/analysis.component';
 import { SearchComponent } from './search/search.component';
 import { HelpComponent } from './help/help.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -25,18 +26,15 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {ExportService} from './services/export.service';
 import { FileDetailComponent } from './file-table/file-detail/file-detail.component';
 import { RobustLinkComponent } from './shared/robust-link/robust-link.component';
-import { RunFilesComponent } from './shared/run-files/run-files.component';
+import { RelatedItemsComponent } from './shared/related-items/related-items.component';
 import { OrganismDetailComponent } from './organism/organism-detail/organism-detail.component';
-import { OrganismSpecimenComponent } from './organism/organism-specimen/organism-specimen.component';
 import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-detail.component';
-import { SpecimenFilesComponent } from './specimen/specimen-files/specimen-files.component';
-import { SpecimenRelationshipComponent } from './specimen/specimen-relationship/specimen-relationship.component';
 import { SearchTemplateComponent } from './search/search-template/search-template.component';
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
-import { DatasetRelatedTemplateComponent } from './dataset/dataset-related-template/dataset-related-template.component';
-import {SearchService} from './services/search.service';
-import {CookieLawModule} from 'angular2-cookie-law';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
+import { SearchService } from './services/search.service';
+import { CookieLawModule } from 'angular2-cookie-law';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ApiComponent } from './help/api/api.component';
@@ -45,7 +43,7 @@ import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.compo
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
-import {ChartsModule} from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
 import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
 import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
@@ -57,6 +55,8 @@ import { NonExistingComponent } from './non-existing/non-existing.component';
 import { RulesetSampleComponent } from './ruleset-sample/ruleset-sample.component';
 import { RulesetExperimentComponent } from './ruleset-experiment/ruleset-experiment.component';
 import { RulesetAnalysisComponent } from './ruleset-analysis/ruleset-analysis.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { IndeterminateDirective } from './shared/indeterminate.directive';
 
 @NgModule({
   declarations: [
@@ -71,20 +71,18 @@ import { RulesetAnalysisComponent } from './ruleset-analysis/ruleset-analysis.co
     OrganismComponent,
     SpecimenComponent,
     DatasetComponent,
+    AnalysisComponent,
     SearchComponent,
     HelpComponent,
     HeaderComponent,
     FileDetailComponent,
     RobustLinkComponent,
-    RunFilesComponent,
+    RelatedItemsComponent,
     OrganismDetailComponent,
-    OrganismSpecimenComponent,
     SpecimenDetailComponent,
-    SpecimenFilesComponent,
-    SpecimenRelationshipComponent,
     SearchTemplateComponent,
     DatasetDetailComponent,
-    DatasetRelatedTemplateComponent,
+    AnalysisDetailComponent,
     ApiComponent,
     ProtocolSampleComponent,
     ProtocolExperimentComponent,
@@ -99,6 +97,7 @@ import { RulesetAnalysisComponent } from './ruleset-analysis/ruleset-analysis.co
     RulesetSampleComponent,
     RulesetExperimentComponent,
     RulesetAnalysisComponent,
+    IndeterminateDirective
   ],
   imports: [
     BrowserModule,
@@ -107,6 +106,7 @@ import { RulesetAnalysisComponent } from './ruleset-analysis/ruleset-analysis.co
     NgxPaginationModule,
     Angular2CsvModule,
     NgxSpinnerModule,
+    NgbDropdownModule,
     BrowserAnimationsModule,
     CookieLawModule,
     ChartsModule,
@@ -114,7 +114,7 @@ import { RulesetAnalysisComponent } from './ruleset-analysis/ruleset-analysis.co
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
   ],
-  providers: [ApiFileService, AggregationService, ExportService, SearchService, SlicePipe],
+  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

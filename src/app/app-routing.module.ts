@@ -5,12 +5,16 @@ import {HomeComponent} from './home/home.component';
 import {OrganismComponent} from './organism/organism.component';
 import {SpecimenComponent} from './specimen/specimen.component';
 import {DatasetComponent} from './dataset/dataset.component';
+import {AnalysisComponent} from './analysis/analysis.component';
+
 import {SearchComponent} from './search/search.component';
 import {HelpComponent} from './help/help.component';
 import {FileDetailComponent} from './file-table/file-detail/file-detail.component';
 import {OrganismDetailComponent} from './organism/organism-detail/organism-detail.component';
 import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detail.component';
 import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
+import {AnalysisDetailComponent} from './analysis/analysis-detail/analysis-detail.component';
+
 import {ApiComponent} from './help/api/api.component';
 import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.component';
 import {ProtocolExperimentComponent} from './protocol-experiment/protocol-experiment.component';
@@ -26,6 +30,7 @@ import {RulesetSampleComponent} from './ruleset-sample/ruleset-sample.component'
 import {RulesetExperimentComponent} from './ruleset-experiment/ruleset-experiment.component';
 import {RulesetAnalysisComponent} from './ruleset-analysis/ruleset-analysis.component';
 
+
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
@@ -37,6 +42,8 @@ const routes: Routes = [
   {path: 'dataset/:id', component: DatasetDetailComponent},
   {path: 'file', component: FileTableComponent},
   {path: 'file/:id', component: FileDetailComponent},
+  {path: 'analysis', component: AnalysisComponent},
+  {path: 'analysis/:id', component: AnalysisDetailComponent},
   {path: 'protocol/samples', component: ProtocolSampleComponent},
   {path: 'protocol/samples/:id', component: ProtocolSampleDetailsComponent},
   {path: 'protocol/experiments', component: ProtocolExperimentComponent},

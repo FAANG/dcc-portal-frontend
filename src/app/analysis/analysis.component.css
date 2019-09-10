@@ -1,0 +1,41 @@
+.unsorted {
+  color: lightgrey;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  div.faang-filter {
+    width: 300px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+button {
+  margin-left: 5px;
+}
+
+.green {
+  background-color: palegreen;
+  text-align: center;
+}
+
+.default {
+  text-align: center;
+}
+
+a {
+  color: steelblue;
+}
+
+table {
+  font-size: 14px;
+}
+
+h3 {
+  color: #477AAF;
+}

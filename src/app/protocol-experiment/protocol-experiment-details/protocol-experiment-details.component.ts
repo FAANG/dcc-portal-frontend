@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FIELDEXCLUDENAMES, FIELDNAMES} from '../../shared/fieldnames';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ApiFileService} from '../../services/api-file.service';
+import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
@@ -26,7 +26,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private apiFileService: ApiFileService,
+              private dataService: ApiDataService,
               private spinner: NgxSpinnerService,
               private titleService: Title,
               public ngxSmartModalService: NgxSmartModalService) { }
@@ -39,7 +39,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
         this.titleService.setTitle(`${this.protocolId.split('-')[0]} | FAANG protocol`);
       }
     });
-    this.apiFileService.getExperimentProtocol(this.protocolId).subscribe(data => {
+    this.dataService.getExperimentProtocol(this.protocolId).subscribe(data => {
         if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
           this.router.navigate(['404']);
@@ -63,7 +63,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
   onClick(id: string) {
     this.experiment = {};
     this.experimentId = id;
-    this.apiFileService.getFilesExperiment(id).subscribe(
+    this.dataService.getFilesExperiment(id).subscribe(
       (data: any) => {
         this.expandObject(data['hits']['hits'][0]['_source']);
       },

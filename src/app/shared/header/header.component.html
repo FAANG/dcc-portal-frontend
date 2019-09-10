@@ -3,7 +3,6 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapse()">
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
@@ -20,6 +19,9 @@
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/file">Files</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/analysis">Analyses</a>
       </li>
       <li class="nav-item" [ngClass]="isActiveProtocols()">
         <a class="nav-link" routerLink="/protocol/samples">Protocols</a>

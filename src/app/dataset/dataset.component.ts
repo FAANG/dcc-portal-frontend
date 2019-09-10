@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DatasetTable, SortParams} from '../shared/interfaces';
 import {Subscription} from 'rxjs';
-import {ApiFileService} from '../services/api-file.service';
+import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -52,7 +52,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   };
   error: string;
 
-  constructor(private apiFileService: ApiFileService,
+  constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
@@ -90,7 +90,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.optionsTabular['headers'] = this.optionsTabular;
     this.sort_field = {id: 'datasetAccession', direction: 'desc'};
     this.spinner.hide();
-    this.datasetListLong = this.apiFileService.getAllDatasets(this.query, 100000);
+    this.datasetListLong = this.dataService.getAllDatasets(this.query, 100000);
     this.datasetListLongSubscription = this.datasetListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'dataset');
     });

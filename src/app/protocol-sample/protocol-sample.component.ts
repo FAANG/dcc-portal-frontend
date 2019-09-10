@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/internal/Observable';
 import {Subscription} from 'rxjs/internal/Subscription';
-import {ApiFileService} from '../services/api-file.service';
+import {ApiDataService} from '../services/api-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
@@ -39,7 +39,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   };
   error: string;
 
-  constructor(private apiFileService: ApiFileService,
+  constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
@@ -75,7 +75,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.exportNames;
     this.optionsTabular['headers'] = this.exportNames;
-    this.protocolList = this.apiFileService.getAllSamplesProtocols(this.query);
+    this.protocolList = this.dataService.getAllSamplesProtocols(this.query);
     this.spinner.hide();
     this.protocolListSubscription = this.protocolList.subscribe( data => {
       this.aggregationService.getAggregations(data, 'protocol');

@@ -3,13 +3,13 @@ import { HostSetting } from './host-setting';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
-import {DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
+import { AnalysisTable, DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiFileService {
+export class ApiDataService {
   hostSetting = new HostSetting;
 
   constructor(private http: HttpClient) { }
@@ -188,16 +188,61 @@ export class ApiFileService {
     return value.substring(0, value.length - 1);
   }
 
-  convertArrayToString(array: any): string {
-    return array.toString();
-  }
-
   getDataset(accession: string) {
     const url = this.hostSetting.host + 'dataset/' + accession;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
     );
+  }
+
+  getAllAnalyses(query: any, size: number) {
+    const url = this.hostSetting.host + 'analysis/' + '_search/' + '?size=' + size;
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    return this.http.get(url, {params: params}).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          accession: entry['_source']['accession'],
+          datasetAccession: entry['_source']['datasetAccession'],
+          title: entry['_source']['title'],
+          species: entry['_source']['organism']['text'],
+          assayType: entry['_source']['assayType'],
+          analysisType: entry['_source']['analysisType'],
+          standard: entry['_source']['standardMet']
+          } as AnalysisTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAnalysesBySample(sampleId: any) {
+    const url = this.hostSetting.host + 'analysis/_search/?q=sampleAccessions:' + sampleId + '&sort=accession:asc&size=10000';
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAnalysesByDataset(accession: any) {
+    const url = this.hostSetting.host + 'analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc&size=10000';
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAnalysis(accession: string) {
+    const url = this.hostSetting.host + 'analysis/' + accession;
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  convertArrayToString(array: any): string {
+    return array.toString();
   }
 
   getAllSamplesProtocols(query: any) {

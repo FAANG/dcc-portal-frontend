@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {barChartOptions, pieChartOptions} from '../shared/chart-options';
-import {ApiFileService} from '../services/api-file.service';
+import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
 
 @Component({
@@ -36,11 +36,11 @@ export class FilesSummaryComponent implements OnInit {
   public assayTypeChartLabels = [];
   public assayTypeChartData = [];
 
-  constructor(private apiFileService: ApiFileService, private titleService: Title) { }
+  constructor(private dataService: ApiDataService, private titleService: Title) { }
 
   ngOnInit() {
     this.titleService.setTitle('FAANG summary|files');
-    this.apiFileService.getFileSummary('summary_file').subscribe(
+    this.dataService.getFileSummary('summary_file').subscribe(
       data => {
         this.chartData = data['hits']['hits'][0]['_source'];
         this.assignChartData(this.chartData, this.excludeLegacyData);

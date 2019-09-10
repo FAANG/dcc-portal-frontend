@@ -27,10 +27,14 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['standard'];
         } else if (this.title === 'Study') {
           this.aggregation = data['study'];
+        } else if (this.title === 'Dataset') {
+          this.aggregation = data['dataset'];
         } else if (this.title === 'Species') {
           this.aggregation = data['species'];
         } else if (this.title === 'Assay type') {
           this.aggregation = data['assay_type'];
+        } else if (this.title === 'Analysis type') {
+          this.aggregation = data['analysis_type'];
         } else if (this.title === 'Instrument') {
           this.aggregation = data['instrument'];
         } else if (this.title === 'Sex') {
@@ -55,8 +59,6 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['protocol_type'];
         } else if (this.title === 'Protocol') {
           this.aggregation = data['protocol_type'];
-        } else if (this.title === 'Assay type') {
-          this.aggregation = data['assay_type'];
         } else if (this.title === 'Target') {
           this.aggregation = data['experiment_target'];
         } else if (this.title === 'Paper published') {
@@ -72,6 +74,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   onButtonClick(key: string, title: string) {
     let data_key: string;
+    // the data_key refers to active_filters defined in service/aggregatin_service.ts
     switch (title) {
       case 'Standard': {
         data_key = 'standard';
@@ -81,12 +84,20 @@ export class FilterComponent implements OnInit, OnDestroy {
         data_key = 'study';
         break;
       }
+      case 'Dataset': {
+        data_key = 'datasetAccession';
+        break;
+      }
       case 'Species': {
         data_key = 'species';
         break;
       }
       case 'Assay type': {
         data_key = 'assayType';
+        break;
+      }
+      case 'Analysis type': {
+        data_key = 'analysisType';
         break;
       }
       case 'Instrument': {
