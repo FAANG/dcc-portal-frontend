@@ -7,7 +7,7 @@ import {removeSpaces, allowMultiple, getValidItems, getLink, getCondition, getMa
 @Component({
   selector: 'app-ruleset-analysis',
   templateUrl: './ruleset-analysis.component.html',
-  styleUrls: ['./ruleset-analysis.component.css']
+  styleUrls: ['../rulesets.css']
 })
 export class RulesetAnalysisComponent implements OnInit, AfterViewChecked {
   error: string;
