@@ -26,9 +26,9 @@ import {DatasetsSummaryComponent} from './datasets-summary/datasets-summary.comp
 import {FilesSummaryComponent} from './files-summary/files-summary.component';
 import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.component';
 import {NonExistingComponent} from './non-existing/non-existing.component';
-import {RulesetSampleComponent} from './ruleset-sample/ruleset-sample.component';
-import {RulesetExperimentComponent} from './ruleset-experiment/ruleset-experiment.component';
-import {RulesetAnalysisComponent} from './ruleset-analysis/ruleset-analysis.component';
+import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
+import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
+import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 
 
 const routes: Routes = [

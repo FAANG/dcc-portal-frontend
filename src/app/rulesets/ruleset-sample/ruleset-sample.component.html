@@ -58,7 +58,7 @@
     </div>
     <div class="col-md-10 table-responsive center">
       <ng-container *ngFor="let category of data['rule_groups']">
-        <h3 id="{{removeSpaces(category['name'])}}">{{category['name']}} ({{getLength(category['rules'])}} rules)</h3>
+        <h3 id="{{removeSpaces(category['name'])}}">{{category['name']}} ({{category['rules'].length}} rules)</h3>
         <p *ngIf="category['name'] === 'standard'">Applied to all entities</p>
         <ng-container *ngIf="category['name'] !== 'standard'">
           <p>Applied under these conditions:</p>
@@ -106,7 +106,7 @@
         </table>
         <div class="card" *ngIf="category['imports']">
           <div class="card-header">
-            Imports available ({{getLength(category['imports'])}} sources)
+            Imports available ({{category['imports'].length}} sources)
           </div>
           <div class="card-body">
             In addition, attributes from the sources listed can be used:
