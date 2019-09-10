@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SortParams, SpecimenTable} from '../shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
-import {ApiFileService} from '../services/api-file.service';
+import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -50,7 +50,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   };
   error: string;
 
-  constructor(private apiFileService: ApiFileService,
+  constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
@@ -87,7 +87,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
     this.sort_field = {id: 'idNumber', direction: 'desc'};
-    this.apiFileService.getAllSpecimens(this.query, 30).subscribe(
+    this.dataService.getAllSpecimens(this.query, 30).subscribe(
       data => {
         this.specimenListShort = data;
         if (this.specimenListShort) {
@@ -99,7 +99,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       }
     );
-    this.specimenListLong = this.apiFileService.getAllSpecimens(this.query, 100000);
+    this.specimenListLong = this.dataService.getAllSpecimens(this.query, 100000);
     this.specimenListLongSubscription = this.specimenListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'specimen');
     });

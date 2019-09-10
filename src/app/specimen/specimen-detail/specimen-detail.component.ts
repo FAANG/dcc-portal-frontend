@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ApiFileService} from '../../services/api-file.service';
+import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import {external_ols_prefix, internal_organism, internal_specimen} from '../../shared/constants';
 
 @Component({
   selector: 'app-specimen-detail',
@@ -13,10 +14,13 @@ export class SpecimenDetailComponent implements OnInit {
   biosampleId: string;
   specimen: any;
   error: any;
+  readonly ols_prefix = external_ols_prefix;
+  readonly organism_prefix = internal_organism;
+  readonly specimen_prefix = internal_specimen;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private apiFileService: ApiFileService,
+              private dataService: ApiDataService,
               private spinner: NgxSpinnerService,
               private titleService: Title) {
   }
@@ -27,7 +31,7 @@ export class SpecimenDetailComponent implements OnInit {
       this.biosampleId = params['id'];
       this.titleService.setTitle(`${this.biosampleId} | FAANG specimen`);
     });
-    this.apiFileService.getSpecimen(this.biosampleId).subscribe(
+    this.dataService.getSpecimen(this.biosampleId).subscribe(
       (data: any) => {
         if (data['hits']['hits'].length === 0) {
           this.spinner.hide();

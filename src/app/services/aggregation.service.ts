@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
 
-import {female_values, male_values} from '../shared/sexvalues';
+import {female_values, male_values} from '../shared/constants';
 import {protocolNames} from '../shared/protocolnames';
 
 @Injectable({
@@ -17,6 +17,8 @@ export class AggregationService {
     instrument: [],
     sex: [],
     organism: [],
+    datasetAccession: [],
+    analysisType: [],
     breed: [],
     material: [],
     organismpart_celltype: [],
@@ -228,6 +230,42 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         paper_published: Object.entries(paper_published).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+      };
+      this.data.next(all_data);
+    } else if (type === 'analysis') {
+      const standard = {};
+      const species = {};
+      const assay_type = {};
+      const dataset = {};
+      const analysis_type = {};
+      let all_data;
+      for (const item of fileList) {
+        standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
+        for (const spec of item['species'].split(',')) {
+          species.hasOwnProperty(spec) ? species[spec] += 1 : species[spec] = 1;
+        }
+        assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;
+        dataset.hasOwnProperty(item['datasetAccession']) ? dataset[item['datasetAccession']] += 1 : dataset[item['datasetAccession']] = 1;
+        analysis_type.hasOwnProperty(item['analysisType']) ?
+          analysis_type[item['analysisType']] += 1 : analysis_type[item['analysisType']] = 1;
+      }
+
+      all_data = {
+        standard: Object.entries(standard).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        species: Object.entries(species).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        assay_type: Object.entries(assay_type).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        dataset: Object.entries(dataset).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        analysis_type: Object.entries(analysis_type).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
       };

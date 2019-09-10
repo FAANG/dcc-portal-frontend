@@ -1,87 +1,82 @@
 <div class="container">
   <app-header></app-header>
-  <h1 class="text-center">{{dataset?.accession}}</h1>
-  <dl class="row">
+  <ng-container *ngIf="dataset">
+    <h1 class="text-center">{{dataset.accession}}</h1>
+    <dl class="row">
 
-    <dt class="col-sm-3">Study name:</dt>
-    <dd class="col-sm-9">
-      <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="dataset?.accession" [text]="dataset?.accession"></app-robust-link>
-    </dd>
-
-    <dt class="col-sm-3">Title:</dt> <dd class="col-sm-9">{{dataset?.title}}</dd>
-
-    <ng-container *ngIf="dataset?.alias">
-      <dt class="col-sm-3">Alias:</dt> <dd class="col-sm-9">{{dataset?.alias}}</dd>
-    </ng-container>
-
-    <ng-container *ngIf="dataset?.type">
-      <dt class="col-sm-3">Type:</dt> <dd class="col-sm-9">{{dataset?.type}}</dd>
-    </ng-container>
-
-    <ng-container *ngIf="dataset?.secondaryAccession">
-      <dt class="col-sm-3">Secondary accession:</dt>
-      <dd class="col-sm-9"> <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="dataset?.secondaryAccession" [text]="dataset?.secondaryAccession"></app-robust-link></dd>
-    </ng-container>
-
-    <dt class="col-sm-3">Species</dt>
-    <dd class="col-sm-9">
-      <ng-container *ngFor="let organism of dataset?.species">
-        <app-robust-link prefix="https://www.ebi.ac.uk/ols/terms?iri=" [link]="organism?.ontologyTerms" [text]="organism?.text"></app-robust-link>
-        &nbsp;
-      </ng-container>
-    </dd>
-
-    <ng-container *ngIf="dataset?.experiment">
-      <dt class="col-sm-3">Experiment accessions:</dt>
+      <dt class="col-sm-3">Study name:</dt>
       <dd class="col-sm-9">
-      <ng-container *ngFor="let experiment of dataset?.experiment">
-        <app-robust-link prefix="https://www.ebi.ac.uk/ena/data/view/" [link]="experiment.accession" [text]="experiment.accession"></app-robust-link>
-        &nbsp;
-      </ng-container>
-    </dd>
-    </ng-container>
+        <app-robust-link [prefix]="ena_prefix" [link]="dataset?.accession"
+                         [text]="dataset?.accession"></app-robust-link>
+      </dd>
 
-    <ng-container *ngIf="dataset?.instrument">
-      <dt class="col-sm-3">Instruments:</dt>
+      <dt class="col-sm-3">Title:</dt>
+      <dd class="col-sm-9">{{dataset?.title}}</dd>
+
+      <ng-container *ngIf="dataset?.alias">
+        <dt class="col-sm-3">Alias:</dt>
+        <dd class="col-sm-9">{{dataset?.alias}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="dataset?.type">
+        <dt class="col-sm-3">Type:</dt>
+        <dd class="col-sm-9">{{dataset?.type}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="dataset?.secondaryAccession">
+        <dt class="col-sm-3">Secondary accession:</dt>
+        <dd class="col-sm-9">
+          <app-robust-link [prefix]="ena_prefix" [link]="dataset?.secondaryAccession"
+                           [text]="dataset?.secondaryAccession"></app-robust-link>
+        </dd>
+      </ng-container>
+
+      <dt class="col-sm-3">Species</dt>
       <dd class="col-sm-9">
-        <ng-container *ngFor="let instrument of dataset?.instrument">{{instrument}}
+        <ng-container *ngFor="let organism of dataset?.species">
+          <app-robust-link [prefix]="ols_prefix" [link]="organism?.ontologyTerms"
+                           [text]="organism?.text"></app-robust-link>
+          &nbsp;
         </ng-container>
       </dd>
-    </ng-container>
 
-    <ng-container *ngIf="dataset?.centerName">
-      <dt class="col-sm-3">Sequencing center:</dt>
-      <dd class="col-sm-9">
-        <ng-container *ngFor="let center of dataset?.centerName">{{center}}</ng-container>
-      </dd>
-    </ng-container>
+      <ng-container *ngIf="dataset?.experiment">
+        <dt class="col-sm-3">Experiment accessions:</dt>
+        <dd class="col-sm-9">
+          <ng-container *ngFor="let experiment of dataset?.experiment">
+            <app-robust-link [prefix]="ena_prefix" [link]="experiment.accession"
+                             [text]="experiment.accession"></app-robust-link>
+            &nbsp;
+          </ng-container>
+        </dd>
+      </ng-container>
 
-    <dt class="col-sm-3">Standard:</dt>
-    <dd class="col-sm-9">{{dataset?.standardMet}}</dd>
-  </dl>
+      <ng-container *ngIf="dataset?.instrument">
+        <dt class="col-sm-3">Instruments:</dt>
+        <dd class="col-sm-9">
+          <ng-container *ngFor="let instrument of dataset?.instrument">{{instrument}}  </ng-container>
+        </dd>
+      </ng-container>
 
-  <div *ngIf="dataset?.paperPublished === 'true'" class="table-responsive">
-      <hr>
-      <h3>Published papers</h3>
-      <table class="table table-striped table-hover table-borderless table-sm">
-        <thead>
-        <tr>
-          <th>Title</th>
-          <th>Year</th>
-          <th>Journal</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let paper of dataset.publishedArticles">
-          <td><app-robust-link prefix="https://doi.org/" [link]="paper.doi" [text]="paper.title"></app-robust-link></td>
-          <td>{{paper.year}}</td>
-          <td>{{paper.journal}}</td>
-        </tr>
-        </tbody>
-      </table>
-  </div>
+      <ng-container *ngIf="dataset?.centerName">
+        <dt class="col-sm-3">Sequencing center:</dt>
+        <dd class="col-sm-9">
+          <ng-container *ngFor="let center of dataset?.centerName">{{center}}</ng-container>
+        </dd>
+      </ng-container>
 
-  <app-dataset-related-template [data]="dataset.specimen" entity="Specimens" *ngIf="dataset"></app-dataset-related-template>
-  <app-dataset-related-template [data]="dataset.file" entity="Files" *ngIf="dataset"></app-dataset-related-template>
+      <dt class="col-sm-3">Standard:</dt>
+      <dd class="col-sm-9">{{dataset?.standardMet}}</dd>
+    </dl>
+
+    <app-related-items source_type="dataset" target_type="paper"
+                       download_key="" [record_id]="dataset.accession"></app-related-items>
+    <app-related-items source_type="dataset" target_type="specimen"
+                       download_key="" [record_id]="dataset.accession"></app-related-items>
+    <app-related-items source_type="dataset" target_type="file"
+                       download_key="url" [record_id]="dataset.accession"></app-related-items>
+    <app-related-items source_type="dataset" target_type="analysis"
+                       download_key="" [record_id]="dataset.accession"></app-related-items>
+  </ng-container>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>

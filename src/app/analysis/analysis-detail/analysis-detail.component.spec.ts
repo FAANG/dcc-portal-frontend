@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrganismDetailComponent } from './organism-detail.component';
+import { AnalysisDetailComponent } from './analysis-detail.component';
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -8,14 +8,14 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RelatedItemsComponent} from '../../shared/related-items/related-items.component';
 
-describe('OrganismDetailComponent', () => {
-  let component: OrganismDetailComponent;
-  let fixture: ComponentFixture<OrganismDetailComponent>;
+describe('AnalysisDetailComponent', () => {
+  let component: AnalysisDetailComponent;
+  let fixture: ComponentFixture<AnalysisDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        OrganismDetailComponent,
+        AnalysisDetailComponent,
         HeaderComponent,
         RobustLinkComponent,
         RelatedItemsComponent,
@@ -30,8 +30,9 @@ describe('OrganismDetailComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrganismDetailComponent);
+    fixture = TestBed.createComponent(AnalysisDetailComponent);
     component = fixture.componentInstance;
+    component.accession = 'ERZ887818';
     fixture.detectChanges();
   });
 
@@ -39,7 +40,19 @@ describe('OrganismDetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('dealWithAvailability', () => {
-    expect(component.dealWithAvailability('mailto:test@test.com')).toEqual('test@test.com');
+  it('wrong analysis accession', () => {
+    component.accession = 'fake accession';
+    const spyOnInit = spyOn(component, 'ngOnInit');
+    component.ngOnInit();
+    expect(spyOnInit.calls.count()).toEqual(1);
+    expect(component.analysis).toBeUndefined();
+  });
+
+  it('correct analysis accession', () => {
+    const spyOnInit = spyOn(component, 'ngOnInit');
+    component.ngOnInit();
+    expect(spyOnInit.calls.count()).toEqual(1);
+    expect(component.analysis).toBeUndefined();
+    // expect(component.analysis['accession']).toEqual(component.accession);
   });
 });

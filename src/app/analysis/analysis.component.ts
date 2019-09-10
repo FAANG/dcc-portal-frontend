@@ -1,31 +1,32 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NgxSpinnerService} from 'ngx-spinner';
+import {AnalysisTable, SortParams} from '../shared/interfaces';
+import {Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
-import {OrganismTable, SortParams} from '../shared/interfaces';
 import {AggregationService} from '../services/aggregation.service';
-import {Observable, Subscription} from 'rxjs';
 import {ExportService} from '../services/export.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import {Observable} from 'rxjs/internal/Observable';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-organism',
-  templateUrl: './organism.component.html',
-  styleUrls: ['./organism.component.css']
+  selector: 'app-analysis',
+  templateUrl: './analysis.component.html',
+  styleUrls: ['./analysis.component.css']
 })
-export class OrganismComponent implements OnInit, OnDestroy {
-  organismListShort: Observable<OrganismTable[]>;
-  organismListLong: Observable<OrganismTable[]>;
+export class AnalysisComponent implements OnInit, OnDestroy {
+  analysisListShort: Observable<AnalysisTable[]>;
+  analysisListLong: Observable<AnalysisTable[]>;
+  columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard'];
 
-  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published'];
   spanClass = 'expand_more';
   defaultClass = 'unfold_more';
-  selectedColumn = 'BioSample ID';
+  selectedColumn = 'Analysis accession';
   sort_field: SortParams;
-  filter_field: {};
+  filter_field = {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
-  organismListLongSubscription: Subscription;
+  analysisListLongSubscription: Subscription;
   downloadData = false;
 
   optionsCsv;
@@ -35,30 +36,30 @@ export class OrganismComponent implements OnInit, OnDestroy {
   // Local variable for pagination
   p = 1;
 
+  private query = {
+    'sort': 'accession:desc',
+    '_source': [
+      'accession',
+      'datasetAccession',
+      'title',
+      'organism.text',
+      'assayType',
+      'analysisType',
+      'standardMet'],
+  };
   error: string;
 
-  private query = {
-    'sort': 'id_number:desc',
-    '_source': [
-      'biosampleId',
-      'sex.text',
-      'organism.text',
-      'breed.text',
-      'standardMet',
-      'id_number',
-      'paperPublished'],
-  };
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
-              private spinner: NgxSpinnerService,
               private exportService: ExportService,
+              private spinner: NgxSpinnerService,
               private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle('FAANG organisms');
+    this.titleService.setTitle('FAANG analyses');
     this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const filters = {};
@@ -85,31 +86,20 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'idNumber', direction: 'desc'};
-    this.dataService.getAllOrganisms(this.query, 25).subscribe(
-      (data) => {
-        this.organismListShort = data;
-        if (this.organismListShort) {
-          this.spinner.hide();
-        }
-      },
-      error => {
-        this.error = error;
-        this.spinner.hide();
-      }
-    );
-    this.organismListLong = this.dataService.getAllOrganisms(this.query, 100000);
-    this.organismListLongSubscription = this.organismListLong.subscribe((data) => {
-      this.aggregationService.getAggregations(data, 'organism');
+    this.sort_field = {id: 'accession', direction: 'desc'};
+    this.spinner.hide();
+    this.analysisListLong = this.dataService.getAllAnalyses(this.query, 100000);
+    this.analysisListLongSubscription = this.analysisListLong.subscribe((data) => {
+      this.aggregationService.getAggregations(data, 'analysis');
     });
-    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
+    this.aggrSubscription = this.aggregationService.field.subscribe((data: any) => {
       const params = {};
       for (const key in data) {
         if (data[key].length !== 0) {
           params[key] = data[key];
         }
       }
-      this.router.navigate(['organism'], {queryParams: params});
+      this.router.navigate(['analysis'], {queryParams: params});
     });
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
@@ -129,7 +119,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   }
 
   chooseClass(event_class: string) {
-    if (this.selectedColumn === 'BioSample ID') {
+    if (this.selectedColumn === 'Analysis accession') {
       if (event_class === 'expand_more') {
         this.spanClass = 'expand_less';
         this.sort_field['direction'] = 'asc';
@@ -147,8 +137,8 @@ export class OrganismComponent implements OnInit, OnDestroy {
       } else {
         this.spanClass = 'unfold_more';
         this.sort_field['direction'] = 'desc';
-        this.sort_field['id'] = 'idNumber';
-        this.selectedColumn = 'BioSample ID';
+        this.sort_field['id'] = 'datasetAccession';
+        this.selectedColumn = 'Analysis accession';
         this.spanClass = 'expand_more';
       }
     }
@@ -156,24 +146,28 @@ export class OrganismComponent implements OnInit, OnDestroy {
 
   selectColumn() {
     switch (this.selectedColumn) {
-      case 'BioSample ID': {
-        this.sort_field['id'] = 'idNumber';
+      case 'Dataset': {
+        this.sort_field['id'] = 'datasetAccession';
         break;
       }
-      case 'Sex': {
-        this.sort_field['id'] = 'sex';
+      case 'Title': {
+        this.sort_field['id'] = 'title';
         break;
       }
-      case 'Organism': {
-        this.sort_field['id'] = 'organism';
+      case 'Species': {
+        this.sort_field['id'] = 'species';
         break;
       }
-      case 'Breed': {
-        this.sort_field['id'] = 'breed';
+      case 'Analysis accession': {
+        this.sort_field['id'] = 'accession';
         break;
       }
-      case 'Standard': {
-        this.sort_field['id'] = 'standard';
+      case 'Assay type': {
+        this.sort_field['id'] = 'assayType';
+        break;
+      }
+      case 'Analysis type': {
+        this.sort_field['id'] = 'analysisType';
         break;
       }
     }
@@ -201,27 +195,19 @@ export class OrganismComponent implements OnInit, OnDestroy {
 
   removeFilter() {
     this.resetFilter();
-    this.router.navigate(['organism'], {queryParams: {}});
+    this.router.navigate(['analysis'], {queryParams: {}});
   }
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
   }
 
-  wasPublished(published: any) {
-    return published === 'true';
-  }
-
-  isGreen(published: any) {
-    return published === 'true' ? 'green' : 'default';
-  }
-
   ngOnDestroy() {
-    if (typeof this.filter_field !== 'undefined') {
+    if (typeof  this.filter_field !== 'undefined') {
       this.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
-    this.organismListLongSubscription.unsubscribe();
+    this.analysisListLongSubscription.unsubscribe();
   }
 }

@@ -1,0 +1,105 @@
+<div class="container">
+  <app-header></app-header>
+  <ng-container *ngIf="analysis">
+    <h1 class="text-center">{{analysis.accession}}</h1>
+    <dl class="row">
+      <dt class="col-sm-3">Analysis accession:</dt>
+      <dd class="col-sm-9">
+        <app-robust-link [prefix]="ena_prefix" [link]="analysis?.accession"
+                         [text]="analysis?.accession"></app-robust-link>
+      </dd>
+
+      <dt class="col-sm-3">Title:</dt>
+      <dd class="col-sm-9">{{analysis?.title}}</dd>
+
+      <ng-container *ngIf="analysis?.alias">
+        <dt class="col-sm-3">Alias:</dt>
+        <dd class="col-sm-9">{{analysis?.alias}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="analysis?.type">
+        <dt class="col-sm-3">Type:</dt>
+        <dd class="col-sm-9">{{analysis?.type}}</dd>
+      </ng-container>
+
+      <dt class="col-sm-3">Dataset accession:</dt>
+      <dd class="col-sm-9">
+        <app-robust-link [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
+                         [text]="analysis?.datasetAccession"></app-robust-link>
+      </dd>
+
+      <dt class="col-sm-3">Analysis type:</dt>
+      <dd class="col-sm-9">
+        {{analysis?.analysisType}}
+      </dd>
+
+      <dt class="col-sm-3">Assay type:</dt>
+      <dd class="col-sm-9">
+        {{analysis?.assayType}}
+      </dd>
+
+      <ng-container *ngIf="analysis?.standardMet">
+        <dt class="col-sm-3">Standard:</dt>
+        <dd class="col-sm-9">{{analysis?.standardMet}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="analysis?.analysisCenter">
+        <dt class="col-sm-3">Analysis center:</dt>
+        <dd class="col-sm-9">{{analysis?.analysisCenter}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="analysis?.releaseDate">
+        <dt class="col-sm-3">Release date:</dt>
+        <dd class="col-sm-9">{{analysis?.releaseDate}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="analysis?.updateDate">
+        <dt class="col-sm-3">Update date:</dt>
+        <dd class="col-sm-9">{{analysis?.updateDate}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="analysis?.organism">
+        <dt class="col-sm-3">Species</dt>
+        <dd class="col-sm-9">
+          <app-robust-link [prefix]="ols_prefix" [link]="analysis?.organism?.ontologyTerms"
+                           [text]="analysis?.organism?.text"></app-robust-link>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="analysis?.sampleAccessions">
+        <dt class="col-sm-3">Related Sample</dt>
+        <dd class="col-sm-9">
+          <app-robust-link [prefix]="specimen_prefix" [link]="analysis?.sampleAccessions"
+                           [text]="analysis?.sampleAccessions"></app-robust-link>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="analysis?.experimentAccessions && analysis?.experimentAccessions.length > 0">
+        <dt class="col-sm-3">Related Experiments</dt>
+        <dd class="col-sm-9">
+          <ng-container *ngFor="let exp of analysis?.experimentAccessions">
+            <app-robust-link [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
+          </ng-container>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="analysis?.runAccessions && analysis?.runAccessions.length > 0">
+        <dt class="col-sm-3">Related Runs</dt>
+        <dd class="col-sm-9">
+          <ng-container *ngFor="let run of analysis?.runAccessions">
+            <app-robust-link [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
+          </ng-container>
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="analysis?.analysisProtocol">
+        <dt class="col-sm-3">Analysis Protocol:</dt>
+        <dd class="col-sm-9"><app-robust-link prefix="" [link]="analysis.analysisProtocol.url"
+                             [text]="analysis.analysisProtocol.filename"></app-robust-link></dd>
+      </ng-container>
+    </dl>
+
+    <app-related-items source_type="analysis" target_type="file"
+                       download_key="url" [record_id]="analysis.accession"></app-related-items>
+  </ng-container>
+</div>

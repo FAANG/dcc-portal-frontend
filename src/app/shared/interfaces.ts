@@ -50,6 +50,16 @@ export interface DatasetTable {
   paperPublished: string;
 }
 
+export interface AnalysisTable {
+  accession: string;
+  datasetAccession: string;
+  title: string;
+  species: string;
+  assayType: string;
+  analysisType: string;
+  standard: string;
+}
+
 export interface ProtocolFile {
   name: string;
   experimentTarget: string;
