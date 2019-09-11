@@ -37,15 +37,15 @@
     <div class="col-md-2"><h3>Rule groups</h3></div>
     <div class="col-md-10">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="onCheckBoxClick()">
+        <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="mandatoryOnlyToggle()">
         <label class="form-check-label" for="defaultCheck1">
           Show only mandatory fields
         </label>
         <button type="button" class="btn btn-success">
-          <a href="https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/faang_sample_metadata_empty_template_20181212.xlsx?version=1&modificationDate=1544608044067&api=v2">Download empty template</a>
+          <a href="{{metadata_template}}">Download empty template</a>
         </button>
         <button type="button" class="btn btn-success">
-          <a href="https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/faang_sample_metadata_examples_macleod_horses_20181212.xlsx?version=1&modificationDate=1544608044177&api=v2">Download example template</a>
+          <a href="{{metadata_template_with_examples}}">Download example template</a>
         </button>
       </div>
     </div>
@@ -53,12 +53,12 @@
   <div class="row" *ngIf="data">
     <div class="col-md-2 left">
       <ul *ngFor="let category of data['rule_groups']" class="list-group list-group-flush">
-        <li class="list-group-item" [ngClass]="{'active': checkIsActive(category['name'])}"><a [routerLink]="['/ruleset', 'samples']" fragment="{{removeSpaces(category['name'])}}">{{category['name']}}</a></li>
+        <li class="list-group-item" [ngClass]="{'active': checkIsActive(category['name'])}"><a [routerLink]="['/ruleset', 'samples']" fragment="{{convertToSnakeCase(category['name'])}}">{{category['name']}}</a></li>
       </ul>
     </div>
     <div class="col-md-10 table-responsive center">
       <ng-container *ngFor="let category of data['rule_groups']">
-        <h3 id="{{removeSpaces(category['name'])}}">{{category['name']}} ({{category['rules'].length}} rules)</h3>
+        <h3 id="{{convertToSnakeCase(category['name'])}}">{{category['name']}} ({{category['rules'].length}} rules)</h3>
         <p *ngIf="category['name'] === 'standard'">Applied to all entities</p>
         <ng-container *ngIf="category['name'] !== 'standard'">
           <p>Applied under these conditions:</p>
@@ -92,7 +92,7 @@
             <td>
               <ng-container *ngIf="rule['valid_terms']">
                 <div *ngFor="let link of rule['valid_terms']">
-                  <a href="https://www.ebi.ac.uk/ols/ontologies/obi/terms?iri={{link['term_iri']}}" >{{getLink(link['term_iri'])}}</a>
+                  <a href="{{generateEbiOntologyLink(link['ontology_name'], link['term_iri'])}}" >{{getOntologyTerm(link['term_iri'])}}</a>
                 </div>
               </ng-container>
             </td>
@@ -112,7 +112,7 @@
             In addition, attributes from the sources listed can be used:
             <ol>
               <li *ngFor="let import_rule of category['imports']">
-                <a href="https://www.ebi.ac.uk/ols/ontologies/vt/terms?iri={{import_rule['term']['term_iri']}}">{{getLink(import_rule['term']['term_iri'])}}</a> (include descendants)
+                <a href="{{generateEbiOntologyLink(import_rule['term']['ontology_name'], import_rule['term']['term_iri'])}}">{{getOntologyTerm(import_rule['term']['term_iri'])}}</a> (include descendants)
               </li>
             </ol>
           </div>

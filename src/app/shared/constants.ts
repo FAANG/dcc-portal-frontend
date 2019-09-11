@@ -3,13 +3,24 @@ export const female_values = ['female', 'female genotypic sex', 'intact female',
 
 export const external_ena_prefix = 'https://www.ebi.ac.uk/ena/browser/view/';
 export const external_ols_prefix = 'https://www.ebi.ac.uk/ols/terms?iri=';
+export const ruleset_prefix = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
+export const ols_prefix = 'https://www.ebi.ac.uk/ols/ontologies/';
 
 export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';
 export const internal_dataset = '../dataset/';
 
-export function removeSpaces(id: string) {
-  return id.split(' ').join('_');
+export const sample_metadata_template = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/' +
+  'faang_sample_metadata_empty_template_20181212.xlsx?version=1&modificationDate=1544608044067&api=v2';
+export const sample_metadata_template_with_examples = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/' +
+  'faang_sample_metadata_examples_macleod_horses_20181212.xlsx?version=1&modificationDate=1544608044177&api=v2';
+export const experiment_metadata_template = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/38273982/' +
+  'faang_experiment_metadata_empty_template_20190723.xlsx?version=2&modificationDate=1563977871917&api=v2';
+export const experiment_metadata_template_with_examples = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/38273982/' +
+  'faang_experiment_metadata_examples_roslin_20190723.xlsx?version=2&modificationDate=1563977889833&api=v2';
+
+export function convertToSnakeCase(id: string) {
+  return id.replace(/\s+/g, '_');
 }
 
 export function allowMultiple(rule: any) {
@@ -28,20 +39,12 @@ export function getValidItems(rule: any, section_name: string) {
   }
 }
 
-export function getLink(link: string) {
+export function getOntologyTerm(link: string) {
   return link.split('/').slice(-1)[0];
 }
 
-export function getCondition(condition: any) {
-  if (condition['attribute_value_match']['Material'].length === 1) {
-    return ' Material is "' + condition['attribute_value_match']['Material'][0] + '"';
-  } else {
-    let str_to_return = ' Material is one of ';
-    for (const el of condition['attribute_value_match']['Material']) {
-      str_to_return += '"' + el + '" ';
-    }
-    return str_to_return;
-  }
+export function generateEbiOntologyLink(ontology_name, term_iri) {
+  return ols_prefix + ontology_name + '/terms?iri=' + term_iri;
 }
 
 export function getMandatoryData(data: any) {
@@ -55,6 +58,7 @@ export function getMandatoryData(data: any) {
     tmp['name'] = rule['name'];
     tmp['consistency_check'] = rule['consistency_check'];
     tmp['imports'] = rule['imports'];
+    tmp['condition'] = rule['condition'];
     tmp['rules'] = [];
     for (const el of rule['rules']) {
       if (el['mandatory'] === 'mandatory') {

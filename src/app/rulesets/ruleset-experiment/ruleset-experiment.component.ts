@@ -2,7 +2,8 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
-import {removeSpaces, allowMultiple, getValidItems, getLink, getCondition, getMandatoryData} from '../../shared/constants';
+import {convertToSnakeCase, allowMultiple, getValidItems, getOntologyTerm, getMandatoryData, generateEbiOntologyLink,
+  experiment_metadata_template, experiment_metadata_template_with_examples} from '../../shared/constants';
 
 @Component({
   selector: 'app-ruleset-experiment',
@@ -13,31 +14,35 @@ export class RulesetExperimentComponent implements OnInit, AfterViewChecked {
   error: string;
   data: any;
   all_data: any;
-  mandatory_data: any;
+  mandatory_only: any;
   clicked = false;
   fragment: string;
-  removeSpaces: any;
+  convertToSnakeCase: any;
   allowMultiple: any;
   getValidItems: any;
-  getLink: any;
-  getCondition: any;
+  getOntologyTerm: any;
   getMandatoryData: any;
+  generateEbiOntologyLink: any;
+  metadata_template: string;
+  metadata_template_with_examples: string;
 
   constructor(private titleService: Title, private apiDataService: ApiDataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.removeSpaces = removeSpaces;
+    this.convertToSnakeCase = convertToSnakeCase;
     this.allowMultiple = allowMultiple;
     this.getValidItems = getValidItems;
-    this.getLink = getLink;
-    this.getCondition = getCondition;
+    this.getOntologyTerm = getOntologyTerm;
     this.getMandatoryData = getMandatoryData;
+    this.generateEbiOntologyLink = generateEbiOntologyLink;
+    this.metadata_template = experiment_metadata_template;
+    this.metadata_template_with_examples = experiment_metadata_template_with_examples;
     this.titleService.setTitle('FAANG Rule set|experiments');
     this.apiDataService.getRulesetExperiment().subscribe(
       data => {
         this.data = data;
         this.all_data = data;
-        this.mandatory_data = this.getMandatoryData(data);
+        this.mandatory_only = this.getMandatoryData(data);
       },
       error => {
         this.error = error;
@@ -57,12 +62,12 @@ export class RulesetExperimentComponent implements OnInit, AfterViewChecked {
   }
 
   checkIsActive(category: string) {
-    return this.removeSpaces(category) === this.fragment;
+    return this.convertToSnakeCase(category) === this.fragment;
   }
 
-  onCheckBoxClick() {
+  mandatoryOnlyToggle() {
     if (this.clicked === false) {
-      this.data = this.mandatory_data;
+      this.data = this.mandatory_only;
       this.clicked = true;
     } else {
       this.data = this.all_data;

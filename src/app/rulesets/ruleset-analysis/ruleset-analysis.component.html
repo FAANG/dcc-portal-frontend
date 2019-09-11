@@ -37,7 +37,7 @@
     <div class="col-md-2"><h3>Rule groups</h3></div>
     <div class="col-md-10">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="onCheckBoxClick()">
+        <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="mandatoryOnlyToggle()">
         <label class="form-check-label" for="defaultCheck1">
           Show only mandatory fields
         </label>
@@ -48,12 +48,12 @@
   <div class="row" *ngIf="data">
     <div class="col-md-2 left">
       <ul *ngFor="let category of data['rule_groups']" class="list-group list-group-flush">
-        <li class="list-group-item" [ngClass]="{'active': checkIsActive(category['name'])}"><a [routerLink]="['/ruleset', 'analyses']" fragment="{{removeSpaces(category['name'])}}">{{category['name']}}</a></li>
+        <li class="list-group-item" [ngClass]="{'active': checkIsActive(category['name'])}"><a [routerLink]="['/ruleset', 'analyses']" fragment="{{convertToSnakeCase(category['name'])}}">{{category['name']}}</a></li>
       </ul>
     </div>
     <div class="col-md-10 table-responsive center">
       <ng-container *ngFor="let category of data['rule_groups']">
-        <h3 id="{{removeSpaces(category['name'])}}">{{category['name']}} ({{category['rules'].length}} rules)</h3>
+        <h3 id="{{convertToSnakeCase(category['name'])}}">{{category['name']}} ({{category['rules'].length}} rules)</h3>
         <p *ngIf="category['name'] === 'faang'">faang-specific rule sets</p>
         <p *ngIf="category['name'] === 'ena'">
           the fields required by the ENA analysis xsd <a href="https://github.com/FAANG/faang-metadata/blob/master/rulesets/faang_analyses.metadata_rules.json">https://github.com/FAANG/faang-metadata/blob/master/rulesets/faang_analyses.metadata_rules.json</a>
@@ -85,14 +85,11 @@
             <td>
               <ng-container *ngIf="rule['valid_terms']">
                 <div *ngFor="let link of rule['valid_terms']">
-                  <a href="https://www.ebi.ac.uk/ols/ontologies/obi/terms?iri={{link['term_iri']}}" >{{getLink(link['term_iri'])}}</a>
+                  <a href="{{generateEbiOntologyLink(link['ontology_name'], link['term_iri'])}}" >{{getOntologyTerm(link['term_iri'])}}</a>
                 </div>
               </ng-container>
             </td>
             <td>
-              <ng-container *ngIf="rule['condition']">
-                Must meet condition:{{getCondition(rule['condition'])}}
-              </ng-container>
             </td>
           </tr>
           </tbody>
@@ -105,7 +102,7 @@
             In addition, attributes from the sources listed can be used:
             <ol>
               <li *ngFor="let import_rule of category['imports']">
-                <a href="https://www.ebi.ac.uk/ols/ontologies/vt/terms?iri={{import_rule['term']['term_iri']}}">{{getLink(import_rule['term']['term_iri'])}}</a> (include descendants)
+                <a href="{{generateEbiOntologyLink(import_rule['term']['ontology_name'], import_rule['term']['term_iri'])}}">{{getOntologyTerm(import_rule['term']['term_iri'])}}</a> (include descendants)
               </li>
             </ol>
           </div>

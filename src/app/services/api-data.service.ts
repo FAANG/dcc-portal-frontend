@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { AnalysisTable, DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
+import {ruleset_prefix} from '../shared/constants';
 
 
 @Injectable({
@@ -349,7 +350,7 @@ export class ApiDataService {
   }
 
   getRulesetSample() {
-    const url = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/faang_samples.metadata_rules.json';
+    const url = ruleset_prefix + 'faang_samples.metadata_rules.json';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -360,7 +361,7 @@ export class ApiDataService {
   }
 
   getRulesetExperiment() {
-    const url = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/faang_experiments.metadata_rules.json';
+    const url =  ruleset_prefix + 'faang_experiments.metadata_rules.json';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -371,7 +372,7 @@ export class ApiDataService {
   }
 
   getRulesetAnalysis() {
-    const url = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/faang_analyses.metadata_rules.json';
+    const url =  ruleset_prefix + 'faang_analyses.metadata_rules.json';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
