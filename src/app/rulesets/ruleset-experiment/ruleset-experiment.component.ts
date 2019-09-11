@@ -14,8 +14,8 @@ export class RulesetExperimentComponent implements OnInit, AfterViewChecked {
   error: string;
   data: any;
   all_data: any;
-  mandatory_only: any;
-  clicked = false;
+  mandatory_data: any;
+  mandatory_only = false;
   fragment: string;
   convertToSnakeCase: any;
   allowMultiple: any;
@@ -42,7 +42,7 @@ export class RulesetExperimentComponent implements OnInit, AfterViewChecked {
       data => {
         this.data = data;
         this.all_data = data;
-        this.mandatory_only = this.getMandatoryData(data);
+        this.mandatory_data = this.getMandatoryData(data);
       },
       error => {
         this.error = error;
@@ -66,12 +66,12 @@ export class RulesetExperimentComponent implements OnInit, AfterViewChecked {
   }
 
   mandatoryOnlyToggle() {
-    if (this.clicked === false) {
-      this.data = this.mandatory_only;
-      this.clicked = true;
+    if (this.mandatory_only === false) {
+      this.data = this.mandatory_data;
+      this.mandatory_only = true;
     } else {
       this.data = this.all_data;
-      this.clicked = false;
+      this.mandatory_only = false;
     }
   }
 
