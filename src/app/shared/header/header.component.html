@@ -29,6 +29,9 @@
       <li class="nav-item" [ngClass]="isActiveSummary()">
         <a class="nav-link" routerLink="/summary/organisms">Summary</a>
       </li>
+      <li class="nav-item" [ngClass]="isActiveRuleset()">
+        <a class="nav-link" routerLink="/ruleset/samples" fragment="standard">Rule sets</a>
+      </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/search">Search</a>
       </li>

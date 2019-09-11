@@ -54,6 +54,9 @@ import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis
 import { NonExistingComponent } from './non-existing/non-existing.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { IndeterminateDirective } from './shared/indeterminate.directive';
+import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
+import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
+import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +94,9 @@ import { IndeterminateDirective } from './shared/indeterminate.directive';
     FilesSummaryComponent,
     ProtocolAnalysisComponent,
     NonExistingComponent,
+    RulesetSampleComponent,
+    RulesetExperimentComponent,
+    RulesetAnalysisComponent,
     IndeterminateDirective
   ],
   imports: [
