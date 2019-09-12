@@ -164,6 +164,9 @@ export class RelatedItemsComponent implements OnInit {
     const elmts = attr.split('.');
     let curr: any = record;
     for (const elmt of elmts) {
+      if (curr[elmt] === null) {
+        return;
+      }
       curr = curr[elmt];
     }
     return curr;

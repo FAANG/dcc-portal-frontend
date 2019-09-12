@@ -41,12 +41,13 @@
         <tr>
           <ng-container *ngFor="let attr of get_displayed_fields()">
             <td>
-          <span *ngIf="get_field_values_for_links(attr); else plainBlock">
-            <app-robust-link [prefix]="get_field_values_for_links(attr)['prefix']"
-                             [link]="getValue(record, get_field_values_for_links(attr)['url'])"
-                             [text]="getValue(record, get_attr(attr))">
-            </app-robust-link>
-          </span>
+              <span *ngIf="get_field_values_for_links(attr); else plainBlock">
+                <app-robust-link [prefix]="get_field_values_for_links(attr)['prefix']"
+                                 [link]="getValue(record, get_field_values_for_links(attr)['url'])"
+                                 [text]="getValue(record, get_attr(attr))">
+
+                </app-robust-link>
+              </span>
               <ng-template #plainBlock>
                 {{getValue(record, get_attr(attr))}}
               </ng-template>
