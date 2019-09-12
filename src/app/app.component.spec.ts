@@ -4,11 +4,13 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {CookieLawModule} from 'angular2-cookie-law';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FooterComponent} from './shared/footer/footer.component';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        FooterComponent
       ],
       imports: [
         RouterTestingModule,
