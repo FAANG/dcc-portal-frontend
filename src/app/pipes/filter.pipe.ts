@@ -65,11 +65,11 @@ export class FilterPipe implements PipeTransform {
         }
         let will_be_in = true;
         for (const key of Object.keys(filter_field)) {
-          for (const data_field of filter_field[key]) {
+          for (const filter_value of filter_field[key]) {
             if (type === 'dataset' && key === 'species') {
               let found = false;
               for (const data of item['species'].split(',')) {
-                if (data === data_field) {
+                if (data === filter_value) {
                   found = true;
                 }
               }
@@ -79,7 +79,7 @@ export class FilterPipe implements PipeTransform {
             } else if (type === 'dataset' && key === 'archive') {
               let found = false;
               for (const data of item['archive'].split(',')) {
-                if (data === data_field) {
+                if (data === filter_value) {
                   found = true;
                 }
               }
@@ -92,7 +92,7 @@ export class FilterPipe implements PipeTransform {
                 if (data === 'transcription profiling by high throughput sequencing') {
                   data = 'RNA-Seq';
                 }
-                if (data === data_field) {
+                if (data === filter_value) {
                   found = true;
                 }
               }
@@ -103,25 +103,25 @@ export class FilterPipe implements PipeTransform {
               let comparison_value: string;
               male_values.indexOf(item[key]) > -1 ? comparison_value = 'male' : (female_values.indexOf(item[key]) > -1 ?
                 comparison_value = 'female' : comparison_value = 'not determined');
-              if (comparison_value !== data_field) {
+              if (comparison_value !== filter_value) {
                 will_be_in = false;
               }
             } else if (key === 'paper_published') {
-              if (data_field === 'Yes') {
+              if (filter_value === 'Yes') {
                 if (item['paperPublished'] !== 'true') {
                   will_be_in = false;
                 }
-              } else if (data_field === 'No') {
+              } else if (filter_value === 'No') {
                 if (item['paperPublished'] === 'true') {
                   will_be_in = false;
                 }
               }
             } else if (key === 'journal_title') {
-              if (item['journal'] !== data_field) {
+              if (item['journal'] !== filter_value) {
                 will_be_in = false;
               }
             } else if (key === 'publication_year') {
-              if (item['publicationYear'] !== data_field) {
+              if (item['publicationYear'] !== filter_value) {
                 will_be_in = false;
               }
             } else if (type === 'file' && key === 'assayType') {
@@ -131,15 +131,17 @@ export class FilterPipe implements PipeTransform {
               } else {
                 search_for = item[key];
               }
-              if (search_for !== data_field) {
+              if (search_for !== filter_value) {
                 will_be_in = false;
               }
             }  else if (type === 'analysis' && key === 'analysisType') {
-              if (removeUnderscore(item[key]) !== data_field) {
+              if (removeUnderscore(item[key]) !== filter_value) {
                 will_be_in = false;
               }
+            }  else if (type === 'analysis' && key === 'assayType' && !item[key] && filter_value === 'not provided') {
+              will_be_in = true;
             } else {
-              if (item[key] !== data_field) {
+              if (item[key] !== filter_value) {
                 will_be_in = false;
               }
             }
