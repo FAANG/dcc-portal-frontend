@@ -3,6 +3,7 @@ export const female_values = ['female', 'female genotypic sex', 'intact female',
 
 export const external_ena_prefix = 'https://www.ebi.ac.uk/ena/browser/view/';
 export const external_ols_prefix = 'https://www.ebi.ac.uk/ols/terms?iri=';
+export const external_biosample_prefix = 'https://www.ebi.ac.uk/biosamples/samples/';
 export const ruleset_prefix = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
 export const ols_prefix = 'https://www.ebi.ac.uk/ols/ontologies/';
 

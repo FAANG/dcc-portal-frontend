@@ -24,8 +24,14 @@
 
       <dt class="col-sm-3">Dataset accession:</dt>
       <dd class="col-sm-9">
-        <app-robust-link [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
+        <ng-container *ngIf="analysis?.datasetInPortal">
+          <app-robust-link [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
                          [text]="analysis?.datasetAccession"></app-robust-link>
+        </ng-container>
+        <ng-container *ngIf="!analysis?.datasetInPortal">
+          <app-robust-link [prefix]="ena_prefix" [link]="analysis?.datasetAccession"
+                         [text]="analysis?.datasetAccession"></app-robust-link>
+        </ng-container>
       </dd>
 
       <dt class="col-sm-3">Analysis type:</dt>
@@ -33,10 +39,10 @@
         {{analysis?.analysisType}}
       </dd>
 
-      <dt class="col-sm-3">Assay type:</dt>
-      <dd class="col-sm-9">
-        {{analysis?.assayType}}
-      </dd>
+      <ng-container *ngIf="analysis?.type">
+        <dt class="col-sm-3">Assay type:</dt>
+        <dd class="col-sm-9">{{analysis?.assayType}}</dd>
+      </ng-container>
 
       <ng-container *ngIf="analysis?.standardMet">
         <dt class="col-sm-3">Standard:</dt>
@@ -67,10 +73,17 @@
       </ng-container>
 
       <ng-container *ngIf="analysis?.sampleAccessions">
-        <dt class="col-sm-3">Related Sample</dt>
+        <dt class="col-sm-3">Related Samples</dt>
         <dd class="col-sm-9">
-          <app-robust-link [prefix]="specimen_prefix" [link]="analysis?.sampleAccessions"
-                           [text]="analysis?.sampleAccessions"></app-robust-link>
+          <ng-container *ngFor="let accession of analysis?.sampleAccessions">
+            <ng-container *ngIf="analysis?.datasetInPortal">
+              <app-robust-link [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
+            </ng-container>
+            <ng-container *ngIf="!analysis?.datasetInPortal">
+              <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
+            </ng-container>
+            &nbsp;
+          </ng-container>
         </dd>
       </ng-container>
 
