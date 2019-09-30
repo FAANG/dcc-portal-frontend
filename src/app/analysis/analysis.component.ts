@@ -63,23 +63,21 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const filters = {};
+      this.resetFilter();
       for (const key in params) {
         if (Array.isArray(params[key])) {
           filters[key] = params[key];
           for (const value of params[key]) {
-            if (this.aggregationService.current_active_filters.indexOf(value) === -1) {
-              this.aggregationService.current_active_filters.push(value);
-              this.aggregationService.active_filters[key].push(value);
-            }
+            this.aggregationService.current_active_filters.push(value);
+            this.aggregationService.active_filters[key].push(value);
           }
         } else {
           filters[key] = [params[key]];
-          if (this.aggregationService.current_active_filters.indexOf(params[key]) === -1) {
-            this.aggregationService.current_active_filters.push(params[key]);
-            this.aggregationService.active_filters[key].push(params[key]);
-          }
+          this.aggregationService.current_active_filters.push(params[key]);
+          this.aggregationService.active_filters[key].push(params[key]);
         }
       }
+      this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
     });
     this.optionsCsv = this.exportService.optionsCsv;

@@ -15,6 +15,10 @@ export class ActiveFilterComponent implements OnInit {
   ngOnInit() {
     this.aggs = this.aggregationService.current_active_filters;
     this.data = this.aggregationService.active_filters;
+    this.aggregationService.field.subscribe(data => {
+      this.aggs = this.aggregationService.current_active_filters;
+      this.data = this.aggregationService.active_filters;
+    });
   }
 
   clearFilter(field: string) {
