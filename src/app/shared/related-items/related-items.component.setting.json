@@ -10,7 +10,8 @@
         "Name",
         "Type",
         "Size",
-        "Checksum"
+        "Checksum",
+        "Checksum method"
       ],
       "fields": {
         "Name": {
@@ -28,6 +29,9 @@
         },
         "Checksum": {
           "value": "checksum"
+        },
+        "Checksum method": {
+          "value": "checksumMethod"
         }
       }
     }
@@ -344,7 +348,9 @@
         "Run",
         "Assay type",
         "Experiment target",
-        "File size"
+        "File size",
+        "Checksum",
+        "Checksum method"
       ],
       "fields": {
         "Name": {
@@ -379,6 +385,12 @@
         },
         "File size": {
           "value": "_source.readableSize"
+        },
+        "Checksum": {
+          "value": "_source.checksum"
+        },
+        "Checksum method": {
+          "value": "_source.checksumMethod"
         }
       }
     },
