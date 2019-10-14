@@ -3,6 +3,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import {convertArrayToStr} from '../../shared/common_functions';
+
 import {
   external_biosample_prefix,
   external_ena_prefix,
@@ -55,5 +57,9 @@ export class AnalysisDetailComponent implements OnInit {
         this.spinner.hide();
       }
     );
+  }
+
+  getStrFromArray(arr: any) {
+    return convertArrayToStr(arr, '');
   }
 }

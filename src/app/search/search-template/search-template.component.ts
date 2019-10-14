@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SearchService} from '../../services/search.service';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {Subscription} from 'rxjs/internal/Subscription';
+import {convertArrayToStr} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-search-template',
@@ -56,16 +57,8 @@ export class SearchTemplateComponent implements OnInit, OnDestroy {
     return cellType;
   }
 
-  convertArrayToStr(data: string[], subelement: string): string {
-    let value = '';
-    for (let i = 0; i < data.length; i++) {
-      if (subelement === '') {
-        value += data[i] + ',';
-      } else {
-        value += data[i][subelement] + ',';
-      }
-    }
-    return value.substring(0, value.length - 1);
+  getStrFromArray(data: any[], subelement: string): string {
+    return convertArrayToStr(data, subelement);
   }
 
   ngOnDestroy(): void {
