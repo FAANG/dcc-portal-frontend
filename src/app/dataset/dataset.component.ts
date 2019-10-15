@@ -148,7 +148,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   selectColumn() {
     switch (this.selectedColumn) {
-      case 'Datset accession': {
+      case 'Dataset accession': {
         this.sort_field['id'] = 'datasetAccession';
         break;
       }
