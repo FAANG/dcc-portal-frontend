@@ -97,12 +97,12 @@ describe('SearchTemplateComponent', () => {
     // tslint:disable-next-line:prefer-const
     let data;
     expect(component.getStrFromArray(data, '')).toEqual('');
-  })
+  });
 
   it ('getStrFromArray should return empty string on empty array', () => {
     const data = [];
     expect(component.getStrFromArray(data, '')).toEqual('');
-  })
+  });
 
   it('getStrFromArray should return string representation of array without subelement', () => {
     const data = ['test1', 'test2'];
