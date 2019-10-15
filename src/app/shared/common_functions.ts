@@ -7,7 +7,9 @@ export function removeUnderscore(data) {
 }
 
 export function convertArrayToStr(data: any[], subelement: string): string {
-    if (data === undefined || data.length === 0) return '';
+    if (data === undefined || data.length === 0) {
+      return '';
+    }
     let value = '';
     for (let i = 0; i < data.length; i++) {
       if (subelement === '') {
