@@ -92,30 +92,4 @@ describe('SearchTemplateComponent', () => {
     };
     expect(component.getCellType(hit)).toEqual('test');
   });
-
-  it ('getStrFromArray should return empty string on undefined parameter', () => {
-    // tslint:disable-next-line:prefer-const
-    let data;
-    expect(component.getStrFromArray(data, '')).toEqual('');
-  });
-
-  it ('getStrFromArray should return empty string on empty array', () => {
-    const data = [];
-    expect(component.getStrFromArray(data, '')).toEqual('');
-  });
-
-  it('getStrFromArray should return string representation of array without subelement', () => {
-    const data = ['test1', 'test2'];
-    expect(component.getStrFromArray(data, '')).toEqual('test1, test2');
-  });
-
-  it('getStrFromArray should return string representation of array with subelement', () => {
-    const data = [{'text': 'abc'}, {'text': 'efg'}];
-    expect(component.getStrFromArray(data, 'text')).toEqual('abc, efg');
-  });
-
-  it('getStrFromArray should return string representation of array with subelement, some may not having subelement', () => {
-    const data = [{'text': 'abc'}, {'txt': 'efg'}];
-    expect(component.getStrFromArray(data, 'text')).toEqual('abc');
-  });
 });

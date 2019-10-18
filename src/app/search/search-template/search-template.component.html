@@ -85,8 +85,8 @@
           <tr *ngFor="let hit of hits?.hits">
             <td><a class="clickable" [routerLink]="['/dataset', hit._id]">{{hit._id}}</a></td>
             <td>{{hit?._source?.title}}</td>
-            <td>{{getStrFromArray(hit?._source?.species,"text")}}</td>
-            <td>{{getStrFromArray(hit?._source?.archive,"")}}</td>
+            <td>{{convertArrayToStr(hit?._source?.species,"text")}}</td>
+            <td>{{convertArrayToStr(hit?._source?.archive,"")}}</td>
           </tr>
           </tbody>
         </ng-template>

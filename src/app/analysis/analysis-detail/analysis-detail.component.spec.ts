@@ -55,9 +55,4 @@ describe('AnalysisDetailComponent', () => {
     expect(component.analysis).toBeUndefined();
     // expect(component.analysis['accession']).toEqual(component.accession);
   });
-
-  it('convertArrayToStr in common function fully tested in search-template', () => {
-    const arr = ['one', 'two', 'three'];
-    expect(component.getStrFromArray(arr)).toEqual('one, two, three');
-  });
 });

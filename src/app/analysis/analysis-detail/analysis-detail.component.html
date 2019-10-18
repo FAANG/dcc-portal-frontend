@@ -106,12 +106,12 @@
 
       <ng-container *ngIf="analysis?.experimentType">
         <dt class="col-sm-3">Experiment type:</dt>
-        <dd class="col-sm-9">{{getStrFromArray(analysis.experimentType)}}</dd>
+        <dd class="col-sm-9">{{convertArrayToStr(analysis.experimentType, '')}}</dd>
       </ng-container>
 
       <ng-container *ngIf="analysis?.platform">
         <dt class="col-sm-3">Platform:</dt>
-        <dd class="col-sm-9">{{getStrFromArray(analysis.platform)}}</dd>
+        <dd class="col-sm-9">{{convertArrayToStr(analysis.platform, '')}}</dd>
       </ng-container>
 
       <ng-container *ngIf="analysis?.analysisProtocol">

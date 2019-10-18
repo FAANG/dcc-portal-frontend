@@ -15,10 +15,12 @@ export class SearchTemplateComponent implements OnInit, OnDestroy {
   display = false;
   clicked: boolean;
   clickedSubscription: Subscription;
+  convertArrayToStr: any;
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
+    this.convertArrayToStr = convertArrayToStr;
     this.clickedSubscription = this.searchService.clicked.subscribe(data => {
       this.clicked = data;
     });
@@ -55,10 +57,6 @@ export class SearchTemplateComponent implements OnInit, OnDestroy {
       cellType = hit['_source']['cellLine']['cellType']['text'];
     }
     return cellType;
-  }
-
-  getStrFromArray(data: any[], subelement: string): string {
-    return convertArrayToStr(data, subelement);
   }
 
   ngOnDestroy(): void {
