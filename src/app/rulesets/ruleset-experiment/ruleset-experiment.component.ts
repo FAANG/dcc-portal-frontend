@@ -2,8 +2,15 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
-import {convertToSnakeCase, allowMultiple, getValidItems, getOntologyTerm, getMandatoryData, generateEbiOntologyLink,
-  experiment_metadata_template, experiment_metadata_template_with_examples} from '../../shared/constants';
+import {experiment_metadata_template, experiment_metadata_template_with_examples} from '../../shared/constants';
+import {
+  allowMultiple,
+  convertToSnakeCase,
+  generateEbiOntologyLink,
+  getMandatoryData,
+  getOntologyTerm,
+  getValidItems
+} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-ruleset-experiment',

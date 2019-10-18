@@ -2,8 +2,14 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
-import {convertToSnakeCase, allowMultiple, getValidItems, getOntologyTerm, getMandatoryData,
-  generateEbiOntologyLink} from '../../shared/constants';
+import {
+  allowMultiple,
+  convertToSnakeCase,
+  generateEbiOntologyLink,
+  getMandatoryData,
+  getOntologyTerm,
+  getValidItems
+} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-ruleset-analysis',
