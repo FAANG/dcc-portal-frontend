@@ -254,7 +254,8 @@ export class AggregationService {
         assay_type.hasOwnProperty(assay_type_value) ? assay_type[assay_type_value] += 1 : assay_type[assay_type_value] = 1;
         dataset.hasOwnProperty(item['datasetAccession']) ? dataset[item['datasetAccession']] += 1 : dataset[item['datasetAccession']] = 1;
         analysis_type.hasOwnProperty(replaceUnderscoreWithSpace(item['analysisType'])) ?
-          analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] += 1 : analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] = 1;
+          analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] += 1 :
+          analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] = 1;
       }
 
       all_data = {
