@@ -7,8 +7,8 @@ import {
   allowMultiple,
   convertToSnakeCase,
   generateEbiOntologyLink,
-  getMandatoryData,
-  getOntologyTerm,
+  getMandatoryRulesOnly,
+  getOntologyTermFromIRI,
   getValidItems
 } from '../../shared/common_functions';
 
@@ -39,8 +39,8 @@ export class RulesetExperimentComponent implements OnInit, AfterViewChecked {
     this.convertToSnakeCase = convertToSnakeCase;
     this.allowMultiple = allowMultiple;
     this.getValidItems = getValidItems;
-    this.getOntologyTerm = getOntologyTerm;
-    this.getMandatoryData = getMandatoryData;
+    this.getOntologyTerm = getOntologyTermFromIRI;
+    this.getMandatoryData = getMandatoryRulesOnly;
     this.generateEbiOntologyLink = generateEbiOntologyLink;
     this.metadata_template = experiment_metadata_template;
     this.metadata_template_with_examples = experiment_metadata_template_with_examples;

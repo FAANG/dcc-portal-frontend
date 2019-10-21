@@ -3,7 +3,7 @@ import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
 import {female_values, male_values} from '../shared/constants';
 import {protocolNames} from '../shared/protocolnames';
-import {removeUnderscore} from '../shared/common_functions';
+import {replaceUnderscoreWithSpace} from '../shared/common_functions';
 
 @Pipe({
   name: 'filter',
@@ -135,7 +135,7 @@ export class FilterPipe implements PipeTransform {
                 will_be_in = false;
               }
             }  else if (type === 'analysis' && key === 'analysisType') {
-              if (removeUnderscore(item[key]) !== filter_value) {
+              if (replaceUnderscoreWithSpace(item[key]) !== filter_value) {
                 will_be_in = false;
               }
             }  else if (type === 'analysis' && key === 'assayType' && !item[key] && filter_value === 'not provided') {

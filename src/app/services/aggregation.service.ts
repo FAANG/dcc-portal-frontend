@@ -3,7 +3,7 @@ import {Subject} from 'rxjs';
 
 import {female_values, male_values} from '../shared/constants';
 import {protocolNames} from '../shared/protocolnames';
-import {removeUnderscore} from '../shared/common_functions';
+import {replaceUnderscoreWithSpace} from '../shared/common_functions';
 
 @Injectable({
   providedIn: 'root'
@@ -253,8 +253,8 @@ export class AggregationService {
         }
         assay_type.hasOwnProperty(assay_type_value) ? assay_type[assay_type_value] += 1 : assay_type[assay_type_value] = 1;
         dataset.hasOwnProperty(item['datasetAccession']) ? dataset[item['datasetAccession']] += 1 : dataset[item['datasetAccession']] = 1;
-        analysis_type.hasOwnProperty(removeUnderscore(item['analysisType'])) ?
-          analysis_type[removeUnderscore(item['analysisType'])] += 1 : analysis_type[removeUnderscore(item['analysisType'])] = 1;
+        analysis_type.hasOwnProperty(replaceUnderscoreWithSpace(item['analysisType'])) ?
+          analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] += 1 : analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] = 1;
       }
 
       all_data = {

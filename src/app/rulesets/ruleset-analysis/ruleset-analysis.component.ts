@@ -6,8 +6,8 @@ import {
   allowMultiple,
   convertToSnakeCase,
   generateEbiOntologyLink,
-  getMandatoryData,
-  getOntologyTerm,
+  getMandatoryRulesOnly,
+  getOntologyTermFromIRI,
   getValidItems
 } from '../../shared/common_functions';
 
@@ -36,8 +36,8 @@ export class RulesetAnalysisComponent implements OnInit, AfterViewChecked {
     this.convertToSnakeCase = convertToSnakeCase;
     this.allowMultiple = allowMultiple;
     this.getValidItems = getValidItems;
-    this.getOntologyTerm = getOntologyTerm;
-    this.getMandatoryData = getMandatoryData;
+    this.getOntologyTerm = getOntologyTermFromIRI;
+    this.getMandatoryData = getMandatoryRulesOnly;
     this.generateEbiOntologyLink = generateEbiOntologyLink;
     this.titleService.setTitle('FAANG Rule set|analyses');
     this.apiDataService.getRulesetAnalysis().subscribe(

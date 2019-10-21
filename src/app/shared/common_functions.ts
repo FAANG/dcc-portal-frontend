@@ -1,4 +1,4 @@
-export function removeUnderscore(data) {
+export function replaceUnderscoreWithSpace(data) {
   if (data.indexOf('_') !== -1) {
     return data.split('_').join(' ');
   } else {
@@ -37,10 +37,15 @@ export function getValidItems(rule: any, section_name: string) {
       return '"' + el + '"';
     }).join(', ');
   }
+  return '';
 }
 
-export function getOntologyTerm(link: string) {
-  return link.split('/').slice(-1)[0];
+export function getOntologyTermFromIRI(iri: string) {
+  if (iri.indexOf('/') > -1) {
+    return iri.split('/').slice(-1)[0];
+  } else {
+    return '';
+  }
 }
 
 export const ols_prefix = 'https://www.ebi.ac.uk/ols/ontologies/';
@@ -49,7 +54,7 @@ export function generateEbiOntologyLink(ontology_name, term_iri) {
   return ols_prefix + ontology_name + '/terms?iri=' + term_iri;
 }
 
-export function getMandatoryData(data: any) {
+export function getMandatoryRulesOnly(data: any) {
   const data_to_return = {};
   data_to_return['description'] = data['description'];
   data_to_return['name'] = data['name'];
