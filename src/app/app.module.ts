@@ -58,6 +58,7 @@ import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-anal
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { ValidationComponent } from './validation/validation.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { FooterComponent } from './shared/footer/footer.component';
     RulesetExperimentComponent,
     RulesetAnalysisComponent,
     IndeterminateDirective,
-    FooterComponent
+    FooterComponent,
+    ValidationComponent
   ],
   imports: [
     BrowserModule,
