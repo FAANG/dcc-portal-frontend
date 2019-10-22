@@ -69,32 +69,38 @@
           <td>{{record['name']}}</td>
           <td
             [ngClass]="getCellClass(record['core']['errors'], 'error')"
-            [ngStyle]="{'cursor': getCellStyle(record['core']['errors'])}">
+            [ngStyle]="{'cursor': getCellStyle(record['core']['errors'])}"
+            (click)="openModal('Core errors', record['core']['errors'])">
             {{getIssues(record['core']['errors'], 'error')}}
           </td>
           <td
             [ngClass]="getCellClass(record['core']['warnings'], 'warning')"
-            [ngStyle]="{'cursor': getCellStyle(record['core']['warnings'])}">
+            [ngStyle]="{'cursor': getCellStyle(record['core']['warnings'])}"
+            (click)="openModal('Core warnings', record['core']['warnings'])">
             {{getIssues(record['core']['warnings'], 'warning')}}
           </td>
           <td
             [ngClass]="getCellClass(record['type']['errors'], 'error')"
-            [ngStyle]="{'cursor': getCellStyle(record['type']['errors'])}">
+            [ngStyle]="{'cursor': getCellStyle(record['type']['errors'])}"
+            (click)="openModal('Type errors', record['type']['errors'])">
             {{getIssues(record['type']['errors'], 'error')}}
           </td>
           <td
             [ngClass]="getCellClass(record['type']['warnings'], 'warning')"
-            [ngStyle]="{'cursor': getCellStyle(record['type']['warnings'])}">
+            [ngStyle]="{'cursor': getCellStyle(record['type']['warnings'])}"
+            (click)="openModal('Type warnings', record['type']['warnings'])">
             {{getIssues(record['type']['warnings'], 'warning')}}
           </td>
           <td
             [ngClass]="getCellClass(record['custom']['errors'], 'error')"
-            [ngStyle]="{'cursor': getCellStyle(record['custom']['errors'])}">
+            [ngStyle]="{'cursor': getCellStyle(record['custom']['errors'])}"
+            (click)="openModal('Custom errors', record['custom']['errors'])">
             {{getIssues(record['custom']['errors'], 'error')}}
           </td>
           <td
             [ngClass]="getCellClass(record['custom']['warnings'], 'warning')"
-            [ngStyle]="{'cursor': getCellStyle(record['custom']['warnings'])}">
+            [ngStyle]="{'cursor': getCellStyle(record['custom']['warnings'])}"
+            (click)="openModal('Custom warnings', record['custom']['warnings'])">
             {{getIssues(record['custom']['warnings'], 'warning')}}
           </td>
         </tr>
@@ -102,5 +108,16 @@
       </table>
     </div>
   </div>
+
+
+  <ngx-smart-modal #myModal identifier="myModal" class="nsm-dialog-animation-fade" width="200%" customClass="msg-modal">
+    <h3>{{active_column}}:</h3>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let issue of active_issues" class="list-group-item">
+        {{issue}}
+      </li>
+    </ul>
+    <button (click)="myModal.close()" type="button" class="btn btn-success modal-button">Close</button>
+  </ngx-smart-modal>
 
 </div>

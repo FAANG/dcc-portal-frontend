@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {FileUploader} from 'ng2-file-upload';
+import {NgxSmartModalService} from 'ngx-smart-modal';
 
 const UploadURL = 'http://localhost:8000/conversion/samples';
 
@@ -17,9 +18,12 @@ export class ValidationComponent implements OnInit {
   record_types = [];
   active_key = 'organism';
   active_table;
+  active_column: string;
+  active_issues;
 
   constructor(
-    private titleService: Title
+    private titleService: Title,
+    public ngxSmartModalService: NgxSmartModalService
   ) { }
 
   ngOnInit() {
@@ -111,6 +115,12 @@ export class ValidationComponent implements OnInit {
   onRecordButtonClick(button_record: string) {
     this.active_key = button_record;
     this.active_table = this.validation_results[this.active_key]
+  }
+
+  openModal(column_type, issues_list) {
+    this.active_column = column_type;
+    this.active_issues = issues_list;
+    this.ngxSmartModalService.getModal('myModal').open();
   }
 
   statusClass() {
