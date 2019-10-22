@@ -1,13 +1,38 @@
-<div class="container">
+<div class="container" style="min-height:87vh">
   <app-header></app-header>
   <h2>FAANG validation</h2>
 
-  <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+  <hr>
 
-  <button type="button" class="btn btn-success btn-s"
-          (click)="uploader.uploadAll()"
-          [disabled]="!uploader.getNotUploadedItems().length" >
-    Upload a File
-  </button>
+  <div class="row">
+    <div class="col-md-6" id="left">
+      <h3>1. Upload template:</h3>
+      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+      <button type="button" class="btn btn-success btn-sm"
+              (click)="uploader.uploadAll()"
+              [disabled]="!uploader.getNotUploadedItems().length" >
+        Upload a File
+      </button>
+    </div>
+    <div class="col-md-6" id="right">
+      <h3>2. Conversion results:</h3>
+      <div class="row">
+        <div class="col-md-6">Status: <span class="badge badge-pill badge-info">Undefined</span></div>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-success btn-sm" disabled>
+            Start validation
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>3. Validation results:</h3>
+    </div>
+  </div>
 
 </div>
