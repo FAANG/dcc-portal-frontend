@@ -59,6 +59,8 @@ import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.c
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ValidationComponent } from './validation/validation.component';
+import {FileSelectDirective} from 'ng2-file-upload';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -101,7 +103,8 @@ import { ValidationComponent } from './validation/validation.component';
     RulesetAnalysisComponent,
     IndeterminateDirective,
     FooterComponent,
-    ValidationComponent
+    ValidationComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,
@@ -114,6 +117,7 @@ import { ValidationComponent } from './validation/validation.component';
     BrowserAnimationsModule,
     CookieLawModule,
     ChartsModule,
+    FormsModule,
     BsDropdownModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
