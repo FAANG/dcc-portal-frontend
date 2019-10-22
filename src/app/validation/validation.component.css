@@ -1,3 +1,14 @@
 #left {
-  border-right: 1px solid lightgrey;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#right {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.validation_button {
+  margin-left: 5px;
+  margin-bottom: 5px;
 }

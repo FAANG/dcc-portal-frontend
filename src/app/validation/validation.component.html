@@ -2,8 +2,6 @@
   <app-header></app-header>
   <h2>FAANG validation</h2>
 
-  <hr>
-
   <div class="row">
     <div class="col-md-6" id="left">
       <h3>1. Upload template:</h3>
@@ -17,11 +15,24 @@
     <div class="col-md-6" id="right">
       <h3>2. Conversion results:</h3>
       <div class="row">
-        <div class="col-md-6">Status: <span class="badge badge-pill badge-info">Undefined</span></div>
         <div class="col-md-6">
-          <button type="button" class="btn btn-success btn-sm" disabled>
+          Status: <span [ngClass]="statusClass()">{{status}}</span>
+        </div>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-success btn-sm" *ngIf="status === 'Success'">
             Start validation
           </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="status === 'Error'">
+        <div class="col-md-12">
+          Errors:
+          <div class="alert alert-danger" role="alert">
+            A simple danger alert—check it out!
+          </div>
+          <div class="alert alert-danger" role="alert">
+            A simple danger alert—check it out!
+          </div>
         </div>
       </div>
     </div>
@@ -32,6 +43,63 @@
   <div class="row">
     <div class="col-md-12">
       <h3>3. Validation results:</h3>
+      <button *ngFor="let key of record_types" type="button" class="btn btn-info validation_button"
+              [ngClass]="isButtonActive(key)" (click)="onRecordButtonClick(key)">
+        {{remove_underscores(key)}}
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 table-responsive">
+      <table class="table table-striped table-hover table-borderless table-sm">
+        <thead>
+        <tr>
+          <th>Sample name</th>
+          <th>Core errors</th>
+          <th>Core warnings</th>
+          <th>Type errors</th>
+          <th>Type warnings</th>
+          <th>Custom errors</th>
+          <th>Custom warnings</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let record of active_table">
+          <td>{{record['name']}}</td>
+          <td
+            [ngClass]="getCellClass(record['core']['errors'], 'error')"
+            [ngStyle]="{'cursor': getCellStyle(record['core']['errors'])}">
+            {{getIssues(record['core']['errors'], 'error')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['core']['warnings'], 'warning')"
+            [ngStyle]="{'cursor': getCellStyle(record['core']['warnings'])}">
+            {{getIssues(record['core']['warnings'], 'warning')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['type']['errors'], 'error')"
+            [ngStyle]="{'cursor': getCellStyle(record['type']['errors'])}">
+            {{getIssues(record['type']['errors'], 'error')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['type']['warnings'], 'warning')"
+            [ngStyle]="{'cursor': getCellStyle(record['type']['warnings'])}">
+            {{getIssues(record['type']['warnings'], 'warning')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['custom']['errors'], 'error')"
+            [ngStyle]="{'cursor': getCellStyle(record['custom']['errors'])}">
+            {{getIssues(record['custom']['errors'], 'error')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['custom']['warnings'], 'warning')"
+            [ngStyle]="{'cursor': getCellStyle(record['custom']['warnings'])}">
+            {{getIssues(record['custom']['warnings'], 'warning')}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
