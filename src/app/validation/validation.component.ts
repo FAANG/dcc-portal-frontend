@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {FileUploader} from 'ng2-file-upload';
 
-const UploadURL = 'http://localhost:8000/conversion/file_upload';
+const UploadURL = 'http://localhost:8000/conversion/samples';
 
 @Component({
   selector: 'app-validation',
