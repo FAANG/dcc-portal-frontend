@@ -52,10 +52,14 @@
 
   <div class="row">
     <div class="col-md-12">
-      <button type="button" class="btn btn-success validation_button" (click)="onValidationResultsButtonClick('passed')">
+      <button type="button" class="btn btn-success validation_button"
+              (click)="onValidationResultsButtonClick('passed')"
+              [ngClass]="isRecordsButtonActive('passed')">
         Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
       </button>
-      <button type="button" class="btn btn-danger validation_button" (click)="onValidationResultsButtonClick('issues')">
+      <button type="button" class="btn btn-danger validation_button"
+              (click)="onValidationResultsButtonClick('issues')"
+              [ngClass]="isRecordsButtonActive('issues')">
         Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
       </button>
     </div>
