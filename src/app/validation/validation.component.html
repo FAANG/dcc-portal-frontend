@@ -51,6 +51,17 @@
   </div>
 
   <div class="row">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-success validation_button" (click)="onValidationResultsButtonClick('passed')">
+        Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
+      </button>
+      <button type="button" class="btn btn-danger validation_button" (click)="onValidationResultsButtonClick('issues')">
+        Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="show_table">
     <div class="col-md-12 table-responsive">
       <table class="table table-striped table-hover table-borderless table-sm">
         <thead>
@@ -65,7 +76,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let record of active_table">
+        <tr *ngFor="let record of records_to_show">
           <td>{{record['name']}}</td>
           <td
             [ngClass]="getCellClass(record['core']['errors'], 'error')"

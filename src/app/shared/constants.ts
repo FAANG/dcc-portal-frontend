@@ -10,6 +10,9 @@ export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';
 export const internal_dataset = '../dataset/';
 
+export const record_type = ['core', 'type', 'custom'];
+export const issue_type = ['errors', 'warnings'];
+
 export const sample_metadata_template = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/' +
   'faang_sample_metadata_empty_template_20181212.xlsx?version=1&modificationDate=1544608044067&api=v2';
 export const sample_metadata_template_with_examples = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/' +
