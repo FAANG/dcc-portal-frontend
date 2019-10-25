@@ -162,12 +162,6 @@ describe('ApiDataService', () => {
       expect(service.getSpeciesStr(dataset)).toEqual('Sus scrofa,Gallus gallus');
     }));
 
-  it('convertArrayToString should return string with items from array', inject([ApiDataService],
-    (service: ApiDataService) => {
-      const dataset = ['1', '2'];
-      expect(service.convertArrayToString(dataset)).toEqual('1,2');
-    }));
-
   it('should return detailed information about particular dataset', inject([ApiDataService],
     (service: ApiDataService) => {
     service.getDataset('PRJEB28219').subscribe(data => {
