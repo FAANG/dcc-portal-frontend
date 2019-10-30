@@ -19,7 +19,7 @@
           Status: <span [ngClass]="statusClass()">{{status}}</span>
         </div>
         <div class="col-md-6">
-          <button type="button" class="btn btn-success btn-sm" *ngIf="status === 'Success'">
+          <button type="button" class="btn btn-success btn-sm" *ngIf="status === 'Success'" (click)="startValidation()">
             Start validation
           </button>
         </div>
@@ -41,16 +41,21 @@
   <hr>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="validation_results">
       <h3>3. Validation results:</h3>
       <button *ngFor="let key of record_types" type="button" class="btn btn-info validation_button"
               [ngClass]="isButtonActive(key)" (click)="onRecordButtonClick(key)">
         {{remove_underscores(key)}}
       </button>
     </div>
+
+    <div class="col-md-12" *ngIf="!validation_results && validation_started">
+      <h3>3. Validation results:</h3>
+      Validating data...
+    </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="validation_results">
     <div class="col-md-12">
       <button type="button" class="btn btn-success validation_button"
               (click)="onValidationResultsButtonClick('passed')"
