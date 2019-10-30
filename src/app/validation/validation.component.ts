@@ -3,6 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {FileUploader} from 'ng2-file-upload';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {issue_type, record_type} from '../shared/constants';
+import {ApiDataService} from '../services/api-data.service';
 
 const UploadURL = 'http://localhost:8000/conversion/samples';
 
@@ -31,7 +32,8 @@ export class ValidationComponent implements OnInit {
 
   constructor(
     private titleService: Title,
-    public ngxSmartModalService: NgxSmartModalService
+    public ngxSmartModalService: NgxSmartModalService,
+    private apiDataService: ApiDataService
   ) { }
 
   ngOnInit() {
@@ -43,7 +45,6 @@ export class ValidationComponent implements OnInit {
       console.log(this.task_id);
     };
     this.status = 'Undefined';
-    this.setValidationResults();
   }
 
   setValidationResults() {
@@ -76,8 +77,12 @@ export class ValidationComponent implements OnInit {
       console.log('WebSockets connection created.');
     };
     this.socket.onmessage = (event) => {
-      console.log(event.data);
-      this.status = JSON.parse(event.data)['response']['status'];
+      const data = JSON.parse(event.data);
+      this.status = data['response']['status'];
+      if (data['response']['validation_results']) {
+       this.validation_results = data['response']['validation_results'];
+       this.setValidationResults();
+      }
     };
 
     if (this.socket.readyState === WebSocket.OPEN) {
@@ -180,6 +185,13 @@ export class ValidationComponent implements OnInit {
 
   startValidation() {
     this.validation_started = true;
+    this.apiDataService.startValidation(this.task_id).subscribe(response => {
+      console.log(response);
+    },
+      error => {
+      console.log(error);
+      }
+    );
   }
 
 }
