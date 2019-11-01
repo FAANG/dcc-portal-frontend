@@ -20,9 +20,9 @@ export const FIELDNAMES = {
   preparationReverseTranscriptionProtocol: 'Preparation reverse transcription protocol',
   libraryGenerationProtocol: 'Library generation protocol',
   readStrand: 'Read strand',
-  rnaPurity260230ratio: 'Rna purity - 260:230 ratio',
-  rnaPurity260280ratio: 'Rna purity - 260:280 ratio',
-  rnaIntegrityNumber: 'Rna integrity number',
+  rnaPurity260230ratio: 'RNA purity - 260:230 ratio',
+  rnaPurity260280ratio: 'RNA purity - 260:280 ratio',
+  rnaIntegrityNumber: 'RNA integrity number',
   librarySelection: 'Library selection',
   bisulfiteConversionProtocol: 'Bisulfite conversion protocol',
   pcrProductIsolationProtocol: 'PCR product isolation protocol',
@@ -40,6 +40,11 @@ export const FIELDNAMES = {
   libraryGenerationMaxFragmentSizeRange: 'Library generation max fragment size range',
   libraryGenerationMinFragmentSizeRange: 'Library generation min fragment size range',
   'hi-cProtocol': 'Hi-C protocol',
+  sequencingPrimerProvider: 'Sequencing primer provider',
+  sequencingPrimerCatalog: 'Sequencing primer catalog',
+  sequencingPrimerLot: 'Sequencing primer lot',
+  restrictEnzymeTargetSequence: 'Restriction enzyme target sequence',
+  cageProtocol: 'CAGE protocol'
 };
 
 export const FIELDEXCLUDENAMES = {
