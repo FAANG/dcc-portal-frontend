@@ -67,14 +67,14 @@
               <ng-container *ngFor="let key of objectKeys(fieldNames)">
 
                 <ng-container *ngIf="experiment.hasOwnProperty(key) && checkIsObject(experiment[key])">
-                  <ng-container *ngIf="experiment[key].hasOwnProperty('filename')">
+                  <ng-container *ngIf="experiment[key].hasOwnProperty('filename') && experiment[key]['filename']">
                     <p>
                       <b>{{fieldNames[key]}}:</b><br>
                       <app-robust-link [link]="experiment[key]['url']"
                                        [text]="experiment[key]['filename'] | slice:0:62"></app-robust-link>
                     </p>
                   </ng-container>
-                  <ng-container *ngIf="experiment[key].hasOwnProperty('text')">
+                  <ng-container *ngIf="experiment[key].hasOwnProperty('text') && experiment[key]['text']">
                     <p>
                       <b>{{fieldNames[key]}}: </b><br>
                       {{experiment[key]['text']}} ({{experiment[key]['unit']}})
