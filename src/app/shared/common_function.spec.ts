@@ -7,7 +7,7 @@ import {
   getOntologyTermFromIRI,
   generateEbiOntologyLink,
   getMandatoryRulesOnly,
-  convertToSnakeCase
+  convertToSnakeCase, getProtocolLink
 } from './common_functions';
 
 describe('common functions', () => {
@@ -188,5 +188,15 @@ describe('common functions', () => {
   it('generateEbiOntologyLink test 3', () => {
     expect(generateEbiOntologyLink('ncbitaxon', 'http://purl.obolibrary.org/obo/NCBITaxon_9823')).
     toEqual('https://www.ebi.ac.uk/ols/ontologies/ncbitaxon/terms?iri=http://purl.obolibrary.org/obo/NCBITaxon_9823');
+  });
+
+  it('getProtocolLink should return correct link when uses old firebase server', () => {
+    expect(getProtocolLink('https://ftp.faang.ebi.ac.uk/test/test.pdf'))
+      .toEqual('https://hx.fire.sdo.ebi.ac.uk/fire/public/faang/test/test.pdf');
+  });
+
+  it('getProtocolLink should return the same link when does not use old fire server', () => {
+    expect(getProtocolLink('https://test.com/test/test.pdf'))
+      .toEqual('https://test.com/test/test.pdf');
   });
 });
