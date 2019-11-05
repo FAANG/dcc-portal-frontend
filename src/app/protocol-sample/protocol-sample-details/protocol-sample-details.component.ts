@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
+import {getProtocolLink} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-protocol-sample-details',
@@ -36,7 +37,7 @@ export class ProtocolSampleDetailsComponent implements OnInit {
           this.file = data['hits']['hits'][0]['_source'];
           if (this.file) {
             this.spinner.hide();
-            this.getProtocolLink();
+            this.link = getProtocolLink(this.file.url);
           }
         }
       },
@@ -44,14 +45,6 @@ export class ProtocolSampleDetailsComponent implements OnInit {
         this.spinner.hide();
         this.error = error;
       });
-  }
-
-  getProtocolLink() {
-    if (this.file.url.split('//')[0] === 'ftp:') {
-      this.link = 'http://' + this.file.url.split('//')[1];
-    } else {
-      this.link = this.file.url;
-    }
   }
 
 }
