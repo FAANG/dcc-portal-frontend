@@ -104,7 +104,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
-      for (const key in data) {
+      for (const key in Object.keys(data)) {
         if (data[key].length !== 0) {
           params[key] = data[key];
         }
