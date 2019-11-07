@@ -190,8 +190,13 @@ describe('common functions', () => {
     toEqual('https://www.ebi.ac.uk/ols/ontologies/ncbitaxon/terms?iri=http://purl.obolibrary.org/obo/NCBITaxon_9823');
   });
 
-  it('getProtocolLink should return correct link when uses old firebase server', () => {
+  it('getProtocolLink should return correct link when uses old firebase server with http in url', () => {
     expect(getProtocolLink('https://ftp.faang.ebi.ac.uk/test/test.pdf'))
+      .toEqual('https://hx.fire.sdo.ebi.ac.uk/fire/public/faang/test/test.pdf');
+  });
+
+  it('getProtocolLink should return correct link when uses old firebase server with ftp in url', () => {
+    expect(getProtocolLink('ftp://ftp.faang.ebi.ac.uk/test/test.pdf'))
       .toEqual('https://hx.fire.sdo.ebi.ac.uk/fire/public/faang/test/test.pdf');
   });
 
