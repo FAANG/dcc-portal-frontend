@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   name = 'Angular2 Cookie Law with Angular6';
   cookieLawSeen: boolean;
 
-  @ViewChild('cookieLaw')
+  @ViewChild('cookieLaw', { static: true })
   cookieLawEl: any;
 
   ngOnInit() {
