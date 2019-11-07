@@ -199,4 +199,14 @@ describe('common functions', () => {
     expect(getProtocolLink('https://test.com/test/test.pdf'))
       .toEqual('https://test.com/test/test.pdf');
   });
+
+  it('getProtocolLink should return https when using ftp in url', () => {
+    expect(getProtocolLink('ftp://test.com'))
+      .toEqual('http://test.com');
+  });
+
+  it('getProtocolLink should not change url when using http', () => {
+    expect(getProtocolLink('http://test.com'))
+      .toEqual('http://test.com');
+  });
 });

@@ -86,7 +86,11 @@ export function getProtocolLink(url) {
   if (url.indexOf('ftp.faang.ebi.ac.uk') !== -1) {
     link = 'https://hx.fire.sdo.ebi.ac.uk/fire/public/faang' + url.split('ftp.faang.ebi.ac.uk')[1];
   } else {
-    link = url;
+    if (url.split('//')[0] === 'ftp:') {
+      link = 'http://' + url.split('//')[1];
+    } else {
+      link = url;
+    }
   }
   return link;
 }
