@@ -37,7 +37,7 @@ export class ValidationExperimentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('FAANG validation|Samples');
+    this.titleService.setTitle('FAANG validation|Experiments');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
