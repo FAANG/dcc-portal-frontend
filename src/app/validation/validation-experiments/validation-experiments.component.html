@@ -12,4 +12,143 @@
       <i class="material-icons float-right">home</i>
     </button>
   </h2>
+
+  <div class="row">
+    <div class="col-md-6" id="left">
+      <h3>1. Upload template:</h3>
+      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+      <button type="button" class="btn btn-success btn-sm"
+              (click)="uploader.uploadAll()"
+              [disabled]="!uploader.getNotUploadedItems().length" >
+        Upload a File
+      </button>
+    </div>
+    <div class="col-md-6" id="right">
+      <h3>2. Conversion results:</h3>
+      <div class="row">
+        <div class="col-md-6">
+          Status: <span [ngClass]="statusClass()">{{status}}</span>
+        </div>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-success btn-sm" *ngIf="status === 'Success'" (click)="startValidation()">
+            Start validation
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="status === 'Error'">
+        <div class="col-md-12">
+          Errors:
+          <div class="alert alert-danger" role="alert">
+            A simple danger alert—check it out!
+          </div>
+          <div class="alert alert-danger" role="alert">
+            A simple danger alert—check it out!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-12" *ngIf="validation_results">
+      <h3>3. Validation results:</h3>
+      <button *ngFor="let key of record_types" type="button" class="btn btn-info validation_button"
+              [ngClass]="isButtonActive(key)" (click)="onRecordButtonClick(key)">
+        {{remove_underscores(key)}}
+      </button>
+    </div>
+
+    <div class="col-md-12" *ngIf="!validation_results && validation_started">
+      <h3>3. Validation results:</h3>
+      Validating data...
+    </div>
+  </div>
+
+  <div class="row" *ngIf="validation_results">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-success validation_button"
+              (click)="onValidationResultsButtonClick('passed')"
+              [ngClass]="isRecordsButtonActive('passed')">
+        Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
+      </button>
+      <button type="button" class="btn btn-danger validation_button"
+              (click)="onValidationResultsButtonClick('issues')"
+              [ngClass]="isRecordsButtonActive('issues')">
+        Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="show_table">
+    <div class="col-md-12 table-responsive">
+      <table class="table table-striped table-hover table-borderless table-sm">
+        <thead>
+        <tr>
+          <th>Sample name</th>
+          <th>Core errors</th>
+          <th>Core warnings</th>
+          <th>Type errors</th>
+          <th>Type warnings</th>
+          <th>Custom errors</th>
+          <th>Custom warnings</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let record of records_to_show">
+          <td>{{record['name']}}</td>
+          <td
+            [ngClass]="getCellClass(record['core']['errors'], 'error')"
+            [ngStyle]="{'cursor': getCellStyle(record['core']['errors'])}"
+            (click)="openModal('Core errors', record['core']['errors'])">
+            {{getIssues(record['core']['errors'], 'error')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['core']['warnings'], 'warning')"
+            [ngStyle]="{'cursor': getCellStyle(record['core']['warnings'])}"
+            (click)="openModal('Core warnings', record['core']['warnings'])">
+            {{getIssues(record['core']['warnings'], 'warning')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['type']['errors'], 'error')"
+            [ngStyle]="{'cursor': getCellStyle(record['type']['errors'])}"
+            (click)="openModal('Type errors', record['type']['errors'])">
+            {{getIssues(record['type']['errors'], 'error')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['type']['warnings'], 'warning')"
+            [ngStyle]="{'cursor': getCellStyle(record['type']['warnings'])}"
+            (click)="openModal('Type warnings', record['type']['warnings'])">
+            {{getIssues(record['type']['warnings'], 'warning')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['custom']['errors'], 'error')"
+            [ngStyle]="{'cursor': getCellStyle(record['custom']['errors'])}"
+            (click)="openModal('Custom errors', record['custom']['errors'])">
+            {{getIssues(record['custom']['errors'], 'error')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['custom']['warnings'], 'warning')"
+            [ngStyle]="{'cursor': getCellStyle(record['custom']['warnings'])}"
+            (click)="openModal('Custom warnings', record['custom']['warnings'])">
+            {{getIssues(record['custom']['warnings'], 'warning')}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <ngx-smart-modal #myModal identifier="myModal" class="nsm-dialog-animation-fade" width="200%" customClass="msg-modal">
+    <h3>{{active_column}}:</h3>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let issue of active_issues" class="list-group-item">
+        {{issue}}
+      </li>
+    </ul>
+    <button (click)="myModal.close()" type="button" class="btn btn-success modal-button">Close</button>
+  </ngx-smart-modal>
+
 </div>
