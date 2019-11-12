@@ -58,9 +58,10 @@ import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-anal
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { ValidationComponent } from './validation/validation.component';
 import {FileSelectDirective} from 'ng2-file-upload';
 import {FormsModule} from '@angular/forms';
+import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
+import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
 
 @NgModule({
   declarations: [
@@ -103,8 +104,9 @@ import {FormsModule} from '@angular/forms';
     RulesetAnalysisComponent,
     IndeterminateDirective,
     FooterComponent,
-    ValidationComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    ValidationSamplesComponent,
+    ValidationExperimentsComponent
   ],
   imports: [
     BrowserModule,

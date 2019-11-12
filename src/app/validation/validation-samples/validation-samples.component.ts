@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {Title} from '@angular/platform-browser';
 import {FileUploader} from 'ng2-file-upload';
+import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
-import {issue_type, record_type} from '../shared/constants';
-import {ApiDataService} from '../services/api-data.service';
+import {ApiDataService} from '../../services/api-data.service';
+import {issue_type, record_type} from '../../shared/constants';
 
 const UploadURL = 'http://localhost:8000/conversion/samples';
 
 @Component({
-  selector: 'app-validation',
-  templateUrl: './validation.component.html',
-  styleUrls: ['./validation.component.css']
+  selector: 'app-validation-samples',
+  templateUrl: './validation-samples.component.html',
+  styleUrls: ['./validation-samples.component.css']
 })
-export class ValidationComponent implements OnInit {
+export class ValidationSamplesComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: 'file'});
   status: string;
   socket;
@@ -29,7 +29,6 @@ export class ValidationComponent implements OnInit {
   show_table = false;
   validation_started = false;
   task_id: string;
-
   constructor(
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
@@ -37,7 +36,7 @@ export class ValidationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('FAANG validation');
+    this.titleService.setTitle('FAANG validation|Samples');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -65,7 +64,7 @@ export class ValidationComponent implements OnInit {
           if (record[type][issue].length !== 0) {
             has_issues = true;
           }
-         }
+        }
       }
       has_issues === true ? this.records_with_issues.push(record) : this.records_that_pass.push(record);
     }
@@ -80,8 +79,8 @@ export class ValidationComponent implements OnInit {
       const data = JSON.parse(event.data);
       this.status = data['response']['status'];
       if (data['response']['validation_results']) {
-       this.validation_results = data['response']['validation_results'];
-       this.setValidationResults();
+        this.validation_results = data['response']['validation_results'];
+        this.setValidationResults();
       }
     };
 
@@ -92,10 +91,6 @@ export class ValidationComponent implements OnInit {
 
   remove_underscores(record) {
     return record.replace(/[_]/g, ' ');
-  }
-
-  convertArrayToStr(issues_list) {
-    return issues_list.join(', ');
   }
 
   getIssues(issues_list, issue_type) {
@@ -186,10 +181,10 @@ export class ValidationComponent implements OnInit {
   startValidation() {
     this.validation_started = true;
     this.apiDataService.startValidation(this.task_id).subscribe(response => {
-      console.log(response);
-    },
+        console.log(response);
+      },
       error => {
-      console.log(error);
+        console.log(error);
       }
     );
   }
