@@ -12,6 +12,7 @@ export const protocolNames = {
   dnaseProtocol: 'DNase protocol',
   chipProtocol: 'ChIP protocol',
   'hi-cProtocol': 'Hi-C protocol',
+  cageProtocol: 'CAGE protocol'
 };
 
 export const reverseProtocolNames = {

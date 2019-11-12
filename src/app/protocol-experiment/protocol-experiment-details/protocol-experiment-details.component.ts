@@ -6,6 +6,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {protocolNames} from '../../shared/protocolnames';
+import {getProtocolLink} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-protocol-experiment-details',
@@ -21,6 +22,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
   fieldExcludeNames = FIELDEXCLUDENAMES;
   experimentId: string;
   objectKeys = Object.keys;
+  link: string;
 
   p = 1;
 
@@ -47,6 +49,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
           this.protocol = data['hits']['hits'][0]['_source'];
           if (this.protocol) {
             this.spinner.hide();
+            this.link = getProtocolLink(this.protocol.url);
           }
         }
       },
