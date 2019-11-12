@@ -1,3 +1,15 @@
-<p>
-  validation-experiments works!
-</p>
+<div class="container" style="min-height:87vh">
+  <app-header></app-header>
+  <h2>FAANG validation
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'samples']">
+      Samples
+      <i class="material-icons float-right">menu</i>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
+            [routerLink]="['/validation', 'experiments']">
+      Experiments
+      <i class="material-icons float-right">home</i>
+    </button>
+  </h2>
+</div>

@@ -36,4 +36,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  isActiveValidation() {
+    if (this.router.url.includes('validation')) {
+      return 'active'
+    }
+  }
+
 }
