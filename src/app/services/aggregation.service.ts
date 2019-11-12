@@ -3,7 +3,7 @@ import {Subject} from 'rxjs';
 
 import {female_values, male_values} from '../shared/constants';
 import {protocolNames} from '../shared/protocolnames';
-import {removeUnderscore} from '../shared/common_functions';
+import {replaceUnderscoreWithSpace} from '../shared/common_functions';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +49,7 @@ export class AggregationService {
     return this.protocolNames[data];
   }
 
-  getAggregations(fileList: any, type: string) {
+  getAggregations(recordList: any, type: string) {
     if (type === 'file') {
       const standard = {};
       const study = {};
@@ -59,7 +59,7 @@ export class AggregationService {
       const paper_published = {};
       let all_data;
 
-      for (const item of fileList) {
+      for (const item of recordList) {
         if (item['assayType'] === 'transcription profiling by high throughput sequencing') {
           item['assayType'] = 'RNA-Seq';
         }
@@ -104,7 +104,7 @@ export class AggregationService {
       const paper_published = {};
       let all_data;
 
-      for (const item of fileList) {
+      for (const item of recordList) {
         let sex_value: string;
         male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
           sex_value = 'not determined');
@@ -147,7 +147,7 @@ export class AggregationService {
       const paper_published = {};
       let all_data;
 
-      for (const item of fileList) {
+      for (const item of recordList) {
         let sex_value: string;
         male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
           sex_value = 'not determined');
@@ -196,7 +196,7 @@ export class AggregationService {
       const archive = {};
       const paper_published = {};
       let all_data;
-      for (const item of fileList) {
+      for (const item of recordList) {
         standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
         for (const spec of item['species'].split(',')) {
           species.hasOwnProperty(spec) ? species[spec] += 1 : species[spec] = 1;
@@ -242,15 +242,20 @@ export class AggregationService {
       const dataset = {};
       const analysis_type = {};
       let all_data;
-      for (const item of fileList) {
+      for (const item of recordList) {
+        let assay_type_value = 'not provided';
+        if (item['assayType']) {
+          assay_type_value = item['assayType'];
+        }
         standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
         for (const spec of item['species'].split(',')) {
           species.hasOwnProperty(spec) ? species[spec] += 1 : species[spec] = 1;
         }
-        assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;
+        assay_type.hasOwnProperty(assay_type_value) ? assay_type[assay_type_value] += 1 : assay_type[assay_type_value] = 1;
         dataset.hasOwnProperty(item['datasetAccession']) ? dataset[item['datasetAccession']] += 1 : dataset[item['datasetAccession']] = 1;
-        analysis_type.hasOwnProperty(removeUnderscore(item['analysisType'])) ?
-          analysis_type[removeUnderscore(item['analysisType'])] += 1 : analysis_type[removeUnderscore(item['analysisType'])] = 1;
+        analysis_type.hasOwnProperty(replaceUnderscoreWithSpace(item['analysisType'])) ?
+          analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] += 1 :
+          analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] = 1;
       }
 
       all_data = {
@@ -277,7 +282,7 @@ export class AggregationService {
       const protocol_date = {};
       const protocol_type = {};
       let all_data;
-      for (const item of fileList) {
+      for (const item of recordList) {
         protocol_name.hasOwnProperty(item['protocol_name']) ? protocol_name[item['protocol_name']] += 1 :
           protocol_name[item['protocol_name']] = 1;
         university_name.hasOwnProperty((item['university_name'])) ? university_name[item['university_name']] += 1 :
@@ -307,7 +312,7 @@ export class AggregationService {
       const experiment_target = {};
       const assay_type = {};
       let all_data;
-      for (const item of fileList) {
+      for (const item of recordList) {
         const name = this.getHumanName(item['name']);
         protocol_type.hasOwnProperty(name) ? protocol_type[name] += 1 : protocol_type[name] = 1;
         experiment_target.hasOwnProperty(item['experimentTarget']) ? experiment_target[item['experimentTarget']] += 1 :

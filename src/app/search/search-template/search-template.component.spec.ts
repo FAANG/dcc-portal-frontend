@@ -92,14 +92,4 @@ describe('SearchTemplateComponent', () => {
     };
     expect(component.getCellType(hit)).toEqual('test');
   });
-
-  it('convertArrayToStr should return string representation of array without subelement', () => {
-    const data = ['test1', 'test2'];
-    expect(component.convertArrayToStr(data, '')).toEqual('test1,test2');
-  });
-
-  it('convertArrayToStr should return string representation of array with subelement', () => {
-    const data = ['test1', 'test2'];
-    expect(component.convertArrayToStr(data, '0')).toEqual('t,t');
-  });
 });

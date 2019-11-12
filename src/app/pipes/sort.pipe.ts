@@ -24,7 +24,8 @@ export class SortPipe implements PipeTransform {
       second = 1;
     }
 
-    if (parameters === 'datasetAccession') {
+    // TODO: alternative sorting method: FAANG standard always on top, need to be discussed
+    if (parameters === 'datasetAccession' || parameters === 'accession') {
       return value.sort(function (a, b) {
         if (a['standard'] === b['standard']) {
           const one = parseInt(a[parameters].match(/[a-zA-z]+([0-9]+)$/)[1], 10);

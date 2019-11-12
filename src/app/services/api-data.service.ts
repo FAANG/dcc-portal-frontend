@@ -165,8 +165,8 @@ export class ApiDataService {
           datasetAccession: entry['_source']['accession'],
           title: entry['_source']['title'],
           species: this.getSpeciesStr(entry),
-          archive: this.convertArrayToString(entry['_source']['archive']),
-          assayType: this.convertArrayToString(entry['_source']['assayType']),
+          archive: entry['_source']['archive'].toString(),
+          assayType: entry['_source']['assayType'].toString(),
           numberOfExperiments: entry['_source']['experiment']['length'],
           numberOfSpecimens: entry['_source']['specimen']['length'],
           numberOfFiles: entry['_source']['file']['length'],
@@ -240,10 +240,6 @@ export class ApiDataService {
       retry(3),
       catchError(this.handleError),
     );
-  }
-
-  convertArrayToString(array: any): string {
-    return array.toString();
   }
 
   getAllSamplesProtocols(query: any) {

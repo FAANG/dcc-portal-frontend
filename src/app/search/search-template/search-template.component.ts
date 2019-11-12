@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SearchService} from '../../services/search.service';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {Subscription} from 'rxjs/internal/Subscription';
+import {convertArrayToStr} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-search-template',
@@ -14,10 +15,12 @@ export class SearchTemplateComponent implements OnInit, OnDestroy {
   display = false;
   clicked: boolean;
   clickedSubscription: Subscription;
+  convertArrayToStr: any;
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
+    this.convertArrayToStr = convertArrayToStr;
     this.clickedSubscription = this.searchService.clicked.subscribe(data => {
       this.clicked = data;
     });
@@ -54,18 +57,6 @@ export class SearchTemplateComponent implements OnInit, OnDestroy {
       cellType = hit['_source']['cellLine']['cellType']['text'];
     }
     return cellType;
-  }
-
-  convertArrayToStr(data: string[], subelement: string): string {
-    let value = '';
-    for (let i = 0; i < data.length; i++) {
-      if (subelement === '') {
-        value += data[i] + ',';
-      } else {
-        value += data[i][subelement] + ',';
-      }
-    }
-    return value.substring(0, value.length - 1);
   }
 
   ngOnDestroy(): void {

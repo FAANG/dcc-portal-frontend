@@ -2,8 +2,14 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
-import {convertToSnakeCase, allowMultiple, getValidItems, getOntologyTerm, getMandatoryData,
-  generateEbiOntologyLink} from '../../shared/constants';
+import {
+  allowMultiple,
+  convertToSnakeCase,
+  generateEbiOntologyLink,
+  getMandatoryRulesOnly,
+  getOntologyTermFromIRI,
+  getValidItems
+} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-ruleset-analysis',
@@ -30,8 +36,8 @@ export class RulesetAnalysisComponent implements OnInit, AfterViewChecked {
     this.convertToSnakeCase = convertToSnakeCase;
     this.allowMultiple = allowMultiple;
     this.getValidItems = getValidItems;
-    this.getOntologyTerm = getOntologyTerm;
-    this.getMandatoryData = getMandatoryData;
+    this.getOntologyTerm = getOntologyTermFromIRI;
+    this.getMandatoryData = getMandatoryRulesOnly;
     this.generateEbiOntologyLink = generateEbiOntologyLink;
     this.titleService.setTitle('FAANG Rule set|analyses');
     this.apiDataService.getRulesetAnalysis().subscribe(

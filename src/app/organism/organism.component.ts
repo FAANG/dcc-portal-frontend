@@ -102,8 +102,8 @@ export class OrganismComponent implements OnInit, OnDestroy {
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
-      for (const key in data) {
-        if (data[key].length !== 0) {
+      for (const key of Object.keys(data)) {
+        if (data[key] && data[key].length !== 0) {
           params[key] = data[key];
         }
       }

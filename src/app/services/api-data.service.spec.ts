@@ -162,12 +162,6 @@ describe('ApiDataService', () => {
       expect(service.getSpeciesStr(dataset)).toEqual('Sus scrofa,Gallus gallus');
     }));
 
-  it('convertArrayToString should return string with items from array', inject([ApiDataService],
-    (service: ApiDataService) => {
-      const dataset = ['1', '2'];
-      expect(service.convertArrayToString(dataset)).toEqual('1,2');
-    }));
-
   it('should return detailed information about particular dataset', inject([ApiDataService],
     (service: ApiDataService) => {
     service.getDataset('PRJEB28219').subscribe(data => {
@@ -196,7 +190,8 @@ describe('ApiDataService', () => {
     });
   }));
 
-  it('should return 75 experiments protocols', inject([ApiDataService], (service: ApiDataService) => {
+  // TODO: replace those hard-coded numbers with httpClientSpy
+  it('should return 77 experiments protocols', inject([ApiDataService], (service: ApiDataService) => {
     const query = {
       '_source': [
         'name',
@@ -205,7 +200,7 @@ describe('ApiDataService', () => {
         'key'],
     };
     service.getAllExperimentsProtocols(query).subscribe(data => {
-      expect(data.length).toEqual(75);
+      expect(data.length).toEqual(77);
     });
   }));
 

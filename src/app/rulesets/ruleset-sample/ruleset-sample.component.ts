@@ -2,8 +2,15 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
-import {convertToSnakeCase, allowMultiple, getValidItems, getOntologyTerm, getMandatoryData, generateEbiOntologyLink,
-  sample_metadata_template, sample_metadata_template_with_examples} from '../../shared/constants';
+import {sample_metadata_template, sample_metadata_template_with_examples} from '../../shared/constants';
+import {
+  allowMultiple,
+  convertToSnakeCase,
+  generateEbiOntologyLink,
+  getMandatoryRulesOnly,
+  getOntologyTermFromIRI,
+  getValidItems
+} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-ruleset-sample',
@@ -32,8 +39,8 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
     this.convertToSnakeCase = convertToSnakeCase;
     this.allowMultiple = allowMultiple;
     this.getValidItems = getValidItems;
-    this.getOntologyTerm = getOntologyTerm;
-    this.getMandatoryData = getMandatoryData;
+    this.getOntologyTerm = getOntologyTermFromIRI;
+    this.getMandatoryData = getMandatoryRulesOnly;
     this.generateEbiOntologyLink = generateEbiOntologyLink;
     this.metadata_template = sample_metadata_template;
     this.metadata_template_with_examples = sample_metadata_template_with_examples;
