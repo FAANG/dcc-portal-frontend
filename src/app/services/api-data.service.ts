@@ -378,8 +378,8 @@ export class ApiDataService {
     );
   }
 
-  startValidation(task_id) {
-    const url =  'http://localhost:8000/validation/samples/' + task_id;
+  startValidation(task_id, rules_type) {
+    const url =  'http://localhost:8000/validation/' + rules_type + '/' + task_id;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
