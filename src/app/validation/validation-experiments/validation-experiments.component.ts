@@ -29,6 +29,7 @@ export class ValidationExperimentsComponent implements OnInit {
   show_table = false;
   validation_started = false;
   task_id: string;
+  errors = [];
 
   constructor(
     private titleService: Title,
@@ -42,7 +43,6 @@ export class ValidationExperimentsComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.task_id = response;
-      console.log(this.task_id);
     };
     this.status = 'Undefined';
   }
@@ -82,6 +82,9 @@ export class ValidationExperimentsComponent implements OnInit {
       if (data['response']['validation_results']) {
         this.validation_results = data['response']['validation_results'];
         this.setValidationResults();
+      }
+      if (data['response']['errors']) {
+        this.errors.push(data['response']['errors']);
       }
     };
 

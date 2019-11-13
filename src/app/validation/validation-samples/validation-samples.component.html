@@ -38,11 +38,8 @@
       <div class="row" *ngIf="status === 'Error'">
         <div class="col-md-12">
           Errors:
-          <div class="alert alert-danger" role="alert">
-            A simple danger alert—check it out!
-          </div>
-          <div class="alert alert-danger" role="alert">
-            A simple danger alert—check it out!
+          <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
+            {{error}}
           </div>
         </div>
       </div>

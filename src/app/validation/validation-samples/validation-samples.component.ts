@@ -29,6 +29,8 @@ export class ValidationSamplesComponent implements OnInit {
   show_table = false;
   validation_started = false;
   task_id: string;
+  errors = [];
+
   constructor(
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
@@ -81,6 +83,9 @@ export class ValidationSamplesComponent implements OnInit {
       if (data['response']['validation_results']) {
         this.validation_results = data['response']['validation_results'];
         this.setValidationResults();
+      }
+      if (data['response']['errors']) {
+        this.errors.push(data['response']['errors']);
       }
     };
 
