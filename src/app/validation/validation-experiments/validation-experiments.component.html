@@ -95,6 +95,8 @@
           <th>Type warnings</th>
           <th>Custom errors</th>
           <th>Custom warnings</th>
+          <th *ngIf="recordHasModuleIssues(records_to_show)">Module errors</th>
+          <th *ngIf="recordHasModuleIssues(records_to_show)">Module warnings</th>
         </tr>
         </thead>
         <tbody>
@@ -135,6 +137,18 @@
             [ngStyle]="{'cursor': getCellStyle(record['custom']['warnings'])}"
             (click)="openModal('Custom warnings', record['custom']['warnings'])">
             {{getIssues(record['custom']['warnings'], 'warning')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['module']['errors'], 'error')"
+            [ngStyle]="{'cursor': getCellStyle(record['module']['errors'])}"
+            (click)="openModal('Module errors', record['module']['errors'])">
+            {{getIssues(record['module']['errors'], 'error')}}
+          </td>
+          <td
+            [ngClass]="getCellClass(record['module']['warnings'], 'warning')"
+            [ngStyle]="{'cursor': getCellStyle(record['module']['warnings'])}"
+            (click)="openModal('Module warnings', record['module']['warnings'])">
+            {{getIssues(record['module']['warnings'], 'warning')}}
           </td>
         </tr>
         </tbody>

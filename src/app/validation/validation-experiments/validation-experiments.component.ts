@@ -70,6 +70,7 @@ export class ValidationExperimentsComponent implements OnInit {
       }
       has_issues === true ? this.records_with_issues.push(record) : this.records_that_pass.push(record);
     }
+    console.log(this.records_with_issues);
   }
 
   setSocket() {
@@ -192,6 +193,10 @@ export class ValidationExperimentsComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  recordHasModuleIssues(record) {
+    return record[0].hasOwnProperty('module');
   }
 
 }
