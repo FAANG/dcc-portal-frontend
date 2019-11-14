@@ -62,6 +62,7 @@ import {FileSelectDirective} from 'ng2-file-upload';
 import {FormsModule} from '@angular/forms';
 import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
 import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
+import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { ValidationExperimentsComponent } from './validation/validation-experime
     FooterComponent,
     FileSelectDirective,
     ValidationSamplesComponent,
-    ValidationExperimentsComponent
+    ValidationExperimentsComponent,
+    ValidationAnalysesComponent
   ],
   imports: [
     BrowserModule,

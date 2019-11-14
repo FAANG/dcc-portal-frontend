@@ -1,10 +1,9 @@
 <div class="container" style="min-height:87vh">
   <app-header></app-header>
   <h2>FAANG validation
-    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
-            [routerLink]="['/validation', 'samples']">
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'samples']">
       Samples
-      <i class="material-icons float-right">home</i>
+      <i class="material-icons float-right">menu</i>
     </button>
 
     <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'experiments']">
@@ -12,9 +11,10 @@
       <i class="material-icons float-right">menu</i>
     </button>
 
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'analyses']">
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
+            [routerLink]="['/validation', 'analyses']">
       Analyses
-      <i class="material-icons float-right">menu</i>
+      <i class="material-icons float-right">home</i>
     </button>
   </h2>
 
@@ -152,5 +152,4 @@
     </ul>
     <button (click)="myModal.close()" type="button" class="btn btn-success modal-button">Close</button>
   </ngx-smart-modal>
-
 </div>

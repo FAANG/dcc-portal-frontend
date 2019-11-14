@@ -31,6 +31,7 @@ import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.c
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import {ValidationSamplesComponent} from './validation/validation-samples/validation-samples.component';
 import {ValidationExperimentsComponent} from './validation/validation-experiments/validation-experiments.component';
+import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
 
 
 const routes: Routes = [
@@ -63,6 +64,7 @@ const routes: Routes = [
   {path: 'ruleset/analyses', component: RulesetAnalysisComponent},
   {path: 'validation/samples', component: ValidationSamplesComponent},
   {path: 'validation/experiments', component: ValidationExperimentsComponent},
+  {path: 'validation/analyses', component: ValidationAnalysesComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];
