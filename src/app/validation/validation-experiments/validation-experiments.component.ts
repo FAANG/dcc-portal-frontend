@@ -18,7 +18,7 @@ export class ValidationExperimentsComponent implements OnInit {
   socket;
   validation_results;
   record_types = [];
-  active_key = 'organism';
+  active_key: string;
   active_issue;
   active_table;
   active_column: string;
@@ -52,6 +52,7 @@ export class ValidationExperimentsComponent implements OnInit {
       for (const key of Object.keys(this.validation_results)) {
         this.record_types.push(key);
       }
+      this.active_key = this.record_types[0];
       this.active_table = this.validation_results[this.active_key];
       this.setTables();
     }
