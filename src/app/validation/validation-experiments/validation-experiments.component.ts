@@ -195,7 +195,9 @@ export class ValidationExperimentsComponent implements OnInit {
   }
 
   recordHasModuleIssues(record) {
-    return record[0].hasOwnProperty('module');
+    if (record[0]) {
+      return record[0].hasOwnProperty('module');
+    }
   }
 
 }
