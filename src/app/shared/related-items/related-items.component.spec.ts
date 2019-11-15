@@ -38,7 +38,7 @@ describe('RelatedItemsComponent', () => {
      expect(component).toBeTruthy();
   });
 
-  it('check initial displayed column status in dataset file table', () => {
+  it('check initial displayed column conversion_status in dataset file table', () => {
     // component.selected = new Map();
     // component.selected.set('name', true);
     // component.selected.set('description', false);

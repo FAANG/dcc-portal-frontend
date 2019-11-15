@@ -32,15 +32,15 @@
       <h3>2. Conversion results:</h3>
       <div class="row">
         <div class="col-md-6">
-          Status: <span [ngClass]="statusClass()">{{status}}</span>
+          Status: <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
         </div>
         <div class="col-md-6">
-          <button type="button" class="btn btn-success btn-sm" *ngIf="status === 'Success'" (click)="startValidation()">
+          <button type="button" class="btn btn-success btn-sm" *ngIf="conversion_status === 'Success'" (click)="startValidation()">
             Start validation
           </button>
         </div>
       </div>
-      <div class="row" *ngIf="status === 'Error'">
+      <div class="row" *ngIf="conversion_status === 'Error'">
         <div class="col-md-12">
           Errors:
           <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
@@ -56,6 +56,8 @@
   <div class="row">
     <div class="col-md-12" *ngIf="validation_results">
       <h3>3. Validation results:</h3>
+      Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
+      <br>
       <button *ngFor="let key of record_types" type="button" class="btn btn-info validation_button"
               [ngClass]="isButtonActive(key)" (click)="onRecordButtonClick(key)">
         {{remove_underscores(key)}}
@@ -64,7 +66,8 @@
 
     <div class="col-md-12" *ngIf="!validation_results && validation_started">
       <h3>3. Validation results:</h3>
-      Validating data...
+      Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
+      <br>
     </div>
   </div>
 

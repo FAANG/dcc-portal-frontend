@@ -183,14 +183,14 @@ export class RelatedItemsComponent implements OnInit {
     }
   }
 
-  // the checked status of the checkbox in the table under Download column
+  // the checked conversion_status of the checkbox in the table under Download column
   CheckboxChecked(url: string) {
     url = 'ftp://' + url;
     return this.urls.indexOf(url) !== -1;
   }
 
-  // determine the checked status of the checkbox in the table header
-  // return 2 means all files selected (checkbox checked status), 1 means partially files selected (checkbox indeterminate status)
+  // determine the checked conversion_status of the checkbox in the table header
+  // return 2 means all files selected (checkbox checked conversion_status), 1 means partially files selected (checkbox indeterminate conversion_status)
   // and 0 means none selected
   mainCheckboxChecked() {
     if (this.records) {

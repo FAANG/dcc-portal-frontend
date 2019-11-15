@@ -14,7 +14,8 @@ const UploadURL = 'http://localhost:8000/conversion/experiments';
 })
 export class ValidationAnalysesComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: 'file'});
-  status: string;
+  conversion_status: string;
+  validation_status: string;
   socket;
   validation_results;
   record_types = [];
@@ -44,7 +45,7 @@ export class ValidationAnalysesComponent implements OnInit {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.task_id = response;
     };
-    this.status = 'Undefined';
+    this.conversion_status = 'Undefined';
   }
 
   setValidationResults() {
@@ -78,7 +79,12 @@ export class ValidationAnalysesComponent implements OnInit {
     };
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      this.status = data['response']['status'];
+      if (data['response']['conversion_status']) {
+        this.conversion_status = data['response']['conversion_status'];
+      }
+      if (data['response']['validation_status']) {
+        this.validation_status = data['response']['validation_status'];
+      }
       if (data['response']['validation_results']) {
         this.validation_results = data['response']['validation_results'];
         this.setValidationResults();
@@ -170,14 +176,14 @@ export class ValidationAnalysesComponent implements OnInit {
     }
   }
 
-  statusClass() {
-    if (this.status === 'Undefined') {
+  statusClass(status) {
+    if (status === 'Undefined' || status === 'Finished') {
       return 'badge badge-pill badge-info';
-    } else if (this.status === 'Waiting') {
+    } else if (status === 'Waiting') {
       return 'badge badge-pill badge-warning';
-    } else if (this.status === 'Success') {
+    } else if (status === 'Success') {
       return 'badge badge-pill badge-success';
-    } else if (this.status === 'Error') {
+    } else if (status === 'Error') {
       return 'badge badge-pill badge-danger';
     }
   }
