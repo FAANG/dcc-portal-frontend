@@ -70,7 +70,6 @@ export class ValidationExperimentsComponent implements OnInit {
       }
       has_issues === true ? this.records_with_issues.push(record) : this.records_that_pass.push(record);
     }
-    console.log(this.records_with_issues);
   }
 
   setSocket() {

@@ -138,13 +138,13 @@
             (click)="openModal('Custom warnings', record['custom']['warnings'])">
             {{getIssues(record['custom']['warnings'], 'warning')}}
           </td>
-          <td
+          <td *ngIf="recordHasModuleIssues(records_to_show)"
             [ngClass]="getCellClass(record['module']['errors'], 'error')"
             [ngStyle]="{'cursor': getCellStyle(record['module']['errors'])}"
             (click)="openModal('Module errors', record['module']['errors'])">
             {{getIssues(record['module']['errors'], 'error')}}
           </td>
-          <td
+          <td *ngIf="recordHasModuleIssues(records_to_show)"
             [ngClass]="getCellClass(record['module']['warnings'], 'warning')"
             [ngStyle]="{'cursor': getCellStyle(record['module']['warnings'])}"
             (click)="openModal('Module warnings', record['module']['warnings'])">
