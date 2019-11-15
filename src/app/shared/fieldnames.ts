@@ -43,7 +43,7 @@ export const FIELDNAMES = {
   sequencingPrimerProvider: 'Sequencing primer provider',
   sequencingPrimerCatalog: 'Sequencing primer catalog',
   sequencingPrimerLot: 'Sequencing primer lot',
-  restrictEnzymeTargetSequence: 'Restriction enzyme target sequence',
+  restrictionEnzymeTargetSequence: 'Restriction enzyme target sequence',
   cageProtocol: 'CAGE protocol'
 };
 
