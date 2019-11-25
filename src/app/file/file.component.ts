@@ -11,10 +11,10 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-file-table',
-  templateUrl: './file-table.component.html',
-  styleUrls: ['./file-table.component.css']
+  templateUrl: './file.component.html',
+  styleUrls: ['./file.component.css']
 })
-export class FileTableComponent implements OnInit, OnDestroy {
+export class FileComponent implements OnInit, OnDestroy {
   fileListShort: Observable<FileTable[]>;
   fileListLong: Observable<FileTable[]>;
   columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Specimen', 'Instrument', 'Standard',

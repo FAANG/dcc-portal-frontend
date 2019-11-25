@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FileTableComponent } from './file-table/file-table.component';
+import { FileComponent } from './file/file.component';
 import { AppRoutingModule } from './/app-routing.module';
 import {ApiDataService} from './services/api-data.service';
 import {AggregationService} from './services/aggregation.service';
@@ -24,7 +24,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import {Angular2CsvModule} from 'angular2-csv';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ExportService} from './services/export.service';
-import { FileDetailComponent } from './file-table/file-detail/file-detail.component';
+import { FileDetailComponent } from './file/file-detail/file-detail.component';
 import { RobustLinkComponent } from './shared/robust-link/robust-link.component';
 import { RelatedItemsComponent } from './shared/related-items/related-items.component';
 import { OrganismDetailComponent } from './organism/organism-detail/organism-detail.component';
@@ -62,7 +62,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
-    FileTableComponent,
+    FileComponent,
     FilterComponent,
     SortPipe,
     FilterPipe,

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileTableComponent } from './file-table.component';
+import { FileComponent } from './file.component';
 import {HeaderComponent} from '../shared/header/header.component';
 import {ActiveFilterComponent} from '../shared/active-filter/active-filter.component';
 import {FilterComponent} from '../shared/filter/filter.component';
@@ -12,13 +12,13 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('FileTableComponent', () => {
-  let component: FileTableComponent;
-  let fixture: ComponentFixture<FileTableComponent>;
+  let component: FileComponent;
+  let fixture: ComponentFixture<FileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        FileTableComponent,
+        FileComponent,
         HeaderComponent,
         ActiveFilterComponent,
         FilterComponent,
@@ -36,7 +36,7 @@ describe('FileTableComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileTableComponent);
+    fixture = TestBed.createComponent(FileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
