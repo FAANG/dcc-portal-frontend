@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-gene-switch',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneSwitchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private title: Title) { }
 
   ngOnInit() {
+    this.title.setTitle('GENE-SWitCH');
   }
 
 }
