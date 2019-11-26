@@ -425,5 +425,107 @@
         }
       }
     }
+  },
+  "project": {
+    "paper": {
+      "display": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "https://doi.org/",
+            "url": "doi"
+          }
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
+        }
+      }
+    },
+    "specimen": {
+      "display": [
+        "BioSamples ID",
+        "Material",
+        "Cell type",
+        "Sex",
+        "Species",
+        "Breed"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Material",
+        "Cell type",
+        "Sex",
+        "Species",
+        "Breed"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "biosampleId",
+          "link": {
+            "prefix": "../specimen/",
+            "url": "biosampleId"
+          }
+        },
+        "Material": {
+          "value": "material.text"
+        },
+        "Cell type": {
+          "value": "cellType.text"
+        },
+        "Sex": {
+          "value": "sex.text"
+        },
+        "Species": {
+          "value": "organism.text"
+        },
+        "Breed": {
+          "value": "breed.text"
+        }
+      }
+    },
+    "file": {
+      "display": [
+        "File name",
+        "Experiment",
+        "File size"
+      ],
+      "all": [
+        "File name",
+        "Experiment",
+        "Archive",
+        "File size"
+      ],
+      "fields": {
+        "File name": {
+          "value": "name",
+          "link": {
+            "prefix": "../file/",
+            "url": "fileId"
+          }
+        },
+        "Experiment": {
+          "value": "experiment"
+        },
+        "Archive": {
+          "value": "archive"
+        },
+        "File size": {
+          "value": "readableSize"
+        }
+      }
+    }
   }
 }

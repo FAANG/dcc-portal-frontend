@@ -1,0 +1,10 @@
+img {
+  max-width:256px;
+  max-height:256px;
+  width:auto;
+  height:auto;
+}
+
+.first-row {
+  margin-top: 15px;
+}
