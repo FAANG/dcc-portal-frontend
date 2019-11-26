@@ -44,6 +44,9 @@ export class HeaderComponent implements OnInit {
 
   recordsOnDropdownClick() {
     this.records_dropdown_open = !this.records_dropdown_open;
+    if (this.projects_dropdown_open === true) {
+      this.projects_dropdown_open = false;
+    }
   }
 
   projectsOpenDropdown() {
@@ -52,6 +55,9 @@ export class HeaderComponent implements OnInit {
 
   projectsOnDropdownClick() {
     this.projects_dropdown_open = !this.projects_dropdown_open;
+    if (this.records_dropdown_open === true) {
+      this.records_dropdown_open = false;
+    }
   }
 
 }
