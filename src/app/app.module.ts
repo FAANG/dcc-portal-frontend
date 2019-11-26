@@ -61,6 +61,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { AquafaangComponent } from './subprojects/aquafaang/aquafaang.component';
 import { BovregComponent } from './subprojects/bovreg/bovreg.component';
 import { GeneSwitchComponent } from './subprojects/gene-switch/gene-switch.component';
+import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
+import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +107,9 @@ import { GeneSwitchComponent } from './subprojects/gene-switch/gene-switch.compo
     FooterComponent,
     AquafaangComponent,
     BovregComponent,
-    GeneSwitchComponent
+    GeneSwitchComponent,
+    UsdaBovineComponent,
+    SheepatlasComponent
   ],
   imports: [
     BrowserModule,
