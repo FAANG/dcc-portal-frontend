@@ -29,6 +29,9 @@ import {NonExistingComponent} from './non-existing/non-existing.component';
 import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
+import {AquafaangComponent} from './subprojects/aquafaang/aquafaang.component';
+import {BovregComponent} from './subprojects/bovreg/bovreg.component';
+import {GeneSwitchComponent} from './subprojects/gene-switch/gene-switch.component';
 
 
 const routes: Routes = [
@@ -59,6 +62,9 @@ const routes: Routes = [
   {path: 'ruleset/samples', component: RulesetSampleComponent},
   {path: 'ruleset/experiments', component: RulesetExperimentComponent},
   {path: 'ruleset/analyses', component: RulesetAnalysisComponent},
+  {path: 'projects/aquafaang', component: AquafaangComponent},
+  {path: 'projects/bovreg', component: BovregComponent},
+  {path: 'projects/gene-switch', component: GeneSwitchComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];

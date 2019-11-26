@@ -58,6 +58,9 @@ import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-anal
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { AquafaangComponent } from './subprojects/aquafaang/aquafaang.component';
+import { BovregComponent } from './subprojects/bovreg/bovreg.component';
+import { GeneSwitchComponent } from './subprojects/gene-switch/gene-switch.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +102,10 @@ import { FooterComponent } from './shared/footer/footer.component';
     RulesetExperimentComponent,
     RulesetAnalysisComponent,
     IndeterminateDirective,
-    FooterComponent
+    FooterComponent,
+    AquafaangComponent,
+    BovregComponent,
+    GeneSwitchComponent
   ],
   imports: [
     BrowserModule,
