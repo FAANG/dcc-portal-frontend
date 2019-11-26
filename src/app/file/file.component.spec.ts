@@ -101,6 +101,10 @@ describe('FileTableComponent', () => {
     component.selectColumn();
     expect(component.sort_field['id']).toEqual('assayType');
 
+    component.selectedColumn = 'Target';
+    component.selectColumn();
+    expect(component.sort_field['id']).toEqual('target');
+
     component.selectedColumn = 'Specimen';
     component.selectColumn();
     expect(component.sort_field['id']).toEqual('specimen');

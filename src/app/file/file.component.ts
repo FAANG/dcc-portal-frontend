@@ -17,7 +17,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 export class FileComponent implements OnInit, OnDestroy {
   fileListShort: Observable<FileTable[]>;
   fileListLong: Observable<FileTable[]>;
-  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Specimen', 'Instrument', 'Standard',
+  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard',
     'Paper published'];
   spanClass = 'expand_more';
   defaultClass = 'unfold_more';
@@ -44,6 +44,7 @@ export class FileComponent implements OnInit, OnDestroy {
       'experiment.accession',
       'species.text',
       'experiment.assayType',
+      'experiment.target',
       'specimen',
       'run.instrument',
       'experiment.standardMet',
@@ -174,6 +175,10 @@ export class FileComponent implements OnInit, OnDestroy {
       }
       case 'Assay type': {
         this.sort_field['id'] = 'assayType';
+        break;
+      }
+      case 'Target': {
+        this.sort_field['id'] = 'target';
         break;
       }
       case 'Specimen': {
