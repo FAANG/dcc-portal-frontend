@@ -28,7 +28,7 @@ export class SearchService {
 
   searchFile(text: any, clicked: boolean) {
     const host = this.hostSetting.host + 'file/' + '_search/';
-    if (!text.trim()) { return of([]); }
+    if (!text.trim()) { return []; }
     const query = {
       'bool': {
         'must': {
@@ -64,7 +64,7 @@ export class SearchService {
 
   searchOrganism(text: any, clicked: boolean) {
     const host = this.hostSetting.host + 'organism/' + '_search/';
-    if (!text.trim()) { return of([]); }
+    if (!text.trim()) { return []; }
     const query = {
       'bool': {
         'must': {
@@ -103,7 +103,7 @@ export class SearchService {
 
   searchSpecimen(text: any, clicked: boolean) {
     const host = this.hostSetting.host + 'specimen/' + '_search/';
-    if (!text.trim()) { return of([]); }
+    if (!text.trim()) { return []; }
     const query = {
       'bool': {
         'must': {
@@ -152,7 +152,7 @@ export class SearchService {
 
   searchDataset(text: any, faang_only_flag: boolean) {
     const host = this.hostSetting.host + 'dataset/' + '_search/';
-    if (!text.trim()) { return of([]); }
+    if (!text.trim()) { return []; }
     const query = {
       'bool': {
         'must': {

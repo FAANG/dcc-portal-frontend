@@ -105,6 +105,12 @@ export class RelatedItemsComponent implements OnInit {
         (data: any) => {
           this.records = data['hits']['hits'];
         });
+    } else if (relationship_type === 'project-paper') {
+      this.records = [{}];
+    } else if (relationship_type === 'project-specimen') {
+      this.records = [{}];
+    } else if (relationship_type === 'project-file') {
+      this.records = [{}];
     }
   }
 
@@ -164,7 +170,7 @@ export class RelatedItemsComponent implements OnInit {
     const elmts = attr.split('.');
     let curr: any = record;
     for (const elmt of elmts) {
-      if (curr[elmt] === null) {
+      if (curr[elmt] === null || curr[elmt] === undefined) {
         return;
       }
       curr = curr[elmt];

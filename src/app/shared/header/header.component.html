@@ -8,20 +8,43 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/home">Home</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/organism">Organisms</a>
+      <li class="nav-item dropdown" [ngClass]="recordsOpenDropdown()" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle"
+           role="button"
+           data-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false"
+           style="cursor: pointer"
+           (click)="recordsOnDropdownClick()">
+          Records
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" [ngClass]="recordsOpenDropdown()">
+          <a class="nav-link" routerLink="/organism">Organisms</a>
+          <a class="nav-link" routerLink="/specimen">Specimens</a>
+          <a class="nav-link" routerLink="/dataset">Datasets</a>
+          <div class="dropdown-divider"></div>
+          <a class="nav-link" routerLink="/file">Files</a>
+          <a class="nav-link" routerLink="/analysis">Analyses</a>
+        </div>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/specimen">Specimens</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/dataset">Datasets</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/file">Files</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/analysis">Analyses</a>
+
+      <li class="nav-item dropdown" [ngClass]="projectsOpenDropdown()" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle"
+           role="button"
+           data-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false"
+           style="cursor: pointer"
+           (click)="projectsOnDropdownClick()">
+          Projects
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" [ngClass]="projectsOpenDropdown()">
+          <a class="nav-link" routerLink="/projects/aquafaang">AQUA-FAANG</a>
+          <a class="nav-link" routerLink="/projects/bovreg">BovReg</a>
+          <a class="nav-link" routerLink="/projects/gene-switch">GENE-SWitCH</a>
+<!--          <a class="nav-link" routerLink="/projects/usda-bovine">USDA-Bovine</a>-->
+<!--          <a class="nav-link" routerLink="/projects/sheepatlas">Sheepatlas</a>-->
+        </div>
       </li>
       <li class="nav-item" [ngClass]="isActiveProtocols()">
         <a class="nav-link" routerLink="/protocol/samples">Protocols</a>
@@ -29,11 +52,20 @@
       <li class="nav-item" [ngClass]="isActiveSummary()">
         <a class="nav-link" routerLink="/summary/organisms">Summary</a>
       </li>
-      <li class="nav-item" [ngClass]="isActiveRuleset()">
-        <a class="nav-link" routerLink="/ruleset/samples" fragment="standard">Rule sets</a>
-      </li>
-      <li class="nav-item" [ngClass]="isActiveValidation()">
-        <a class="nav-link" routerLink="/validation/samples">Validation</a>
+      <li class="nav-item dropdown" [ngClass]="validationOpenDropdown()" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle"
+           role="button"
+           data-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false"
+           style="cursor: pointer"
+           (click)="validationOnDropdownClick()">
+          Validation
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" [ngClass]="validationOpenDropdown()">
+          <a class="nav-link" routerLink="/ruleset/samples" fragment="standard">Rule sets</a>
+          <a class="nav-link" routerLink="/validation/samples" fragment="standard">Validation service</a>
+        </div>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/search">Search</a>

@@ -8,6 +8,9 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   collapsed = true;
+  records_dropdown_open = false;
+  projects_dropdown_open = false;
+  validation_dropdown_open = false;
 
   constructor(private router: Router) {}
 
@@ -30,15 +33,45 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  isActiveRuleset() {
-    if (this.router.url.includes('ruleset')) {
-      return 'active';
+  recordsOpenDropdown() {
+    return this.records_dropdown_open === true ? 'show' : '';
+  }
+
+  recordsOnDropdownClick() {
+    this.records_dropdown_open = !this.records_dropdown_open;
+    if (this.projects_dropdown_open === true) {
+      this.projects_dropdown_open = false;
+    }
+    if (this.validation_dropdown_open === true) {
+      this.validation_dropdown_open = false;
     }
   }
 
-  isActiveValidation() {
-    if (this.router.url.includes('validation')) {
-      return 'active'
+  projectsOpenDropdown() {
+    return this.projects_dropdown_open === true ? 'show' : '';
+  }
+
+  projectsOnDropdownClick() {
+    this.projects_dropdown_open = !this.projects_dropdown_open;
+    if (this.records_dropdown_open === true) {
+      this.records_dropdown_open = false;
+    }
+    if (this.validation_dropdown_open === true) {
+      this.validation_dropdown_open = false;
+    }
+  }
+
+  validationOpenDropdown() {
+    return this.validation_dropdown_open === true ? 'show' : '';
+  }
+
+  validationOnDropdownClick() {
+    this.validation_dropdown_open = !this.validation_dropdown_open;
+    if (this.projects_dropdown_open === true) {
+      this.projects_dropdown_open = false;
+    }
+    if (this.records_dropdown_open === true) {
+      this.records_dropdown_open = false;
     }
   }
 

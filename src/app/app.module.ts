@@ -63,6 +63,11 @@ import {FormsModule} from '@angular/forms';
 import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
 import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
 import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
+import { AquafaangComponent } from './subprojects/aquafaang/aquafaang.component';
+import { BovregComponent } from './subprojects/bovreg/bovreg.component';
+import { GeneSwitchComponent } from './subprojects/gene-switch/gene-switch.component';
+import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
+import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +113,12 @@ import { ValidationAnalysesComponent } from './validation/validation-analyses/va
     FileSelectDirective,
     ValidationSamplesComponent,
     ValidationExperimentsComponent,
-    ValidationAnalysesComponent
+    ValidationAnalysesComponent,
+    AquafaangComponent,
+    BovregComponent,
+    GeneSwitchComponent,
+    UsdaBovineComponent,
+    SheepatlasComponent
   ],
   imports: [
     BrowserModule,

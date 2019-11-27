@@ -32,6 +32,11 @@ import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-
 import {ValidationSamplesComponent} from './validation/validation-samples/validation-samples.component';
 import {ValidationExperimentsComponent} from './validation/validation-experiments/validation-experiments.component';
 import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
+import {AquafaangComponent} from './subprojects/aquafaang/aquafaang.component';
+import {BovregComponent} from './subprojects/bovreg/bovreg.component';
+import {GeneSwitchComponent} from './subprojects/gene-switch/gene-switch.component';
+import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
+import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
 
 
 const routes: Routes = [
@@ -65,6 +70,11 @@ const routes: Routes = [
   {path: 'validation/samples', component: ValidationSamplesComponent},
   {path: 'validation/experiments', component: ValidationExperimentsComponent},
   {path: 'validation/analyses', component: ValidationAnalysesComponent},
+  {path: 'projects/aquafaang', component: AquafaangComponent},
+  {path: 'projects/bovreg', component: BovregComponent},
+  {path: 'projects/gene-switch', component: GeneSwitchComponent},
+  {path: 'projects/usda-bovine', component: UsdaBovineComponent},
+  {path: 'projects/sheepatlas', component: SheepatlasComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];
