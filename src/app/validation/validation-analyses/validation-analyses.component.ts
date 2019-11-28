@@ -3,9 +3,9 @@ import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
-import {issue_type, record_type} from '../../shared/constants';
+import {issue_type, record_type, validation_service_url, validation_ws_url} from '../../shared/constants';
 
-const UploadURL = 'http://localhost:8000/conversion/experiments';
+const UploadURL = validation_service_url + '/conversion/analyses';
 
 @Component({
   selector: 'app-validation-analyses',
@@ -73,7 +73,7 @@ export class ValidationAnalysesComponent implements OnInit {
   }
 
   setSocket() {
-    this.socket = new WebSocket('ws://127.0.0.1:8000/ws/submission/test_task/');
+    this.socket = new WebSocket(validation_ws_url);
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
     };

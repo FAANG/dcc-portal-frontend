@@ -35,7 +35,9 @@
           Status: <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
         </div>
         <div class="col-md-6">
-          <button type="button" class="btn btn-success btn-sm" *ngIf="conversion_status === 'Success'" (click)="startValidation()">
+          <button type="button" class="btn btn-success btn-sm" *ngIf="conversion_status === 'Success'"
+                  (click)="startValidation()"
+                  [disabled]="validation_started">
             Start validation
           </button>
         </div>
