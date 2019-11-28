@@ -6,6 +6,9 @@ export const external_ols_prefix = 'https://www.ebi.ac.uk/ols/terms?iri=';
 export const external_biosample_prefix = 'https://www.ebi.ac.uk/biosamples/samples/';
 export const ruleset_prefix = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
 
+export const validation_service_url = 'http://wp-p1m-25.ebi.ac.uk';
+export const validation_ws_url = 'ws://wp-p1m-25.ebi.ac.uk/ws/submission/test_task/';
+
 export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';
 export const internal_dataset = '../dataset/';

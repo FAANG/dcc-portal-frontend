@@ -4,7 +4,7 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { AnalysisTable, DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
-import {ruleset_prefix} from '../shared/constants';
+import {ruleset_prefix, validation_service_url} from '../shared/constants';
 
 
 @Injectable({
@@ -379,14 +379,8 @@ export class ApiDataService {
   }
 
   startValidation(task_id, rules_type) {
-    const url =  'http://localhost:8000/validation/' + rules_type + '/' + task_id;
-    return this.http.get(url).pipe(
-      map((data: any) => {
-        return data;
-      }),
-      retry(3),
-      catchError(this.handleError),
-    );
+    const url =  validation_service_url + '/validation/' + rules_type + '/' + task_id;
+    return this.http.get(url);
   }
 
   private handleError(error: HttpErrorResponse) {
