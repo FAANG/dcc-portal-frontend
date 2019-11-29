@@ -67,7 +67,7 @@ export class FileComponent implements OnInit, OnDestroy {
       this.resetFilter();
       const filters = {};
       for (const key in params) {
-        if (Array.isArray(params[key])) {
+        if (Array.isArray(params[key])) { // multiple values chosed for one filter
           filters[key] = params[key];
           for (const value of params[key]) {
             this.aggregationService.current_active_filters.push(value);
@@ -101,6 +101,7 @@ export class FileComponent implements OnInit, OnDestroy {
     );
     this.fileListLong = this.dataService.getAllFiles(this.query, 1000000);
     this.fileListLongSubscription = this.fileListLong.subscribe((data) => {
+      // data is the full list of getAllFiles result where the field names are defined
       this.aggregationService.getAggregations(data, 'file');
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {

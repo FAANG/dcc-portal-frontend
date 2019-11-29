@@ -15,6 +15,7 @@ export class AggregationService {
     study: [],
     species: [],
     assayType: [],
+    target: [],
     instrument: [],
     sex: [],
     organism: [],
@@ -55,6 +56,7 @@ export class AggregationService {
       const study = {};
       const species = {};
       const assay_type = {};
+      const target = {};
       const instrument = {};
       const paper_published = {};
       let all_data;
@@ -67,6 +69,7 @@ export class AggregationService {
         study.hasOwnProperty(item['study']) ? study[item['study']] += 1 : study[item['study']] = 1;
         species.hasOwnProperty(item['species']) ? species[item['species']] += 1 : species[item['species']] = 1;
         assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;
+        target.hasOwnProperty(item['target']) ? target[item['target']] += 1 : target[item['target']] = 1;
         instrument.hasOwnProperty(item['instrument']) ? instrument[item['instrument']] += 1 : instrument[item['instrument']] = 1;
         if (item['paperPublished'] === 'true') {
           paper_published.hasOwnProperty('Yes') ? paper_published['Yes'] += 1 : paper_published['Yes'] = 1;
@@ -74,7 +77,7 @@ export class AggregationService {
           paper_published.hasOwnProperty('No') ? paper_published['No'] += 1 : paper_published['No'] = 1;
         }
       }
-
+      // each value in the filter contains two elements: 0 for the value and 1 for the count
       all_data = {
         standard: Object.entries(standard).sort(function (a: any, b: any) {
           return b[1] - a[1];
@@ -86,6 +89,9 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         assay_type: Object.entries(assay_type).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        target: Object.entries(target).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
         instrument: Object.entries(instrument).sort(function (a: any, b: any) {
