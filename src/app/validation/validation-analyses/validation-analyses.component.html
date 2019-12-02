@@ -73,9 +73,10 @@
 
     <div class="col-md-6" *ngIf="validation_results">
       <h3>4. Get data for submission:</h3>
-      Status: <span [ngClass]="statusClass('Undefined')">Undefined</span>
+      Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
       <br>
-      <button type="button" class="btn btn-success submission_data_button" [disabled]="true">Get submission data</button>
+      <button type="button" class="btn btn-success submission_data_button"
+              [disabled]="isSubmissionDisabled(submission_status)">Get submission data</button>
     </div>
   </div>
 

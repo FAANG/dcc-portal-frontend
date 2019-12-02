@@ -54,7 +54,7 @@
   <hr>
 
   <div class="row">
-    <div class="col-md-12" *ngIf="validation_results">
+    <div class="col-md-6" *ngIf="validation_results">
       <h3>3. Validation results:</h3>
       Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
       <br>
@@ -64,10 +64,18 @@
       </button>
     </div>
 
-    <div class="col-md-12" *ngIf="!validation_results && validation_started">
+    <div class="col-md-6" *ngIf="!validation_results && validation_started">
       <h3>3. Validation results:</h3>
       Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
       <br>
+    </div>
+
+    <div class="col-md-6" *ngIf="validation_results">
+      <h3>4. Get data for submission:</h3>
+      Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
+      <br>
+      <button type="button" class="btn btn-success submission_data_button"
+              [disabled]="isSubmissionDisabled(submission_status)">Get submission data</button>
     </div>
   </div>
 

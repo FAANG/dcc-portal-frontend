@@ -16,6 +16,7 @@ export class ValidationAnalysesComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: 'file'});
   conversion_status: string;
   validation_status: string;
+  submission_status: string;
   socket;
   validation_results;
   record_types = [];
@@ -85,6 +86,9 @@ export class ValidationAnalysesComponent implements OnInit {
       }
       if (data['response']['validation_status']) {
         this.validation_status = data['response']['validation_status'];
+      }
+      if (data['response']['submission_status']) {
+        this.submission_status = data['response']['submission_status'];
       }
       if (data['response']['validation_results']) {
         this.validation_results = data['response']['validation_results'];
@@ -182,9 +186,9 @@ export class ValidationAnalysesComponent implements OnInit {
       return 'badge badge-pill badge-info';
     } else if (status === 'Waiting') {
       return 'badge badge-pill badge-warning';
-    } else if (status === 'Success') {
+    } else if (status === 'Success' || status === 'Ready for submission') {
       return 'badge badge-pill badge-success';
-    } else if (status === 'Error') {
+    } else if (status === 'Error' || status === 'Fix issues') {
       return 'badge badge-pill badge-danger';
     }
   }
@@ -192,12 +196,16 @@ export class ValidationAnalysesComponent implements OnInit {
   startValidation() {
     this.validation_started = true;
     this.apiDataService.startValidation(this.task_id, 'analyses').subscribe(response => {
-        console.log(response);
+        console.log(response['id']);
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  isSubmissionDisabled(status) {
+    return status === 'Fix issues';
   }
 
 }
