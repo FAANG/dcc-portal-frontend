@@ -19,7 +19,7 @@ export class ValidationAnalysesComponent implements OnInit {
   socket;
   validation_results;
   record_types = [];
-  active_key = 'organism';
+  active_key: string;
   active_issue;
   active_table;
   active_column: string;
@@ -53,6 +53,7 @@ export class ValidationAnalysesComponent implements OnInit {
       for (const key of Object.keys(this.validation_results)) {
         this.record_types.push(key);
       }
+      this.active_key = this.record_types[0];
       this.active_table = this.validation_results[this.active_key];
       this.setTables();
     }
@@ -63,7 +64,7 @@ export class ValidationAnalysesComponent implements OnInit {
       let has_issues = false;
       for (const type of record_type) {
         for (const issue of issue_type) {
-          if (record[type][issue].length !== 0) {
+          if (record.hasOwnProperty(type) && record[type].hasOwnProperty(issue) && record[type][issue].length !== 0) {
             has_issues = true;
           }
         }
@@ -190,7 +191,7 @@ export class ValidationAnalysesComponent implements OnInit {
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.task_id, 'experiments').subscribe(response => {
+    this.apiDataService.startValidation(this.task_id, 'analyses').subscribe(response => {
         console.log(response);
       },
       error => {
