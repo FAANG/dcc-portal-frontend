@@ -197,7 +197,7 @@ export class ValidationExperimentsComponent implements OnInit {
   startValidation() {
     this.validation_started = true;
     this.apiDataService.startValidation(this.conversion_task_id, 'experiments').subscribe(response => {
-        console.log(response);
+        this.validation_task_id = response['id'];
       },
       error => {
         console.log(error);
