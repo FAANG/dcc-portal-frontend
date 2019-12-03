@@ -30,7 +30,8 @@ export class ValidationExperimentsComponent implements OnInit {
   records_to_show;
   show_table = false;
   validation_started = false;
-  task_id: string;
+  conversion_task_id: string;
+  validation_task_id: string;
   errors = [];
 
   constructor(
@@ -44,7 +45,7 @@ export class ValidationExperimentsComponent implements OnInit {
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      this.task_id = response;
+      this.conversion_task_id = response;
     };
     this.conversion_status = 'Undefined';
   }
@@ -195,7 +196,7 @@ export class ValidationExperimentsComponent implements OnInit {
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.task_id, 'experiments').subscribe(response => {
+    this.apiDataService.startValidation(this.conversion_task_id, 'experiments').subscribe(response => {
         console.log(response);
       },
       error => {
@@ -212,6 +213,10 @@ export class ValidationExperimentsComponent implements OnInit {
 
   isSubmissionDisabled(status) {
     return status === 'Fix issues';
+  }
+
+  constructDownloadLink() {
+    return validation_service_url + '/submission/analyses/' + this.validation_task_id;
   }
 
 }
