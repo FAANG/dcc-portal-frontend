@@ -383,6 +383,11 @@ export class ApiDataService {
     return this.http.get(url);
   }
 
+  startConversion(task_id) {
+    const url = validation_service_url + '/submission/samples/' + task_id;
+    return this.http.get(url);
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.
