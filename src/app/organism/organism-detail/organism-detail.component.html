@@ -67,6 +67,15 @@
         <dd class="col-sm-9">{{organism?.project}}</dd>
       </ng-container>
 
+      <ng-container *ngIf="organism?.healthStatus">
+        <dt class="col-sm-3">Health status:</dt>
+        <dd class="col-sm-9">
+          <ng-container *ngFor="let status of organism?.healthStatus;">
+            <app-robust-link [link]="status.ontologyTerms" [text]="status.text"></app-robust-link>
+          </ng-container>
+        </dd>
+      </ng-container>
+
       <ng-container *ngIf="organism?.availability">
         <dt class="col-sm-3">Availability:</dt>
         <dd class="col-sm-9"><a href={{organism?.availability}}>{{dealWithAvailability(organism?.availability)}}</a></dd>
