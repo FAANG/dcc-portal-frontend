@@ -76,8 +76,14 @@
       Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
       <br>
       <button type="button" class="btn btn-success submission_data_button"
-              [disabled]="isSubmissionDisabled(submission_status)">
-        <a href="{{constructDownloadLink()}}">Get submission data</a>
+              *ngIf="submission_status !== 'Data is ready'" (click)="startConversion()"
+              [disabled]="isSubmissionDisabled('Success')">
+        Get submission data
+      </button>
+
+      <button type="button" class="btn btn-success submission_data_button" *ngIf="submission_status === 'Data is ready'">
+        <!--              [disabled]="isSubmissionDisabled(submission_status)">-->
+        <a href="{{constructDownloadLink()}}">Download data</a>
       </button>
     </div>
   </div>

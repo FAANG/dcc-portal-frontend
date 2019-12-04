@@ -383,8 +383,8 @@ export class ApiDataService {
     return this.http.get(url);
   }
 
-  startConversion(task_id) {
-    const url = validation_service_url + '/submission/samples/' + task_id;
+  startConversion(task_id, rules_type) {
+    const url = validation_service_url + '/submission/' + rules_type + '/' + task_id;
     return this.http.get(url);
   }
 

@@ -31,7 +31,7 @@ export class ValidationAnalysesComponent implements OnInit {
   show_table = false;
   validation_started = false;
   conversion_task_id: string;
-  validation_task_id: string;
+  download_data_task_id: string;
   errors = [];
 
   constructor(
@@ -185,9 +185,9 @@ export class ValidationAnalysesComponent implements OnInit {
   statusClass(status) {
     if (status === 'Undefined' || status === 'Finished') {
       return 'badge badge-pill badge-info';
-    } else if (status === 'Waiting') {
+    } else if (status === 'Waiting' || status === 'Preparing data') {
       return 'badge badge-pill badge-warning';
-    } else if (status === 'Success' || status === 'Ready for submission') {
+    } else if (status === 'Success' || status === 'Ready for submission' || status === 'Data is ready') {
       return 'badge badge-pill badge-success';
     } else if (status === 'Error' || status === 'Fix issues') {
       return 'badge badge-pill badge-danger';
@@ -197,7 +197,18 @@ export class ValidationAnalysesComponent implements OnInit {
   startValidation() {
     this.validation_started = true;
     this.apiDataService.startValidation(this.conversion_task_id, 'analyses').subscribe(response => {
-        this.validation_task_id = response['id'];
+        console.log(response['id']);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  startConversion() {
+    this.apiDataService.startConversion(this.conversion_task_id, 'analyses').subscribe(response => {
+        console.log(response['id']);
+        this.download_data_task_id = response['id'];
       },
       error => {
         console.log(error);
@@ -206,11 +217,11 @@ export class ValidationAnalysesComponent implements OnInit {
   }
 
   isSubmissionDisabled(status) {
-    return status === 'Fix issues';
+    return status === 'Fix issues' || this.submission_status === 'Preparing data';
   }
 
   constructDownloadLink() {
-    return validation_service_url + '/submission/analyses/' + this.validation_task_id;
+    return validation_service_url + '/submission/get_data/' + this.download_data_task_id;
   }
 
 }

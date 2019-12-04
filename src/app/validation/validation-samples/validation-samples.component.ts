@@ -207,7 +207,7 @@ export class ValidationSamplesComponent implements OnInit {
   }
 
   startConversion() {
-    this.apiDataService.startConversion(this.conversion_task_id).subscribe(response => {
+    this.apiDataService.startConversion(this.conversion_task_id, 'samples').subscribe(response => {
       console.log(response['id']);
       this.download_data_task_id = response['id'];
     },
