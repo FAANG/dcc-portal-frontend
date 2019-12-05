@@ -1,4 +1,4 @@
-<div class="card text-center" *ngIf="hits">
+<div class="card text-center" *ngIf="hits && hits.total > 0">
   <h6 class="card-header clickable" (click)="toggleDisplay()">
     {{ hits?.total }} matching {{entity}}{{hits?.total == 1 ? '' : 's' }}
     <ng-container>
