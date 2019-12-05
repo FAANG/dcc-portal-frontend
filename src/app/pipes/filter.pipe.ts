@@ -138,6 +138,10 @@ export class FilterPipe implements PipeTransform {
               if (replaceUnderscoreWithSpace(item[key]) !== filter_value) {
                 will_be_in = false;
               }
+            }  else if (type === 'file' && key === 'target') {
+              if (replaceUnderscoreWithSpace(item[key]) !== filter_value) {
+                will_be_in = false;
+              }
             }  else if (type === 'analysis' && key === 'assayType' && !item[key] && filter_value === 'not provided') {
               will_be_in = true;
             } else {

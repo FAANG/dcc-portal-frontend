@@ -50,32 +50,33 @@ export class AggregationService {
     return this.protocolNames[data];
   }
 
+  updateAggregation(aggs: {}, value: string): {} {
+    aggs.hasOwnProperty(value) ? aggs[value] += 1 : aggs[value] = 1;
+    return aggs;
+  }
+
   getAggregations(recordList: any, type: string) {
     if (type === 'file') {
-      const standard = {};
-      const study = {};
-      const species = {};
-      const assay_type = {};
-      const target = {};
-      const instrument = {};
-      const paper_published = {};
+      let standard = {};
+      let study = {};
+      let species = {};
+      let assay_type = {};
+      let target = {};
+      let instrument = {};
+      let paper_published = {};
       let all_data;
 
       for (const item of recordList) {
         if (item['assayType'] === 'transcription profiling by high throughput sequencing') {
           item['assayType'] = 'RNA-Seq';
         }
-        standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
-        study.hasOwnProperty(item['study']) ? study[item['study']] += 1 : study[item['study']] = 1;
-        species.hasOwnProperty(item['species']) ? species[item['species']] += 1 : species[item['species']] = 1;
-        assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;
-        target.hasOwnProperty(item['target']) ? target[item['target']] += 1 : target[item['target']] = 1;
-        instrument.hasOwnProperty(item['instrument']) ? instrument[item['instrument']] += 1 : instrument[item['instrument']] = 1;
-        if (item['paperPublished'] === 'true') {
-          paper_published.hasOwnProperty('Yes') ? paper_published['Yes'] += 1 : paper_published['Yes'] = 1;
-        } else {
-          paper_published.hasOwnProperty('No') ? paper_published['No'] += 1 : paper_published['No'] = 1;
-        }
+        standard = this.updateAggregation(standard, item['standard']);
+        study = this.updateAggregation(study, item['study']);
+        species = this.updateAggregation(species, item['species']);
+        assay_type = this.updateAggregation(assay_type, item['assayType']);
+        target = this.updateAggregation(target, replaceUnderscoreWithSpace(item['target']));
+        instrument = this.updateAggregation(instrument, item['instrument']);
+        paper_published = this.updatePaperAggregation(paper_published, item['paperPublished']);
       }
       // each value in the filter contains two elements: 0 for the value and 1 for the count
       all_data = {
@@ -103,26 +104,22 @@ export class AggregationService {
       };
       this.data.next(all_data);
     } else if (type === 'organism') {
-      const standard = {};
-      const sex = {};
-      const organism = {};
-      const breed = {};
-      const paper_published = {};
+      let standard = {};
+      let sex = {};
+      let organism = {};
+      let breed = {};
+      let paper_published = {};
       let all_data;
 
       for (const item of recordList) {
         let sex_value: string;
         male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
           sex_value = 'not determined');
-        standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
-        sex.hasOwnProperty(sex_value) ? sex[sex_value] += 1 : sex[sex_value] = 1;
-        organism.hasOwnProperty(item['organism']) ? organism[item['organism']] += 1 : organism[item['organism']] = 1;
-        breed.hasOwnProperty(item['breed']) ? breed[item['breed']] += 1 : breed[item['breed']] = 1;
-        if (item['paperPublished'] === 'true') {
-          paper_published.hasOwnProperty('Yes') ? paper_published['Yes'] += 1 : paper_published['Yes'] = 1;
-        } else {
-          paper_published.hasOwnProperty('No') ? paper_published['No'] += 1 : paper_published['No'] = 1;
-        }
+        standard = this.updateAggregation(standard, item['standard']);
+        sex = this.updateAggregation(sex, sex_value);
+        organism = this.updateAggregation(organism, item['organism']);
+        breed = this.updateAggregation(breed, item['breed']);
+        paper_published = this.updatePaperAggregation(paper_published, item['paperPublished']);
       }
 
       all_data = {
@@ -144,31 +141,26 @@ export class AggregationService {
       };
       this.data.next(all_data);
     } else if (type === 'specimen') {
-      const standard = {};
-      const sex = {};
-      const organism = {};
-      const material = {};
-      const organismpart_celltype = {};
-      const breed = {};
-      const paper_published = {};
+      let standard = {};
+      let sex = {};
+      let organism = {};
+      let material = {};
+      let organismpart_celltype = {};
+      let breed = {};
+      let paper_published = {};
       let all_data;
 
       for (const item of recordList) {
         let sex_value: string;
         male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
           sex_value = 'not determined');
-        standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
-        sex.hasOwnProperty(sex_value) ? sex[sex_value] += 1 : sex[sex_value] = 1;
-        organism.hasOwnProperty(item['organism']) ? organism[item['organism']] += 1 : organism[item['organism']] = 1;
-        material.hasOwnProperty(item['material']) ? material[item['material']] += 1 : material[item['material']] = 1;
-        organismpart_celltype.hasOwnProperty(item['organismpart_celltype']) ? organismpart_celltype[item['organismpart_celltype']] += 1 :
-          organismpart_celltype[item['organismpart_celltype']] = 1;
-        breed.hasOwnProperty(item['breed']) ? breed[item['breed']] += 1 : breed[item['breed']] = 1;
-        if (item['paperPublished'] === 'true') {
-          paper_published.hasOwnProperty('Yes') ? paper_published['Yes'] += 1 : paper_published['Yes'] = 1;
-        } else {
-          paper_published.hasOwnProperty('No') ? paper_published['No'] += 1 : paper_published['No'] = 1;
-        }
+        standard = this.updateAggregation(standard, item['standard']);
+        sex = this.updateAggregation(sex, sex_value);
+        organism = this.updateAggregation(organism, item['organism']);
+        material = this.updateAggregation(material, item['material']);
+        organismpart_celltype = this.updateAggregation(organismpart_celltype, item['organismpart_celltype']);
+        breed = this.updateAggregation(breed, item['breed']);
+        paper_published = this.updatePaperAggregation(paper_published, item['paperPublished']);
       }
 
       all_data = {
@@ -196,31 +188,27 @@ export class AggregationService {
       };
       this.data.next(all_data);
     } else if (type === 'dataset') {
-      const standard = {};
-      const species = {};
-      const assay_type = {};
-      const archive = {};
-      const paper_published = {};
+      let standard = {};
+      let species = {};
+      let assay_type = {};
+      let archive = {};
+      let paper_published = {};
       let all_data;
       for (const item of recordList) {
-        standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
+        standard = this.updateAggregation(standard, item['standard']);
         for (const spec of item['species'].split(',')) {
-          species.hasOwnProperty(spec) ? species[spec] += 1 : species[spec] = 1;
+          species = this.updateAggregation(species, spec);
         }
         for (const arch of item['archive'].split(',')) {
-          archive.hasOwnProperty(arch) ? archive[arch] += 1 : archive[arch] = 1;
+          archive = this.updateAggregation(archive, arch);
         }
         for (let my_type of item['assayType'].split(',')) {
           if (my_type === 'transcription profiling by high throughput sequencing') {
             my_type = 'RNA-Seq';
           }
-          assay_type.hasOwnProperty(my_type) ? assay_type[my_type] += 1 : assay_type[my_type] = 1;
+          assay_type = this.updateAggregation(assay_type, my_type);
         }
-        if (item['paperPublished'] === 'true') {
-          paper_published.hasOwnProperty('Yes') ? paper_published['Yes'] += 1 : paper_published['Yes'] = 1;
-        } else {
-          paper_published.hasOwnProperty('No') ? paper_published['No'] += 1 : paper_published['No'] = 1;
-        }
+        paper_published = this.updatePaperAggregation(paper_published, item['paperPublished']);
       }
 
       all_data = {
@@ -242,26 +230,24 @@ export class AggregationService {
       };
       this.data.next(all_data);
     } else if (type === 'analysis') {
-      const standard = {};
-      const species = {};
-      const assay_type = {};
-      const dataset = {};
-      const analysis_type = {};
+      let standard = {};
+      let species = {};
+      let assay_type = {};
+      let dataset = {};
+      let analysis_type = {};
       let all_data;
       for (const item of recordList) {
         let assay_type_value = 'not provided';
         if (item['assayType']) {
           assay_type_value = item['assayType'];
         }
-        standard.hasOwnProperty(item['standard']) ? standard[item['standard']] += 1 : standard[item['standard']] = 1;
+        standard = this.updateAggregation(standard, item['standard']);
         for (const spec of item['species'].split(',')) {
-          species.hasOwnProperty(spec) ? species[spec] += 1 : species[spec] = 1;
+          species = this.updateAggregation(species, spec);
         }
-        assay_type.hasOwnProperty(assay_type_value) ? assay_type[assay_type_value] += 1 : assay_type[assay_type_value] = 1;
-        dataset.hasOwnProperty(item['datasetAccession']) ? dataset[item['datasetAccession']] += 1 : dataset[item['datasetAccession']] = 1;
-        analysis_type.hasOwnProperty(replaceUnderscoreWithSpace(item['analysisType'])) ?
-          analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] += 1 :
-          analysis_type[replaceUnderscoreWithSpace(item['analysisType'])] = 1;
+        assay_type = this.updateAggregation(assay_type, assay_type_value);
+        dataset = this.updateAggregation(dataset, item['datasetAccession']);
+        analysis_type = this.updateAggregation(analysis_type, replaceUnderscoreWithSpace(item['analysisType']));
       }
 
       all_data = {
@@ -283,20 +269,16 @@ export class AggregationService {
       };
       this.data.next(all_data);
     } else if (type === 'protocol') {
-      const protocol_name = {};
-      const university_name = {};
-      const protocol_date = {};
-      const protocol_type = {};
+      let protocol_name = {};
+      let university_name = {};
+      let protocol_date = {};
+      let protocol_type = {};
       let all_data;
       for (const item of recordList) {
-        protocol_name.hasOwnProperty(item['protocol_name']) ? protocol_name[item['protocol_name']] += 1 :
-          protocol_name[item['protocol_name']] = 1;
-        university_name.hasOwnProperty((item['university_name'])) ? university_name[item['university_name']] += 1 :
-          university_name[item['university_name']] = 1;
-        protocol_date.hasOwnProperty(item['protocol_date']) ? protocol_date[item['protocol_date']] += 1 :
-          protocol_date[item['protocol_date']] = 1;
-        protocol_type.hasOwnProperty(item['protocol_type']) ? protocol_type[item['protocol_type']] += 1 :
-          protocol_type[item['protocol_type']] = 1;
+        protocol_name = this.updateAggregation(protocol_name, item['protocol_name']);
+        university_name = this.updateAggregation(university_name, item['university_name']);
+        protocol_date = this.updateAggregation(protocol_date, item['protocol_date']);
+        protocol_type = this.updateAggregation(protocol_type, item['protocol_type']);
       }
       all_data = {
         protocol_name: Object.entries(protocol_name).sort(function(a: any, b: any) {
@@ -314,16 +296,15 @@ export class AggregationService {
       };
       this.data.next(all_data);
     } else if (type === 'protocol_experiments') {
-      const protocol_type = {};
-      const experiment_target = {};
-      const assay_type = {};
+      let protocol_type = {};
+      let experiment_target = {};
+      let assay_type = {};
       let all_data;
       for (const item of recordList) {
         const name = this.getHumanName(item['name']);
-        protocol_type.hasOwnProperty(name) ? protocol_type[name] += 1 : protocol_type[name] = 1;
-        experiment_target.hasOwnProperty(item['experimentTarget']) ? experiment_target[item['experimentTarget']] += 1 :
-          experiment_target[item['experimentTarget']] = 1;
-        assay_type.hasOwnProperty(item['assayType']) ? assay_type[item['assayType']] += 1 : assay_type[item['assayType']] = 1;
+        protocol_type = this.updateAggregation(protocol_type, name);
+        experiment_target = this.updateAggregation(experiment_target, item['experimentTarget']);
+        assay_type = this.updateAggregation(assay_type, item['assayType']);
       }
       all_data = {
         protocol_type: Object.entries(protocol_type).sort(function(a: any, b: any) {
@@ -338,5 +319,14 @@ export class AggregationService {
       };
       this.data.next(all_data);
     }
+  }
+
+  private updatePaperAggregation(paper_published: {}, value: string) {
+    if (value === 'true') {
+      paper_published = this.updateAggregation(paper_published, 'Yes');
+    } else {
+      paper_published = this.updateAggregation(paper_published, 'No');
+    }
+    return paper_published;
   }
 }
