@@ -33,6 +33,7 @@ export class ValidationExperimentsComponent implements OnInit {
   conversion_task_id: string;
   download_data_task_id: string;
   errors = [];
+  conversion_errors = [];
 
   constructor(
     private titleService: Title,
@@ -97,6 +98,9 @@ export class ValidationExperimentsComponent implements OnInit {
       }
       if (data['response']['errors']) {
         this.errors.push(data['response']['errors']);
+      }
+      if (data['response']['conversion_errors']) {
+        this.conversion_errors.push(data['response']['conversion_errors']);
       }
     };
 
@@ -189,7 +193,7 @@ export class ValidationExperimentsComponent implements OnInit {
       return 'badge badge-pill badge-warning';
     } else if (status === 'Success' || status === 'Ready for submission' || status === 'Data is ready') {
       return 'badge badge-pill badge-success';
-    } else if (status === 'Error' || status === 'Fix issues') {
+    } else if (status === 'Error' || status === 'Fix issues' || status === 'Failed to convert data') {
       return 'badge badge-pill badge-danger';
     }
   }
