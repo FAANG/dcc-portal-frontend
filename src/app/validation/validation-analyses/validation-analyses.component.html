@@ -77,12 +77,11 @@
       <br>
       <button type="button" class="btn btn-success submission_data_button"
               *ngIf="submission_status !== 'Data is ready'" (click)="startConversion()"
-              [disabled]="isSubmissionDisabled('Success')">
+              [disabled]="isSubmissionDisabled(submission_status)">
         Get submission data
       </button>
 
       <button type="button" class="btn btn-success submission_data_button" *ngIf="submission_status === 'Data is ready'">
-        <!--              [disabled]="isSubmissionDisabled(submission_status)">-->
         <a href="{{constructDownloadLink()}}">Download data</a>
       </button>
     </div>
