@@ -303,7 +303,7 @@ export class AggregationService {
       for (const item of recordList) {
         const name = this.getHumanName(item['name']);
         protocol_type = this.updateAggregation(protocol_type, name);
-        experiment_target = this.updateAggregation(experiment_target, item['experimentTarget']);
+        experiment_target = this.updateAggregation(experiment_target, replaceUnderscoreWithSpace(item['experimentTarget']));
         assay_type = this.updateAggregation(assay_type, item['assayType']);
       }
       all_data = {
