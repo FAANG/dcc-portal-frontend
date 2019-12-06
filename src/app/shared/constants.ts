@@ -10,7 +10,7 @@ export const ruleset_prefix = 'https://raw.githubusercontent.com/FAANG/dcc-metad
 // export const validation_ws_url = 'ws://wp-p1m-25.ebi.ac.uk/ws/submission/test_task/';
 
 export const validation_service_url = 'http://localhost:8000';
-export const validation_ws_url = 'ws://localhost:8000/ws/submission/test_task/';
+export const validation_ws_url = 'ws://localhost:8000/ws/submission/';
 
 export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';

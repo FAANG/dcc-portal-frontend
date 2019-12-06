@@ -14,7 +14,8 @@ const UploadURL = validation_service_url + '/conversion/analyses';
   styleUrls: ['./validation-analyses.component.css']
 })
 export class ValidationAnalysesComponent implements OnInit, OnDestroy {
-  public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: makeid(20)});
+  fileid = makeid(20);
+  public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
   conversion_status: string;
   validation_status: string;
   submission_status: string;
@@ -77,7 +78,8 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   }
 
   setSocket() {
-    this.socket = new WebSocket(validation_ws_url);
+    const url = validation_ws_url + this.fileid + '/';
+    this.socket = new WebSocket(url);
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
     };
@@ -197,7 +199,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.conversion_task_id, 'analyses').subscribe(response => {
+    this.apiDataService.startValidation(this.conversion_task_id, this.fileid, 'analyses').subscribe(response => {
         console.log(response['id']);
       },
       error => {
@@ -207,7 +209,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   }
 
   startConversion() {
-    this.apiDataService.startConversion(this.conversion_task_id, 'analyses').subscribe(response => {
+    this.apiDataService.startConversion(this.conversion_task_id, this.fileid, 'analyses').subscribe(response => {
         console.log(response['id']);
         this.download_data_task_id = response['id'];
       },

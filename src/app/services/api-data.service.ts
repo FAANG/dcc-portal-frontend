@@ -378,13 +378,13 @@ export class ApiDataService {
     );
   }
 
-  startValidation(task_id, rules_type) {
-    const url =  validation_service_url + '/validation/' + rules_type + '/' + task_id;
+  startValidation(task_id, room_id, rules_type) {
+    const url =  validation_service_url + '/validation/' + rules_type + '/' + task_id + '/' + room_id;
     return this.http.get(url);
   }
 
-  startConversion(task_id, rules_type) {
-    const url = validation_service_url + '/submission/' + rules_type + '/' + task_id;
+  startConversion(task_id, room_id, rules_type) {
+    const url = validation_service_url + '/submission/' + rules_type + '/' + task_id + '/' + room_id;
     return this.http.get(url);
   }
 
