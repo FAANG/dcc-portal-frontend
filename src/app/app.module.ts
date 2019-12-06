@@ -58,7 +58,6 @@ import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-anal
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import {FileSelectDirective} from 'ng2-file-upload';
 import {FormsModule} from '@angular/forms';
 import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
 import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
@@ -68,6 +67,7 @@ import { BovregComponent } from './subprojects/bovreg/bovreg.component';
 import { GeneSwitchComponent } from './subprojects/gene-switch/gene-switch.component';
 import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
+import {FileUploadModule} from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -110,7 +110,6 @@ import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.compone
     RulesetAnalysisComponent,
     IndeterminateDirective,
     FooterComponent,
-    FileSelectDirective,
     ValidationSamplesComponent,
     ValidationExperimentsComponent,
     ValidationAnalysesComponent,
@@ -132,6 +131,7 @@ import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.compone
     CookieLawModule,
     ChartsModule,
     FormsModule,
+    FileUploadModule,
     BsDropdownModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
