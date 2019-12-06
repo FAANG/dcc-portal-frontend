@@ -4,6 +4,7 @@ import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
 import {issue_type, record_type, validation_service_url, validation_ws_url} from '../../shared/constants';
+import {makeid} from '../../shared/common_functions';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -13,7 +14,7 @@ const UploadURL = validation_service_url + '/conversion/samples';
   styleUrls: ['./validation-samples.component.css']
 })
 export class ValidationSamplesComponent implements OnInit {
-  public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: 'file'});
+  public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: makeid(20)});
   conversion_status: string;
   validation_status: string;
   submission_status: string;
