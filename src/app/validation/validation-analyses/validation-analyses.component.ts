@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
@@ -13,7 +13,7 @@ const UploadURL = validation_service_url + '/conversion/analyses';
   templateUrl: './validation-analyses.component.html',
   styleUrls: ['./validation-analyses.component.css']
 })
-export class ValidationAnalysesComponent implements OnInit {
+export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: makeid(20)});
   conversion_status: string;
   validation_status: string;
@@ -223,6 +223,10 @@ export class ValidationAnalysesComponent implements OnInit {
 
   constructDownloadLink() {
     return validation_service_url + '/submission/get_data/' + this.download_data_task_id;
+  }
+
+  ngOnDestroy(): void {
+    this.socket.close();
   }
 
 }
