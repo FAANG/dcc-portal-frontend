@@ -1,8 +1,10 @@
 export function replaceUnderscoreWithSpace(data) {
-  if (data.indexOf('_') !== -1) {
-    return data.split('_').join(' ');
-  } else {
-    return data;
+  if (data) {
+    if (data.indexOf('_') !== -1) {
+      return data.split('_').join(' ');
+    } else {
+      return data;
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {of, Subject, throwError} from 'rxjs';
+import {Observable, Subject, throwError} from 'rxjs';
 import {HostSetting} from './host-setting';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
@@ -26,9 +26,11 @@ export class SearchService {
     }
   }
 
-  searchFile(text: any, clicked: boolean) {
+  searchFile(text: any, clicked: boolean): Observable<object> {
     const host = this.hostSetting.host + 'file/' + '_search/';
-    if (!text.trim()) { return []; }
+    if (!text.trim()) {
+      return this.getEmptyObservable();
+    }
     const query = {
       'bool': {
         'must': {
@@ -62,9 +64,18 @@ export class SearchService {
     );
   }
 
-  searchOrganism(text: any, clicked: boolean) {
+  private getEmptyObservable() {
+    return new Observable<object>((observer) => {
+      observer.next(Object({'hits': {'total': 0}}));
+      observer.complete();
+    });
+  }
+
+  searchOrganism(text: any, clicked: boolean): Observable<object> {
     const host = this.hostSetting.host + 'organism/' + '_search/';
-    if (!text.trim()) { return []; }
+    if (!text.trim()) {
+      return this.getEmptyObservable();
+    }
     const query = {
       'bool': {
         'must': {
@@ -101,9 +112,11 @@ export class SearchService {
     );
   }
 
-  searchSpecimen(text: any, clicked: boolean) {
+  searchSpecimen(text: any, clicked: boolean): Observable<object> {
     const host = this.hostSetting.host + 'specimen/' + '_search/';
-    if (!text.trim()) { return []; }
+    if (!text.trim()) {
+      return this.getEmptyObservable();
+    }
     const query = {
       'bool': {
         'must': {
@@ -150,9 +163,11 @@ export class SearchService {
     );
   }
 
-  searchDataset(text: any, faang_only_flag: boolean) {
+  searchDataset(text: any, faang_only_flag: boolean): Observable<object> {
     const host = this.hostSetting.host + 'dataset/' + '_search/';
-    if (!text.trim()) { return []; }
+    if (!text.trim()) {
+      return this.getEmptyObservable();
+    }
     const query = {
       'bool': {
         'must': {

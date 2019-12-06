@@ -26,6 +26,7 @@ export class ApiDataService {
           experiment: entry['_source']['experiment']['accession'],
           species: entry['_source']['species']['text'],
           assayType: entry['_source']['experiment']['assayType'],
+          target: entry['_source']['experiment']['target'],
           specimen: entry['_source']['specimen'],
           instrument: entry['_source']['run']['instrument'],
           standard: entry['_source']['experiment']['standardMet'],

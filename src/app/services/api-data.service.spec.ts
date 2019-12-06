@@ -191,7 +191,7 @@ describe('ApiDataService', () => {
   }));
 
   // TODO: replace those hard-coded numbers with httpClientSpy
-  it('should return 77 experiments protocols', inject([ApiDataService], (service: ApiDataService) => {
+  it('should return 95 experiments protocols', inject([ApiDataService], (service: ApiDataService) => {
     const query = {
       '_source': [
         'name',
@@ -200,7 +200,7 @@ describe('ApiDataService', () => {
         'key'],
     };
     service.getAllExperimentsProtocols(query).subscribe(data => {
-      expect(data.length).toEqual(77);
+      expect(data.length).toEqual(95);
     });
   }));
 

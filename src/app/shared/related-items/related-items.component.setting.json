@@ -176,7 +176,9 @@
         "File name",
         "Experiment",
         "Archive",
-        "File size"
+        "File size",
+        "Checksum",
+        "Checksum method"
       ],
       "fields": {
         "File name": {
@@ -194,6 +196,12 @@
         },
         "File size": {
           "value": "readableSize"
+        },
+        "Checksum": {
+          "value": "checksum"
+        },
+        "Checksum method": {
+          "value": "checksumMethod"
         }
       }
     },

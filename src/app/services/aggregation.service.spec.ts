@@ -24,6 +24,7 @@ describe('AggregationService', () => {
         'study': 'PRJNA216983',
         'species': 'Gallus gallus',
         'assayType': 'whole genome sequencing assay',
+        'target': 'input DNA',
         'instrument': 'Illumina HiSeq 2000',
         'paperPublished': 'true',
       },
@@ -32,6 +33,7 @@ describe('AggregationService', () => {
         'study': 'PRJNA216983',
         'species': 'Gallus gallus',
         'assayType': 'whole genome sequencing assay',
+        'target': 'H3K4me3',
         'instrument': 'Illumina HiSeq 2000',
         'paperPublished': 'false',
       }
@@ -42,6 +44,7 @@ describe('AggregationService', () => {
       study: [['PRJNA216983', 2]],
       species: [['Gallus gallus', 2]],
       assay_type: [['whole genome sequencing assay', 2]],
+      target: [['input DNA', 1], ['H3K4me3', 1]],
       instrument: [['Illumina HiSeq 2000', 2]],
       paper_published: [['Yes', 1 ], ['No', 1]]};
 
@@ -74,7 +77,8 @@ describe('AggregationService', () => {
       sex: [['male', 2]],
       organism: [['Equus caballus', 2]],
       breed: [[ 'Thoroughbred', 2 ]],
-      paper_published: [[ 'Yes', 1], ['No', 1]]};
+      paper_published: [[ 'Yes', 1], ['No', 1]]
+    };
 
     service.data.subscribe(data => {
       expect(data).toEqual(should_return_list);

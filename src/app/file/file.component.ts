@@ -11,13 +11,13 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-file-table',
-  templateUrl: './file-table.component.html',
-  styleUrls: ['./file-table.component.css']
+  templateUrl: './file.component.html',
+  styleUrls: ['./file.component.css']
 })
-export class FileTableComponent implements OnInit, OnDestroy {
+export class FileComponent implements OnInit, OnDestroy {
   fileListShort: Observable<FileTable[]>;
   fileListLong: Observable<FileTable[]>;
-  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Specimen', 'Instrument', 'Standard',
+  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard',
     'Paper published'];
   spanClass = 'expand_more';
   defaultClass = 'unfold_more';
@@ -44,6 +44,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
       'experiment.accession',
       'species.text',
       'experiment.assayType',
+      'experiment.target',
       'specimen',
       'run.instrument',
       'experiment.standardMet',
@@ -66,7 +67,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
       this.resetFilter();
       const filters = {};
       for (const key in params) {
-        if (Array.isArray(params[key])) {
+        if (Array.isArray(params[key])) { // multiple values chosed for one filter
           filters[key] = params[key];
           for (const value of params[key]) {
             this.aggregationService.current_active_filters.push(value);
@@ -100,6 +101,7 @@ export class FileTableComponent implements OnInit, OnDestroy {
     );
     this.fileListLong = this.dataService.getAllFiles(this.query, 1000000);
     this.fileListLongSubscription = this.fileListLong.subscribe((data) => {
+      // data is the full list of getAllFiles result where the field names are defined
       this.aggregationService.getAggregations(data, 'file');
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
@@ -174,6 +176,10 @@ export class FileTableComponent implements OnInit, OnDestroy {
       }
       case 'Assay type': {
         this.sort_field['id'] = 'assayType';
+        break;
+      }
+      case 'Target': {
+        this.sort_field['id'] = 'target';
         break;
       }
       case 'Specimen': {

@@ -9,6 +9,7 @@ export interface FileTable {
   experiment: string;
   species: string;
   assayType: string;
+  target: string;
   specimen: string;
   instrument: string;
   standard: string;
