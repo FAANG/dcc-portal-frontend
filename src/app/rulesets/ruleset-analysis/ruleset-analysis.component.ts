@@ -10,6 +10,7 @@ import {
   getOntologyTermFromIRI,
   getValidItems
 } from '../../shared/common_functions';
+import {analysis_metadata_template_with_examples} from '../../shared/constants';
 
 @Component({
   selector: 'app-ruleset-analysis',
@@ -29,6 +30,7 @@ export class RulesetAnalysisComponent implements OnInit, AfterViewChecked {
   getOntologyTerm: any;
   getMandatoryData: any;
   generateEbiOntologyLink: any;
+  metadata_template_with_examples: string;
 
   constructor(private titleService: Title, private apiDataService: ApiDataService, private route: ActivatedRoute) { }
 
@@ -39,6 +41,7 @@ export class RulesetAnalysisComponent implements OnInit, AfterViewChecked {
     this.getOntologyTerm = getOntologyTermFromIRI;
     this.getMandatoryData = getMandatoryRulesOnly;
     this.generateEbiOntologyLink = generateEbiOntologyLink;
+    this.metadata_template_with_examples = analysis_metadata_template_with_examples;
     this.titleService.setTitle('FAANG Rule set|analyses');
     this.apiDataService.getRulesetAnalysis().subscribe(
       data => {

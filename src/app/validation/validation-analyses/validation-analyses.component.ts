@@ -3,7 +3,7 @@ import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
-import {issue_type, record_type, validation_service_url, validation_ws_url} from '../../shared/constants';
+import {issue_type, record_type, validation_service_url, validation_service_url_download, validation_ws_url} from '../../shared/constants';
 import {makeid} from '../../shared/common_functions';
 
 const UploadURL = validation_service_url + '/conversion/analyses';
@@ -224,7 +224,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   }
 
   constructDownloadLink() {
-    return validation_service_url + '/submission/get_data/' + this.download_data_task_id;
+    return validation_service_url_download + '/submission/get_data/' + this.download_data_task_id;
   }
 
   ngOnDestroy(): void {

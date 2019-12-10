@@ -2,7 +2,7 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
-import {experiment_metadata_template, experiment_metadata_template_with_examples} from '../../shared/constants';
+import {experiment_metadata_template_with_examples} from '../../shared/constants';
 import {
   allowMultiple,
   convertToSnakeCase,
@@ -42,7 +42,6 @@ export class RulesetExperimentComponent implements OnInit, AfterViewChecked {
     this.getOntologyTerm = getOntologyTermFromIRI;
     this.getMandatoryData = getMandatoryRulesOnly;
     this.generateEbiOntologyLink = generateEbiOntologyLink;
-    this.metadata_template = experiment_metadata_template;
     this.metadata_template_with_examples = experiment_metadata_template_with_examples;
     this.titleService.setTitle('FAANG Rule set|experiments');
     this.apiDataService.getRulesetExperiment().subscribe(
