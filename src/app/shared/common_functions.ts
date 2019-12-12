@@ -33,6 +33,33 @@ export function allowMultiple(rule: any) {
   }
 }
 
+export function  expandObject(myObject: any, level: number) {
+  if (level < 5) {
+    level = level + 1;
+    for (const key in myObject) {
+      if (key in this.fieldNames) {
+        if (typeof myObject[key] === 'object') {
+          for (const secondaryKey in myObject[key]) {
+            if (myObject[key][secondaryKey] !== '') {
+              this.experiment[key] = myObject[key];
+            }
+          }
+        } else {
+          if (myObject[key] !== '') {
+            this.experiment[key] = myObject[key];
+          }
+        }
+      } else {
+        if (key in this.fieldExcludeNames) {
+          continue;
+        } else {
+          this.expandObject(myObject[key], level);
+        }
+      }
+    }
+  }
+}
+
 export function getValidItems(rule: any, section_name: string) {
   if (rule[section_name]) {
     return rule[section_name].map(function (el) {

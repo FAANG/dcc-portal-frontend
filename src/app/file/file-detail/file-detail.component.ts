@@ -5,6 +5,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {FIELDEXCLUDENAMES, FIELDNAMES} from '../../shared/fieldnames';
 import {external_ena_prefix, external_ols_prefix, internal_dataset, internal_organism, internal_specimen} from '../../shared/constants';
+import {expandObject} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-file-detail',
@@ -19,6 +20,7 @@ export class FileDetailComponent implements OnInit {
   fieldNames = FIELDNAMES;
   fieldExcludeNames = FIELDEXCLUDENAMES;
   showExperimentDetail = false;
+  expandObject: any;
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;
@@ -34,6 +36,7 @@ export class FileDetailComponent implements OnInit {
               private titleService: Title) { }
 
   ngOnInit() {
+    this.expandObject = expandObject;
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.fileId = params['id'];
@@ -55,7 +58,7 @@ export class FileDetailComponent implements OnInit {
             if (this.file.hasOwnProperty('experiment')) {
               this.dataService.getExperimentByAccession(this.file['experiment']['accession']).subscribe(
                 (experiment_data: any) => {
-                  this.expandObject(experiment_data['hits']['hits'][0]['_source']);
+                  this.expandObject(experiment_data['hits']['hits'][0]['_source'], 0);
                 },
                 error => {
                   this.error = error;
@@ -70,30 +73,6 @@ export class FileDetailComponent implements OnInit {
         this.spinner.hide();
       }
     );
-  }
-
-  expandObject(myObject: any) {
-    for (const key in myObject) {
-      if (key in this.fieldNames) {
-        if (typeof myObject[key] === 'object') {
-          for (const secondaryKey in myObject[key]) {
-            if (myObject[key][secondaryKey] !== '') {
-              this.experiment[key] = myObject[key];
-            }
-          }
-        } else {
-          if (myObject[key] !== '') {
-            this.experiment[key] = myObject[key];
-          }
-        }
-      } else {
-        if (key in this.fieldExcludeNames) {
-          continue;
-        } else {
-          this.expandObject(myObject[key]);
-        }
-      }
-    }
   }
 
   checkIsObject(value: any) {

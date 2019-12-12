@@ -7,8 +7,11 @@ import {
   getOntologyTermFromIRI,
   generateEbiOntologyLink,
   getMandatoryRulesOnly,
-  convertToSnakeCase, getProtocolLink
+  convertToSnakeCase,
+  getProtocolLink,
+  expandObject
 } from './common_functions';
+import {FIELDEXCLUDENAMES, FIELDNAMES} from './fieldnames';
 
 describe('common functions', () => {
   it ('replaceUnderscoreWithSpace replace underscore with space', () => {
@@ -62,6 +65,33 @@ describe('common functions', () => {
   it('allowMultiple should return Yes when allow_multiple equal to 1', () => {
     const rule = {'allow_multiple': 1, 'text': 'efg'};
     expect(allowMultiple(rule)).toEqual('Yes');
+  });
+
+  it('expandObject should assign right values to experiment', () => {
+    const data = {
+      standardMet: 'Legacy',
+      accession: 'SRX339479',
+      assayType: 'whole genome sequencing assay',
+      experimentTarget: 'input DNA',
+      chipSeq: {
+        chipTarget: 'H3K27me3'
+      }
+    };
+    const expected = {
+      assayType: 'whole genome sequencing assay',
+      experimentTarget: 'input DNA',
+      chipTarget: 'H3K27me3'
+    };
+    class Test {
+      experiment: any = {};
+      fieldNames = FIELDNAMES;
+      fieldExcludeNames = FIELDEXCLUDENAMES;
+      expandObject: any;
+    }
+    const component = new Test();
+    component.expandObject = expandObject;
+    component.expandObject(data, 0);
+    expect(component.experiment).toEqual(expected);
   });
 
   it('getValidItems should return empty string when the required element is not present', () => {
