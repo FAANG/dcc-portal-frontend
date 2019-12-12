@@ -1,4 +1,5 @@
-export const FIELDNAMES = {
+export const FIELD_NAMES = {
+  project: 'Project',
   assayType: 'Assay type',
   sampleStorage: 'Sample storage',
   sampleStorageProcessing: 'Sample storage processing',
@@ -49,7 +50,7 @@ export const FIELDNAMES = {
   cageProtocol: 'CAGE protocol'
 };
 
-export const FIELDEXCLUDENAMES = {
+export const EXCLUDED_FIELD_NAMES = {
   accession: 'accession',
   standardMet: 'standard Met',
   versionLastStandardMet: 'version last standard met',

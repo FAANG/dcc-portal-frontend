@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FIELDEXCLUDENAMES, FIELDNAMES} from '../../shared/fieldnames';
+import {FIELD_NAMES} from '../../shared/fieldnames';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -19,8 +19,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
   protocol: any;
   error: any;
   experiment: any = {};
-  fieldNames = FIELDNAMES;
-  fieldExcludeNames = FIELDEXCLUDENAMES;
+  fieldNames = FIELD_NAMES;
   experimentId: string;
   objectKeys = Object.keys;
   link: string;
@@ -70,7 +69,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
     this.experimentId = id;
     this.dataService.getExperimentByAccession(id).subscribe(
       (data: any) => {
-        this.expandObject(data['hits']['hits'][0]['_source'], 0);
+        this.experiment = this.expandObject(data['hits']['hits'][0]['_source'], this.experiment);
       },
       error => {
         this.error = error;

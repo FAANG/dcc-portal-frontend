@@ -3,7 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
-import {FIELDEXCLUDENAMES, FIELDNAMES} from '../../shared/fieldnames';
+import {FIELD_NAMES} from '../../shared/fieldnames';
 import {external_ena_prefix, external_ols_prefix, internal_dataset, internal_organism, internal_specimen} from '../../shared/constants';
 import {expandObject} from '../../shared/common_functions';
 
@@ -17,8 +17,7 @@ export class FileDetailComponent implements OnInit {
   file: any;
   experiment: any = {};
   error: any;
-  fieldNames = FIELDNAMES;
-  fieldExcludeNames = FIELDEXCLUDENAMES;
+  fieldNames = FIELD_NAMES; // required in the html page
   showExperimentDetail = false;
   expandObject: any;
   readonly ena_prefix = external_ena_prefix;
@@ -58,7 +57,7 @@ export class FileDetailComponent implements OnInit {
             if (this.file.hasOwnProperty('experiment')) {
               this.dataService.getExperimentByAccession(this.file['experiment']['accession']).subscribe(
                 (experiment_data: any) => {
-                  this.expandObject(experiment_data['hits']['hits'][0]['_source'], 0);
+                  this.experiment = this.expandObject(experiment_data['hits']['hits'][0]['_source'], this.experiment);
                 },
                 error => {
                   this.error = error;

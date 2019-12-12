@@ -1,3 +1,5 @@
+import {EXCLUDED_FIELD_NAMES, FIELD_NAMES} from './fieldnames';
+
 export function replaceUnderscoreWithSpace(data) {
   if (data) {
     if (data.indexOf('_') !== -1) {
@@ -33,31 +35,38 @@ export function allowMultiple(rule: any) {
   }
 }
 
-export function  expandObject(myObject: any, level: number) {
-  if (level < 5) {
-    level = level + 1;
-    for (const key in myObject) {
-      if (key in this.fieldNames) {
-        if (typeof myObject[key] === 'object') {
-          for (const secondaryKey in myObject[key]) {
-            if (myObject[key][secondaryKey] !== '') {
-              this.experiment[key] = myObject[key];
-            }
-          }
-        } else {
-          if (myObject[key] !== '') {
-            this.experiment[key] = myObject[key];
+// extract data from given object into a key-value mapping
+export function  expandObject(data: any, result: any) {
+  const type_value = typeof(data);
+  if (type_value === 'string') { // if the given data is a string, no data can be extracted, just return the existing result
+    return result;
+  }
+  if (type_value !== 'object') {
+    return result;
+  }
+  //  given data is an object, iterate its key values
+  for (const key in data) {
+    if (key in FIELD_NAMES) { // known key values
+      if (typeof data[key] === 'object') {
+        for (const secondaryKey in data[key]) {
+          if (data[key][secondaryKey] !== '') {
+            result[key] = data[key];
           }
         }
       } else {
-        if (key in this.fieldExcludeNames) {
-          continue;
-        } else {
-          this.expandObject(myObject[key], level);
+        if (data[key] !== '') {
+          result[key] = data[key];
         }
+      }
+    } else { // not known key values, could be either excluded field name or section name or totally unexpected
+      if (key in EXCLUDED_FIELD_NAMES) {
+        continue;
+      } else {
+        result = expandObject(data[key], result);
       }
     }
   }
+  return result;
 }
 
 export function getValidItems(rule: any, section_name: string) {
