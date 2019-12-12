@@ -34,6 +34,8 @@ export const FIELDNAMES = {
   dnaseProtocol: 'DNase protocol',
   restrictionSite: 'Restriction site',
   chipProtocol: 'ChIP protocol',
+  controlExperiment: 'Control experiment',
+  chipTarget: 'Target',
   chipAntibodyProvider: 'ChIP antibody provider',
   chipAntibodyCatalog: 'ChIP antibody catalog',
   chipAntibodyLot: 'ChIP antibody lot',

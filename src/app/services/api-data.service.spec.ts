@@ -51,7 +51,7 @@ describe('ApiDataService', () => {
   }));
 
   it('should return experiment for particular file', inject([ApiDataService], (service: ApiDataService) => {
-    service.getFilesExperiment('SRX339479').subscribe(data => {
+    service.getExperimentByAccession('SRX339479').subscribe(data => {
       const experiment_should_be = {
         standardMet: 'Legacy',
         accession: 'SRX339479',

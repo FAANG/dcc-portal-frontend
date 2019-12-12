@@ -66,7 +66,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
   onClick(id: string) {
     this.experiment = {};
     this.experimentId = id;
-    this.dataService.getFilesExperiment(id).subscribe(
+    this.dataService.getExperimentByAccession(id).subscribe(
       (data: any) => {
         this.expandObject(data['hits']['hits'][0]['_source']);
       },

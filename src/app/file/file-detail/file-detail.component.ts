@@ -53,7 +53,7 @@ export class FileDetailComponent implements OnInit {
                 ((b.year > a.year) ? 1 : 0));
             }
             if (this.file.hasOwnProperty('experiment')) {
-              this.dataService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
+              this.dataService.getExperimentByAccession(this.file['experiment']['accession']).subscribe(
                 (experiment_data: any) => {
                   this.expandObject(experiment_data['hits']['hits'][0]['_source']);
                 },

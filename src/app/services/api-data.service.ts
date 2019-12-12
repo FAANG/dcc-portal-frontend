@@ -55,7 +55,7 @@ export class ApiDataService {
     );
   }
 
-  getFilesExperiment(experimentId: string) {
+  getExperimentByAccession(experimentId: string) {
     const url = this.hostSetting.host + 'experiment/' + experimentId;
     return this.http.get<any>(url).pipe(
       retry(3),
