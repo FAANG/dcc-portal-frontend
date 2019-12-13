@@ -91,6 +91,7 @@
         <dd class="col-sm-9">
           <ng-container *ngFor="let exp of analysis?.experimentAccessions">
             <app-robust-link [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
+            &nbsp;
           </ng-container>
         </dd>
       </ng-container>
@@ -100,6 +101,7 @@
         <dd class="col-sm-9">
           <ng-container *ngFor="let run of analysis?.runAccessions">
             <app-robust-link [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
+            &nbsp;
           </ng-container>
         </dd>
       </ng-container>

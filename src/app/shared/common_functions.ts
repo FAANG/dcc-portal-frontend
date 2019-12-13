@@ -38,16 +38,14 @@ export function allowMultiple(rule: any) {
 // extract data from given object into a key-value mapping
 export function  expandObject(data: any, result: any) {
   const type_value = typeof(data);
-  if (type_value === 'string') { // if the given data is a string, no data can be extracted, just return the existing result
-    return result;
-  }
+  // if the given data is not an object, no data can be extracted, just return the existing result
   if (type_value !== 'object') {
     return result;
   }
   //  given data is an object, iterate its key values
   for (const key in data) {
     if (key in FIELD_NAMES) { // known key values
-      if (typeof data[key] === 'object') {
+      if (typeof data[key] === 'object') { // some fields have sub elements, like ontologyTerms, units
         for (const secondaryKey in data[key]) {
           if (data[key][secondaryKey] !== '') {
             result[key] = data[key];
@@ -58,7 +56,7 @@ export function  expandObject(data: any, result: any) {
           result[key] = data[key];
         }
       }
-    } else { // not known key values, could be either excluded field name or section name or totally unexpected
+    } else { // not known key values, could be one of the cases: excluded field name, section name or totally unexpected
       if (key in EXCLUDED_FIELD_NAMES) {
         continue;
       } else {
