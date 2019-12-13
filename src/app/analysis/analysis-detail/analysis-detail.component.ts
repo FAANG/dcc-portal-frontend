@@ -61,4 +61,10 @@ export class AnalysisDetailComponent implements OnInit {
     );
   }
 
+  // TODO: add new ES field to check existance of samples when importing the analysis
+  // the introduction of virtual pool of specimen which does not meet FAANG standard make it necessary to dynamically determine
+  // which prefix to use to create the link, either within data portal or ENA
+  sampleInES(biosampleId: string) {
+    return false;
+  }
 }

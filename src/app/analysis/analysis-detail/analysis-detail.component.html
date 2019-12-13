@@ -76,10 +76,10 @@
         <dt class="col-sm-3">Related Samples:</dt>
         <dd class="col-sm-9">
           <ng-container *ngFor="let accession of analysis?.sampleAccessions">
-            <ng-container *ngIf="analysis?.datasetInPortal">
+            <ng-container *ngIf="sampleInES(accession)">
               <app-robust-link [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
             </ng-container>
-            <ng-container *ngIf="!analysis?.datasetInPortal">
+            <ng-container *ngIf="!sampleInES(accession)">
               <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
             </ng-container>&nbsp;
           </ng-container>
