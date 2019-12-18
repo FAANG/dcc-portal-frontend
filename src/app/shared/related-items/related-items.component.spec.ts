@@ -48,7 +48,7 @@ describe('RelatedItemsComponent', () => {
   });
 
   it ('check all columns', () => {
-    expect(component.get_all_fields()).toEqual(['File name', 'Experiment', 'Archive', 'File size']);
+    expect(component.get_all_fields()).toEqual(['File name', 'Experiment', 'Archive', 'File size', 'Checksum', 'Checksum method']);
   });
 
   it ('check initial displayed columns', () => {

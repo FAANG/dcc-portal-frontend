@@ -17,6 +17,11 @@ i {
   cursor: pointer;
 }
 
+/*the whole filter component*/
+.card {
+  /*width: 180px;*/
+}
+
 .card-header {
   background-color: #DCEDF5;
   color: #577C95;

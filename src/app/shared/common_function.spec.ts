@@ -7,8 +7,11 @@ import {
   getOntologyTermFromIRI,
   generateEbiOntologyLink,
   getMandatoryRulesOnly,
-  convertToSnakeCase, getProtocolLink
+  convertToSnakeCase,
+  getProtocolLink,
+  expandObject
 } from './common_functions';
+import {EXCLUDED_FIELD_NAMES, FIELD_NAMES} from './fieldnames';
 
 describe('common functions', () => {
   it ('replaceUnderscoreWithSpace replace underscore with space', () => {
@@ -62,6 +65,32 @@ describe('common functions', () => {
   it('allowMultiple should return Yes when allow_multiple equal to 1', () => {
     const rule = {'allow_multiple': 1, 'text': 'efg'};
     expect(allowMultiple(rule)).toEqual('Yes');
+  });
+
+  it('expandObject should assign right values to experiment', () => {
+    const data = {
+      standardMet: 'Legacy',
+      accession: 'SRX339479',
+      assayType: 'whole genome sequencing assay',
+      experimentTarget: 'input DNA',
+      chipSeq: {
+        chipTarget: 'H3K27me3'
+      }
+    };
+    const just_a_string = 'string value';
+    const just_a_number = 600;
+    const expected = {
+      assayType: 'whole genome sequencing assay',
+      experimentTarget: 'input DNA',
+      chipTarget: 'H3K27me3'
+    };
+    let result: any = {};
+    result = expandObject(just_a_string, result);
+    expect(Object.keys(result).length).toEqual(0);
+    result = expandObject(just_a_number, result);
+    expect(Object.keys(result).length).toEqual(0);
+    result = expandObject(data, result);
+    expect(result).toEqual(expected);
   });
 
   it('getValidItems should return empty string when the required element is not present', () => {

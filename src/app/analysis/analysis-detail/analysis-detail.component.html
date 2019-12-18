@@ -76,10 +76,10 @@
         <dt class="col-sm-3">Related Samples:</dt>
         <dd class="col-sm-9">
           <ng-container *ngFor="let accession of analysis?.sampleAccessions">
-            <ng-container *ngIf="analysis?.datasetInPortal">
+            <ng-container *ngIf="sampleInES(accession)">
               <app-robust-link [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
             </ng-container>
-            <ng-container *ngIf="!analysis?.datasetInPortal">
+            <ng-container *ngIf="!sampleInES(accession)">
               <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
             </ng-container>&nbsp;
           </ng-container>
@@ -91,6 +91,7 @@
         <dd class="col-sm-9">
           <ng-container *ngFor="let exp of analysis?.experimentAccessions">
             <app-robust-link [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
+            &nbsp;
           </ng-container>
         </dd>
       </ng-container>
@@ -100,6 +101,7 @@
         <dd class="col-sm-9">
           <ng-container *ngFor="let run of analysis?.runAccessions">
             <app-robust-link [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
+            &nbsp;
           </ng-container>
         </dd>
       </ng-container>

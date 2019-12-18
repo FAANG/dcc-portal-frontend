@@ -1,4 +1,5 @@
-export const FIELDNAMES = {
+export const FIELD_NAMES = {
+  project: 'Project',
   assayType: 'Assay type',
   sampleStorage: 'Sample storage',
   sampleStorageProcessing: 'Sample storage processing',
@@ -34,6 +35,8 @@ export const FIELDNAMES = {
   dnaseProtocol: 'DNase protocol',
   restrictionSite: 'Restriction site',
   chipProtocol: 'ChIP protocol',
+  controlExperiment: 'Control experiment',
+  chipTarget: 'Target',
   chipAntibodyProvider: 'ChIP antibody provider',
   chipAntibodyCatalog: 'ChIP antibody catalog',
   chipAntibodyLot: 'ChIP antibody lot',
@@ -47,7 +50,7 @@ export const FIELDNAMES = {
   cageProtocol: 'CAGE protocol'
 };
 
-export const FIELDEXCLUDENAMES = {
+export const EXCLUDED_FIELD_NAMES = {
   accession: 'accession',
   standardMet: 'standard Met',
   versionLastStandardMet: 'version last standard met',

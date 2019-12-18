@@ -46,14 +46,6 @@ describe('ProtocolExperimentDetailsComponent', () => {
     expect(component.getHumanName('rnaPreparation3AdapterLigationProtocol')).toEqual('Rna preparation 3\' adapter ligation protocol');
   });
 
-  it('expandObject should create right data structures', () => {
-    const data = {
-      bisulfiteConversionPercent: '99.0'
-    };
-    component.expandObject(data);
-    expect(component.experiment).toEqual({bisulfiteConversionPercent: '99.0'});
-  });
-
   it('checkIsObject should return true if input is object', () => {
     expect(component.checkIsObject({})).toEqual(true);
   });

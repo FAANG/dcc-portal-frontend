@@ -1,8 +1,12 @@
+import {EXCLUDED_FIELD_NAMES, FIELD_NAMES} from './fieldnames';
+
 export function replaceUnderscoreWithSpace(data) {
-  if (data.indexOf('_') !== -1) {
-    return data.split('_').join(' ');
-  } else {
-    return data;
+  if (data) {
+    if (data.indexOf('_') !== -1) {
+      return data.split('_').join(' ');
+    } else {
+      return data;
+    }
   }
 }
 
@@ -29,6 +33,38 @@ export function allowMultiple(rule: any) {
   } else {
     return 'No';
   }
+}
+
+// extract data from given object into a key-value mapping
+export function  expandObject(data: any, result: any) {
+  const type_value = typeof(data);
+  // if the given data is not an object, no data can be extracted, just return the existing result
+  if (type_value !== 'object') {
+    return result;
+  }
+  //  given data is an object, iterate its key values
+  for (const key in data) {
+    if (key in FIELD_NAMES) { // known key values
+      if (typeof data[key] === 'object') { // some fields have sub elements, like ontologyTerms, units
+        for (const secondaryKey in data[key]) {
+          if (data[key][secondaryKey] !== '') {
+            result[key] = data[key];
+          }
+        }
+      } else {
+        if (data[key] !== '') {
+          result[key] = data[key];
+        }
+      }
+    } else { // not known key values, could be one of the cases: excluded field name, section name or totally unexpected
+      if (key in EXCLUDED_FIELD_NAMES) {
+        continue;
+      } else {
+        result = expandObject(data[key], result);
+      }
+    }
+  }
+  return result;
 }
 
 export function getValidItems(rule: any, section_name: string) {

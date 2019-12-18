@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {FileTableComponent} from './file-table/file-table.component';
+import {FileComponent} from './file/file.component';
 import {HomeComponent} from './home/home.component';
 import {OrganismComponent} from './organism/organism.component';
 import {SpecimenComponent} from './specimen/specimen.component';
@@ -9,7 +9,7 @@ import {AnalysisComponent} from './analysis/analysis.component';
 
 import {SearchComponent} from './search/search.component';
 import {HelpComponent} from './help/help.component';
-import {FileDetailComponent} from './file-table/file-detail/file-detail.component';
+import {FileDetailComponent} from './file/file-detail/file-detail.component';
 import {OrganismDetailComponent} from './organism/organism-detail/organism-detail.component';
 import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detail.component';
 import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
@@ -48,7 +48,7 @@ const routes: Routes = [
   {path: 'specimen/:id', component: SpecimenDetailComponent},
   {path: 'dataset', component: DatasetComponent},
   {path: 'dataset/:id', component: DatasetDetailComponent},
-  {path: 'file', component: FileTableComponent},
+  {path: 'file', component: FileComponent},
   {path: 'file/:id', component: FileDetailComponent},
   {path: 'analysis', component: AnalysisComponent},
   {path: 'analysis/:id', component: AnalysisDetailComponent},

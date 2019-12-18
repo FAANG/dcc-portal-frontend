@@ -3,8 +3,9 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
-import {FIELDEXCLUDENAMES, FIELDNAMES} from '../../shared/fieldnames';
+import {FIELD_NAMES} from '../../shared/fieldnames';
 import {external_ena_prefix, external_ols_prefix, internal_dataset, internal_organism, internal_specimen} from '../../shared/constants';
+import {expandObject} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-file-detail',
@@ -16,9 +17,9 @@ export class FileDetailComponent implements OnInit {
   file: any;
   experiment: any = {};
   error: any;
-  fieldNames = FIELDNAMES;
-  fieldExcludeNames = FIELDEXCLUDENAMES;
+  fieldNames = FIELD_NAMES; // required in the html page
   showExperimentDetail = false;
+  expandObject: any;
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;
@@ -34,6 +35,7 @@ export class FileDetailComponent implements OnInit {
               private titleService: Title) { }
 
   ngOnInit() {
+    this.expandObject = expandObject;
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.fileId = params['id'];
@@ -53,9 +55,9 @@ export class FileDetailComponent implements OnInit {
                 ((b.year > a.year) ? 1 : 0));
             }
             if (this.file.hasOwnProperty('experiment')) {
-              this.dataService.getFilesExperiment(this.file['experiment']['accession']).subscribe(
+              this.dataService.getExperimentByAccession(this.file['experiment']['accession']).subscribe(
                 (experiment_data: any) => {
-                  this.expandObject(experiment_data['hits']['hits'][0]['_source']);
+                  this.experiment = this.expandObject(experiment_data['hits']['hits'][0]['_source'], this.experiment);
                 },
                 error => {
                   this.error = error;
@@ -70,30 +72,6 @@ export class FileDetailComponent implements OnInit {
         this.spinner.hide();
       }
     );
-  }
-
-  expandObject(myObject: any) {
-    for (const key in myObject) {
-      if (key in this.fieldNames) {
-        if (typeof myObject[key] === 'object') {
-          for (const secondaryKey in myObject[key]) {
-            if (myObject[key][secondaryKey] !== '') {
-              this.experiment[key] = myObject[key];
-            }
-          }
-        } else {
-          if (myObject[key] !== '') {
-            this.experiment[key] = myObject[key];
-          }
-        }
-      } else {
-        if (key in this.fieldExcludeNames) {
-          continue;
-        } else {
-          this.expandObject(myObject[key]);
-        }
-      }
-    }
   }
 
   checkIsObject(value: any) {

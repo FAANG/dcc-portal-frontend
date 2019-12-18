@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FIELDEXCLUDENAMES, FIELDNAMES} from '../../shared/fieldnames';
+import {FIELD_NAMES} from '../../shared/fieldnames';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {protocolNames} from '../../shared/protocolnames';
-import {getProtocolLink} from '../../shared/common_functions';
+import {getProtocolLink, expandObject} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-protocol-experiment-details',
@@ -14,12 +14,12 @@ import {getProtocolLink} from '../../shared/common_functions';
   styleUrls: ['./protocol-experiment-details.component.css']
 })
 export class ProtocolExperimentDetailsComponent implements OnInit {
+  expandObject: any;
   protocolId: string;
   protocol: any;
   error: any;
   experiment: any = {};
-  fieldNames = FIELDNAMES;
-  fieldExcludeNames = FIELDEXCLUDENAMES;
+  fieldNames = FIELD_NAMES;
   experimentId: string;
   objectKeys = Object.keys;
   link: string;
@@ -34,6 +34,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
               public ngxSmartModalService: NgxSmartModalService) { }
 
   ngOnInit() {
+    this.expandObject = expandObject;
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.protocolId = params['id'];
@@ -66,38 +67,14 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
   onClick(id: string) {
     this.experiment = {};
     this.experimentId = id;
-    this.dataService.getFilesExperiment(id).subscribe(
+    this.dataService.getExperimentByAccession(id).subscribe(
       (data: any) => {
-        this.expandObject(data['hits']['hits'][0]['_source']);
+        this.experiment = this.expandObject(data['hits']['hits'][0]['_source'], this.experiment);
       },
       error => {
         this.error = error;
       }
     );
-  }
-
-  expandObject(myObject: any) {
-    for (const key in myObject) {
-      if (key in this.fieldNames) {
-        if (typeof myObject[key] === 'object') {
-          for (const secondaryKey in myObject[key]) {
-            if (myObject[key][secondaryKey] !== '') {
-              this.experiment[key] = myObject[key];
-            }
-          }
-        } else {
-          if (myObject[key] !== '') {
-            this.experiment[key] = myObject[key];
-          }
-        }
-      } else {
-        if (key in this.fieldExcludeNames) {
-          continue;
-        } else {
-          this.expandObject(myObject[key]);
-        }
-      }
-    }
   }
 
   checkIsObject(value: any) {

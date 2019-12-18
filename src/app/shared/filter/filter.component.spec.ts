@@ -112,6 +112,23 @@ describe('FilterComponent', () => {
     component.onButtonClick('test', 'Assay type');
   }));
 
+  it ('onButtonClick for Target should emit standard data when upon single click', inject([AggregationService],
+    (service: AggregationService) => {
+    service.field.subscribe(data => {
+      expect(data['target']).toEqual(['test']);
+    });
+    component.onButtonClick('test', 'Target');
+  }));
+
+  it ('onButtonClick for Target should emit standard data when upon double click', inject([AggregationService],
+    (service: AggregationService) => {
+    component.onButtonClick('test', 'Target');
+    service.field.subscribe(data => {
+      expect(data['target']).toEqual([]);
+    });
+    component.onButtonClick('test', 'Target');
+  }));
+
   it ('onButtonClick for Instrument should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
     service.field.subscribe(data => {
@@ -299,21 +316,21 @@ describe('FilterComponent', () => {
     component.onButtonClick('Experimental protocol', 'Protocol');
   }));
 
-  it ('onButtonClick for Target type should emit standard data when upon single click', inject([AggregationService],
+  it ('onButtonClick for Experiment target type should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
     service.field.subscribe(data => {
       expect(data['experimentTarget']).toEqual(['test']);
     });
-    component.onButtonClick('test', 'Target');
+    component.onButtonClick('test', 'Experiment target');
   }));
 
-  it ('onButtonClick for Target type should emit standard data when upon double click', inject([AggregationService],
+  it ('onButtonClick for Experiment target type should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
-    component.onButtonClick('test', 'Target');
+    component.onButtonClick('test', 'Experiment target');
     service.field.subscribe(data => {
       expect(data['experimentTarget']).toEqual([]);
     });
-    component.onButtonClick('test', 'Target');
+    component.onButtonClick('test', 'Experiment target');
   }));
 
   it ('onButtonClick for Paper published type should emit standard data when upon single click',

@@ -26,6 +26,7 @@ export class ApiDataService {
           experiment: entry['_source']['experiment']['accession'],
           species: entry['_source']['species']['text'],
           assayType: entry['_source']['experiment']['assayType'],
+          target: entry['_source']['experiment']['target'],
           specimen: entry['_source']['specimen'],
           instrument: entry['_source']['run']['instrument'],
           standard: entry['_source']['experiment']['standardMet'],
@@ -54,7 +55,7 @@ export class ApiDataService {
     );
   }
 
-  getFilesExperiment(experimentId: string) {
+  getExperimentByAccession(experimentId: string) {
     const url = this.hostSetting.host + 'experiment/' + experimentId;
     return this.http.get<any>(url).pipe(
       retry(3),

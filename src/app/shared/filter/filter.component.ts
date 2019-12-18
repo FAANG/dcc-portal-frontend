@@ -23,6 +23,8 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.itemLimit = this.filterSize;
     this.subsription = this.aggregationService.data.subscribe(
       (data: any) => {
+        // data is a map, keys are active_filters names defined in service/aggregatin_service.ts,
+        // values are the corresponding aggregation e.g. { "FAANG":675,"Legacy": 9834}
         if (this.title === 'Standard') {
           this.aggregation = data['standard'];
         } else if (this.title === 'Study') {
@@ -59,8 +61,10 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['protocol_type'];
         } else if (this.title === 'Protocol') {
           this.aggregation = data['protocol_type'];
-        } else if (this.title === 'Target') {
+        } else if (this.title === 'Experiment target') {
           this.aggregation = data['experiment_target'];
+        } else if (this.title === 'Target') {
+          this.aggregation = data['target'];
         } else if (this.title === 'Paper published') {
           this.aggregation = data['paper_published'];
         } else if (this.title === 'Journal title') {
@@ -145,8 +149,12 @@ export class FilterComponent implements OnInit, OnDestroy {
         key = this.getReverseHumanName(key);
         break;
       }
-      case 'Target': {
+      case 'Experiment target': {
         data_key = 'experimentTarget';
+        break;
+      }
+      case 'Target': {
+        data_key = 'target';
         break;
       }
       case 'Paper published': {
