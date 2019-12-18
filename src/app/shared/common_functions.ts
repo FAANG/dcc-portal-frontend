@@ -120,7 +120,6 @@ export function convertToSnakeCase(id: string) {
 export function getProtocolLink(url) {
   let link: string;
   if (url.indexOf('ftp.faang.ebi.ac.uk') !== -1) {
-    console.log(url);
     link = 'https://data.faang.org/api/fire_api/' + url.split('ftp.faang.ebi.ac.uk/ftp/protocols/')[1];
   } else {
     if (url.split('//')[0] === 'ftp:') {
