@@ -21,10 +21,13 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown" [ngClass]="recordsOpenDropdown()">
           <a class="nav-link" routerLink="/organism">Organisms</a>
           <a class="nav-link" routerLink="/specimen">Specimens</a>
-          <a class="nav-link" routerLink="/dataset">Datasets</a>
           <div class="dropdown-divider"></div>
+          <a class="nav-link" routerLink="/dataset">Datasets</a>
           <a class="nav-link" routerLink="/file">Files</a>
+          <div class="dropdown-divider"></div>
           <a class="nav-link" routerLink="/analysis">Analyses</a>
+          <div class="dropdown-divider"></div>
+          <a class="nav-link" routerLink="/protocol/samples">Protocols</a>
         </div>
       </li>
 
@@ -45,9 +48,6 @@
 <!--          <a class="nav-link" routerLink="/projects/usda-bovine">USDA-Bovine</a>-->
 <!--          <a class="nav-link" routerLink="/projects/sheepatlas">Sheepatlas</a>-->
         </div>
-      </li>
-      <li class="nav-item" [ngClass]="isActiveProtocols()">
-        <a class="nav-link" routerLink="/protocol/samples">Protocols</a>
       </li>
       <li class="nav-item" [ngClass]="isActiveSummary()">
         <a class="nav-link" routerLink="/summary/organisms">Summary</a>
