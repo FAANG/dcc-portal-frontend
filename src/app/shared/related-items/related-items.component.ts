@@ -196,7 +196,8 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   // determine the checked conversion_status of the checkbox in the table header
-  // return 2 means all files selected (checkbox checked conversion_status), 1 means partially files selected (checkbox indeterminate conversion_status)
+  // return 2 means all files selected (checkbox checked conversion_status),
+  // 1 means partially files selected (checkbox indeterminate conversion_status)
   // and 0 means none selected
   mainCheckboxChecked() {
     if (this.records) {

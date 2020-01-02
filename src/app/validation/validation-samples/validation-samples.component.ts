@@ -4,7 +4,7 @@ import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
 import {issue_type, record_type, validation_service_url, validation_service_url_download, validation_ws_url} from '../../shared/constants';
-import {makeid} from '../../shared/common_functions';
+import {makeid, getIssues, getCellClass} from '../../shared/common_functions';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -35,6 +35,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   conversion_task_id: string;
   download_data_task_id: string;
   errors = [];
+  getIssues: any;
+  getCellClass: any;
 
   constructor(
     private titleService: Title,
@@ -51,6 +53,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       console.log(this.conversion_task_id);
     };
     this.conversion_status = 'Undefined';
+    this.getIssues = getIssues;
+    this.getCellClass = getCellClass;
   }
 
   setValidationResults() {
@@ -111,32 +115,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   remove_underscores(record) {
     return record.replace(/[_]/g, ' ');
-  }
-
-  getIssues(issues_list, issue_type) {
-    issues_list = issues_list.length;
-    if (issues_list === 0) {
-      return 'pass';
-    } else {
-      if (issues_list === 1) {
-        return issues_list + ' ' + issue_type;
-      } else {
-        return issues_list + ' ' + issue_type + 's';
-      }
-    }
-  }
-
-  getCellClass(issues_list, issue_type) {
-    issues_list = issues_list.length;
-    if (issues_list === 0) {
-      return '';
-    } else {
-      if (issue_type === 'warning') {
-        return 'table-warning';
-      } else {
-        return 'table-danger';
-      }
-    }
   }
 
   getCellStyle(issues_list) {
