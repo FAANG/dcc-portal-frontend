@@ -47,8 +47,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  projectsOpenDropdown() {
-    return this.projects_dropdown_open === true ? 'show' : '';
+  isActiveProjects() {
+    if (this.router.url.includes('projects')) {
+      return 'active';
+    }
   }
 
   projectsOnDropdownClick() {

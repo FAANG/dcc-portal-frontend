@@ -28,24 +28,29 @@
         </div>
       </li>
 
-      <li class="nav-item dropdown" [ngClass]="projectsOpenDropdown()" routerLinkActive="active">
-        <a class="nav-link dropdown-toggle"
-           role="button"
-           data-toggle="dropdown"
-           aria-haspopup="true"
-           aria-expanded="false"
-           style="cursor: pointer"
-           (click)="projectsOnDropdownClick()">
-          Projects
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown" [ngClass]="projectsOpenDropdown()">
-          <a class="nav-link" routerLink="/projects/aquafaang">AQUA-FAANG</a>
-          <a class="nav-link" routerLink="/projects/bovreg">BovReg</a>
-          <a class="nav-link" routerLink="/projects/gene-switch">GENE-SWitCH</a>
-<!--          <a class="nav-link" routerLink="/projects/usda-bovine">USDA-Bovine</a>-->
-<!--          <a class="nav-link" routerLink="/projects/sheepatlas">Sheepatlas</a>-->
-        </div>
+<!--      <li class="nav-item dropdown" [ngClass]="projectsOpenDropdown()" routerLinkActive="active">-->
+<!--        <a class="nav-link dropdown-toggle"-->
+<!--           role="button"-->
+<!--           data-toggle="dropdown"-->
+<!--           aria-haspopup="true"-->
+<!--           aria-expanded="false"-->
+<!--           style="cursor: pointer"-->
+<!--           (click)="projectsOnDropdownClick()">-->
+<!--          Projects-->
+<!--        </a>-->
+<!--        <div class="dropdown-menu" aria-labelledby="navbarDropdown" [ngClass]="projectsOpenDropdown()">-->
+<!--          <a class="nav-link" routerLink="/projects/aquafaang">AQUA-FAANG</a>-->
+<!--          <a class="nav-link" routerLink="/projects/bovreg">BovReg</a>-->
+<!--          <a class="nav-link" routerLink="/projects/gene-switch">GENE-SWitCH</a>-->
+<!--&lt;!&ndash;          <a class="nav-link" routerLink="/projects/usda-bovine">USDA-Bovine</a>&ndash;&gt;-->
+<!--&lt;!&ndash;          <a class="nav-link" routerLink="/projects/sheepatlas">Sheepatlas</a>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </li>-->
+
+      <li class="nav-item" [ngClass]="isActiveProjects()">
+        <a class="nav-link" routerLink="/projects">Projects</a>
       </li>
+
       <li class="nav-item" [ngClass]="isActiveProtocols()">
         <a class="nav-link" routerLink="/protocol/samples">Protocols</a>
       </li>

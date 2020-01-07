@@ -68,6 +68,7 @@ import { GeneSwitchComponent } from './subprojects/gene-switch/gene-switch.compo
 import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 import {FileUploadModule} from 'ng2-file-upload';
+import { SubprojectsLandingComponent } from './subprojects/subprojects-landing/subprojects-landing.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import {FileUploadModule} from 'ng2-file-upload';
     BovregComponent,
     GeneSwitchComponent,
     UsdaBovineComponent,
-    SheepatlasComponent
+    SheepatlasComponent,
+    SubprojectsLandingComponent
   ],
   imports: [
     BrowserModule,

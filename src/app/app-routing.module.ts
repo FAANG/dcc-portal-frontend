@@ -37,6 +37,7 @@ import {BovregComponent} from './subprojects/bovreg/bovreg.component';
 import {GeneSwitchComponent} from './subprojects/gene-switch/gene-switch.component';
 import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
 import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
+import {SubprojectsLandingComponent} from './subprojects/subprojects-landing/subprojects-landing.component';
 
 
 const routes: Routes = [
@@ -70,6 +71,7 @@ const routes: Routes = [
   {path: 'validation/samples', component: ValidationSamplesComponent},
   {path: 'validation/experiments', component: ValidationExperimentsComponent},
   {path: 'validation/analyses', component: ValidationAnalysesComponent},
+  {path: 'projects', component: SubprojectsLandingComponent},
   {path: 'projects/aquafaang', component: AquafaangComponent},
   {path: 'projects/bovreg', component: BovregComponent},
   {path: 'projects/gene-switch', component: GeneSwitchComponent},
