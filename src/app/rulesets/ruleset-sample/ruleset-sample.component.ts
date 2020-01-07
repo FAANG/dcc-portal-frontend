@@ -2,7 +2,7 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
-import {sample_metadata_template_with_examples} from '../../shared/constants';
+import {sample_metadata_template_with_examples, sample_metadata_template_without_examples} from '../../shared/constants';
 import {
   allowMultiple,
   convertToSnakeCase,
@@ -31,6 +31,7 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
   getMandatoryData: any;
   generateEbiOntologyLink: any;
   metadata_template_with_examples: string;
+  metadata_template_without_examples: string;
 
   constructor(private titleService: Title, private apiDataService: ApiDataService, private route: ActivatedRoute) { }
 
@@ -42,6 +43,7 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
     this.getMandatoryData = getMandatoryRulesOnly;
     this.generateEbiOntologyLink = generateEbiOntologyLink;
     this.metadata_template_with_examples = sample_metadata_template_with_examples;
+    this.metadata_template_without_examples = sample_metadata_template_without_examples;
     this.titleService.setTitle('FAANG Rule set|samples');
     this.apiDataService.getRulesetSample().subscribe(
       data => {

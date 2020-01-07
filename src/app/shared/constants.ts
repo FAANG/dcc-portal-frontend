@@ -24,3 +24,6 @@ export const sample_metadata_template_with_examples = '../../assets/with_example
 export const experiment_metadata_template_with_examples = '../../assets/with_examples/faang_experiment.xlsx';
 export const analysis_metadata_template_with_examples = '../../assets/with_examples/faang_analysis.xlsx';
 
+export const sample_metadata_template_without_examples = '../../assets/empty/faang_sample.xlsx';
+export const experiment_metadata_template_without_examples = '../../assets/empty/faang_experiment.xlsx';
+export const analysis_metadata_template_without_examples = '../../assets/empty/faang_analysis.xlsx';

@@ -3,7 +3,15 @@ import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
-import {issue_type, record_type, validation_service_url, validation_service_url_download, validation_ws_url} from '../../shared/constants';
+import {
+  experiment_metadata_template_with_examples, experiment_metadata_template_without_examples,
+  issue_type,
+  record_type,
+  sample_metadata_template_with_examples, sample_metadata_template_without_examples,
+  validation_service_url,
+  validation_service_url_download,
+  validation_ws_url
+} from '../../shared/constants';
 import {makeid} from '../../shared/common_functions';
 
 const UploadURL = validation_service_url + '/conversion/experiments';
@@ -34,6 +42,8 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   validation_started = false;
   conversion_task_id: string;
   download_data_task_id: string;
+  metadata_template_with_examples: string;
+  metadata_template_without_examples: string;
   errors = [];
   conversion_errors = [];
 
@@ -51,6 +61,8 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       this.conversion_task_id = response;
     };
     this.conversion_status = 'Undefined';
+    this.metadata_template_with_examples = experiment_metadata_template_with_examples;
+    this.metadata_template_without_examples = experiment_metadata_template_without_examples;
   }
 
   setValidationResults() {

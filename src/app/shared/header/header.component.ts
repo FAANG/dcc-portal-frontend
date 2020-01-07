@@ -62,7 +62,11 @@ export class HeaderComponent implements OnInit {
   }
 
   validationOpenDropdown() {
-    return this.validation_dropdown_open === true ? 'show' : '';
+    let active = '';
+    if (this.router.url.includes('validation')) {
+      active = 'active';
+    }
+    return this.validation_dropdown_open === true ? (active + ' show') : active;
   }
 
   validationOnDropdownClick() {
