@@ -20,7 +20,7 @@ export const internal_dataset = '../dataset/';
 export const record_type = ['core', 'type', 'custom'];
 export const issue_type = ['errors', 'warnings'];
 
-export const sample_metadata_template_with_examples = '../../assets/faang_sample.xlsx';
-export const experiment_metadata_template_with_examples = '../../assets/faang_experiment.xlsx';
-export const analysis_metadata_template_with_examples = '../../assets/faang_analysis.xlsx';
+export const sample_metadata_template_with_examples = '../../assets/with_examples/faang_sample.xlsx';
+export const experiment_metadata_template_with_examples = '../../assets/with_examples/faang_experiment.xlsx';
+export const analysis_metadata_template_with_examples = '../../assets/with_examples/faang_analysis.xlsx';
 
