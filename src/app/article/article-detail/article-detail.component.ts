@@ -3,7 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
-import { external_ena_prefix, external_ols_prefix } from '../../shared/constants';
+import {external_doi_prefix, external_epmc_prefix, external_pubmed_prefix, internal_dataset} from '../../shared/constants';
 
 @Component({
   selector: 'app-article-detail',
@@ -12,12 +12,13 @@ import { external_ena_prefix, external_ols_prefix } from '../../shared/constants
 })
 
 export class ArticleDetailComponent implements OnInit {
-  accession: string;
-  dataset: any;
+  id: string;
+  article: any;
   error: any;
-  publishedArticles: any;
-  readonly ena_prefix = external_ena_prefix;
-  readonly ols_prefix = external_ols_prefix;
+  readonly dataset_prefix = internal_dataset;
+  readonly doi_prefix = external_doi_prefix
+  readonly epmc_prefix = external_epmc_prefix
+  readonly pubmed_prefix = external_pubmed_prefix
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -28,22 +29,18 @@ export class ArticleDetailComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
-      this.accession = params['id'];
-      this.titleService.setTitle(`${this.accession} | FAANG dataset`);
+      this.id = params['id'];
+      this.titleService.setTitle(`${this.id} | FAANG article`);
     });
-    this.dataService.getDataset(this.accession).subscribe(
+    this.dataService.getArticle(this.id).subscribe(
       (data: any) => {
         if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
           this.router.navigate(['404']);
         } else {
-          this.dataset = data['hits']['hits'][0]['_source'];
-          if (this.dataset) {
+          this.article = data['hits']['hits'][0]['_source'];
+          if (this.article) {
             this.spinner.hide();
-            if (this.dataset.hasOwnProperty('publishedArticles')) {
-              this.dataset.publishedArticles = this.dataset.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-                ((b.year > a.year) ? 1 : 0));
-            }
           }
         }
       },

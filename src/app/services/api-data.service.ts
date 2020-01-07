@@ -264,8 +264,7 @@ export class ApiDataService {
   }
 
   getArticle(id: string) {
-    // const url = this.hostSetting.host + 'article/' + id;
-    const url = 'wp-np3-e2:9200/faang_build_6_article/_doc/' + id;
+    const url = this.hostSetting.host + 'article/' + id;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
