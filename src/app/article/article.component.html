@@ -1,6 +1,6 @@
 <div class="container">
   <app-header></app-header>
-  <h2>FAANG datasets</h2>
+  <h2>FAANG articles</h2>
 
   <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
     Active filters:
@@ -12,25 +12,16 @@
     <div class="col-md-2">
       <div class="row">
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Standard" [filterSize]=6></app-filter>
+          <app-filter title="Year" [filterSize]=6></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Species" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Assay type" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Archive" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Paper published" [filterSize]=2></app-filter>
+          <app-filter title="Journal" [filterSize]=6></app-filter>
         </div>
       </div>
     </div>
 
     <div class="col-md-10 table-responsive">
-      <div *ngIf="(datasetListLong | async) as datasets; else loading">
+      <div *ngIf="(articleListLong | async) as articles; else loading">
         <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
           Export as CSV file
@@ -43,28 +34,16 @@
           <tr>
             <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
               {{ column }}
-              <i class="material-icons sorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column !== 'Number of Experiments' && column !== 'Number of Specimens' && column !== 'Number of Files' && column === selectedColumn" [id]="column">{{spanClass}}</i>
-              <i class="material-icons unsorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column !== 'Number of Experiments' && column !== 'Number of Specimens' && column !== 'Number of Files' && column !== selectedColumn" [id]="column">{{defaultClass}}</i>
+              <i class="material-icons sorted" *ngIf="column === selectedColumn" [id]="column">{{spanClass}}</i>
+              <i class="material-icons unsorted" *ngIf="column !== selectedColumn" [id]="column">{{defaultClass}}</i>
             </th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let dataset of datasets | sort: sort_field | filter: filter_field: 'dataset' | paginate: { itemsPerPage: 10, currentPage: p }">
-            <td><a style="cursor: pointer" [routerLink]="[dataset['datasetAccession']]">{{dataset['datasetAccession']}}</a></td>
-            <td>{{dataset['title']}}</td>
-            <td>{{dataset['species']}}</td>
-            <td>{{dataset['archive']}}</td>
-            <td>{{dataset['assayType']}}</td>
-            <td>{{dataset['numberOfExperiments']}}</td>
-            <td>{{dataset['numberOfSpecimens']}}</td>
-            <td>{{dataset['numberOfFiles']}}</td>
-            <td>{{dataset['standard']}}</td>
-            <td *ngIf="wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
-              <i class="material-icons">check_circle_outline</i>
-            </td>
-            <td *ngIf="!wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
-              <i class="material-icons">highlight_off</i>
-            </td>
+          <tr *ngFor="let article of articles | sort: sort_field | filter: filter_field: 'article' | paginate: { itemsPerPage: 10, currentPage: p }">
+            <td><a style="cursor: pointer" [routerLink]="[article['id']]">{{article['title']}}</a></td>
+            <td>{{article['journal']}}</td>
+            <td>{{article['year']}}</td>
           </tr>
           </tbody>
         </table>
@@ -83,22 +62,10 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let dataset of datasetListShort">
-            <td><a style="cursor: pointer" [routerLink]="[dataset['datasetAccession']]">{{dataset['datasetAccession']}}</a></td>
-            <td>{{dataset['title']}}</td>
-            <td>{{dataset['species']}}</td>
-            <td>{{dataset['archive']}}</td>
-            <td>{{dataset['assayType']}}</td>
-            <td>{{dataset['numberOfExperiments']}}</td>
-            <td>{{dataset['numberOfSpecimens']}}</td>
-            <td>{{dataset['numberOfFiles']}}</td>
-            <td>{{dataset['standard']}}</td>
-            <td *ngIf="wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
-              <i class="material-icons">check_circle_outline</i>
-            </td>
-            <td *ngIf="!wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
-              <i class="material-icons">highlight_off</i>
-            </td>
+          <tr *ngFor="let article of articleListShort">
+            <td><a style="cursor: pointer" [routerLink]="[article['id']]">{{article['title']}}</a></td>
+            <td>{{article['journal']}}</td>
+            <td>{{article['year']}}</td>
           </tr>
           </tbody>
         </table>

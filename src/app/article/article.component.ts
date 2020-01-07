@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DatasetTable, SortParams} from '../shared/interfaces';
+import {ArticleTable, SortParams} from '../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
@@ -15,18 +15,17 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit, OnDestroy {
-  datasetListShort: Observable<DatasetTable[]>;
-  datasetListLong: Observable<DatasetTable[]>;
-  columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
-    'Number of Specimens', 'Number of Files', 'Standard', 'Paper published'];
+  articleListShort: Observable<ArticleTable[]>;
+  articleListLong: Observable<ArticleTable[]>;
+  columnNames: string[] = ['Title', 'Journal', 'Year'];
   spanClass = 'expand_more';
   defaultClass = 'unfold_more';
-  selectedColumn = 'Dataset accession';
+  selectedColumn = 'title';
   sort_field: SortParams;
   filter_field = {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
-  datasetListLongSubscription: Subscription;
+  articleListLongSubscription: Subscription;
   downloadData = false;
 
   optionsCsv;
@@ -37,18 +36,11 @@ export class ArticleComponent implements OnInit, OnDestroy {
   p = 1;
 
   private query = {
-    'sort': 'accession:desc',
+    'sort': 'pmcId:desc',
     '_source': [
-      'accession',
       'title',
-      'species.text',
-      'archive',
-      'experiment.accession',
-      'file.name',
-      'specimen.biosampleId',
-      'assayType',
-      'standardMet',
-      'paperPublished'],
+      'year',
+      'journal']
   };
   error: string;
 
@@ -61,7 +53,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle('FAANG datasets');
+    this.titleService.setTitle('FAANG articles');
     this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
@@ -86,11 +78,11 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'datasetAccession', direction: 'desc'};
+    this.sort_field = {id: 'pmcId', direction: 'desc'};
     this.spinner.hide();
-    this.datasetListLong = this.dataService.getAllDatasets(this.query, 100000);
-    this.datasetListLongSubscription = this.datasetListLong.subscribe((data) => {
-      this.aggregationService.getAggregations(data, 'dataset');
+    this.articleListLong = this.dataService.getAllArticles(this.query, 100000);
+    this.articleListLongSubscription = this.articleListLong.subscribe((data) => {
+      this.aggregationService.getAggregations(data, 'article');
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -99,7 +91,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
           params[key] = data[key];
         }
       }
-      this.router.navigate(['dataset'], {queryParams: params});
+      this.router.navigate(['article'], {queryParams: params});
     });
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
@@ -119,51 +111,33 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   chooseClass(event_class: string) {
-    if (this.selectedColumn === 'Dataset accession') {
-      if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      }
+    if (event_class === this.defaultClass) {
+      this.spanClass = 'expand_more';
+      this.sort_field['direction'] = 'desc';
+    } else if (event_class === 'expand_more') {
+      this.spanClass = 'expand_less';
+      this.sort_field['direction'] = 'asc';
     } else {
-      if (event_class === this.defaultClass) {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      } else if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'unfold_more';
-        this.sort_field['direction'] = 'desc';
-        this.sort_field['id'] = 'datasetAccession';
-        this.selectedColumn = 'Dataset accession';
-        this.spanClass = 'expand_more';
-      }
+      this.spanClass = 'unfold_more';
+      this.sort_field['direction'] = 'desc';
+      this.sort_field['id'] = 'pmcId';
+      this.selectedColumn = '';
+      this.spanClass = 'expand_more';
     }
   }
 
   selectColumn() {
     switch (this.selectedColumn) {
-      case 'Dataset accession': {
-        this.sort_field['id'] = 'datasetAccession';
-        break;
-      }
       case 'Title': {
         this.sort_field['id'] = 'title';
         break;
       }
-      case 'Species': {
-        this.sort_field['id'] = 'species';
+      case 'Year': {
+        this.sort_field['id'] = 'year';
         break;
       }
-      case 'Archive': {
-        this.sort_field['id'] = 'archive';
-        break;
-      }
-      case 'Assay type': {
-        this.sort_field['id'] = 'assayType';
+      case 'Journal': {
+        this.sort_field['id'] = 'journal';
         break;
       }
     }
@@ -191,19 +165,11 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   removeFilter() {
     this.resetFilter();
-    this.router.navigate(['dataset'], {queryParams: {}});
+    this.router.navigate(['article'], {queryParams: {}});
   }
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
-  }
-
-  wasPublished(published: any) {
-    return published === 'true';
-  }
-
-  isGreen(published: any) {
-    return published === 'true' ? 'green' : 'default';
   }
 
   ngOnDestroy() {
@@ -212,6 +178,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
-    this.datasetListLongSubscription.unsubscribe();
+    this.articleListLongSubscription.unsubscribe();
   }
 }
