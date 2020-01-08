@@ -72,6 +72,8 @@ export class FilterComponent implements OnInit, OnDestroy {
         } else if (this.title === 'Year') {
           // this.aggregation = data['publication_year'];
           this.aggregation = data['year'];
+        } else if (this.title === 'Dataset source') {
+          this.aggregation = data['datasetSource'];
         }
       }
     );
@@ -168,6 +170,10 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Year': {
         data_key = 'year';
+        break;
+      }
+      case 'Dataset source': {
+        data_key = 'datasetSource';
         break;
       }
     }

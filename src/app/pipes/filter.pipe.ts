@@ -51,7 +51,7 @@ export class FilterPipe implements PipeTransform {
         this.exportService.data.next(value);
       }
       return value;
-    } else {
+    } else { // filter_field is not undefined, i.e. having filter
       const results = [];
       const results_for_download = [];
       for (const item of value) {

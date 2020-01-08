@@ -254,7 +254,8 @@ export class ApiDataService {
           id: entry['_id'],
           title: entry['_source']['title'],
           year: entry['_source']['year'],
-          journal: entry['_source']['journal']
+          journal: entry['_source']['journal'],
+          datasetSource: entry['_source']['datasetSource']
           } as ArticleTable)
         );
       }),

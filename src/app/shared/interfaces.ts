@@ -81,4 +81,5 @@ export interface ArticleTable {
   title: string;
   year: string;
   journal: string;
+  datasetSource: string;
 }

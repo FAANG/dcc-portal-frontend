@@ -17,7 +17,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 export class ArticleComponent implements OnInit, OnDestroy {
   articleListShort: Observable<ArticleTable[]>;
   articleListLong: Observable<ArticleTable[]>;
-  columnNames: string[] = ['Title', 'Journal', 'Year'];
+  columnNames: string[] = ['Title', 'Journal', 'Year', 'Dataset source'];
   spanClass = 'expand_more';
   defaultClass = 'unfold_more';
   selectedColumn = 'title';
@@ -40,6 +40,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     '_source': [
       'title',
       'year',
+      'datasetSource',
       'journal']
   };
   error: string;
@@ -138,6 +139,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
       }
       case 'Journal': {
         this.sort_field['id'] = 'journal';
+        break;
+      }
+      case 'Dataset source': {
+        this.sort_field['id'] = 'datasetSource';
         break;
       }
     }

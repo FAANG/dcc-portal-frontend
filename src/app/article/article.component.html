@@ -1,6 +1,6 @@
 <div class="container">
   <app-header></app-header>
-  <h2>FAANG articles</h2>
+  <h2>FAANG publications</h2>
 
   <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
     Active filters:
@@ -11,6 +11,9 @@
   <div class="row">
     <div class="col-md-2">
       <div class="row">
+        <div class="col-md-12 col-sm-6 faang-filter">
+          <app-filter title="Dataset source" [filterSize]=1></app-filter>
+        </div>
         <div class="col-md-12 col-sm-6 faang-filter">
           <app-filter title="Year" [filterSize]=6></app-filter>
         </div>
@@ -44,6 +47,7 @@
             <td><a style="cursor: pointer" [routerLink]="[article['id']]">{{article['title']}}</a></td>
             <td>{{article['journal']}}</td>
             <td>{{article['year']}}</td>
+            <td>{{article['datasetSource']}}</td>
           </tr>
           </tbody>
         </table>
@@ -66,6 +70,7 @@
             <td><a style="cursor: pointer" [routerLink]="[article['id']]">{{article['title']}}</a></td>
             <td>{{article['journal']}}</td>
             <td>{{article['year']}}</td>
+            <td>{{article['datasetSource']}}</td>
           </tr>
           </tbody>
         </table>
