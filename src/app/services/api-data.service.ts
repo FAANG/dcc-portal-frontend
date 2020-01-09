@@ -245,7 +245,7 @@ export class ApiDataService {
   }
 
   getAllArticles(query: any, size: number) {
-    const url = 'http://test.faang.org/api/article/' + '_search/' + '?size=' + size;
+    const url = this.hostSetting.host + 'article/' + '_search/' + '?size=' + size;
     // const url = 'wp-np3-e2:9200/faang_build_6_article/' + '_search/' + '?size=' + size;
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
     return this.http.get(url, {params: params}).pipe(
@@ -265,7 +265,7 @@ export class ApiDataService {
   }
 
   getArticle(id: string) {
-    const url = 'http://test.faang.org/article/' + id;
+    const url = this.hostSetting.host + 'article/' + id;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
