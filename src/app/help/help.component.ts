@@ -11,6 +11,7 @@ export class HelpComponent implements OnInit {
   constructor(private titleService: Title) { }
 
   ngOnInit() {
+    window.location.href = 'https://dcc-documentation.readthedocs.io/en/latest/faq/';
     this.titleService.setTitle('FAANG Help');
   }
 
