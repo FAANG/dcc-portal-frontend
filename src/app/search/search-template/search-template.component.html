@@ -94,3 +94,9 @@
     </table>
   </div>
 </div>
+
+<div class="card text-center" *ngIf="hits && hits.total == 0">
+  <h6 class="card-header">
+    No results found for {{entity}}
+  </h6>
+</div>

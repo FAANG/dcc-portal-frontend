@@ -43,7 +43,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let article of articles | sort: sort_field | filter: filter_field: 'article' | paginate: { itemsPerPage: 10, currentPage: p }">
+          <tr *ngFor="let article of articles | sort: sort_field | filter: filter_field: 'article' | paginate: { itemsPerPage: 20, currentPage: p }">
             <td><a style="cursor: pointer" [routerLink]="[article['id']]">{{article['title']}}</a></td>
             <td>{{article['journal']}}</td>
             <td>{{article['year']}}</td>

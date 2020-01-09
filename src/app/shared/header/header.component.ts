@@ -47,8 +47,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  projectsOpenDropdown() {
-    return this.projects_dropdown_open === true ? 'show' : '';
+  isActiveProjects() {
+    if (this.router.url.includes('projects')) {
+      return 'active';
+    }
   }
 
   projectsOnDropdownClick() {
@@ -62,7 +64,11 @@ export class HeaderComponent implements OnInit {
   }
 
   validationOpenDropdown() {
-    return this.validation_dropdown_open === true ? 'show' : '';
+    let active = '';
+    if (this.router.url.includes('validation')) {
+      active = 'active';
+    }
+    return this.validation_dropdown_open === true ? (active + ' show') : active;
   }
 
   validationOnDropdownClick() {
