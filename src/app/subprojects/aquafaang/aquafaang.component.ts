@@ -22,9 +22,12 @@ export class AquafaangComponent implements OnInit, OnDestroy {
     this.twitter = this._router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         (<any>window).twttr = (function (d, s, id) {
-          let js: any, fjs = d.getElementsByTagName(s)[0],
+          let js: any;
+          const fjs = d.getElementsByTagName(s)[0],
             t = (<any>window).twttr || {};
-          if (d.getElementById(id)) return t;
+          if (d.getElementById(id)) {
+            return t;
+          }
           js = d.createElement(s);
           js.id = id;
           js.src = 'https://platform.twitter.com/widgets.js';
@@ -38,9 +41,9 @@ export class AquafaangComponent implements OnInit, OnDestroy {
           return t;
         }(document, 'script', 'twitter-wjs'));
 
-        if ((<any>window).twttr.ready())
+        if ((<any>window).twttr.ready()) {
           (<any>window).twttr.widgets.load();
-
+        }
       }
     });
   }

@@ -3,7 +3,8 @@ import { HostSetting } from './host-setting';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
-import { AnalysisTable, DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
+import { ArticleTable, AnalysisTable, DatasetTable, FileTable, OrganismTable,
+  ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
 import {ruleset_prefix, validation_service_url} from '../shared/constants';
 
 
@@ -237,6 +238,34 @@ export class ApiDataService {
 
   getAnalysis(accession: string) {
     const url = this.hostSetting.host + 'analysis/' + accession;
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllArticles(query: any, size: number) {
+    const url = this.hostSetting.host + 'article/' + '_search/' + '?size=' + size;
+    // const url = 'wp-np3-e2:9200/faang_build_6_article/' + '_search/' + '?size=' + size;
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    return this.http.get(url, {params: params}).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          id: entry['_id'],
+          title: entry['_source']['title'],
+          year: entry['_source']['year'],
+          journal: entry['_source']['journal'],
+          datasetSource: entry['_source']['datasetSource']
+          } as ArticleTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getArticle(id: string) {
+    const url = this.hostSetting.host + 'article/' + id;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),

@@ -46,6 +46,8 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   metadata_template_without_examples: string;
   errors = [];
   conversion_errors = [];
+  getIssues: any;
+  getCellClass: any;
 
   constructor(
     private titleService: Title,
@@ -120,7 +122,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     };
     this.socket.onclose = () => {
       console.log('Websocket close');
-    }
+    };
 
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.onopen(null);
@@ -129,32 +131,6 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   remove_underscores(record) {
     return record.replace(/[_]/g, ' ');
-  }
-
-  getIssues(issues_list, issue_type) {
-    issues_list = issues_list.length;
-    if (issues_list === 0) {
-      return 'pass';
-    } else {
-      if (issues_list === 1) {
-        return issues_list + ' ' + issue_type;
-      } else {
-        return issues_list + ' ' + issue_type + 's';
-      }
-    }
-  }
-
-  getCellClass(issues_list, issue_type) {
-    issues_list = issues_list.length;
-    if (issues_list === 0) {
-      return '';
-    } else {
-      if (issue_type === 'warning') {
-        return 'table-warning';
-      } else {
-        return 'table-danger';
-      }
-    }
   }
 
   getCellStyle(issues_list) {

@@ -36,8 +36,8 @@ export function allowMultiple(rule: any) {
 }
 
 // extract data from given object into a key-value mapping
-export function  expandObject(data: any, result: any) {
-  const type_value = typeof(data);
+export function expandObject(data: any, result: any) {
+  const type_value = typeof (data);
   // if the given data is not an object, no data can be extracted, just return the existing result
   if (type_value !== 'object') {
     return result;
@@ -135,8 +135,35 @@ export function makeid(length: number) {
   let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
-  for (let i = 0; i < length; i++ ) {
+  for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
 }
+
+export function getIssues(issues_list, issue_type) {
+  issues_list = issues_list.length;
+  if (issues_list === 0) {
+    return 'pass';
+  } else {
+    if (issues_list === 1) {
+      return issues_list + ' ' + issue_type;
+    } else {
+      return issues_list + ' ' + issue_type + 's';
+    }
+  }
+}
+
+export function getCellClass(issues_list, issue_type) {
+  issues_list = issues_list.length;
+  if (issues_list === 0) {
+    return '';
+  } else {
+    if (issue_type === 'warning') {
+      return 'table-warning';
+    } else {
+      return 'table-danger';
+    }
+  }
+}
+

@@ -77,8 +77,9 @@ export interface ProtocolSample {
 }
 
 export interface ArticleTable {
-  pubmedId: string;
-  publicationYear: string;
+  id: string;
+  title: string;
+  year: string;
   journal: string;
-  citations: string;
+  datasetSource: string;
 }

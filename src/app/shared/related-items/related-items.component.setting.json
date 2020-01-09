@@ -1,4 +1,28 @@
 {
+  "publication": {
+    "dataset": {
+      "display": [
+        "Accession",
+        "Standard"
+      ],
+      "all": [
+        "Accession",
+        "Standard"
+      ],
+      "fields": {
+        "Accession": {
+          "value": "accession",
+          "link": {
+            "prefix": "../dataset/",
+            "url": "accession"
+          }
+        },
+        "Standard": {
+          "value": "standardMet"
+        }
+      }
+    }
+  },
   "analysis": {
     "file": {
       "display": [

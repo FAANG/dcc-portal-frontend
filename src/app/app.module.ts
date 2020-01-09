@@ -18,6 +18,7 @@ import { OrganismComponent } from './organism/organism.component';
 import { SpecimenComponent } from './specimen/specimen.component';
 import { DatasetComponent } from './dataset/dataset.component';
 import { AnalysisComponent } from './analysis/analysis.component';
+import { ArticleComponent } from './article/article.component';
 import { SearchComponent } from './search/search.component';
 import { HelpComponent } from './help/help.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -32,6 +33,7 @@ import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-det
 import { SearchTemplateComponent } from './search/search-template/search-template.component';
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
 import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
+import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
 import { SearchService } from './services/search.service';
 import { CookieLawModule } from 'angular2-cookie-law';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -84,6 +86,7 @@ import { SubprojectsLandingComponent } from './subprojects/subprojects-landing/s
     SpecimenComponent,
     DatasetComponent,
     AnalysisComponent,
+    ArticleComponent,
     SearchComponent,
     HelpComponent,
     HeaderComponent,
@@ -95,6 +98,7 @@ import { SubprojectsLandingComponent } from './subprojects/subprojects-landing/s
     SearchTemplateComponent,
     DatasetDetailComponent,
     AnalysisDetailComponent,
+    ArticleDetailComponent,
     ApiComponent,
     ProtocolSampleComponent,
     ProtocolExperimentComponent,

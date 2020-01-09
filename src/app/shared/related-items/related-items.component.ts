@@ -40,7 +40,13 @@ export class RelatedItemsComponent implements OnInit {
     }
 
     const relationship_type = `${this.source_type}-${this.target_type}`;
-    if (relationship_type === 'analysis-file') {
+    if (relationship_type === 'publication-dataset') {
+      this.dataService.getArticle(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'][0]['_source']['relatedDatasets'];
+        }
+      );
+    } else if (relationship_type === 'analysis-file') {
       this.dataService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['files'];
@@ -196,7 +202,8 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   // determine the checked conversion_status of the checkbox in the table header
-  // return 2 means all files selected (checkbox checked conversion_status), 1 means partially files selected (checkbox indeterminate conversion_status)
+  // return 2 means all files selected (checkbox checked conversion_status),
+  // 1 means partially files selected (checkbox indeterminate conversion_status)
   // and 0 means none selected
   mainCheckboxChecked() {
     if (this.records) {
