@@ -44,6 +44,9 @@ export class RelatedItemsComponent implements OnInit {
       this.dataService.getArticle(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['relatedDatasets'];
+          for (const record of this.records) {
+            record['species'] = record['species'].sort();
+          }
         }
       );
     } else if (relationship_type === 'analysis-file') {

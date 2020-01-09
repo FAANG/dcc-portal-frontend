@@ -3,10 +3,12 @@
     "dataset": {
       "display": [
         "Accession",
+        "Species",
         "Standard"
       ],
       "all": [
         "Accession",
+        "Species",
         "Standard"
       ],
       "fields": {
@@ -19,6 +21,9 @@
         },
         "Standard": {
           "value": "standardMet"
+        },
+        "Species": {
+          "value": "species"
         }
       }
     }
