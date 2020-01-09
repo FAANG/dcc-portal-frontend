@@ -40,7 +40,13 @@ export class RelatedItemsComponent implements OnInit {
     }
 
     const relationship_type = `${this.source_type}-${this.target_type}`;
-    if (relationship_type === 'analysis-file') {
+    if (relationship_type === 'publication-dataset') {
+      this.dataService.getArticle(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'][0]['_source']['relatedDatasets'];
+        }
+      );
+    } else if (relationship_type === 'analysis-file') {
       this.dataService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['files'];

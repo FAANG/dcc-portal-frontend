@@ -32,17 +32,6 @@
         </dd>
       </ng-container>
 
-      <ng-container *ngIf="article?.relatedDatasets">
-        <dt class="col-sm-3">Related Datasets:</dt>
-        <dd class="col-sm-9">
-          <ng-container *ngFor="let dataset of article?.relatedDatasets">
-            <app-robust-link [prefix]="dataset_prefix" [link]="dataset"
-                             [text]="dataset"></app-robust-link>
-            &nbsp;
-          </ng-container>
-        </dd>
-      </ng-container>
-
       <ng-container *ngIf="article?.pmcId">
         <dt class="col-sm-3">Europe PMC:</dt>
         <dd class="col-sm-9"><app-robust-link [prefix]="epmc_prefix" [link]="article.pmcId"
@@ -64,7 +53,15 @@
         </dd>
       </ng-container>
 
+      <ng-container *ngIf="article?.datasetSource">
+        <dt class="col-sm-3">Dataset source:</dt>
+        <dd class="col-sm-9">{{article?.datasetSource}}</dd>
+      </ng-container>
     </dl>
+
+    <app-related-items source_type="publication" target_type="dataset"
+                       download_key="" [record_id]="id"></app-related-items>
+
   </ng-container>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>
