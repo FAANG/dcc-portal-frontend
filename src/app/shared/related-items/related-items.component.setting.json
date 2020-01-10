@@ -141,8 +141,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "articleId"
           }
         },
         "Year": {
