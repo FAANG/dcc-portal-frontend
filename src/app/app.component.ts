@@ -16,6 +16,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.cookieLawSeen = this.cookieLawEl.cookieLawSeen;
+    if (location.href.indexOf('help') !== -1) {
+      window.location.href = 'https://dcc-documentation.readthedocs.io/en/latest/faq/';
+    }
     if (environment.production) {
       if (location.protocol === 'http:' && location.hostname === 'data.faang.org') {
         window.location.href = location.href.replace('http', 'https');
