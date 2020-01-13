@@ -8,7 +8,8 @@ import {
   generateEbiOntologyLink,
   getMandatoryRulesOnly,
   getOntologyTermFromIRI,
-  getValidItems
+  getValidItems,
+  replaceUnderscoreWithSpace
 } from '../../shared/common_functions';
 import {analysis_metadata_template_with_examples, analysis_metadata_template_without_examples} from '../../shared/constants';
 
@@ -30,13 +31,20 @@ export class RulesetAnalysisComponent implements OnInit, AfterViewChecked {
   getOntologyTerm: any;
   getMandatoryData: any;
   generateEbiOntologyLink: any;
+  replaceUnderscoreWithSpace: any;
   metadata_template_with_examples: string;
   metadata_template_without_examples: string;
+  record_specific_templates = {
+    faang: '../../../assets/faang.xlsx',
+    ena: '../../../assets/ena.xlsx',
+    eva: '../../../assets/eva.xlsx'
+  };
 
   constructor(private titleService: Title, private apiDataService: ApiDataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.convertToSnakeCase = convertToSnakeCase;
+    this.replaceUnderscoreWithSpace = replaceUnderscoreWithSpace;
     this.allowMultiple = allowMultiple;
     this.getValidItems = getValidItems;
     this.getOntologyTerm = getOntologyTermFromIRI;
