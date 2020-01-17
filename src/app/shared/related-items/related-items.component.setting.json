@@ -3,10 +3,12 @@
     "dataset": {
       "display": [
         "Accession",
+        "Species",
         "Standard"
       ],
       "all": [
         "Accession",
+        "Species",
         "Standard"
       ],
       "fields": {
@@ -19,6 +21,9 @@
         },
         "Standard": {
           "value": "standardMet"
+        },
+        "Species": {
+          "value": "species"
         }
       }
     }
@@ -76,8 +81,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "articleId"
           }
         },
         "Year": {
@@ -136,8 +141,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "articleId"
           }
         },
         "Year": {
@@ -268,8 +273,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "articleId"
           }
         },
         "Year": {
@@ -324,8 +329,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "articleId"
           }
         },
         "Year": {

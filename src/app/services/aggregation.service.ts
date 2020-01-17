@@ -271,7 +271,7 @@ export class AggregationService {
     } else if (type === 'article') {
       let journal = {};
       let year = {};
-      let dataset_source = {}
+      let dataset_source = {};
       let all_data;
       for (const item of recordList) {
         journal = this.updateAggregation(journal, item['journal']);
