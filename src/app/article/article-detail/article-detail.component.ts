@@ -16,9 +16,9 @@ export class ArticleDetailComponent implements OnInit {
   article: any;
   error: any;
   readonly dataset_prefix = internal_dataset;
-  readonly doi_prefix = external_doi_prefix
-  readonly epmc_prefix = external_epmc_prefix
-  readonly pubmed_prefix = external_pubmed_prefix
+  readonly doi_prefix = external_doi_prefix;
+  readonly epmc_prefix = external_epmc_prefix;
+  readonly pubmed_prefix = external_pubmed_prefix;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
