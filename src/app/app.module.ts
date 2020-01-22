@@ -71,6 +71,8 @@ import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.compo
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { SubprojectsLandingComponent } from './subprojects/subprojects-landing/subprojects-landing.component';
+import {AuthModule} from 'ng-ebi-authorization';
+import {JwtModule} from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -138,6 +140,12 @@ import { SubprojectsLandingComponent } from './subprojects/subprojects-landing/s
     ChartsModule,
     FormsModule,
     FileUploadModule,
+    AuthModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('id_token')
+      }
+    }),
     BsDropdownModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
