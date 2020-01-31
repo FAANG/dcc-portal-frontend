@@ -87,6 +87,11 @@
         <dd class="col-sm-9">{{specimen?.project}}</dd>
       </ng-container>
 
+      <ng-container  *ngIf="specimen && specimen.hasOwnProperty('secondaryProject')">
+        <dt class="col-sm-3">Secondary project:</dt>
+        <dd class="col-sm-9">{{specimen?.secondaryProject}}</dd>
+      </ng-container>
+
       <ng-container *ngIf="specimen?.availability">
         <dt class="col-sm-3">Availability:</dt>
         <dd class="col-sm-9"><a href={{specimen?.availability}}>{{dealWithAvailability(specimen?.availability)}}</a></dd>
