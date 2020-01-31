@@ -40,7 +40,19 @@ export class RelatedItemsComponent implements OnInit {
     }
 
     const relationship_type = `${this.source_type}-${this.target_type}`;
-    if (relationship_type === 'publication-dataset') {
+    if (relationship_type === 'project-organism') {
+      this.dataService.getAllOrganismsFromProject(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data;
+        }
+      );
+    } else if (relationship_type === 'project-specimen') {
+      this.dataService.getAllSpecimensForProject(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data;
+        }
+      );
+    } else if (relationship_type === 'publication-dataset') {
       this.dataService.getArticle(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['relatedDatasets'];

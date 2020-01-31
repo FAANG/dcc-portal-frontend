@@ -491,6 +491,38 @@
         }
       }
     },
+    "organism": {
+      "display": [
+        "BioSamples ID",
+        "Species",
+        "Sex",
+        "Breed"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Species",
+        "Sex",
+        "Breed"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "bioSampleId",
+          "link": {
+            "prefix": "../organism/",
+            "url": "bioSampleId"
+          }
+        },
+        "Sex": {
+          "value": "sex"
+        },
+        "Species": {
+          "value": "organism"
+        },
+        "Breed": {
+          "value": "breed"
+        }
+      }
+    },
     "specimen": {
       "display": [
         "BioSamples ID",
@@ -510,26 +542,26 @@
       ],
       "fields": {
         "BioSamples ID": {
-          "value": "biosampleId",
+          "value": "bioSampleId",
           "link": {
             "prefix": "../specimen/",
-            "url": "biosampleId"
+            "url": "bioSampleId"
           }
         },
         "Material": {
-          "value": "material.text"
+          "value": "material"
         },
         "Cell type": {
-          "value": "cellType.text"
+          "value": "organismpart_celltype"
         },
         "Sex": {
-          "value": "sex.text"
+          "value": "sex"
         },
         "Species": {
-          "value": "organism.text"
+          "value": "organism"
         },
         "Breed": {
-          "value": "breed.text"
+          "value": "breed"
         }
       }
     },
