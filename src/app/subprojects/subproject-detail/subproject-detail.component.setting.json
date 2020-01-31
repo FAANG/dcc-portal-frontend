@@ -1,0 +1,11 @@
+{
+  "BovReg": {
+    "description": "The BovReg consortium will provide a comprehensive map of functionally active genomic features in cattle and\n       how their (epi)genetic variation in beef and dairy breeds translates into phenotypes.",
+    "tweeter": {
+      "id": "BovReg"
+    },
+    "image": {
+      "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/bovreg/project-logo.jpg"
+    }
+  }
+}

@@ -34,6 +34,8 @@ import { SearchTemplateComponent } from './search/search-template/search-templat
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
 import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
 import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
+import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
+
 import { SearchService } from './services/search.service';
 import { CookieLawModule } from 'angular2-cookie-law';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -65,7 +67,6 @@ import { ValidationSamplesComponent } from './validation/validation-samples/vali
 import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
 import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
 import { AquafaangComponent } from './subprojects/aquafaang/aquafaang.component';
-import { BovregComponent } from './subprojects/bovreg/bovreg.component';
 import { GeneSwitchComponent } from './subprojects/gene-switch/gene-switch.component';
 import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
@@ -101,6 +102,7 @@ import {JwtModule} from '@auth0/angular-jwt';
     DatasetDetailComponent,
     AnalysisDetailComponent,
     ArticleDetailComponent,
+    SubprojectDetailComponent,
     ApiComponent,
     ProtocolSampleComponent,
     ProtocolExperimentComponent,
@@ -121,7 +123,6 @@ import {JwtModule} from '@auth0/angular-jwt';
     ValidationExperimentsComponent,
     ValidationAnalysesComponent,
     AquafaangComponent,
-    BovregComponent,
     GeneSwitchComponent,
     UsdaBovineComponent,
     SheepatlasComponent,

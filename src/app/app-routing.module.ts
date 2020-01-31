@@ -16,6 +16,7 @@ import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detai
 import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
 import {AnalysisDetailComponent} from './analysis/analysis-detail/analysis-detail.component';
 import {ArticleDetailComponent} from './article/article-detail/article-detail.component';
+import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 
 import {ApiComponent} from './help/api/api.component';
 import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.component';
@@ -77,10 +78,10 @@ const routes: Routes = [
   {path: 'validation/analyses', component: ValidationAnalysesComponent},
   {path: 'projects', component: SubprojectsLandingComponent},
   {path: 'projects/aquafaang', component: AquafaangComponent},
-  {path: 'projects/bovreg', component: BovregComponent},
   {path: 'projects/gene-switch', component: GeneSwitchComponent},
   {path: 'projects/usda-bovine', component: UsdaBovineComponent},
   {path: 'projects/sheepatlas', component: SheepatlasComponent},
+  {path: 'projects/:id', component: SubprojectDetailComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];
