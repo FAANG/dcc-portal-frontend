@@ -4,13 +4,20 @@
   width:auto;
   height:auto;
 }
-.project-logo {
+
+.small-project-logo {
+  max-width:256px;
+  max-height:256px;
+  width:auto;
+  height:auto;
+}
+
+.large-project-logo {
   max-width:512px;
   max-height:512px;
   width:auto;
   height:auto;
 }
-
 
 .first-row {
   margin-top: 15px;

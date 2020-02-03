@@ -66,8 +66,6 @@ import {FormsModule} from '@angular/forms';
 import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
 import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
 import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
-import { AquafaangComponent } from './subprojects/aquafaang/aquafaang.component';
-import { GeneSwitchComponent } from './subprojects/gene-switch/gene-switch.component';
 import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 import {FileUploadModule} from 'ng2-file-upload';
@@ -122,8 +120,6 @@ import {JwtModule} from '@auth0/angular-jwt';
     ValidationSamplesComponent,
     ValidationExperimentsComponent,
     ValidationAnalysesComponent,
-    AquafaangComponent,
-    GeneSwitchComponent,
     UsdaBovineComponent,
     SheepatlasComponent,
     SubprojectsLandingComponent

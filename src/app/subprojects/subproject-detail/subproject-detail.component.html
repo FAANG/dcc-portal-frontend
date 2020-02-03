@@ -1,35 +1,44 @@
-<div class="container" style="min-height:87vh">
-  <app-header></app-header>
-  <div class="row first-row">
-    <div class="col-md-6">
-      <img src="{{setting.image.url}}" alt="Project Logo" class="project-logo">
-      <h3>
-      </h3>
+<ng-container *ngIf="setting">
+  <div class="container" style="min-height:87vh">
+    <app-header></app-header>
+    <div class="row first-row">
+      <div class="col-md-6">
+        <img src="{{setting.image.url}}"  alt="Project Logo"
+             [ngClass]="{'small-project-logo':project==='AQUA-FAANG', 'large-project-logo':project!=='AQUA-FAANG'}">
+        <h3>
+          <a href="{{setting.url}}">{{setting.url}}</a>
+        </h3>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="../../../assets/funding_logo.png" alt="Funding Logo" class="funding-logo">
+      </div>
     </div>
-    <div class="col-md-6 text-center">
-      <img src="../../../assets/funding_logo.png" alt="Funding Logo" class="funding-logo">
+
+
+    <div class="row">
+      <div class="col-md-4">
+        <h5>
+          {{setting.description}}
+        </h5>
+      </div>
+      <div class="col-md-8 text-center">
+        <a class="twitter-timeline" href="https://twitter.com/{{setting.tweeter.id}}?ref_src=twsrc%5Etfw"
+           data-height="300"
+           data-theme="light"
+           data-width="650"
+           data-chrome="noborders nofooter noscrollbar transparent"
+        >
+          Tweets by {{setting.tweeter.id}}
+        </a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
     </div>
+
+    <!--  <app-related-items source_type="project" target_type="paper" download_key="" [record_id]=""></app-related-items>-->
+    <app-related-items source_type="project" target_type="organism" download_key=""
+                       [record_id]="project"></app-related-items>
+    <app-related-items source_type="project" target_type="specimen" download_key=""
+                       [record_id]="project"></app-related-items>
+    <!--  <app-related-items source_type="project" target_type="file" download_key="" [record_id]=""></app-related-items>-->
   </div>
-
-
-  <div class="row">
-    <div class="col-md-4">
-      <h5>
-        {{setting.description}}
-      </h5>
-    </div>
-    <div class="col-md-8 text-center">
-      <a class="twitter-timeline" href="https://twitter.com/{{setting.tweeter.id}}?ref_src=twsrc%5Etfw"
-         data-height="250"
-         data-theme="light"
-         data-width="650"
-         data-chrome="noborders nofooter noheader noscrollbar transparent">{{setting.tweeter.id}}</a>
-      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </div>
-  </div>
-
-<!--  <app-related-items source_type="project" target_type="paper" download_key="" [record_id]=""></app-related-items>-->
-  <app-related-items source_type="project" target_type="organism" download_key="" [record_id]="project"></app-related-items>
-  <app-related-items source_type="project" target_type="specimen" download_key="" [record_id]="project"></app-related-items>
-<!--  <app-related-items source_type="project" target_type="file" download_key="" [record_id]=""></app-related-items>-->
-</div>
+</ng-container>

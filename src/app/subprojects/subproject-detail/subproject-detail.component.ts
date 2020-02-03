@@ -34,7 +34,11 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
         this.error = error;
         this.spinner.hide();
       });
-    this.setting = setting[this.project];
+    if (setting.hasOwnProperty(this.project)){
+      this.setting = setting[this.project];
+    } else {
+      this.router.navigate(['404']);
+    }
   }
 
   initTwitterWidget() {
