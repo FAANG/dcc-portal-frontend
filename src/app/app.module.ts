@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FileComponent } from './file/file.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import {ApiDataService} from './services/api-data.service';
 import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
@@ -73,6 +73,19 @@ import {FileUploadModule} from 'ng2-file-upload';
 import { SubprojectsLandingComponent } from './subprojects/subprojects-landing/subprojects-landing.component';
 import {AuthModule} from 'ng-ebi-authorization';
 import {JwtModule} from '@auth0/angular-jwt';
+import { AapComponent } from './aap/aap.component';
+
+export function getToken(): string {
+  return localStorage.getItem('jwt_token') || '';
+}
+
+export function updateToken(newToken: string): void {
+  return localStorage.setItem('jwt_token', newToken);
+}
+
+export function removeToken(): void {
+  return localStorage.removeItem('jwt_token');
+}
 
 @NgModule({
   declarations: [
@@ -125,7 +138,8 @@ import {JwtModule} from '@auth0/angular-jwt';
     GeneSwitchComponent,
     UsdaBovineComponent,
     SheepatlasComponent,
-    SubprojectsLandingComponent
+    SubprojectsLandingComponent,
+    AapComponent
   ],
   imports: [
     BrowserModule,
@@ -140,10 +154,17 @@ import {JwtModule} from '@auth0/angular-jwt';
     ChartsModule,
     FormsModule,
     FileUploadModule,
-    AuthModule.forRoot(),
+    AuthModule.forRoot({
+      aapURL: 'https://api.aai.ebi.ac.uk',
+      tokenGetter: getToken,
+      tokenUpdater: updateToken,
+      tokenRemover: removeToken
+    }),
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => localStorage.getItem('id_token')
+        tokenGetter: getToken,
+        whitelistedDomains: ['api.aai.ebi.ac.uk'],
+        blacklistedRoutes: ['https://api.aai.ebi.ac.uk/auth']
       }
     }),
     BsDropdownModule.forRoot(),

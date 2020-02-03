@@ -40,6 +40,7 @@ import {GeneSwitchComponent} from './subprojects/gene-switch/gene-switch.compone
 import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
 import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
 import {SubprojectsLandingComponent} from './subprojects/subprojects-landing/subprojects-landing.component';
+import {AapComponent} from './aap/aap.component';
 
 
 const routes: Routes = [
@@ -65,6 +66,7 @@ const routes: Routes = [
   {path: 'search', component: SearchComponent},
   {path: 'help', component: HelpComponent},
   {path: 'help/api', component: ApiComponent},
+  {path: 'summary', redirectTo: 'summary/organisms', pathMatch: 'full'},
   {path: 'summary/organisms', component: OrganismsSummaryComponent},
   {path: 'summary/specimens', component: SpecimensSummaryComponent},
   {path: 'summary/datasets', component: DatasetsSummaryComponent},
@@ -81,6 +83,7 @@ const routes: Routes = [
   {path: 'projects/gene-switch', component: GeneSwitchComponent},
   {path: 'projects/usda-bovine', component: UsdaBovineComponent},
   {path: 'projects/sheepatlas', component: SheepatlasComponent},
+  {path: 'aap', component: AapComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];
