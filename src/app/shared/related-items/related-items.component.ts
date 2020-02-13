@@ -52,6 +52,18 @@ export class RelatedItemsComponent implements OnInit {
           this.records = data;
         }
       );
+    } else if (relationship_type === 'project-publication') {
+      this.dataService.getAllArticlesForProject(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data;
+        }
+      );
+    } else if (relationship_type === 'project-file') {
+      this.dataService.getAllFilesForProject(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data;
+        }
+      );
     } else if (relationship_type === 'publication-dataset') {
       this.dataService.getArticle(this.record_id).subscribe(
         (data: any) => {

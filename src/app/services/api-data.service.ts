@@ -40,6 +40,29 @@ export class ApiDataService {
     );
   }
 
+  getAllFilesForProject(project: string) {
+    const url = this.hostSetting.host + 'file/_search/?size=100000&q=secondaryProject:' + project;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.get(url, {headers: headers}).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          name: entry['_source']['name'],
+          fileId: entry['_id'],
+          experiment: entry['_source']['experiment']['accession'],
+          assayType: entry['_source']['experiment']['assayType'],
+          experimentTarget: entry['_source']['experiment']['target'],
+          run: entry['_source']['run']['accession'],
+          readableSize: entry['_source']['readableSize'],
+          checksum: entry['_source']['checksum'],
+          checksumMethod: entry['_source']['checksumMethod']
+          })
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getFile(fileId: string) {
     const url = this.hostSetting.host + 'file/' + fileId;
     return this.http.get<any>(url).pipe(
@@ -283,6 +306,25 @@ export class ApiDataService {
   getAnalysis(accession: string) {
     const url = this.hostSetting.host + 'analysis/' + accession;
     return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllArticlesForProject(project: string) {
+    const url = this.hostSetting.host + 'article/_search/?size=100000&q=secondaryProject:' + project;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.get(url, {headers: headers}).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          id: entry['_id'],
+          title: entry['_source']['title'],
+          year: entry['_source']['year'],
+          journal: entry['_source']['journal'],
+          datasetSource: entry['_source']['datasetSource']
+          } as ArticleTable)
+        );
+      }),
       retry(3),
       catchError(this.handleError),
     );

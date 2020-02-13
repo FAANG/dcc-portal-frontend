@@ -464,7 +464,7 @@
     }
   },
   "project": {
-    "paper": {
+    "publication": {
       "display": [
         "Title",
         "Year",
@@ -479,8 +479,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "id"
           }
         },
         "Year": {
@@ -568,14 +568,19 @@
     "file": {
       "display": [
         "File name",
-        "Experiment",
+        "Assay type",
+        "Experiment target",
         "File size"
       ],
       "all": [
         "File name",
         "Experiment",
-        "Archive",
-        "File size"
+        "Run",
+        "Assay type",
+        "Experiment target",
+        "File size",
+        "Checksum",
+        "Checksum method"
       ],
       "fields": {
         "File name": {
@@ -588,11 +593,23 @@
         "Experiment": {
           "value": "experiment"
         },
-        "Archive": {
-          "value": "archive"
+        "Run": {
+          "value":"run"
+        },
+        "Assay type": {
+          "value": "assayType"
+        },
+        "Experiment target": {
+          "value": "experimentTarget"
         },
         "File size": {
           "value": "readableSize"
+        },
+        "Checksum": {
+          "value": "checksum"
+        },
+        "Checksum method": {
+          "value": "checksumMethod"
         }
       }
     }
