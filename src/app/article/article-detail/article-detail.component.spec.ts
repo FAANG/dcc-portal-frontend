@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DatasetDetailComponent } from './dataset-detail.component';
-import {HeaderComponent} from '../../shared/header/header.component';
-import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
-import {NgxPaginationModule} from 'ngx-pagination';
-import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {RelatedItemsComponent} from '../../shared/related-items/related-items.component';
+import { ArticleDetailComponent } from './article-detail.component';
+import { HeaderComponent } from '../../shared/header/header.component';
+import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
 
-describe('DatasetDetailComponent', () => {
-  let component: DatasetDetailComponent;
-  let fixture: ComponentFixture<DatasetDetailComponent>;
+describe('ArticleDetailComponent', () => {
+  let component: ArticleDetailComponent;
+  let fixture: ComponentFixture<ArticleDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DatasetDetailComponent,
+        ArticleDetailComponent,
         HeaderComponent,
         RobustLinkComponent,
         RelatedItemsComponent,
@@ -30,7 +30,7 @@ describe('DatasetDetailComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatasetDetailComponent);
+    fixture = TestBed.createComponent(ArticleDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
