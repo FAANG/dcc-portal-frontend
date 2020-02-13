@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubprojectsLandingComponent } from './subprojects-landing.component';
+import { HeaderComponent } from '../../shared/header/header.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('SubprojectsLandingComponent', () => {
   let component: SubprojectsLandingComponent;
@@ -8,7 +10,13 @@ describe('SubprojectsLandingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubprojectsLandingComponent ]
+      declarations: [
+        SubprojectsLandingComponent,
+        HeaderComponent
+      ],
+      imports: [
+        RouterTestingModule
+      ]
     })
     .compileComponents();
   }));
