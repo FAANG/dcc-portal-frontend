@@ -18,6 +18,11 @@
         <dd class="col-sm-9">{{dataset?.alias}}</dd>
       </ng-container>
 
+      <ng-container *ngIf="dataset?.secondaryProject">
+        <dt class="col-sm-3">Sub-project:</dt>
+        <dd class="col-sm-9">{{dataset?.secondaryProject}}</dd>
+      </ng-container>
+
       <ng-container *ngIf="dataset?.type">
         <dt class="col-sm-3">Type:</dt>
         <dd class="col-sm-9">{{dataset?.type}}</dd>
