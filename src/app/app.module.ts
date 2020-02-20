@@ -34,6 +34,8 @@ import { SearchTemplateComponent } from './search/search-template/search-templat
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
 import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
 import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
+import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
+
 import { SearchService } from './services/search.service';
 import { CookieLawModule } from 'angular2-cookie-law';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -64,9 +66,6 @@ import {FormsModule} from '@angular/forms';
 import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
 import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
 import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
-import { AquafaangComponent } from './subprojects/aquafaang/aquafaang.component';
-import { BovregComponent } from './subprojects/bovreg/bovreg.component';
-import { GeneSwitchComponent } from './subprojects/gene-switch/gene-switch.component';
 import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 import {FileUploadModule} from 'ng2-file-upload';
@@ -114,6 +113,7 @@ export function removeToken(): void {
     DatasetDetailComponent,
     AnalysisDetailComponent,
     ArticleDetailComponent,
+    SubprojectDetailComponent,
     ApiComponent,
     ProtocolSampleComponent,
     ProtocolExperimentComponent,
@@ -133,9 +133,6 @@ export function removeToken(): void {
     ValidationSamplesComponent,
     ValidationExperimentsComponent,
     ValidationAnalysesComponent,
-    AquafaangComponent,
-    BovregComponent,
-    GeneSwitchComponent,
     UsdaBovineComponent,
     SheepatlasComponent,
     SubprojectsLandingComponent,

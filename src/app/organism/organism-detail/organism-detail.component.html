@@ -67,6 +67,11 @@
         <dd class="col-sm-9">{{organism?.project}}</dd>
       </ng-container>
 
+      <ng-container  *ngIf="organism && organism.hasOwnProperty('secondaryProject')">
+        <dt class="col-sm-3">Secondary project:</dt>
+        <dd class="col-sm-9">{{organism?.secondaryProject}}</dd>
+      </ng-container>
+
       <ng-container *ngIf="organism?.healthStatus">
         <dt class="col-sm-3">Health status:</dt>
         <dd class="col-sm-9">

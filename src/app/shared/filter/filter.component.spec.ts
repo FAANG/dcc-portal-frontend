@@ -350,27 +350,27 @@ describe('FilterComponent', () => {
     component.onButtonClick('test', 'Paper published');
   }));
 
-  it ('onButtonClick for Journal title type should emit standard data when upon single click',
+  it ('onButtonClick for Journal type should emit standard data when upon single click',
     inject([AggregationService], (service: AggregationService) => {
     service.field.subscribe(data => {
-      expect(data['journal_title']).toEqual(['test']);
+      expect(data['journal']).toEqual(['test']);
     });
-    component.onButtonClick('test', 'Journal title');
+    component.onButtonClick('test', 'Journal');
   }));
 
-  it ('onButtonClick for Journal title type should emit standard data when upon double click',
+  it ('onButtonClick for Journal type should emit standard data when upon double click',
     inject([AggregationService], (service: AggregationService) => {
-    component.onButtonClick('test', 'Journal title');
+    component.onButtonClick('test', 'Journal');
     service.field.subscribe(data => {
-      expect(data['journal_title']).toEqual([]);
+      expect(data['journal']).toEqual([]);
     });
-    component.onButtonClick('test', 'Journal title');
+    component.onButtonClick('test', 'Journal');
   }));
 
   it ('onButtonClick for Year type should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
     service.field.subscribe(data => {
-      expect(data['publication_year']).toEqual(['test']);
+      expect(data['year']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Year');
   }));
@@ -379,8 +379,25 @@ describe('FilterComponent', () => {
     (service: AggregationService) => {
     component.onButtonClick('test', 'Year');
     service.field.subscribe(data => {
-      expect(data['publication_year']).toEqual([]);
+      expect(data['year']).toEqual([]);
     });
     component.onButtonClick('test', 'Year');
+  }));
+
+  it ('onButtonClick for Dataset source type single click', inject([AggregationService],
+    (service: AggregationService) => {
+    service.field.subscribe(data => {
+      expect(data['datasetSource']).toEqual(['test']);
+    });
+    component.onButtonClick('test', 'Dataset source');
+  }));
+
+  it ('onButtonClick for Dataset source type double click', inject([AggregationService],
+    (service: AggregationService) => {
+    component.onButtonClick('test', 'Dataset source');
+    service.field.subscribe(data => {
+      expect(data['datasetSource']).toEqual([]);
+    });
+    component.onButtonClick('test', 'Dataset source');
   }));
 });

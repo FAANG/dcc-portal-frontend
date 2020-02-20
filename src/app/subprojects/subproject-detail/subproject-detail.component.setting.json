@@ -1,0 +1,31 @@
+{
+  "BovReg": {
+    "description": "The BovReg consortium will provide a comprehensive map of functionally active genomic features in cattle and how their (epi)genetic variation in beef and dairy breeds translates into phenotypes.",
+    "tweeter": {
+      "id": "BovReg"
+    },
+    "image": {
+      "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/bovreg/project-logo.jpg"
+    }
+  },
+  "AQUA-FAANG": {
+    "description": "AQUA-FAANG aims to generate genome-wide functional annotation maps for the six commercially most important fish species within European aquaculture and exploit their contribution to variation in traits of commercial\n        relevance, focusing on improved resistance to disease.",
+    "tweeter": {
+      "id": "AQUA_FAANG"
+    },
+    "url": "https://www.aqua-faang.eu/",
+    "image": {
+      "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/aquafaang/project-logo.png"
+    }
+  },
+  "GENE-SWitCH": {
+    "description": "GENE-SWitCH aims to deliver new underpinning knowledge on the functional genomes of two main monogastric farm species (pig and chicken) and to enable immediate translation to the pig and poultry sectors.",
+    "tweeter": {
+      "id": "GeneSwitch"
+    },
+    "url": "https://www.gene-switch.eu/",
+    "image": {
+      "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/gene-switch/project-logo.png"
+    }
+  }
+}

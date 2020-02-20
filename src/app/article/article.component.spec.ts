@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DatasetComponent } from './dataset.component';
+import { ArticleComponent } from './article.component';
 import {HeaderComponent} from '../shared/header/header.component';
 import {ActiveFilterComponent} from '../shared/active-filter/active-filter.component';
 import {FilterComponent} from '../shared/filter/filter.component';
@@ -11,14 +11,14 @@ import {SortPipe} from '../pipes/sort.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
-describe('DatasetComponent', () => {
-  let component: DatasetComponent;
-  let fixture: ComponentFixture<DatasetComponent>;
+describe('ArticleComponent', () => {
+  let component: ArticleComponent;
+  let fixture: ComponentFixture<ArticleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DatasetComponent,
+        ArticleComponent,
         HeaderComponent,
         ActiveFilterComponent,
         FilterComponent,
@@ -36,7 +36,7 @@ describe('DatasetComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatasetComponent);
+    fixture = TestBed.createComponent(ArticleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -51,55 +51,35 @@ describe('DatasetComponent', () => {
 
   it('hasActiveFilters should return true if filter_field has data', () => {
     component.filter_field = {
-      standard: ['FAANG']
+      year: ['2019']
     };
     expect(component.hasActiveFilters()).toEqual(true);
   });
 
   it('resetFilter should reset all filters in filter_field', () => {
     component.filter_field = {
-      standard: ['FAANG']
+      year: ['2019']
     };
     component.resetFilter();
     expect(component.filter_field).toEqual({});
   });
 
-  it('wasPublished should return true if published equals to string with true', () => {
-    expect(component.wasPublished('true')).toEqual(true);
-  });
-
-  it('wasPublished should return false if published equals to string with false', () => {
-    expect(component.wasPublished('false')).toEqual(false);
-  });
-
-  it('isGreen should return green if article was published for this record', () => {
-    expect(component.isGreen('true')).toEqual('green');
-  });
-
-  it('isGreen should return default if article was not published for this record', () => {
-    expect(component.isGreen('false')).toEqual('default');
-  });
-
   it('selectColumn should assign right value for sort_field', () => {
-    component.selectedColumn = 'Datset accession';
-    component.selectColumn();
-    expect(component.sort_field['id']).toEqual('datasetAccession');
-
     component.selectedColumn = 'Title';
     component.selectColumn();
     expect(component.sort_field['id']).toEqual('title');
 
-    component.selectedColumn = 'Species';
+    component.selectedColumn = 'Year';
     component.selectColumn();
-    expect(component.sort_field['id']).toEqual('species');
+    expect(component.sort_field['id']).toEqual('year');
 
-    component.selectedColumn = 'Archive';
+    component.selectedColumn = 'Journal';
     component.selectColumn();
-    expect(component.sort_field['id']).toEqual('archive');
+    expect(component.sort_field['id']).toEqual('journal');
 
-    component.selectedColumn = 'Assay type';
+    component.selectedColumn = 'Dataset source';
     component.selectColumn();
-    expect(component.sort_field['id']).toEqual('assayType');
+    expect(component.sort_field['id']).toEqual('datasetSource');
   });
 
   it('chooseClass should assign right values for spanClass and sort_field', () => {

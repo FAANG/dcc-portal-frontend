@@ -16,6 +16,18 @@ export interface FileTable {
   paperPublished: string;
 }
 
+export interface FileForProjectsTable {
+  name: string;
+  fileId: string;
+  experiment: string;
+  assayType: string;
+  experimentTarget: string;
+  run: string;
+  readableSize: string;
+  checksum: string;
+  checksumMethod: string;
+}
+
 export interface OrganismTable {
   bioSampleId: string;
   sex: string;

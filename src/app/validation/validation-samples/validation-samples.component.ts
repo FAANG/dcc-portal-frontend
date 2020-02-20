@@ -124,25 +124,25 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     return record.replace(/[_]/g, ' ');
   }
 
-  getIssues(issues_list, issue_type) {
+  getIssues(issues_list, issue_type_name) {
     issues_list = issues_list.length;
     if (issues_list === 0) {
       return 'pass';
     } else {
       if (issues_list === 1) {
-        return issues_list + ' ' + issue_type;
+        return issues_list + ' ' + issue_type_name;
       } else {
-        return issues_list + ' ' + issue_type + 's';
+        return issues_list + ' ' + issue_type_name + 's';
       }
     }
   }
 
-  getCellClass(issues_list, issue_type) {
+  getCellClass(issues_list, issue_type_name) {
     issues_list = issues_list.length;
     if (issues_list === 0) {
       return '';
     } else {
-      if (issue_type === 'warning') {
+      if (issue_type_name === 'warning') {
         return 'table-warning';
       } else {
         return 'table-danger';

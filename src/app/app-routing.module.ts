@@ -16,6 +16,7 @@ import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detai
 import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
 import {AnalysisDetailComponent} from './analysis/analysis-detail/analysis-detail.component';
 import {ArticleDetailComponent} from './article/article-detail/article-detail.component';
+import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 
 import {ApiComponent} from './help/api/api.component';
 import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.component';
@@ -34,9 +35,6 @@ import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-
 import {ValidationSamplesComponent} from './validation/validation-samples/validation-samples.component';
 import {ValidationExperimentsComponent} from './validation/validation-experiments/validation-experiments.component';
 import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
-import {AquafaangComponent} from './subprojects/aquafaang/aquafaang.component';
-import {BovregComponent} from './subprojects/bovreg/bovreg.component';
-import {GeneSwitchComponent} from './subprojects/gene-switch/gene-switch.component';
 import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
 import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
 import {SubprojectsLandingComponent} from './subprojects/subprojects-landing/subprojects-landing.component';
@@ -78,12 +76,9 @@ const routes: Routes = [
   {path: 'validation/experiments', component: ValidationExperimentsComponent},
   {path: 'validation/analyses', component: ValidationAnalysesComponent},
   {path: 'projects', component: SubprojectsLandingComponent},
-  {path: 'projects/aquafaang', component: AquafaangComponent},
-  {path: 'projects/bovreg', component: BovregComponent},
-  {path: 'projects/gene-switch', component: GeneSwitchComponent},
   {path: 'projects/usda-bovine', component: UsdaBovineComponent},
   {path: 'projects/sheepatlas', component: SheepatlasComponent},
-  {path: 'aap', component: AapComponent},
+  {path: 'projects/:id', component: SubprojectDetailComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];
