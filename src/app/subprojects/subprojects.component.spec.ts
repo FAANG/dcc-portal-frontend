@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubprojectsLandingComponent } from './subprojects-landing.component';
-import { HeaderComponent } from '../../shared/header/header.component';
+import { SubprojectsComponent } from './subprojects.component';
+import { HeaderComponent } from '../shared/header/header.component';
 import {RouterTestingModule} from '@angular/router/testing';
 
 describe('SubprojectsLandingComponent', () => {
-  let component: SubprojectsLandingComponent;
-  let fixture: ComponentFixture<SubprojectsLandingComponent>;
+  let component: SubprojectsComponent;
+  let fixture: ComponentFixture<SubprojectsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SubprojectsLandingComponent,
+        SubprojectsComponent,
         HeaderComponent
       ],
       imports: [
@@ -22,7 +22,7 @@ describe('SubprojectsLandingComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SubprojectsLandingComponent);
+    fixture = TestBed.createComponent(SubprojectsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

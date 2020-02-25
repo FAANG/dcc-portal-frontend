@@ -69,7 +69,7 @@ import { ValidationAnalysesComponent } from './validation/validation-analyses/va
 import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 import {FileUploadModule} from 'ng2-file-upload';
-import { SubprojectsLandingComponent } from './subprojects/subprojects-landing/subprojects-landing.component';
+import { SubprojectsComponent } from './subprojects/subprojects.component';
 import {AuthModule} from 'ng-ebi-authorization';
 import {JwtModule} from '@auth0/angular-jwt';
 import { AapComponent } from './aap/aap.component';
@@ -135,7 +135,7 @@ export function removeToken(): void {
     ValidationAnalysesComponent,
     UsdaBovineComponent,
     SheepatlasComponent,
-    SubprojectsLandingComponent,
+    SubprojectsComponent,
     AapComponent
   ],
   imports: [

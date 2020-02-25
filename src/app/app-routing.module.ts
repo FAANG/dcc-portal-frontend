@@ -37,7 +37,7 @@ import {ValidationExperimentsComponent} from './validation/validation-experiment
 import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
 import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
 import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
-import {SubprojectsLandingComponent} from './subprojects/subprojects-landing/subprojects-landing.component';
+import {SubprojectsComponent} from './subprojects/subprojects.component';
 import {AapComponent} from './aap/aap.component';
 
 
@@ -75,7 +75,7 @@ const routes: Routes = [
   {path: 'validation/samples', component: ValidationSamplesComponent},
   {path: 'validation/experiments', component: ValidationExperimentsComponent},
   {path: 'validation/analyses', component: ValidationAnalysesComponent},
-  {path: 'projects', component: SubprojectsLandingComponent},
+  {path: 'projects', component: SubprojectsComponent},
   {path: 'projects/usda-bovine', component: UsdaBovineComponent},
   {path: 'projects/sheepatlas', component: SheepatlasComponent},
   {path: 'projects/:id', component: SubprojectDetailComponent},
