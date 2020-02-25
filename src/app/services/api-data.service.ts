@@ -4,8 +4,8 @@ import {HttpClient, HttpErrorResponse, HttpParams, HttpHeaders} from '@angular/c
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import {
-  ArticleTable, AnalysisTable, DatasetTable, FileTable, OrganismTable,
-  ProtocolFile, ProtocolSample, SpecimenTable, FileForProjectsTable
+  ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
+  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable
 } from '../shared/interfaces';
 import {ruleset_prefix, validation_service_url} from '../shared/constants';
 
@@ -56,7 +56,7 @@ export class ApiDataService {
           readableSize: entry['_source']['readableSize'],
           checksum: entry['_source']['checksum'],
           checksumMethod: entry['_source']['checksumMethod']
-          } as FileForProjectsTable )
+          } as FileForProjectTable )
         );
       }),
       retry(3),
@@ -111,18 +111,14 @@ export class ApiDataService {
 
   getAllOrganismsFromProject(project: string) {
     const url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get(url, {headers: headers}).pipe(
+    return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
           sex: entry['_source']['sex']['text'],
           organism: entry['_source']['organism']['text'],
-          breed: entry['_source']['breed']['text'],
-          standard: entry['_source']['standardMet'],
-          idNumber: +entry['_source']['id_number'],
-            paperPublished: entry['_source']['paperPublished']
-        } as OrganismTable)
+          breed: entry['_source']['breed']['text']
+        } as OrganismForProjectTable)
         );
       }),
       retry(3),
@@ -148,8 +144,7 @@ export class ApiDataService {
 
   getAllSpecimensForProject(project: string) {
     const url = this.hostSetting.host + 'specimen/_search/?size=100000&q=secondaryProject:' + project;
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get(url, {headers: headers}).pipe(
+    return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
@@ -157,11 +152,8 @@ export class ApiDataService {
           organismpart_celltype: this.checkField(entry['_source']['cellType']),
           sex: this.checkField(entry['_source']['organism']['sex']),
           organism: this.checkField(entry['_source']['organism']['organism']),
-          breed: this.checkField(entry['_source']['organism']['breed']),
-          standard: entry['_source']['standardMet'],
-          idNumber: +entry['_source']['id_number'],
-          paperPublished: entry['_source']['paperPublished'],
-          } as SpecimenTable)
+          breed: this.checkField(entry['_source']['organism']['breed'])
+          } as SpecimenForProjectTable)
         );
       }),
       retry(3),

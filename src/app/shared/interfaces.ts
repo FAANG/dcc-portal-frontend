@@ -16,7 +16,7 @@ export interface FileTable {
   paperPublished: string;
 }
 
-export interface FileForProjectsTable {
+export interface FileForProjectTable {
   name: string;
   fileId: string;
   experiment: string;
@@ -38,6 +38,13 @@ export interface OrganismTable {
   paperPublished: string;
 }
 
+export interface OrganismForProjectTable {
+  bioSampleId: string;
+  sex: string;
+  organism: string;
+  breed: string;
+}
+
 export interface SpecimenTable {
   bioSampleId: string;
   material: string;
@@ -48,6 +55,15 @@ export interface SpecimenTable {
   standard: string;
   idNumber: number;
   paperPublished: string;
+}
+
+export interface SpecimenForProjectTable {
+  bioSampleId: string;
+  material: string;
+  organismpart_celltype: string;
+  sex: string;
+  organism: string;
+  breed: string;
 }
 
 export interface DatasetTable {
