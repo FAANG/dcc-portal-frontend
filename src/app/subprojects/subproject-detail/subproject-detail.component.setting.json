@@ -1,4 +1,14 @@
 {
+  "GENE-SWitCH": {
+    "description": "GENE-SWitCH aims to deliver new underpinning knowledge on the functional genomes of two main monogastric farm species (pig and chicken) and to enable immediate translation to the pig and poultry sectors.",
+    "tweeter": {
+      "id": "GeneSwitch"
+    },
+    "url": "https://www.gene-switch.eu/",
+    "image": {
+      "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/gene-switch/project-logo.png"
+    }
+  },
   "BovReg": {
     "description": "The BovReg consortium will provide a comprehensive map of functionally active genomic features in cattle and how their (epi)genetic variation in beef and dairy breeds translates into phenotypes.",
     "tweeter": {
@@ -16,16 +26,6 @@
     "url": "https://www.aqua-faang.eu/",
     "image": {
       "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/aquafaang/project-logo.png"
-    }
-  },
-  "GENE-SWitCH": {
-    "description": "GENE-SWitCH aims to deliver new underpinning knowledge on the functional genomes of two main monogastric farm species (pig and chicken) and to enable immediate translation to the pig and poultry sectors.",
-    "tweeter": {
-      "id": "GeneSwitch"
-    },
-    "url": "https://www.gene-switch.eu/",
-    "image": {
-      "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/gene-switch/project-logo.png"
     }
   }
 }
