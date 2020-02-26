@@ -5,7 +5,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {FIELD_NAMES} from '../../shared/fieldnames';
 import {external_ena_prefix, external_ols_prefix, internal_dataset, internal_organism, internal_specimen} from '../../shared/constants';
-import {expandObject} from '../../shared/common_functions';
+import {expandObject, getProtocolLink} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-file-detail',
@@ -20,6 +20,7 @@ export class FileDetailComponent implements OnInit {
   fieldNames = FIELD_NAMES; // required in the html page
   showExperimentDetail = false;
   expandObject: any;
+  getProtocolLink: any;
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;
@@ -36,6 +37,7 @@ export class FileDetailComponent implements OnInit {
 
   ngOnInit() {
     this.expandObject = expandObject;
+    this.getProtocolLink = getProtocolLink;
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.fileId = params['id'];
