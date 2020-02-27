@@ -1,10 +1,10 @@
 <ng-container>
 <div class="container" style="min-height:87vh">
   <app-header></app-header>
-  <h2>FAANG projects</h2>
+  <h2>FAANG projects</h2><br>
 
   <ng-container *ngFor="let project of projects">
-    <div clas="row">
+    <div class="row">
       <ng-container>
       <div class="col-md-6">
         <a [routerLink]="['/projects', project.left.id]">
