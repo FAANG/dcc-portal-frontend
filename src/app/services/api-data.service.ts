@@ -306,8 +306,7 @@ export class ApiDataService {
 
   getAllArticlesForProject(project: string) {
     const url = this.hostSetting.host + 'article/_search/?size=100000&q=secondaryProject:' + project;
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get(url, {headers: headers}).pipe(
+    return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           id: entry['_id'],
