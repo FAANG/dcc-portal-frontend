@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ApiDataService} from '../../services/api-data.service';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {Title} from '@angular/platform-browser';
-import {convertArrayToStr} from '../../shared/common_functions';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ApiDataService } from '../../services/api-data.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Title } from '@angular/platform-browser';
+import { convertArrayToStr, getProtocolLink } from '../../shared/common_functions';
 
 import {
   external_biosample_prefix,
@@ -23,6 +23,7 @@ export class AnalysisDetailComponent implements OnInit {
   analysis: any;
   error: any;
   convertArrayToStr: any;
+  getProtocolLink: any;
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly biosample_prefix = external_biosample_prefix;
@@ -37,6 +38,7 @@ export class AnalysisDetailComponent implements OnInit {
 
   ngOnInit() {
     this.convertArrayToStr = convertArrayToStr;
+    this.getProtocolLink = getProtocolLink;
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.accession = params['id'];

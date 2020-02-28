@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HostSetting } from './host-setting';
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams, HttpHeaders} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
-import { ArticleTable, AnalysisTable, DatasetTable, FileTable, OrganismTable,
-  ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
+import {
+  ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
+  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable
+} from '../shared/interfaces';
 import {ruleset_prefix, validation_service_url} from '../shared/constants';
 
 
@@ -33,6 +35,28 @@ export class ApiDataService {
           standard: entry['_source']['experiment']['standardMet'],
           paperPublished: entry['_source']['paperPublished']
           } as FileTable )
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllFilesForProject(project: string) {
+    const url = this.hostSetting.host + 'file/_search/?size=100000&q=secondaryProject:' + project;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          name: entry['_source']['name'],
+          fileId: entry['_id'],
+          experiment: entry['_source']['experiment']['accession'],
+          assayType: entry['_source']['experiment']['assayType'],
+          experimentTarget: entry['_source']['experiment']['target'],
+          run: entry['_source']['run']['accession'],
+          readableSize: entry['_source']['readableSize'],
+          checksum: entry['_source']['checksum'],
+          checksumMethod: entry['_source']['checksumMethod']
+          } as FileForProjectTable )
         );
       }),
       retry(3),
@@ -85,6 +109,23 @@ export class ApiDataService {
     );
   }
 
+  getAllOrganismsFromProject(project: string) {
+    const url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          bioSampleId: entry['_source']['biosampleId'],
+          sex: entry['_source']['sex']['text'],
+          organism: entry['_source']['organism']['text'],
+          breed: entry['_source']['breed']['text']
+        } as OrganismForProjectTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getOrganism(biosampleId: string) {
     const url = this.hostSetting.host + 'organism/' + biosampleId;
     return this.http.get<any>(url).pipe(
@@ -96,6 +137,25 @@ export class ApiDataService {
   getOrganismsSpecimens(biosampleId: any) {
     const url = this.hostSetting.host + 'specimen/_search/?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
     return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllSpecimensForProject(project: string) {
+    const url = this.hostSetting.host + 'specimen/_search/?size=100000&q=secondaryProject:' + project;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          bioSampleId: entry['_source']['biosampleId'],
+          material: this.checkField(entry['_source']['material']),
+          organismpart_celltype: this.checkField(entry['_source']['cellType']),
+          sex: this.checkField(entry['_source']['organism']['sex']),
+          organism: this.checkField(entry['_source']['organism']['organism']),
+          breed: this.checkField(entry['_source']['organism']['breed'])
+          } as SpecimenForProjectTable)
+        );
+      }),
       retry(3),
       catchError(this.handleError),
     );
@@ -239,6 +299,24 @@ export class ApiDataService {
   getAnalysis(accession: string) {
     const url = this.hostSetting.host + 'analysis/' + accession;
     return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllArticlesForProject(project: string) {
+    const url = this.hostSetting.host + 'article/_search/?size=100000&q=secondaryProject:' + project;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          id: entry['_id'],
+          title: entry['_source']['title'],
+          year: entry['_source']['year'],
+          journal: entry['_source']['journal'],
+          datasetSource: entry['_source']['datasetSource']
+          } as ArticleTable)
+        );
+      }),
       retry(3),
       catchError(this.handleError),
     );

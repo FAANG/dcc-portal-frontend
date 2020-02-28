@@ -464,7 +464,7 @@
     }
   },
   "project": {
-    "paper": {
+    "publication": {
       "display": [
         "Title",
         "Year",
@@ -479,8 +479,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "id"
           }
         },
         "Year": {
@@ -488,6 +488,38 @@
         },
         "Journal": {
           "value": "journal"
+        }
+      }
+    },
+    "organism": {
+      "display": [
+        "BioSamples ID",
+        "Species",
+        "Sex",
+        "Breed"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Species",
+        "Sex",
+        "Breed"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "bioSampleId",
+          "link": {
+            "prefix": "../organism/",
+            "url": "bioSampleId"
+          }
+        },
+        "Sex": {
+          "value": "sex"
+        },
+        "Species": {
+          "value": "organism"
+        },
+        "Breed": {
+          "value": "breed"
         }
       }
     },
@@ -510,40 +542,45 @@
       ],
       "fields": {
         "BioSamples ID": {
-          "value": "biosampleId",
+          "value": "bioSampleId",
           "link": {
             "prefix": "../specimen/",
-            "url": "biosampleId"
+            "url": "bioSampleId"
           }
         },
         "Material": {
-          "value": "material.text"
+          "value": "material"
         },
         "Cell type": {
-          "value": "cellType.text"
+          "value": "organismpart_celltype"
         },
         "Sex": {
-          "value": "sex.text"
+          "value": "sex"
         },
         "Species": {
-          "value": "organism.text"
+          "value": "organism"
         },
         "Breed": {
-          "value": "breed.text"
+          "value": "breed"
         }
       }
     },
     "file": {
       "display": [
         "File name",
-        "Experiment",
+        "Assay type",
+        "Experiment target",
         "File size"
       ],
       "all": [
         "File name",
         "Experiment",
-        "Archive",
-        "File size"
+        "Run",
+        "Assay type",
+        "Experiment target",
+        "File size",
+        "Checksum",
+        "Checksum method"
       ],
       "fields": {
         "File name": {
@@ -556,11 +593,23 @@
         "Experiment": {
           "value": "experiment"
         },
-        "Archive": {
-          "value": "archive"
+        "Run": {
+          "value":"run"
+        },
+        "Assay type": {
+          "value": "assayType"
+        },
+        "Experiment target": {
+          "value": "experimentTarget"
         },
         "File size": {
           "value": "readableSize"
+        },
+        "Checksum": {
+          "value": "checksum"
+        },
+        "Checksum method": {
+          "value": "checksumMethod"
         }
       }
     }
