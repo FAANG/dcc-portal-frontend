@@ -10,6 +10,10 @@ export function replaceUnderscoreWithSpace(data) {
   }
 }
 
+export function replaceUnderscoreWithSpaceAndCapitalize(data) {
+  return data.split('_').map(item => item.charAt(0).toUpperCase() + item.substring(1)).join(' ');
+}
+
 export function convertArrayToStr(data: any[], subelement: string): string {
   if (data === undefined || data.length === 0) {
     return '';

@@ -11,7 +11,7 @@ import {
   validation_service_url_download,
   validation_ws_url
 } from '../../shared/constants';
-import {makeid} from '../../shared/common_functions';
+import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -44,6 +44,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   metadata_template_with_examples: string;
   metadata_template_without_examples: string;
   errors = [];
+  column_names = [];
+  table_data = [];
+  table_errors = [];
 
   constructor(
     private titleService: Title,
@@ -113,10 +116,96 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       if (data['response']['errors']) {
         this.errors.push(data['response']['errors']);
       }
+      if (data['response']['table_data']) {
+        const table = data['response']['table_data']['organism'][0];
+        this.column_names.push('Sample Name');
+        if ('samples_core' in table) {
+          this.parseColumnNames(table['samples_core']);
+        }
+        this.parseColumnNames(table);
+        if ('custom' in table) {
+          this.parseColumnNames(table['custom']);
+        }
+        for (const record of data['response']['table_data']['organism']) {
+          let tmp = [];
+          let tmp_errors = [];
+          tmp.push(record['custom']['sample_name']['value']);
+          tmp_errors.push('valid');
+          if ('samples_core' in record) {
+            tmp = tmp.concat(this.parseColumnData(record['samples_core'])['data']);
+            tmp_errors = tmp_errors.concat(this.parseColumnData(record['samples_core'])['errors']);
+          }
+          tmp = tmp.concat(this.parseColumnData(record)['data']);
+          tmp_errors = tmp_errors.concat(this.parseColumnData(record)['errors']);
+          if ('custom' in record) {
+            tmp = tmp.concat(this.parseColumnData(record['custom'])['data']);
+            tmp_errors = tmp_errors.concat(this.parseColumnData(record['custom'])['errors']);
+          }
+          this.table_data.push(tmp);
+          this.table_errors.push(tmp_errors);
+        }
+      }
     };
 
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.onopen(null);
+    }
+  }
+
+  parseColumnNames(data: any) {
+    for (const name of Object.keys(data)) {
+      // TODO: parse all data in array
+      if (Array.isArray(data[name])) {
+        data[name] = data[name][0];
+      }
+      if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
+        this.column_names.push(replaceUnderscoreWithSpaceAndCapitalize(name));
+        if (data[name].hasOwnProperty('term')) {
+          this.column_names.push('Term Source ID');
+        }
+        if (data[name].hasOwnProperty('units')) {
+          this.column_names.push('Unit');
+        }
+      }
+    }
+  }
+
+  parseColumnData(data: any) {
+    const data_to_return = [];
+    const errors_to_return = [];
+    for (const name of Object.keys(data)) {
+      // TODO: parse all data in array
+      if (Array.isArray(data[name])) {
+        data[name] = data[name][0];
+      }
+      if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
+        if (data[name].hasOwnProperty('text')) {
+          data_to_return.push(data[name]['text']);
+          errors_to_return.push(this.dataHasErrors(data[name]));
+        } else if (data[name].hasOwnProperty('value')) {
+          data_to_return.push(data[name]['value']);
+          errors_to_return.push(this.dataHasErrors(data[name]));
+        }
+        if (data[name].hasOwnProperty('term')) {
+          data_to_return.push(data[name]['term']);
+          errors_to_return.push(this.dataHasErrors(data[name]));
+        } else if (data[name].hasOwnProperty('units')) {
+          data_to_return.push(data[name]['units']);
+          errors_to_return.push(this.dataHasErrors(data[name]));
+        }
+      }
+    }
+    return {
+      data: data_to_return,
+      errors: errors_to_return
+    };
+  }
+
+  dataHasErrors(data: any) {
+    if (data.hasOwnProperty('errors')) {
+      return data['errors'];
+    } else {
+      return 'valid';
     }
   }
 
@@ -137,21 +226,14 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  getCellClass(issues_list, issue_type_name) {
-    issues_list = issues_list.length;
-    if (issues_list === 0) {
-      return '';
-    } else {
-      if (issue_type_name === 'warning') {
-        return 'table-warning';
-      } else {
-        return 'table-danger';
-      }
+  getCellClass(i: number, j: number) {
+    if (this.table_errors[i][j] !== 'valid') {
+      return 'table-danger';
     }
   }
 
-  getCellStyle(issues_list) {
-    if (issues_list.length !== 0) {
+  getCellStyle(i: number, j: number) {
+    if (this.table_errors[i][j] !== 'valid') {
       return 'pointer';
     } else {
       return 'auto';
@@ -189,10 +271,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
   }
 
-  openModal(column_type, issues_list) {
-    if (issues_list.length !== 0) {
-      this.active_column = column_type;
-      this.active_issues = issues_list;
+  openModal(i: number, j: number) {
+    this.active_column = this.column_names[j];
+    this.active_issues = this.table_errors[i][j];
+    if (this.active_issues !== 'valid') {
       this.ngxSmartModalService.getModal('myModal').open();
     }
   }
