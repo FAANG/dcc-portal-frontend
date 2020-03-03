@@ -137,7 +137,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let record of table_data; let i=index">
+        <tr *ngFor="let record of records_to_show; let i=index">
           <td *ngFor="let data of record; let j=index"
               [ngClass]="getCellClass(i, j)"
               [ngStyle]="{'cursor': getCellStyle(i, j)}"

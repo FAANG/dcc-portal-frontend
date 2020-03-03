@@ -70,7 +70,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   setValidationResults() {
     if (this.validation_results) {
       for (const key of Object.keys(this.validation_results)) {
-        this.record_types.push(key);
+        if (key !== 'table') {
+          this.record_types.push(key);
+        }
       }
       this.active_key = this.record_types[0];
       this.active_table = this.validation_results[this.active_key];
@@ -79,16 +81,37 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   setTables() {
+    const table = this.active_table[0];
+    this.column_names.push('Sample Name');
+    if ('samples_core' in table) {
+      this.parseColumnNames(table['samples_core']);
+    }
+    this.parseColumnNames(table);
+    if ('custom' in table) {
+      this.parseColumnNames(table['custom']);
+    }
     for (const record of this.active_table) {
-      let has_issues = false;
-      for (const type of record_type) {
-        for (const issue of issue_type) {
-          if (record[type][issue].length !== 0) {
-            has_issues = true;
-          }
-        }
+      let tmp = [];
+      let tmp_errors = [];
+      tmp.push(record['custom']['sample_name']['value']);
+      tmp_errors.push('valid');
+      if ('samples_core' in record) {
+        tmp = tmp.concat(this.parseColumnData(record['samples_core'])['data']);
+        tmp_errors = tmp_errors.concat(this.parseColumnData(record['samples_core'])['errors']);
       }
-      has_issues === true ? this.records_with_issues.push(record) : this.records_that_pass.push(record);
+      tmp = tmp.concat(this.parseColumnData(record)['data']);
+      tmp_errors = tmp_errors.concat(this.parseColumnData(record)['errors']);
+      if ('custom' in record) {
+        tmp = tmp.concat(this.parseColumnData(record['custom'])['data']);
+        tmp_errors = tmp_errors.concat(this.parseColumnData(record['custom'])['errors']);
+      }
+      const error_indices = tmp_errors.map((e, i) => e === 'valid' ? i : '').filter(String);
+      if (error_indices.length !== tmp.length) {
+        this.records_with_issues.push(tmp);
+        this.table_errors.push(tmp_errors);
+      } else {
+        this.records_that_pass.push(tmp);
+      }
     }
   }
 
@@ -109,41 +132,12 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       if (data['response']['submission_status']) {
         this.submission_status = data['response']['submission_status'];
       }
-      if (data['response']['validation_results']) {
-        this.validation_results = data['response']['validation_results'];
-        this.setValidationResults();
-      }
       if (data['response']['errors']) {
         this.errors.push(data['response']['errors']);
       }
       if (data['response']['table_data']) {
-        const table = data['response']['table_data']['organism'][0];
-        this.column_names.push('Sample Name');
-        if ('samples_core' in table) {
-          this.parseColumnNames(table['samples_core']);
-        }
-        this.parseColumnNames(table);
-        if ('custom' in table) {
-          this.parseColumnNames(table['custom']);
-        }
-        for (const record of data['response']['table_data']['organism']) {
-          let tmp = [];
-          let tmp_errors = [];
-          tmp.push(record['custom']['sample_name']['value']);
-          tmp_errors.push('valid');
-          if ('samples_core' in record) {
-            tmp = tmp.concat(this.parseColumnData(record['samples_core'])['data']);
-            tmp_errors = tmp_errors.concat(this.parseColumnData(record['samples_core'])['errors']);
-          }
-          tmp = tmp.concat(this.parseColumnData(record)['data']);
-          tmp_errors = tmp_errors.concat(this.parseColumnData(record)['errors']);
-          if ('custom' in record) {
-            tmp = tmp.concat(this.parseColumnData(record['custom'])['data']);
-            tmp_errors = tmp_errors.concat(this.parseColumnData(record['custom'])['errors']);
-          }
-          this.table_data.push(tmp);
-          this.table_errors.push(tmp_errors);
-        }
+        this.validation_results = data['response']['table_data'];
+        this.setValidationResults();
       }
     };
 
@@ -227,13 +221,13 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   getCellClass(i: number, j: number) {
-    if (this.table_errors[i][j] !== 'valid') {
+    if (this.active_issue === 'issues' && this.table_errors[i][j] !== 'valid') {
       return 'table-danger';
     }
   }
 
   getCellStyle(i: number, j: number) {
-    if (this.table_errors[i][j] !== 'valid') {
+    if (this.active_issue === 'issues' && this.table_errors[i][j] !== 'valid') {
       return 'pointer';
     } else {
       return 'auto';
@@ -261,6 +255,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.active_table = this.validation_results[this.active_key];
     this.records_with_issues = [];
     this.records_that_pass = [];
+    this.column_names = [];
+    this.table_data = [];
+    this.table_errors = [];
     this.show_table = false;
     this.setTables();
   }
@@ -274,7 +271,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   openModal(i: number, j: number) {
     this.active_column = this.column_names[j];
     this.active_issues = this.table_errors[i][j];
-    if (this.active_issues !== 'valid') {
+    if (this.active_issue === 'issues') {
       this.ngxSmartModalService.getModal('myModal').open();
     }
   }
