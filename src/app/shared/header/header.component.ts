@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   records_dropdown_open = false;
   projects_dropdown_open = false;
   validation_dropdown_open = false;
+  show_banner = 'show';
 
   constructor(private router: Router) {}
 
@@ -79,6 +80,10 @@ export class HeaderComponent implements OnInit {
     if (this.records_dropdown_open === true) {
       this.records_dropdown_open = false;
     }
+  }
+
+  hideBanner() {
+    this.show_banner = 'hide';
   }
 
 }

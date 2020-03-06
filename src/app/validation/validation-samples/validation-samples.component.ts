@@ -47,6 +47,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   column_names = [];
   table_data = [];
   table_errors = [];
+  table_warnings = [];
 
   constructor(
     private titleService: Title,
@@ -93,22 +94,29 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     for (const record of this.active_table) {
       let tmp = [];
       let tmp_errors = [];
+      let tmp_warnings = [];
       tmp.push(record['custom']['sample_name']['value']);
       tmp_errors.push('valid');
+      tmp_warnings.push('valid');
       if ('samples_core' in record) {
         tmp = tmp.concat(this.parseColumnData(record['samples_core'])['data']);
         tmp_errors = tmp_errors.concat(this.parseColumnData(record['samples_core'])['errors']);
+        tmp_warnings = tmp_warnings.concat(this.parseColumnData(record['samples_core'])['warnings']);
       }
       tmp = tmp.concat(this.parseColumnData(record)['data']);
       tmp_errors = tmp_errors.concat(this.parseColumnData(record)['errors']);
+      tmp_warnings = tmp_warnings.concat(this.parseColumnData(record)['warnings']);
       if ('custom' in record) {
         tmp = tmp.concat(this.parseColumnData(record['custom'])['data']);
         tmp_errors = tmp_errors.concat(this.parseColumnData(record['custom'])['errors']);
+        tmp_warnings = tmp_warnings.concat(this.parseColumnData(record['custom'])['warnings']);
       }
       const error_indices = tmp_errors.map((e, i) => e === 'valid' ? i : '').filter(String);
-      if (error_indices.length !== tmp.length) {
+      const warning_indices = tmp_warnings.map((e, i) => e === 'valid' ? i : '').filter(String);
+      if (error_indices.length !== tmp.length || warning_indices.length !== tmp.length) {
         this.records_with_issues.push(tmp);
         this.table_errors.push(tmp_errors);
+        this.table_warnings.push(tmp_warnings);
       } else {
         this.records_that_pass.push(tmp);
       }
@@ -167,6 +175,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   parseColumnData(data: any) {
     const data_to_return = [];
     const errors_to_return = [];
+    const warnings_to_return = [];
     for (const name of Object.keys(data)) {
       // TODO: parse all data in array
       if (Array.isArray(data[name])) {
@@ -175,29 +184,34 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
         if (data[name].hasOwnProperty('text')) {
           data_to_return.push(data[name]['text']);
-          errors_to_return.push(this.dataHasErrors(data[name]));
+          errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
+          warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
         } else if (data[name].hasOwnProperty('value')) {
           data_to_return.push(data[name]['value']);
-          errors_to_return.push(this.dataHasErrors(data[name]));
+          errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
+          warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
         }
         if (data[name].hasOwnProperty('term')) {
           data_to_return.push(data[name]['term']);
-          errors_to_return.push(this.dataHasErrors(data[name]));
+          errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
+          warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
         } else if (data[name].hasOwnProperty('units')) {
           data_to_return.push(data[name]['units']);
-          errors_to_return.push(this.dataHasErrors(data[name]));
+          errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
+          warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
         }
       }
     }
     return {
       data: data_to_return,
-      errors: errors_to_return
+      errors: errors_to_return,
+      warnings: warnings_to_return
     };
   }
 
-  dataHasErrors(data: any) {
-    if (data.hasOwnProperty('errors')) {
-      return data['errors'];
+  dataHasErrors(data: any, issue_type: string) {
+    if (data.hasOwnProperty(issue_type)) {
+      return data[issue_type];
     } else {
       return 'valid';
     }
@@ -223,11 +237,15 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   getCellClass(i: number, j: number) {
     if (this.active_issue === 'issues' && this.table_errors[i][j] !== 'valid') {
       return 'table-danger';
+    } else if (this.active_issue === 'issues' && this.table_warnings[i][j] !== 'valid') {
+      return 'table-warning';
     }
   }
 
   getCellStyle(i: number, j: number) {
     if (this.active_issue === 'issues' && this.table_errors[i][j] !== 'valid') {
+      return 'pointer';
+    } else if (this.active_issue === 'issues' && this.table_warnings[i][j] !== 'valid') {
       return 'pointer';
     } else {
       return 'auto';
@@ -269,10 +287,21 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   openModal(i: number, j: number) {
-    this.active_column = this.column_names[j];
-    this.active_issues = this.table_errors[i][j];
     if (this.active_issue === 'issues') {
-      this.ngxSmartModalService.getModal('myModal').open();
+      this.active_column = this.column_names[j];
+      const errors = this.table_errors[i][j];
+      const warnings = this.table_warnings[i][j];
+      if (errors !== 'valid' && warnings !== 'valid') {
+        this.active_issues = errors;
+        this.active_issues =  this.active_issues.concat(warnings);
+        this.ngxSmartModalService.getModal('myModal').open();
+      } else if (errors !== 'valid') {
+        this.active_issues = errors;
+        this.ngxSmartModalService.getModal('myModal').open();
+      } else if (warnings !== 'valid') {
+        this.active_issues = warnings;
+        this.ngxSmartModalService.getModal('myModal').open();
+      }
     }
   }
 

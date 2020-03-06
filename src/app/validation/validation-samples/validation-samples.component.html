@@ -151,9 +151,13 @@
 
   <ngx-smart-modal #myModal identifier="myModal" customClass="nsm-dialog-animation-fade">
     <h3>{{active_column}}:</h3>
-    <p *ngIf="active_issues">
-      {{active_issues.split(',').join(' ')}}
-    </p>
+    <div *ngIf="active_issues">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let issue of active_issues" class="list-group-item">
+          {{issue.split(',').join(' ')}}
+        </li>
+      </ul>
+    </div>
     <button (click)="myModal.close()" type="button" class="btn btn-success modal-button">Close</button>
   </ngx-smart-modal>
 

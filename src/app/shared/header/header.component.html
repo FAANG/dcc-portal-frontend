@@ -63,3 +63,11 @@
     </ul>
   </div>
 </nav>
+
+<div class="alert alert-warning alert-dismissible fade" role="alert" [ngClass]="show_banner">
+  The FAANG data portal and programmatic services should be considered at risk between 11th and 27th March due to an
+  EMBL-EBI data centre migration
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="hideBanner()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
