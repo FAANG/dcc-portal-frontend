@@ -75,7 +75,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       }
       this.active_key = this.record_types[0];
       this.active_table = this.validation_results[this.active_key];
-      console.log(this.active_table);
       this.setTables();
     }
   }
@@ -158,13 +157,21 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   parseColumnNames(data: any) {
     for (const name of Object.keys(data)) {
-      if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
-        this.column_names.push(replaceUnderscoreWithSpaceAndCapitalize(name));
-        if (data[name].hasOwnProperty('term')) {
-          this.column_names.push('Term Source ID');
+      if (Array.isArray(data[name])) {
+        for (const record of data[name]) {
+          const tmp = {};
+          tmp[name] = record;
+          this.parseColumnNames(tmp);
         }
-        if (data[name].hasOwnProperty('units')) {
-          this.column_names.push('Unit');
+      } else {
+        if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
+          this.column_names.push(replaceUnderscoreWithSpaceAndCapitalize(name));
+          if (data[name].hasOwnProperty('term')) {
+            this.column_names.push('Term Source ID');
+          }
+          if (data[name].hasOwnProperty('units')) {
+            this.column_names.push('Unit');
+          }
         }
       }
     }
@@ -184,25 +191,26 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
           errors_to_return = errors_to_return.concat(array_results['errors']);
           warnings_to_return = warnings_to_return.concat(array_results['warnings']);
         }
-      }
-      if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
-        if (data[name].hasOwnProperty('text')) {
-          data_to_return.push(data[name]['text']);
-          errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
-          warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
-        } else if (data[name].hasOwnProperty('value')) {
-          data_to_return.push(data[name]['value']);
-          errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
-          warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
-        }
-        if (data[name].hasOwnProperty('term')) {
-          data_to_return.push(data[name]['term']);
-          errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
-          warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
-        } else if (data[name].hasOwnProperty('units')) {
-          data_to_return.push(data[name]['units']);
-          errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
-          warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
+      } else {
+        if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
+          if (data[name].hasOwnProperty('text')) {
+            data_to_return.push(data[name]['text']);
+            errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
+            warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
+          } else if (data[name].hasOwnProperty('value')) {
+            data_to_return.push(data[name]['value']);
+            errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
+            warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
+          }
+          if (data[name].hasOwnProperty('term')) {
+            data_to_return.push(data[name]['term']);
+            errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
+            warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
+          } else if (data[name].hasOwnProperty('units')) {
+            data_to_return.push(data[name]['units']);
+            errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
+            warnings_to_return.push(this.dataHasErrors(data[name], 'warnings'));
+          }
         }
       }
     }
@@ -280,6 +288,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.column_names = [];
     this.table_data = [];
     this.table_errors = [];
+    this.table_warnings = [];
     this.show_table = false;
     this.setTables();
   }
