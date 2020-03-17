@@ -71,12 +71,11 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   setValidationResults() {
     if (this.validation_results) {
       for (const key of Object.keys(this.validation_results)) {
-        if (key !== 'table') {
-          this.record_types.push(key);
-        }
+        this.record_types.push(key);
       }
       this.active_key = this.record_types[0];
       this.active_table = this.validation_results[this.active_key];
+      console.log(this.active_table);
       this.setTables();
     }
   }
@@ -99,17 +98,20 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       tmp_errors.push('valid');
       tmp_warnings.push('valid');
       if ('samples_core' in record) {
-        tmp = tmp.concat(this.parseColumnData(record['samples_core'])['data']);
-        tmp_errors = tmp_errors.concat(this.parseColumnData(record['samples_core'])['errors']);
-        tmp_warnings = tmp_warnings.concat(this.parseColumnData(record['samples_core'])['warnings']);
+        const core_parsing_results = this.parseColumnData(record['samples_core']);
+        tmp = tmp.concat(core_parsing_results['data']);
+        tmp_errors = tmp_errors.concat(core_parsing_results['errors']);
+        tmp_warnings = tmp_warnings.concat(core_parsing_results['warnings']);
       }
-      tmp = tmp.concat(this.parseColumnData(record)['data']);
-      tmp_errors = tmp_errors.concat(this.parseColumnData(record)['errors']);
-      tmp_warnings = tmp_warnings.concat(this.parseColumnData(record)['warnings']);
+      const type_parsing_results = this.parseColumnData(record);
+      tmp = tmp.concat(type_parsing_results['data']);
+      tmp_errors = tmp_errors.concat(type_parsing_results['errors']);
+      tmp_warnings = tmp_warnings.concat(type_parsing_results['warnings']);
       if ('custom' in record) {
-        tmp = tmp.concat(this.parseColumnData(record['custom'])['data']);
-        tmp_errors = tmp_errors.concat(this.parseColumnData(record['custom'])['errors']);
-        tmp_warnings = tmp_warnings.concat(this.parseColumnData(record['custom'])['warnings']);
+        const custom_parsing_results = this.parseColumnData(record['custom']);
+        tmp = tmp.concat(custom_parsing_results['data']);
+        tmp_errors = tmp_errors.concat(custom_parsing_results['errors']);
+        tmp_warnings = tmp_warnings.concat(custom_parsing_results['warnings']);
       }
       const error_indices = tmp_errors.map((e, i) => e === 'valid' ? i : '').filter(String);
       const warning_indices = tmp_warnings.map((e, i) => e === 'valid' ? i : '').filter(String);
@@ -130,21 +132,21 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       console.log('WebSockets connection created.');
     };
     this.socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data['response']['conversion_status']) {
-        this.conversion_status = data['response']['conversion_status'];
+      const data = JSON.parse(event.data)['response'];
+      if (data['conversion_status']) {
+        this.conversion_status = data['conversion_status'];
       }
-      if (data['response']['validation_status']) {
-        this.validation_status = data['response']['validation_status'];
+      if (data['validation_status']) {
+        this.validation_status = data['validation_status'];
       }
-      if (data['response']['submission_status']) {
-        this.submission_status = data['response']['submission_status'];
+      if (data['submission_status']) {
+        this.submission_status = data['submission_status'];
       }
-      if (data['response']['errors']) {
-        this.errors.push(data['response']['errors']);
+      if (data['errors']) {
+        this.errors.push(data['errors']);
       }
-      if (data['response']['table_data']) {
-        this.validation_results = data['response']['table_data'];
+      if (data['table_data']) {
+        this.validation_results = data['table_data'];
         this.setValidationResults();
       }
     };
@@ -156,10 +158,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   parseColumnNames(data: any) {
     for (const name of Object.keys(data)) {
-      // TODO: parse all data in array
-      if (Array.isArray(data[name])) {
-        data[name] = data[name][0];
-      }
       if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
         this.column_names.push(replaceUnderscoreWithSpaceAndCapitalize(name));
         if (data[name].hasOwnProperty('term')) {
@@ -173,13 +171,19 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   parseColumnData(data: any) {
-    const data_to_return = [];
-    const errors_to_return = [];
-    const warnings_to_return = [];
+    let data_to_return = [];
+    let errors_to_return = [];
+    let warnings_to_return = [];
     for (const name of Object.keys(data)) {
-      // TODO: parse all data in array
       if (Array.isArray(data[name])) {
-        data[name] = data[name][0];
+        for (const record of data[name]) {
+          const tmp = {};
+          tmp[name] = record;
+          const array_results = this.parseColumnData(tmp);
+          data_to_return = data_to_return.concat(array_results['data']);
+          errors_to_return = errors_to_return.concat(array_results['errors']);
+          warnings_to_return = warnings_to_return.concat(array_results['warnings']);
+        }
       }
       if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
         if (data[name].hasOwnProperty('text')) {
