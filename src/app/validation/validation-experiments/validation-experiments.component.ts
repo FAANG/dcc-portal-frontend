@@ -379,7 +379,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   }
 
   constructDownloadTemplateLink() {
-    return return validation_service_url_download + '/submission/download_template/' + this.fileid;
+    return validation_service_url_download + '/submission/download_template/' + this.fileid;
   }
 
   ngOnDestroy(): void {
