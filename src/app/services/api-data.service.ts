@@ -496,6 +496,11 @@ export class ApiDataService {
     return this.http.get(url);
   }
 
+  getTemplate(task_id, room_id, data_type) {
+    const url = `${validation_service_url}/submission/get_template/${task_id}/${room_id}/${data_type}`;
+    return this.http.get(url);
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.

@@ -26,6 +26,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   conversion_status: string;
   validation_status: string;
   submission_status: string;
+  annotation_status: string;
   socket;
   validation_results;
   record_types = [];
@@ -40,6 +41,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   show_table = false;
   validation_started = false;
   conversion_task_id: string;
+  validation_task_id: string;
   download_data_task_id: string;
   metadata_template_with_examples: string;
   metadata_template_without_examples: string;
@@ -144,6 +146,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       if (data['errors']) {
         this.errors.push(data['errors']);
       }
+      if (data['annotation_status']) {
+        this.annotation_status = data['annotation_status'];
+      }
       if (data['table_data']) {
         this.validation_results = data['table_data'];
         this.setValidationResults();
@@ -233,19 +238,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     return record.replace(/[_]/g, ' ');
   }
 
-  getIssues(issues_list, issue_type_name) {
-    issues_list = issues_list.length;
-    if (issues_list === 0) {
-      return 'pass';
-    } else {
-      if (issues_list === 1) {
-        return issues_list + ' ' + issue_type_name;
-      } else {
-        return issues_list + ' ' + issue_type_name + 's';
-      }
-    }
-  }
-
   getCellClass(i: number, j: number) {
     if (this.active_issue === 'issues' && this.table_errors[i][j] !== 'valid') {
       return 'table-danger';
@@ -333,7 +325,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   startValidation() {
     this.validation_started = true;
     this.apiDataService.startValidation(this.conversion_task_id, this.fileid, 'samples').subscribe(response => {
-        console.log(response['id']);
+        this.validation_task_id = response['id'];
       },
       error => {
         console.log(error);
@@ -352,12 +344,26 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       );
   }
 
+  getTemplateFile() {
+    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'samples').subscribe(response => {
+      console.log(response);
+    },
+      error => {
+      console.log(error);
+      }
+      );
+  }
+
   isSubmissionDisabled(status) {
     return status === 'Fix issues' || this.submission_status === 'Preparing data';
   }
 
   constructDownloadLink() {
     return validation_service_url_download + '/submission/get_data/' + this.download_data_task_id;
+  }
+
+  constructDownloadTemplateLink() {
+    return validation_service_url_download + '/submission/download_template/' + this.fileid;
   }
 
   ngOnDestroy(): void {
