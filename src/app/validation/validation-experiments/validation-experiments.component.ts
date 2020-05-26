@@ -89,8 +89,11 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       this.parseColumnNames(table['experiments_core']);
     }
     this.parseColumnNames(table);
-    if ('modular' in table) {
-      this.parseColumnNames(table['modular']);
+    if ('input_dna' in table) {
+      this.parseColumnNames(table['input_dna']);
+    }
+    if ('dna-binding_proteins' in table) {
+      this.parseColumnNames(table['dna-binding_proteins']);
     }
     if ('custom' in table) {
       this.parseColumnNames(table['custom']);
@@ -112,11 +115,17 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       tmp = tmp.concat(type_parsing_results['data']);
       tmp_errors = tmp_errors.concat(type_parsing_results['errors']);
       tmp_warnings = tmp_warnings.concat(type_parsing_results['warnings']);
-      if ('modular' in record) {
-        const custom_parsing_results = this.parseColumnData(record['modular']);
-        tmp = tmp.concat(custom_parsing_results['data']);
-        tmp_errors = tmp_errors.concat(custom_parsing_results['errors']);
-        tmp_warnings = tmp_warnings.concat(custom_parsing_results['warnings']);
+      if ('input_dna' in record) {
+        const module_parsing_results = this.parseColumnData(record['input_dna']);
+        tmp = tmp.concat(module_parsing_results['data']);
+        tmp_errors = tmp_errors.concat(module_parsing_results['errors']);
+        tmp_warnings = tmp_warnings.concat(module_parsing_results['warnings']);
+      }
+      if ('dna-binding_proteins' in record) {
+        const module_parsing_results = this.parseColumnData(record['dna-binding_proteins']);
+        tmp = tmp.concat(module_parsing_results['data']);
+        tmp_errors = tmp_errors.concat(module_parsing_results['errors']);
+        tmp_warnings = tmp_warnings.concat(module_parsing_results['warnings']);
       }
       if ('custom' in record) {
         const custom_parsing_results = this.parseColumnData(record['custom']);
@@ -185,7 +194,8 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
           this.parseColumnNames(tmp);
         }
       } else {
-        if (name !== 'experiments_core' && name !== 'custom' && name !== 'sample_descriptor' && name !== 'modular') {
+        if (name !== 'experiments_core' && name !== 'custom' && name !== 'sample_descriptor' && name !== 'input_dna'
+          && name !== 'dna-binding_proteins') {
           this.column_names.push(replaceUnderscoreWithSpaceAndCapitalize(name));
           if (data[name].hasOwnProperty('term')) {
             this.column_names.push('Term Source ID');
@@ -213,7 +223,8 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
           warnings_to_return = warnings_to_return.concat(array_results['warnings']);
         }
       } else {
-        if (name !== 'experiments_core' && name !== 'custom' && name !== 'sample_descriptor' && name !== 'modular') {
+        if (name !== 'experiments_core' && name !== 'custom' && name !== 'sample_descriptor' && name !== 'input_dna'
+          && name !== 'dna-binding_proteins') {
           if (data[name].hasOwnProperty('text')) {
             data_to_return.push(data[name]['text']);
             errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
