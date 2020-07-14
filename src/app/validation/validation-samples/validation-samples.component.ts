@@ -12,6 +12,7 @@ import {
   validation_ws_url
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
+import {AAPUser} from '../aap_user';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -21,6 +22,7 @@ const UploadURL = validation_service_url + '/conversion/samples';
   styleUrls: ['./validation-samples.component.css']
 })
 export class ValidationSamplesComponent implements OnInit, OnDestroy {
+  model = new AAPUser('', '');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
   conversion_status: string;
@@ -364,6 +366,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   constructDownloadTemplateLink() {
     return validation_service_url_download + '/submission/download_template/' + this.fileid;
+  }
+
+  onSubmit() {
+    console.log(this.model);
   }
 
   ngOnDestroy(): void {

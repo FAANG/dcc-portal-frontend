@@ -95,7 +95,7 @@
     </div>
 
     <div class="col-md-6" *ngIf="validation_results">
-      <h3>4. Get data for submission:</h3>
+      <h3>4. Prepare data for submission:</h3>
       Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
       <br>
       <button type="button" class="btn btn-success submission_data_button"
@@ -104,9 +104,10 @@
         Get submission data
       </button>
 
-      <button type="button" class="btn btn-success submission_data_button" *ngIf="submission_status === 'Data is ready'">
-        <a href="{{constructDownloadLink()}}">Download data</a>
-      </button>
+<!--      <button type="button" class="btn btn-success submission_data_button" *ngIf="submission_status === 'Data is ready'">-->
+<!--        -->
+<!--        <a href="{{constructDownloadLink()}}">Download data</a>-->
+<!--      </button>-->
     </div>
   </div>
 
@@ -122,11 +123,11 @@
               [ngClass]="isRecordsButtonActive('issues')">
         Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
       </button>
-      <button type="button" class="btn btn-success" (click)="getTemplateFile()"
+      <button type="button" class="btn btn-success validation_button" (click)="getTemplateFile()"
               *ngIf="annotation_status !== 'Download data'">
         Get annotated template
       </button>
-      <button type="button" class="btn btn-success" *ngIf="annotation_status === 'Download data'">
+      <button type="button" class="btn btn-success validation_button" *ngIf="annotation_status === 'Download data'">
         <a href="{{constructDownloadTemplateLink()}}" style="text-decoration: none">Download annotated template</a>
       </button>
     </div>
@@ -149,6 +150,44 @@
         </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <hr *ngIf="submission_status === 'Data is ready'">
+
+  <div class="row" *ngIf="submission_status === 'Data is ready'">
+    <div class="col-md-6">
+      <h3>5. Submit data to BioSamples</h3>
+      Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
+      <br>
+
+      <form (ngSubmit)="onSubmit()" #biosamplesForm="ngForm">
+        <div class="form-group">
+          <label for="aapUsername">AAP username</label>
+          <input class="form-control" id="aapUsername"
+                 placeholder="Enter your AAP username" required [(ngModel)]="model.username" name="username"
+                 #username="ngModel">
+          <small class="form-text text-muted">Please use this
+            <a href="https://www.ebi.ac.uk/biosamples/docs/guides/authentication" class="link">guide</a>
+            to get your credentials
+          </small>
+          <div [hidden]="username.valid || username.pristine"
+               class="alert alert-danger form-danger">
+            Username is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="aapPassword">Password</label>
+          <input type="password" class="form-control" id="aapPassword" placeholder="Password"
+                 required [(ngModel)]="model.password" name="password" #password="ngModel">
+          <div [hidden]="password.valid || password.pristine"
+               class="alert alert-danger form-danger">
+            Password is required
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!biosamplesForm.form.valid">Submit</button>
+      </form>
     </div>
   </div>
 
