@@ -99,9 +99,9 @@
       Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
       <br>
       <button type="button" class="btn btn-success submission_data_button"
-              *ngIf="submission_status !== 'Data is ready'" (click)="startConversion()"
+              *ngIf="submission_status !== 'Data is ready'" (click)="onStartSubmissionClick()"
               [disabled]="isSubmissionDisabled(submission_status)">
-        Get submission data
+        Start submission to BioSamples
       </button>
 
 <!--      <button type="button" class="btn btn-success submission_data_button" *ngIf="submission_status === 'Data is ready'">-->
@@ -153,14 +153,19 @@
     </div>
   </div>
 
-  <hr *ngIf="submission_status === 'Data is ready'">
+  <hr *ngIf="submissionStarted === true">
 
-  <div class="row" *ngIf="submission_status === 'Data is ready'">
-    <div class="col-md-6">
+  <div class="row" *ngIf="submissionStarted === true">
+    <div class="col-md-12">
+      <div [ngClass]="submissionMessageClass()" role="alert">
+        {{submission_message}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="submissionStarted === true">
+    <div class="col-md-6" [hidden]="disableAuthForm">
       <h3>5. Submit data to BioSamples</h3>
-      Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
-      <br>
-
       <form (ngSubmit)="onSubmit()" #biosamplesForm="ngForm">
         <div class="form-group">
           <label for="aapUsername">AAP username</label>
@@ -186,8 +191,98 @@
             Password is required
           </div>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!biosamplesForm.form.valid">Submit</button>
+        <button type="submit" class="btn btn-primary"
+                [disabled]="!biosamplesForm.form.valid">Submit</button>
       </form>
+    </div>
+
+    <div class="col-md-6" [hidden]="disableChooseDomainForm">
+      <h3>
+        Choose domain or
+        <button type="button" class="btn btn-success" (click)="onCreateNewDomainClick()">Create new domain</button>
+      </h3>
+      <form>
+        <div class="form-check" *ngFor="let domain of domains; let i = index">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="{{i}}" value="{{domain}}" checked
+                 (click)="onChooseDomainClick(domain)">
+          <label class="form-check-label" for="{{i}}">
+            {{domain}}
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="onSubmitRecordsClick()"
+                [disabled]="disableSubmitButton">Submit records to BioSamples</button>
+      </form>
+    </div>
+
+    <div class="col-md-6" [hidden]="disableDomainForm">
+      <h3>
+        Create new domain
+        <span *ngIf="domains.length !== 0">
+        or
+        <button type="button" class="btn btn-success" (click)="onCreateNewDomainClick()">Choose domain</button>
+      </span>
+      </h3>
+      <form (ngSubmit)="onDomainSubmit()" #domainForm="ngForm">
+        <div class="form-group">
+          <label for="domainName">Domain name</label>
+          <input class="form-control" id="domainName"
+                 placeholder="Enter your domain name" required [(ngModel)]="domain.name" name="domain_name"
+                 #domain_name="ngModel">
+          <small class="form-text text-muted">You can find more about domains
+            <a href="https://www.ebi.ac.uk/biosamples/docs/guides/authentication" class="link">here</a>
+          </small>
+          <div [hidden]="domain_name.valid || domain_name.pristine"
+               class="alert alert-danger form-danger">
+            Domain name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="domainDescription">Domain description</label>
+          <input class="form-control" id="domainDescription"
+                 placeholder="Enter your domain description" required [(ngModel)]="domain.description"
+                 name="domain_description"
+                 #domain_description="ngModel">
+          <div [hidden]="domain_description.valid || domain_description.pristine"
+               class="alert alert-danger form-danger" >
+            Domain description is required
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary"
+                [disabled]="!domainForm.form.valid">Submit</button>
+      </form>
+    </div>
+
+    <div class="col-md-6" [hidden]="submissionResults.length === 0">
+      <h3>
+        Submission results
+        <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
+        <app-export [data]="submissionResults" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
+          Export as CSV file
+        </app-export>
+        <app-export [data]="submissionResults" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
+          Export as Tabular file
+        </app-export>
+      </h3>
+      <div class="col-md-12 table-responsive">
+        <table class="table table-striped table-hover table-borderless table-sm">
+          <thead>
+          <tr>
+            <th>Sample Name</th>
+            <th>BioSample ID</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let record of submissionResults | paginate: { itemsPerPage: 5, currentPage: p }">
+            <td>{{record[0]}}</td>
+            <td>
+              <a href="{{generateBioSampleLink(record[1])}}" class="link" target="_blank">{{record[1]}}</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
     </div>
   </div>
 

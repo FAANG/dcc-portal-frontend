@@ -13,6 +13,8 @@ import {
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {AAPUser} from '../aap_user';
+import {SubmissionDomain} from '../submission_domain';
+import {ExportService} from '../../services/export.service';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -22,13 +24,18 @@ const UploadURL = validation_service_url + '/conversion/samples';
   styleUrls: ['./validation-samples.component.css']
 })
 export class ValidationSamplesComponent implements OnInit, OnDestroy {
+  p = 1;
   model = new AAPUser('', '');
+  domain = new SubmissionDomain('', '');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
+  columnNames: string[] = ['Sample Name', 'BioSample ID'];
   conversion_status: string;
   validation_status: string;
   submission_status: string;
   annotation_status: string;
+  submission_message: string;
+  domains = [];
   socket;
   validation_results;
   record_types = [];
@@ -44,7 +51,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   validation_started = false;
   conversion_task_id: string;
   validation_task_id: string;
-  download_data_task_id: string;
   metadata_template_with_examples: string;
   metadata_template_without_examples: string;
   errors = [];
@@ -52,14 +58,30 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   table_data = [];
   table_errors = [];
   table_warnings = [];
+  disableAuthForm = false;
+  disableDomainForm = true;
+  disableChooseDomainForm = true;
+  submissionStarted = false;
+  disableSubmitButton = false;
+  submissionResults = [];
+  optionsCsv;
+  optionsTabular;
+  downloadData = false;
 
   constructor(
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
-    private apiDataService: ApiDataService
+    private apiDataService: ApiDataService,
+    private exportService: ExportService
   ) { }
 
   ngOnInit() {
+    this.optionsCsv = this.exportService.optionsCsv;
+    this.optionsTabular = this.exportService.optionsTabular;
+    this.optionsCsv['headers'] = this.columnNames;
+    this.optionsTabular['headers'] = this.columnNames;
+
+    this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Samples');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
@@ -138,6 +160,21 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       const data = JSON.parse(event.data)['response'];
       if (data['conversion_status']) {
         this.conversion_status = data['conversion_status'];
+      }
+      if (data['domains']) {
+       if (data['domains'].length !== 0) {
+         this.domains = data['domains'];
+         this.disableChooseDomainForm = false;
+         this.domain.name = this.domains[this.domains.length - 1];
+       } else {
+         this.disableDomainForm = false;
+       }
+      }
+      if (data['biosamples']) {
+        this.submissionResults = Object.entries(data['biosamples']);
+      }
+      if (data['submission_message']) {
+        this.submission_message = data['submission_message'];
       }
       if (data['validation_status']) {
         this.validation_status = data['validation_status'];
@@ -335,15 +372,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     );
   }
 
-  startConversion() {
-    this.apiDataService.startConversion(this.conversion_task_id, this.fileid, 'samples').subscribe(response => {
-      console.log(response['id']);
-      this.download_data_task_id = response['id'];
-    },
-      error => {
-      console.log(error);
-      }
-      );
+  onStartSubmissionClick() {
+    this.submissionStarted = !this.submissionStarted;
   }
 
   getTemplateFile() {
@@ -360,16 +390,70 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     return status === 'Fix issues' || this.submission_status === 'Preparing data';
   }
 
-  constructDownloadLink() {
-    return validation_service_url_download + '/submission/get_data/' + this.download_data_task_id;
-  }
-
   constructDownloadTemplateLink() {
     return validation_service_url_download + '/submission/download_template/' + this.fileid;
   }
 
   onSubmit() {
-    console.log(this.model);
+    this.disableAuthForm = true;
+    this.apiDataService.chooseDomain(this.model.username, this.model.password, this.fileid).subscribe(response => {
+      console.log(response);
+    },
+      error => {
+      console.log(error);
+      });
+  }
+
+  onDomainSubmit() {
+    this.disableDomainForm = true;
+    this.apiDataService.submitDomain(this.model.username,
+      this.model.password, this.domain.name, this.domain.description, this.fileid).subscribe(response => {
+        console.log(response);
+    },
+      error => {
+        console.log(error);
+      }
+      );
+  }
+
+  onChooseDomainClick(name: string) {
+    this.domain.name = name;
+    console.log(this.domain.name);
+  }
+
+  onSubmitRecordsClick() {
+    this.disableSubmitButton = true;
+    this.apiDataService.submitRecords(this.model.username,
+      this.model.password, this.domain.name, this.fileid, this.conversion_task_id).subscribe( response => {
+        console.log(response);
+    }, error => {
+        console.log(error);
+    });
+  }
+
+  submissionMessageClass() {
+    if (this.submission_message.includes('Error')) {
+      return 'alert alert-danger';
+    } else if (this.submission_message.includes('Success')) {
+      return 'alert alert-success';
+    } else if (this.submission_message.includes('Waiting')) {
+      return 'alert alert-warning';
+    } else {
+      return 'alert alert-primary';
+    }
+  }
+
+  generateBioSampleLink(id: string) {
+    return `https://wwwdev.ebi.ac.uk/biosamples/samples/${id}`;
+  }
+
+  onCreateNewDomainClick() {
+    this.disableChooseDomainForm = !this.disableChooseDomainForm;
+    this.disableDomainForm = !this.disableDomainForm;
+  }
+
+  onDownloadData() {
+    this.downloadData = !this.downloadData;
   }
 
   ngOnDestroy(): void {
