@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
@@ -14,7 +14,6 @@ import {
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {AAPUser} from '../aap_user';
 import {SubmissionDomain} from '../submission_domain';
-import {ExportService} from '../../services/export.service';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -25,11 +24,11 @@ const UploadURL = validation_service_url + '/conversion/samples';
 })
 export class ValidationSamplesComponent implements OnInit, OnDestroy {
   p = 1;
-  model = new AAPUser('', '');
+  model = new AAPUser('', '', 'test');
+  aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
   domain = new SubmissionDomain('', '');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
-  columnNames: string[] = ['Sample Name', 'BioSample ID'];
   conversion_status: string;
   validation_status: string;
   submission_status: string;
@@ -51,6 +50,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   validation_started = false;
   conversion_task_id: string;
   validation_task_id: string;
+  submission_task_id: string;
   metadata_template_with_examples: string;
   metadata_template_without_examples: string;
   errors = [];
@@ -68,19 +68,15 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   optionsTabular;
   downloadData = false;
 
+  @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
+
   constructor(
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
-    private apiDataService: ApiDataService,
-    private exportService: ExportService
+    private apiDataService: ApiDataService
   ) { }
 
   ngOnInit() {
-    this.optionsCsv = this.exportService.optionsCsv;
-    this.optionsTabular = this.exportService.optionsTabular;
-    this.optionsCsv['headers'] = this.columnNames;
-    this.optionsTabular['headers'] = this.columnNames;
-
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Samples');
     this.setSocket();
@@ -172,6 +168,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       }
       if (data['biosamples']) {
         this.submissionResults = Object.entries(data['biosamples']);
+        if (this.submissionResults.length !== 0) {
+          this.triggerFalseClick();
+        }
       }
       if (data['submission_message']) {
         this.submission_message = data['submission_message'];
@@ -396,7 +395,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.disableAuthForm = true;
-    this.apiDataService.chooseDomain(this.model.username, this.model.password, this.fileid).subscribe(response => {
+    this.apiDataService.chooseDomain(this.model.username, this.model.password, this.model.mode, this.fileid).subscribe(response => {
       console.log(response);
     },
       error => {
@@ -407,7 +406,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   onDomainSubmit() {
     this.disableDomainForm = true;
     this.apiDataService.submitDomain(this.model.username,
-      this.model.password, this.domain.name, this.domain.description, this.fileid).subscribe(response => {
+      this.model.password, this.model.mode, this.domain.name, this.domain.description, this.fileid).subscribe(response => {
         console.log(response);
     },
       error => {
@@ -418,14 +417,13 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   onChooseDomainClick(name: string) {
     this.domain.name = name;
-    console.log(this.domain.name);
   }
 
   onSubmitRecordsClick() {
     this.disableSubmitButton = true;
     this.apiDataService.submitRecords(this.model.username,
-      this.model.password, this.domain.name, this.fileid, this.conversion_task_id).subscribe( response => {
-        console.log(response);
+      this.model.password,  this.model.mode, this.domain.name, this.fileid, this.conversion_task_id).subscribe( response => {
+        this.submission_task_id = response['id'];
     }, error => {
         console.log(error);
     });
@@ -444,7 +442,11 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   generateBioSampleLink(id: string) {
-    return `https://wwwdev.ebi.ac.uk/biosamples/samples/${id}`;
+    if (this.model.mode === 'prod') {
+      return `https://www.ebi.ac.uk/biosamples/samples/${id}`;
+    } else {
+      return `https://wwwdev.ebi.ac.uk/biosamples/samples/${id}`;
+    }
   }
 
   onCreateNewDomainClick() {
@@ -454,6 +456,20 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  onChooseModeClick(mode: string) {
+    this.model.mode = mode;
+    mode === 'prod' ? this.aap_link = 'https://aai.ebi.ac.uk/registerUser' : this.aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
+  }
+
+  downloadSubmissionResults() {
+    return validation_service_url_download + '/submission/download_submission_results/' + this.submission_task_id;
+  }
+
+  triggerFalseClick() {
+    const el: HTMLElement = this.myButton.nativeElement;
+    el.click();
   }
 
   ngOnDestroy(): void {

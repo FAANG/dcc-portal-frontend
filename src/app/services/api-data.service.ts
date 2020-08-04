@@ -501,20 +501,20 @@ export class ApiDataService {
     return this.http.get(url);
   }
 
-  chooseDomain(username, password, room_id) {
+  chooseDomain(username, password, mode, room_id) {
     const url = `${validation_service_url}/submission/samples/${room_id}/choose_domain`;
-    return this.http.post(url, {username: username, password: password});
+    return this.http.post(url, {username: username, password: password, mode: mode});
   }
 
-  submitDomain(username, password, domain_name, domain_description, room_id) {
+  submitDomain(username, password, mode, domain_name, domain_description, room_id) {
     const url = `${validation_service_url}/submission/samples/${room_id}/submit_domain`;
-    return this.http.post(url, {username: username, password: password, domain_name: domain_name,
+    return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
       domain_description: domain_description});
   }
 
-  submitRecords(username, password, domain_name, room_id, task_id) {
+  submitRecords(username, password, mode, domain_name, room_id, task_id) {
     const url = `${validation_service_url}/submission/samples/${task_id}/${room_id}/submit_records`;
-    return this.http.post(url, {username: username, password: password, domain_name: domain_name});
+    return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name});
   }
 
   private handleError(error: HttpErrorResponse) {
