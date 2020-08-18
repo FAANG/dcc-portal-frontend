@@ -446,8 +446,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   }
 
   downloadSubmissionResults() {
-    // return validation_service_url_download + '/submission/download_submission_results/experiments/' + this.submission_task_id;
-    return 'http://localhost:8000/submission/download_submission_results/experiments/' + this.submission_task_id;
+    return validation_service_url_download + '/submission/download_submission_results/experiments/' + this.submission_task_id;
   }
 
   triggerFalseClick() {
