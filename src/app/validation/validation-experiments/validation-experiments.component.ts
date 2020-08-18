@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
@@ -13,6 +13,7 @@ import {
   validation_ws_url
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
+import {AAPUser} from '../aap_user';
 
 const UploadURL = validation_service_url + '/conversion/experiments';
 
@@ -22,12 +23,14 @@ const UploadURL = validation_service_url + '/conversion/experiments';
   styleUrls: ['./validation-experiments.component.css']
 })
 export class ValidationExperimentsComponent implements OnInit, OnDestroy {
+  model = new AAPUser('', '', 'test');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
   conversion_status: string;
   validation_status: string;
   submission_status: string;
   annotation_status: string;
+  submission_message: string;
   socket;
   validation_results;
   record_types = [];
@@ -52,6 +55,12 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   table_data = [];
   table_errors = [];
   table_warnings = [];
+  submissionStarted = false;
+  disableAuthForm = false;
+  submissionResults = [];
+  submission_task_id: string;
+
+  @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
   constructor(
     private titleService: Title,
@@ -60,6 +69,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Experiments');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
@@ -155,6 +165,17 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       const data = JSON.parse(event.data)['response'];
       if (data['conversion_status']) {
         this.conversion_status = data['conversion_status'];
+      }
+      if (data['submission_results']) {
+        this.submissionResults = data['submission_results'];
+        if (this.submissionResults.length !== 0) {
+          this.triggerFalseClick();
+        }
+        console.log(this.submissionResults[0]);
+        console.log(this.submissionResults[1]);
+      }
+      if (data['submission_message']) {
+        this.submission_message = data['submission_message'];
       }
       if (data['validation_status']) {
         this.validation_status = data['validation_status'];
@@ -391,6 +412,47 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   constructDownloadTemplateLink() {
     return validation_service_url_download + '/submission/download_template/' + this.fileid;
+  }
+
+  submissionMessageClass() {
+    if (this.submission_message.includes('Error')) {
+      return 'alert alert-danger';
+    } else if (this.submission_message.includes('Success')) {
+      return 'alert alert-success';
+    } else if (this.submission_message.includes('Waiting')) {
+      return 'alert alert-warning';
+    } else {
+      return 'alert alert-primary';
+    }
+  }
+
+  onChooseModeClick(mode: string) {
+    this.model.mode = mode;
+  }
+
+  onSubmit() {
+    this.disableAuthForm = true;
+    console.log(this.model);
+    this.apiDataService.submitExperiments(this.model.username, this.model.password, this.model.mode, this.conversion_task_id,
+      this.fileid).subscribe( response => {
+      this.submission_task_id = response['id'];
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  onStartSubmissionClick() {
+    this.submissionStarted = !this.submissionStarted;
+  }
+
+  downloadSubmissionResults() {
+    // return validation_service_url_download + '/submission/download_submission_results/experiments/' + this.submission_task_id;
+    return 'http://localhost:8000/submission/download_submission_results/experiments/' + this.submission_task_id;
+  }
+
+  triggerFalseClick() {
+    const el: HTMLElement = this.myButton.nativeElement;
+    el.click();
   }
 
   ngOnDestroy(): void {

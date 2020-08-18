@@ -103,11 +103,6 @@
               [disabled]="isSubmissionDisabled(submission_status)">
         Start submission to BioSamples
       </button>
-
-<!--      <button type="button" class="btn btn-success submission_data_button" *ngIf="submission_status === 'Data is ready'">-->
-<!--        -->
-<!--        <a href="{{constructDownloadLink()}}">Download data</a>-->
-<!--      </button>-->
     </div>
   </div>
 
@@ -165,7 +160,7 @@
 
   <div class="row" *ngIf="submissionStarted === true">
     <div class="col-md-6" [hidden]="disableAuthForm">
-      <h3>5. Submit data to BioSamples</h3>
+      <h3>Submit data to BioSamples</h3>
       <form (ngSubmit)="onSubmit()" #biosamplesForm="ngForm">
         <div class="form-group">
           <label for="aapUsername">AAP username</label>

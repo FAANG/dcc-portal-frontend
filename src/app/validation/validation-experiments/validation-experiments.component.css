@@ -32,3 +32,11 @@ button {
 a {
   color: white;
 }
+
+.link {
+  color: #0074D9;
+}
+
+.form-danger {
+  margin-top: 5px;
+}

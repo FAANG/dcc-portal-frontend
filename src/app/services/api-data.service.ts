@@ -517,6 +517,11 @@ export class ApiDataService {
     return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name});
   }
 
+  submitExperiments(username, password, mode, task_id, room_id) {
+    const url = `${validation_service_url}/submission/experiments/${task_id}/${room_id}/submit_experiments`;
+    return this.http.post(url, {username: username, password: password, mode: mode});
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.

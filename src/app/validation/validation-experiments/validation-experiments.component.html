@@ -95,14 +95,14 @@
     </div>
 
     <div class="col-md-6" *ngIf="validation_results">
-      <h3>4. Get data for submission:</h3>
+      <h3>4. Prepare data for submission:</h3>
       Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
       <br>
       <button type="button" class="btn btn-success submission_data_button"
               *ngIf="submission_status !== 'Data is ready' && submission_status !== 'Failed to convert data'"
-              (click)="startConversion()"
+              (click)="onStartSubmissionClick()"
               [disabled]="isSubmissionDisabled(submission_status)">
-        Get submission data
+        Start submission to ENA
       </button>
 
       <button type="button" class="btn btn-success submission_data_button" *ngIf="submission_status === 'Data is ready'">
@@ -154,6 +154,82 @@
         </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <hr *ngIf="submissionStarted === true">
+
+  <div class="row" *ngIf="submissionStarted === true">
+    <div class="col-md-12">
+      <div [ngClass]="submissionMessageClass()" role="alert">
+        {{submission_message}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="submissionStarted === true">
+    <div class="col-md-6" [hidden]="disableAuthForm">
+      <h3>Submit data to ENA</h3>
+      <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
+        <div class="form-group">
+          <label for="aapUsername">Username</label>
+          <input class="form-control" id="aapUsername"
+                 placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
+                 #username="ngModel">
+          <small class="form-text text-muted">Please use this
+            <a href="https://www.ebi.ac.uk/ena/submit/sra/#registration" class="link" target="_blank">service</a>
+            to get your credentials
+          </small>
+          <div [hidden]="username.valid || username.pristine"
+               class="alert alert-danger form-danger">
+            Username is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="aapPassword">Password</label>
+          <input type="password" class="form-control" id="aapPassword" placeholder="Password"
+                 required [(ngModel)]="model.password" name="password" #password="ngModel">
+          <div [hidden]="password.valid || password.pristine"
+               class="alert alert-danger form-danger">
+            Password is required
+          </div>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="test" value="test" checked
+                 (click)="onChooseModeClick('test')">
+          <label class="form-check-label" for="test">
+            Test server
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="prod" value="prod"
+                 (click)="onChooseModeClick('prod')">
+          <label class="form-check-label" for="prod">
+            Production server
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary"
+                [disabled]="!enaForm.form.valid">Submit</button>
+      </form>
+    </div>
+
+    <div class="col-md-6" [hidden]="submissionResults.length === 0">
+      <h3>
+        Submission results
+        <button type="button" class="btn btn-success">
+          <a href="{{downloadSubmissionResults()}}" #myButton>Download submission results</a>
+        </button>
+      </h3>
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-info" *ngFor="let message of submissionResults[0]">
+          {{message}}
+        </li>
+        <li class="list-group-item list-group-item-danger" *ngFor="let message of submissionResults[1]">
+          {{message}}
+        </li>
+      </ul>
     </div>
   </div>
 

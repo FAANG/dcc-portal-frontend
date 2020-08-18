@@ -166,8 +166,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
          this.disableDomainForm = false;
        }
       }
-      if (data['biosamples']) {
-        this.submissionResults = Object.entries(data['biosamples']);
+      if (data['submission_results']) {
+        this.submissionResults = Object.entries(data['submission_results']);
         if (this.submissionResults.length !== 0) {
           this.triggerFalseClick();
         }
@@ -464,7 +464,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   downloadSubmissionResults() {
-    return validation_service_url_download + '/submission/download_submission_results/' + this.submission_task_id;
+    return validation_service_url_download + '/submission/download_submission_results/samples/' + this.submission_task_id;
   }
 
   triggerFalseClick() {
