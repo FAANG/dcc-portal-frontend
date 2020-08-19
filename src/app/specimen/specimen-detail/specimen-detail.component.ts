@@ -4,6 +4,7 @@ import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {external_ols_prefix, internal_organism, internal_specimen} from '../../shared/constants';
+import {getProtocolLink} from '../../shared/common_functions';
 
 @Component({
   selector: 'app-specimen-detail',
@@ -68,11 +69,7 @@ export class SpecimenDetailComponent implements OnInit {
     }
   }
 
-  getProtocolLink() {
-    if (this.specimen.specimenFromOrganism.specimenCollectionProtocol.url.split('//')[0] === 'ftp:') {
-      return 'http://' + this.specimen.specimenFromOrganism.specimenCollectionProtocol.url.split('//')[1];
-    } else {
-      return this.specimen.specimenFromOrganism.specimenCollectionProtocol.url;
-    }
+  generateProtocolLink(url: string) {
+    return getProtocolLink(url);
   }
 }
