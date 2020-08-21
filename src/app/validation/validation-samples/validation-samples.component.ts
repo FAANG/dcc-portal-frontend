@@ -83,7 +83,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
-      console.log(this.conversion_task_id);
     };
     this.conversion_status = 'Undefined';
     this.metadata_template_with_examples = sample_metadata_template_with_examples;
@@ -422,7 +421,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   onSubmitRecordsClick() {
     this.disableSubmitButton = true;
     this.apiDataService.submitRecords(this.model.username,
-      this.model.password,  this.model.mode, this.domain.name, this.fileid, this.conversion_task_id).subscribe( response => {
+      this.model.password,  this.model.mode, this.domain.name, this.fileid, this.conversion_task_id,
+      'samples').subscribe( response => {
         this.submission_task_id = response['id'];
     }, error => {
         console.log(error);

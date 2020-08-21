@@ -5,9 +5,6 @@ import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
 import {
   experiment_metadata_template_with_examples, experiment_metadata_template_without_examples,
-  issue_type,
-  record_type,
-  sample_metadata_template_with_examples, sample_metadata_template_without_examples,
   validation_service_url,
   validation_service_url_download,
   validation_ws_url
@@ -171,8 +168,6 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
         if (this.submissionResults.length !== 0) {
           this.triggerFalseClick();
         }
-        console.log(this.submissionResults[0]);
-        console.log(this.submissionResults[1]);
       }
       if (data['submission_message']) {
         this.submission_message = data['submission_message'];
@@ -432,9 +427,8 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.disableAuthForm = true;
-    console.log(this.model);
-    this.apiDataService.submitExperiments(this.model.username, this.model.password, this.model.mode, this.conversion_task_id,
-      this.fileid).subscribe( response => {
+    this.apiDataService.submitRecords(this.model.username, this.model.password, this.model.mode, '', this.fileid,
+      this.conversion_task_id, 'experiments').subscribe( response => {
       this.submission_task_id = response['id'];
     }, error => {
       console.log(error);

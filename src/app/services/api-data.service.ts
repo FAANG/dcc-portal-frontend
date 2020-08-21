@@ -512,14 +512,13 @@ export class ApiDataService {
       domain_description: domain_description});
   }
 
-  submitRecords(username, password, mode, domain_name, room_id, task_id) {
-    const url = `${validation_service_url}/submission/samples/${task_id}/${room_id}/submit_records`;
-    return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name});
-  }
-
-  submitExperiments(username, password, mode, task_id, room_id) {
-    const url = `${validation_service_url}/submission/experiments/${task_id}/${room_id}/submit_experiments`;
-    return this.http.post(url, {username: username, password: password, mode: mode});
+  submitRecords(username, password, mode, domain_name, room_id, task_id, submission_type) {
+    const url = `${validation_service_url}/submission/${submission_type}/${task_id}/${room_id}/submit_records`;
+    if (domain_name !== '') {
+      return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name});
+    } else {
+      return this.http.post(url, {username: username, password: password, mode: mode});
+    }
   }
 
   private handleError(error: HttpErrorResponse) {

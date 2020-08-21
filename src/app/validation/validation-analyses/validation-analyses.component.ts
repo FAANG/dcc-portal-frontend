@@ -1,18 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
 import {
   analysis_metadata_template_with_examples, analysis_metadata_template_without_examples,
-  experiment_metadata_template_with_examples, experiment_metadata_template_without_examples,
-  issue_type,
-  record_type,
   validation_service_url,
   validation_service_url_download,
   validation_ws_url
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
+import {AAPUser} from '../aap_user';
 
 const UploadURL = validation_service_url + '/conversion/analyses';
 
@@ -22,12 +20,14 @@ const UploadURL = validation_service_url + '/conversion/analyses';
   styleUrls: ['./validation-analyses.component.css']
 })
 export class ValidationAnalysesComponent implements OnInit, OnDestroy {
+  model = new AAPUser('', '', 'test');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
   conversion_status: string;
   validation_status: string;
   submission_status: string;
   annotation_status: string;
+  submission_message: string;
   socket;
   validation_results;
   record_types = [];
@@ -51,6 +51,12 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   table_data = [];
   table_errors = [];
   table_warnings = [];
+  submissionStarted = false;
+  disableAuthForm = false;
+  submissionResults = [];
+  submission_task_id: string;
+
+  @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
   constructor(
     private titleService: Title,
@@ -59,6 +65,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Analyses');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
@@ -127,6 +134,15 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
       const data = JSON.parse(event.data)['response'];
       if (data['conversion_status']) {
         this.conversion_status = data['conversion_status'];
+      }
+      if (data['submission_results']) {
+        this.submissionResults = data['submission_results'];
+        if (this.submissionResults.length !== 0) {
+          this.triggerFalseClick();
+        }
+      }
+      if (data['submission_message']) {
+        this.submission_message = data['submission_message'];
       }
       if (data['validation_status']) {
         this.validation_status = data['validation_status'];
@@ -368,6 +384,45 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
 
   constructDownloadTemplateLink() {
     return validation_service_url_download + '/submission/download_template/' + this.fileid;
+  }
+
+  onStartSubmissionClick() {
+    this.submissionStarted = !this.submissionStarted;
+  }
+
+  submissionMessageClass() {
+    if (this.submission_message.includes('Error')) {
+      return 'alert alert-danger';
+    } else if (this.submission_message.includes('Success')) {
+      return 'alert alert-success';
+    } else if (this.submission_message.includes('Waiting')) {
+      return 'alert alert-warning';
+    } else {
+      return 'alert alert-primary';
+    }
+  }
+
+  onSubmit() {
+    this.disableAuthForm = true;
+    this.apiDataService.submitRecords(this.model.username, this.model.password, this.model.mode, '', this.fileid,
+      this.conversion_task_id, 'analyses').subscribe( response => {
+      this.submission_task_id = response['id'];
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  onChooseModeClick(mode: string) {
+    this.model.mode = mode;
+  }
+
+  downloadSubmissionResults() {
+    return validation_service_url_download + '/submission/download_submission_results/analyses/' + this.submission_task_id;
+  }
+
+  triggerFalseClick() {
+    const el: HTMLElement = this.myButton.nativeElement;
+    el.click();
   }
 
   ngOnDestroy(): void {
