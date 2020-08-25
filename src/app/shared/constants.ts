@@ -7,7 +7,7 @@ export const external_biosample_prefix = 'https://www.ebi.ac.uk/biosamples/sampl
 export const external_epmc_prefix = 'http://europepmc.org/search?query=';
 export const external_pubmed_prefix = 'https://www.ncbi.nlm.nih.gov/pubmed/';
 export const external_doi_prefix = 'https://doi.org/';
-export const ruleset_prefix = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
+export const ruleset_prefix = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/switch_to_json-schema/json_schema/';
 
 export const validation_service_url = 'https://data.faang.org/validation_api';
 export const validation_service_url_download = 'http://data.faang.org/validation_api';
@@ -30,3 +30,6 @@ export const analysis_metadata_template_with_examples = '../../assets/with_examp
 export const sample_metadata_template_without_examples = '../../assets/empty/faang_sample.xlsx';
 export const experiment_metadata_template_without_examples = '../../assets/empty/faang_experiment.xlsx';
 export const analysis_metadata_template_without_examples = '../../assets/empty/faang_analysis.xlsx';
+
+export const missing_values = ['not applicable', 'not collected', 'not provided', 'restricted access'];
+export const special_sheets = ['describedBy', 'schema_version', 'samples_core'];

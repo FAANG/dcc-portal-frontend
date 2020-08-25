@@ -453,8 +453,14 @@ export class ApiDataService {
     );
   }
 
-  getRulesetSample() {
-    const url = ruleset_prefix + 'faang_samples.metadata_rules.json';
+  getRulesetSample(category: string) {
+    let rule_type;
+    if (category === 'core') {
+      rule_type = 'core';
+    } else {
+      rule_type = 'type';
+    }
+    const url = ruleset_prefix + `${rule_type}/samples/faang_samples_${category}.metadata_rules.json`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;

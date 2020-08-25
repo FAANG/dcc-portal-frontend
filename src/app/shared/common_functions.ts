@@ -31,12 +31,11 @@ export function convertArrayToStr(data: any[], subelement: string): string {
   return value.substring(0, value.length - 2);
 }
 
-export function allowMultiple(rule: any) {
-  if (rule && rule['allow_multiple'] === 1) {
+export function allowMultiple(data: any) {
+  if ('items' in data) {
     return 'Yes';
-  } else {
-    return 'No';
   }
+  return 'No';
 }
 
 // extract data from given object into a key-value mapping
@@ -73,9 +72,7 @@ export function expandObject(data: any, result: any) {
 
 export function getValidItems(rule: any, section_name: string) {
   if (rule[section_name]) {
-    return rule[section_name].map(function (el) {
-      return '"' + el + '"';
-    }).join(', ');
+    return rule[section_name]['enum'];
   }
   return '';
 }
@@ -91,28 +88,26 @@ export function getOntologyTermFromIRI(iri: string) {
 export const ols_prefix = 'https://www.ebi.ac.uk/ols/ontologies/';
 
 export function generateEbiOntologyLink(ontology_name, term_iri) {
-  return ols_prefix + ontology_name + '/terms?iri=' + term_iri;
+  let ontology_url;
+  if (ontology_name === 'EFO') {
+    ontology_url = 'http://www.ebi.ac.uk/efo/';
+  } else {
+    ontology_url = 'http://purl.obolibrary.org/obo/';
+  }
+  return ols_prefix + ontology_name + '/terms?iri=' + ontology_url + term_iri.replace(':', '_');
 }
 
 export function getMandatoryRulesOnly(data: any) {
-  const data_to_return = {};
-  data_to_return['description'] = data['description'];
-  data_to_return['name'] = data['name'];
-  data_to_return['further_details_iri'] = data['further_details_iri'];
-  data_to_return['rule_groups'] = [];
-  for (const rule of data['rule_groups']) {
-    const tmp = {};
-    tmp['name'] = rule['name'];
-    tmp['consistency_check'] = rule['consistency_check'];
-    tmp['imports'] = rule['imports'];
-    tmp['condition'] = rule['condition'];
-    tmp['rules'] = [];
-    for (const el of rule['rules']) {
-      if (el['mandatory'] === 'mandatory') {
-        tmp['rules'].push(el);
-      }
+  const data_to_return = {
+    'properties': {}
+  };
+  for (const key of Object.keys(data['properties'])) {
+    if ('properties' in data['properties'][key] && data['properties'][key]['properties']['mandatory']['const'] === 'mandatory') {
+      data_to_return['properties'][key] = data['properties'][key];
+    } else if ('items' in data['properties'][key] &&
+      data['properties'][key]['items']['properties']['mandatory']['const'] === 'mandatory') {
+      data_to_return['properties'][key] = data['properties'][key];
     }
-    data_to_return['rule_groups'].push(tmp);
   }
   return data_to_return;
 }
