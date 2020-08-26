@@ -66,7 +66,7 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
     this.metadata_template_with_examples = sample_metadata_template_with_examples;
     this.metadata_template_without_examples = sample_metadata_template_without_examples;
     this.titleService.setTitle('FAANG Rule set|samples');
-    this.apiDataService.getRulesetSample('core').subscribe(
+    this.apiDataService.getRulesetSample('standard').subscribe(
       data => {
         this.data = data;
         this.name = this.data.title;

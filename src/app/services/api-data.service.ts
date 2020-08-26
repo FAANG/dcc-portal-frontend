@@ -455,8 +455,9 @@ export class ApiDataService {
 
   getRulesetSample(category: string) {
     let rule_type;
-    if (category === 'core') {
+    if (category === 'standard') {
       rule_type = 'core';
+      category = 'core';
     } else {
       rule_type = 'type';
     }
