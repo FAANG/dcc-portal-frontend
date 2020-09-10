@@ -7,7 +7,8 @@ export const external_biosample_prefix = 'https://www.ebi.ac.uk/biosamples/sampl
 export const external_epmc_prefix = 'http://europepmc.org/search?query=';
 export const external_pubmed_prefix = 'https://www.ncbi.nlm.nih.gov/pubmed/';
 export const external_doi_prefix = 'https://doi.org/';
-export const ruleset_prefix = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/switch_to_json-schema/json_schema/';
+export const ruleset_prefix_old = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
+export const ruleset_prefix_new = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/switch_to_json-schema/json_schema/';
 
 export const validation_service_url = 'https://data.faang.org/validation_api';
 export const validation_service_url_download = 'http://data.faang.org/validation_api';

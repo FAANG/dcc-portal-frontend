@@ -7,7 +7,7 @@ import {
   ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
   ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable
 } from '../shared/interfaces';
-import {ruleset_prefix, validation_service_url} from '../shared/constants';
+import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
 
 
 @Injectable({
@@ -461,7 +461,7 @@ export class ApiDataService {
     } else {
       rule_type = 'type';
     }
-    const url = ruleset_prefix + `${rule_type}/samples/faang_samples_${category}.metadata_rules.json`;
+    const url = ruleset_prefix_new + `${rule_type}/samples/faang_samples_${category}.metadata_rules.json`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -472,7 +472,7 @@ export class ApiDataService {
   }
 
   getRulesetExperiment() {
-    const url =  ruleset_prefix + 'faang_experiments.metadata_rules.json';
+    const url =  ruleset_prefix_old + 'faang_experiments.metadata_rules.json';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -483,7 +483,7 @@ export class ApiDataService {
   }
 
   getRulesetAnalysis() {
-    const url =  ruleset_prefix + 'faang_analyses.metadata_rules.json';
+    const url =  ruleset_prefix_old + 'faang_analyses.metadata_rules.json';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
