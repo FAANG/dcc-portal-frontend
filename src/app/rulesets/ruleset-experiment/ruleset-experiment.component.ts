@@ -4,10 +4,10 @@ import {ActivatedRoute} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {experiment_metadata_template_with_examples, experiment_metadata_template_without_examples} from '../../shared/constants';
 import {
-  allowMultiple,
+  allowMultipleOld,
   convertToSnakeCase,
-  generateEbiOntologyLink,
-  getMandatoryRulesOnly,
+  generateEbiOntologyLinkOld,
+  getMandatoryRulesOnlyOld,
   getOntologyTermFromIRI,
   getValidItems,
   replaceUnderscoreWithSpace
@@ -51,11 +51,11 @@ export class RulesetExperimentComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.convertToSnakeCase = convertToSnakeCase;
     this.replaceUnderscoreWithSpace = replaceUnderscoreWithSpace;
-    this.allowMultiple = allowMultiple;
+    this.allowMultiple = allowMultipleOld;
     this.getValidItems = getValidItems;
     this.getOntologyTerm = getOntologyTermFromIRI;
-    this.getMandatoryData = getMandatoryRulesOnly;
-    this.generateEbiOntologyLink = generateEbiOntologyLink;
+    this.getMandatoryData = getMandatoryRulesOnlyOld;
+    this.generateEbiOntologyLink = generateEbiOntologyLinkOld;
     this.metadata_template_with_examples = experiment_metadata_template_with_examples;
     this.metadata_template_without_examples = experiment_metadata_template_without_examples;
     this.titleService.setTitle('FAANG Rule set|experiments');
