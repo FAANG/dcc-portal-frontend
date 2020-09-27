@@ -398,6 +398,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   }
 
   isSubmissionDisabled(status) {
+    console.log(status);
     return status === 'Fix issues';
   }
 

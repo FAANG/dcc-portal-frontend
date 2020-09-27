@@ -40,3 +40,7 @@ a {
 .form-danger {
   margin-top: 5px;
 }
+
+.container {
+  margin-bottom: 100px;
+}

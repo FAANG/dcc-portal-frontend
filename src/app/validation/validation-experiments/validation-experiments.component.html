@@ -105,10 +105,6 @@
         Start submission to ENA
       </button>
 
-      <button type="button" class="btn btn-success submission_data_button" *ngIf="submission_status === 'Data is ready'">
-        <a href="{{constructDownloadLink()}}">Download data</a>
-      </button>
-
       <div class="alert alert-danger" role="alert" *ngFor="let error of conversion_errors">
         {{error}}
       </div>
