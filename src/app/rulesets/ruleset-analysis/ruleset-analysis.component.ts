@@ -3,13 +3,15 @@ import {Title} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {
-  allowMultiple,
+  allowMultipleOld,
   convertToSnakeCase,
-  generateEbiOntologyLink,
-  getMandatoryRulesOnly,
+  generateEbiOntologyLinkOld,
+  getMandatoryRulesOnlyOld,
   getOntologyTermFromIRI,
-  getValidItems
+  getValidItems,
+  replaceUnderscoreWithSpace
 } from '../../shared/common_functions';
+import {analysis_metadata_template_with_examples, analysis_metadata_template_without_examples} from '../../shared/constants';
 
 @Component({
   selector: 'app-ruleset-analysis',
@@ -29,16 +31,27 @@ export class RulesetAnalysisComponent implements OnInit, AfterViewChecked {
   getOntologyTerm: any;
   getMandatoryData: any;
   generateEbiOntologyLink: any;
+  replaceUnderscoreWithSpace: any;
+  metadata_template_with_examples: string;
+  metadata_template_without_examples: string;
+  record_specific_templates = {
+    faang: '../../../assets/faang.xlsx',
+    ena: '../../../assets/ena.xlsx',
+    eva: '../../../assets/eva.xlsx'
+  };
 
   constructor(private titleService: Title, private apiDataService: ApiDataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.convertToSnakeCase = convertToSnakeCase;
-    this.allowMultiple = allowMultiple;
+    this.replaceUnderscoreWithSpace = replaceUnderscoreWithSpace;
+    this.allowMultiple = allowMultipleOld;
     this.getValidItems = getValidItems;
     this.getOntologyTerm = getOntologyTermFromIRI;
-    this.getMandatoryData = getMandatoryRulesOnly;
-    this.generateEbiOntologyLink = generateEbiOntologyLink;
+    this.getMandatoryData = getMandatoryRulesOnlyOld;
+    this.generateEbiOntologyLink = generateEbiOntologyLinkOld;
+    this.metadata_template_with_examples = analysis_metadata_template_with_examples;
+    this.metadata_template_without_examples = analysis_metadata_template_without_examples;
     this.titleService.setTitle('FAANG Rule set|analyses');
     this.apiDataService.getRulesetAnalysis().subscribe(
       data => {

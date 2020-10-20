@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HostSetting } from './host-setting';
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams, HttpHeaders} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
-import { AnalysisTable, DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
-import {ruleset_prefix} from '../shared/constants';
+import {
+  ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
+  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable
+} from '../shared/interfaces';
+import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
 
 
 @Injectable({
@@ -32,6 +35,28 @@ export class ApiDataService {
           standard: entry['_source']['experiment']['standardMet'],
           paperPublished: entry['_source']['paperPublished']
           } as FileTable )
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllFilesForProject(project: string) {
+    const url = this.hostSetting.host + 'file/_search/?size=100000&q=secondaryProject:' + project;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          name: entry['_source']['name'],
+          fileId: entry['_id'],
+          experiment: entry['_source']['experiment']['accession'],
+          assayType: entry['_source']['experiment']['assayType'],
+          experimentTarget: entry['_source']['experiment']['target'],
+          run: entry['_source']['run']['accession'],
+          readableSize: entry['_source']['readableSize'],
+          checksum: entry['_source']['checksum'],
+          checksumMethod: entry['_source']['checksumMethod']
+          } as FileForProjectTable )
         );
       }),
       retry(3),
@@ -84,6 +109,23 @@ export class ApiDataService {
     );
   }
 
+  getAllOrganismsFromProject(project: string) {
+    const url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          bioSampleId: entry['_source']['biosampleId'],
+          sex: entry['_source']['sex']['text'],
+          organism: entry['_source']['organism']['text'],
+          breed: entry['_source']['breed']['text']
+        } as OrganismForProjectTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getOrganism(biosampleId: string) {
     const url = this.hostSetting.host + 'organism/' + biosampleId;
     return this.http.get<any>(url).pipe(
@@ -95,6 +137,25 @@ export class ApiDataService {
   getOrganismsSpecimens(biosampleId: any) {
     const url = this.hostSetting.host + 'specimen/_search/?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
     return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllSpecimensForProject(project: string) {
+    const url = this.hostSetting.host + 'specimen/_search/?size=100000&q=secondaryProject:' + project;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          bioSampleId: entry['_source']['biosampleId'],
+          material: this.checkField(entry['_source']['material']),
+          organismpart_celltype: this.checkField(entry['_source']['cellType']),
+          sex: this.checkField(entry['_source']['organism']['sex']),
+          organism: this.checkField(entry['_source']['organism']['organism']),
+          breed: this.checkField(entry['_source']['organism']['breed'])
+          } as SpecimenForProjectTable)
+        );
+      }),
       retry(3),
       catchError(this.handleError),
     );
@@ -243,6 +304,52 @@ export class ApiDataService {
     );
   }
 
+  getAllArticlesForProject(project: string) {
+    const url = this.hostSetting.host + 'article/_search/?size=100000&q=secondaryProject:' + project;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          id: entry['_id'],
+          title: entry['_source']['title'],
+          year: entry['_source']['year'],
+          journal: entry['_source']['journal'],
+          datasetSource: entry['_source']['datasetSource']
+          } as ArticleTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllArticles(query: any, size: number) {
+    const url = this.hostSetting.host + 'article/' + '_search/' + '?size=' + size;
+    // const url = 'wp-np3-e2:9200/faang_build_6_article/' + '_search/' + '?size=' + size;
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    return this.http.get(url, {params: params}).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          id: entry['_id'],
+          title: entry['_source']['title'],
+          year: entry['_source']['year'],
+          journal: entry['_source']['journal'],
+          datasetSource: entry['_source']['datasetSource']
+          } as ArticleTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getArticle(id: string) {
+    const url = this.hostSetting.host + 'article/' + id;
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getAllSamplesProtocols(query: any) {
     const url = this.hostSetting.host + 'protocol_samples/_search/' + '?size=100';
     const params = new HttpParams().set('_source', query['_source'].toString());
@@ -346,8 +453,15 @@ export class ApiDataService {
     );
   }
 
-  getRulesetSample() {
-    const url = ruleset_prefix + 'faang_samples.metadata_rules.json';
+  getRulesetSample(category: string) {
+    let rule_type;
+    if (category === 'standard') {
+      rule_type = 'core';
+      category = 'core';
+    } else {
+      rule_type = 'type';
+    }
+    const url = ruleset_prefix_new + `${rule_type}/samples/faang_samples_${category}.metadata_rules.json`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -358,7 +472,7 @@ export class ApiDataService {
   }
 
   getRulesetExperiment() {
-    const url =  ruleset_prefix + 'faang_experiments.metadata_rules.json';
+    const url =  ruleset_prefix_old + 'faang_experiments.metadata_rules.json';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -369,7 +483,7 @@ export class ApiDataService {
   }
 
   getRulesetAnalysis() {
-    const url =  ruleset_prefix + 'faang_analyses.metadata_rules.json';
+    const url =  ruleset_prefix_old + 'faang_analyses.metadata_rules.json';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -377,6 +491,41 @@ export class ApiDataService {
       retry(3),
       catchError(this.handleError),
     );
+  }
+
+  startValidation(task_id, room_id, rules_type) {
+    const url =  validation_service_url + '/validation/' + rules_type + '/' + task_id + '/' + room_id;
+    return this.http.get(url);
+  }
+
+  startConversion(task_id, room_id, rules_type) {
+    const url = validation_service_url + '/submission/' + rules_type + '/' + task_id + '/' + room_id;
+    return this.http.get(url);
+  }
+
+  getTemplate(task_id, room_id, data_type) {
+    const url = `${validation_service_url}/submission/get_template/${task_id}/${room_id}/${data_type}`;
+    return this.http.get(url);
+  }
+
+  chooseDomain(username, password, mode, room_id) {
+    const url = `${validation_service_url}/submission/samples/${room_id}/choose_domain`;
+    return this.http.post(url, {username: username, password: password, mode: mode});
+  }
+
+  submitDomain(username, password, mode, domain_name, domain_description, room_id) {
+    const url = `${validation_service_url}/submission/samples/${room_id}/submit_domain`;
+    return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
+      domain_description: domain_description});
+  }
+
+  submitRecords(username, password, mode, domain_name, room_id, task_id, submission_type) {
+    const url = `${validation_service_url}/submission/${submission_type}/${task_id}/${room_id}/submit_records`;
+    if (domain_name !== '') {
+      return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name});
+    } else {
+      return this.http.post(url, {username: username, password: password, mode: mode});
+    }
   }
 
   private handleError(error: HttpErrorResponse) {

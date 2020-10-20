@@ -1,0 +1,10 @@
+.project-logo {
+  max-width:256px;
+  max-height:256px;
+  width:auto;
+  height:auto;
+}
+
+.left {
+  border-right: 1px solid lightgrey;
+}

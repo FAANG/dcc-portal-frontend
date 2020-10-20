@@ -200,7 +200,7 @@ describe('ApiDataService', () => {
         'key'],
     };
     service.getAllExperimentsProtocols(query).subscribe(data => {
-      expect(data.length).toEqual(95);
+      expect(data.length).toEqual(98);
     });
   }));
 

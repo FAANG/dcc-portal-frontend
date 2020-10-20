@@ -118,8 +118,10 @@
 
       <ng-container *ngIf="analysis?.analysisProtocol">
         <dt class="col-sm-3">Analysis Protocol:</dt>
-        <dd class="col-sm-9"><app-robust-link prefix="" [link]="analysis.analysisProtocol.url"
-                             [text]="analysis.analysisProtocol.filename"></app-robust-link></dd>
+        <dd class="col-sm-9"><app-robust-link prefix="" [link]="getProtocolLink(analysis.analysisProtocol.url)"
+                              [text]="analysis.analysisProtocol.filename"></app-robust-link></dd>
+
+
       </ng-container>
     </dl>
 

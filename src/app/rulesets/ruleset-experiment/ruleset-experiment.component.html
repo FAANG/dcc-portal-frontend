@@ -1,7 +1,7 @@
 <div class="container">
   <app-header></app-header>
   <h2>FAANG Rule sets
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/ruleset', 'samples']" fragment="standard">
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/ruleset', 'samples']">
       Samples
       <i class="material-icons float-right">menu</i>
     </button>
@@ -41,10 +41,13 @@
           Show only mandatory fields
         </label>
         <button type="button" class="btn btn-success">
-          <a href="{{metadata_template}}">Download empty template</a>
+          <a href="{{metadata_template_with_examples}}">Download example template</a>
         </button>
         <button type="button" class="btn btn-success">
-          <a href="{{metadata_template_with_examples}}">Download example template</a>
+          <a href="{{metadata_template_without_examples}}">Download empty template</a>
+        </button>
+        <button type="button" class="btn btn-success" *ngIf="fragment !== 'standard' && fragment !== 'ChIP-seq_standard_rules'">
+          <a href="{{record_specific_templates[fragment]}}">Download {{replaceUnderscoreWithSpace(fragment)}} template</a>
         </button>
       </div>
     </div>

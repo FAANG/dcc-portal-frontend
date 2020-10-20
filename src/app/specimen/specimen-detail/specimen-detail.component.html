@@ -87,6 +87,11 @@
         <dd class="col-sm-9">{{specimen?.project}}</dd>
       </ng-container>
 
+      <ng-container  *ngIf="specimen && specimen.hasOwnProperty('secondaryProject')">
+        <dt class="col-sm-3">Secondary project:</dt>
+        <dd class="col-sm-9">{{specimen?.secondaryProject}}</dd>
+      </ng-container>
+
       <ng-container *ngIf="specimen?.availability">
         <dt class="col-sm-3">Availability:</dt>
         <dd class="col-sm-9"><a href={{specimen?.availability}}>{{dealWithAvailability(specimen?.availability)}}</a></dd>
@@ -177,14 +182,13 @@
             <dt class="col-sm-3">Specimen collection protocol:</dt>
             <dd class="col-sm-9">
               <ng-container *ngIf="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
-                <app-robust-link [link]="getProtocolLink()"
-                                 [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename"></app-robust-link>
-                <a href={{specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url}}><span
-                  class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                <app-robust-link
+                  [link]="generateProtocolLink(specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url)"
+                  [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename"></app-robust-link>
               </ng-container>
               <ng-container *ngIf="!specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
-                <app-robust-link [link]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url"
-                                 [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename"></app-robust-link>
+                <app-robust-link [link]="generateProtocolLink(specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url)"
+                                 [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url"></app-robust-link>
               </ng-container>
             </dd>
           </ng-container>
@@ -236,14 +240,12 @@
             <dt class="col-sm-3">Pool creation protocol:</dt>
             <dd class="col-sm-9">
               <ng-container *ngIf="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
-                <app-robust-link [link]="specimen?.poolOfSpecimens?.poolCreationProtocol?.url"
+                <app-robust-link [link]="generateProtocolLink(specimen?.poolOfSpecimens?.poolCreationProtocol?.url)"
                                  [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename"></app-robust-link>
-                <a href={{specimen?.poolOfSpecimens?.poolCreationProtocol?.url}}><span
-                  class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
               </ng-container>
               <ng-container *ngIf="!specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
-                <app-robust-link [link]="specimen?.poolOfSpecimens?.poolCreationProtocol?.url"
-                                 [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename"></app-robust-link>
+                <app-robust-link [link]="generateProtocolLink(specimen?.poolOfSpecimens?.poolCreationProtocol?.url)"
+                                 [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.url"></app-robust-link>
               </ng-container>
             </dd>
           </ng-container>
@@ -291,13 +293,11 @@
             <dt class="col-sm-3">Purification protocol:</dt>
             <dd class="col-sm-9">
               <ng-container *ngIf="specimen?.cellSpecimen?.purificationProtocol?.filename">
-                <app-robust-link [link]="specimen?.cellSpecimen?.purificationProtocol?.url"
+                <app-robust-link [link]="generateProtocolLink(specimen?.cellSpecimen?.purificationProtocol?.url)"
                                  [text]="specimen?.cellSpecimen?.purificationProtocol?.filename"></app-robust-link>
-                <a href={{specimen?.cellSpecimen?.purificationProtocol?.url}}><span
-                  class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
               </ng-container>
               <ng-container *ngIf="!specimen?.cellSpecimen?.purificationProtocol?.filename">
-                <app-robust-link [link]="specimen?.cellSpecimen?.purificationProtocol?.url"
+                <app-robust-link [link]="generateProtocolLink(specimen?.cellSpecimen?.purificationProtocol?.url)"
                                  [text]="specimen?.cellSpecimen?.purificationProtocol?.url"></app-robust-link>
               </ng-container>
             </dd>
@@ -327,13 +327,11 @@
             <dt class="col-sm-3">Cell culture protocol:</dt>
             <dd class="col-sm-9">
               <ng-container *ngIf="specimen?.cellCulture?.cellCultureProtocol?.filename">
-                <app-robust-link [link]="specimen?.cellCulture?.cellCultureProtocol?.url"
+                <app-robust-link [link]="generateProtocolLink(specimen?.cellCulture?.cellCultureProtocol?.url)"
                                  [text]="specimen?.cellCulture?.cellCultureProtocol?.filename"></app-robust-link>
-                <a href={{specimen?.cellCulture?.cellCultureProtocol?.url}}><span
-                  class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
               </ng-container>
               <ng-container *ngIf="!specimen?.cellCulture?.cellCultureProtocol?.filename">
-                <app-robust-link [link]="specimen?.cellCulture?.cellCultureProtocol?.url"
+                <app-robust-link [link]="generateProtocolLink(specimen?.cellCulture?.cellCultureProtocol?.url)"
                                  [text]="specimen?.cellCulture?.cellCultureProtocol?.url"></app-robust-link>
               </ng-container>
             </dd>
@@ -426,13 +424,11 @@
             <dt class="col-sm-3">Culture protocol:</dt>
             <dd class="col-sm-9">
               <ng-container *ngIf="specimen.cellLine.cultureprotocol.filename">
-                <app-robust-link [link]="specimen.cellLine.cultureProtocol.url"
+                <app-robust-link [link]="generateProtocolLink(specimen.cellLine.cultureProtocol.url)"
                                  [text]="specimen.cellLine.cultureProtocol.filename"></app-robust-link>
-                <a href={{specimen?.cellLine.cultureProtocol.url}}><span class="glyphicon glyphicon-download-alt"
-                                                                         aria-hidden="true"></span></a>
               </ng-container>
               <ng-container *ngIf="!specimen.cellLine.cultureprotocol.filename">
-                <app-robust-link [link]="specimen.cellLine.cultureProtocol.url"
+                <app-robust-link [link]="generateProtocolLink(specimen.cellLine.cultureProtocol.url)"
                                  [text]="specimen.cellLine.cultureProtocol.url"></app-robust-link>
               </ng-container>
             </dd>

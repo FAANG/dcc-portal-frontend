@@ -6,6 +6,7 @@ import {OrganismComponent} from './organism/organism.component';
 import {SpecimenComponent} from './specimen/specimen.component';
 import {DatasetComponent} from './dataset/dataset.component';
 import {AnalysisComponent} from './analysis/analysis.component';
+import {ArticleComponent} from './article/article.component';
 
 import {SearchComponent} from './search/search.component';
 import {HelpComponent} from './help/help.component';
@@ -14,6 +15,8 @@ import {OrganismDetailComponent} from './organism/organism-detail/organism-detai
 import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detail.component';
 import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
 import {AnalysisDetailComponent} from './analysis/analysis-detail/analysis-detail.component';
+import {ArticleDetailComponent} from './article/article-detail/article-detail.component';
+import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 
 import {ApiComponent} from './help/api/api.component';
 import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.component';
@@ -29,6 +32,13 @@ import {NonExistingComponent} from './non-existing/non-existing.component';
 import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
+import {ValidationSamplesComponent} from './validation/validation-samples/validation-samples.component';
+import {ValidationExperimentsComponent} from './validation/validation-experiments/validation-experiments.component';
+import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
+import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
+import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
+import {SubprojectComponent} from './subprojects/subproject.component';
+import {AapComponent} from './aap/aap.component';
 
 
 const routes: Routes = [
@@ -44,6 +54,8 @@ const routes: Routes = [
   {path: 'file/:id', component: FileDetailComponent},
   {path: 'analysis', component: AnalysisComponent},
   {path: 'analysis/:id', component: AnalysisDetailComponent},
+  {path: 'article', component: ArticleComponent},
+  {path: 'article/:id', component: ArticleDetailComponent},
   {path: 'protocol/samples', component: ProtocolSampleComponent},
   {path: 'protocol/samples/:id', component: ProtocolSampleDetailsComponent},
   {path: 'protocol/experiments', component: ProtocolExperimentComponent},
@@ -52,6 +64,7 @@ const routes: Routes = [
   {path: 'search', component: SearchComponent},
   {path: 'help', component: HelpComponent},
   {path: 'help/api', component: ApiComponent},
+  {path: 'summary', redirectTo: 'summary/organisms', pathMatch: 'full'},
   {path: 'summary/organisms', component: OrganismsSummaryComponent},
   {path: 'summary/specimens', component: SpecimensSummaryComponent},
   {path: 'summary/datasets', component: DatasetsSummaryComponent},
@@ -59,6 +72,13 @@ const routes: Routes = [
   {path: 'ruleset/samples', component: RulesetSampleComponent},
   {path: 'ruleset/experiments', component: RulesetExperimentComponent},
   {path: 'ruleset/analyses', component: RulesetAnalysisComponent},
+  {path: 'validation/samples', component: ValidationSamplesComponent},
+  {path: 'validation/experiments', component: ValidationExperimentsComponent},
+  {path: 'validation/analyses', component: ValidationAnalysesComponent},
+  {path: 'projects', component: SubprojectComponent},
+  {path: 'projects/usda-bovine', component: UsdaBovineComponent},
+  {path: 'projects/sheepatlas', component: SheepatlasComponent},
+  {path: 'projects/:id', component: SubprojectDetailComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];

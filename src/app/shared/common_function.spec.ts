@@ -220,13 +220,13 @@ describe('common functions', () => {
   });
 
   it('getProtocolLink should return correct link when uses old firebase server with http in url', () => {
-    expect(getProtocolLink('https://ftp.faang.ebi.ac.uk/test/test.pdf'))
-      .toEqual('https://hx.fire.sdo.ebi.ac.uk/fire/public/faang/test/test.pdf');
+    expect(getProtocolLink('https://ftp.faang.ebi.ac.uk/ftp/protocols/samples/test.pdf'))
+      .toEqual('https://data.faang.org/api/fire_api/samples/test.pdf');
   });
 
   it('getProtocolLink should return correct link when uses old firebase server with ftp in url', () => {
-    expect(getProtocolLink('ftp://ftp.faang.ebi.ac.uk/test/test.pdf'))
-      .toEqual('https://hx.fire.sdo.ebi.ac.uk/fire/public/faang/test/test.pdf');
+    expect(getProtocolLink('ftp://ftp.faang.ebi.ac.uk/ftp/protocols/samples/test.pdf'))
+      .toEqual('https://data.faang.org/api/fire_api/samples/test.pdf');
   });
 
   it('getProtocolLink should return the same link when does not use old fire server', () => {

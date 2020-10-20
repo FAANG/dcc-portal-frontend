@@ -5,3 +5,7 @@ a {
 summary {
   font-size: 14px;
 }
+
+.row {
+  margin-top: 25px;
+}

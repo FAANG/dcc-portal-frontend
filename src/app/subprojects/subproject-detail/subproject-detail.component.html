@@ -1,0 +1,46 @@
+<ng-container *ngIf="setting">
+  <div class="container" style="min-height:87vh">
+    <app-header></app-header>
+    <div class="row first-row">
+      <div class="col-md-6">
+        <img src="{{setting.image.url}}"  alt="Project Logo"
+             [ngClass]="{'small-project-logo':project==='AQUA-FAANG', 'large-project-logo':project!=='AQUA-FAANG'}">
+        <h3>
+          <a href="{{setting.url}}">{{setting.url}}</a>
+        </h3>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/bovreg/funding-logo-1.jpg" alt="Funding Logo" class="funding-logo">
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-4">
+        <h5>
+          {{setting.description}}
+        </h5>
+      </div>
+      <div class="col-md-8 text-center">
+        <a class="twitter-timeline" href="https://twitter.com/{{setting.tweeter.id}}?ref_src=twsrc%5Etfw"
+           data-height="300"
+           data-theme="light"
+           data-width="650"
+           data-chrome="noborders nofooter noscrollbar transparent"
+        >
+          Tweets by {{setting.tweeter.id}}
+        </a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+    </div>
+
+    <app-related-items source_type="project" target_type="publication" download_key=""
+                       [record_id]="project"></app-related-items>
+    <app-related-items source_type="project" target_type="organism" download_key=""
+                       [record_id]="project"></app-related-items>
+    <app-related-items source_type="project" target_type="specimen" download_key=""
+                       [record_id]="project"></app-related-items>
+    <app-related-items source_type="project" target_type="file" download_key=""
+                       [record_id]="project"></app-related-items>
+  </div>
+</ng-container>

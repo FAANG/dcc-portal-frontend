@@ -32,9 +32,9 @@ export class AggregationService {
     name: [],
     experimentTarget: [],
     paper_published: [],
-    journal_title: [],
-    citations: [],
-    publication_year: []
+    year: [],
+    journal: [],
+    datasetSource: []
   };
 
   protocolNames = protocolNames;
@@ -266,6 +266,27 @@ export class AggregationService {
         analysis_type: Object.entries(analysis_type).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
+      };
+      this.data.next(all_data);
+    } else if (type === 'article') {
+      let journal = {};
+      let year = {};
+      let dataset_source = {};
+      let all_data;
+      for (const item of recordList) {
+        journal = this.updateAggregation(journal, item['journal']);
+        year = this.updateAggregation(year, item['year']);
+        dataset_source = this.updateAggregation(dataset_source, item['datasetSource']);
+      }
+      delete dataset_source['All'];
+      all_data = {
+        journal: Object.entries(journal).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        year: Object.entries(year).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        datasetSource: Object.entries(dataset_source)
       };
       this.data.next(all_data);
     } else if (type === 'protocol') {

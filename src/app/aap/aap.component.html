@@ -1,0 +1,15 @@
+<div class="container">
+  <app-header></app-header>
+  <h2>EBI AAP</h2>
+  <button (click)="openLoginWindow()">Login small window</button>
+  <button (click)="logOut()">Logout</button>
+
+  <div *ngIf="(user | async) as user; else loggedOut">
+    <p>Expiration Date: {{ expiration | async }}</p>
+    <p>Issuer: {{ iss | async }}</p>
+
+  </div>
+  <ng-template #loggedOut>
+    <p>Please, log in.</p>
+  </ng-template>
+</div>

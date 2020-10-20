@@ -1,0 +1,308 @@
+<div class="container" style="min-height:87vh">
+  <app-header></app-header>
+  <h2>FAANG validation
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
+            [routerLink]="['/validation', 'samples']">
+      Samples
+      <i class="material-icons float-right">home</i>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'experiments']">
+      Experiments
+      <i class="material-icons float-right">menu</i>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'analyses']">
+      Analyses
+      <i class="material-icons float-right">menu</i>
+    </button>
+  </h2>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-success">
+        <a href="{{metadata_template_with_examples}}">Download example template</a>
+      </button>
+
+      <button type="button" class="btn btn-success">
+        <a href="{{metadata_template_without_examples}}">Download empty template</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-info">
+        <a href="https://dcc-documentation.readthedocs.io/en/latest/sample/biosamples_template/" target="_blank">Submission guideline</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6" id="left">
+      <h3>1. Upload template:</h3>
+      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+      <button type="button" class="btn btn-success btn-sm"
+              (click)="uploader.uploadAll()"
+              [disabled]="!uploader.getNotUploadedItems().length" >
+        Upload a File
+      </button>
+    </div>
+    <div class="col-md-6" id="right">
+      <h3>2. Conversion results:</h3>
+      <div class="row">
+        <div class="col-md-6">
+          Status: <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
+        </div>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-success btn-sm" *ngIf="conversion_status === 'Success'"
+                  (click)="startValidation()"
+                  [disabled]="validation_started === true">
+            Start validation
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="conversion_status === 'Error'">
+        <div class="col-md-12">
+          Errors:
+          <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
+            {{error}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6" *ngIf="validation_results">
+      <h3>3. Validation results:</h3>
+      Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
+      <br>
+      <button *ngFor="let key of record_types" type="button" class="btn btn-info validation_button"
+              [ngClass]="isButtonActive(key)" (click)="onRecordButtonClick(key)">
+        {{remove_underscores(key)}}
+      </button>
+    </div>
+
+    <div class="col-md-6" *ngIf="!validation_results && validation_started">
+      <h3>3. Validation results:</h3>
+      Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
+      <br>
+    </div>
+
+    <div class="col-md-6" *ngIf="validation_results">
+      <h3>4. Prepare data for submission:</h3>
+      Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
+      <br>
+      <button type="button" class="btn btn-success submission_data_button"
+              *ngIf="submission_status !== 'Data is ready'" (click)="onStartSubmissionClick()"
+              [disabled]="isSubmissionDisabled(submission_status)">
+        Start submission to BioSamples
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="validation_results">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-success validation_button"
+              (click)="onValidationResultsButtonClick('passed')"
+              [ngClass]="isRecordsButtonActive('passed')">
+        Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
+      </button>
+      <button type="button" class="btn btn-danger validation_button"
+              (click)="onValidationResultsButtonClick('issues')"
+              [ngClass]="isRecordsButtonActive('issues')">
+        Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
+      </button>
+      <button type="button" class="btn btn-success validation_button" (click)="getTemplateFile()"
+              *ngIf="annotation_status !== 'Download data'">
+        Get annotated template
+      </button>
+      <button type="button" class="btn btn-success validation_button" *ngIf="annotation_status === 'Download data'">
+        <a href="{{constructDownloadTemplateLink()}}" style="text-decoration: none">Download annotated template</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="show_table">
+    <div class="col-md-12 table-responsive">
+      <table class="table table-striped table-hover table-borderless table-sm">
+        <thead>
+        <tr>
+          <th *ngFor="let column of column_names">{{column}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let record of records_to_show; let i=index">
+          <td *ngFor="let data of record; let j=index"
+              [ngClass]="getCellClass(i, j)"
+              [ngStyle]="{'cursor': getCellStyle(i, j)}"
+              (click)="openModal(i, j)">{{data}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr *ngIf="submissionStarted === true">
+
+  <div class="row" *ngIf="submissionStarted === true">
+    <div class="col-md-12">
+      <div [ngClass]="submissionMessageClass()" role="alert">
+        {{submission_message}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="submissionStarted === true">
+    <div class="col-md-6" [hidden]="disableAuthForm">
+      <h3>Submit data to BioSamples</h3>
+      <form (ngSubmit)="onSubmit()" #biosamplesForm="ngForm">
+        <div class="form-group">
+          <label for="aapUsername">AAP username</label>
+          <input class="form-control" id="aapUsername"
+                 placeholder="Enter your AAP username" required [(ngModel)]="model.username" name="username"
+                 #username="ngModel">
+          <small class="form-text text-muted">Please use this
+            <a href="{{aap_link}}" class="link" target="_blank">service</a>
+            to get your credentials
+          </small>
+          <div [hidden]="username.valid || username.pristine"
+               class="alert alert-danger form-danger">
+            Username is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="aapPassword">Password</label>
+          <input type="password" class="form-control" id="aapPassword" placeholder="Password"
+                 required [(ngModel)]="model.password" name="password" #password="ngModel">
+          <div [hidden]="password.valid || password.pristine"
+               class="alert alert-danger form-danger">
+            Password is required
+          </div>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="test" value="test" checked
+                 (click)="onChooseModeClick('test')">
+          <label class="form-check-label" for="test">
+            Test server
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="prod" value="prod"
+                 (click)="onChooseModeClick('prod')">
+          <label class="form-check-label" for="prod">
+            Production server
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary"
+                [disabled]="!biosamplesForm.form.valid">Submit</button>
+      </form>
+    </div>
+
+    <div class="col-md-6" [hidden]="disableChooseDomainForm">
+      <h3>
+        Choose domain or
+        <button type="button" class="btn btn-success" (click)="onCreateNewDomainClick()">Create new domain</button>
+      </h3>
+      <form>
+        <div class="form-check" *ngFor="let domain of domains; let i = index">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="{{i}}" value="{{domain}}" checked
+                 (click)="onChooseDomainClick(domain)">
+          <label class="form-check-label" for="{{i}}">
+            {{domain}}
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="onSubmitRecordsClick()"
+                [disabled]="disableSubmitButton">Submit records to BioSamples</button>
+      </form>
+    </div>
+
+    <div class="col-md-6" [hidden]="disableDomainForm">
+      <h3>
+        Create new domain
+        <span *ngIf="domains.length !== 0">
+        or
+        <button type="button" class="btn btn-success" (click)="onCreateNewDomainClick()">Choose domain</button>
+      </span>
+      </h3>
+      <form (ngSubmit)="onDomainSubmit()" #domainForm="ngForm">
+        <div class="form-group">
+          <label for="domainName">Domain name</label>
+          <input class="form-control" id="domainName"
+                 placeholder="Enter your domain name" required [(ngModel)]="domain.name" name="domain_name"
+                 #domain_name="ngModel">
+          <small class="form-text text-muted">You can find more about domains
+            <a href="https://www.ebi.ac.uk/biosamples/docs/guides/authentication" class="link">here</a>
+          </small>
+          <div [hidden]="domain_name.valid || domain_name.pristine"
+               class="alert alert-danger form-danger">
+            Domain name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="domainDescription">Domain description</label>
+          <input class="form-control" id="domainDescription"
+                 placeholder="Enter your domain description" required [(ngModel)]="domain.description"
+                 name="domain_description"
+                 #domain_description="ngModel">
+          <div [hidden]="domain_description.valid || domain_description.pristine"
+               class="alert alert-danger form-danger" >
+            Domain description is required
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary"
+                [disabled]="!domainForm.form.valid">Submit</button>
+      </form>
+    </div>
+
+    <div class="col-md-6" [hidden]="submissionResults.length === 0">
+      <h3>
+        Submission results
+        <button type="button" class="btn btn-success">
+          <a href="{{downloadSubmissionResults()}}" #myButton>Download submission results</a>
+        </button>
+      </h3>
+      <div class="col-md-12 table-responsive">
+        <table class="table table-striped table-hover table-borderless table-sm">
+          <thead>
+          <tr>
+            <th>Sample Name</th>
+            <th>BioSample ID</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let record of submissionResults | paginate: { itemsPerPage: 5, currentPage: p }">
+            <td>{{record[0]}}</td>
+            <td>
+              <a href="{{generateBioSampleLink(record[1])}}" class="link" target="_blank">{{record[1]}}</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+
+  <ngx-smart-modal #myModal identifier="myModal" customClass="nsm-dialog-animation-fade">
+    <h3>{{active_column}}:</h3>
+    <div *ngIf="active_issues">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let issue of active_issues" class="list-group-item">
+          {{issue.split(',').join(' ')}}
+        </li>
+      </ul>
+    </div>
+    <button (click)="myModal.close()" type="button" class="btn btn-success modal-button">Close</button>
+  </ngx-smart-modal>
+
+</div>

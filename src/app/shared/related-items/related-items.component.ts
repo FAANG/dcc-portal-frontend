@@ -40,7 +40,40 @@ export class RelatedItemsComponent implements OnInit {
     }
 
     const relationship_type = `${this.source_type}-${this.target_type}`;
-    if (relationship_type === 'analysis-file') {
+    if (relationship_type === 'project-organism') {
+      this.dataService.getAllOrganismsFromProject(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data;
+        }
+      );
+    } else if (relationship_type === 'project-specimen') {
+      this.dataService.getAllSpecimensForProject(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data;
+        }
+      );
+    } else if (relationship_type === 'project-publication') {
+      this.dataService.getAllArticlesForProject(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data;
+        }
+      );
+    } else if (relationship_type === 'project-file') {
+      this.dataService.getAllFilesForProject(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data;
+        }
+      );
+    } else if (relationship_type === 'publication-dataset') {
+      this.dataService.getArticle(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data['hits']['hits'][0]['_source']['relatedDatasets'];
+          for (const record of this.records) {
+            record['species'] = record['species'].sort();
+          }
+        }
+      );
+    } else if (relationship_type === 'analysis-file') {
       this.dataService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['files'];
@@ -105,6 +138,12 @@ export class RelatedItemsComponent implements OnInit {
         (data: any) => {
           this.records = data['hits']['hits'];
         });
+    } else if (relationship_type === 'project-paper') {
+      this.records = [{}];
+    } else if (relationship_type === 'project-specimen') {
+      this.records = [{}];
+    } else if (relationship_type === 'project-file') {
+      this.records = [{}];
     }
   }
 
@@ -164,7 +203,7 @@ export class RelatedItemsComponent implements OnInit {
     const elmts = attr.split('.');
     let curr: any = record;
     for (const elmt of elmts) {
-      if (curr[elmt] === null) {
+      if (curr[elmt] === null || curr[elmt] === undefined) {
         return;
       }
       curr = curr[elmt];
@@ -183,14 +222,15 @@ export class RelatedItemsComponent implements OnInit {
     }
   }
 
-  // the checked status of the checkbox in the table under Download column
+  // the checked conversion_status of the checkbox in the table under Download column
   CheckboxChecked(url: string) {
     url = 'ftp://' + url;
     return this.urls.indexOf(url) !== -1;
   }
 
-  // determine the checked status of the checkbox in the table header
-  // return 2 means all files selected (checkbox checked status), 1 means partially files selected (checkbox indeterminate status)
+  // determine the checked conversion_status of the checkbox in the table header
+  // return 2 means all files selected (checkbox checked conversion_status),
+  // 1 means partially files selected (checkbox indeterminate conversion_status)
   // and 0 means none selected
   mainCheckboxChecked() {
     if (this.records) {
