@@ -73,6 +73,10 @@ import { SubprojectComponent } from './subprojects/subproject.component';
 import {AuthModule} from 'ng-ebi-authorization';
 import {JwtModule} from '@auth0/angular-jwt';
 import { AapComponent } from './aap/aap.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import 'hammerjs'; 
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -151,6 +155,9 @@ export function removeToken(): void {
     ChartsModule,
     FormsModule,
     FileUploadModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatIconModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,
