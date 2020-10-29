@@ -14,6 +14,7 @@ import {
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {AAPUser} from '../aap_user';
 import {SubmissionDomain} from '../submission_domain';
+import {UserService} from '../../services/user.service';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -73,7 +74,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   constructor(
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
-    private apiDataService: ApiDataService
+    private apiDataService: ApiDataService,
+    private _userService: UserService
   ) { }
 
   ngOnInit() {

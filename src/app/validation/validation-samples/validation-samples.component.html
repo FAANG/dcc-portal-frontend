@@ -1,5 +1,17 @@
 <div class="container" style="min-height:87vh">
   <app-header></app-header>
+  <div class="row first-row" *ngIf="_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        <p>
+          You are logged in as {{ _userService.username }}. <br>
+          Token Expires: {{ _userService.token_expires }}
+        </p>
+        <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
+        <button (click)="_userService.logout()" class="btn btn-primary">Log Out</button>
+      </div>
+    </div>
+  </div>
   <h2>FAANG validation
     <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
             [routerLink]="['/validation', 'samples']">
