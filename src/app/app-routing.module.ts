@@ -39,6 +39,7 @@ import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.compone
 import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
 import {SubprojectComponent} from './subprojects/subproject.component';
 import {AapComponent} from './aap/aap.component';
+import {LoginComponent} from './login/login.component';
 
 
 const routes: Routes = [
@@ -79,6 +80,7 @@ const routes: Routes = [
   {path: 'projects/usda-bovine', component: UsdaBovineComponent},
   {path: 'projects/sheepatlas', component: SheepatlasComponent},
   {path: 'projects/:id', component: SubprojectDetailComponent},
+  {path: 'login', component: LoginComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];

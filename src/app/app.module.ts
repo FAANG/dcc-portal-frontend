@@ -73,6 +73,7 @@ import { SubprojectComponent } from './subprojects/subproject.component';
 import {AuthModule} from 'ng-ebi-authorization';
 import {JwtModule} from '@auth0/angular-jwt';
 import { AapComponent } from './aap/aap.component';
+import {LoginComponent} from './login/login.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -136,7 +137,8 @@ export function removeToken(): void {
     UsdaBovineComponent,
     SheepatlasComponent,
     SubprojectComponent,
-    AapComponent
+    AapComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

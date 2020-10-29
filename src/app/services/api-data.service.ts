@@ -109,9 +109,9 @@ export class ApiDataService {
     );
   }
 
-  getAllOrganismsFromProject(project: string) {
+  getAllOrganismsFromProject(project: string, mode: string) {
     // const url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
-    const url = 'http://45.86.170.123/api/organism';
+    const url = `http://45.86.170.123/api/organism/${mode}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({

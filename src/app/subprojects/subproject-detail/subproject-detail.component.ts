@@ -3,6 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import setting from './subproject-detail.component.setting.json';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-subproject-detail',
@@ -19,7 +20,8 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
               private title: Title,
               private spinner: NgxSpinnerService,
               private router: Router,
-              private titleService: Title) {
+              private titleService: Title,
+              private _userService: UserService) {
     this.initTwitterWidget();
   }
 
@@ -70,6 +72,15 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
 
       }
     });
+  }
+
+  logout() {
+    this._userService.logout();
+    window.location.reload();
+  }
+
+  login() {
+    this.router.navigate(['login']);
   }
 
   ngOnDestroy() {

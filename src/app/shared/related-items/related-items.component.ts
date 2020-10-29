@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ApiDataService} from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-related-items',
@@ -26,7 +27,7 @@ export class RelatedItemsComponent implements OnInit {
   // Step 3: add this component into the detail page
   // Step 4: make necessary adjustment (i.e. debugging) to the setting
 
-  constructor(private dataService: ApiDataService) {
+  constructor(private dataService: ApiDataService, private _userService: UserService) {
   }
 
   ngOnInit() {
@@ -41,7 +42,9 @@ export class RelatedItemsComponent implements OnInit {
 
     const relationship_type = `${this.source_type}-${this.target_type}`;
     if (relationship_type === 'project-organism') {
-      this.dataService.getAllOrganismsFromProject(this.record_id).subscribe(
+      let mode: string;
+      this._userService.token ? mode = 'private' : mode = 'public';
+      this.dataService.getAllOrganismsFromProject(this.record_id, mode).subscribe(
         (data: any) => {
           this.records = data;
         }
