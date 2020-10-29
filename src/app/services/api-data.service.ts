@@ -110,14 +110,16 @@ export class ApiDataService {
   }
 
   getAllOrganismsFromProject(project: string) {
-    const url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
+    // const url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
+    const url = 'http://45.86.170.123/api/organism';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
           sex: entry['_source']['sex']['text'],
           organism: entry['_source']['organism']['text'],
-          breed: entry['_source']['breed']['text']
+          breed: entry['_source']['breed']['text'],
+          private: entry['_source']['private']
         } as OrganismForProjectTable)
         );
       }),

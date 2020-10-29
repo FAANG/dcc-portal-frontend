@@ -147,6 +147,10 @@ export class RelatedItemsComponent implements OnInit {
     }
   }
 
+  isRecordPrivate(record: any) {
+    return record.private;
+  }
+
   // get table headers
   get_all_fields() {
     return setting[this.source_type][this.target_type]['all'];
