@@ -74,6 +74,7 @@ import {AuthModule} from 'ng-ebi-authorization';
 import {JwtModule} from '@auth0/angular-jwt';
 import { AapComponent } from './aap/aap.component';
 import {LoginComponent} from './login/login.component';
+import {FilesUploadComponent} from './files-upload/files-upload.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -138,7 +139,8 @@ export function removeToken(): void {
     SheepatlasComponent,
     SubprojectComponent,
     AapComponent,
-    LoginComponent
+    LoginComponent,
+    FilesUploadComponent
   ],
   imports: [
     BrowserModule,

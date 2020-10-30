@@ -121,6 +121,10 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
   }
 
+  onUploadProtocolClick() {
+    this.router.navigate(['upload_protocol']);
+  }
+
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
       this.resetFilter();

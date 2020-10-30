@@ -36,6 +36,7 @@
     <div class="col-md-10 table-responsive">
       <div *ngIf="(protocolList | async) as protocols; else loading">
         <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
+        <button class="btn btn-success" (click)="onUploadProtocolClick()">Upload protocol</button>
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
           Export as CSV file
         </app-export>
