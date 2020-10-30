@@ -1,5 +1,7 @@
 .page-footer {
-  margin-top: 10px;
+  position: fixed;
+  bottom: 0;
+  height: 100px;
 }
 
 .mdb-color {
@@ -9,5 +11,6 @@
 a {
   color: steelblue;
 }
+
 
 
