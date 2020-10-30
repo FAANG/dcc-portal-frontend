@@ -527,7 +527,7 @@
       "display": [
         "BioSamples ID",
         "Material",
-        "Cell type",
+        "Organism part/Cell type",
         "Sex",
         "Species",
         "Breed"
@@ -535,7 +535,7 @@
       "all": [
         "BioSamples ID",
         "Material",
-        "Cell type",
+        "Organism part/Cell type",
         "Sex",
         "Species",
         "Breed"
@@ -551,7 +551,7 @@
         "Material": {
           "value": "material"
         },
-        "Cell type": {
+        "Organism part/Cell type": {
           "value": "organismpart_celltype"
         },
         "Sex": {
