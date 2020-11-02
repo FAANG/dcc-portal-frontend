@@ -73,6 +73,11 @@ import { SubprojectComponent } from './subprojects/subproject.component';
 import {AuthModule} from 'ng-ebi-authorization';
 import {JwtModule} from '@auth0/angular-jwt';
 import { AapComponent } from './aap/aap.component';
+import 'hammerjs';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material';
+import { MatSortModule } from '@angular/material';
+import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component'; 
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -136,7 +141,8 @@ export function removeToken(): void {
     UsdaBovineComponent,
     SheepatlasComponent,
     SubprojectComponent,
-    AapComponent
+    AapComponent,
+    TableClientSideComponent
   ],
   imports: [
     BrowserModule,
@@ -151,6 +157,9 @@ export function removeToken(): void {
     ChartsModule,
     FormsModule,
     FileUploadModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,
