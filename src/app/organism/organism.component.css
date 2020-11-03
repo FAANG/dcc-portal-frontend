@@ -22,10 +22,12 @@ button {
 .green {
   background-color: palegreen;
   text-align: center;
+  width: 100px;
 }
 
 .default {
   text-align: center;
+  width: 100px;
 }
 
 a {

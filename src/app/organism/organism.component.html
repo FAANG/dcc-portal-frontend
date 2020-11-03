@@ -37,62 +37,23 @@
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
           Export as Tabular file
         </app-export>
-        <table class="table table-striped table-hover table-borderless table-sm">
-          <thead>
-          <tr>
-            <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
-              {{ column }}
-              <i class="material-icons sorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column === selectedColumn" [id]="column">{{spanClass}}</i>
-              <i class="material-icons unsorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column !== selectedColumn" [id]="column">{{defaultClass}}</i>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let organism of organisms | sort: sort_field | filter: filter_field: 'organism' | paginate: { itemsPerPage: 25, currentPage: p }">
-            <td><a style="cursor: pointer" [routerLink]="organism['bioSampleId']">{{organism['bioSampleId']}}</a></td>
-            <td>{{organism['sex']}}</td>
-            <td>{{organism['organism']}}</td>
-            <td>{{organism['breed']}}</td>
-            <td>{{organism['standard']}}</td>
-            <td *ngIf="wasPublished(organism['paperPublished'])" [ngClass]="isGreen(organism['paperPublished'])">
-              <i class="material-icons">check_circle_outline</i>
-            </td>
-            <td *ngIf="!wasPublished(organism['paperPublished'])" [ngClass]="isGreen(organism['paperPublished'])">
-              <i class="material-icons">highlight_off</i>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <app-table-client-side [display_fields]="displayFields"
+                          [column_names]="columnNames"
+                          [data]="organisms"
+                          [filter_values]="filter_field"
+                          [templates]="templates">
+        </app-table-client-side>
       </div>
       <ng-template #loading>
         <div>
           Loading...
         </div>
-        <table class="table table-striped table-hover table-borderless table-sm">
-          <thead>
-          <tr>
-            <th *ngFor="let column of columnNames">
-              {{ column }}
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let organism of organismListShort">
-            <td><a style="cursor: pointer" [routerLink]="organism['bioSampleId']">{{organism['bioSampleId']}}</a></td>
-            <td>{{organism['sex']}}</td>
-            <td>{{organism['organism']}}</td>
-            <td>{{organism['breed']}}</td>
-            <td>{{organism['standard']}}</td>
-            <td *ngIf="wasPublished(organism['paperPublished'])" [ngClass]="isGreen(organism['paperPublished'])">
-              <i class="material-icons">check_circle_outline</i>
-            </td>
-            <td *ngIf="!wasPublished(organism['paperPublished'])" [ngClass]="isGreen(organism['paperPublished'])">
-              <i class="material-icons">highlight_off</i>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+        <app-table-client-side [display_fields]="displayFields"
+                          [column_names]="columnNames"
+                          [templates]="templates"
+                          [data]="organismListShort"
+                          [filter_values]="filter_field">
+        </app-table-client-side>
         <div>
           Loading...
         </div>
@@ -101,3 +62,16 @@
     </div>
   </div>
 </div>
+
+<ng-template #bioSampleIdTemplate let-item>
+  <a style="cursor: pointer" [routerLink]="item">{{item}}</a>
+</ng-template>
+
+<ng-template #paperPublishedTemplate let-item>
+  <td *ngIf="wasPublished(item)" [ngClass]="isGreen(item)">
+    <i class="material-icons">check_circle_outline</i>
+  </td>
+  <td *ngIf="!wasPublished(item)" [ngClass]="isGreen(item)">
+    <i class="material-icons">highlight_off</i>
+  </td>
+</ng-template>

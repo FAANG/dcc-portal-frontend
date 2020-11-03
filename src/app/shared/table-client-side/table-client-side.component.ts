@@ -10,6 +10,7 @@ import {Observable} from 'rxjs';
 export class TableClientSideComponent implements OnInit {
   @Input() display_fields: Array<string>; // list of fields to be displayed in the table
   @Input() column_names: Array<string>; // list of column headers for the selected fields
+  @Input() public templates: Object; // column templates
   @Input() data: Array<any>; // Array data to be populated in the table
   @Input() filter_values: Observable<Object>; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ... }
   
