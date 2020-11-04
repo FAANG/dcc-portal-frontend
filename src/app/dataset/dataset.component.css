@@ -22,10 +22,12 @@ button {
 .green {
   background-color: palegreen;
   text-align: center;
+  width: 100px;
 }
 
 .default {
   text-align: center;
+  width: 100px;
 }
 
 a {
@@ -38,4 +40,8 @@ table {
 
 h3 {
   color: #477AAF;
+}
+
+.table-spinner ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #577C95;
 }

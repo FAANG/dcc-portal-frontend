@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DatasetTable, SortParams} from '../shared/interfaces';
+import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {DatasetTable} from '../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
@@ -15,14 +15,15 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./dataset.component.css']
 })
 export class DatasetComponent implements OnInit, OnDestroy {
+  @ViewChild('datasetAccessionTemplate', { static: true }) datasetAccessionTemplate: TemplateRef<any>;
+  @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
   datasetListShort: Observable<DatasetTable[]>;
   datasetListLong: Observable<DatasetTable[]>;
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
     'Number of Specimens', 'Number of Files', 'Standard', 'Paper published'];
-  spanClass = 'expand_more';
-  defaultClass = 'unfold_more';
-  selectedColumn = 'Dataset accession';
-  sort_field: SortParams;
+  displayFields: string[] = ['datasetAccession', 'title', 'species', 'archive', 'assayType', 'numberOfExperiments', 
+    'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished'];
+  templates: Object;
   filter_field = {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
@@ -32,9 +33,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
   optionsCsv;
   optionsTabular;
   data = {};
-
-  // Local variable for pagination
-  p = 1;
 
   private query = {
     'sort': 'accession:desc',
@@ -61,6 +59,8 @@ export class DatasetComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
+    this.templates = {'datasetAccession': this.datasetAccessionTemplate, 
+                      'paperPublished': this.paperPublishedTemplate };
     this.titleService.setTitle('FAANG datasets');
     this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -80,14 +80,37 @@ export class DatasetComponent implements OnInit, OnDestroy {
         }
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
+      for (const key in filters) {
+        if (key == 'paper_published') {
+          filters['paper_published'].forEach(function(item, i) { 
+            if (item == 'Yes') 
+              filters['paper_published'][i] = 'true'; 
+            else
+              filters['paper_published'][i] = 'false'; 
+          });
+          filters['paperPublished'] = filters['paper_published'];
+          delete filters['paper_published'];
+        }
+      }
       this.filter_field = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'datasetAccession', direction: 'desc'};
-    this.spinner.hide();
+    this.dataService.getAllDatasets(this.query, 25).subscribe(
+      (data) => {
+        this.datasetListShort = data;
+        if (this.datasetListShort) {
+          this.spinner.hide();
+        }
+      },
+      error => {
+        this.error = error;
+        this.spinner.hide();
+      }
+    );
     this.datasetListLong = this.dataService.getAllDatasets(this.query, 100000);
     this.datasetListLongSubscription = this.datasetListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'dataset');
@@ -104,69 +127,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
     });
-  }
-
-  onTableClick(event: any) {
-    let event_class;
-    if (event['srcElement']['firstElementChild']) {
-      event_class = event['srcElement']['firstElementChild']['innerText'];
-    } else {
-      event_class = event['srcElement']['innerText'];
-    }
-    this.selectedColumn = event['srcElement']['id'];
-    this.selectColumn();
-    this.chooseClass(event_class);
-  }
-
-  chooseClass(event_class: string) {
-    if (this.selectedColumn === 'Dataset accession') {
-      if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      }
-    } else {
-      if (event_class === this.defaultClass) {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      } else if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'unfold_more';
-        this.sort_field['direction'] = 'desc';
-        this.sort_field['id'] = 'datasetAccession';
-        this.selectedColumn = 'Dataset accession';
-        this.spanClass = 'expand_more';
-      }
-    }
-  }
-
-  selectColumn() {
-    switch (this.selectedColumn) {
-      case 'Dataset accession': {
-        this.sort_field['id'] = 'datasetAccession';
-        break;
-      }
-      case 'Title': {
-        this.sort_field['id'] = 'title';
-        break;
-      }
-      case 'Species': {
-        this.sort_field['id'] = 'species';
-        break;
-      }
-      case 'Archive': {
-        this.sort_field['id'] = 'archive';
-        break;
-      }
-      case 'Assay type': {
-        this.sort_field['id'] = 'assayType';
-        break;
-      }
-    }
   }
 
   hasActiveFilters() {
