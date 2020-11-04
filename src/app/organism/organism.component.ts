@@ -55,7 +55,8 @@ export class OrganismComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.templates = {'bioSampleId': this.bioSampleIdTemplate, 'paperPublished': this.paperPublishedTemplate};
+    this.templates = {'bioSampleId': this.bioSampleIdTemplate, 
+                      'paperPublished': this.paperPublishedTemplate };
     this.titleService.setTitle('FAANG organisms');
     this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -75,6 +76,18 @@ export class OrganismComponent implements OnInit, OnDestroy {
         }
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
+      for (const key in filters) {
+        if (key == 'paper_published') {
+          filters['paper_published'].forEach(function(item, i) { 
+            if (item == 'Yes') 
+              filters['paper_published'][i] = 'true'; 
+            else
+              filters['paper_published'][i] = 'false'; 
+          });
+          filters['paperPublished'] = filters['paper_published'];
+          delete filters['paper_published'];
+        }
+      }
       this.filter_field = filters;
       this.filter_field = Object.assign({}, this.filter_field);
     });
@@ -94,7 +107,6 @@ export class OrganismComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       }
     );
-    this.organismListShort = this.dataService.getAllOrganisms(this.query, 25);
     this.organismListLong = this.dataService.getAllOrganisms(this.query, 100000);
     this.organismListLongSubscription = this.organismListLong.subscribe((data) => {
       this.aggregationService.getAggregations(data, 'organism');

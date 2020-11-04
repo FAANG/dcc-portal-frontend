@@ -50,6 +50,10 @@ export class TableClientSideComponent implements OnInit {
       }
       if (isFilterSet) {
         for (const col in searchTerms) {
+          // special handling for paperPublished - any non 'true' or missing value should be considered 'false'
+          if (col === 'paperPublished' && data[col] !== 'true') {
+            data[col] = 'false';
+          }
           if (searchTerms[col].indexOf(data[col]) == -1) {
             return false;
           }

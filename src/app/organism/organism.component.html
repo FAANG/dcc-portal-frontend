@@ -37,25 +37,24 @@
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
           Export as Tabular file
         </app-export>
-        <app-table-client-side [display_fields]="displayFields"
-                          [column_names]="columnNames"
-                          [data]="organisms"
-                          [filter_values]="filter_field"
-                          [templates]="templates">
+        <app-table-client-side  [display_fields]="displayFields"
+                                [column_names]="columnNames"
+                                [data]="organisms"
+                                [filter_values]="filter_field"
+                                [templates]="templates">
         </app-table-client-side>
       </div>
       <ng-template #loading>
-        <div>
-          Loading...
+        <div class="table-spinner">
+          <mat-spinner [diameter]="30"></mat-spinner>
         </div>
-        <app-table-client-side [display_fields]="displayFields"
-                          [column_names]="columnNames"
-                          [templates]="templates"
-                          [data]="organismListShort"
-                          [filter_values]="filter_field">
-        </app-table-client-side>
-        <div>
-          Loading...
+        <div *ngIf="organismListShort as organisms;">
+          <app-table-client-side  [display_fields]="displayFields"
+                                  [column_names]="columnNames"
+                                  [data]="organisms"
+                                  [filter_values]="filter_field"
+                                  [templates]="templates">
+          </app-table-client-side>
         </div>
       </ng-template>
       <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>

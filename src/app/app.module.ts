@@ -77,6 +77,7 @@ import 'hammerjs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material';
 import { MatSortModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material';
 import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component'; 
 
 export function getToken(): string {
@@ -160,6 +161,7 @@ export function removeToken(): void {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatProgressSpinnerModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,
