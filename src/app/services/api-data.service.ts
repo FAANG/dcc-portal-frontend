@@ -163,7 +163,24 @@ export class ApiDataService {
 
   getAllSpecimens(query: any, size: number) {
     const url = this.hostSetting.host + 'specimen/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    let aggs = {
+      'standard': 'standardMet',
+      'sex': 'organism.sex.text',
+      'organism': 'organism.organism.text',
+      'material': 'material.text',
+      'organismpart_celltype': 'cellType.text',
+      'breed': 'organism.breed.text',
+      'paperPublished': 'paperPublished'
+    }
+    let filters = query['filters'];
+    for (const prop in filters) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    query['sort'] = aggs[query['sort'][0]] ? aggs[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs));
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({

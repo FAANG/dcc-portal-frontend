@@ -79,6 +79,7 @@ import { MatPaginatorModule } from '@angular/material';
 import { MatSortModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component'; 
+import { TableServerSideComponent } from './shared/table-server-side/table-server-side.component'; 
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -143,7 +144,8 @@ export function removeToken(): void {
     SheepatlasComponent,
     SubprojectComponent,
     AapComponent,
-    TableClientSideComponent
+    TableClientSideComponent,
+    TableServerSideComponent
   ],
   imports: [
     BrowserModule,
