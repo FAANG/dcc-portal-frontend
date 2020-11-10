@@ -180,10 +180,11 @@ export class ApiDataService {
       }
     }
     query['sort'] = aggs[query['sort'][0]] ? aggs[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs));
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']);
+    let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
           material: this.checkField(entry['_source']['material']),
           organismpart_celltype: this.checkField(entry['_source']['cellType']),
@@ -191,10 +192,12 @@ export class ApiDataService {
           organism: this.checkField(entry['_source']['organism']['organism']),
           breed: this.checkField(entry['_source']['organism']['breed']),
           standard: entry['_source']['standardMet'],
-          idNumber: +entry['_source']['id_number'],
-          paperPublished: entry['_source']['paperPublished'],
+          idNumber: entry['_source']['id_number'],
+          paperPublished: entry['_source']['paperPublished']
           } as SpecimenTable)
         );
+        res['totalHits'] = data.hits.total;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),

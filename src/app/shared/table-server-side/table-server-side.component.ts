@@ -21,7 +21,7 @@ export class TableServerSideComponent implements AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource = new MatTableDataSource();
-
+  totalHits = 0;
   constructor(private dataService: ApiDataService) { }
 
   ngAfterViewInit() {
@@ -31,9 +31,12 @@ export class TableServerSideComponent implements AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-          if(this.sort.active) {
+          if(this.sort.active && this.sort.direction) {
             this.query['sort'] = [this.sort.active, this.sort.direction];
+          } else {
+            this.query['sort'] = ['id_number', 'desc'];
           }
+          this.query['from_'] = this.paginator.pageIndex * this.paginator.pageSize;
           return this.apiFunction(
             this.query, 25);
         }),
@@ -43,6 +46,9 @@ export class TableServerSideComponent implements AfterViewInit {
         catchError(() => {
           return observableOf([]);
         })
-      ).subscribe((data: any) => this.dataSource.data = data);
+      ).subscribe((res: any) => {
+          this.dataSource.data = res.data; // set table data
+          this.totalHits = res.totalHits; // set length of paginator
+        });
   }
 }
