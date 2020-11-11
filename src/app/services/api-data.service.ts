@@ -197,6 +197,7 @@ export class ApiDataService {
           } as SpecimenTable)
         );
         res['totalHits'] = data.hits.total;
+        res['aggregations'] = data.aggregations;
         return res;
       }),
       retry(3),

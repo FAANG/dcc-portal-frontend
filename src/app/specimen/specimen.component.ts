@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
-import {SortParams, SpecimenTable} from '../shared/interfaces';
+import {SpecimenTable} from '../shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import { TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 
 @Component({
   selector: 'app-specimen',
@@ -16,6 +16,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 export class SpecimenComponent implements OnInit, OnDestroy {
   @ViewChild('bioSampleIdTemplate', { static: true }) bioSampleIdTemplate: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
   specimenListShort: Observable<SpecimenTable[]>;
   specimenListLong: Observable<SpecimenTable[]>;
@@ -38,7 +39,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   filter_field: {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
-  specimenListLongSubscription: Subscription;
   downloadData = false;
 
   optionsCsv;
@@ -52,7 +52,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
               private router: Router,
               private aggregationService: AggregationService,
               private exportService: ExportService,
-              private spinner: NgxSpinnerService,
               private titleService: Title) { }
 
   ngOnInit() {
@@ -85,6 +84,9 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
+    this.tableServerComponent.dataUpdate.subscribe((data) => {
+      this.aggregationService.getAggregations(data.aggregations, 'specimen');
+    });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
       for (const key of Object.keys(data)) {
@@ -116,7 +118,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       this.aggregationService.active_filters[key] = [];
     }
     this.aggregationService.current_active_filters = [];
-    this.filter_field = {};
+    this.filter_field = Object.assign({}, this.filter_field);
   }
 
   removeFilter() {
@@ -142,7 +144,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
-    this.specimenListLongSubscription.unsubscribe();
   }
 
 }

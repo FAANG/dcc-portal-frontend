@@ -141,51 +141,34 @@ export class AggregationService {
       };
       this.data.next(all_data);
     } else if (type === 'specimen') {
-      let standard = {};
-      let sex = {};
-      let organism = {};
-      let material = {};
-      let organismpart_celltype = {};
-      let breed = {};
-      let paper_published = {};
-      let all_data;
-
-      for (const item of recordList) {
-        let sex_value: string;
-        male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
-          sex_value = 'not determined');
-        standard = this.updateAggregation(standard, item['standard']);
-        sex = this.updateAggregation(sex, sex_value);
-        organism = this.updateAggregation(organism, item['organism']);
-        material = this.updateAggregation(material, item['material']);
-        organismpart_celltype = this.updateAggregation(organismpart_celltype, item['organismpart_celltype']);
-        breed = this.updateAggregation(breed, item['breed']);
-        paper_published = this.updatePaperAggregation(paper_published, item['paperPublished']);
+      let all_data = {};
+      for (const key in recordList) { // recordList contains aggregations from API response
+        all_data[key] = {};
+        recordList[key]['buckets'].forEach(element => {
+          all_data[key][element['key']] = element['doc_count'];
+        });
+        // process sex values
+        if (key == 'sex') {
+          let sex_values = {'male': 0, 'female': 0};
+          for (const val in all_data['sex']) {
+            male_values.indexOf(val) > -1 ? sex_values['male'] += all_data['sex'][val] 
+            : female_values.indexOf(val) > -1 ? sex_values['female'] += all_data['sex'][val] 
+            : sex_values[val] = all_data['sex'][val];
+          }
+          all_data['sex'] = sex_values;
+        }
+        // process paperPublished values
+        if (key == 'paperPublished') {
+          let paper_values = {'Yes': 0, 'No': 0};
+          for (const val in all_data['paperPublished']) {
+            val == 'true' ? paper_values['Yes'] += all_data['paperPublished'][val] : paper_values['No'] += all_data['paperPublished'][val];
+          }
+          all_data['paperPublished'] = paper_values;
+        }
+        all_data[key] = Object.entries(all_data[key]).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        })
       }
-
-      all_data = {
-        standard: Object.entries(standard).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        sex: Object.entries(sex).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        organism: Object.entries(organism).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        material: Object.entries(material).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        organismpart_celltype: Object.entries(organismpart_celltype).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        breed: Object.entries(breed).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        paper_published: Object.entries(paper_published).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-      };
       this.data.next(all_data);
     } else if (type === 'dataset') {
       let standard = {};
