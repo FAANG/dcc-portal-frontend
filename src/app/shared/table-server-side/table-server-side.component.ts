@@ -2,6 +2,7 @@ import { Component, Input, Output, AfterViewInit, ViewChild, EventEmitter} from 
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable, merge, of as observableOf } from 'rxjs';
 import { map, startWith, switchMap, catchError } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-table-server-side',
@@ -24,7 +25,7 @@ export class TableServerSideComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   totalHits = 0;
 
-  constructor() { }
+  constructor(private spinner: NgxSpinnerService,) { }
 
   ngAfterViewInit() {
     // Reset back to the first page when sort order is changed
@@ -33,6 +34,7 @@ export class TableServerSideComponent implements AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
+          this.spinner.show();
           if(this.sort.active && this.sort.direction) {
             this.query['sort'] = [this.sort.active, this.sort.direction];
           } else {
@@ -46,26 +48,38 @@ export class TableServerSideComponent implements AfterViewInit {
           return data;
         }),
         catchError(() => {
+          this.spinner.hide();
           return observableOf([]);
         })
       ).subscribe((res: any) => {
           this.dataSource.data = res.data; // set table data
           this.dataUpdate.emit(res); // emit data update event
           this.totalHits = res.totalHits; // set length of paginator
+          this.spinner.hide();
         });
   }
 
     // apply filter when component input "filter_values" is changed
     ngOnChanges() {
       if (this.dataSource) {
+        this.spinner.show();
         // reset query params before applying filter
         this.paginator.pageIndex = 0;
         this.query['sort'] = ['id_number', 'desc'];
         this.query['from_'] = 0;
+        // change filter_values for paper_published
+        for (const col in this.query['filters']) {
+          if (col === 'paper_published') {
+            this.query['filters'][col].forEach((val, i) => {
+              val == 'Yes' ? this.query['filters'][col][i] = 'true' : this.query['filters'][col][i] = 'false';
+            });
+          }
+        }
         this.apiFunction(this.query, 25).subscribe((res: any) => {
           this.dataSource.data = res.data; // set table data
           this.dataUpdate.emit(res); // emit data update event
           this.totalHits = res.totalHits; // set length of paginator
+          this.spinner.hide();
         });
       }
     }

@@ -155,15 +155,25 @@ export class AggregationService {
             : female_values.indexOf(val) > -1 ? sex_values['female'] += all_data['sex'][val] 
             : sex_values[val] = all_data['sex'][val];
           }
+          for (const val in sex_values) {
+            if (sex_values[val] == 0) {
+              delete sex_values[val];
+            }
+          }
           all_data['sex'] = sex_values;
         }
         // process paperPublished values
-        if (key == 'paperPublished') {
+        if (key == 'paper_published') {
           let paper_values = {'Yes': 0, 'No': 0};
-          for (const val in all_data['paperPublished']) {
-            val == 'true' ? paper_values['Yes'] += all_data['paperPublished'][val] : paper_values['No'] += all_data['paperPublished'][val];
+          for (const val in all_data['paper_published']) {
+            val == 'true' ? paper_values['Yes'] += all_data['paper_published'][val] : paper_values['No'] += all_data['paper_published'][val];
           }
-          all_data['paperPublished'] = paper_values;
+          for (const val in paper_values) {
+            if (paper_values[val] == 0) {
+              delete paper_values[val];
+            }
+          }
+          all_data['paper_published'] = paper_values;
         }
         all_data[key] = Object.entries(all_data[key]).sort(function (a: any, b: any) {
           return b[1] - a[1];

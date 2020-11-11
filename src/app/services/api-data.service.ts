@@ -170,7 +170,7 @@ export class ApiDataService {
       'material': 'material.text',
       'organismpart_celltype': 'cellType.text',
       'breed': 'organism.breed.text',
-      'paperPublished': 'paperPublished'
+      'paper_published': 'paperPublished'
     }
     let filters = query['filters'];
     for (const prop in filters) {
