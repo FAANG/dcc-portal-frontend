@@ -35,6 +35,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       'id_number',
       'paperPublished'],
   };
+  defaultSort = ['id_number', 'desc'];
   templates: Object;
   filter_field: {};
   aggrSubscription: Subscription;
