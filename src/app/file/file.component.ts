@@ -1,13 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
-import {SortParams} from '../shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
 import {ExportService} from '../services/export.service';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {FileTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 
 @Component({
   selector: 'app-file-table',
@@ -15,30 +14,26 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./file.component.css']
 })
 export class FileComponent implements OnInit, OnDestroy {
+  @ViewChild('fileNameTemplate', { static: true }) fileNameTemplate: TemplateRef<any>;
+  @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  public loadTableDataFunction: Function;
   fileListShort: Observable<FileTable[]>;
   fileListLong: Observable<FileTable[]>;
-  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard',
-    'Paper published'];
-  spanClass = 'expand_more';
-  defaultClass = 'unfold_more';
-  selectedColumn = 'File name';
-  sort_field: SortParams;
+  displayFields: string[] = ['fileName', 'study', 'experiment', 'species', 'assayType', 'target', 'specimen', 'instrument', 'standard', 'paperPublished'];
+  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard', 'Paper published'];
   filter_field: {};
+  templates: Object;
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
-  fileListLongSubscription: Subscription;
   downloadData = false;
 
   optionsCsv;
   optionsTabular;
   data = {};
 
-
-  // Local variable for pagination
-  p = 1;
-
   private query = {
-    'sort': 'name:desc',
+    'sort': ['name','desc'],
     '_source': [
       'study.accession',
       'experiment.accession',
@@ -50,6 +45,7 @@ export class FileComponent implements OnInit, OnDestroy {
       'experiment.standardMet',
       'paperPublished'],
   };
+  defaultSort = ['name','desc'];
   error: string;
 
   constructor(private dataService: ApiDataService,
@@ -57,12 +53,13 @@ export class FileComponent implements OnInit, OnDestroy {
               private router: Router,
               private aggregationService: AggregationService,
               private exportService: ExportService,
-              private spinner: NgxSpinnerService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.templates = {'fileName': this.fileNameTemplate, 
+                      'paperPublished': this.paperPublishedTemplate };
+    this.loadTableDataFunction = this.dataService.getAllFiles.bind(this.dataService);
     this.titleService.setTitle('FAANG files');
-    this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
       const filters = {};
@@ -81,28 +78,15 @@ export class FileComponent implements OnInit, OnDestroy {
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
+      this.query['filters'] = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
     this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'fileName', direction: 'desc'};
-    this.dataService.getAllFiles(this.query, 25).subscribe(
-      data => {
-        this.fileListShort = data;
-        if (this.fileListShort) {
-          this.spinner.hide();
-        }
-      },
-      error => {
-        this.error = error;
-        this.spinner.hide();
-      }
-    );
-    this.fileListLong = this.dataService.getAllFiles(this.query, 1000000);
-    this.fileListLongSubscription = this.fileListLong.subscribe((data) => {
-      // data is the full list of getAllFiles result where the field names are defined
-      this.aggregationService.getAggregations(data, 'file');
+    this.tableServerComponent.dataUpdate.subscribe((data) => {
+      this.aggregationService.getAggregations(data.aggregations, 'file');
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -116,85 +100,6 @@ export class FileComponent implements OnInit, OnDestroy {
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
     });
-  }
-
-  onTableClick(event: any) {
-    let event_class;
-    if (event['srcElement']['firstElementChild']) {
-      event_class = event['srcElement']['firstElementChild']['innerText'];
-    } else {
-      event_class = event['srcElement']['innerText'];
-    }
-    this.selectedColumn = event['srcElement']['id'];
-    this.selectColumn();
-    this.chooseClass(event_class);
-  }
-
-  chooseClass(event_class: string) {
-    if (this.selectedColumn === 'File name') {
-      if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      }
-    } else {
-      if (event_class === this.defaultClass) {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      } else if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'unfold_more';
-        this.sort_field['direction'] = 'desc';
-        this.sort_field['id'] = 'fileName';
-        this.selectedColumn = 'File name';
-        this.spanClass = 'expand_more';
-      }
-    }
-  }
-
-  selectColumn() {
-    switch (this.selectedColumn) {
-      case 'File name': {
-        this.sort_field['id'] = 'fileName';
-        break;
-      }
-      case 'Study': {
-        this.sort_field['id'] = 'study';
-        break;
-      }
-      case 'Experiment': {
-        this.sort_field['id'] = 'experiment';
-        break;
-      }
-      case 'Species': {
-        this.sort_field['id'] = 'species';
-        break;
-      }
-      case 'Assay type': {
-        this.sort_field['id'] = 'assayType';
-        break;
-      }
-      case 'Target': {
-        this.sort_field['id'] = 'target';
-        break;
-      }
-      case 'Specimen': {
-        this.sort_field['id'] = 'specimen';
-        break;
-      }
-      case 'Instrument': {
-        this.sort_field['id'] = 'instrument';
-        break;
-      }
-      case 'Standard': {
-        this.sort_field['id'] = 'standard';
-        break;
-      }
-    }
   }
 
   hasActiveFilters() {
@@ -214,7 +119,7 @@ export class FileComponent implements OnInit, OnDestroy {
       this.aggregationService.active_filters[key] = [];
     }
     this.aggregationService.current_active_filters = [];
-    this.filter_field = {};
+    this.filter_field = Object.assign({}, this.filter_field);
   }
 
   removeFilter() {
@@ -240,6 +145,5 @@ export class FileComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
-    this.fileListLongSubscription.unsubscribe();
   }
 }

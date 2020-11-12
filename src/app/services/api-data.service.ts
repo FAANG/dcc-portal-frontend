@@ -20,10 +20,31 @@ export class ApiDataService {
 
   getAllFiles(query: any, size: number) {
     const url = this.hostSetting.host + 'file/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    let aggs = {
+      'study': 'study.accession',
+      'experiment': 'experiment.accession',
+      'species': 'species.text',
+      'assay_type': 'experiment.assayType',
+      'target': 'experiment.target',
+      'specimen': 'specimen',
+      'instrument': 'run.instrument',
+      'assayType': 'experiment.assayType',
+      'standard': 'experiment.standardMet',
+      'paper_published': 'paperPublished'
+    }
+    let filters = query['filters'];
+    for (const prop in filters) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    query['sort'] = aggs[query['sort'][0]] ? aggs[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']);
+    let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map(entry => ({
+        res['data'] = data.hits.hits.map(entry => ({
           fileName: entry['_id'],
           study: entry['_source']['study']['accession'],
           experiment: entry['_source']['experiment']['accession'],
@@ -36,6 +57,9 @@ export class ApiDataService {
           paperPublished: entry['_source']['paperPublished']
           } as FileTable )
         );
+        res['totalHits'] = data.hits.total;
+        res['aggregations'] = data.aggregations;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),
