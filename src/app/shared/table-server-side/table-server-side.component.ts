@@ -16,7 +16,8 @@ export class TableServerSideComponent implements AfterViewInit {
   @Input() templates: Object; // column templates
   @Input() filter_values: Observable<Object>; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ... }
   @Input() apiFunction: Function; // function that queries the API endpoints
-  @Input() query: Object;
+  @Input() query: Object; // query params ('sort', 'aggs', 'filters', '_source', 'from_')
+  @Input() defaultSort: string[]; // default sort param e.g - ['id': 'desc'];
   @Output() dataUpdate = new EventEmitter<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -38,7 +39,7 @@ export class TableServerSideComponent implements AfterViewInit {
           if(this.sort.active && this.sort.direction) {
             this.query['sort'] = [this.sort.active, this.sort.direction];
           } else {
-            this.query['sort'] = ['id_number', 'desc'];
+            this.query['sort'] = this.defaultSort;
           }
           this.query['from_'] = this.paginator.pageIndex * this.paginator.pageSize;
           return this.apiFunction(
@@ -65,7 +66,7 @@ export class TableServerSideComponent implements AfterViewInit {
         this.spinner.show();
         // reset query params before applying filter
         this.paginator.pageIndex = 0;
-        this.query['sort'] = ['id_number', 'desc'];
+        this.query['sort'] = this.defaultSort;
         this.query['from_'] = 0;
         // change filter_values for paper_published
         for (const col in this.query['filters']) {
