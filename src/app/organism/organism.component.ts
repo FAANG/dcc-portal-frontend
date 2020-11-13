@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, AfterViewInit, TemplateRef, ViewChild, ViewChildren, QueryList} from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ApiDataService} from '../services/api-data.service';
 import {OrganismTable} from '../shared/interfaces';
@@ -7,15 +7,18 @@ import {Observable, Subscription} from 'rxjs';
 import {ExportService} from '../services/export.service';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {TableClientSideComponent}  from '../shared/table-client-side/table-client-side.component';
 
 @Component({
   selector: 'app-organism',
   templateUrl: './organism.component.html',
   styleUrls: ['./organism.component.css']
 })
-export class OrganismComponent implements OnInit, OnDestroy {
+export class OrganismComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('bioSampleIdTemplate', { static: true }) bioSampleIdTemplate: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
+  @ViewChildren("tableComp") tableComponents: QueryList<TableClientSideComponent>;
+  private tableClientComponent: TableClientSideComponent;
   organismListShort: Observable<OrganismTable[]>;
   organismListLong: Observable<OrganismTable[]>;
 
@@ -123,6 +126,13 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
     });
+  }
+
+  ngAfterViewInit() {
+      this.tableComponents.changes.subscribe((comps: QueryList <TableClientSideComponent>) => {
+          this.tableClientComponent = comps.first;
+          this.aggregationService.getAggregations(this.tableClientComponent.dataSource.filteredData, 'organism');
+      });
   }
 
   hasActiveFilters() {

@@ -37,7 +37,7 @@
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
           Export as Tabular file
         </app-export>
-        <app-table-client-side  [display_fields]="displayFields"
+        <app-table-client-side #tableComp [display_fields]="displayFields"
                                 [column_names]="columnNames"
                                 [data]="organisms"
                                 [filter_values]="filter_field"
@@ -49,7 +49,7 @@
           <mat-spinner [diameter]="30"></mat-spinner>
         </div>
         <div *ngIf="organismListShort as organisms;">
-          <app-table-client-side  [display_fields]="displayFields"
+          <app-table-client-side #tableComp [display_fields]="displayFields"
                                   [column_names]="columnNames"
                                   [data]="organisms"
                                   [filter_values]="filter_field"

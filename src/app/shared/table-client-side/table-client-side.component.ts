@@ -27,6 +27,7 @@ export class TableClientSideComponent implements OnInit {
     this.dataSource.paginator = this.paginator; 
     this.dataSource.sort = this.sort;
     this.dataSource.filterPredicate = this.createFilter();
+    this.dataSource.filter = JSON.stringify(this.filter_values);
   }
 
   // apply filter when component input "filter_values" is changed

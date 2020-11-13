@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, AfterViewInit, TemplateRef, ViewChild, ViewChildren, QueryList} from '@angular/core';
 import {DatasetTable} from '../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
@@ -8,15 +8,18 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {Observable} from 'rxjs/internal/Observable';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {TableClientSideComponent}  from '../shared/table-client-side/table-client-side.component';
 
 @Component({
   selector: 'app-dataset',
   templateUrl: './dataset.component.html',
   styleUrls: ['./dataset.component.css']
 })
-export class DatasetComponent implements OnInit, OnDestroy {
+export class DatasetComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('datasetAccessionTemplate', { static: true }) datasetAccessionTemplate: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
+  @ViewChildren("tableComp") tableComponents: QueryList<TableClientSideComponent>;
+  private tableClientComponent: TableClientSideComponent;
   datasetListShort: Observable<DatasetTable[]>;
   datasetListLong: Observable<DatasetTable[]>;
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
@@ -127,6 +130,13 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.exportSubscription = this.exportService.data.subscribe((data) => {
       this.data = data;
     });
+  }
+
+  ngAfterViewInit() {
+      this.tableComponents.changes.subscribe((comps: QueryList <TableClientSideComponent>) => {
+          this.tableClientComponent = comps.first;
+          this.aggregationService.getAggregations(this.tableClientComponent.dataSource.filteredData, 'dataset');
+      });
   }
 
   hasActiveFilters() {
