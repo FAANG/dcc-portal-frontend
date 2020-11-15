@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Observable} from 'rxjs';
+import {female_values, male_values} from '../constants';
 
 @Component({
   selector: 'app-table-client-side',
@@ -51,15 +52,49 @@ export class TableClientSideComponent implements OnInit {
       }
       if (isFilterSet) {
         for (const col in searchTerms) {
-          // special handling for paperPublished - any non 'true' or missing value should be considered 'false'
-          if (col === 'paperPublished' && data[col] !== 'true') {
-            data[col] = 'false';
+          // handling paperPublished - any non 'true' or missing value should be considered 'false'
+          if (col === 'paperPublished') {
+            if (searchTerms[col][0] == 'true') { // filtering records with paper published
+              if (data[col] === 'true') {
+                return true;
+              } else {
+                return false;
+              }
+            } else {  // filtering records with paper not published
+              if (!data[col] || data[col] !== 'true') {
+                return true;
+              } else {
+                return false;
+              }
+            }
           }
-          if (searchTerms[col].indexOf(data[col]) == -1) {
-            return false;
+          // handling assayType RNA-Seq values
+          else if (col === 'assayType' && searchTerms[col][0] === 'RNA-Seq') {
+            if (data[col] === 'transcription profiling by high throughput sequencing' || data[col] === 'RNA-Seq') {
+              return true;
+            } 
+            else {
+              return false;
+            }
+          }
+          // handling sex values
+          else if (col === 'sex'){
+            if ((searchTerms[col][0] === 'male' && male_values.indexOf(data[col]) > -1) ||
+                (searchTerms[col][0] === 'female' && female_values.indexOf(data[col]) > -1) ||
+                (searchTerms[col][0] === 'not determined' && male_values.indexOf(data[col]) === -1 && female_values.indexOf(data[col]) === -1)) {
+              return true;
+            }
+            else {
+              return false;
+            }
+          } 
+          else {
+            if (searchTerms[col].indexOf(data[col]) == -1) {
+              return false;
+            }
+            return true;
           }
         }
-        return true;
       } else {
         return true;
       }

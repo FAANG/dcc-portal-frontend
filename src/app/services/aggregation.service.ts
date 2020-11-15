@@ -60,14 +60,24 @@ export class AggregationService {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
-        recordList[key]['buckets'].forEach(element => {
-          all_data[key][element['key']] = element['doc_count'];
-        });
+        if (recordList[key]['buckets']) {
+          recordList[key]['buckets'].forEach(element => {
+            all_data[key][element['key']] = element['doc_count'];
+          });
+        } else {
+          all_data[key] = recordList[key]['doc_count'];
+        }
+      }
+      let paperPublishedProcessed = false;
+      for (const key in all_data) {
         // process paperPublished values
-        if (key == 'paper_published') {
+        if ((key == 'paper_published' || key == 'paper_published_missing') && !paperPublishedProcessed) {
           let paper_values = {'Yes': 0, 'No': 0};
           for (const val in all_data['paper_published']) {
             val == 'true' ? paper_values['Yes'] += all_data['paper_published'][val] : paper_values['No'] += all_data['paper_published'][val];
+          }
+          if (all_data['paper_published_missing']) {
+            paper_values['No'] += all_data['paper_published_missing'];
           }
           for (const val in paper_values) {
             if (paper_values[val] == 0) {
@@ -75,6 +85,17 @@ export class AggregationService {
             }
           }
           all_data['paper_published'] = paper_values;
+          paperPublishedProcessed = true;
+        }
+        // process assayType
+        if (key == 'assay_type') {
+          for (const val in all_data['assay_type']) {
+            if (val == 'transcription profiling by high throughput sequencing') {
+              all_data['assay_type']['RNA-Seq'] = all_data['assay_type'][val];
+              delete all_data['assay_type'][val];
+              break;
+            }
+          }
         }
         all_data[key] = Object.entries(all_data[key]).sort(function (a: any, b: any) {
           return b[1] - a[1];
@@ -122,9 +143,16 @@ export class AggregationService {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
-        recordList[key]['buckets'].forEach(element => {
-          all_data[key][element['key']] = element['doc_count'];
-        });
+        if (recordList[key]['buckets']) {
+          recordList[key]['buckets'].forEach(element => {
+            all_data[key][element['key']] = element['doc_count'];
+          });
+        } else {
+          all_data[key] = recordList[key]['doc_count'];
+        }
+      }
+      let paperPublishedProcessed = false;
+      for (const key in all_data) {
         // process sex values
         if (key == 'sex') {
           let sex_values = {'male': 0, 'female': 0};
@@ -141,10 +169,13 @@ export class AggregationService {
           all_data['sex'] = sex_values;
         }
         // process paperPublished values
-        if (key == 'paper_published') {
+        if ((key == 'paper_published' || key == 'paper_published_missing') && !paperPublishedProcessed) {
           let paper_values = {'Yes': 0, 'No': 0};
           for (const val in all_data['paper_published']) {
             val == 'true' ? paper_values['Yes'] += all_data['paper_published'][val] : paper_values['No'] += all_data['paper_published'][val];
+          }
+          if (all_data['paper_published_missing']) {
+            paper_values['No'] += all_data['paper_published_missing'];
           }
           for (const val in paper_values) {
             if (paper_values[val] == 0) {
@@ -152,6 +183,7 @@ export class AggregationService {
             }
           }
           all_data['paper_published'] = paper_values;
+          paperPublishedProcessed = true;
         }
         all_data[key] = Object.entries(all_data[key]).sort(function (a: any, b: any) {
           return b[1] - a[1];

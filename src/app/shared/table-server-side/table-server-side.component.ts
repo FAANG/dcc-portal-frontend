@@ -3,6 +3,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable, merge, of as observableOf } from 'rxjs';
 import { map, startWith, switchMap, catchError } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {female_values, male_values} from '../constants';
 
 @Component({
   selector: 'app-table-server-side',
@@ -68,12 +69,34 @@ export class TableServerSideComponent implements AfterViewInit {
         this.paginator.pageIndex = 0;
         this.query['sort'] = this.defaultSort;
         this.query['from_'] = 0;
-        // change filter_values for paper_published
         for (const col in this.query['filters']) {
+          // process paper_published filter
           if (col === 'paper_published') {
             this.query['filters'][col].forEach((val, i) => {
               val == 'Yes' ? this.query['filters'][col][i] = 'true' : this.query['filters'][col][i] = 'false';
             });
+          }
+          // process assayType filter
+          if (col === 'assayType') {
+            this.query['filters'][col].forEach((val, i) => {
+              if (val == 'RNA-Seq') {
+                this.query['filters'][col][i] = 'transcription profiling by high throughput sequencing';
+                this.query['filters'][col].push('RNA-Seq');
+              }
+            });
+          }
+          // process sex filter
+          if (col == 'sex') {
+            let sex_val = [];
+            this.query['filters'][col].forEach((val, i) => {
+              if (val == 'male') {
+                sex_val = sex_val.concat(male_values);
+              }
+              else if (val == 'female') {
+                sex_val = sex_val.concat(female_values);
+              }
+            });
+            this.query['filters'][col] = sex_val;
           }
         }
         this.apiFunction(this.query, 25).subscribe((res: any) => {
