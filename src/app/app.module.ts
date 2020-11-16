@@ -80,6 +80,7 @@ import { MatSortModule } from '@angular/material';
 import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component';
 import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
+import {UserService} from './services/user.service';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -182,7 +183,7 @@ export function removeToken(): void {
     NgxSmartModalModule.forRoot(),
     NgbModule.forRoot(),
   ],
-  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe],
+  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
