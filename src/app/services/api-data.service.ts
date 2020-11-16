@@ -110,8 +110,8 @@ export class ApiDataService {
   }
 
   getAllOrganismsFromProject(project: string, mode: string) {
-    // const url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
-    const url = `http://45.86.170.123/api/organism/${mode}`;
+    const url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
+    // const url = `http://45.86.170.123/api/organism/${mode}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
@@ -353,7 +353,8 @@ export class ApiDataService {
   }
 
   getAllSamplesProtocols() {
-    const url = 'http://45.86.170.123/api/protocols_samples';
+    // const url = 'http://45.86.170.123/api/protocols_samples';
+    const url = this.hostSetting.host + 'protocol_samples/_search/' + '?size=100';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map(entry => ({
@@ -370,8 +371,8 @@ export class ApiDataService {
   }
 
   getSampleProtocol(id: string) {
-    // const url = this.hostSetting.host + 'protocol_samples/' + id;
-    const url = `http://45.86.170.123/api/protocols_samples/${id}`;
+    const url = this.hostSetting.host + 'protocol_samples/' + id;
+    // const url = `http://45.86.170.123/api/protocols_samples/${id}`;
     // const url = `http://wp-np3-e2:9200/protocols_samples/_search?q=_id:${id}`;
     return this.http.get(url).pipe(
       map( (data: any) => {

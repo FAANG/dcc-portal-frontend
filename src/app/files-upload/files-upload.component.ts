@@ -10,7 +10,7 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./files-upload.component.css']
 })
 export class FilesUploadComponent implements OnInit {
-  UploadURL = 'http://45.86.170.123/validation/protocols_upload/samples';
+  UploadURL = validation_service_url + '/protocols_upload/samples';
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: this.UploadURL, itemAlias: this.fileid});
   public link: string;
@@ -31,7 +31,7 @@ export class FilesUploadComponent implements OnInit {
   }
 
   setSocket() {
-    const url = `ws://45.86.170.123/validation/ws/submission/${this.fileid}/`;
+    const url = validation_ws_url + this.fileid + '/';
     this.socket = new WebSocket(url);
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
