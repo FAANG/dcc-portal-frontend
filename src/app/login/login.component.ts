@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   model = new AAPUser('', '', '');
 
-  constructor(private _userService: UserService, private router: Router) { }
+  constructor(public _userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this._userService.loginSuccess.subscribe(data => {

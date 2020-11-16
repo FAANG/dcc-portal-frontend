@@ -76,7 +76,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
     private apiDataService: ApiDataService,
-    private _userService: UserService
+    public _userService: UserService
   ) { }
 
   ngOnInit() {
