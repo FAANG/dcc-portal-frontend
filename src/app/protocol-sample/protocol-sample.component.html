@@ -27,15 +27,13 @@
         <div class="col-md-12 col-sm-6 faang-filter">
           <app-filter title="Protocol Year" [filterSize]=5></app-filter>
         </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Protocol type" [filterSize]=5></app-filter>
-        </div>
       </div>
     </div>
 
     <div class="col-md-10 table-responsive">
       <div *ngIf="(protocolList | async) as protocols; else loading">
         <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
+        <button class="btn btn-success" (click)="onUploadProtocolClick()">Upload protocol</button>
         <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
           Export as CSV file
         </app-export>
@@ -55,7 +53,6 @@
             <td><a style="cursor: pointer" [routerLink]="[protocol['key']]">{{protocol['protocol_name']}}</a></td>
             <td>{{protocol['university_name']}}</td>
             <td>{{protocol['protocol_date']}}</td>
-            <td>{{protocol['protocol_type']}}</td>
           </tr>
           </tbody>
         </table>

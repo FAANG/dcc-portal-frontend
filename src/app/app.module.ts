@@ -77,7 +77,9 @@ import 'hammerjs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material';
 import { MatSortModule } from '@angular/material';
-import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component'; 
+import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component';
+import {LoginComponent} from './login/login.component';
+import {FilesUploadComponent} from './files-upload/files-upload.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -142,7 +144,9 @@ export function removeToken(): void {
     SheepatlasComponent,
     SubprojectComponent,
     AapComponent,
-    TableClientSideComponent
+    TableClientSideComponent,
+    LoginComponent,
+    FilesUploadComponent
   ],
   imports: [
     BrowserModule,

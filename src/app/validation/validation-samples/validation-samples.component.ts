@@ -14,6 +14,7 @@ import {
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {AAPUser} from '../aap_user';
 import {SubmissionDomain} from '../submission_domain';
+import {UserService} from '../../services/user.service';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -67,13 +68,15 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   optionsCsv;
   optionsTabular;
   downloadData = false;
+  bovreg_submission = false;
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
   constructor(
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
-    private apiDataService: ApiDataService
+    private apiDataService: ApiDataService,
+    private _userService: UserService
   ) { }
 
   ngOnInit() {
@@ -189,6 +192,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       if (data['table_data']) {
         this.validation_results = data['table_data'];
         this.setValidationResults();
+      }
+      if (data['bovreg_submission']) {
+        this.bovreg_submission = true;
       }
     };
 
