@@ -89,6 +89,22 @@
 
   <hr>
 
+  <div class="row first-row" *ngIf="bovreg_submission && !_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You're about to submit BovReg data as public data
+      </div>
+    </div>
+  </div>
+
+  <div class="row first-row" *ngIf="bovreg_submission && _userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You're about to submit BovReg data as private data
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-6" *ngIf="validation_results">
       <h3>3. Validation results:</h3>

@@ -68,6 +68,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   optionsCsv;
   optionsTabular;
   downloadData = false;
+  bovreg_submission = false;
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
@@ -191,6 +192,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       if (data['table_data']) {
         this.validation_results = data['table_data'];
         this.setValidationResults();
+      }
+      if (data['bovreg_submission']) {
+        this.bovreg_submission = true;
       }
     };
 

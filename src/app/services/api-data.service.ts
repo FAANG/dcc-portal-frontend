@@ -352,17 +352,15 @@ export class ApiDataService {
     );
   }
 
-  getAllSamplesProtocols(query: any) {
-    const url = this.hostSetting.host + 'protocol_samples/_search/' + '?size=100';
-    const params = new HttpParams().set('_source', query['_source'].toString());
-    return this.http.get(url, {params: params}).pipe(
+  getAllSamplesProtocols() {
+    const url = 'http://45.86.170.123/api/protocols_samples';
+    return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map(entry => ({
           key: entry['_source']['key'],
           protocol_name: entry['_source']['protocolName'],
           university_name: entry['_source']['universityName'],
-          protocol_date: entry['_source']['protocolDate'],
-          protocol_type: entry['_source']['protocolType']
+          protocol_date: entry['_source']['protocolDate'].toString(),
           } as ProtocolSample)
         );
       }),
@@ -372,7 +370,9 @@ export class ApiDataService {
   }
 
   getSampleProtocol(id: string) {
-    const url = this.hostSetting.host + 'protocol_samples/' + id;
+    // const url = this.hostSetting.host + 'protocol_samples/' + id;
+    const url = `http://45.86.170.123/api/protocols_samples/${id}`;
+    // const url = `http://wp-np3-e2:9200/protocols_samples/_search?q=_id:${id}`;
     return this.http.get(url).pipe(
       map( (data: any) => {
         return data;

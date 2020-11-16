@@ -62,9 +62,10 @@ export class FilesUploadComponent implements OnInit {
 
   getAlertClass() {
     if (this.submission_message) {
-      if (this.submission_message === 'Starting to validate protocol') {
+      if (this.submission_message === 'Starting to validate protocol' ||
+        this.submission_message === 'Uploading protocol') {
         return 'alert alert-info';
-      } else if (this.submission_message === 'Protocol upload failed') {
+      } else if (this.submission_message === 'Protocol upload failed, please contact faang-dcc@ebi.ac.uk') {
         return 'alert alert-danger';
       } else {
         return 'alert alert-success';

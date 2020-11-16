@@ -27,9 +27,6 @@
         <div class="col-md-12 col-sm-6 faang-filter">
           <app-filter title="Protocol Year" [filterSize]=5></app-filter>
         </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Protocol type" [filterSize]=5></app-filter>
-        </div>
       </div>
     </div>
 
@@ -56,7 +53,6 @@
             <td><a style="cursor: pointer" [routerLink]="[protocol['key']]">{{protocol['protocol_name']}}</a></td>
             <td>{{protocol['university_name']}}</td>
             <td>{{protocol['protocol_date']}}</td>
-            <td>{{protocol['protocol_type']}}</td>
           </tr>
           </tbody>
         </table>
