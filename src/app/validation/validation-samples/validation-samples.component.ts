@@ -478,6 +478,14 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     el.click();
   }
 
+  goBack() {
+    this.disableAuthForm = false;
+    this.disableDomainForm = true;
+    this.disableChooseDomainForm = true;
+    this.submission_message = 'Please login';
+    this.submissionResults = [];
+  }
+
   ngOnDestroy(): void {
     this.socket.close();
   }
