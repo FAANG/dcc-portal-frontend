@@ -55,7 +55,8 @@ export class ApiDataService {
           run: entry['_source']['run']['accession'],
           readableSize: entry['_source']['readableSize'],
           checksum: entry['_source']['checksum'],
-          checksumMethod: entry['_source']['checksumMethod']
+          checksumMethod: entry['_source']['checksumMethod'],
+          url: entry['_source']['url']
           } as FileForProjectTable )
         );
       }),
