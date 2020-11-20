@@ -81,6 +81,9 @@ import { TableClientSideComponent } from './shared/table-client-side/table-clien
 import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
 import {UserService} from './services/user.service';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -165,6 +168,9 @@ export function removeToken(): void {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatIconModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,

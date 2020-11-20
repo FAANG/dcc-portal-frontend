@@ -245,13 +245,17 @@
     </div>
 
     <div class="col-md-6" [hidden]="disableChooseDomainForm">
-      <h3>
+      <h3 style="display: inline-block;">
         Choose domain or
         <button type="button" class="btn btn-success" (click)="onCreateNewDomainClick()">Create new domain</button>
       </h3>
-      <a href="https://www.ebi.ac.uk/biosamples/docs/guides/authentication#_how_to_setup_a_domain" class="link">
-        Domains, and why you need one
-      </a>
+      <button
+        mat-icon-button
+        matTooltip="BioSamples considers each piece of data to be owned by a domain. This allows several people part of the same domain to collaborate on submission, without sharing account details. You therefore need to create/choose a domain before you can work with the BioSamples submission API"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        style="font-size: 200%;">
+        <mat-icon>help</mat-icon>
+      </button>
       <form>
         <div class="form-check" *ngFor="let domain of domains; let i = index">
           <input class="form-check-input" type="radio" name="exampleRadios" id="{{i}}" value="{{domain}}" checked
@@ -266,13 +270,20 @@
     </div>
 
     <div class="col-md-6" [hidden]="disableDomainForm">
-      <h3>
+      <h3 style="display: inline-block;">
         Create new domain
         <span *ngIf="domains.length !== 0">
         or
         <button type="button" class="btn btn-success" (click)="onCreateNewDomainClick()">Choose domain</button>
       </span>
       </h3>
+      <button
+        mat-icon-button
+        matTooltip="BioSamples considers each piece of data to be owned by a domain. This allows several people part of the same domain to collaborate on submission, without sharing account details. You therefore need to create/choose a domain before you can work with the BioSamples submission API"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        style="font-size: 200%;">
+        <mat-icon>help</mat-icon>
+      </button>
       <form (ngSubmit)="onDomainSubmit()" #domainForm="ngForm">
         <div class="form-group">
           <label for="domainName">Domain name</label>
