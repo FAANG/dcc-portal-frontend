@@ -126,6 +126,10 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
     return protocolNames[data];
   }
 
+  onUploadProtocolClick() {
+    this.router.navigate(['upload_protocol']);
+  }
+
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
       this.resetFilter();

@@ -80,6 +80,12 @@ import { MatSortModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component'; 
 import { TableServerSideComponent } from './shared/table-server-side/table-server-side.component'; 
+import {LoginComponent} from './login/login.component';
+import {FilesUploadComponent} from './files-upload/files-upload.component';
+import {UserService} from './services/user.service';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -145,7 +151,9 @@ export function removeToken(): void {
     SubprojectComponent,
     AapComponent,
     TableClientSideComponent,
-    TableServerSideComponent
+    TableServerSideComponent,
+    LoginComponent,
+    FilesUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -164,6 +172,9 @@ export function removeToken(): void {
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatIconModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,
@@ -182,7 +193,7 @@ export function removeToken(): void {
     NgxSmartModalModule.forRoot(),
     NgbModule.forRoot(),
   ],
-  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe],
+  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,17 @@
 <div class="container" style="min-height:87vh">
   <app-header></app-header>
+  <div class="row first-row" *ngIf="_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        <p>
+          You are logged in as {{ _userService.username }}. <br>
+          Token Expires: {{ _userService.token_expires }}
+        </p>
+        <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
+        <button (click)="_userService.logout()" class="btn btn-primary">Log Out</button>
+      </div>
+    </div>
+  </div>
   <h2>FAANG validation
     <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
             [routerLink]="['/validation', 'samples']">
@@ -76,6 +88,22 @@
   </div>
 
   <hr>
+
+  <div class="row first-row" *ngIf="bovreg_submission && !_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You're about to submit BovReg data as public data
+      </div>
+    </div>
+  </div>
+
+  <div class="row first-row" *ngIf="bovreg_submission && _userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You're about to submit BovReg data as private data
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-md-6" *ngIf="validation_results">
@@ -158,6 +186,16 @@
     </div>
   </div>
 
+  <div class="row" *ngIf="submissionStarted === true && model.mode === 'test' && disableAuthForm">
+    <div class="col-md-12">
+      <div class="alert alert-warning" role="alert">
+        This is test submission and it will be removed in next 24 hours, <a (click)="goBack()"
+                                                                            style="cursor: pointer"
+                                                                            class="link">go back</a>
+      </div>
+    </div>
+  </div>
+
   <div class="row" *ngIf="submissionStarted === true">
     <div class="col-md-6" [hidden]="disableAuthForm">
       <h3>Submit data to BioSamples</h3>
@@ -207,10 +245,17 @@
     </div>
 
     <div class="col-md-6" [hidden]="disableChooseDomainForm">
-      <h3>
+      <h3 style="display: inline-block;">
         Choose domain or
         <button type="button" class="btn btn-success" (click)="onCreateNewDomainClick()">Create new domain</button>
       </h3>
+      <button
+        mat-icon-button
+        matTooltip="BioSamples considers each piece of data to be owned by a domain. This allows several people part of the same domain to collaborate on submission, without sharing account details. You therefore need to create/choose a domain before you can work with the BioSamples submission API"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        style="font-size: 200%;">
+        <mat-icon>help</mat-icon>
+      </button>
       <form>
         <div class="form-check" *ngFor="let domain of domains; let i = index">
           <input class="form-check-input" type="radio" name="exampleRadios" id="{{i}}" value="{{domain}}" checked
@@ -225,13 +270,20 @@
     </div>
 
     <div class="col-md-6" [hidden]="disableDomainForm">
-      <h3>
+      <h3 style="display: inline-block;">
         Create new domain
         <span *ngIf="domains.length !== 0">
         or
         <button type="button" class="btn btn-success" (click)="onCreateNewDomainClick()">Choose domain</button>
       </span>
       </h3>
+      <button
+        mat-icon-button
+        matTooltip="BioSamples considers each piece of data to be owned by a domain. This allows several people part of the same domain to collaborate on submission, without sharing account details. You therefore need to create/choose a domain before you can work with the BioSamples submission API"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        style="font-size: 200%;">
+        <mat-icon>help</mat-icon>
+      </button>
       <form (ngSubmit)="onDomainSubmit()" #domainForm="ngForm">
         <div class="form-group">
           <label for="domainName">Domain name</label>

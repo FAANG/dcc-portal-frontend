@@ -1,0 +1,11 @@
+.row {
+  margin-top: 5px;
+}
+
+.list-group-item-danger {
+  margin-top: 5px;
+}
+
+.div-results {
+  overflow-x: scroll;
+}

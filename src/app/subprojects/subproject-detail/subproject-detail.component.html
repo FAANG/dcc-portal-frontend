@@ -1,6 +1,18 @@
 <ng-container *ngIf="setting">
   <div class="container" style="min-height:87vh">
     <app-header></app-header>
+    <div class="row first-row" *ngIf="_userService.token">
+      <div class="col-md-12">
+        <div class="alert alert-info" role="alert">
+          <p>
+            You are logged in as {{ _userService.username }}. <br>
+            Token Expires: {{ _userService.token_expires }}
+          </p>
+          <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
+          <button (click)="logout()" class="btn btn-primary">Log Out</button>
+        </div>
+      </div>
+    </div>
     <div class="row first-row">
       <div class="col-md-6">
         <img src="{{setting.image.url}}"  alt="Project Logo"
@@ -14,8 +26,14 @@
       </div>
     </div>
 
+    <div class="row" *ngIf="!_userService.token && project === 'BovReg'">
+      <div class="col-md-4">
+        <button type="button" class="btn btn-success" (click)="login()">Login to BovReg Portal</button>
+      </div>
+    </div>
 
-    <div class="row">
+
+    <div class="row first-row">
       <div class="col-md-4">
         <h5>
           {{setting.description}}
@@ -40,7 +58,7 @@
                        [record_id]="project"></app-related-items>
     <app-related-items source_type="project" target_type="specimen" download_key=""
                        [record_id]="project"></app-related-items>
-    <app-related-items source_type="project" target_type="file" download_key=""
+    <app-related-items source_type="project" target_type="file" download_key="url"
                        [record_id]="project"></app-related-items>
   </div>
 </ng-container>
