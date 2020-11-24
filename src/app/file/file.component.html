@@ -34,12 +34,12 @@
 
     <div class="col-md-10 table-responsive">
       <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
-      <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
+      <button (click)="downloadCsvFile()" class="btn btn-light" *ngIf="downloadData">
         Export as CSV file
-      </app-export>
-      <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
+      </button>
+      <button (click)="downloadTabularFile()" class="btn btn-light" *ngIf="downloadData">
         Export as Tabular file
-      </app-export>
+      </button>
       <app-table-server-side  [display_fields]="displayFields" 
             [column_names]="columnNames"
             [templates]="templates"

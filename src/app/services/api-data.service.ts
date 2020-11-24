@@ -66,6 +66,38 @@ export class ApiDataService {
     );
   }
 
+  downloadFiles(query: any) {
+    const url = this.hostSetting.host + 'file/' + 'download/';
+    let filters = query['filters'];
+    let mapping = {
+      'study': 'study.accession',
+      'experiment': 'experiment.accession',
+      'species': 'species.text',
+      'assay_type': 'experiment.assayType',
+      'target': 'experiment.target',
+      'specimen': 'specimen',
+      'instrument': 'run.instrument',
+      'assayType': 'experiment.assayType',
+      'standard': 'experiment.standardMet',
+      'paper_published': 'paperPublished'
+    }
+    for (const prop in filters) {
+      if (mapping[prop] && (prop !== mapping[prop])) {
+        filters[mapping[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    query['sort'] = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('columns', JSON.stringify(query['columns'])).set('file_format', query['file_format']);
+    const fullURL = `${url}?${params.toString()}`;
+    return this.http.get(fullURL, {responseType: 'blob' as 'blob'}).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );;
+  }
+
   getAllFilesForProject(project: string) {
     const url = this.hostSetting.host + 'file/_search/?size=100000&q=secondaryProject:' + project;
     return this.http.get(url).pipe(
@@ -230,6 +262,35 @@ export class ApiDataService {
       retry(3),
       catchError(this.handleError),
     );
+  }
+
+  downloadSpecimens(query: any) {
+    const url = this.hostSetting.host + 'specimen/' + 'download/';
+    let filters = query['filters'];
+    let mapping = {
+      'standard': 'standardMet',
+      'sex': 'organism.sex.text',
+      'organism': 'organism.organism.text',
+      'material': 'material.text',
+      'organismpart_celltype': 'cellType.text',
+      'breed': 'organism.breed.text',
+      'paper_published': 'paperPublished'
+    }
+    for (const prop in filters) {
+      if (mapping[prop] && (prop !== mapping[prop])) {
+        filters[mapping[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    query['sort'] = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('columns', JSON.stringify(query['columns'])).set('file_format', query['file_format']);
+    const fullURL = `${url}?${params.toString()}`;
+    return this.http.get(fullURL, {responseType: 'blob' as 'blob'}).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );;
   }
 
   // Todo preserve JSON structure on backend part

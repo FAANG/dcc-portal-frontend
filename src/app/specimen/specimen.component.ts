@@ -35,6 +35,23 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       'id_number',
       'paperPublished'],
   };
+
+  downloadQuery = {
+    'sort': ['id_number', 'desc'],
+    '_source': [
+      '_source.biosampleId',
+      '_source.material.text',
+      '_source.cellType.text',
+      '_source.organism.sex.text',
+      '_source.organism.organism.text',
+      '_source.organism.breed.text',
+      '_source.standardMet',
+      '_source.paperPublished'],
+    'columns': this.columnNames,
+    'filters': {},
+    'file_format': 'csv',
+  };
+
   defaultSort = ['id_number', 'desc'];
   templates: Object;
   filter_field: {};
@@ -79,6 +96,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
       this.query['filters'] = filters;
+      this.downloadQuery['filters'] = filters;
       this.filter_field = Object.assign({}, this.filter_field);
     });
     this.optionsCsv = this.exportService.optionsCsv;
@@ -129,6 +147,26 @@ export class SpecimenComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  downloadCsvFile() {
+    this.downloadQuery['file_format'] = 'csv';
+    this.dataService.downloadSpecimens(this.downloadQuery).subscribe((res:Response)=>{
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(res);
+      a.download = 'faang_data.csv';
+      a.click();
+    });
+  }
+
+  downloadTabularFile() {
+    this.downloadQuery['file_format'] = 'txt';
+    this.dataService.downloadSpecimens(this.downloadQuery).subscribe((res:Response)=>{
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(res);
+      a.download = 'faang_data.txt';
+      a.click();
+    });
   }
 
   wasPublished(published: any) {

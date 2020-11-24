@@ -45,6 +45,26 @@ export class FileComponent implements OnInit, OnDestroy {
       'experiment.standardMet',
       'paperPublished'],
   };
+
+  downloadQuery = {
+    'sort': this.query['sort'],
+    '_source': [
+      '_id',
+      '_source.study.accession',
+      '_source.experiment.accession',
+      '_source.species.text',
+      '_source.experiment.assayType',
+      '_source.experiment.target',
+      '_source.specimen',
+      '_source.run.instrument',
+      '_source.experiment.standardMet',
+      '_source.paperPublished'
+    ],
+    'columns': this.columnNames,
+    'filters': {},
+    'file_format': 'csv',
+  };
+
   defaultSort = ['name','desc'];
   error: string;
 
@@ -79,6 +99,7 @@ export class FileComponent implements OnInit, OnDestroy {
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
       this.query['filters'] = filters;
+      this.downloadQuery['filters'] = filters;
       this.filter_field = Object.assign({}, this.filter_field);
     });
     this.optionsCsv = this.exportService.optionsCsv;
@@ -129,6 +150,26 @@ export class FileComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  downloadCsvFile() {
+    this.downloadQuery['file_format'] = 'csv';
+    this.dataService.downloadFiles(this.downloadQuery).subscribe((res:Response)=>{
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(res);
+      a.download = 'faang_data.csv';
+      a.click();
+    });
+  }
+
+  downloadTabularFile() {
+    this.downloadQuery['file_format'] = 'txt';
+    this.dataService.downloadFiles(this.downloadQuery).subscribe((res:Response)=>{
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(res);
+      a.download = 'faang_data.txt';
+      a.click();
+    });
   }
 
   wasPublished(published: any) {
