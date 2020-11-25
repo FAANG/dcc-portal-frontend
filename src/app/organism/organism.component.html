@@ -31,10 +31,10 @@
     <div class="col-md-10 table-responsive">
       <div *ngIf="(organismListLong | async) as organisms; else loading">
         <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
-        <app-export [data]="organisms" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
+        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
           Export as CSV file
         </app-export>
-        <app-export [data]="organisms" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
+        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
           Export as Tabular file
         </app-export>
         <app-table-client-side #tableComp [display_fields]="displayFields"

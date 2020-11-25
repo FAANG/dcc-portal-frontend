@@ -101,7 +101,7 @@ export class DatasetComponent implements OnInit, AfterViewInit, OnDestroy {
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
-    this.optionsTabular['headers'] = this.optionsTabular;
+    this.optionsTabular['headers'] = this.columnNames;
     this.dataService.getAllDatasets(this.query, 25).subscribe(
       (data) => {
         this.datasetListShort = data;
@@ -136,6 +136,7 @@ export class DatasetComponent implements OnInit, AfterViewInit, OnDestroy {
       this.tableComponents.changes.subscribe((comps: QueryList <TableClientSideComponent>) => {
           this.tableClientComponent = comps.first;
           this.aggregationService.getAggregations(this.tableClientComponent.dataSource.filteredData, 'dataset');
+          this.data = this.tableClientComponent.dataSource.sortData(this.tableClientComponent.dataSource.filteredData,this.tableClientComponent.dataSource.sort);
       });
   }
 
