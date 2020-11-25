@@ -19,7 +19,9 @@ export class TableServerSideComponent implements AfterViewInit {
   @Input() apiFunction: Function; // function that queries the API endpoints
   @Input() query: Object; // query params ('sort', 'aggs', 'filters', '_source', 'from_')
   @Input() defaultSort: string[]; // default sort param e.g - ['id': 'desc'];
+
   @Output() dataUpdate = new EventEmitter<any>();
+  @Output() sortUpdate = new EventEmitter<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -39,6 +41,7 @@ export class TableServerSideComponent implements AfterViewInit {
           this.spinner.show();
           if(this.sort.active && this.sort.direction) {
             this.query['sort'] = [this.sort.active, this.sort.direction];
+            this.sortUpdate.emit(this.query['sort']);
           } else {
             this.query['sort'] = this.defaultSort;
           }
@@ -67,7 +70,8 @@ export class TableServerSideComponent implements AfterViewInit {
         this.spinner.show();
         // reset query params before applying filter
         this.paginator.pageIndex = 0;
-        this.query['sort'] = this.defaultSort;
+        this.query['sort'] = [this.sort.active, this.sort.direction];
+        this.sortUpdate.emit(this.query['sort']);
         this.query['from_'] = 0;
         for (const col in this.query['filters']) {
           // process paper_published filter

@@ -39,8 +39,8 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
-    query['sort'] = aggs[query['sort'][0]] ? aggs[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']);
+    const sortParams = aggs[query['sort'][0]] ? aggs[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']);
     let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
@@ -87,8 +87,8 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
-    query['sort'] = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('columns', JSON.stringify(query['columns'])).set('file_format', query['file_format']);
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('columns', JSON.stringify(query['columns'])).set('file_format', query['file_format']);
     const fullURL = `${url}?${params.toString()}`;
     return this.http.get(fullURL, {responseType: 'blob' as 'blob'}).pipe(
       map((data: any) => {
@@ -238,8 +238,8 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
-    query['sort'] = aggs[query['sort'][0]] ? aggs[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']);
+    const sortParams = aggs[query['sort'][0]] ? aggs[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']);
     let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
@@ -282,8 +282,8 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
-    query['sort'] = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']).set('filters', JSON.stringify(filters)).set('columns', JSON.stringify(query['columns'])).set('file_format', query['file_format']);
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('columns', JSON.stringify(query['columns'])).set('file_format', query['file_format']);
     const fullURL = `${url}?${params.toString()}`;
     return this.http.get(fullURL, {responseType: 'blob' as 'blob'}).pipe(
       map((data: any) => {

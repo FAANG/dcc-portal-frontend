@@ -3,7 +3,6 @@ import {SpecimenTable} from '../shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
-import {ExportService} from '../services/export.service';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import { TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
@@ -56,11 +55,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   templates: Object;
   filter_field: {};
   aggrSubscription: Subscription;
-  exportSubscription: Subscription;
   downloadData = false;
-
-  optionsCsv;
-  optionsTabular;
   data = {};
 
   error: string;
@@ -69,7 +64,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
-              private exportService: ExportService,
               private titleService: Title) { }
 
   ngOnInit() {
@@ -99,12 +93,11 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       this.downloadQuery['filters'] = filters;
       this.filter_field = Object.assign({}, this.filter_field);
     });
-    this.optionsCsv = this.exportService.optionsCsv;
-    this.optionsTabular = this.exportService.optionsTabular;
-    this.optionsCsv['headers'] = this.columnNames;
-    this.optionsTabular['headers'] = this.optionsTabular;
     this.tableServerComponent.dataUpdate.subscribe((data) => {
       this.aggregationService.getAggregations(data.aggregations, 'specimen');
+    });
+    this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
+      this.downloadQuery['sort'] = sortParams;
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -114,9 +107,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
         }
       }
       this.router.navigate(['specimen'], {queryParams: params});
-    });
-    this.exportSubscription = this.exportService.data.subscribe((data) => {
-      this.data = data;
     });
   }
   
@@ -182,7 +172,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       this.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
-    this.exportSubscription.unsubscribe();
   }
 
 }

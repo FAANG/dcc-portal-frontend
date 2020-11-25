@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/cor
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
 import {Observable, Subscription} from 'rxjs';
-import {ExportService} from '../services/export.service';
 import {Title} from '@angular/platform-browser';
 import {FileTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -25,11 +24,7 @@ export class FileComponent implements OnInit, OnDestroy {
   filter_field: {};
   templates: Object;
   aggrSubscription: Subscription;
-  exportSubscription: Subscription;
   downloadData = false;
-
-  optionsCsv;
-  optionsTabular;
   data = {};
 
   private query = {
@@ -47,7 +42,7 @@ export class FileComponent implements OnInit, OnDestroy {
   };
 
   downloadQuery = {
-    'sort': this.query['sort'],
+    'sort': ['name','desc'],
     '_source': [
       '_id',
       '_source.study.accession',
@@ -72,7 +67,6 @@ export class FileComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
-              private exportService: ExportService,
               private titleService: Title) { }
 
   ngOnInit() {
@@ -102,12 +96,11 @@ export class FileComponent implements OnInit, OnDestroy {
       this.downloadQuery['filters'] = filters;
       this.filter_field = Object.assign({}, this.filter_field);
     });
-    this.optionsCsv = this.exportService.optionsCsv;
-    this.optionsTabular = this.exportService.optionsTabular;
-    this.optionsCsv['headers'] = this.columnNames;
-    this.optionsTabular['headers'] = this.optionsTabular;
     this.tableServerComponent.dataUpdate.subscribe((data) => {
       this.aggregationService.getAggregations(data.aggregations, 'file');
+    });
+    this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
+      this.downloadQuery['sort'] = sortParams;
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -117,9 +110,6 @@ export class FileComponent implements OnInit, OnDestroy {
         }
       }
       this.router.navigate(['file'], {queryParams: params});
-    });
-    this.exportSubscription = this.exportService.data.subscribe((data) => {
-      this.data = data;
     });
   }
 
@@ -185,6 +175,5 @@ export class FileComponent implements OnInit, OnDestroy {
       this.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
-    this.exportSubscription.unsubscribe();
   }
 }
