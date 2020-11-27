@@ -64,14 +64,14 @@
 </div>
 
 <ng-template #datasetAccessionTemplate let-item>
-  <a style="cursor: pointer" [routerLink]="item">{{item}}</a>
+  <a style="cursor: pointer" [routerLink]="item['datasetAccession']">{{item['datasetAccession']}}</a>
 </ng-template>
 
 <ng-template #paperPublishedTemplate let-item>
-  <td *ngIf="wasPublished(item)" [ngClass]="isGreen(item)">
+  <td *ngIf="wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
     <i class="material-icons">check_circle_outline</i>
   </td>
-  <td *ngIf="!wasPublished(item)" [ngClass]="isGreen(item)">
+  <td *ngIf="!wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
     <i class="material-icons">highlight_off</i>
   </td>
 </ng-template>

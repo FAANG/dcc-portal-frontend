@@ -13,12 +13,14 @@ export class TableClientSideComponent implements OnInit {
   @Input() column_names: Array<string>; // list of column headers for the selected fields
   @Input() public templates: Object; // column templates
   @Input() data: Array<any>; // Array data to be populated in the table
+  @Input() page_size: number; // number of records in a page
   @Input() filter_values: Observable<Object>; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ... }
   
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource: MatTableDataSource<any>;
+  pageSize: number;
 
   constructor() {
   }
@@ -29,6 +31,7 @@ export class TableClientSideComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.filterPredicate = this.createFilter();
     this.dataSource.filter = JSON.stringify(this.filter_values);
+    this.pageSize = this.page_size ? this.page_size : 25;
   }
 
   // apply filter when component input "filter_values" is changed

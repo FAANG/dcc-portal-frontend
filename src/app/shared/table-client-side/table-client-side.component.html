@@ -3,7 +3,7 @@
         <ng-container *ngIf="templates[col]">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
             <td mat-cell *matCellDef="let item" style="padding-right: 5px;">
-                <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: item[col] }">
+                <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: item }">
                 </ng-template>
             </td>
         </ng-container>
@@ -15,4 +15,4 @@
     <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
     <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
 </table>
-<mat-paginator pageSize="25"></mat-paginator>
+<mat-paginator [pageSize]="pageSize"></mat-paginator>
