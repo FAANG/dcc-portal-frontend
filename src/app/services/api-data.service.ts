@@ -196,6 +196,14 @@ export class ApiDataService {
   getOrganismsSpecimens(biosampleId: any) {
     const url = this.hostSetting.host + 'specimen/_search/?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
     return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          bioSampleId: entry['_source']['biosampleId'],
+          material: this.checkField(entry['_source']['material']),
+          cellType: this.checkField(entry['_source']['cellType']),
+          })
+        );
+      }),
       retry(3),
       catchError(this.handleError),
     );
@@ -313,6 +321,21 @@ export class ApiDataService {
   getSpecimenFiles(biosampleId: any) {
     const url = this.hostSetting.host + 'file/_search/?q=specimen:' + biosampleId + '&size=100000' + '&sort=run.accession:asc,name:asc';
     return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          name: entry['_id'],
+          archive: entry['_source']['archive'],
+          experiment: entry['_source']['experiment']['accession'],
+          run: entry['_source']['run']['accession'],
+          assayType: entry['_source']['experiment']['assayType'],
+          target: entry['_source']['experiment']['target'],
+          fileSize: entry['_source']['readableSize'],
+          checksum: entry['_source']['checksum'],
+          checksumMethod: entry['_source']['checksumMethod'],
+          url: entry['_source']['url']
+          })
+        );
+      }),
       retry(3),
       catchError(this.handleError)
     );
@@ -368,6 +391,25 @@ export class ApiDataService {
     );
   }
 
+  getDatasetSpecimen(accession: string) {
+    const url = this.hostSetting.host + 'dataset/' + accession;
+    return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        return data['hits']['hits'][0]['_source']['specimen'].map( entry => ({
+          bioSampleId: entry['biosampleId'],
+          breed: entry['breed']['text'],
+          cellType: entry['cellType']['text'],
+          material: entry['material']['text'],
+          organism: entry['organism']['text'],
+          sex: entry['sex']['text'],
+          })
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getAllAnalyses(query: any, size: number) {
     const url = this.hostSetting.host + 'analysis/' + '_search/' + '?size=' + size;
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
@@ -392,6 +434,14 @@ export class ApiDataService {
   getAnalysesBySample(sampleId: any) {
     const url = this.hostSetting.host + 'analysis/_search/?q=sampleAccessions:' + sampleId + '&sort=accession:asc&size=10000';
     return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          accession: entry['_id'],
+          datasetAccession: entry['_source']['datasetAccession'],
+          analysisType: entry['_source']['analysisType'],
+          })
+        );
+      }),
       retry(3),
       catchError(this.handleError),
     );
@@ -400,6 +450,13 @@ export class ApiDataService {
   getAnalysesByDataset(accession: any) {
     const url = this.hostSetting.host + 'analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc&size=10000';
     return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          accession: entry['_id'],
+          analysisType: entry['_source']['analysisType'],
+          })
+        );
+      }),
       retry(3),
       catchError(this.handleError),
     );

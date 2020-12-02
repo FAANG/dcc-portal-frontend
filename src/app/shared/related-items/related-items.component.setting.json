@@ -107,20 +107,20 @@
       ],
       "fields": {
         "Name": {
-          "value": "_source.name",
+          "value": "name",
           "link": {
             "prefix": "ftp://",
-            "url": "_source.url"
+            "url": "url"
           }
         },
         "File size": {
-          "value": "_source.readableSize"
+          "value": "readableSize"
         },
         "Checksum": {
-          "value": "_source.checksum"
+          "value": "checksum"
         },
         "Checksum method": {
-          "value": "_source.checksumMethod"
+          "value": "checksumMethod"
         }
       }
     }
@@ -172,26 +172,26 @@
       ],
       "fields": {
         "BioSamples ID": {
-          "value": "biosampleId",
+          "value": "bioSampleId",
           "link": {
             "prefix": "../specimen/",
-            "url": "biosampleId"
+            "url": "bioSampleId"
           }
         },
         "Material": {
-          "value": "material.text"
+          "value": "material"
         },
         "Cell type": {
-          "value": "cellType.text"
+          "value": "cellType"
         },
         "Sex": {
-          "value": "sex.text"
+          "value": "sex"
         },
         "Species": {
-          "value": "organism.text"
+          "value": "organism"
         },
         "Breed": {
-          "value": "breed.text"
+          "value": "breed"
         }
       }
     },
@@ -245,14 +245,14 @@
       ],
       "fields": {
         "Accession": {
-          "value": "_id",
+          "value": "accession",
           "link": {
             "prefix": "../analysis/",
-            "url": "_id"
+            "url": "accession"
           }
         },
         "Type": {
-          "value": "_source.analysisType"
+          "value": "analysisType"
         }
       }
     }
@@ -298,17 +298,17 @@
       ],
       "fields": {
         "BioSamples ID": {
-          "value": "_source.biosampleId",
+          "value": "bioSampleId",
           "link": {
             "prefix": "../specimen/",
-            "url": "_source.biosampleId"
+            "url": "bioSampleId"
           }
         },
         "Organism part/Cell type": {
-          "value": "_source.cellType.text"
+          "value": "cellType"
         },
         "Material type": {
-          "value": "_source.material.text"
+          "value": "material"
         }
       }
     }
@@ -354,17 +354,17 @@
       ],
       "fields": {
         "BioSamples ID": {
-          "value": "_source.biosampleId",
+          "value": "bioSampleId",
           "link": {
             "prefix": "../specimen/",
-            "url": "_source.biosampleId"
+            "url": "bioSampleId"
           }
         },
         "Organism part/Cell type": {
-          "value": "_source.cellType.text"
+          "value": "cellType"
         },
         "Material type": {
-          "value": "_source.material.text"
+          "value": "material"
         }
       }
     },
@@ -391,43 +391,43 @@
       ],
       "fields": {
         "Name": {
-          "value": "_id",
+          "value": "name",
           "link": {
             "prefix": "../file/",
-            "url": "_id"
+            "url": "name"
           }
         },
         "Archive": {
-          "value": "_source.archive"
+          "value": "archive"
         },
         "Experiment": {
-          "value": "_source.experiment.accession",
+          "value": "experiment",
           "link": {
             "prefix": "http://www.ebi.ac.uk/ena/data/view/",
-            "url": "_source.experiment.accession"
+            "url": "experiment"
           }
         },
         "Run": {
-          "value": "_source.run.accession",
+          "value": "run",
           "link": {
             "prefix": "http://www.ebi.ac.uk/ena/data/view/",
-            "url": "_source.run.accession"
+            "url": "run"
           }
         },
         "Assay type": {
-          "value": "_source.experiment.assayType"
+          "value": "assayType"
         },
         "Experiment target": {
-          "value": "_source.experiment.target"
+          "value": "target"
         },
         "File size": {
-          "value": "_source.readableSize"
+          "value": "fileSize"
         },
         "Checksum": {
-          "value": "_source.checksum"
+          "value": "checksum"
         },
         "Checksum method": {
-          "value": "_source.checksumMethod"
+          "value": "checksumMethod"
         }
       }
     },
@@ -444,20 +444,20 @@
       ],
       "fields": {
         "Accession": {
-          "value": "_id",
+          "value": "accession",
           "link": {
             "prefix": "../analysis/",
-            "url": "_id"
+            "url": "accession"
           }
         },
         "Type": {
-          "value": "_source.analysisType"
+          "value": "analysisType"
         },
         "Dataset": {
-          "value": "_source.datasetAccession",
+          "value": "datasetAccession",
           "link": {
             "prefix": "http://www.ebi.ac.uk/ena/data/view/",
-            "url": "_source.datasetAccession"
+            "url": "datasetAccession"
           }
         }
       }

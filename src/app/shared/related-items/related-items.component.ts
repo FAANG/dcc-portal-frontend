@@ -1,8 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {ApiDataService} from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
 import {UserService} from '../../services/user.service';
+import {Observable, of as observableOf} from 'rxjs';
+import {TableClientSideComponent}  from '../table-client-side/table-client-side.component';
 
 @Component({
   selector: 'app-related-items',
@@ -10,12 +12,20 @@ import {UserService} from '../../services/user.service';
   styleUrls: ['./related-items.component.css']
 })
 export class RelatedItemsComponent implements OnInit {
+  @ViewChild('linkTemplate', { static: true }) linkTemplate: TemplateRef<any>;
+  @ViewChild('downloadTemplate', { static: true }) downloadTemplate: TemplateRef<any>;
+  @ViewChild('downloadHeaderTemplate', { static: true }) downloadHeaderTemplate: TemplateRef<any>;
+  @ViewChild(TableClientSideComponent, { static: true }) tableClientComponent: TableClientSideComponent;
   @Input() record_id: string; // the record id used to retrieve particular record
   @Input() source_type: string; // equal to the type of detail page, e.g. to list files in the dataset detail page, set to be dataset
   @Input() target_type: string; // the related entities, e.g. to list files in the dataset detail page, set to be file
   @Input() download_key: string; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
 
   records: any;
+  tableData: Observable<any[]>;
+  columnNames = [];
+  displayFields = [];
+  templates = {};
   urls: string[] = [];
   checked = false;
   selected: Map<string, boolean> = new Map();
@@ -31,6 +41,10 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.templates = {'bioSampleId': this.linkTemplate,
+                      'title': this.linkTemplate,
+                      'accession': this.linkTemplate,
+                      'name': this.linkTemplate};
     // Read in the initial column display settings
     // set those selected to be displayed
     for (const column of setting[this.source_type][this.target_type]['all']) {
@@ -47,24 +61,28 @@ export class RelatedItemsComponent implements OnInit {
       this.dataService.getAllOrganismsFromProject(this.record_id, mode).subscribe(
         (data: any) => {
           this.records = data;
+          this.tableData = observableOf(this.records);
         }
       );
     } else if (relationship_type === 'project-specimen') {
       this.dataService.getAllSpecimensForProject(this.record_id).subscribe(
         (data: any) => {
           this.records = data;
+          this.tableData = observableOf(this.records);
         }
       );
     } else if (relationship_type === 'project-publication') {
       this.dataService.getAllArticlesForProject(this.record_id).subscribe(
         (data: any) => {
           this.records = data;
+          this.tableData = observableOf(this.records);
         }
       );
     } else if (relationship_type === 'project-file') {
       this.dataService.getAllFilesForProject(this.record_id).subscribe(
         (data: any) => {
           this.records = data;
+          this.tableData = observableOf(this.records);
         }
       );
     } else if (relationship_type === 'publication-dataset') {
@@ -74,79 +92,102 @@ export class RelatedItemsComponent implements OnInit {
           for (const record of this.records) {
             record['species'] = record['species'].sort();
           }
+          this.tableData = observableOf(this.records);
         }
       );
     } else if (relationship_type === 'analysis-file') {
       this.dataService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['files'];
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'file-download') {
       this.dataService.getFilesByRun(this.record_id).subscribe(
         (data: any) => {
-          this.records = data['hits']['hits'];
+          this.records = data['hits']['hits'].map((record) => record['_source']);
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'file-paper') {
       this.dataService.getFile(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'dataset-specimen') {
-      this.dataService.getDataset(this.record_id).subscribe(
+      this.dataService.getDatasetSpecimen(this.record_id).subscribe(
         (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['specimen'];
+          this.records = data;
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'dataset-file') {
       this.dataService.getDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['file'];
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'dataset-paper') {
       this.dataService.getDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'dataset-analysis') {
       this.dataService.getAnalysesByDataset(this.record_id).subscribe(
         (data: any) => {
-          this.records = data['hits']['hits'];
+          this.records = data;
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'organism-paper') {
       this.dataService.getOrganism(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'organism-specimen') {
       this.dataService.getOrganismsSpecimens(this.record_id).subscribe(
         (data: any) => {
-          this.records = data['hits']['hits'];
+          this.records = data;
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'specimen-paper') {
       this.dataService.getSpecimen(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'specimen-specimen') {
       this.dataService.getSpecimenRelationships(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'specimen-file') {
       this.dataService.getSpecimenFiles(this.record_id).subscribe(
         (data: any) => {
-          this.records = data['hits']['hits'];
+          this.records = data;
+          this.tableData = observableOf(this.records);
         });
     } else if (relationship_type === 'specimen-analysis') {
       this.dataService.getAnalysesBySample(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
+          this.tableData = observableOf(this.records);
         });
-    } else if (relationship_type === 'project-paper') {
+    } 
+    else if (relationship_type === 'project-paper') {
       this.records = [{}];
     } else if (relationship_type === 'project-specimen') {
       this.records = [{}];
     } else if (relationship_type === 'project-file') {
       this.records = [{}];
+    }
+    this.columnNames = this.get_displayed_fields()['column_names'];
+    this.displayFields = this.get_displayed_fields()['fields'];
+    if (this.download_key.length > 0) {
+      this.columnNames.push('Download');
+      this.displayFields.push(this.download_key);
+      this.templates[this.download_key] = this.downloadTemplate;
+      this.templates[this.download_key + '-header'] = this.downloadHeaderTemplate;
     }
   }
 
@@ -156,16 +197,22 @@ export class RelatedItemsComponent implements OnInit {
 
   // get table headers
   get_all_fields() {
-    return setting[this.source_type][this.target_type]['all'];
+    var result = {};
+    result['column_names'] = setting[this.source_type][this.target_type]['all'];
+    result['fields'] = result['column_names'].map((col) => 
+      setting[this.source_type][this.target_type]['fields'][col]['value']
+    );
+    return result;
   }
 
   get_displayed_fields() {
-    const results: string[] = [];
-    const all_fields = this.get_all_fields();
+    var results = {'column_names': [], 'fields': []};
+    const all_fields = this.get_all_fields()['column_names'];
     // use all_fields to conserve the display order
     for (const column of all_fields) {
       if (this.isDisplayed(column)) {
-        results.push(column);
+        results['column_names'].push(column);
+        results['fields'].push(setting[this.source_type][this.target_type]['fields'][column]['value']);
       }
     }
     return results;
@@ -285,6 +332,12 @@ export class RelatedItemsComponent implements OnInit {
   toggleSelectedColumn(column: string) {
     if (this.selected.has(column)) {
       this.selected.set(column, !this.selected.get(column));
+    }
+    this.displayFields = this.get_displayed_fields()['fields'];
+    this.columnNames = this.get_displayed_fields()['column_names'];
+    if (this.download_key.length > 0) {
+      this.columnNames.push('Download');
+      this.displayFields.push(this.download_key);
     }
   }
 }
