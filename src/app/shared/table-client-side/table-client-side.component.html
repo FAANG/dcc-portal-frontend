@@ -1,14 +1,21 @@
 <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
     <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
-        <ng-container *ngIf="templates[col]">
+        <ng-container *ngIf="templates[col+'-header']">
+            <th mat-header-cell *matHeaderCellDef="let header" mat-sort-header>
+                <ng-template *ngTemplateOutlet="templates[col+'-header']; context: { $implicit: column_names[i] }">
+                </ng-template>
+            </th>
+        </ng-container>
+        <ng-container *ngIf="!templates[col+'-header']">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
+        </ng-container>
+        <ng-container *ngIf="templates[col]">
             <td mat-cell *matCellDef="let item" style="padding-right: 5px;">
-                <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: item }">
+                <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: { 'row': item, 'col': column_names[i] } }">
                 </ng-template>
             </td>
         </ng-container>
         <ng-container *ngIf="!templates[col]">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
             <td mat-cell *matCellDef="let item" style="padding-right: 5px;"> {{item[col]}} </td>
         </ng-container>
     </ng-container>

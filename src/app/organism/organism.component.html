@@ -63,14 +63,14 @@
 </div>
 
 <ng-template #bioSampleIdTemplate let-item>
-  <a style="cursor: pointer" [routerLink]="item['bioSampleId']">{{item['bioSampleId']}}</a>
+  <a style="cursor: pointer" [routerLink]="item['row']['bioSampleId']">{{item['row']['bioSampleId']}}</a>
 </ng-template>
 
 <ng-template #paperPublishedTemplate let-item>
-  <td *ngIf="wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
+  <td *ngIf="wasPublished(item['row']['paperPublished'])" [ngClass]="isGreen(item['row']['paperPublished'])">
     <i class="material-icons">check_circle_outline</i>
   </td>
-  <td *ngIf="!wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
+  <td *ngIf="!wasPublished(item['row']['paperPublished'])" [ngClass]="isGreen(item['row']['paperPublished'])">
     <i class="material-icons">highlight_off</i>
   </td>
 </ng-template>
