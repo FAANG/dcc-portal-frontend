@@ -15,6 +15,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   project: string;
   setting: any;
   error: any;
+  tableType: string;
 
   constructor(private route: ActivatedRoute,
               private title: Title,
@@ -26,6 +27,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.tableType = 'Organisms';
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
         this.project = params['id'];
@@ -81,6 +83,10 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
 
   login() {
     this.router.navigate(['login']);
+  }
+
+  setTableType(tableTypeValue: string) {
+    this.tableType = tableTypeValue;
   }
 
   ngOnDestroy() {

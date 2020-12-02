@@ -52,13 +52,34 @@
       </div>
     </div>
 
-    <app-related-items source_type="project" target_type="publication" download_key=""
-                       [record_id]="project"></app-related-items>
-    <app-related-items source_type="project" target_type="organism" download_key=""
-                       [record_id]="project"></app-related-items>
-    <app-related-items source_type="project" target_type="specimen" download_key=""
-                       [record_id]="project"></app-related-items>
-    <app-related-items source_type="project" target_type="file" download_key="url"
-                       [record_id]="project"></app-related-items>
+    <div class="row first-row">
+      <button type="button" class="btn btn-info" aria-label="Left Align" (click)="setTableType('Organisms')"
+        [ngClass]="{'active': tableType == 'Organisms'}" style="margin-right: 10px;">
+        Organisms <i class="material-icons float-right">{{tableType == 'Organisms' ? 'home' : 'menu'}}</i>
+      </button>
+      <button type="button" class="btn btn-info" aria-label="Left Align" (click)="setTableType('Specimens')"
+        [ngClass]="{'active': tableType == 'Specimens'}" style="margin-right: 10px;">
+        Specimens <i class="material-icons float-right">{{tableType == 'Specimens' ? 'home' : 'menu'}}</i>
+      </button>
+      <button type="button" class="btn btn-info" aria-label="Left Align" (click)="setTableType('Publications')"
+        [ngClass]="{'active': tableType == 'Publications'}" style="margin-right: 10px;">
+        Publications <i class="material-icons float-right">{{tableType == 'Publications' ? 'home' : 'menu'}}</i>
+      </button>
+      <button type="button" class="btn btn-info" aria-label="Left Align" (click)="setTableType('Files')"
+        [ngClass]="{'active': tableType == 'Files'}" style="margin-right: 10px;">
+        Files <i class="material-icons float-right">{{tableType == 'Files' ? 'home' : 'menu'}}</i>
+      </button>
+    </div>
+
+    <ng-container [ngSwitch]="tableType">
+      <app-related-items #relatedItemsComp *ngSwitchCase="'Publications'" source_type="project" target_type="publication" 
+                        download_key="" [record_id]="project"></app-related-items>
+      <app-related-items #relatedItemsComp *ngSwitchCase="'Organisms'" source_type="project" target_type="organism" 
+                        download_key="" [record_id]="project"></app-related-items>
+      <app-related-items #relatedItemsComp *ngSwitchCase="'Specimens'" source_type="project" target_type="specimen" 
+                        download_key="" [record_id]="project"></app-related-items>
+      <app-related-items #relatedItemsComp *ngSwitchCase="'Files'" source_type="project" target_type="file" 
+                        download_key="url" [record_id]="project"></app-related-items>
+    </ng-container>
   </div>
 </ng-container>
