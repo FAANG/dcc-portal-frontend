@@ -58,25 +58,18 @@ export class TableClientSideComponent implements OnInit {
           // handling paperPublished - any non 'true' or missing value should be considered 'false'
           if (col === 'paperPublished') {
             if (searchTerms[col][0] == 'true') { // filtering records with paper published
-              if (data[col] === 'true') {
-                return true;
-              } else {
+              if (data[col] !== 'true') {
                 return false;
               }
             } else {  // filtering records with paper not published
-              if (!data[col] || data[col] !== 'true') {
-                return true;
-              } else {
+              if (data[col] && data[col] === 'true') {
                 return false;
               }
             }
           }
           // handling assayType RNA-Seq values
           else if (col === 'assayType' && searchTerms[col][0] === 'RNA-Seq') {
-            if (data[col] === 'transcription profiling by high throughput sequencing' || data[col] === 'RNA-Seq') {
-              return true;
-            } 
-            else {
+            if (!(data[col] === 'transcription profiling by high throughput sequencing' || data[col] === 'RNA-Seq')) {
               return false;
             }
           }
@@ -91,12 +84,9 @@ export class TableClientSideComponent implements OnInit {
           }
           // handling sex values
           else if (col === 'sex'){
-            if ((searchTerms[col][0] === 'male' && male_values.indexOf(data[col]) > -1) ||
-                (searchTerms[col][0] === 'female' && female_values.indexOf(data[col]) > -1) ||
-                (searchTerms[col][0] === 'not determined' && male_values.indexOf(data[col]) === -1 && female_values.indexOf(data[col]) === -1)) {
-              return true;
-            }
-            else {
+            if (!(searchTerms[col][0] === 'male' && male_values.indexOf(data[col]) > -1) &&
+                !(searchTerms[col][0] === 'female' && female_values.indexOf(data[col]) > -1) &&
+                !(searchTerms[col][0] === 'not determined' && male_values.indexOf(data[col]) === -1 && female_values.indexOf(data[col]) === -1)) {
               return false;
             }
           } 
@@ -111,9 +101,9 @@ export class TableClientSideComponent implements OnInit {
             if (searchTerms[col].indexOf(data[col]) == -1) {
               return false;
             }
-            return true;
           }
         }
+        return true;
       } else {
         return true;
       }
