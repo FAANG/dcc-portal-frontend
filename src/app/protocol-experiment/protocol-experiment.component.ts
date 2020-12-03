@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, AfterViewInit, TemplateRef, ViewChild, ViewChildren, QueryList} from '@angular/core';
 import {Observable} from 'rxjs/internal/Observable';
 import {Subscription} from 'rxjs/internal/Subscription';
 import {ApiDataService} from '../services/api-data.service';
@@ -8,19 +8,25 @@ import {ExportService} from '../services/export.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {protocolNames} from '../shared/protocolnames';
+import {TableClientSideComponent}  from '../shared/table-client-side/table-client-side.component';
 
 @Component({
   selector: 'app-protocol-experiment',
   templateUrl: './protocol-experiment.component.html',
   styleUrls: ['./protocol-experiment.component.css']
 })
-export class ProtocolExperimentComponent implements OnInit, OnDestroy {
+export class ProtocolExperimentComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('protocolTypeTemplate', { static: true }) protocolTypeTemplate: TemplateRef<any>;
+  @ViewChildren("tableComp") tableComponents: QueryList<TableClientSideComponent>;
+  private tableClientComponent: TableClientSideComponent;
   protocolList: Observable<any[]>;
   protocolListSubscription: Subscription;
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
   columnNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];
-  exportNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];
+  exportNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];  
+  displayFields: string[] = ['name', 'experimentTarget', 'assayType'];
+  templates: Object;
   filter_field: {};
   downloadData = false;
 
@@ -49,6 +55,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
+    this.templates = {'name': this.protocolTypeTemplate};
     this.titleService.setTitle('FAANG protocols');
     this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -69,6 +76,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;
@@ -137,6 +145,14 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
     this.protocolListSubscription.unsubscribe();
     this.aggrSubscription.unsubscribe();
     this.exportSubscription.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    this.tableComponents.changes.subscribe((comps: QueryList <TableClientSideComponent>) => {
+        this.tableClientComponent = comps.first;
+        this.aggregationService.getAggregations(this.tableClientComponent.dataSource.filteredData, 'protocol_experiments');
+        this.data = this.tableClientComponent.dataSource.sortData(this.tableClientComponent.dataSource.filteredData,this.tableClientComponent.dataSource.sort);
+    });
   }
 
 }
