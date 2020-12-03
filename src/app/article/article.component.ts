@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ArticleTable, SortParams} from '../shared/interfaces';
+import {Component, OnDestroy, OnInit, AfterViewInit, TemplateRef, ViewChild, ViewChildren, QueryList} from '@angular/core';
+import {ArticleTable} from '../shared/interfaces';
 import {Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
@@ -8,20 +8,22 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {Observable} from 'rxjs/internal/Observable';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {TableClientSideComponent}  from '../shared/table-client-side/table-client-side.component';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
-export class ArticleComponent implements OnInit, OnDestroy {
+export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('titleTemplate', { static: true }) titleTemplate: TemplateRef<any>;
+  @ViewChildren("tableComp") tableComponents: QueryList<TableClientSideComponent>;
+  private tableClientComponent: TableClientSideComponent;
   articleListShort: Observable<ArticleTable[]>;
   articleListLong: Observable<ArticleTable[]>;
   columnNames: string[] = ['Title', 'Journal', 'Year', 'Dataset source'];
-  spanClass = 'expand_more';
-  defaultClass = 'unfold_more';
-  selectedColumn = 'title';
-  sort_field: SortParams;
+  displayFields: string[] = ['title', 'journal', 'year', 'datasetSource'];
+  templates: Object;
   filter_field = {};
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
@@ -31,9 +33,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
   optionsCsv;
   optionsTabular;
   data = {};
-
-  // Local variable for pagination
-  p = 1;
 
   private query = {
     'sort': 'pmcId:desc',
@@ -54,6 +53,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
+    this.templates = {'title': this.titleTemplate};
     this.titleService.setTitle('FAANG articles');
     this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -74,12 +74,11 @@ export class ArticleComponent implements OnInit, OnDestroy {
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
     this.optionsCsv = this.exportService.optionsCsv;
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.columnNames;
-    this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'pmcId', direction: 'desc'};
     this.spinner.hide();
     this.articleListLong = this.dataService.getAllArticles(this.query, 100000);
     this.articleListLongSubscription = this.articleListLong.subscribe((data) => {
@@ -99,53 +98,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
     });
   }
 
-  onTableClick(event: any) {
-    let event_class;
-    if (event['srcElement']['firstElementChild']) {
-      event_class = event['srcElement']['firstElementChild']['innerText'];
-    } else {
-      event_class = event['srcElement']['innerText'];
-    }
-    this.selectedColumn = event['srcElement']['id'];
-    this.selectColumn();
-    this.chooseClass(event_class);
-  }
-
-  chooseClass(event_class: string) {
-    if (event_class === this.defaultClass) {
-      this.spanClass = 'expand_more';
-      this.sort_field['direction'] = 'desc';
-    } else if (event_class === 'expand_more') {
-      this.spanClass = 'expand_less';
-      this.sort_field['direction'] = 'asc';
-    } else {
-      this.spanClass = 'unfold_more';
-      this.sort_field['direction'] = 'desc';
-      this.sort_field['id'] = 'pmcId';
-      this.selectedColumn = '';
-      this.spanClass = 'expand_more';
-    }
-  }
-
-  selectColumn() {
-    switch (this.selectedColumn) {
-      case 'Title': {
-        this.sort_field['id'] = 'title';
-        break;
-      }
-      case 'Year': {
-        this.sort_field['id'] = 'year';
-        break;
-      }
-      case 'Journal': {
-        this.sort_field['id'] = 'journal';
-        break;
-      }
-      case 'Dataset source': {
-        this.sort_field['id'] = 'datasetSource';
-        break;
-      }
-    }
+  ngAfterViewInit() {
+    this.tableComponents.changes.subscribe((comps: QueryList <TableClientSideComponent>) => {
+        this.tableClientComponent = comps.first;
+        this.aggregationService.getAggregations(this.tableClientComponent.dataSource.filteredData, 'article');
+        this.data = this.tableClientComponent.dataSource.sortData(this.tableClientComponent.dataSource.filteredData,this.tableClientComponent.dataSource.sort);
+    });
   }
 
   hasActiveFilters() {
