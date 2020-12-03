@@ -4,6 +4,7 @@ import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import setting from './subproject-detail.component.setting.json';
 import {UserService} from '../../services/user.service';
+import {ApiDataService} from '../../services/api-data.service';
 
 @Component({
   selector: 'app-subproject-detail',
@@ -16,18 +17,23 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   setting: any;
   error: any;
   tableType: string;
+  relatedItemsCount: Object;
 
   constructor(private route: ActivatedRoute,
               private title: Title,
               private spinner: NgxSpinnerService,
               private router: Router,
               private titleService: Title,
-              private _userService: UserService) {
+              private _userService: UserService,
+              private dataService: ApiDataService) {
     this.initTwitterWidget();
   }
 
   ngOnInit() {
     this.tableType = 'Organisms';
+    this.relatedItemsCount = {
+      'Organisms': 0, 'Specimens': 0, 'Publlications': 0, 'Files': 0,
+    }
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
         this.project = params['id'];
@@ -43,6 +49,26 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['404']);
     }
+    this.dataService.getProjectOrganismsCount(this.project).subscribe(
+      (data: any) => {
+        this.relatedItemsCount['Organisms'] = data;
+      }
+    );
+    this.dataService.getProjectSpecimensCount(this.project).subscribe(
+      (data: any) => {
+        this.relatedItemsCount['Specimens'] = data;
+      }
+    );
+    this.dataService.getProjectPublicationsCount(this.project).subscribe(
+      (data: any) => {
+        this.relatedItemsCount['Publications'] = data;
+      }
+    );
+    this.dataService.getProjectFilesCount(this.project).subscribe(
+      (data: any) => {
+        this.relatedItemsCount['Files'] = data;
+      }
+    );
   }
 
   initTwitterWidget() {

@@ -695,6 +695,50 @@ export class ApiDataService {
     }
   }
 
+  getProjectOrganismsCount(project: string) {
+    const org_url = this.hostSetting.host + 'organism/_search/?size=0&q=secondaryProject:' + project;
+    return this.http.get(org_url).pipe(
+      map((data: any) => {
+        return data.hits.total;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+  
+  getProjectSpecimensCount(project: string) {
+    const spec_url = this.hostSetting.host + 'specimen/_search/?size=0&q=secondaryProject:' + project;
+    return this.http.get(spec_url).pipe(
+      map((data: any) => {
+        return data.hits.total;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+  
+  getProjectPublicationsCount(project: string) {
+    const pub_url = this.hostSetting.host + 'article/_search/?size=0&q=secondaryProject:' + project;
+    return this.http.get(pub_url).pipe(
+      map((data: any) => {
+        return data.hits.total;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+  
+  getProjectFilesCount(project: string) {
+    const file_url = this.hostSetting.host + 'file/_search/?size=0&q=secondaryProject:' + project;
+    return this.http.get(file_url).pipe(
+      map((data: any) => {
+        return data.hits.total;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.
