@@ -80,6 +80,15 @@ export class TableClientSideComponent implements OnInit {
               return false;
             }
           }
+          // handling not provided assayType for analyses
+          else if (col === 'assayType' && searchTerms[col][0] === 'not provided') {
+            if (!data[col]){
+              return true;
+            } 
+            else {
+              return false;
+            }
+          }
           // handling sex values
           else if (col === 'sex'){
             if ((searchTerms[col][0] === 'male' && male_values.indexOf(data[col]) > -1) ||
@@ -91,6 +100,13 @@ export class TableClientSideComponent implements OnInit {
               return false;
             }
           } 
+          // handling analysis type values
+          else if (col == 'analysisType') {
+            if (searchTerms[col][0].split(' ').join('_').indexOf(data[col]) == -1) {
+              return false;
+            }
+            return true;
+          }
           else {
             if (searchTerms[col].indexOf(data[col]) == -1) {
               return false;
