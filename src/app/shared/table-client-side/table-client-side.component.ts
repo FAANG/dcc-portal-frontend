@@ -67,21 +67,28 @@ export class TableClientSideComponent implements OnInit {
               }
             }
           }
-          // handling RNA-Seq values, comma separated values for assayType
+          // handling RNA-Seq, not provided values, comma separated values for assayType
           else if (col === 'assayType') {
             let found = false;
-            data[col].split(',').forEach(assayTypeval => {
-              if (searchTerms[col][0] === 'RNA-Seq') {
-                if (assayTypeval === 'transcription profiling by high throughput sequencing' || assayTypeval === 'RNA-Seq') {
-                  found = true;
+            if (data[col]) {
+              data[col].split(',').forEach(assayTypeval => {
+                if (searchTerms[col][0] === 'RNA-Seq') {
+                  if (assayTypeval === 'transcription profiling by high throughput sequencing' || assayTypeval === 'RNA-Seq') {
+                    found = true;
+                  }
+                } 
+                else {
+                  if (assayTypeval === searchTerms[col][0]) {
+                    found = true;
+                  }
                 }
-              } 
-              else {
-                if (assayTypeval === searchTerms[col][0]) {
-                  found = true;
-                }
+              });
+            } 
+            else {
+              if (searchTerms[col][0] === 'not provided') {
+                found = true;
               }
-            });
+            }
             if (!found) {
               return false;
             }
@@ -89,18 +96,14 @@ export class TableClientSideComponent implements OnInit {
           // handle comma separated values for species, archive
           else if (col === 'species' || col === 'archive') {
             let found = false;
-            data[col].split(',').forEach(val => {
-              if (val === searchTerms[col][0]) {
-                found = true;
-              }
-            });
-            if (!found) {
-              return false;
+            if (data[col]) {
+              data[col].split(',').forEach(val => {
+                if (val === searchTerms[col][0]) {
+                  found = true;
+                }
+              });
             }
-          }
-          // handling not provided assayType for analyses
-          else if (col === 'assayType' && searchTerms[col][0] === 'not provided') {
-            if (data[col]){
+            if (!found) {
               return false;
             }
           }
@@ -112,9 +115,9 @@ export class TableClientSideComponent implements OnInit {
               return false;
             }
           } 
-          // handling analysis type values
-          else if (col == 'analysisType') {
-            if (searchTerms[col][0].split(' ').join('_').indexOf(data[col]) == -1) {
+          // handling analysis type and experimentTarget values with underscore
+          else if (col == 'analysisType' || col == 'experimentTarget') {
+            if (searchTerms[col].indexOf(data[col].split('_').join(' ')) == -1) {
               return false;
             }
           }
