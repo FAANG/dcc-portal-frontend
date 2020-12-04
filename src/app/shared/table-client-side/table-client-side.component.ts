@@ -64,9 +64,34 @@ export class TableClientSideComponent implements OnInit {
               }
             }
           }
-          // handling assayType RNA-Seq values
-          else if (col === 'assayType' && searchTerms[col][0] === 'RNA-Seq') {
-            if (!(data[col] === 'transcription profiling by high throughput sequencing' || data[col] === 'RNA-Seq')) {
+          // handling RNA-Seq values, comma separated values for assayType
+          else if (col === 'assayType') {
+            let found = false;
+            data[col].split(',').forEach(assayTypeval => {
+              if (searchTerms[col][0] === 'RNA-Seq') {
+                if (assayTypeval === 'transcription profiling by high throughput sequencing' || assayTypeval === 'RNA-Seq') {
+                  found = true;
+                }
+              } 
+              else {
+                if (assayTypeval === searchTerms[col][0]) {
+                  found = true;
+                }
+              }
+            });
+            if (!found) {
+              return false;
+            }
+          }
+          // handle comma separated values for species, archive
+          else if (col === 'species' || col === 'archive') {
+            let found = false;
+            data[col].split(',').forEach(val => {
+              if (val === searchTerms[col][0]) {
+                found = true;
+              }
+            });
+            if (!found) {
               return false;
             }
           }
