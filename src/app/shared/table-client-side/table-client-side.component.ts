@@ -75,10 +75,7 @@ export class TableClientSideComponent implements OnInit {
           }
           // handling not provided assayType for analyses
           else if (col === 'assayType' && searchTerms[col][0] === 'not provided') {
-            if (!data[col]){
-              return true;
-            } 
-            else {
+            if (data[col]){
               return false;
             }
           }
@@ -95,7 +92,6 @@ export class TableClientSideComponent implements OnInit {
             if (searchTerms[col][0].split(' ').join('_').indexOf(data[col]) == -1) {
               return false;
             }
-            return true;
           }
           else {
             if (searchTerms[col].indexOf(data[col]) == -1) {
