@@ -11,6 +11,7 @@ import {
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {AAPUser} from '../aap_user';
+import {UserService} from '../../services/user.service';
 
 const UploadURL = validation_service_url + '/conversion/experiments';
 
@@ -56,14 +57,15 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   disableAuthForm = false;
   submissionResults = [];
   submission_task_id: string;
-  private_submission = true;
+  private_submission = false;
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
   constructor(
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
-    private apiDataService: ApiDataService
+    private apiDataService: ApiDataService,
+    public _userService: UserService
   ) { }
 
   ngOnInit() {
@@ -77,6 +79,10 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     this.conversion_status = 'Undefined';
     this.metadata_template_with_examples = experiment_metadata_template_with_examples;
     this.metadata_template_without_examples = experiment_metadata_template_without_examples;
+    if (this._userService.token) {
+      this.private_submission = true;
+      this.submission_message = 'Choose submission server';
+    }
   }
 
   setValidationResults() {
