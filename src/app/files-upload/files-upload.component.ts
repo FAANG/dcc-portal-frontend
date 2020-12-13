@@ -10,7 +10,7 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./files-upload.component.css']
 })
 export class FilesUploadComponent implements OnInit {
-  UploadURL = validation_service_url + '/protocols_upload/samples';
+  UploadURL = 'https://data.faang.org/validation_api' + '/protocols_upload/samples';
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: this.UploadURL, itemAlias: this.fileid});
   public link: string;
@@ -31,7 +31,7 @@ export class FilesUploadComponent implements OnInit {
   }
 
   setSocket() {
-    const url = validation_ws_url + this.fileid + '/';
+    const url = 'wss://data.faang.org/validation_ws/ws/submission/' + this.fileid + '/';
     this.socket = new WebSocket(url);
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
@@ -51,7 +51,7 @@ export class FilesUploadComponent implements OnInit {
   }
 
   chooseProtocolType(protocolType: string) {
-    this.UploadURL = `${validation_service_url}/protocols_upload/${protocolType}`;
+    this.UploadURL = `https://data.faang.org/validation_api/protocols_upload/${protocolType}`;
     this.uploader = new FileUploader({url: this.UploadURL, itemAlias: this.fileid});
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {

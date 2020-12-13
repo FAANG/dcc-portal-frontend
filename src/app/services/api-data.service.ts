@@ -463,14 +463,22 @@ export class ApiDataService {
       rule_type = 'core';
       category = 'core';
     } else {
-      rule_type = 'type';
+      if (category.indexOf('teleostei') !== -1) {
+        rule_type = 'module';
+        category = category.replace('teleostei', 'teleost');
+      } else {
+        rule_type = 'type';
+        if (category === 'specimen_standard_rules') {
+          category = 'specimen';
+        }
+      }
     }
     const url = ruleset_prefix_new + `${rule_type}/samples/faang_samples_${category}.metadata_rules.json`;
     return this.http.get(url).pipe(
       map((data: any) => {
+        console.log(data);
         return data;
       }),
-      retry(3),
       catchError(this.handleError),
     );
   }

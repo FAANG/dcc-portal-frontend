@@ -54,7 +54,8 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
   constructor(private titleService: Title, private apiDataService: ApiDataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.rule_groups = ['Standard', 'Organism', 'Specimen', 'Pool of specimens', 'Purified cells', 'Cell culture', 'Cell line'];
+    this.rule_groups = ['Standard', 'Organism', 'Organoid', 'Specimen standard rules', 'Specimen Teleostei embryo',
+      'Specimen Teleostei post-hatching', 'Pool of specimens', 'Purified cells', 'Cell culture', 'Cell line'];
     this.active_rule = 'Standard';
     this.convertToSnakeCase = convertToSnakeCase;
     this.replaceUnderscoreWithSpace = replaceUnderscoreWithSpace;
@@ -99,9 +100,9 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
       return 'Must meet condition: Material is organism';
     } else if (this.active_rule === 'Organism' && rule === 'self') {
       return 'organism';
-    } else if (this.active_rule === 'Specimen' && rule === 'self') {
+    } else if (this.active_rule === 'Specimen standard rules' && rule === 'self') {
       return 'specimen from organism';
-    } else if (this.active_rule === 'Specimen' && rule === 'derived_from') {
+    } else if (this.active_rule === 'Specimen standard rules' && rule === 'derived_from') {
       return 'Must meet condition: Material is organism';
     } else if (this.active_rule === 'Pool of specimens' && rule === 'self') {
       return 'pool of specimens';
@@ -117,6 +118,19 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
       return 'Must meet condition: Material is one of specimen from organism or cell specimen';
     } else if (this.active_rule === 'Cell line' && rule === 'self') {
       return 'cell line';
+    } else if (this.active_rule === 'Specimen Teleostei embryo' && rule === 'self') {
+      return [
+        'Material is "specimen from organism"',
+        'Organism is child of Teleostei (NCBITaxon:32443)',
+        'Developmental stage is child of UBERON:0000068'
+      ];
+    } else if (this.active_rule === 'Organoid' && rule === 'self') {
+      return 'organoid';
+    } else if (this.active_rule === 'Specimen Teleostei post-hatching' && rule === 'self') {
+      return [
+        'Material is "specimen from organism"',
+        'Organism is child of Teleostei (NCBITaxon:32443)'
+      ];
     }
   }
 
@@ -227,6 +241,7 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
     this.apiDataService.getRulesetSample(convertToSnakeCase(rule.toLowerCase())).subscribe(data => {
       this.data = data;
       this.all_data = data;
+      console.log(this.data);
       this.mandatory_data = this.getMandatoryData(data);
       this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
       this.rules = Object.keys(data.properties);

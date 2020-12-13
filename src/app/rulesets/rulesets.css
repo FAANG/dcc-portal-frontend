@@ -30,7 +30,6 @@ p {
 }
 
 .center {
-  max-height: 400px;
   overflow: scroll;
 }
 

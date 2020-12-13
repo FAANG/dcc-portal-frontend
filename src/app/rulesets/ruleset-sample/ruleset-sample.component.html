@@ -65,11 +65,21 @@
     <div class="col-md-10 table-responsive center">
       <h3>{{active_rule}} ({{length}} rules)</h3>
       <p *ngIf="active_rule === 'Standard'">Applied to all entities</p>
-      <ng-container *ngIf="active_rule !== 'Standard'">
+      <ng-container *ngIf="active_rule !== 'Standard' && active_rule !== 'Specimen Teleostei embryo' &&
+      active_rule !== 'Specimen Teleostei post-hatching'">
         <p>Applied under these conditions:</p>
         <p>
           Material is "{{getCondition('self')}}"
         </p>
+      </ng-container>
+      <ng-container *ngIf="active_rule === 'Specimen Teleostei embryo' ||
+      active_rule === 'Specimen Teleostei post-hatching'">
+        <p>Applied under these conditions:</p>
+        <ng-container *ngFor="let condition of getCondition('self')" class="list-group-item">
+          <p>
+            {{condition}}
+          </p>
+        </ng-container>
       </ng-container>
       <table class="table table-striped table-hover table-borderless table-sm">
         <thead>
