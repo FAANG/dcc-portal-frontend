@@ -55,6 +55,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   disableAuthForm = false;
   submissionResults = [];
   submission_task_id: string;
+  private_submission = false;
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
@@ -405,7 +406,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.disableAuthForm = true;
     this.apiDataService.submitRecords(this.model.username, this.model.password, this.model.mode, '', this.fileid,
-      this.conversion_task_id, 'analyses').subscribe( response => {
+      this.conversion_task_id, 'analyses', this.private_submission).subscribe( response => {
       this.submission_task_id = response['id'];
     }, error => {
       console.log(error);

@@ -512,23 +512,24 @@ export class ApiDataService {
     return this.http.get(url);
   }
 
-  chooseDomain(username, password, mode, room_id) {
+  chooseDomain(username, password, mode, room_id, private_submission) {
     const url = `${validation_service_url}/submission/samples/${room_id}/choose_domain`;
-    return this.http.post(url, {username: username, password: password, mode: mode});
+    return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
   }
 
-  submitDomain(username, password, mode, domain_name, domain_description, room_id) {
+  submitDomain(username, password, mode, domain_name, domain_description, room_id, private_submission) {
     const url = `${validation_service_url}/submission/samples/${room_id}/submit_domain`;
     return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
-      domain_description: domain_description});
+      domain_description: domain_description, private_submission: private_submission});
   }
 
-  submitRecords(username, password, mode, domain_name, room_id, task_id, submission_type) {
+  submitRecords(username, password, mode, domain_name, room_id, task_id, submission_type, private_submission) {
     const url = `${validation_service_url}/submission/${submission_type}/${task_id}/${room_id}/submit_records`;
     if (domain_name !== '') {
-      return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name});
+      return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
+        private_submission: private_submission});
     } else {
-      return this.http.post(url, {username: username, password: password, mode: mode});
+      return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
     }
   }
 

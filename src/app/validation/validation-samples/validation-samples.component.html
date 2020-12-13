@@ -200,7 +200,7 @@
     <div class="col-md-6" [hidden]="disableAuthForm">
       <h3>Submit data to BioSamples</h3>
       <form (ngSubmit)="onSubmit()" #biosamplesForm="ngForm">
-        <div class="form-group">
+        <div class="form-group" *ngIf="!_userService.token">
           <label for="aapUsername">AAP username</label>
           <input class="form-control" id="aapUsername"
                  placeholder="Enter your AAP username" required [(ngModel)]="model.username" name="username"
@@ -215,7 +215,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="!_userService.token">
           <label for="aapPassword">Password</label>
           <input type="password" class="form-control" id="aapPassword" placeholder="Password"
                  required [(ngModel)]="model.password" name="password" #password="ngModel">

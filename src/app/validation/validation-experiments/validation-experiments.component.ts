@@ -56,6 +56,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   disableAuthForm = false;
   submissionResults = [];
   submission_task_id: string;
+  private_submission = true;
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
@@ -398,7 +399,6 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   }
 
   isSubmissionDisabled(status) {
-    console.log(status);
     return status === 'Fix issues';
   }
 
@@ -429,7 +429,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.disableAuthForm = true;
     this.apiDataService.submitRecords(this.model.username, this.model.password, this.model.mode, '', this.fileid,
-      this.conversion_task_id, 'experiments').subscribe( response => {
+      this.conversion_task_id, 'experiments', this.private_submission).subscribe( response => {
       this.submission_task_id = response['id'];
     }, error => {
       console.log(error);

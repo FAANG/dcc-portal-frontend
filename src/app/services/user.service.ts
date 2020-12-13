@@ -32,7 +32,7 @@ export class UserService {
 
   // Uses http.post() to get an auth token from djangorestframework-jwt endpoint
   public login(user) {
-    this.http.post('http://localhost:8000/api-token-auth/', JSON.stringify(user), this.httpOptions).subscribe(
+    this.http.post('https://api.faang.org/api-token-auth/', JSON.stringify(user), this.httpOptions).subscribe(
       data => {
         console.log('login success', data);
         this.loginSuccess.next(true);
@@ -49,7 +49,7 @@ export class UserService {
    * Refreshes the JWT token, to extend the time the user is logged in
    */
   public refreshToken() {
-    this.http.post('http://localhost:8000/api-token-refresh/', JSON.stringify({token: this.token}), this.httpOptions).subscribe(
+    this.http.post('https://api.faang.org/api-token-refresh/', JSON.stringify({token: this.token}), this.httpOptions).subscribe(
       data => {
         console.log('refresh success', data);
         this.updateData(data['token']);

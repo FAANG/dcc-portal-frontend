@@ -69,6 +69,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   optionsTabular;
   downloadData = false;
   bovreg_submission = false;
+  private_submission = false;
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
@@ -90,6 +91,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.conversion_status = 'Undefined';
     this.metadata_template_with_examples = sample_metadata_template_with_examples;
     this.metadata_template_without_examples = sample_metadata_template_without_examples;
+    if (this._userService.token) {
+      this.private_submission = true;
+      this.submission_message = 'Choose submission server';
+    }
   }
 
   setValidationResults() {
@@ -400,7 +405,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.disableAuthForm = true;
-    this.apiDataService.chooseDomain(this.model.username, this.model.password, this.model.mode, this.fileid).subscribe(response => {
+    this.apiDataService.chooseDomain(this.model.username, this.model.password, this.model.mode, this.fileid,
+      this.private_submission).subscribe(response => {
       console.log(response);
     },
       error => {
@@ -411,7 +417,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   onDomainSubmit() {
     this.disableDomainForm = true;
     this.apiDataService.submitDomain(this.model.username,
-      this.model.password, this.model.mode, this.domain.name, this.domain.description, this.fileid).subscribe(response => {
+      this.model.password, this.model.mode, this.domain.name, this.domain.description, this.fileid,
+      this.private_submission).subscribe(response => {
         console.log(response);
     },
       error => {
@@ -428,7 +435,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.disableSubmitButton = true;
     this.apiDataService.submitRecords(this.model.username,
       this.model.password,  this.model.mode, this.domain.name, this.fileid, this.conversion_task_id,
-      'samples').subscribe( response => {
+      'samples', this.private_submission).subscribe( response => {
         this.submission_task_id = response['id'];
     }, error => {
         console.log(error);

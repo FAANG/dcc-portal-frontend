@@ -10,12 +10,12 @@ export const external_doi_prefix = 'https://doi.org/';
 export const ruleset_prefix_old = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
 export const ruleset_prefix_new = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/switch_to_json-schema/json_schema/';
 
-export const validation_service_url = 'https://data.faang.org/validation_api';
-export const validation_service_url_download = 'http://data.faang.org/validation_api';
-export const validation_ws_url = 'wss://data.faang.org/validation_ws/ws/submission/';
+// export const validation_service_url = 'https://data.faang.org/validation_api';
+export const validation_service_url_download = 'https://api.faang.org';
+// export const validation_ws_url = 'wss://data.faang.org/validation_ws/ws/submission/';
 
-// export const validation_service_url = 'http://localhost:8000';
-// export const validation_ws_url = 'ws://localhost:8000/ws/submission/';
+export const validation_service_url = 'https://api.faang.org';
+export const validation_ws_url = 'wss://api.faang.org/ws/submission/';
 
 export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';
