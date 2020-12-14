@@ -63,46 +63,4 @@ describe('ArticleComponent', () => {
     component.resetFilter();
     expect(component.filter_field).toEqual({});
   });
-
-  it('selectColumn should assign right value for sort_field', () => {
-    component.selectedColumn = 'Title';
-    component.selectColumn();
-    expect(component.sort_field['id']).toEqual('title');
-
-    component.selectedColumn = 'Year';
-    component.selectColumn();
-    expect(component.sort_field['id']).toEqual('year');
-
-    component.selectedColumn = 'Journal';
-    component.selectColumn();
-    expect(component.sort_field['id']).toEqual('journal');
-
-    component.selectedColumn = 'Dataset source';
-    component.selectColumn();
-    expect(component.sort_field['id']).toEqual('datasetSource');
-  });
-
-  it('chooseClass should assign right values for spanClass and sort_field', () => {
-    component.selectedColumn = 'Dataset accession';
-    component.chooseClass('expand_more');
-    expect(component.spanClass).toEqual('expand_less');
-    expect(component.sort_field['direction']).toEqual('asc');
-
-    component.chooseClass('expand_less');
-    expect(component.spanClass).toEqual('expand_more');
-    expect(component.sort_field['direction']).toEqual('desc');
-
-    component.selectedColumn = 'Title';
-    component.chooseClass('unfold_more');
-    expect(component.spanClass).toEqual('expand_more');
-    expect(component.sort_field['direction']).toEqual('desc');
-
-    component.chooseClass('expand_more');
-    expect(component.spanClass).toEqual('expand_less');
-    expect(component.sort_field['direction']).toEqual('asc');
-
-    component.chooseClass('expand_less');
-    expect(component.spanClass).toEqual('expand_more');
-    expect(component.sort_field['direction']).toEqual('desc');
-  });
 });

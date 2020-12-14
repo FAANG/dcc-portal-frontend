@@ -52,7 +52,7 @@ describe('RelatedItemsComponent', () => {
   });
 
   it ('check initial displayed columns', () => {
-    expect(component.get_displayed_fields()).toEqual(['File name', 'Experiment', 'File size']);
+    expect(component.get_displayed_fields()['column_names']).toEqual(['File name', 'Experiment', 'File size']);
   });
 
   it ('Get the field name in ES which contains the required attribute value', () => {

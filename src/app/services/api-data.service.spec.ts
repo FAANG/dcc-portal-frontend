@@ -33,7 +33,7 @@ describe('ApiDataService', () => {
         'paperPublished'],
     };
     service.getAllFiles(query, 10).subscribe(data => {
-      expect(data.length).toEqual(10);
+      expect(data['data'].length).toEqual(10);
     });
   }));
 
@@ -107,7 +107,7 @@ describe('ApiDataService', () => {
         'paperPublished'],
     };
     service.getAllSpecimens(query, 10).subscribe(data => {
-      expect(data.length).toEqual(10);
+      expect(data['data'].length).toEqual(10);
     });
   }));
 
@@ -178,7 +178,7 @@ describe('ApiDataService', () => {
         'protocolDate',
         'protocolType'],
     };
-    service.getAllSamplesProtocols(query).subscribe(data => {
+    service.getAllSamplesProtocols().subscribe(data => {
       expect(data.length).toEqual(23);
     });
   }));
