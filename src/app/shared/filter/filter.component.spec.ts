@@ -1,5 +1,5 @@
 import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FilterComponent } from './filter.component';
 import {AggregationService} from '../../services/aggregation.service';
 
@@ -10,7 +10,8 @@ describe('FilterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FilterComponent ],
-      providers: [AggregationService]
+      providers: [AggregationService],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

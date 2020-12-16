@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ProtocolSampleDetailsComponent } from './protocol-sample-details.component';
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
@@ -22,7 +22,8 @@ describe('ProtocolSampleDetailsComponent', () => {
         NgxPaginationModule,
         RouterTestingModule,
         HttpClientTestingModule
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

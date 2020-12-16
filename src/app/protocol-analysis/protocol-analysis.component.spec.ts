@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ProtocolAnalysisComponent } from './protocol-analysis.component';
 
 describe('ProtocolAnalysisComponent', () => {
@@ -8,7 +8,8 @@ describe('ProtocolAnalysisComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProtocolAnalysisComponent ]
+      declarations: [ ProtocolAnalysisComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

@@ -130,6 +130,7 @@ export class FileComponent implements OnInit, OnDestroy {
       this.aggregationService.active_filters[key] = [];
     }
     this.aggregationService.current_active_filters = [];
+    this.filter_field = {};
     this.filter_field = Object.assign({}, this.filter_field);
   }
 

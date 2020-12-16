@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UsdaBovineComponent } from './usda-bovine.component';
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RelatedItemsComponent} from '../../shared/related-items/related-items.component';
@@ -24,7 +24,8 @@ describe('UsdaBovineComponent', () => {
         RouterTestingModule,
         NgxPaginationModule,
         HttpClientTestingModule
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

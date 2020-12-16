@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SpecimenComponent } from './specimen.component';
 import {HeaderComponent} from '../shared/header/header.component';
 import {FilterComponent} from '../shared/filter/filter.component';
@@ -30,7 +30,8 @@ describe('SpecimenComponent', () => {
         NgxPaginationModule,
         RouterTestingModule,
         HttpClientTestingModule
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RelatedItemsComponent } from './related-items.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
@@ -21,7 +21,8 @@ describe('RelatedItemsComponent', () => {
         NgxPaginationModule,
         RouterTestingModule,
         HttpClientTestingModule
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

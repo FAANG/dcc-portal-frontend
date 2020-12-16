@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FileComponent } from './file.component';
 import {HeaderComponent} from '../shared/header/header.component';
 import {ActiveFilterComponent} from '../shared/active-filter/active-filter.component';
@@ -10,6 +10,10 @@ import {FilterPipe} from '../pipes/filter.pipe';
 import {SortPipe} from '../pipes/sort.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 describe('FileTableComponent', () => {
   let component: FileComponent;
@@ -24,13 +28,19 @@ describe('FileTableComponent', () => {
         FilterComponent,
         ExportComponent,
         FilterPipe,
-        SortPipe
+        SortPipe,
+        TableServerSideComponent,
+        MatPaginator,
+        MatSort,
       ],
       imports: [
         NgxPaginationModule,
         RouterTestingModule,
-        HttpClientTestingModule
-      ]
+        HttpClientTestingModule,
+        MatTableModule,
+        MatTooltipModule,
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

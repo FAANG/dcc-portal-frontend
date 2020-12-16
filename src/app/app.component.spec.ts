@@ -5,6 +5,7 @@ import {CookieLawModule} from 'angular2-cookie-law';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FooterComponent} from './shared/footer/footer.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,7 +18,8 @@ describe('AppComponent', () => {
         CookieLawModule,
         NgxSpinnerModule,
         BrowserAnimationsModule
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
   it('should create the app', async(() => {

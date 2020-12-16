@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TableClientSideComponent } from './table-client-side.component';
 
 describe('TableClientSideComponent', () => {
@@ -8,7 +8,8 @@ describe('TableClientSideComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableClientSideComponent ]
+      declarations: [ TableClientSideComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

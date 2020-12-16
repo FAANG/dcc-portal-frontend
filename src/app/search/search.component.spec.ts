@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SearchComponent } from './search.component';
 import {HeaderComponent} from '../shared/header/header.component';
 import {SearchTemplateComponent} from './search-template/search-template.component';
@@ -20,7 +20,8 @@ describe('SearchComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientTestingModule
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

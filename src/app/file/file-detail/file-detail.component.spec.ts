@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FileDetailComponent } from './file-detail.component';
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
-import {NgxSmartModalModule, NgxSmartModalService} from 'ngx-smart-modal';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RelatedItemsComponent} from '../../shared/related-items/related-items.component';
@@ -22,14 +21,11 @@ describe('FileDetailComponent', () => {
         RelatedItemsComponent,
       ],
       imports: [
-        NgxSmartModalModule,
         RouterTestingModule,
         HttpClientTestingModule,
         NgxPaginationModule,
       ],
-      providers: [
-        NgxSmartModalService
-      ]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

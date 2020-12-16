@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ApiComponent } from './api.component';
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -16,7 +16,8 @@ describe('ApiComponent', () => {
       ],
       imports: [
         RouterTestingModule
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

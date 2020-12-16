@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SpecimensSummaryComponent } from './specimens-summary.component';
 import {HeaderComponent} from '../shared/header/header.component';
 import {ChartsModule} from 'ng2-charts';
@@ -20,7 +20,8 @@ describe('SpecimensSummaryComponent', () => {
         ChartsModule,
         RouterTestingModule,
         HttpClientTestingModule
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
