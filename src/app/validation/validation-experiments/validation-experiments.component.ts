@@ -57,6 +57,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   disableAuthForm = false;
   submissionResults = [];
   submission_task_id: string;
+  bovreg_submission = false;
   private_submission = false;
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
@@ -197,6 +198,9 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       if (data['table_data']) {
         this.validation_results = data['table_data'];
         this.setValidationResults();
+      }
+      if (data['bovreg_submission']) {
+        this.bovreg_submission = true;
       }
     };
     this.socket.onclose = () => {

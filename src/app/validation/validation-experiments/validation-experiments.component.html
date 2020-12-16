@@ -89,6 +89,24 @@
 
   <hr>
 
+  <div class="row first-row" *ngIf="bovreg_submission && !_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You’re about to submit BovReg data as public data. If you wish to submit this data privately please
+        <a [routerLink]="['/login']" class="link">log in</a> to the private BovReg data portal before continuing with your submission.
+      </div>
+    </div>
+  </div>
+
+  <div class="row first-row" *ngIf="bovreg_submission && _userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You’re about to submit BovReg data as private data. If you wish to submit this publicly to FAANG then please
+        logout of the Private BovReg data portal first.
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-6" *ngIf="validation_results">
       <h3>3. Validation results:</h3>
