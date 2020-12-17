@@ -93,28 +93,6 @@ describe('Pipe: FilterPipe', () => {
     pipe.transform(value, {}, 'organism');
   }));
 
-  it('should not filter other types', inject([AggregationService, ExportService],
-    (aggregation_service: AggregationService, export_service: ExportService) => {
-    const value = [
-      {
-        key: 1,
-        name: 'experimentalProtocol',
-        customField: 'test1'
-      },
-      {
-        key: 2,
-        name: 'experimentalProtocol',
-        customField: 'test2'
-      },
-    ];
-    pipe = new FilterPipe(aggregation_service, export_service);
-    export_service.data.subscribe(data => {
-      expect(data[0]['customField']).toEqual('test1');
-      expect(data[1]['customField']).toEqual('test2');
-    });
-    pipe.transform(value, {}, 'file');
-  }));
-
   it('should filter dataset by species field', inject([AggregationService, ExportService],
     (aggregation_service: AggregationService, export_service: ExportService) => {
     const value = [

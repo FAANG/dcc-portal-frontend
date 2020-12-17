@@ -4,8 +4,9 @@ import { ValidationExperimentsComponent } from './validation-experiments.compone
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FileUploadModule} from 'ng2-file-upload';
-import {NgxSmartModalModule, NgxSmartModalService} from 'ngx-smart-modal';
+import {NgxSmartModalModule, NgxSmartModalService, ɵa as NgxSmartModalStackService} from 'ngx-smart-modal';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
 
 describe('ValidationExperimentsComponent', () => {
   let component: ValidationExperimentsComponent;
@@ -21,10 +22,12 @@ describe('ValidationExperimentsComponent', () => {
         RouterTestingModule,
         FileUploadModule,
         NgxSmartModalModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        FormsModule
       ],
       providers: [
-        NgxSmartModalService
+        NgxSmartModalService,
+        NgxSmartModalStackService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })

@@ -2,11 +2,11 @@
 import {
   replaceUnderscoreWithSpace,
   convertArrayToStr,
-  allowMultiple,
-  getValidItems,
+  allowMultipleOld,
+  getValidItemsOld,
   getOntologyTermFromIRI,
-  generateEbiOntologyLink,
-  getMandatoryRulesOnly,
+  generateEbiOntologyLinkOld,
+  getMandatoryRulesOnlyOld,
   convertToSnakeCase,
   getProtocolLink,
   expandObject
@@ -54,17 +54,17 @@ describe('common functions', () => {
 
   it('allowMultiple should return No when allow_multiple attribute is not present', () => {
     const rule = {'text': 'abc', 'ontology': 'efg'};
-    expect(allowMultiple(rule)).toEqual('No');
+    expect(allowMultipleOld(rule)).toEqual('No');
   });
 
   it('allowMultiple should return No when allow_multiple equal to 0', () => {
     const rule = {'allow_multiple': 0, 'text': 'efg'};
-    expect(allowMultiple(rule)).toEqual('No');
+    expect(allowMultipleOld(rule)).toEqual('No');
   });
 
   it('allowMultiple should return Yes when allow_multiple equal to 1', () => {
     const rule = {'allow_multiple': 1, 'text': 'efg'};
-    expect(allowMultiple(rule)).toEqual('Yes');
+    expect(allowMultipleOld(rule)).toEqual('Yes');
   });
 
   it('expandObject should assign right values to experiment', () => {
@@ -95,13 +95,13 @@ describe('common functions', () => {
 
   it('getValidItems should return empty string when the required element is not present', () => {
     const rule = {'value': 15, 'description': 'hahahaha'};
-    expect(getValidItems(rule, 'valid')).toEqual('');
+    expect(getValidItemsOld(rule, 'valid')).toEqual('');
   });
 
   it('getValidItems should return comma separated string with element wrapped with double quote ' +
     'when the required element is present', () => {
     const rule = {'value': 15, 'description': 'hahahaha', 'allowed': ['YYYY', 'YYYY-MM']};
-    expect(getValidItems(rule, 'allowed')).toEqual('"YYYY", "YYYY-MM"');
+    expect(getValidItemsOld(rule, 'allowed')).toEqual('"YYYY", "YYYY-MM"');
   });
 
   it('getOntologyTermFromIRI should return short term which is expected to at the end of iri string', () => {
@@ -195,7 +195,7 @@ describe('common functions', () => {
         }
       ]
     };
-    const mandatory_rules = getMandatoryRulesOnly(rules);
+    const mandatory_rules = getMandatoryRulesOnlyOld(rules);
     expect(rules['rule_groups'].length).toEqual(2);
     expect(mandatory_rules['rule_groups'].length).toEqual(2);
     expect(rules['rule_groups'][0]['rules'].length).toEqual(3);
@@ -204,18 +204,18 @@ describe('common functions', () => {
     expect(mandatory_rules['rule_groups'][1]['rules'].length).toEqual(0);
   });
 
-  it('generateEbiOntologyLink test 1', () => {
-    expect(generateEbiOntologyLink('uberon', 'http://purl.obolibrary.org/obo/UBERON_0001037')).
+  it('generateEbiOntologyLinkOld test 1', () => {
+    expect(generateEbiOntologyLinkOld('uberon', 'http://purl.obolibrary.org/obo/UBERON_0001037')).
     toEqual('https://www.ebi.ac.uk/ols/ontologies/uberon/terms?iri=http://purl.obolibrary.org/obo/UBERON_0001037');
   });
 
-  it('generateEbiOntologyLink test 2 with efo slightly different iri pattern', () => {
-    expect(generateEbiOntologyLink('efo', 'http://www.ebi.ac.uk/efo/EFO_0003924')).
+  it('generateEbiOntologyLinkOld test 2 with efo slightly different iri pattern', () => {
+    expect(generateEbiOntologyLinkOld('efo', 'http://www.ebi.ac.uk/efo/EFO_0003924')).
     toEqual('https://www.ebi.ac.uk/ols/ontologies/efo/terms?iri=http://www.ebi.ac.uk/efo/EFO_0003924');
   });
 
-  it('generateEbiOntologyLink test 3', () => {
-    expect(generateEbiOntologyLink('ncbitaxon', 'http://purl.obolibrary.org/obo/NCBITaxon_9823')).
+  it('generateEbiOntologyLinkOld test 3', () => {
+    expect(generateEbiOntologyLinkOld('ncbitaxon', 'http://purl.obolibrary.org/obo/NCBITaxon_9823')).
     toEqual('https://www.ebi.ac.uk/ols/ontologies/ncbitaxon/terms?iri=http://purl.obolibrary.org/obo/NCBITaxon_9823');
   });
 

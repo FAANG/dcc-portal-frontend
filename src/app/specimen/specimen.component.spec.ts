@@ -10,6 +10,10 @@ import {FilterPipe} from '../pipes/filter.pipe';
 import {SortPipe} from '../pipes/sort.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { TableServerSideComponent } from '../shared/table-server-side/table-server-side.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatSort } from '@angular/material';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 describe('SpecimenComponent', () => {
   let component: SpecimenComponent;
@@ -24,12 +28,17 @@ describe('SpecimenComponent', () => {
         ExportComponent,
         ActiveFilterComponent,
         FilterPipe,
-        SortPipe
+        SortPipe,
+        TableServerSideComponent,
+        MatPaginator,
+        MatSort,
       ],
       imports: [
         NgxPaginationModule,
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        MatTableModule,
+        MatTooltipModule,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })

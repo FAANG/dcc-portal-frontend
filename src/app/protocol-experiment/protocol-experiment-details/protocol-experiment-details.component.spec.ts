@@ -4,7 +4,7 @@ import { ProtocolExperimentDetailsComponent } from './protocol-experiment-detail
 import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {NgxSmartModalModule, NgxSmartModalService} from 'ngx-smart-modal';
+import {NgxSmartModalModule, NgxSmartModalService, ɵa as NgxSmartModalStackService} from 'ngx-smart-modal';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
@@ -26,7 +26,8 @@ describe('ProtocolExperimentDetailsComponent', () => {
         HttpClientTestingModule
       ],
       providers: [
-        NgxSmartModalService
+        NgxSmartModalService,
+        NgxSmartModalStackService,
       ]
     })
     .compileComponents();

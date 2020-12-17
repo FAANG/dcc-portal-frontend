@@ -169,20 +169,6 @@ describe('ApiDataService', () => {
     });
   }));
 
-  it('should return 23 sample protocols', inject([ApiDataService], (service: ApiDataService) => {
-    const query = {
-      '_source': [
-        'key',
-        'protocolName',
-        'universityName',
-        'protocolDate',
-        'protocolType'],
-    };
-    service.getAllSamplesProtocols().subscribe(data => {
-      expect(data.length).toEqual(23);
-    });
-  }));
-
   it('should return detailed information about particular sample protocol', inject([ApiDataService],
     (service: ApiDataService) => {
     service.getSampleProtocol('ROSLIN_SOP_Harvest_of_Large_Animal_Tissues_20160516.pdf').subscribe(data => {

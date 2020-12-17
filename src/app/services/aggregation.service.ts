@@ -78,6 +78,7 @@ export class AggregationService {
           }
           if (all_data['paper_published_missing']) {
             paper_values['No'] += all_data['paper_published_missing'];
+            delete all_data['paper_published_missing'];
           }
           for (const val in paper_values) {
             if (paper_values[val] == 0) {
@@ -176,6 +177,7 @@ export class AggregationService {
           }
           if (all_data['paper_published_missing']) {
             paper_values['No'] += all_data['paper_published_missing'];
+            delete all_data['paper_published_missing'];
           }
           for (const val in paper_values) {
             if (paper_values[val] == 0) {

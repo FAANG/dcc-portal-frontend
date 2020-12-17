@@ -6,6 +6,10 @@ import { RobustLinkComponent } from '../../shared/robust-link/robust-link.compon
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import setting from './related-items.component.setting.json';
+import {TableClientSideComponent}  from '../table-client-side/table-client-side.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatSort } from '@angular/material';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 describe('RelatedItemsComponent', () => {
   let component: RelatedItemsComponent;
@@ -15,12 +19,17 @@ describe('RelatedItemsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         RelatedItemsComponent,
-        RobustLinkComponent
+        RobustLinkComponent,
+        TableClientSideComponent,
+        MatPaginator,
+        MatSort,
       ],
       imports: [
         NgxPaginationModule,
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        MatTableModule,
+        MatTooltipModule,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
@@ -30,8 +39,10 @@ describe('RelatedItemsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RelatedItemsComponent);
     component = fixture.componentInstance;
+    component.record_id = 'dataset.accession';
     component.source_type = 'dataset';
     component.target_type = 'file';
+    component.download_key = 'url';
     fixture.detectChanges();
   });
 
@@ -49,7 +60,7 @@ describe('RelatedItemsComponent', () => {
   });
 
   it ('check all columns', () => {
-    expect(component.get_all_fields()).toEqual(['File name', 'Experiment', 'Archive', 'File size', 'Checksum', 'Checksum method']);
+    expect(component.get_all_fields()['column_names']).toEqual(['File name', 'Experiment', 'Archive', 'File size', 'Checksum', 'Checksum method']);
   });
 
   it ('check initial displayed columns', () => {
