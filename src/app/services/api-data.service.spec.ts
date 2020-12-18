@@ -88,7 +88,7 @@ describe('ApiDataService', () => {
   it('should return information about specimens of organism', inject([ApiDataService],
     (service: ApiDataService) => {
     service.getOrganismsSpecimens('SAMEA104728877').subscribe(data => {
-      expect(data['hits']['hits'][0]['_source']['name']).toEqual('ECA_UCD_S116');
+      expect(data.length).toBeGreaterThanOrEqual(1);
     });
   }));
 
@@ -121,7 +121,7 @@ describe('ApiDataService', () => {
   it('should return files information about particular specimen', inject([ApiDataService],
     (service: ApiDataService) => {
     service.getSpecimenFiles('SAMEA104728903').subscribe(data => {
-      expect(data['hits']['hits'].length).toEqual(4);
+      expect(data.length).toEqual(4);
     });
   }));
 

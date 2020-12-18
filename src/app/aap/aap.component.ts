@@ -1,16 +1,13 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AuthService, TokenService, User} from 'ng-ebi-authorization';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-aap',
   templateUrl: './aap.component.html',
   styleUrls: ['./aap.component.css']
-})
-
-@Injectable({
-  providedIn: 'root'
 })
 export class AapComponent implements OnInit {
   user: Observable < User | null >;
