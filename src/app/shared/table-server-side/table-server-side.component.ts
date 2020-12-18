@@ -1,4 +1,4 @@
-import { Component, Input, Output, AfterViewInit, ViewChild, EventEmitter} from '@angular/core';
+import { Component, Input, Output, AfterViewInit, ViewChild, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable, merge, of as observableOf } from 'rxjs';
 import { map, startWith, switchMap, catchError } from 'rxjs/operators';
@@ -29,7 +29,9 @@ export class TableServerSideComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   totalHits = 0;
 
-  constructor(private spinner: NgxSpinnerService,) { }
+  constructor(
+    private spinner: NgxSpinnerService, 
+    private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit() {
     // Reset back to the first page when sort order is changed
@@ -62,6 +64,7 @@ export class TableServerSideComponent implements AfterViewInit {
           this.totalHits = res.totalHits; // set length of paginator
           this.spinner.hide();
         });
+      this.cdr.detectChanges();
   }
 
     // apply filter when component input "filter_values" is changed
