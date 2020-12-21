@@ -32,6 +32,8 @@ export class ApiDataService {
       'standard': 'experiment.standardMet',
       'paper_published': 'paperPublished'
     }
+    query['filters'] = query['filters'] ? query['filters'] : {};
+    query['from_'] = query['from_'] ? query['from_'] : 0;
     let filters = query['filters'];
     for (const prop in filters) {
       if (aggs[prop] && (prop !== aggs[prop])) {
@@ -239,6 +241,8 @@ export class ApiDataService {
       'breed': 'organism.breed.text',
       'paper_published': 'paperPublished'
     }
+    query['filters'] = query['filters'] ? query['filters'] : {};
+    query['from_'] = query['from_'] ? query['from_'] : 0;
     let filters = query['filters'];
     for (const prop in filters) {
       if (aggs[prop] && (prop !== aggs[prop])) {

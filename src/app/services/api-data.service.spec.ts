@@ -21,7 +21,7 @@ describe('ApiDataService', () => {
 
   it('should return first 10 files', inject([ApiDataService], (service: ApiDataService) => {
   const query = {
-      'sort': 'name:desc',
+      'sort': ['name','desc'],
       '_source': [
         'study.accession',
         'experiment.accession',
@@ -94,7 +94,7 @@ describe('ApiDataService', () => {
 
   it('should return first 10 specimens', inject([ApiDataService], (service: ApiDataService) => {
     const query = {
-      'sort': 'id_number:desc',
+      'sort': ['id_number','desc'],
       '_source': [
         'biosampleId',
         'material.text',
