@@ -126,4 +126,8 @@ describe('RelatedItemsComponent', () => {
     component.toggleSelectedColumn(field);
     expect(component.isDisplayed(field)).toEqual(false);
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

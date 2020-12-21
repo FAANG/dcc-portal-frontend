@@ -43,4 +43,8 @@ describe('OrganismDetailComponent', () => {
   it('dealWithAvailability', () => {
     expect(component.dealWithAvailability('mailto:test@test.com')).toEqual('test@test.com');
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

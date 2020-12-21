@@ -1,4 +1,5 @@
 import {SortPipe} from './sort.pipe';
+import {TestBed} from '@angular/core/testing';
 
 describe('Pipe: SortPipe', () => {
   let pipe: SortPipe;
@@ -61,5 +62,9 @@ describe('Pipe: SortPipe', () => {
       }
     ];
     expect(pipe.transform(value, params)).toEqual(to_return);
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 });

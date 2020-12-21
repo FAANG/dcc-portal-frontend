@@ -47,4 +47,8 @@ describe('SearchComponent', () => {
     component.addValue('test');
     expect(component.searchText).toEqual('test');
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

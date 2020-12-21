@@ -32,4 +32,8 @@ describe('ActiveFilterComponent', () => {
     });
     component.clearFilter('FAANG');
   }));
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

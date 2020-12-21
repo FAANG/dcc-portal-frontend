@@ -37,4 +37,8 @@ describe('HeaderComponent', () => {
     component.toggleCollapse();
     expect(component.collapsed).toEqual(true);
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

@@ -310,4 +310,8 @@ describe('Pipe: FilterPipe', () => {
     });
     pipe.transform(value, filter_field, 'organism');
   }));
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

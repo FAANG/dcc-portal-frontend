@@ -89,4 +89,8 @@ describe('SpecimenComponent', () => {
   it('isGreen should return default if article was not published for this record', () => {
     expect(component.isGreen('false')).toEqual('default');
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

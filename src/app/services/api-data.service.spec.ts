@@ -222,4 +222,8 @@ describe('ApiDataService', () => {
       expect(data['hits']['hits'][0]['_id']).toEqual('summary_file');
     });
   }));
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

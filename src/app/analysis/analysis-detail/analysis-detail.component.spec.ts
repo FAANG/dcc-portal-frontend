@@ -56,4 +56,8 @@ describe('AnalysisDetailComponent', () => {
     expect(component.analysis).toBeUndefined();
     // expect(component.analysis['accession']).toEqual(component.accession);
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

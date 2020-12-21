@@ -54,4 +54,8 @@ describe('ProtocolExperimentDetailsComponent', () => {
   it('checkIsObject should return false if input is not object', () => {
     expect(component.checkIsObject('')).toEqual(false);
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

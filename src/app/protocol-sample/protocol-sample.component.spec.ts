@@ -70,4 +70,8 @@ describe('ProtocolSampleComponent', () => {
     component.onDownloadData();
     expect(component.downloadData).toEqual(false);
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

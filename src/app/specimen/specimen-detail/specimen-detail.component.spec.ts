@@ -44,4 +44,8 @@ describe('SpecimenDetailComponent', () => {
     expect(component.dealWithAvailability('mailto:test@test.com')).toEqual('test@test.com');
     expect(component.dealWithAvailability('test@test.com')).toEqual('test@test.com');
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

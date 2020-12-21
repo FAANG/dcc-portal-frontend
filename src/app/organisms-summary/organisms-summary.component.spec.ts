@@ -90,4 +90,8 @@ describe('OrganismsSummaryComponent', () => {
     expect(component.breedChartLabels).toEqual(['Brahman']);
     expect(component.standardChartData).toEqual([1]);
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

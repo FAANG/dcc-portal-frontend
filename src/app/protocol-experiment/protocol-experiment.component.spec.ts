@@ -74,4 +74,8 @@ describe('ProtocolExperimentComponent', () => {
   it('getHumanName should return human readable name for protocol', () => {
     expect(component.getHumanName('rnaPreparation3AdapterLigationProtocol')).toEqual('Rna preparation 3\' adapter ligation protocol');
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

@@ -32,4 +32,8 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('faang-portal-frontend-angular6-second');
   }));
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

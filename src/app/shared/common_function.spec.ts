@@ -11,6 +11,7 @@ import {
   getProtocolLink,
   expandObject
 } from './common_functions';
+import { TestBed } from '@angular/core/testing';
 import {EXCLUDED_FIELD_NAMES, FIELD_NAMES} from './fieldnames';
 
 describe('common functions', () => {
@@ -237,5 +238,9 @@ describe('common functions', () => {
   it('getProtocolLink should return https when using ftp in url', () => {
     expect(getProtocolLink('ftp://test.com'))
       .toEqual('http://test.com');
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 });

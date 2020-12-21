@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 
 import { SearchService } from './search.service';
 import { defer } from 'rxjs';
@@ -294,5 +295,9 @@ describe('SearchService', () => {
       files => fail('expected an error, not organisms'),
       error => expect(error).toEqual('Something bad happened; please try again later.')
     );
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 });

@@ -92,4 +92,8 @@ describe('SearchTemplateComponent', () => {
     };
     expect(component.getCellType(hit)).toEqual('test');
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

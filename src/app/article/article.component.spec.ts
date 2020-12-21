@@ -64,4 +64,8 @@ describe('ArticleComponent', () => {
     component.resetFilter();
     expect(component.filter_field).toEqual({});
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

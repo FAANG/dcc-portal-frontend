@@ -12,4 +12,8 @@ describe('ExportService', () => {
   it('should be created', inject([ExportService], (service: ExportService) => {
     expect(service).toBeTruthy();
   }));
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

@@ -372,4 +372,8 @@ describe('AggregationService', () => {
     });
     service.getAggregations(test_list, 'protocol_experiments');
   }));
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

@@ -401,4 +401,8 @@ describe('FilterComponent', () => {
     });
     component.onButtonClick('test', 'Dataset source');
   }));
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });

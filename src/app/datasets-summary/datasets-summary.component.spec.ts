@@ -76,4 +76,8 @@ describe('DatasetsSummaryComponent', () => {
     expect(component.assayTypeChartLabels).toEqual(['whole genome sequencing assay']);
     expect(component.assayTypeChartData).toEqual([1]);
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
 });
