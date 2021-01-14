@@ -117,12 +117,12 @@ export class TableClientSideComponent implements OnInit {
           } 
           // handling analysis type and experimentTarget values with underscore
           else if (col == 'analysisType' || col == 'experimentTarget') {
-            if (searchTerms[col].indexOf(data[col].split('_').join(' ')) == -1) {
+            if (!data[col] || searchTerms[col].indexOf(data[col].split('_').join(' ')) == -1) {
               return false;
             }
           }
           else {
-            if (searchTerms[col].indexOf(data[col]) == -1) {
+            if (!data[col] || searchTerms[col].indexOf(data[col]) == -1) {
               return false;
             }
           }

@@ -1,8 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { async, inject, ComponentFixture, TestBed } from '@angular/core/testing';
+import {SearchService} from '../../services/search.service';
 import { SearchTemplateComponent } from './search-template.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { ComponentFactoryResolver } from '@angular/core';
 
 describe('SearchTemplateComponent', () => {
   let component: SearchTemplateComponent;
@@ -92,6 +93,11 @@ describe('SearchTemplateComponent', () => {
     };
     expect(component.getCellType(hit)).toEqual('test');
   });
+
+  it ('search service should pass data to component', inject([SearchService], (service: SearchService) => {
+    service.clicked.next(true);
+    expect(component.clicked).toEqual(true);
+  }));
 
   afterEach(() => {
     TestBed.resetTestingModule();

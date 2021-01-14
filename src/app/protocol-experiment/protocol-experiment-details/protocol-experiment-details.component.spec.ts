@@ -7,6 +7,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {NgxSmartModalModule, NgxSmartModalService, ɵa as NgxSmartModalStackService} from 'ngx-smart-modal';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {Router} from '@angular/router';
+import { ApiDataService } from '../../services/api-data.service';
+import {of as observableOf} from 'rxjs';
 
 describe('ProtocolExperimentDetailsComponent', () => {
   let component: ProtocolExperimentDetailsComponent;
@@ -53,6 +56,60 @@ describe('ProtocolExperimentDetailsComponent', () => {
 
   it('checkIsObject should return false if input is not object', () => {
     expect(component.checkIsObject('')).toEqual(false);
+  });
+
+  it('should set protocol experiments data', () => {
+    const service = TestBed.get(ApiDataService);
+    const response = {
+      hits: {
+        hits: [
+          {
+            _source: {
+              id: 'testId1',
+              url: 'testurl1'
+            }
+          }
+        ]
+      }
+    }
+    spyOn(service, 'getExperimentProtocol').and.returnValue(observableOf(response));
+    component.ngOnInit();
+    expect(service.getExperimentProtocol).toHaveBeenCalled();
+    expect(component.protocol).toEqual({id: 'testId1', url: 'testurl1'});
+  });
+
+  it('should navigate to 404 when protocol experiments not found', () => {
+    const service = TestBed.get(ApiDataService);
+    const router = TestBed.get(Router);
+    const response = {
+      hits: {
+        hits: []
+      }
+    }
+    spyOn(service, 'getExperimentProtocol').and.returnValue(observableOf(response));
+    spyOn(router, 'navigate').and.stub();
+    component.ngOnInit();
+    expect(service.getExperimentProtocol).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['404']);
+  });
+
+  it('should get experiment on click', () => {
+    const service = TestBed.get(ApiDataService);
+    const response = {
+      hits: {
+        hits: [
+          {
+            _source: {
+              id: 'testId1',
+              url: 'testurl1'
+            }
+          }
+        ]
+      }
+    }
+    spyOn(service, 'getExperimentByAccession').and.returnValue(observableOf(response));
+    component.onClick('acc1');
+    expect(service.getExperimentByAccession).toHaveBeenCalledWith('acc1');  
   });
 
   afterEach(() => {

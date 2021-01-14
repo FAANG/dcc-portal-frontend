@@ -173,13 +173,6 @@ export class RelatedItemsComponent implements OnInit {
           this.records = data['hits']['hits'];
           this.tableData = observableOf(this.records);
         });
-    } 
-    else if (relationship_type === 'project-paper') {
-      this.records = [{}];
-    } else if (relationship_type === 'project-specimen') {
-      this.records = [{}];
-    } else if (relationship_type === 'project-file') {
-      this.records = [{}];
     }
     this.columnNames = this.get_displayed_fields()['column_names'];
     this.displayFields = this.get_displayed_fields()['fields'];

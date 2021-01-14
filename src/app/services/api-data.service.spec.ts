@@ -37,6 +37,68 @@ describe('ApiDataService', () => {
     });
   }));
 
+  it('should return filtered files', inject([ApiDataService], (service: ApiDataService) => {
+    const query = {
+      'sort': ['name','desc'],
+      '_source': [
+        'study.accession',
+        'experiment.accession',
+        'species.text',
+        'experiment.assayType',
+        'specimen',
+        'run.instrument',
+        'experiment.standardMet',
+        'paperPublished'],
+      'from_': 1,
+      'filters': {
+        'specimen': ['SAMN02361031'],
+        'species': ['Bos taurus']
+      }
+    };
+    service.getAllFiles(query, 5).subscribe(data => {
+      expect(data['data'].length).toBeGreaterThan(0);
+    });
+  }));
+
+  it('should download filtered files', inject([ApiDataService], (service: ApiDataService) => {
+    const query = {
+      'sort': ['name','desc'],
+      '_source': [
+        '_id',
+        '_source.study.accession',
+        '_source.experiment.accession',
+        '_source.species.text',
+        '_source.experiment.assayType',
+        '_source.experiment.target',
+        '_source.specimen',
+        '_source.run.instrument',
+        '_source.experiment.standardMet',
+        '_source.paperPublished'
+      ],
+      'columns': [
+        'File name', 
+        'Study', 
+        'Experiment', 
+        'Species', 
+        'Assay type', 
+        'Target', 
+        'Specimen', 
+        'Instrument', 
+        'Standard', 
+        'Paper published'
+      ],
+      'filters': {
+        'specimen': ['SAMN02361031'],
+        'species': ['Bos taurus'],
+        'paper_published': ['false']
+      },
+      'file_format': 'csv',
+    }
+    service.downloadFiles(query).subscribe((res:Response) => {
+      expect(res instanceof Blob).toEqual(true);
+    });
+  }));
+
   it('should return detailed information about particular file', inject([ApiDataService],
     (service: ApiDataService) => {
     service.getFile('SRR958466_2').subscribe(data => {
@@ -108,6 +170,64 @@ describe('ApiDataService', () => {
     };
     service.getAllSpecimens(query, 10).subscribe(data => {
       expect(data['data'].length).toEqual(10);
+    });
+  }));
+
+  it('should return filtered specimens', inject([ApiDataService], (service: ApiDataService) => {
+    const query = {
+      'sort': ['id_number','desc'],
+      '_source': [
+        'biosampleId',
+        'material.text',
+        'cellType.text',
+        'organism.sex.text',
+        'organism.organism.text',
+        'organism.breed.text',
+        'standardMet',
+        'id_number',
+        'paperPublished'],
+      'from_': 1,
+      'filters': {
+        'standard': ['FAANG'],
+        'organism': ['Equus caballus']
+      }
+    };
+    service.getAllSpecimens(query, 5).subscribe(data => {
+      expect(data['data'].length).toBeGreaterThan(0);
+    });
+  }));
+
+  it('should download filtered specimen', inject([ApiDataService], (service: ApiDataService) => {
+    const query = {
+      'sort': ['id_number', 'desc'],
+      '_source': [
+        '_source.biosampleId',
+        '_source.material.text',
+        '_source.cellType.text',
+        '_source.organism.sex.text',
+        '_source.organism.organism.text',
+        '_source.organism.breed.text',
+        '_source.standardMet',
+        '_source.paperPublished'],
+      'columns': [
+        'BioSample ID', 
+        'Material', 
+        'Organism part/Cell type', 
+        'Sex', 
+        'Organism', 
+        'Breed', 
+        'Standard', 
+        'Paper published'
+      ],
+      'filters': {
+        'specimen': ['SAMN02361031'],
+        'species': ['Bos taurus'],
+        'paper_published': ['false']
+      },
+      'file_format': 'csv',
+    };
+    service.downloadSpecimens(query).subscribe((res:Response) => {
+      expect(res instanceof Blob).toEqual(true);
     });
   }));
 
@@ -220,6 +340,60 @@ describe('ApiDataService', () => {
   it('should return information about files summary', inject([ApiDataService], (service: ApiDataService) => {
     service.getFileSummary('summary_file').subscribe(data => {
       expect(data['hits']['hits'][0]['_id']).toEqual('summary_file');
+    });
+  }));
+
+  it('should return files related to the BovReg project', inject([ApiDataService], (service: ApiDataService) => {
+    service.getAllFilesForProject('BovReg').subscribe(data => {
+      expect(data.length).toBeGreaterThan(0);
+    });
+  }));
+
+  it('should return organisms related to the BovReg project', inject([ApiDataService], (service: ApiDataService) => {
+    service.getAllOrganismsFromProject('BovReg', 'public').subscribe(data => {
+      expect(data.length).toBeGreaterThan(0);
+    });
+  }));
+
+  it('should return specimens related to the BovReg project', inject([ApiDataService], (service: ApiDataService) => {
+    service.getAllSpecimensForProject('BovReg').subscribe(data => {
+      expect(data.length).toBeGreaterThan(0);
+    });
+  }));
+
+  it('should return articles related to the BovReg project', inject([ApiDataService], (service: ApiDataService) => {
+    service.getAllArticlesForProject('BovReg').subscribe(data => {
+      expect(data.length).toBeGreaterThan(0);
+    });
+  }));
+
+  it('should return specimens related to the specified specimen', inject([ApiDataService], (service: ApiDataService) => {
+    service.getSpecimenRelationships('SAMEA104728891').subscribe(data => {
+      expect(data.length).toEqual(0);
+    });
+  }));
+
+  it('should return specimens related to the dataset', inject([ApiDataService], (service: ApiDataService) => {
+    service.getDatasetSpecimen('PRJEB37735').subscribe(data => {
+      expect(data.length).toBeGreaterThan(0);
+    });
+  }));
+
+  it('should return analyses related to the specimen sample', inject([ApiDataService], (service: ApiDataService) => {
+    service.getAnalysesBySample('SAMEA104728891').subscribe(data => {
+      expect(data.length).toBeGreaterThan(0);
+    });
+  }));
+
+  it('should return analyses related to the dataset', inject([ApiDataService], (service: ApiDataService) => {
+    service.getAnalysesByDataset('PRJEB37735').subscribe(data => {
+      expect(data.length).toEqual(0);
+    });
+  }));
+
+  it('should return sample ruleset', inject([ApiDataService], (service: ApiDataService) => {
+    service.getRulesetSample('organism').subscribe(data => {
+      expect(Object.keys(data).length).toBeGreaterThan(0);
     });
   }));
 

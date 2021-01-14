@@ -6,6 +6,31 @@ import {AggregationService} from '../../services/aggregation.service';
 describe('FilterComponent', () => {
   let component: FilterComponent;
   let fixture: ComponentFixture<FilterComponent>;
+  const test_agg = {
+    'standard': ['testStandard', 1],
+    'study': ['testStudy', 1],
+    'dataset': ['testDataset', 1],
+    'species': ['testSpecies', 1],
+    'assay_type': ['testAssayType', 1],
+    'analysis_type': ['testAnanlysisType', 1],
+    'instrument': ['testInstrument', 1],
+    'sex': ['testSex', 1],
+    'organism': ['testOrganism', 1],
+    'breed': ['testBreed', 1],
+    'material': ['testMaterial', 1],
+    'organismpart_celltype': ['testCellType', 1],
+    'archive': ['testArchive', 1],
+    'protocol_name': ['testProtocolName', 1],
+    'university_name': ['testUniversity', 1],
+    'protocol_date': ['testProtocolDate', 1],
+    'protocol_type': ['testProtocolType', 1],
+    'experiment_target': ['testExperiment', 1],
+    'target': ['testTarget', 1],
+    'paper_published': ['testPaper', 1],
+    'journal': ['testJournal', 1],
+    'year': ['testYear', 1],
+    'datasetSource': ['testDataset', 1],
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -385,7 +410,7 @@ describe('FilterComponent', () => {
     component.onButtonClick('test', 'Year');
   }));
 
-  it ('onButtonClick for Dataset source type single click', inject([AggregationService],
+  it ('onButtonClick for Dataset type single click', inject([AggregationService],
     (service: AggregationService) => {
     service.field.subscribe(data => {
       expect(data['datasetSource']).toEqual(['test']);
@@ -400,6 +425,198 @@ describe('FilterComponent', () => {
       expect(data['datasetSource']).toEqual([]);
     });
     component.onButtonClick('test', 'Dataset source');
+  }));
+
+  it ('should get Standard aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Standard';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testStandard', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Study aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Study';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testStudy', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Dataset aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Dataset';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testDataset', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Species aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Species';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testSpecies', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Assay type aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Assay type';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testAssayType', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Analysis type aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Analysis type';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testAnanlysisType', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Instrument aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Instrument';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testInstrument', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Sex aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Sex';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testSex', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Organism aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Organism';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testOrganism', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Breed aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Breed';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testBreed', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Material aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Material';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testMaterial', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Organism part/Cell type aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Organism part/Cell type';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testCellType', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Archive aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Archive';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testArchive', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Protocol Name aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Protocol Name';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testProtocolName', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Organisation aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Organisation';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testUniversity', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Protocol Year aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Protocol Year';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testProtocolDate', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Protocol type aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Protocol type';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testProtocolType', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Protocol aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Protocol';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testProtocolType', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Experiment target aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Experiment target';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testExperiment', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Target aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Target';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testTarget', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Paper published aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Paper published';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testPaper', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Journal aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Journal';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testJournal', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Year aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Year';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testYear', 1]);
+    });
+    service.data.next(test_agg);
+  }));
+
+  it ('should get Dataset source aggregation', inject([AggregationService], (service: AggregationService) => {
+    component.title = 'Dataset source';
+    service.data.subscribe(() => {
+      expect(component.aggregation).toEqual(['testDataset', 1]);
+    });
+    service.data.next(test_agg);
   }));
 
   afterEach(() => {

@@ -32,7 +32,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.tableType = 'Organisms';
     this.relatedItemsCount = {
-      'Organisms': 0, 'Specimens': 0, 'Publlications': 0, 'Files': 0,
+      'Organisms': 0, 'Specimens': 0, 'Publications': 0, 'Files': 0,
     }
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {

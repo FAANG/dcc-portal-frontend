@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ProtocolSampleComponent } from './protocol-sample.component';
 import {HeaderComponent} from '../shared/header/header.component';
@@ -9,6 +9,11 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {FilterPipe} from '../pipes/filter.pipe';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {Router} from '@angular/router';
+import { ApiDataService } from '../services/api-data.service';
+import {ExportService} from '../services/export.service';
+import { AggregationService } from '../services/aggregation.service';
+import {Observable, of as observableOf} from 'rxjs';
 
 describe('ProtocolSampleComponent', () => {
   let component: ProtocolSampleComponent;
@@ -55,6 +60,19 @@ describe('ProtocolSampleComponent', () => {
     expect(component.hasActiveFilters()).toEqual(true);
   });
 
+  it('hasActiveFilters should return false if filter_field is undefined', () => {
+    var filter;
+    component.filter_field = filter;
+    expect(component.hasActiveFilters()).toEqual(false);
+  });
+
+  it('hasActiveFilters should return false if filter_field is not set', () => {
+    component.filter_field = {
+      standard: []
+    };
+    expect(component.hasActiveFilters()).toEqual(false);
+  });
+
   it('resetFilter should reset all filters in filter_field', () => {
     component.filter_field = {
       standard: ['FAANG']
@@ -70,6 +88,34 @@ describe('ProtocolSampleComponent', () => {
     component.onDownloadData();
     expect(component.downloadData).toEqual(false);
   });
+
+  it('removeFilter should reset all filters and remove queryParams', inject([Router], (router: Router) => {
+    spyOn(router, 'navigate').and.stub();
+    component.filter_field = {
+      standard: ['FAANG']
+    };
+    component.removeFilter();
+    expect(component.filter_field).toEqual({});
+    expect(router.navigate).toHaveBeenCalledWith(['protocol', 'samples'], Object({queryParams: Object({ })}));
+  }));
+
+  it('should navigate on onUploadProtocolClick', inject([Router], (router: Router) => {
+    spyOn(router, 'navigate').and.stub();
+    component.onUploadProtocolClick();
+    expect(router.navigate).toHaveBeenCalledWith(['upload_protocol']);
+  }));
+
+  it('get table data when component loads', () => {
+    const service = TestBed.get(ApiDataService);
+    spyOn(service, 'getAllSamplesProtocols').and.callThrough();
+    component.ngOnInit();
+    expect(service.getAllSamplesProtocols).toHaveBeenCalled();
+  });
+
+  it ('should update export data', inject([ExportService], (service: ExportService) => {
+    service.data.next(['true']);
+    expect(component.data).toEqual(['true']);
+  }));
 
   afterEach(() => {
     TestBed.resetTestingModule();

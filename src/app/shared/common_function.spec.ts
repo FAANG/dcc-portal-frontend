@@ -1,18 +1,26 @@
 
 import {
   replaceUnderscoreWithSpace,
+  replaceUnderscoreWithSpaceAndCapitalize,
   convertArrayToStr,
   allowMultipleOld,
+  allowMultiple,
   getValidItemsOld,
+  getValidItems,
   getOntologyTermFromIRI,
   generateEbiOntologyLinkOld,
+  generateEbiOntologyLink,
   getMandatoryRulesOnlyOld,
+  getMandatoryRulesOnly,
   convertToSnakeCase,
   getProtocolLink,
-  expandObject
+  expandObject,
+  getCellClass,
+  getIssues
 } from './common_functions';
 import { TestBed } from '@angular/core/testing';
 import {EXCLUDED_FIELD_NAMES, FIELD_NAMES} from './fieldnames';
+import { exception } from 'console';
 
 describe('common functions', () => {
   it ('replaceUnderscoreWithSpace replace underscore with space', () => {
@@ -25,6 +33,10 @@ describe('common functions', () => {
 
   it ('replaceUnderscoreWithSpace replace multiple underscores with same number of spaces', () => {
     expect(replaceUnderscoreWithSpace('_one__Two___three')).toEqual(' one  Two   three');
+  });
+
+  it ('should replace underscores with spaces and capitalize starting letter of words', () => {
+    expect(replaceUnderscoreWithSpaceAndCapitalize('_one__Two___three')).toEqual(' One  Two   Three');
   });
 
   it ('convertArrayToStr should return empty string on undefined parameter', () => {
@@ -53,17 +65,27 @@ describe('common functions', () => {
     expect(convertArrayToStr(data, 'text')).toEqual('abc');
   });
 
-  it('allowMultiple should return No when allow_multiple attribute is not present', () => {
+  it('allowMultiple should return Yes when items present', () => {
+    const rule = {'items': ['abc']};
+    expect(allowMultiple(rule)).toEqual('Yes');
+  });
+
+  it('allowMultiple should return No when items not present', () => {
+    const rule = {'text': 'abc'};
+    expect(allowMultiple(rule)).toEqual('No');
+  });
+
+  it('allowMultipleOld should return No when allow_multiple attribute is not present', () => {
     const rule = {'text': 'abc', 'ontology': 'efg'};
     expect(allowMultipleOld(rule)).toEqual('No');
   });
 
-  it('allowMultiple should return No when allow_multiple equal to 0', () => {
+  it('allowMultipleOld should return No when allow_multiple equal to 0', () => {
     const rule = {'allow_multiple': 0, 'text': 'efg'};
     expect(allowMultipleOld(rule)).toEqual('No');
   });
 
-  it('allowMultiple should return Yes when allow_multiple equal to 1', () => {
+  it('allowMultipleOld should return Yes when allow_multiple equal to 1', () => {
     const rule = {'allow_multiple': 1, 'text': 'efg'};
     expect(allowMultipleOld(rule)).toEqual('Yes');
   });
@@ -76,7 +98,8 @@ describe('common functions', () => {
       experimentTarget: 'input DNA',
       chipSeq: {
         chipTarget: 'H3K27me3'
-      }
+      },
+      secondaryProject: ''
     };
     const just_a_string = 'string value';
     const just_a_number = 600;
@@ -94,15 +117,25 @@ describe('common functions', () => {
     expect(result).toEqual(expected);
   });
 
-  it('getValidItems should return empty string when the required element is not present', () => {
+  it('getValidItemsOld should return empty string when the required element is not present', () => {
     const rule = {'value': 15, 'description': 'hahahaha'};
     expect(getValidItemsOld(rule, 'valid')).toEqual('');
   });
 
-  it('getValidItems should return comma separated string with element wrapped with double quote ' +
+  it('getValidItemsOld should return comma separated string with element wrapped with double quote ' +
     'when the required element is present', () => {
     const rule = {'value': 15, 'description': 'hahahaha', 'allowed': ['YYYY', 'YYYY-MM']};
     expect(getValidItemsOld(rule, 'allowed')).toEqual('"YYYY", "YYYY-MM"');
+  });
+
+  it('getValidItems should return empty string when the required element is not present', () => {
+    const rule = {'value': 15};
+    expect(getValidItems(rule, 'valid')).toEqual('');
+  });
+
+  it('getValidItems should return appropriate value when the required element is present', () => {
+    const rule = {'value': {'enum': 'val1, val2, val3'}};
+    expect(getValidItems(rule, 'value')).toEqual('val1, val2, val3');
   });
 
   it('getOntologyTermFromIRI should return short term which is expected to at the end of iri string', () => {
@@ -137,7 +170,7 @@ describe('common functions', () => {
     expect(replaceUnderscoreWithSpace(convertToSnakeCase('original   Value  string'))).toEqual('original Value string');
   });
 
-  it('getMandatoryRulesOnly returns mandatory rules only', () => {
+  it('getMandatoryRulesOnlyOld returns mandatory rules only', () => {
     const rules = {
       'description': 'test',
       'name': 'test rule set',
@@ -205,6 +238,62 @@ describe('common functions', () => {
     expect(mandatory_rules['rule_groups'][1]['rules'].length).toEqual(0);
   });
 
+  it('getMandatoryRulesOnly returns mandatory rules only', () => {
+    const rules = {
+      "title": "Sample core metadata rules",
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "project": {
+          "type": "object",
+          "name": "Project",
+          "properties": {
+            "value": {
+              "const": "FAANG"
+            },
+            "mandatory": {
+              "const": "mandatory"
+            }
+          }
+        },
+        "secondary_project": {
+          "name": "Secondary project",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "enum": ["AQUA-FAANG", "GENE-SWitCH", "BovReg"]
+              },
+              "mandatory": {
+                "const": "mandatory"
+              }
+            }
+          }
+        },
+        "availability": {
+          "type": "object",
+          "name": "Availability",
+          "properties": {
+            "value": {
+              "type": "string",
+              "format": "uri"
+            },
+            "mandatory": {
+              "const": "optional"
+            }
+          }
+        }
+      }
+    };
+    const mandatory_rules = getMandatoryRulesOnly(rules);
+    expect(mandatory_rules['properties']['schema_version']).toBeUndefined();
+    expect(mandatory_rules['properties']['project']).toBeDefined();
+    expect(mandatory_rules['properties']['secondary_project']).toBeDefined();
+    expect(mandatory_rules['properties']['availability']).toBeUndefined();
+  });
+
   it('generateEbiOntologyLinkOld test 1', () => {
     expect(generateEbiOntologyLinkOld('uberon', 'http://purl.obolibrary.org/obo/UBERON_0001037')).
     toEqual('https://www.ebi.ac.uk/ols/ontologies/uberon/terms?iri=http://purl.obolibrary.org/obo/UBERON_0001037');
@@ -218,6 +307,16 @@ describe('common functions', () => {
   it('generateEbiOntologyLinkOld test 3', () => {
     expect(generateEbiOntologyLinkOld('ncbitaxon', 'http://purl.obolibrary.org/obo/NCBITaxon_9823')).
     toEqual('https://www.ebi.ac.uk/ols/ontologies/ncbitaxon/terms?iri=http://purl.obolibrary.org/obo/NCBITaxon_9823');
+  });
+
+  it('generateEbiOntologyLink test 1', () => {
+    expect(generateEbiOntologyLink('uberon', 'UBERON_0001037')).
+    toEqual('https://www.ebi.ac.uk/ols/ontologies/uberon/terms?iri=http://purl.obolibrary.org/obo/UBERON_0001037');
+  });
+
+  it('generateEbiOntologyLink test 2 with efo slightly different iri pattern', () => {
+    expect(generateEbiOntologyLink('EFO', 'EFO_0003924')).
+    toEqual('https://www.ebi.ac.uk/ols/ontologies/EFO/terms?iri=http://www.ebi.ac.uk/efo/EFO_0003924');
   });
 
   it('getProtocolLink should return correct link when uses old firebase server with http in url', () => {
@@ -238,6 +337,18 @@ describe('common functions', () => {
   it('getProtocolLink should return https when using ftp in url', () => {
     expect(getProtocolLink('ftp://test.com'))
       .toEqual('http://test.com');
+  });
+
+  it('should return correct cell class', () => {
+    expect(getCellClass([], 'warning')).toEqual('');
+    expect(getCellClass(['issue1'], 'warning')).toEqual('table-warning');
+    expect(getCellClass(['issue2'], 'error')).toEqual('table-danger');
+  });
+
+  it('should return correct issue', () => {
+    expect(getIssues([], 'warning')).toEqual('pass');
+    expect(getIssues(['issue1'], 'warning')).toEqual('1 warning');
+    expect(getIssues(['issue1', 'issue2'], 'error')).toEqual('2 errors');
   });
 
   afterEach(() => {

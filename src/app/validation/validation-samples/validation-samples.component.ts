@@ -117,7 +117,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       let tmp = [];
       let tmp_errors = [];
       let tmp_warnings = [];
-      tmp.push(record['custom']['sample_name']['value']);
+      if (record['custom']) {
+        tmp.push(record['custom']['sample_name']['value']);
+      }
       tmp_errors.push('valid');
       tmp_warnings.push('valid');
       if ('samples_core' in record) {

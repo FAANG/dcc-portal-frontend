@@ -56,28 +56,30 @@ export class DatasetsSummaryComponent implements OnInit {
     let standardSummaryName = 'standardSummary';
     let paperPublishedSummaryName = 'paperPublishedSummary';
     let specieSummaryName = 'specieSummary';
-    let assayTypeSummaryName = 'assayTypeSummary';
+    let assayTypeSummaryName = 'assayTypeSummary';   
     if (excludeLegacy === true) {
       standardSummaryName = 'standardSummaryFAANGOnly';
       paperPublishedSummaryName = 'paperPublishedSummaryFAANGOnly';
       specieSummaryName = 'specieSummaryFAANGOnly';
       assayTypeSummaryName = 'assayTypeSummaryFAANGOnly';
     }
-    for (const item of data[standardSummaryName]) {
-      this.standardChartLabels.push(item['name']);
-      this.standardChartData.push(item['value']);
-    }
-    for (const item of data[paperPublishedSummaryName]) {
-      this.paperChartLabels.push(item['name']);
-      this.paperChartData.push(item['value']);
-    }
-    for (const item of data[specieSummaryName]) {
-      this.speciesChartLabels.push(item['name']);
-      this.speciesChartData.push(item['value']);
-    }
-    for (const item of data[assayTypeSummaryName]) {
-      this.assayTypeChartLabels.push(item['name']);
-      this.assayTypeChartData.push(item['value']);
+    if (data) {
+      for (const item of data[standardSummaryName]) {
+        this.standardChartLabels.push(item['name']);
+        this.standardChartData.push(item['value']);
+      }
+      for (const item of data[paperPublishedSummaryName]) {
+        this.paperChartLabels.push(item['name']);
+        this.paperChartData.push(item['value']);
+      }
+      for (const item of data[specieSummaryName]) {
+        this.speciesChartLabels.push(item['name']);
+        this.speciesChartData.push(item['value']);
+      }
+      for (const item of data[assayTypeSummaryName]) {
+        this.assayTypeChartLabels.push(item['name']);
+        this.assayTypeChartData.push(item['value']);
+      }
     }
   }
 

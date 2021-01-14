@@ -60,6 +60,10 @@ describe('SpecimensSummaryComponent', () => {
         {
           name: 'blood',
           value: 1
+        },
+        {
+          name: 'bone',
+          value: 2
         }
       ],
       organismSummary: [
@@ -81,6 +85,10 @@ describe('SpecimensSummaryComponent', () => {
             {
               breedsName: 'Brahman',
               breedsValue: 1
+            },
+            {
+              breedsName: 'Holstein',
+              breedsValue: 2
             }
           ]
         }
@@ -96,8 +104,8 @@ describe('SpecimensSummaryComponent', () => {
     expect(component.standardChartLabels).toEqual(['FAANG']);
     expect(component.standardChartData).toEqual([1]);
 
-    expect(component.cellsChartLabels).toEqual(['blood']);
-    expect(component.cellsChartData).toEqual([1]);
+    expect(component.cellsChartLabels).toEqual(['bone', 'blood']);
+    expect(component.cellsChartData).toEqual([2, 1]);
 
     expect(component.organismChartLabels).toEqual(['Bos taurus']);
     expect(component.organismChartData).toEqual([1]);
@@ -105,8 +113,43 @@ describe('SpecimensSummaryComponent', () => {
     expect(component.materialChartLabels).toEqual(['specimen from organism']);
     expect(component.materialChartData).toEqual([1]);
 
-    expect(component.breedChartLabels).toEqual(['Brahman']);
-    expect(component.standardChartData).toEqual([1]);
+    expect(component.breedChartLabels).toEqual(['Holstein','Brahman']);
+    expect(component.breedChartData).toEqual([2, 1]);
+  }); 
+
+  it('should change excludeLegacyData refresh chart data', () => {
+    spyOn(component, 'clearChartData').and.callThrough();
+    spyOn(component, 'assignChartData').and.callThrough(); 
+    component.excludeLegacyData = false;
+
+    component.onCheckboxClick();
+
+    expect(component.excludeLegacyData).toEqual(true);
+    expect(component.clearChartData).toHaveBeenCalled();
+    expect(component.assignChartData).toHaveBeenCalled();
+  }); 
+
+  it('should get breed chart data and labels based on selected breed', () => {
+    component.breedData = {
+      'Breed1': {
+        'labels': ['breed1'],
+        'data': [1]
+      },
+      'Breed2': {
+        'labels': ['breed2'],
+        'data': [2]
+      }
+    };
+
+    component.onItemClick('Breed1');
+    expect(component.name).toEqual('Breed1');
+    expect(component.breedChartData).toEqual([1]);
+    expect(component.breedChartLabels).toEqual(['breed1']);
+    component.onItemClick('Breed2');
+
+    expect(component.name).toEqual('Breed2');
+    expect(component.breedChartData).toEqual([2]);
+    expect(component.breedChartLabels).toEqual(['breed2']);
   });
 
   afterEach(() => {

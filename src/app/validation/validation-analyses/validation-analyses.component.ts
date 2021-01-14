@@ -99,7 +99,9 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
       let tmp = [];
       let tmp_errors = [];
       let tmp_warnings = [];
-      tmp.push(record['alias']['value']);
+      if (record['alias']) {
+        tmp.push(record['alias']['value']);
+      }
       tmp_errors.push('valid');
       tmp_warnings.push('valid');
       const type_parsing_results = this.parseColumnData(record);

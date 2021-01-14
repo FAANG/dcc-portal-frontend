@@ -80,6 +80,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   setValidationResults() {
     if (this.validation_results) {
+      console.log(this.validation_results);
       for (const key of Object.keys(this.validation_results)) {
         this.record_types.push(key);
       }
@@ -109,7 +110,9 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       let tmp = [];
       let tmp_errors = [];
       let tmp_warnings = [];
-      tmp.push(record['custom']['sample_descriptor']['value']);
+      if (record['custom']) {
+        tmp.push(record['custom']['sample_descriptor']['value']);
+      }
       tmp_errors.push('valid');
       tmp_warnings.push('valid');
       if ('experiments_core' in record) {

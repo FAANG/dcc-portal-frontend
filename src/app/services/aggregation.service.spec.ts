@@ -135,6 +135,45 @@ describe('AggregationService', () => {
     service.getAggregations(test_records, 'file');
   }));
 
+  it ('should return aggregation for file type', inject([AggregationService], (service: AggregationService) => {
+    const test_records = {
+      "assay_type": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [{
+          "key": "RNA-Seq",
+          "doc_count": 12
+        }, {
+          "key": "whole genome sequencing assay",
+          "doc_count": 5
+        }]
+      },
+      "paper_published": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [{
+          "key": "false",
+          "doc_count": 11
+        }]
+      },
+    };
+
+    const should_return_list = {
+      assay_type: [
+        ['RNA-Seq', 12],
+        ['whole genome sequencing assay', 5]
+      ],
+      paper_published: [
+        ['No', 11]
+      ]
+    };
+    service.data.subscribe(data => {
+      expect(data).toEqual(should_return_list);
+    });
+    service.getAggregations(test_records, 'file');
+  }));
+
+
   it ('should return aggregation for organism type', inject([AggregationService], (service: AggregationService) => {
     const test_list = [
       {
@@ -142,6 +181,13 @@ describe('AggregationService', () => {
         'standard': 'Faang',
         'organism': 'Equus caballus',
         'breed': 'Thoroughbred',
+        'paperPublished': 'true'
+      },
+      {
+        'sex': 'Female',
+        'standard': 'Legacy',
+        'organism': 'Bos taurus',
+        'breed': 'Norwegian Red',
         'paperPublished': 'true'
       },
       {
@@ -154,11 +200,11 @@ describe('AggregationService', () => {
     ];
 
     const should_return_list = {
-      standard: [['Faang', 2]],
-      sex: [['male', 2]],
-      organism: [['Equus caballus', 2]],
-      breed: [[ 'Thoroughbred', 2 ]],
-      paper_published: [[ 'Yes', 1], ['No', 1]]
+      standard: [['Faang', 2], ['Legacy', 1]],
+      sex: [['male', 2], ['female', 1]],
+      organism: [['Equus caballus', 2], ['Bos taurus', 1]],
+      breed: [[ 'Thoroughbred', 2 ], ['Norwegian Red', 1]],
+      paper_published: [[ 'Yes', 2], ['No', 1]]
     };
 
     service.data.subscribe(data => {
@@ -287,6 +333,43 @@ describe('AggregationService', () => {
     });
     service.getAggregations(test_records, 'specimen');
   }));
+  it ('should return aggregation for specimen type', inject([AggregationService], (service: AggregationService) => {
+    const test_records = {
+      "paper_published": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [{
+          "key": "false",
+          "doc_count": 12
+        }]
+      },
+      "sex": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 47,
+        "buckets": [{
+          "key": "female",
+          "doc_count": 20
+        }, {
+          "key": "Not determined",
+          "doc_count": 8
+        }]
+      }
+    };
+
+    const should_return_list = {
+      sex: [
+        ['female', 20],
+        ['Not determined', 8]
+      ],
+      paper_published: [
+        [ 'No', 12]
+      ]};
+
+    service.data.subscribe(data => {
+      expect(data).toEqual(should_return_list);
+    });
+    service.getAggregations(test_records, 'specimen');
+  }));
 
   it ('should return aggregation for dataset type', inject([AggregationService], (service: AggregationService) => {
     const test_list = [
@@ -320,6 +403,46 @@ describe('AggregationService', () => {
     service.getAggregations(test_list, 'dataset');
   }));
 
+  it ('should return aggregation for dataset type', inject([AggregationService], (service: AggregationService) => {
+    const test_list = [
+      {
+        'standard': 'Faang',
+        'species': 'Bos taurus',
+        'archive': 'ENA',
+        'assayType': 'RNA-seq of non coding RNA',
+        'paperPublished': 'true'
+      },
+      {
+        'standard': 'Faang',
+        'species': 'Bos taurus',
+        'archive': 'SRA',
+        'assayType': 'RNA-seq of non coding RNA,microRNA profiling by high throughput sequencing',
+        'paperPublished': 'false'
+      },
+      {
+        'standard': 'Legacy',
+        'species': 'Gallus gallus',
+        'archive': 'ENA',
+        'assayType': 'transcription profiling by high throughput sequencing',
+        'paperPublished': 'true'
+      },
+    ];
+
+    const should_return_list = {
+      standard: [['Faang', 2], ['Legacy', 1]],
+      species: [[ 'Bos taurus', 2], ['Gallus gallus', 1]],
+      assay_type: [['RNA-seq of non coding RNA', 2],
+        [ 'microRNA profiling by high throughput sequencing', 1 ],
+        ['RNA-Seq', 1]],
+      archive: [['ENA', 2], ['SRA', 1]],
+      paper_published: [['Yes', 2], ['No', 1]]};
+
+    service.data.subscribe(data => {
+      expect(data).toEqual(should_return_list);
+    });
+    service.getAggregations(test_list, 'dataset');
+  }));
+
   it ('should return aggregation for protocol samples type', inject([AggregationService], (service: AggregationService) => {
     const test_list = [
       {
@@ -329,18 +452,25 @@ describe('AggregationService', () => {
         'protocol_type': 'samples'
       },
       {
-        'protocol_name': 'Harvest of Large Animal Tissues',
-        'university_name': 'Roslin Institute (Edinburgh, UK)',
+        'protocol_name': 'PBMC seperation swine blood',
+        'university_name': 'French National Institute for Agricultural Research (France)',
         'protocol_date': '2016',
         'protocol_type': 'samples'
+      },
+      {
+        'protocol_name': 'Harvest of Large Animal Tissues',
+        'university_name': 'Roslin Institute (Edinburgh, UK)',
+        'protocol_date': '2017',
+        'protocol_type': 'experiment'
       }
     ];
 
     const should_return_list = {
-      protocol_name: [['Harvest of Large Animal Tissues', 2]],
-      university_name: [['Roslin Institute (Edinburgh, UK)', 2]],
-      protocol_date: [['2016', 2]],
-      protocol_type: [['samples', 2]]};
+      protocol_name: [['Harvest of Large Animal Tissues', 2], ['PBMC seperation swine blood', 1]],
+      university_name: [['Roslin Institute (Edinburgh, UK)', 2], 
+                        ['French National Institute for Agricultural Research (France)', 1]],
+      protocol_date: [['2016', 2], ['2017', 1]],
+      protocol_type: [['samples', 2], ['experiment', 1]]};
 
     service.data.subscribe(data => {
       expect(data).toEqual(should_return_list);
@@ -359,18 +489,91 @@ describe('AggregationService', () => {
         'name': 'libraryGenerationProtocol',
         'experimentTarget': 'total RNA',
         'assayType': 'transcription profiling by high throughput sequencing'
+      },
+      {
+        'name': 'extractionProtocol',
+        'experimentTarget': 'CHEBI_33697',
+        'assayType': 'RNA-seq of non coding RNA'
       }
     ];
 
     const should_return_list = {
-      protocol_type: [['Library generation protocol', 2]],
-      experiment_target: [['total RNA', 2]],
-      assay_type: [['transcription profiling by high throughput sequencing', 2]]};
+      protocol_type: [['Library generation protocol', 2], ['Extraction protocol', 1]],
+      experiment_target: [['total RNA', 2], ['CHEBI 33697', 1]],
+      assay_type: [['transcription profiling by high throughput sequencing', 2],
+                    ['RNA-seq of non coding RNA', 1]]};
 
     service.data.subscribe(data => {
       expect(data).toEqual(should_return_list);
     });
     service.getAggregations(test_list, 'protocol_experiments');
+  }));
+
+  it ('should return aggregation for analysis type', inject([AggregationService], (service: AggregationService) => {
+    const test_list = [
+      {
+        'standard': 'Legacy',
+        'species': 'Bos taurus',
+        'datasetAccession': 'PRJEB19199',
+        'analysisType': 'REFERENCE_ALIGNMENT'
+      },
+      {
+        'standard': 'FAANG',
+        'species': 'Equus caballus',
+        'assayType': 'ChIP-seq',
+        'datasetAccession': 'PRJEB35307',
+        'analysisType': 'SEQUENCE_ANNOTATION'
+      },
+      {
+        'standard': 'FAANG',
+        'species': 'Equus caballus',
+        'assayType': 'ChIP-seq',
+        'datasetAccession': 'PRJEB35307',
+        'analysisType': 'SEQUENCE_ANNOTATION'
+      }
+    ];
+
+    const should_return_list = {
+      standard: [['FAANG', 2], ['Legacy', 1]],
+      species: [['Equus caballus', 2], ['Bos taurus', 1]],
+      assay_type: [['ChIP-seq', 2], ['not provided', 1]],
+      dataset: [['PRJEB35307', 2], ['PRJEB19199', 1]],
+      analysis_type: [['SEQUENCE ANNOTATION', 2], ['REFERENCE ALIGNMENT', 1]],
+    };
+    service.data.subscribe(data => {
+      expect(data).toEqual(should_return_list);
+    });
+    service.getAggregations(test_list, 'analysis');
+  }));
+
+  it ('should return aggregation for article type', inject([AggregationService], (service: AggregationService) => {
+    const test_list = [
+      {
+        'journal': 'Front Vet Sci',
+        'year': '2020',
+        'datasetSource': 'All',
+      },
+      {
+        'journal': 'Front Vet Sci',
+        'year': '2020',
+        'datasetSource': 'All',
+      },
+      {
+        'journal': 'BMC Biol',
+        'year': '2019',
+        'datasetSource': 'FAANG Only',
+      },
+    ];
+
+    const should_return_list = {
+      journal: [['Front Vet Sci', 2], ['BMC Biol', 1]],
+      year: [['2020', 2], ['2019', 1]],
+      datasetSource: [['FAANG Only', 1]],
+    };
+    service.data.subscribe(data => {
+      expect(data).toEqual(should_return_list);
+    });
+    service.getAggregations(test_list, 'article');
   }));
 
   afterEach(() => {

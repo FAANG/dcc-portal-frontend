@@ -38,6 +38,53 @@ describe('HeaderComponent', () => {
     expect(component.collapsed).toEqual(true);
   });
 
+  it('should toggle project dropdown open on projectsOnDropdownClick', () => {
+    component.projects_dropdown_open = true;
+    component.records_dropdown_open = true;
+    component.validation_dropdown_open = true;
+    component.projectsOnDropdownClick();
+    expect(component.projects_dropdown_open).toEqual(false);
+    expect(component.records_dropdown_open).toEqual(false);
+    expect(component.validation_dropdown_open).toEqual(false);
+    component.projectsOnDropdownClick();
+    expect(component.projects_dropdown_open).toEqual(true);
+    expect(component.records_dropdown_open).toEqual(false);
+    expect(component.validation_dropdown_open).toEqual(false);
+  });
+
+  it('should toggle records dropdown open on projectsOnDropdownClick', () => {
+    component.projects_dropdown_open = true;
+    component.records_dropdown_open = true;
+    component.validation_dropdown_open = true;
+    component.recordsOnDropdownClick();
+    expect(component.projects_dropdown_open).toEqual(false);
+    expect(component.records_dropdown_open).toEqual(false);
+    expect(component.validation_dropdown_open).toEqual(false);
+    component.recordsOnDropdownClick();
+    expect(component.projects_dropdown_open).toEqual(false);
+    expect(component.records_dropdown_open).toEqual(true);
+    expect(component.validation_dropdown_open).toEqual(false);
+  });
+
+  it('should toggle validation dropdown open on projectsOnDropdownClick', () => {
+    component.projects_dropdown_open = true;
+    component.records_dropdown_open = true;
+    component.validation_dropdown_open = true;
+    component.validationOnDropdownClick();
+    expect(component.projects_dropdown_open).toEqual(false);
+    expect(component.records_dropdown_open).toEqual(false);
+    expect(component.validation_dropdown_open).toEqual(false);
+    component.validationOnDropdownClick();
+    expect(component.projects_dropdown_open).toEqual(false);
+    expect(component.records_dropdown_open).toEqual(false);
+    expect(component.validation_dropdown_open).toEqual(true);
+  });
+
+  it('should hide banner', () => {
+    component.hideBanner();
+    expect(component.show_banner).toEqual('hide');
+  });
+
   afterEach(() => {
     TestBed.resetTestingModule();
   });

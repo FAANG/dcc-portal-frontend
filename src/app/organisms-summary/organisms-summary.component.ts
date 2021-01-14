@@ -72,38 +72,40 @@ export class OrganismsSummaryComponent implements OnInit {
       organism_summary_name = 'organismSummaryFAANGOnly';
       breed_summary_name = 'breedSummaryFAANGOnly';
     }
-    for (const item of data[sexSummaryName]) {
-      this.sexChartLabels.push(item['name']);
-      this.sexChartData.push(item['value']);
-    }
-    for (const item of data[paperPublishedSummaryName]) {
-      this.paperChartLabels.push(item['name']);
-      this.paperChartData.push(item['value']);
-    }
-    for (const item of data[organism_summary_name]) {
-      this.organismChartLabels.push(item['name']);
-      this.organismChartData.push(item['value']);
-    }
-    for (const item of data[standard_summary_name]) {
-      this.standardChartLabels.push(item['name']);
-      this.standardChartData.push(item['value']);
-    }
-    for (const item of data[breed_summary_name]) {
-      this.breedKeys.push(item['speciesName']);
-      const labels = [];
-      const breed_data = [];
-      for (const tmp of item['speciesValue']) {
-        labels.push(tmp['breedsName']);
-        breed_data.push(tmp['breedsValue']);
+    if (data) {
+      for (const item of data[sexSummaryName]) {
+        this.sexChartLabels.push(item['name']);
+        this.sexChartData.push(item['value']);
       }
-      this.breedsData[item['speciesName']] = {
-        'labels': labels,
-        'data': breed_data
-      };
+      for (const item of data[paperPublishedSummaryName]) {
+        this.paperChartLabels.push(item['name']);
+        this.paperChartData.push(item['value']);
+      }
+      for (const item of data[organism_summary_name]) {
+        this.organismChartLabels.push(item['name']);
+        this.organismChartData.push(item['value']);
+      }
+      for (const item of data[standard_summary_name]) {
+        this.standardChartLabels.push(item['name']);
+        this.standardChartData.push(item['value']);
+      }
+      for (const item of data[breed_summary_name]) {
+        this.breedKeys.push(item['speciesName']);
+        const labels = [];
+        const breed_data = [];
+        for (const tmp of item['speciesValue']) {
+          labels.push(tmp['breedsName']);
+          breed_data.push(tmp['breedsValue']);
+        }
+        this.breedsData[item['speciesName']] = {
+          'labels': labels,
+          'data': breed_data
+        };
+      }
+      this.name = this.breedKeys[0];
+      this.breedChartLabels = this.breedsData[this.name]['labels'];
+      this.breedChartData = this.breedsData[this.name]['data'];
     }
-    this.name = this.breedKeys[0];
-    this.breedChartLabels = this.breedsData[this.name]['labels'];
-    this.breedChartData = this.breedsData[this.name]['data'];
   }
 
   onItemClick(name: string) {

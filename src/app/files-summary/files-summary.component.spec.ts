@@ -77,6 +77,88 @@ describe('FilesSummaryComponent', () => {
     expect(component.assayTypeChartData).toEqual([1]);
   });
 
+  it('should clear chart data', () => {
+    component.assayTypeChartLabels = ['whole genome sequencing assay'];
+    component.assayTypeChartData = [1];
+    component.paperChartLabels = ['Yes'];
+    component.paperChartData = [1];
+    component.standardChartLabels = ['FAANG'];
+    component.standardChartData = [1];
+    component.speciesChartLabels = ['Bos taurus'];
+    component.speciesChartData = [1];
+
+    component.clearChartData();
+    
+    expect(component.assayTypeChartLabels).toEqual([]);
+    expect(component.assayTypeChartData).toEqual([]);
+    expect(component.paperChartLabels).toEqual([]);
+    expect(component.paperChartData).toEqual([]);
+    expect(component.standardChartLabels).toEqual([]);
+    expect(component.standardChartData).toEqual([]);
+    expect(component.speciesChartLabels).toEqual([]);
+    expect(component.speciesChartData).toEqual([]);
+  });
+
+  it('should change excludeLegacyData refresh chart data', () => {
+    spyOn(component, 'clearChartData').and.callThrough();
+    spyOn(component, 'assignChartData').and.callThrough(); 
+    component.excludeLegacyData = false;
+
+    component.onCheckboxClick();
+
+    expect(component.excludeLegacyData).toEqual(true);
+    expect(component.clearChartData).toHaveBeenCalled();
+    expect(component.assignChartData).toHaveBeenCalled();
+  }); 
+
+  it('should create data for charts excluding legacy data', () => {
+    const data = {
+      standardSummary: [
+        {
+          name: 'FAANG',
+          value: 10
+        }
+      ],
+      standardSummaryFAANGOnly: [
+        {
+          name: 'FAANG',
+          value: 7
+        }
+      ],
+      paperPublishedSummaryFAANGOnly: [
+        {
+          name: 'Yes',
+          value: 2
+        }
+      ],
+      specieSummaryFAANGOnly: [
+        {
+          name: 'Bos taurus',
+          value: 1
+        }
+      ],
+      assayTypeSummaryFAANGOnly: [
+        {
+          name: 'whole genome sequencing assay',
+          value: 1
+        }
+      ]
+    };
+    component.assignChartData(data, true);
+    expect(component.standardChartLabels).toEqual(['FAANG']);
+    expect(component.standardChartData).toEqual([7]);
+
+    expect(component.paperChartLabels).toEqual(['Yes']);
+    expect(component.paperChartData).toEqual([2]);
+
+    expect(component.speciesChartLabels).toEqual(['Bos taurus']);
+    expect(component.speciesChartData).toEqual([1]);
+
+    expect(component.assayTypeChartLabels).toEqual(['whole genome sequencing assay']);
+    expect(component.assayTypeChartData).toEqual([1]);
+  });
+
+
   afterEach(() => {
     TestBed.resetTestingModule();
   });

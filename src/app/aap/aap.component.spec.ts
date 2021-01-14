@@ -31,6 +31,20 @@ describe('AapComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should open login window', () => {
+    const authService = TestBed.get(AuthService);
+    spyOn(authService, 'openLoginWindow').and.callThrough();
+    component.openLoginWindow();
+    expect(authService.openLoginWindow).toHaveBeenCalled();
+  });
+
+  it('should logout', () => {
+    const authService = TestBed.get(AuthService);
+    spyOn(authService, 'logOut').and.callThrough();
+    component.logOut();
+    expect(authService.logOut).toHaveBeenCalled();
+  });
+
   afterEach(() => {
     TestBed.resetTestingModule();
   });

@@ -26,7 +26,16 @@ describe('ActiveFilterComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('clearFilter should emit new data', inject([AggregationService], (service: AggregationService) => {
+  it ('clearFilter should emit new data when filter is not set', inject([AggregationService], (service: AggregationService) => {
+    service.field.subscribe(data => {
+      expect(data['standard']).toEqual([]);
+    });
+    component.clearFilter('FAANG');
+  }));
+
+  it ('clearFilter should emit new data when filter is set', inject([AggregationService], (service: AggregationService) => {
+    service.current_active_filters.push('FAANG');
+    component.data = {'standard': ['FAANG']};
     service.field.subscribe(data => {
       expect(data['standard']).toEqual([]);
     });

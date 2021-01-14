@@ -2,7 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
 import { SearchService } from './search.service';
-import { defer } from 'rxjs';
+import { defer, of as observableOf } from 'rxjs';
+import { componentFactoryName } from '@angular/compiler';
+import { subscribeOn } from 'rxjs/operators';
 
 /** Create async observable that emits-once and completes
  *  after a JS engine turn */
@@ -111,6 +113,36 @@ describe('SearchService', () => {
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
     searchService = new SearchService(<any> httpClientSpy);
+  });
+
+  it('should the expected type of records', () => {
+    spyOn(searchService, 'searchFile').and.returnValue({id: 'file1'});
+    searchService.search('file', 'file1', true);
+    expect(searchService.searchFile).toHaveBeenCalledWith('file1', true);
+    spyOn(searchService, 'searchOrganism').and.returnValue({id: 'organism1'});
+    searchService.search('organism', 'organism1', true);
+    expect(searchService.searchOrganism).toHaveBeenCalledWith('organism1', true);
+    spyOn(searchService, 'searchSpecimen').and.returnValue({id: 'specimen1'});
+    searchService.search('specimen', 'specimen1', true);
+    expect(searchService.searchSpecimen).toHaveBeenCalledWith('specimen1', true);
+    spyOn(searchService, 'searchDataset').and.returnValue({id: 'dataset1'});
+    searchService.search('dataset', 'dataset1', true);
+    expect(searchService.searchDataset).toHaveBeenCalledWith('dataset1', true);
+  });
+
+  it('should return empty observables', () => {
+    searchService.searchFile(' ', true).subscribe((result) => {
+      expect(result).toEqual({hits: { total: 0 }});
+    });
+    searchService.searchDataset(' ', true).subscribe((result) => {
+      expect(result).toEqual({hits: { total: 0 }});
+    });
+    searchService.searchOrganism(' ', true).subscribe((result) => {
+      expect(result).toEqual({hits: { total: 0 }});
+    });
+    searchService.searchSpecimen(' ', true).subscribe((result) => {
+      expect(result).toEqual({hits: { total: 0 }});
+    });
   });
 
   it('should return all expected files', () => {

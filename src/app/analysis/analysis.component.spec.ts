@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AnalysisComponent } from './analysis.component';
 import {HeaderComponent} from '../shared/header/header.component';
@@ -10,6 +10,9 @@ import {FilterPipe} from '../pipes/filter.pipe';
 import {SortPipe} from '../pipes/sort.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {Router} from '@angular/router';
+import { ApiDataService } from '../services/api-data.service';
+import {ExportService} from '../services/export.service';
 
 describe('AnalysisComponent', () => {
   let component: AnalysisComponent;
@@ -57,6 +60,19 @@ describe('AnalysisComponent', () => {
     expect(component.hasActiveFilters()).toEqual(true);
   });
 
+  it('hasActiveFilters should return false if filter_field is undefined', () => {
+    var filter;
+    component.filter_field = filter;
+    expect(component.hasActiveFilters()).toEqual(false);
+  });
+
+  it('hasActiveFilters should return false if filter_field is not set', () => {
+    component.filter_field = {
+      standard: []
+    };
+    expect(component.hasActiveFilters()).toEqual(false);
+  });
+
   it('resetFilter should reset all filters in filter_field', () => {
     component.filter_field = {
       standard: ['FAANG']
@@ -64,6 +80,36 @@ describe('AnalysisComponent', () => {
     component.resetFilter();
     expect(component.filter_field).toEqual({});
   });
+
+  it('onDownloadData should change value of downloadData', () => {
+    expect(component.downloadData).toEqual(false);
+    component.onDownloadData();
+    expect(component.downloadData).toEqual(true);
+    component.onDownloadData();
+    expect(component.downloadData).toEqual(false);
+  });
+
+  it('removeFilter should reset all filters and remove queryParams', inject([Router], (router: Router) => {
+    spyOn(router, 'navigate').and.stub();
+    component.filter_field = {
+      standard: ['FAANG']
+    };
+    component.removeFilter();
+    expect(component.filter_field).toEqual({});
+    expect(router.navigate).toHaveBeenCalledWith(['analysis'], Object({queryParams: Object({ })}));
+  }));
+
+  it('get table data when component loads', () => {
+    const service = TestBed.get(ApiDataService);
+    spyOn(service, 'getAllAnalyses').and.callThrough();
+    component.ngOnInit();
+    expect(service.getAllAnalyses).toHaveBeenCalled();
+  });
+
+  it ('should update export data', inject([ExportService], (service: ExportService) => {
+    service.data.next(['true']);
+    expect(component.data).toEqual(['true']);
+  }));
 
   afterEach(() => {
     TestBed.resetTestingModule();
