@@ -11,7 +11,8 @@ jobs:
         node-version: '10.x'
     - uses: actions/cache@v1
       with:
-        path: ~/.npm
+        path: ~/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Build
       run: |
         npm install
