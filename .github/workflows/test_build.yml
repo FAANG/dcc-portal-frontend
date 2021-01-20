@@ -16,5 +16,6 @@ jobs:
     - name: Build
       run: |
         npm install
+        npm install -g @angular/cli
         ng test --watch=false --browsers=ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
         ng build
