@@ -10,7 +10,7 @@ describe('HostSetting', () => {
   });
 
   it('should get host', inject([HostSetting], (service: HostSetting) => {
-    expect(service.getHost()).toEqual('http://test.faang.org/api/');
+    expect(service.getHost()).toEqual('http://data.faang.org/api/');
   }));
 
   it('should set host', inject([HostSetting], (service: HostSetting) => {

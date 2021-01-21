@@ -9,10 +9,6 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '10.x'
-    - uses: actions/cache@v1
-      with:
-        path: '**/node_modules'
-        key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install Node Modules
       run: |
         npm install
@@ -20,7 +16,6 @@ jobs:
     - name: Run tests
       run: |
         ng test --watch=false --browsers=ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
-        ng build
     - name: Build
       run: |
         ng build
