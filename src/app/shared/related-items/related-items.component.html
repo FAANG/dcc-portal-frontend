@@ -19,7 +19,14 @@
           </li>
         </ng-container>
       </ul>
-
+      <span *ngIf="source_type == 'project'">
+        <span *ngIf="(dataToDownload | async) as data;">
+          <button class="btn btn-success btn-sm" (click)="onDownloadData()">Download data</button>
+          <app-export [data]="data" [filename]="record_id + '_' + target_type + '_data'" [options]="optionsCsv" *ngIf="downloadData">
+            Export as CSV file
+          </app-export>
+        </span>
+      </span>
     </h3>
   </div>
   <div *ngIf="(tableData | async) as data;">

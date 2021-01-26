@@ -5,6 +5,7 @@ import setting from './related-items.component.setting.json';
 import {UserService} from '../../services/user.service';
 import {Observable, of as observableOf} from 'rxjs';
 import {TableClientSideComponent}  from '../table-client-side/table-client-side.component';
+import {ExportService} from '../../services/export.service';
 
 @Component({
   selector: 'app-related-items',
@@ -23,12 +24,15 @@ export class RelatedItemsComponent implements OnInit {
 
   records: any;
   tableData: Observable<any[]>;
+  dataToDownload: Observable<any[]>;
   columnNames = [];
   displayFields = [];
   templates = {};
   urls: string[] = [];
   checked = false;
   selected: Map<string, boolean> = new Map();
+  downloadData = false;
+  optionsCsv;
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -37,8 +41,10 @@ export class RelatedItemsComponent implements OnInit {
   // Step 3: add this component into the detail page
   // Step 4: make necessary adjustment (i.e. debugging) to the setting
 
-  constructor(private dataService: ApiDataService, private _userService: UserService) {
-  }
+  constructor(private dataService: ApiDataService, 
+              private _userService: UserService,
+              private exportService: ExportService,
+              ) { }
 
   ngOnInit() {
     this.templates = {'bioSampleId': this.linkTemplate,
@@ -62,6 +68,7 @@ export class RelatedItemsComponent implements OnInit {
         (data: any) => {
           this.records = data;
           this.tableData = observableOf(this.records);
+          this.dataToDownload = observableOf(this.records);
         }
       );
     } else if (relationship_type === 'project-specimen') {
@@ -69,6 +76,7 @@ export class RelatedItemsComponent implements OnInit {
         (data: any) => {
           this.records = data;
           this.tableData = observableOf(this.records);
+          this.dataToDownload = observableOf(this.records);
         }
       );
     } else if (relationship_type === 'project-publication') {
@@ -76,6 +84,7 @@ export class RelatedItemsComponent implements OnInit {
         (data: any) => {
           this.records = data;
           this.tableData = observableOf(this.records);
+          this.dataToDownload = observableOf(this.records);
         }
       );
     } else if (relationship_type === 'project-file') {
@@ -83,6 +92,7 @@ export class RelatedItemsComponent implements OnInit {
         (data: any) => {
           this.records = data;
           this.tableData = observableOf(this.records);
+          this.dataToDownload = observableOf(this.records);
         }
       );
     } else if (relationship_type === 'publication-dataset') {
@@ -176,6 +186,8 @@ export class RelatedItemsComponent implements OnInit {
     }
     this.columnNames = this.get_displayed_fields()['column_names'];
     this.displayFields = this.get_displayed_fields()['fields'];
+    this.optionsCsv = this.exportService.optionsCsv;
+    this.optionsCsv['headers'] = this.columnNames;
     if (this.download_key.length > 0) {
       this.columnNames.push('Download');
       this.displayFields.push(this.download_key);
@@ -331,6 +343,21 @@ export class RelatedItemsComponent implements OnInit {
     if (this.download_key.length > 0) {
       this.columnNames.push('Download');
       this.displayFields.push(this.download_key);
+    }
+    this.downloadData = false;
+  }
+
+  onDownloadData() {
+    this.downloadData = !this.downloadData;
+    if (this.downloadData) {
+      this.dataToDownload = observableOf(this.records.map(record => {
+        let selectedColsRecord = {};
+        this.displayFields.forEach(col => {
+          selectedColsRecord[col] = record[col];
+        });
+        return selectedColsRecord;
+      }));
+      this.optionsCsv['headers'] = this.columnNames;
     }
   }
 }
