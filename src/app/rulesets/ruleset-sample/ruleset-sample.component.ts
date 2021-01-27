@@ -55,7 +55,7 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.rule_groups = ['Standard', 'Organism', 'Organoid', 'Specimen standard rules', 'Specimen Teleostei embryo',
-      'Specimen Teleostei post-hatching', 'Pool of specimens', 'Purified cells', 'Cell culture', 'Cell line'];
+      'Specimen Teleostei post-hatching', 'Single cell specimen', 'Pool of specimens', 'Purified cells', 'Cell culture', 'Cell line'];
     this.active_rule = 'Standard';
     this.convertToSnakeCase = convertToSnakeCase;
     this.replaceUnderscoreWithSpace = replaceUnderscoreWithSpace;
@@ -96,6 +96,7 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
   }
 
   getCondition(rule: string) {
+    console.log(this.active_rule);
     if (this.active_rule === 'Organism' && rule === 'child_of') {
       return 'Must meet condition: Material is organism';
     } else if (this.active_rule === 'Organism' && rule === 'self') {
@@ -131,6 +132,10 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
         'Material is "specimen from organism"',
         'Organism is child of Teleostei (NCBITaxon:32443)'
       ];
+    } else if (this.active_rule === 'Single cell specimen' && rule === 'self') {
+      return 'single cell specimen';
+    } else if (this.active_rule === 'Single cell specimen' && rule === 'derived_from') {
+      return 'Must meet condition: Material is specimen from organism';
     }
   }
 
