@@ -371,8 +371,7 @@ export class ApiDataService {
   }
 
   getSampleProtocol(id: string) {
-    // const url = this.hostSetting.host + 'protocol_samples/' + id;
-    const url = `http://wp-np3-e2:9200/protocols_samples/_search?q=_id:${id}`;
+    const url = this.hostSetting.host + 'protocol_samples/' + id;
     return this.http.get(url).pipe(
       map( (data: any) => {
         return data;
