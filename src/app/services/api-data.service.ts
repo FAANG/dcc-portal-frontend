@@ -354,7 +354,6 @@ export class ApiDataService {
   }
 
   getAllSamplesProtocols() {
-    // const url = 'http://45.86.170.123/api/protocols_samples';
     const url = this.hostSetting.host + 'protocol_samples/_search/' + '?size=100';
     return this.http.get(url).pipe(
       map((data: any) => {
@@ -372,9 +371,8 @@ export class ApiDataService {
   }
 
   getSampleProtocol(id: string) {
-    const url = this.hostSetting.host + 'protocol_samples/' + id;
-    // const url = `http://45.86.170.123/api/protocols_samples/${id}`;
-    // const url = `http://wp-np3-e2:9200/protocols_samples/_search?q=_id:${id}`;
+    // const url = this.hostSetting.host + 'protocol_samples/' + id;
+    const url = `http://wp-np3-e2:9200/protocols_samples/_search?q=_id:${id}`;
     return this.http.get(url).pipe(
       map( (data: any) => {
         return data;
@@ -483,13 +481,25 @@ export class ApiDataService {
     );
   }
 
-  getRulesetExperiment() {
-    const url =  ruleset_prefix_old + 'faang_experiments.metadata_rules.json';
+  getRulesetExperiment(category: string) {
+    let rule_type;
+    if (category === 'standard') {
+      rule_type = 'core';
+      category = 'core';
+    } else if (category === 'chip-seq_dna-binding_proteins' || category === 'chip-seq_input_dna') {
+      rule_type = 'module';
+    } else {
+      rule_type = 'type';
+      if (category === 'chip-seq_standard_rules') {
+        category = 'chip-seq';
+      }
+    }
+    const url = ruleset_prefix_new + `${rule_type}/experiments/faang_experiments_${category}.metadata_rules.json`;
+    console.log(url);
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
       }),
-      retry(3),
       catchError(this.handleError),
     );
   }

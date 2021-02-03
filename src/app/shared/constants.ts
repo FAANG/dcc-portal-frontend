@@ -33,4 +33,4 @@ export const experiment_metadata_template_without_examples = '../../assets/empty
 export const analysis_metadata_template_without_examples = '../../assets/empty/faang_analysis.xlsx';
 
 export const missing_values = ['not applicable', 'not collected', 'not provided', 'restricted access'];
-export const special_sheets = ['describedBy', 'schema_version', 'samples_core'];
+export const special_sheets = ['describedBy', 'schema_version', 'samples_core', 'experiments_core', 'input_dna', 'dna-binding_proteins'];

@@ -19,13 +19,12 @@ import {
   templateUrl: './ruleset-sample.component.html',
   styleUrls: ['../rulesets.css']
 })
-export class RulesetSampleComponent implements OnInit, AfterViewChecked {
+export class RulesetSampleComponent implements OnInit {
   error: string;
   data: any;
   all_data: any;
   mandatory_data: any;
   mandatory_only = false;
-  fragment: string;
   convertToSnakeCase: any;
   allowMultiple: any;
   getValidItems: any;
@@ -51,7 +50,7 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
   description: string;
   details: string;
 
-  constructor(private titleService: Title, private apiDataService: ApiDataService, private route: ActivatedRoute) { }
+  constructor(private titleService: Title, private apiDataService: ApiDataService) { }
 
   ngOnInit() {
     this.rule_groups = ['Standard', 'Organism', 'Organoid', 'Specimen standard rules', 'Specimen Teleostei embryo',
@@ -82,21 +81,9 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
         this.error = error;
       }
     );
-    this.route.fragment.subscribe(fragment => {
-      this.fragment = fragment;
-    });
-  }
-
-  ngAfterViewChecked(): void {
-    try {
-      if (this.fragment) {
-        document.querySelector('#' + this.fragment).scrollIntoView();
-      }
-    } catch (e) {}
   }
 
   getCondition(rule: string) {
-    console.log(this.active_rule);
     if (this.active_rule === 'Organism' && rule === 'child_of') {
       return 'Must meet condition: Material is organism';
     } else if (this.active_rule === 'Organism' && rule === 'self') {
@@ -157,6 +144,9 @@ export class RulesetSampleComponent implements OnInit, AfterViewChecked {
       return 'ontology id';
     } else if ('value' in field && 'oneOf' in field['value']) {
       for (const record of field['value']['oneOf']) {
+        if ('format' in record) {
+          return record['format'];
+        }
         if ('type' in record) {
           return record['type'];
         }
