@@ -207,7 +207,7 @@
     <div class="col-md-6" [hidden]="disableAuthForm">
       <h3>Submit data to ENA</h3>
       <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
-        <div class="form-group">
+        <div class="form-group" *ngIf="!_userService.token">
           <label for="aapUsername">Username</label>
           <input class="form-control" id="aapUsername"
                  placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
@@ -222,7 +222,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="!_userService.token">
           <label for="aapPassword">Password</label>
           <input type="password" class="form-control" id="aapPassword" placeholder="Password"
                  required [(ngModel)]="model.password" name="password" #password="ngModel">
