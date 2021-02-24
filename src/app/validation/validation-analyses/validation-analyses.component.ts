@@ -11,6 +11,7 @@ import {
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {AAPUser} from '../aap_user';
+import {UserService} from '../../services/user.service';
 
 const UploadURL = validation_service_url + '/conversion/analyses';
 
@@ -55,6 +56,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   disableAuthForm = false;
   submissionResults = [];
   submission_task_id: string;
+  bovreg_submission = false;
   private_submission = false;
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
@@ -62,7 +64,8 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   constructor(
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
-    private apiDataService: ApiDataService
+    private apiDataService: ApiDataService,
+    public _userService: UserService
   ) { }
 
   ngOnInit() {
@@ -76,6 +79,10 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     this.conversion_status = 'Undefined';
     this.metadata_template_with_examples = analysis_metadata_template_with_examples;
     this.metadata_template_without_examples = analysis_metadata_template_without_examples;
+    if (this._userService.token) {
+      this.private_submission = true;
+      this.submission_message = 'Choose submission server';
+    }
   }
 
   setValidationResults() {
@@ -160,6 +167,9 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
       if (data['table_data']) {
         this.validation_results = data['table_data'];
         this.setValidationResults();
+      }
+      if (data['bovreg_submission']) {
+        this.bovreg_submission = true;
       }
     };
 

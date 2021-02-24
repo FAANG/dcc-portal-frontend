@@ -16,6 +16,7 @@
 
 .submission_data_button {
   margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .modal-button {
@@ -30,4 +31,16 @@ button {
 
 a {
   color: white;
+}
+
+.link {
+  color: #0074D9;
+}
+
+.form-danger {
+  margin-top: 5px;
+}
+
+.container {
+  margin-bottom: 100px;
 }

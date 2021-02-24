@@ -1,5 +1,17 @@
 <div class="container" style="min-height:87vh">
   <app-header></app-header>
+  <div class="row first-row" *ngIf="_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        <p>
+          You are logged in as {{ _userService.username }}. <br>
+          Token Expires: {{ _userService.token_expires }}
+        </p>
+        <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
+        <button (click)="_userService.logout()" class="btn btn-primary">Log Out</button>
+      </div>
+    </div>
+  </div>
   <h2>FAANG validation
     <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'samples']">
       Samples
@@ -75,6 +87,24 @@
   </div>
 
   <hr>
+
+  <div class="row first-row" *ngIf="bovreg_submission && !_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You’re about to submit BovReg data as public data. If you wish to submit this data privately please
+        <a [routerLink]="['/login']" class="link">log in</a> to the private BovReg data portal before continuing with your submission.
+      </div>
+    </div>
+  </div>
+
+  <div class="row first-row" *ngIf="bovreg_submission && _userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You’re about to submit BovReg data as private data. If you wish to submit this publicly to FAANG then please
+        logout of the Private BovReg data portal first.
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-md-6" *ngIf="validation_results">
@@ -165,7 +195,7 @@
     <div class="col-md-6" [hidden]="disableAuthForm">
       <h3>Submit data to ENA</h3>
       <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
-        <div class="form-group">
+        <div class="form-group" *ngIf="!_userService.token">
           <label for="aapUsername">Username</label>
           <input class="form-control" id="aapUsername"
                  placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
@@ -180,7 +210,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="!_userService.token">
           <label for="aapPassword">Password</label>
           <input type="password" class="form-control" id="aapPassword" placeholder="Password"
                  required [(ngModel)]="model.password" name="password" #password="ngModel">
