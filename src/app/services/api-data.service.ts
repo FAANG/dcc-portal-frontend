@@ -8,6 +8,7 @@ import {
   ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable
 } from '../shared/interfaces';
 import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
+import {UserService} from './user.service';
 
 
 @Injectable({
@@ -16,7 +17,8 @@ import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '..
 export class ApiDataService {
   hostSetting = new HostSetting;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private _userService: UserService) { }
 
   getAllFiles(query: any, size: number) {
     const url = this.hostSetting.host + 'file/' + '_search/' + '?size=' + size;
@@ -111,8 +113,23 @@ export class ApiDataService {
   }
 
   getAllOrganismsFromProject(project: string, mode: string) {
-    const url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
-    // const url = `http://45.86.170.123/api/organism/${mode}`;
+    let url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
+    if (mode === 'private') {
+       url = 'https://api.faang.org/private_portal/organism/';
+      return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        map((data: any) => {
+          return data.hits.hits.map( entry => ({
+              bioSampleId: entry['_source']['biosampleId'],
+              sex: entry['_source']['sex']['text'],
+              organism: entry['_source']['organism']['text'],
+              breed: entry['_source']['breed']['text'],
+              private: this.checkPrivateData(entry['_source']['customField'])
+            } as OrganismForProjectTable)
+          );
+        }),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
@@ -120,13 +137,21 @@ export class ApiDataService {
           sex: entry['_source']['sex']['text'],
           organism: entry['_source']['organism']['text'],
           breed: entry['_source']['breed']['text'],
-          private: entry['_source']['private']
+          private: this.checkPrivateData(entry['_source']['customField'])
         } as OrganismForProjectTable)
         );
       }),
       retry(3),
       catchError(this.handleError),
     );
+  }
+
+  checkPrivateData(entry: any) {
+    for (const data of entry) {
+      if (data['name'] === 'BovReg private submission') {
+        return true;
+      }
+    }
   }
 
   getOrganism(biosampleId: string) {
@@ -145,8 +170,26 @@ export class ApiDataService {
     );
   }
 
-  getAllSpecimensForProject(project: string) {
-    const url = this.hostSetting.host + 'specimen/_search/?size=100000&q=secondaryProject:' + project;
+  getAllSpecimensForProject(project: string, mode: string) {
+    let url = this.hostSetting.host + 'specimen/_search/?size=100000&q=secondaryProject:' + project;
+    if (mode === 'private') {
+      url = 'https://api.faang.org/private_portal/specimen/';
+      return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        map((data: any) => {
+          return data.hits.hits.map( entry => ({
+              bioSampleId: entry['_source']['biosampleId'],
+              material: this.checkField(entry['_source']['material']),
+              organismpart_celltype: this.checkField(entry['_source']['cellType']),
+              sex: this.checkField(entry['_source']['organism']['sex']),
+              organism: this.checkField(entry['_source']['organism']['organism']),
+              breed: this.checkField(entry['_source']['organism']['breed']),
+            private: this.checkPrivateData(entry['_source']['customField'])
+            } as SpecimenForProjectTable)
+          );
+        }),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map( entry => ({
@@ -155,7 +198,8 @@ export class ApiDataService {
           organismpart_celltype: this.checkField(entry['_source']['cellType']),
           sex: this.checkField(entry['_source']['organism']['sex']),
           organism: this.checkField(entry['_source']['organism']['organism']),
-          breed: this.checkField(entry['_source']['organism']['breed'])
+          breed: this.checkField(entry['_source']['organism']['breed']),
+          private: this.checkPrivateData(entry['_source']['customField'])
           } as SpecimenForProjectTable)
         );
       }),

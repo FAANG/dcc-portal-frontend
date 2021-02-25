@@ -47,8 +47,7 @@
                                  [text]="getValue(record, get_attr(attr))">
 
                 </app-robust-link>
-                <ng-container *ngIf="source_type === 'project' && target_type === 'organism' &&
-                isRecordPrivate(record)">
+                <ng-container *ngIf="source_type === 'project' && isRecordPrivate(record)">
                   <i class="material-icons lock">lock</i>
                 </ng-container>
               </span>

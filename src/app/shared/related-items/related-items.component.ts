@@ -50,7 +50,9 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-specimen') {
-      this.dataService.getAllSpecimensForProject(this.record_id).subscribe(
+      let mode: string;
+      this._userService.token ? mode = 'private' : mode = 'public';
+      this.dataService.getAllSpecimensForProject(this.record_id, mode).subscribe(
         (data: any) => {
           this.records = data;
         }

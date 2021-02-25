@@ -61,6 +61,16 @@ export class UserService {
     );
   }
 
+  public testToken() {
+    this.http.get(
+      'https://api.faang.org/private_portal/organisms/',
+      {headers: new HttpHeaders({'Authorization': `jwt ${this.token}`})}).subscribe(
+      data => {
+        console.log(data);
+      }
+    );
+  }
+
   public logout() {
     this.token = null;
     this.token_expires = null;

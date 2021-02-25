@@ -65,6 +65,7 @@ export interface SpecimenForProjectTable {
   sex: string;
   organism: string;
   breed: string;
+  private: boolean;
 }
 
 export interface DatasetTable {
