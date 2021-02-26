@@ -154,16 +154,30 @@ export class ApiDataService {
     }
   }
 
-  getOrganism(biosampleId: string) {
-    const url = this.hostSetting.host + 'organism/' + biosampleId;
+  getOrganism(biosampleId: string, mode: string) {
+    let url = this.hostSetting.host + 'organism/' + biosampleId;
+    if (mode === 'private') {
+      url = `https://api.faang.org/private_portal/organism/${biosampleId}/`;
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
     );
   }
 
-  getOrganismsSpecimens(biosampleId: any) {
-    const url = this.hostSetting.host + 'specimen/_search/?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
+  getOrganismsSpecimens(biosampleId: any, mode: string) {
+    let url = this.hostSetting.host + 'specimen/_search/?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
+    if (mode === 'private') {
+      url = `https://api.faang.org/private_portal/specimen/?q=organism.biosampleId:${biosampleId}`;
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -240,8 +254,15 @@ export class ApiDataService {
     }
   }
 
-  getSpecimen(biosampleId: string) {
-    const url = this.hostSetting.host + 'specimen/' + biosampleId;
+  getSpecimen(biosampleId: string, mode: string) {
+    let url = this.hostSetting.host + 'specimen/' + biosampleId;
+    if (mode === 'private') {
+      url = `https://api.faang.org/private_portal/specimen/${biosampleId}`;
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
