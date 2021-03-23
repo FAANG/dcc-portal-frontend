@@ -26,6 +26,7 @@ export interface FileForProjectTable {
   readableSize: string;
   checksum: string;
   checksumMethod: string;
+  private: boolean;
 }
 
 export interface OrganismTable {

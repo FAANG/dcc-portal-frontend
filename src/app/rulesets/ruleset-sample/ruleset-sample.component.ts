@@ -236,7 +236,6 @@ export class RulesetSampleComponent implements OnInit {
     this.apiDataService.getRulesetSample(convertToSnakeCase(rule.toLowerCase())).subscribe(data => {
       this.data = data;
       this.all_data = data;
-      console.log(this.data);
       this.mandatory_data = this.getMandatoryData(data);
       this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
       this.rules = Object.keys(data.properties);

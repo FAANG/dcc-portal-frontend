@@ -67,6 +67,10 @@
                   </a>
                   <i class="material-icons lock">lock</i>
                 </ng-container>
+                <ng-container *ngIf="source_type === 'project' && target_type === 'file' && isRecordPrivate(record)">
+                  <a [routerLink]="['/file', record['fileId']]">{{record['name']}}</a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
               </span>
               <ng-template #plainBlock>
                 {{getValue(record, get_attr(attr))}}

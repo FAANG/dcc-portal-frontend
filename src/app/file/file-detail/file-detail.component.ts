@@ -6,6 +6,7 @@ import {Title} from '@angular/platform-browser';
 import {FIELD_NAMES} from '../../shared/fieldnames';
 import {external_ena_prefix, external_ols_prefix, internal_dataset, internal_organism, internal_specimen} from '../../shared/constants';
 import {expandObject, getProtocolLink} from '../../shared/common_functions';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-file-detail',
@@ -26,6 +27,7 @@ export class FileDetailComponent implements OnInit {
   readonly organism_prefix = internal_organism;
   readonly specimen_prefix = internal_specimen;
   readonly dataset_prefix = internal_dataset;
+  mode: string;
 
   objectKeys = Object.keys;
 
@@ -33,9 +35,11 @@ export class FileDetailComponent implements OnInit {
               private router: Router,
               private dataService: ApiDataService,
               private spinner: NgxSpinnerService,
-              private titleService: Title) { }
+              private titleService: Title,
+              public _userService: UserService) { }
 
   ngOnInit() {
+    this._userService.token ? this.mode = 'private' : this.mode = 'public';
     this.expandObject = expandObject;
     this.getProtocolLink = getProtocolLink;
     this.spinner.show();
@@ -43,7 +47,7 @@ export class FileDetailComponent implements OnInit {
       this.fileId = params['id'];
       this.titleService.setTitle(`${this.fileId} | FAANG file`);
     });
-    this.dataService.getFile(this.fileId).subscribe(
+    this.dataService.getFile(this.fileId, this.mode).subscribe(
       (data: any) => {
         if (data['hits']['hits'].length === 0) {
           this.spinner.hide();

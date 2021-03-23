@@ -62,8 +62,9 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-file') {
-      this.dataService.getAllFilesForProject(this.record_id).subscribe(
+      this.dataService.getAllFilesForProject(this.record_id, this.mode).subscribe(
         (data: any) => {
+          console.log(data);
           this.records = data;
         }
       );
@@ -87,7 +88,7 @@ export class RelatedItemsComponent implements OnInit {
           this.records = data['hits']['hits'];
         });
     } else if (relationship_type === 'file-paper') {
-      this.dataService.getFile(this.record_id).subscribe(
+      this.dataService.getFile(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
