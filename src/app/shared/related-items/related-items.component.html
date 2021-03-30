@@ -71,6 +71,10 @@
                   <a [routerLink]="['/file', record['fileId']]">{{record['name']}}</a>
                   <i class="material-icons lock">lock</i>
                 </ng-container>
+                <ng-container *ngIf="source_type === 'project' && target_type === 'dataset' && isRecordPrivate(record)">
+                  <a [routerLink]="['/dataset', record['datasetAccession']]">{{record['datasetAccession']}}</a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
               </span>
               <ng-template #plainBlock>
                 {{getValue(record, get_attr(attr))}}

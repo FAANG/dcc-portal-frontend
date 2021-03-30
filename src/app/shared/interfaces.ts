@@ -80,6 +80,7 @@ export interface DatasetTable {
   numberOfFiles: string;
   standard: string;
   paperPublished: string;
+  private: boolean;
 }
 
 export interface AnalysisTable {

@@ -93,6 +93,28 @@ export class ApiDataService {
 
   getAllDatasetsForProject(project: string, mode: string) {
     let url = this.hostSetting.host + 'dataset/_search/?size=100000&q=secondaryProject:' + project;
+    if (mode === 'private') {
+      url = 'https://api.faang.org/private_portal/dataset/';
+      return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        map((data: any) => {
+          return data.hits.hits.map(entry => ({
+              datasetAccession: entry['_source']['accession'],
+              title: entry['_source']['title'],
+              species: entry['_source']['species'][0]['text'],
+              archive: entry['_source']['archive'][0],
+              assayType: entry['_source']['assayType'][0],
+              numberOfExperiments: entry['_source']['experiment'].length,
+              numberOfSpecimens: entry['_source']['specimen'].length,
+              numberOfFiles: entry['_source']['file'].length,
+              standard: entry['_source']['standardMet'],
+              private: entry['_source']['private']
+            } as DatasetTable)
+          );
+        }),
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map(entry => ({
@@ -104,7 +126,8 @@ export class ApiDataService {
             numberOfExperiments: entry['_source']['experiment'].length,
             numberOfSpecimens: entry['_source']['specimen'].length,
             numberOfFiles: entry['_source']['file'].length,
-            standard: entry['_source']['standardMet']
+            standard: entry['_source']['standardMet'],
+            private: false
         } as DatasetTable)
         );
       }),
@@ -372,8 +395,15 @@ export class ApiDataService {
     return value.substring(0, value.length - 1);
   }
 
-  getDataset(accession: string) {
-    const url = this.hostSetting.host + 'dataset/' + accession;
+  getDataset(accession: string, mode: string) {
+    let url = this.hostSetting.host + 'dataset/' + accession;
+    if (mode === 'private') {
+      url = 'https://api.faang.org/private_portal/dataset/';
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),

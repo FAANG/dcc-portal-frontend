@@ -99,17 +99,17 @@ export class RelatedItemsComponent implements OnInit {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
     } else if (relationship_type === 'dataset-specimen') {
-      this.dataService.getDataset(this.record_id).subscribe(
+      this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['specimen'];
         });
     } else if (relationship_type === 'dataset-file') {
-      this.dataService.getDataset(this.record_id).subscribe(
+      this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['file'];
         });
     } else if (relationship_type === 'dataset-paper') {
-      this.dataService.getDataset(this.record_id).subscribe(
+      this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
