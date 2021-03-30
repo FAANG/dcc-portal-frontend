@@ -612,6 +612,58 @@
           "value": "checksumMethod"
         }
       }
+    },
+    "dataset": {
+      "display": [
+        "Study name",
+        "Species",
+        "Archive",
+        "Assay type"
+      ],
+      "all": [
+        "Study name",
+        "Title",
+        "Species",
+        "Archive",
+        "Assay type",
+        "Number of experiments",
+        "Number of specimens",
+        "Number of files",
+        "Standard"
+      ],
+      "fields": {
+        "Study name": {
+          "value": "datasetAccession",
+          "link": {
+            "prefix": "../dataset/",
+            "url": "datasetAccession"
+          }
+        },
+        "Title": {
+          "value": "title"
+        },
+        "Species": {
+          "value": "species"
+        },
+        "Archive": {
+          "value": "archive"
+        },
+        "Assay type": {
+          "value": "assayType"
+        },
+        "Number of experiments": {
+          "value": "numberOfExperiments"
+        },
+        "Number of specimens": {
+          "value": "numberOfSpecimens"
+        },
+        "Number of files": {
+          "value": "numberOfFiles"
+        },
+        "Standard": {
+          "value": "standard"
+        }
+      }
     }
   }
 }

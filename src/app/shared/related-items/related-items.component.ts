@@ -64,6 +64,12 @@ export class RelatedItemsComponent implements OnInit {
     } else if (relationship_type === 'project-file') {
       this.dataService.getAllFilesForProject(this.record_id, this.mode).subscribe(
         (data: any) => {
+          this.records = data;
+        }
+      );
+    } else if (relationship_type === 'project-dataset') {
+      this.dataService.getAllDatasetsForProject(this.record_id, this.mode).subscribe(
+        (data: any) => {
           console.log(data);
           this.records = data;
         }
