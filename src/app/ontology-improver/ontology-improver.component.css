@@ -3,3 +3,21 @@
     width: 100%; 
     margin-bottom: 10px;
 }
+
+textarea {
+    border-radius: 3px;
+    padding: 5px;
+}
+
+textarea:focus {
+    box-shadow: 0 0 8px 0px rgb(0 0 0 / 30%);
+    outline: 0;
+    border: 0;
+}
+
+.ontology-matches-header {
+    background-color: rgba(0, 0, 0, 0.07);
+    font-size: 14px;
+    color: black;
+    font-weight: 600;
+}

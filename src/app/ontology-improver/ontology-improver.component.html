@@ -1,9 +1,34 @@
 <div class="container">
     <app-header></app-header>
-    <div class="container" style="margin: 10px;">
+    <div class="container" style="margin: 10px; padding-bottom: 20px;">
         <h2>Ontology Improver Service</h2>
         <p>Enter Ontology terms in the text box below. For batch input, enter one term per line.</p>
-        <textarea class="ontology-input"></textarea>
-        <button class="btn btn-success">Submit</button>
+        <textarea class="ontology-input" [(ngModel)]="ontologyTerms"></textarea>
+        <button class="btn btn-success" (click)="submitTerms()">Submit</button>
+    </div>
+    <div class="container" style="margin: 10px; padding-bottom: 20px;" *ngIf="(ontologyMatches | json) != '{}'">
+        <h4>Ontology Matches</h4>
+        <p>Select the best match for your ontology terms</p>
+        <br>
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first" [expanded]="isFirst"
+             (opened)="panelOpenState = true" (closed)="panelOpenState = false" style="margin-bottom: 20px;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h6><b>Ontology Matches for term '{{item.key}}'</b></h6>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <table mat-table [dataSource]="item.value" table-striped style="width: 100%">
+                    <ng-container *ngFor="let col of ontologyColsToDisplay; let i = index">
+                        <ng-container [matColumnDef]=col>
+                            <th mat-header-cell class="ontology-matches-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
+                            <td mat-cell *matCellDef="let item"> {{item[col]}} </td>
+                        </ng-container>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="ontologyColsToDisplay"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ontologyColsToDisplay;"></tr>
+                </table>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
 </div>
