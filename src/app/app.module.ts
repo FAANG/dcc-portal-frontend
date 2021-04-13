@@ -86,6 +86,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatInputModule} from '@angular/material/input';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -175,6 +176,7 @@ export function removeToken(): void {
     MatButtonModule,
     MatIconModule,
     MatExpansionModule,
+    MatInputModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,

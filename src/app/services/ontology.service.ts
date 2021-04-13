@@ -15,7 +15,7 @@ export class OntologyService {
   constructor(private http: HttpClient, private _userService: UserService) { }
 
   submitOntologyTerms(terms: any) {
-    const url = validation_service_url + 'ontology_improver/submit/';
+    const url = validation_service_url + '/ontology_improver/submit/';
     return this.http.post(url, {'terms': terms}).pipe(
       map((data: any) => {
         return data;
