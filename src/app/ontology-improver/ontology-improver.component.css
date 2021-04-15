@@ -15,9 +15,21 @@ textarea:focus {
     border: 0;
 }
 
-.ontology-matches-header {
+.table-header {
     background-color: rgba(0, 0, 0, 0.07);
     font-size: 14px;
     color: black;
     font-weight: 600;
+}
+
+.table-cell-data {
+    font-size: 16px;
+}
+
+.color-status {
+    border-radius: 20px;
+    border-width: 7px;
+    opacity: 70%;
+    padding: 3px;
+    margin-right: 5px;
 }

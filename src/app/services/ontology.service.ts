@@ -14,9 +14,39 @@ export class OntologyService {
 
   constructor(private http: HttpClient, private _userService: UserService) { }
 
-  submitOntologyTerms(terms: any) {
-    const url = validation_service_url + '/ontology_improver/submit/';
+  searchTerms(terms: any) {
+    const url = validation_service_url + '/ontology_improver/search/';
     return this.http.post(url, {'terms': terms}).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );
+  }
+  
+  fetchZoomaMatches(terms: any) {
+    const url = validation_service_url + '/ontology_improver/get_matches/';
+    return this.http.post(url, {'terms': terms}).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );
+  }
+  
+  validateTerms(terms: any) {
+    const url = validation_service_url + '/ontology_improver/validate/';
+    return this.http.post(url, {'terms': terms}).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );
+  }
+  
+  getAllOntologies(terms: any) {
+    const url = validation_service_url + '/ontology_improver/get_ontologies/';
+    return this.http.get(url).pipe(
       map((data: any) => {
         return data;
       }),
