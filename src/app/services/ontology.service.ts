@@ -45,7 +45,7 @@ export class OntologyService {
   }
   
   getAllOntologies(terms: any) {
-    const url = validation_service_url + '/ontology_improver/get_ontologies/';
+    const url = validation_service_url + '/ontology_improver/search/';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
