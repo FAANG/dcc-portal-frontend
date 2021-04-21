@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {OntologyService} from '../services/ontology.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ontology-improver',
@@ -8,6 +9,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   styleUrls: ['./ontology-improver.component.css']
 })
 export class OntologyImproverComponent implements OnInit {
+  @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
   hide: boolean;
   username: string;
   password: string;
@@ -16,21 +18,31 @@ export class OntologyImproverComponent implements OnInit {
   ontologyTerms: string;
   searchResults;
   ontologyMatches;
+  selectedTerm;
+  validatedOntologies;
   error: string;
+  dialogRef;
   ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
 
   constructor(
     private ontologyService: OntologyService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.hide = true;
-    this.token = 'dev';
+    this.token = '';
     this.mode = 'input';
     this.ontologyTerms = '';
     this.searchResults = {};
     this.ontologyMatches = {};
+    this.selectedTerm = {'key': '', 'index': 0};
+    this.validatedOntologies = [];
+
+    // for development
+    // this.token = 'dev';
+    // this.ontologyTerms = "Sus scrofa\nFemale\nGallus gallus\nspecimen from organism\nSample\nwhite blood cells\nblood\nCapra hircus\nasfgjdhuihkjkiujk";
   }
 
   login() {
@@ -44,13 +56,11 @@ export class OntologyImproverComponent implements OnInit {
     this.http.get('https://explore.api.aai.ebi.ac.uk/auth', httpOptions)
     .subscribe(
       data => {
-        console.log(data);
         this.error = null;
         this.token = data.toString();
       },
       err => {
         this.error = err;
-        console.error(err);
       }
     );
   }
@@ -67,48 +77,13 @@ export class OntologyImproverComponent implements OnInit {
     this.ontologyService.searchTerms(ontologyInput).subscribe(
       data => {
         this.searchResults = data;
+        this.validatedOntologies = this.searchResults.not_found;
         this.getOntologyMatches(this.searchResults.not_found);
       },
       error => {
         this.error = error;
       }
     );
-    // this.searchResults = {
-    //   'found': [
-    //     {
-    //       "term": "Sus scrofa",
-    //       "term_type": "organism",
-    //       "ontology_id": ["NCBITaxon_9823"],
-    //       "mode": "green"
-    //     },
-    //     {
-    //       "term": "Female",
-    //       "term_type": "sex",
-    //       "ontology_id": ["PATO_0000383"],
-    //       "mode": "blue"
-    //     },
-    //     {
-    //       "term": "Gallus gallus",
-    //       "term_type": "organism",
-    //       "ontology_id": ["NCBITaxon_9031"],
-    //       "mode": "green"
-    //     },
-    //     {
-    //       "term": "specimen from organism",
-    //       "term_type": "material",
-    //       "ontology_id": ["OBI_0001479"],
-    //       "mode": "yellow"
-    //     },
-    //     {
-    //       "term": "Sample",
-    //       "term_type": "",
-    //       "ontology_id": [],
-    //       "mode": "red"
-    //     }
-    //   ],
-    //   'not_found': ['white blood cells', 'Blood', 'Capra hircus']
-    // }
-    // this.getOntologyMatches(this.searchResults['not_found']);
     this.mode = 'validate';
   }
 
@@ -116,49 +91,83 @@ export class OntologyImproverComponent implements OnInit {
     this.ontologyService.fetchZoomaMatches(terms).subscribe(
       data => {
         this.ontologyMatches = data;
+        for (const prop in this.ontologyMatches) {
+          let l = this.ontologyMatches[prop].length;
+          for (let index = 0; index < l; index += 1) {
+            this.ontologyMatches[prop][index]['selected'] = false;
+          }
+        }
       },
       error => {
         this.error = error;
       }
     );
-
-    // this.ontologyMatches = {
-    //   "white blood cells": [],
-    //   "Blood": [{
-    //     "term_type": "celltype",
-    //     "ontology_label": "blood",
-    //     "ontology_id": ["UBERON_0000178"],
-    //     "mapping_confidence": "GOOD",
-    //     "source": "https://www.ebi.ac.uk/vg/faang"
-    //   }, {
-    //     "term_type": "celltype",
-    //     "ontology_label": "blood",
-    //     "ontology_id": ["BTO_0000089"],
-    //     "mapping_confidence": "GOOD",
-    //     "source": "https://www.ebi.ac.uk/vg/faang"
-    //   }],
-    //   "Capra hircus": [{
-    //     "term_type": "organism",
-    //     "ontology_label": "Capra hircus",
-    //     "ontology_id": ["NCBITaxon_9925"],
-    //     "mapping_confidence": "HIGH",
-    //     "source": "https://www.ebi.ac.uk/vg/faang"
-    //   }],
-    // };
   }
 
-  provideOntology() {
+  startValidation(key, index) {
+    var data;
+    this.selectedTerm.key = key;
+    // check if no matches found
+    if (index == -1) {
+      data = {'ontology_label': key, 'ontology_status': 'Not yet supported'};
+      this.selectedTerm.index = 0;
+    } else {
+      data = this.ontologyMatches[key][index];
+      this.selectedTerm.index = index;
+    }
+    // open modal only if the ontology was not already selected
+    if (!data['selected']) {
+      // mar current ontology as selected
+      data['selected'] = true;
+      // deselect other ontologies of that particular term
+      let l = this.ontologyMatches[key].length;
+      for (let i = 0; i < l; i += 1) {
+        if (i != index) {
+          this.ontologyMatches[key][i]['selected'] = false;
+        }
+      }
+      //open modal for validation
+      this.openModal(data);
+    }
+  }
 
+  openModal(selectedOntology) {
+    this.dialogRef = this.dialog.open(this.modalTemplate, {
+      width: '40%',
+      data: JSON.parse(JSON.stringify(selectedOntology)) // copy without reference
+    });
+
+    this.dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  closeModal() {
+    this.dialogRef.close();
+  }
+
+  saveModalData(data) {
+    // save validation on the ontology and refresh accordion
+    // copying to another object and re-assigning is necessary to refresh the accordion on save
+    let updatedOntologyMatches = JSON.parse(JSON.stringify(this.ontologyMatches));
+    updatedOntologyMatches[this.selectedTerm.key][this.selectedTerm.index] = data;
+    this.ontologyMatches = updatedOntologyMatches;
+    // close modal
+    this.closeModal();
   }
 
   submitTerms() {
-    // verify, flag, improve ontologies
+    // get validated ontologies
+    const validatedOntologies = this.ontologyMatches;
     // submit to validate endpoint
-    this.mode = 'table'; // navigate to page 3
-  }
-
-  back() {
-    this.mode = 'validate'; // navigate back to page 2
+    this.ontologyService.validateTerms(validatedOntologies).subscribe(
+      data => {
+      },
+      error => {
+        this.error = error;
+      }
+    );
+    // go to summary page
+    // this.mode = 'table';
   }
 
 }
