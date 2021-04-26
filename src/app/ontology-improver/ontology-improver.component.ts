@@ -19,7 +19,6 @@ export class OntologyImproverComponent implements OnInit {
   searchResults;
   ontologyMatches;
   selectedTerm;
-  validatedOntologies;
   error: string;
   dialogRef;
   ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
@@ -33,16 +32,16 @@ export class OntologyImproverComponent implements OnInit {
   ngOnInit() {
     this.hide = true;
     this.token = '';
-    this.mode = 'input';
+    this.mode = 'login';
     this.ontologyTerms = '';
     this.searchResults = {};
     this.ontologyMatches = {};
     this.selectedTerm = {'key': '', 'index': 0};
-    this.validatedOntologies = [];
 
     // for development
     // this.token = 'dev';
-    // this.ontologyTerms = "Sus scrofa\nFemale\nGallus gallus\nspecimen from organism\nSample\nwhite blood cells\nblood\nCapra hircus\nasfgjdhuihkjkiujk";
+    // this.mode = 'input';
+    // this.ontologyTerms = "Sus scrofa\nFemale\nGallus gallus\nspecimen from organism\nSample\nwhite blood cells\nblood\nCapra hircus\nasfgjdhuihkjkiuj";
   }
 
   login() {
@@ -57,6 +56,7 @@ export class OntologyImproverComponent implements OnInit {
     .subscribe(
       data => {
         this.error = null;
+        this.mode = 'input';
         this.token = data.toString();
       },
       err => {
@@ -77,7 +77,6 @@ export class OntologyImproverComponent implements OnInit {
     this.ontologyService.searchTerms(ontologyInput).subscribe(
       data => {
         this.searchResults = data;
-        this.validatedOntologies = this.searchResults.not_found;
         this.getOntologyMatches(this.searchResults.not_found);
       },
       error => {
@@ -104,7 +103,7 @@ export class OntologyImproverComponent implements OnInit {
     );
   }
 
-  startValidation(key, index) {
+  startValidation(key: string, index: number) {
     var data;
     this.selectedTerm.key = key;
     // check if no matches found
@@ -146,6 +145,10 @@ export class OntologyImproverComponent implements OnInit {
   }
 
   saveModalData(data) {
+    // if user marked ontology as needing improvement and also suggested changes, set status as awaiting assesment
+    if (data.ontology_status == 'Needs Improvement') {
+      // TODO
+    }
     // save validation on the ontology and refresh accordion
     // copying to another object and re-assigning is necessary to refresh the accordion on save
     let updatedOntologyMatches = JSON.parse(JSON.stringify(this.ontologyMatches));
@@ -155,11 +158,47 @@ export class OntologyImproverComponent implements OnInit {
     this.closeModal();
   }
 
+  getColour(ontology_support: string, ontology_status: string) {
+    if (ontology_status == 'Verified') {
+      if (ontology_support == 'https://www.ebi.ac.uk/vg/faang')
+        return 'rgba(0, 255, 0, 0.3)';
+      else
+        return 'rgba(255, 255, 0, 0.3)';
+    }
+    else if (ontology_status == 'Awaiting Assessment')
+      return 'rgba(0, 0, 255, 0.3)';
+    else if (ontology_status == 'Needs Improvement')
+      return 'rgba(255, 255, 0, 0.3)';
+    else if (ontology_status == 'Not yet supported')
+      return 'rgba(255, 0, 0, 0.3)';
+    else
+      return 'rgba(255, 255, 255, 1)';
+  }
+
   submitTerms() {
-    // get validated ontologies
-    const validatedOntologies = this.ontologyMatches;
+    // get selected and validated ontologies
+    const validatedOntologies = [];
+    for (const prop in this.ontologyMatches) {
+      let l = this.ontologyMatches[prop].length;
+      for (let index = 0; index < l; index += 1) {
+        if (this.ontologyMatches[prop][index]['selected'])  {
+          let ontology = {};
+          let data = this.ontologyMatches[prop][index];
+          ontology['ontology_term'] = data['ontology_label'];
+          ontology['ontology_type'] = data['term_type'] ? data['term_type'] : '';
+          ontology['ontology_id'] = data['ontology_id'] ? data['ontology_id'] : '';
+          ontology['ontology_support'] = data['source'] ? data['source'] : 'Not yet supported';
+          ontology['ontology_status'] = data['ontology_status'];
+          validatedOntologies.push(ontology);
+          break;
+        }
+      }
+    }
     // submit to validate endpoint
-    this.ontologyService.validateTerms(validatedOntologies).subscribe(
+    const request = {};
+    request['user'] = this.username;
+    request['ontologies'] = validatedOntologies;
+    this.ontologyService.validateTerms(request).subscribe(
       data => {
       },
       error => {
@@ -167,7 +206,7 @@ export class OntologyImproverComponent implements OnInit {
       }
     );
     // go to summary page
-    // this.mode = 'table';
+    this.mode = 'table';
   }
 
 }

@@ -161,7 +161,7 @@
                                 </ng-container>
                             </ng-container>
                             <tr mat-header-row *matHeaderRowDef="ontologyMatchColsToDisplay"></tr>
-                            <tr mat-row *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
+                            <tr mat-row [style.background-color]="getColour(row.source, row.ontology_status)" *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
                         </table>
                     </ng-container>
                     <ng-container *ngIf="item.value?.length == 0">
@@ -200,13 +200,13 @@
                 Ontology needs improvement
             </mat-radio-button>
         </mat-radio-group>
-        <!-- Let user suggest changes if ontology flagged as needing improvemnt -->
-        <mat-form-field *ngIf="data.ontology_status == 'Needs Improvement' || data.ontology_status == 'Not yet supported'" 
+        <!-- Let user suggest changes if ontology is not marked suitable -->
+        <mat-form-field *ngIf="data.ontology_status == 'Needs Improvement' || data.ontology_status == 'Awaiting Assessment' || data.ontology_status == 'Not yet supported'" 
             appearance="fill" style="width: 100%;">
             <mat-label>Proposed Ontology ID</mat-label>
             <input matInput [(ngModel)]="data.ontology_id">
         </mat-form-field>
-        <mat-form-field *ngIf="data.ontology_status == 'Needs Improvement' || data.ontology_status == 'Not yet supported'"
+        <mat-form-field *ngIf="data.ontology_status == 'Needs Improvement' || data.ontology_status == 'Awaiting Assessment' || data.ontology_status == 'Not yet supported'"
             appearance="fill" style="width: 100%;">
             <mat-label>Proposed Ontology Text</mat-label>
             <input matInput [(ngModel)]="data.ontology_label">
