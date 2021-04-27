@@ -1,187 +1,210 @@
-<!-- Load an icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <div class="container">
     <app-header></app-header>
 
-    <!--Page 0 - Display all ontologies, search filter-->
-    <div class="container" style="margin: 10px; padding-bottom: 20px;" *ngIf="(searchResults | json) != '{}' && mode == 'table'">
-        <h3>Livestock Ontologies</h3>
-        <div class="row">
-            <div class="col-md-12" style="padding-top: 10px; padding-bottom: 10px;">
-                <mat-form-field style="width: 50%; margin-right: 20px">
-                    <mat-label>Search livestock ontologies</mat-label>
-                    <input matInput placeholder="Search livestock ontologies">
-                </mat-form-field>
-                <button class="btn btn-success icon"><i class="fa fa-search"></i></button>
-                <ng-container *ngIf="searchResults.found?.length">
-                    <table mat-table [dataSource]="searchResults.found" table-striped style="width: 100%; margin-bottom: 20px;">
-                        <ng-container matColumnDef='term'>
-                            <th mat-header-cell class="table-header" *matHeaderCellDef>Term</th>
-                            <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_term}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef='term_type'>
-                            <th mat-header-cell class="table-header" *matHeaderCellDef>Ontology Type</th>
-                            <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_type}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef='ontology_id'>
-                            <th mat-header-cell class="table-header" *matHeaderCellDef>Ontology ID</th>
-                            <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_id}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef='mode'>
-                            <th mat-header-cell class="table-header" *matHeaderCellDef>Status</th>
-                            <td mat-cell class="table-cell-data" *matCellDef="let item"> 
-                                <button class="btn color-status" [style.border-color]="item.mode" [style.background-color]="item.colour_code"></button>
-                                {{item.ontology_status}}
-                            </td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef=" ['term', 'term_type', 'ontology_id', 'mode']"></tr>
-                        <tr mat-row *matRowDef="let row; columns:  ['term', 'term_type', 'ontology_id', 'mode'];"></tr>
-                    </table>
-                    <mat-paginator pageSize="25"></mat-paginator>
-                </ng-container>
-                <ng-container *ngIf="searchResults.found?.length == 0">
-                    No terms found
-                </ng-container>
-            </div>
-        </div>
-    </div>
-
-    <!--Page 1 - Login Screen -->
-    <div class="container" style="margin-top: 30px" *ngIf="!token && mode == 'login'">
-        <div class="col-md-6">
-            <h3><p>Login</p></h3>
-            <mat-form-field appearance="fill" style="width: 100%">
-                <mat-label>Enter your username</mat-label>
-                <input matInput [(ngModel)]="username">
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill" style="width: 100%">
-                <mat-label>Enter your password</mat-label>
-                <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-            <p *ngIf="error">Unable to login. Invalid credentials</p>
-            <br>
-            <div class="row">
-                <div class="col-md-3">
-                    <button class="btn btn-primary" (click)="login()" style="width: 100%">
-                        Submit
-                    </button>
-                </div>
-                <div class="col-md-9" style="text-align: right;">
-                    <p> If you do not have an AAP account, register 
-                        <a href="https://aai.ebi.ac.uk/registerUser">here</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--Page 2 - Validate ontologies (Only for Authenticated Users)-->
-    <ng-container *ngIf="token">
-        <!--Page 2.1 - Input terms-->
-        <div class="container" style="margin: 10px; padding-bottom: 20px;" *ngIf="mode == 'input' || mode == 'validate'">
-            <div class="row">
-                <div class="col-md-10">
-                    <h2>Ontology Improver Service</h2>
-                </div>
-                <div class="col-md-2"style="text-align: right;">
-                    <button class="btn btn-primary" (click)="logout()">Logout</button>
-                </div>
-            </div>
-            <p>Enter Ontology terms in the text box below. For batch input, enter one term per line.</p>
-            <textarea class="ontology-input" [(ngModel)]="ontologyTerms"></textarea>
-            <button class="btn btn-success" (click)="searchTerms()">Search</button>
-        </div>
-
-        <!--Page 2.2 - Display existing terms-->
-        <div class="container" style="margin: 10px; padding-bottom: 20px;" *ngIf="(searchResults | json) != '{}' && mode == 'validate'">
-            <h4>Existing terms</h4>
-            <ng-container *ngIf="searchResults.found?.length">
-                <table mat-table [dataSource]="searchResults.found" table-striped style="width: 100%; margin-bottom: 20px;">
-                    <ng-container matColumnDef='term'>
-                        <th mat-header-cell class="table-header" *matHeaderCellDef>Term</th>
-                        <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_term}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef='term_type'>
-                        <th mat-header-cell class="table-header" *matHeaderCellDef>Ontology Type</th>
-                        <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_type}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef='ontology_id'>
-                        <th mat-header-cell class="table-header" *matHeaderCellDef>Ontology ID</th>
-                        <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_id}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef='mode'>
-                        <th mat-header-cell class="table-header" *matHeaderCellDef>Status</th>
-                        <td mat-cell class="table-cell-data" *matCellDef="let item"> 
-                            <button class="btn color-status" [style.border-color]="item.mode" [style.background-color]="item.colour_code"></button>
-                            {{item.ontology_status}}
-                        </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef=" ['term', 'term_type', 'ontology_id', 'mode']"></tr>
-                    <tr mat-row *matRowDef="let row; columns:  ['term', 'term_type', 'ontology_id', 'mode'];"></tr>
-                </table>
-            </ng-container>
-            <ng-container *ngIf="searchResults.found?.length == 0">
-                No terms found
-            </ng-container>
-        </div>
-
-        <!--Page 2.3 - Display Ontology Matches for new terms-->
-        <div class="container" style="margin: 10px; padding-bottom: 20px;" *ngIf="(ontologyMatches | json) != '{}' && mode == 'validate'">
-            <h4>Ontology Matches for new terms</h4>
-            <p>Select the best match for each your ontology terms</p>
-            <br>
-            <mat-accordion>
-                <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;" 
-                    [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst" (opened)="panelOpenState = true" (closed)="panelOpenState = false" 
-                    style="margin-bottom: 20px;">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <h6><b>Ontology Matches for term '{{item.key}}'</b></h6>
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <ng-container *ngIf="item.value?.length">
-                        <table mat-table [dataSource]="item.value" table-striped style="width: 100%">
-                            <ng-container *ngFor="let col of ontologyMatchColsToDisplay; let i = index">
-                                <ng-container *ngIf="col == 'source'" [matColumnDef]=col>
-                                    <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
-                                    <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index"> 
-                                        {{data[col]}} 
-                                        <input type="checkbox" [(ngModel)]="data['selected']" (click)="startValidation(item.key, j)" 
-                                            style="margin-right: 40px; margin-top: 5px; float: right;">
+    <div class="container">
+        <mat-tab-group #tabs>
+            <!--Page 1 - Display all ontologies, search filter-->
+            <mat-tab label="Summary Page">
+                <div class="container">
+                    <div class="row" style="margin: 30px 0 0 2px;">
+                        <h2>Livestock Ontologies</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="padding-top: 10px; padding-bottom: 10px;">
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>Search livestock ontologies</mat-label>
+                                <input (keyup)="applyFilter($event)" matInput 
+                                    placeholder="Search livestock ontologies by term, type, ID or status">
+                            </mat-form-field>
+                            <table mat-table matSort [dataSource]="summaryTableData" table-striped style="width: 100%; margin-bottom: 20px;">
+                                <ng-container matColumnDef='ontology_term'>
+                                    <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header>Term</th>
+                                    <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_term}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef='ontology_type'>
+                                    <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header>Ontology Type</th>
+                                    <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_type}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef='ontology_id'>
+                                    <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header>Ontology ID</th>
+                                    <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_id}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef='ontology_status'>
+                                    <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header>Status</th>
+                                    <td mat-cell class="table-cell-data" *matCellDef="let item"> 
+                                        <button class="btn color-status" [style.background-color]="getColour(item.ontology_support, item.ontology_status, 0.8)"></button>
+                                        {{item.ontology_status}}
+                                        <span *ngIf="item.ontology_status == 'Verified'">
+                                            by {{item.verified_count}}
+                                            <span *ngIf="item.verified_count == 1">
+                                                user
+                                            </span>
+                                            <span *ngIf="item.verified_count > 1">
+                                                users
+                                            </span>
+                                        </span>
                                     </td>
                                 </ng-container>
-                                <ng-container *ngIf="col != 'source'" [matColumnDef]=col>
-                                    <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
-                                    <td mat-cell class="table-cell-data" *matCellDef="let data"> {{data[col]}} </td>
-                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef=" ['ontology_term', 'ontology_type', 'ontology_id', 'ontology_status']"></tr>
+                                <tr mat-row *matRowDef="let row; columns:  ['ontology_term', 'ontology_type', 'ontology_id', 'ontology_status'];"></tr>
+                            </table>
+                            <mat-paginator pageSize="10"></mat-paginator>
+                            <ng-container *ngIf="summaryTableData?.length == 0">
+                                No terms found
                             </ng-container>
-                            <tr mat-header-row *matHeaderRowDef="ontologyMatchColsToDisplay"></tr>
-                            <tr mat-row [style.background-color]="getColour(row.source, row.ontology_status)" *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
-                        </table>
-                    </ng-container>
-                    <ng-container *ngIf="item.value?.length == 0">
-                        <div class="row">
-                            <div class="table-cell-data col-md-9">
-                                No Matches Found
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <!--Page 2 - Ontology Improvment tool (Requires login) -->
+            <mat-tab label="Ontology Improvement Tool">
+                <!-- Validate ontologies (Only for Authenticated Users) -->
+                <ng-container *ngIf="token">
+                    <!--Page 2.1 - Input terms-->
+                    <div class="container" style="margin-bottom: 40px;" *ngIf="mode == 'input' || mode == 'validate'">
+                        <div class="row" style="margin-top: 30px; margin-bottom: 20px;">
+                            <div class="col-md-8">
+                                <h2>Ontology Improver Service</h2>
                             </div>
-                            <div class="col-md-3" style="text-align: right;">
-                                <button class="btn btn-info" (click)="startValidation(item.key, -1)">Provide Ontology</button>
+                            <div class="col-md-4" style="text-align: right;">
+                                <button class="btn btn-primary" (click)="logout()">Logout</button>
                             </div>
                         </div>
-                    </ng-container>
-                </mat-expansion-panel>
-            </mat-accordion>
-            <br>
-            <button class="btn btn-primary" (click)="submitTerms()">Submit</button>
-        </div>
-    </ng-container>
+                        <p>Enter Ontology terms in the text box below. For batch input, enter one term per line.</p>
+                        <textarea class="ontology-input" [(ngModel)]="ontologyTerms"></textarea>
+                        <button class="btn btn-success" (click)="searchTerms()">Search</button>
+                    </div>
+    
+                    <!--Page 2.2 - Display existing terms-->
+                    <div class="container" style="margin-bottom: 40px;" *ngIf="(searchResults | json) != '{}' && mode == 'validate'">
+                        <h4>Existing terms</h4>
+                        <ng-container *ngIf="searchResults.found?.length">
+                            <table mat-table [dataSource]="searchResults.found" table-striped style="width: 100%; margin-bottom: 20px;">
+                                <ng-container matColumnDef='term'>
+                                    <th mat-header-cell class="table-header" *matHeaderCellDef>Term</th>
+                                    <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_term}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef='term_type'>
+                                    <th mat-header-cell class="table-header" *matHeaderCellDef>Ontology Type</th>
+                                    <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_type}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef='ontology_id'>
+                                    <th mat-header-cell class="table-header" *matHeaderCellDef>Ontology ID</th>
+                                    <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_id}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef='mode'>
+                                    <th mat-header-cell class="table-header" *matHeaderCellDef>Status</th>
+                                    <td mat-cell class="table-cell-data" *matCellDef="let item"> 
+                                        <button class="btn color-status" [style.background-color]="getColour(item.ontology_support, item.ontology_status, 0.8)"></button>
+                                        {{item.ontology_status}}
+                                        <span *ngIf="item.ontology_status == 'Verified'">
+                                            by {{item.verified_count}}
+                                            <span *ngIf="item.verified_count == 1">
+                                                user
+                                            </span>
+                                            <span *ngIf="item.verified_count > 1">
+                                                users
+                                            </span>
+                                        </span>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef=" ['term', 'term_type', 'ontology_id', 'mode']"></tr>
+                                <tr mat-row *matRowDef="let row; columns:  ['term', 'term_type', 'ontology_id', 'mode'];"></tr>
+                            </table>
+                        </ng-container>
+                        <ng-container *ngIf="searchResults.found?.length == 0">
+                            No terms found
+                        </ng-container>
+                    </div>
+    
+                    <!--Page 2.3 - Display Ontology Matches for new terms-->
+                    <div class="container" style="margin-bottom: 40px;" *ngIf="(ontologyMatches | json) != '{}' && mode == 'validate'">
+                        <h4>Ontology Matches for new terms</h4>
+                        <p>Select the best match for each your ontology terms</p>
+                        <br>
+                        <mat-accordion>
+                            <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;" 
+                                [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst" (opened)="panelOpenState = true" (closed)="panelOpenState = false" 
+                                style="margin-bottom: 20px;">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <h6><b>Ontology Matches for term '{{item.key}}'</b></h6>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <ng-container *ngIf="item.value?.length">
+                                    <table mat-table [dataSource]="item.value" table-striped style="width: 100%">
+                                        <ng-container *ngFor="let col of ontologyMatchColsToDisplay; let i = index">
+                                            <ng-container *ngIf="col == 'source'" [matColumnDef]=col>
+                                                <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
+                                                <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index"> 
+                                                    {{data[col]}} 
+                                                    <input type="checkbox" [(ngModel)]="data['selected']" (click)="startValidation(item.key, j)" 
+                                                        style="margin-right: 40px; margin-top: 5px; float: right;">
+                                                </td>
+                                            </ng-container>
+                                            <ng-container *ngIf="col != 'source'" [matColumnDef]=col>
+                                                <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
+                                                <td mat-cell class="table-cell-data" *matCellDef="let data"> {{data[col]}} </td>
+                                            </ng-container>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="ontologyMatchColsToDisplay"></tr>
+                                        <tr mat-row [style.background-color]="getColour(row.source, row.ontology_status, 0.3)" *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
+                                    </table>
+                                </ng-container>
+                                <ng-container *ngIf="item.value?.length == 0">
+                                    <div class="row">
+                                        <div class="table-cell-data col-md-9">
+                                            No Matches Found
+                                        </div>
+                                        <div class="col-md-3" style="text-align: right;">
+                                            <button class="btn btn-info" (click)="startValidation(item.key, -1)">Provide Ontology</button>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                        <br>
+                        <button class="btn btn-primary" (click)="submitTerms()">Submit</button>
+                    </div>
+                </ng-container>
+                <!-- Login Screen -->
+                <div class="container" style="margin-top: 30px" *ngIf="!token">
+                    <div class="col-md-6">
+                        <h3><p>Login</p></h3>
+                        <mat-form-field appearance="fill" style="width: 100%">
+                            <mat-label>Enter your username</mat-label>
+                            <input matInput [(ngModel)]="username">
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field appearance="fill" style="width: 100%">
+                            <mat-label>Enter your password</mat-label>
+                            <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <p *ngIf="error">Unable to login. Invalid credentials</p>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary" (click)="login()" style="width: 100%">
+                                    Submit
+                                </button>
+                            </div>
+                            <div class="col-md-9" style="text-align: right;">
+                                <p> If you do not have an AAP account, register 
+                                    <a href="https://aai.ebi.ac.uk/registerUser">here</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
 </div>
 
+<!-- Dialog Box - Ontology Validation -->
 <ng-template #modalTemplate let-data>
     <div mat-dialog-content>
         <!-- Let user edit/provide ontology type for non-FAANG ontologies -->

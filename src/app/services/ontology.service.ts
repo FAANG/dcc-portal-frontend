@@ -14,6 +14,16 @@ export class OntologyService {
 
   constructor(private http: HttpClient, private _userService: UserService) { }
 
+  getOntologies() {
+    const url = validation_service_url + '/ontology_improver/search/';
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.ontologies;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   searchTerms(terms: any) {
     const url = validation_service_url + '/ontology_improver/search/';
     return this.http.post(url, {'terms': terms}).pipe(

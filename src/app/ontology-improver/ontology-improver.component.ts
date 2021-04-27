@@ -1,7 +1,10 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {OntologyService} from '../services/ontology.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-ontology-improver',
@@ -10,6 +13,10 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class OntologyImproverComponent implements OnInit {
   @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
+  summaryTableData: MatTableDataSource<any>;
   hide: boolean;
   username: string;
   password: string;
@@ -27,21 +34,24 @@ export class OntologyImproverComponent implements OnInit {
   constructor(
     private ontologyService: OntologyService,
     private http: HttpClient,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    public snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.hide = true;
     this.token = '';
-    this.mode = 'login';
+    this.mode = 'input';
     this.ontologyTerms = '';
     this.searchResults = {};
     this.ontologyMatches = {};
     this.selectedTerm = {'key': '', 'index': 0};
-
-    // for development
-    // this.token = 'dev';
-    // this.mode = 'input';
-    // this.ontologyTerms = "Sus scrofa\nFemale\nGallus gallus\nspecimen from organism\nSample\nwhite blood cells\nblood\nCapra hircus\nasfgjdhuihkjkiuj";
+    this.ontologyService.getOntologies().subscribe(
+      data => {
+        this.summaryTableData = new MatTableDataSource<any>(data);
+        this.summaryTableData.paginator = this.paginator;
+        this.summaryTableData.sort = this.sort;
+      }
+    );
   }
 
   login() {
@@ -56,7 +66,6 @@ export class OntologyImproverComponent implements OnInit {
     .subscribe(
       data => {
         this.error = null;
-        this.mode = 'input';
         this.token = data.toString();
       },
       err => {
@@ -70,6 +79,11 @@ export class OntologyImproverComponent implements OnInit {
     this.username = null;
     this.password = null;
     this.ngOnInit();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.summaryTableData.filter = filterValue.trim().toLowerCase();
   }
 
   searchTerms() {
@@ -158,21 +172,21 @@ export class OntologyImproverComponent implements OnInit {
     this.closeModal();
   }
 
-  getColour(ontology_support: string, ontology_status: string) {
+  getColour(ontology_support: string, ontology_status: string, opacity: number) {
     if (ontology_status == 'Verified') {
-      if (ontology_support == 'https://www.ebi.ac.uk/vg/faang')
-        return 'rgba(0, 255, 0, 0.3)';
+      if (ontology_support == 'https://www.ebi.ac.uk/vg/faang' || ontology_support == 'FAANG')
+        return 'rgba(0, 255, 0, ' + opacity + ')';
       else
-        return 'rgba(255, 255, 0, 0.3)';
+        return 'rgba(255, 255, 0, ' + opacity + ')';
     }
     else if (ontology_status == 'Awaiting Assessment')
-      return 'rgba(0, 0, 255, 0.3)';
+      return 'rgba(0, 125, 255, ' + opacity + ')';
     else if (ontology_status == 'Needs Improvement')
-      return 'rgba(255, 255, 0, 0.3)';
+      return 'rgba(255, 255, 0, ' + opacity + ')';
     else if (ontology_status == 'Not yet supported')
-      return 'rgba(255, 0, 0, 0.3)';
+      return 'rgba(255, 0, 0, ' + opacity + ')';
     else
-      return 'rgba(255, 255, 255, 1)';
+      return 'rgba(255, 255, 255, ' + opacity + ')';
   }
 
   submitTerms() {
@@ -200,13 +214,26 @@ export class OntologyImproverComponent implements OnInit {
     request['ontologies'] = validatedOntologies;
     this.ontologyService.validateTerms(request).subscribe(
       data => {
+        this.openSnackbar('Ontologies submitted successfully', 'View Summary');
       },
       error => {
-        this.error = error;
+        this.openSnackbar('Submission Failed!', 'Dismiss');
       }
     );
-    // go to summary page
-    this.mode = 'table';
+  }
+
+  openSnackbar(message: string, action: string) {
+    const snackBarRef = this.snackbar.open(message, action, {
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
+
+    snackBarRef.afterDismissed().subscribe(result => {
+      if (message == 'Ontologies submitted successfully') {
+        this.ngOnInit();
+        this.tabGroup.selectedIndex = 0;
+      }
+    });
   }
 
 }

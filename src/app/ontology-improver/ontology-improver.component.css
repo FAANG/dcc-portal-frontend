@@ -29,7 +29,6 @@ textarea:focus {
 .color-status {
     border-radius: 20px;
     border-width: 7px;
-    opacity: 70%;
     padding: 3px;
     margin-right: 5px;
 }
