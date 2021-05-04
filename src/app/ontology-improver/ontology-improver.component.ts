@@ -53,11 +53,6 @@ export class OntologyImproverComponent implements OnInit {
         this.summaryTableData.sort = this.sort;
       }
     );
-    // for dev
-    this.token = 'dev';
-    // this.username = 'aksh';
-    this.tabGroup.selectedIndex = 1;
-    this.ontologyTerms = 'gut\nwhite blood cells\nspecimen';
   }
 
   login() {
