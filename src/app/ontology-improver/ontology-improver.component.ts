@@ -25,6 +25,7 @@ export class OntologyImproverComponent implements OnInit {
   ontologyTerms: string;
   searchResults;
   ontologyMatches;
+  ontologyMatchesOld;
   selectedTerm;
   error: string;
   dialogRef;
@@ -52,6 +53,11 @@ export class OntologyImproverComponent implements OnInit {
         this.summaryTableData.sort = this.sort;
       }
     );
+    // for dev
+    this.token = 'dev';
+    // this.username = 'aksh';
+    this.tabGroup.selectedIndex = 1;
+    this.ontologyTerms = 'gut\nwhite blood cells\nspecimen';
   }
 
   login() {
@@ -104,6 +110,7 @@ export class OntologyImproverComponent implements OnInit {
     this.ontologyService.fetchZoomaMatches(terms).subscribe(
       data => {
         this.ontologyMatches = data;
+        this.ontologyMatchesOld = JSON.parse(JSON.stringify(data));
         for (const prop in this.ontologyMatches) {
           let l = this.ontologyMatches[prop].length;
           for (let index = 0; index < l; index += 1) {
@@ -128,20 +135,26 @@ export class OntologyImproverComponent implements OnInit {
       data = this.ontologyMatches[key][index];
       this.selectedTerm.index = index;
     }
-    // open modal only if the ontology was not already selected
-    if (!data['selected']) {
-      // mar current ontology as selected
-      data['selected'] = true;
-      // deselect other ontologies of that particular term
-      let l = this.ontologyMatches[key].length;
-      for (let i = 0; i < l; i += 1) {
-        if (i != index) {
-          this.ontologyMatches[key][i]['selected'] = false;
-        }
+    // mark current ontology as selected
+    data['selected'] = true;
+    let l = this.ontologyMatches[key].length;
+    for (let i = 0; i < l; i += 1) {
+      if (i != index) {
+        // deselect other ontologies of that particular term
+        this.ontologyMatches[key][i]['selected'] = false;
+        // reset ontology_status of other ontologies
+        this.ontologyMatches[key][i]['ontology_status'] = '';
       }
-      //open modal for validation
-      this.openModal(data);
     }
+    //open modal for validation
+    this.openModal(data);
+  }
+
+  editValidation(key: string, index: number) {
+    var data = this.ontologyMatches[key][index];
+    this.selectedTerm.key = key;
+    this.selectedTerm.index = index;
+    this.openModal(data);
   }
 
   openModal(selectedOntology) {
@@ -159,9 +172,27 @@ export class OntologyImproverComponent implements OnInit {
   }
 
   saveModalData(data) {
-    // if user marked ontology as needing improvement and also suggested changes, set status as awaiting assesment
+    // if user marked ontology as needing improvement and also suggested changes
+    // set status as awaiting assesment
     if (data.ontology_status == 'Needs Improvement') {
-      // TODO
+      const ontologyOld = this.ontologyMatchesOld[this.selectedTerm.key][this.selectedTerm.index];
+      if (data.term_type !== ontologyOld.term_type || 
+          data.ontology_id !== ontologyOld.ontology_id ||
+          data.ontology_label !== ontologyOld.ontology_label) {
+        data.ontology_status = 'Awaiting Assessment';
+      }
+    }
+    // If user had previously suggested changes to an ontology, but then marks it suitable
+    // revert user changes to original values obtained from db/zooma
+    if (data.ontology_status == 'Verified') {
+      const ontologyOld = this.ontologyMatchesOld[this.selectedTerm.key][this.selectedTerm.index];
+      if (data.term_type !== ontologyOld.term_type || 
+         data.ontology_id !== ontologyOld.ontology_id ||
+          data.ontology_label !== ontologyOld.ontology_label) {
+        data = JSON.parse(JSON.stringify(ontologyOld));
+        data['ontology_status'] = 'Verified';
+        data['selected'] = true;
+      }
     }
     // save validation on the ontology and refresh accordion
     // copying to another object and re-assigning is necessary to refresh the accordion on save
@@ -190,6 +221,7 @@ export class OntologyImproverComponent implements OnInit {
   }
 
   submitTerms() {
+    var valid = true; // check if submission is valid
     // get selected and validated ontologies
     const validatedOntologies = [];
     for (const prop in this.ontologyMatches) {
@@ -198,6 +230,19 @@ export class OntologyImproverComponent implements OnInit {
         if (this.ontologyMatches[prop][index]['selected'])  {
           let ontology = {};
           let data = this.ontologyMatches[prop][index];
+          // ontology should either be verified/flagged or a ontology being provided,
+          // i.e. ontology status field should not be empty
+          if (!data['ontology_status'] || data['ontology_status'].length == 0) {
+            valid = false;
+            this.openSnackbar('Please validate all ontologies', 'Dismiss');
+            break;
+          }
+          // ontology label and type fields should not be empty
+          else if (data['ontology_label'].length == 0 || !data['term_type'] || data['term_type'].length == 0){
+            valid = false;
+            this.openSnackbar('Ontology labels/types should not be empty', 'Dismiss');
+            break;
+          }
           ontology['ontology_term'] = data['ontology_label'];
           ontology['ontology_type'] = data['term_type'] ? data['term_type'] : '';
           ontology['ontology_id'] = data['ontology_id'] ? data['ontology_id'] : '';
@@ -207,24 +252,35 @@ export class OntologyImproverComponent implements OnInit {
           break;
         }
       }
-    }
-    // submit to validate endpoint
-    const request = {};
-    request['user'] = this.username;
-    request['ontologies'] = validatedOntologies;
-    this.ontologyService.validateTerms(request).subscribe(
-      data => {
-        this.openSnackbar('Ontologies submitted successfully', 'View Summary');
-      },
-      error => {
-        this.openSnackbar('Submission Failed!', 'Dismiss');
+      if (!valid) {
+        break;
       }
-    );
+    }
+    if (valid) {
+      // ontologies should be selected for each of the terms
+      if (validatedOntologies.length == Object.keys(this.ontologyMatches).length) {
+        // submit to validate endpoint if valid request
+        const request = {};
+        request['user'] = this.username;
+        request['ontologies'] = validatedOntologies;
+        this.ontologyService.validateTerms(request).subscribe(
+          data => {
+            this.openSnackbar('Ontologies submitted successfully', 'View Summary');
+          },
+          error => {
+            this.openSnackbar('Submission Failed!', 'Dismiss');
+          }
+        );
+      } else {
+        // if invalid request, show message
+        this.openSnackbar('Please select ontology matches for all terms', 'Dismiss');
+      }
+    }
   }
 
   openSnackbar(message: string, action: string) {
     const snackBarRef = this.snackbar.open(message, action, {
-      horizontalPosition: 'end',
+      horizontalPosition: 'center',
       verticalPosition: 'top',
     });
 

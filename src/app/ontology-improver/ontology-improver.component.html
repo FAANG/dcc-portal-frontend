@@ -138,8 +138,11 @@
                                                 <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
                                                 <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index"> 
                                                     {{data[col]}} 
-                                                    <input type="checkbox" [(ngModel)]="data['selected']" (click)="startValidation(item.key, j)" 
-                                                        style="margin-right: 40px; margin-top: 5px; float: right;">
+                                                    <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']" (click)="startValidation(item.key, j)" 
+                                                        style="margin-right: 40px; float: right;">
+                                                    <button *ngIf="data['selected']" class="btn btn-info" (click)="editValidation(item.key, j)"
+                                                        style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;"> Edit
+                                                    </button>
                                                 </td>
                                             </ng-container>
                                             <ng-container *ngIf="col != 'source'" [matColumnDef]=col>
