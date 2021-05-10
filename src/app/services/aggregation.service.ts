@@ -34,7 +34,9 @@ export class AggregationService {
     paper_published: [],
     year: [],
     journal: [],
-    datasetSource: []
+    datasetSource: [],
+    ontology_type: [],
+    ontology_status: []
   };
 
   protocolNames = protocolNames;
@@ -335,6 +337,22 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         assay_type: Object.entries(assay_type).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+      };
+      this.data.next(all_data);
+    } else if (type === 'ontology') {
+      let ontology_type = {};
+      let ontology_status = {};
+      for (const item of recordList) {
+        ontology_type = this.updateAggregation(ontology_type, item['ontology_type']);
+        ontology_status = this.updateAggregation(ontology_status, item['ontology_status']);
+      }
+      let all_data = {
+        ontology_type: Object.entries(ontology_type).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        ontology_status: Object.entries(ontology_status).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
       };

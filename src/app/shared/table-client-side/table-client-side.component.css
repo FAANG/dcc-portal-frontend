@@ -1,0 +1,11 @@
+.table-header {
+    background-color: rgba(0, 0, 0, 0.07);
+    font-size: 14px;
+    color: black;
+    font-weight: 600;
+}
+
+.table-cell-data {
+    font-size: 15px;
+    padding-right: 5px !important;
+}

@@ -1,22 +1,27 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnInit, ViewChild, TemplateRef, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
 import {OntologyService} from '../services/ontology.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {MatTabGroup} from '@angular/material/tabs';
+import {Observable, Subscription} from 'rxjs';
+import {TableClientSideComponent}  from '../shared/table-client-side/table-client-side.component';
+import {AggregationService} from '../services/aggregation.service';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
   selector: 'app-ontology-improver',
   templateUrl: './ontology-improver.component.html',
   styleUrls: ['./ontology-improver.component.css']
 })
-export class OntologyImproverComponent implements OnInit {
+export class OntologyImproverComponent implements OnInit, AfterViewInit {
   @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
-  summaryTableData: MatTableDataSource<any>;
+  @ViewChild('ontologyStatusTemplate', { static: true }) ontologyStatusTemplate: TemplateRef<any>;
+  @ViewChildren("tableComp") tableComponents: QueryList<TableClientSideComponent>;
+  private tableClientComponent: TableClientSideComponent;
+  summaryTableData: Observable<any[]>;
   hide: boolean;
   username: string;
   password: string;
@@ -29,30 +34,106 @@ export class OntologyImproverComponent implements OnInit {
   selectedTerm;
   error: string;
   dialogRef;
+  aggrSubscription: Subscription;
   ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
-
+  columnNames: string[] = ['Term', 'Ontology Type', 'Ontology ID', 'Status'];
+  displayFields: string[] = ['ontology_term', 'ontology_type', 'ontology_id', 'ontology_status'];
+  templates: Object;
+  filter_field: {};
   constructor(
     private ontologyService: OntologyService,
     private http: HttpClient,
     public dialog: MatDialog,
-    public snackbar: MatSnackBar) { }
+    public snackbar: MatSnackBar,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private aggregationService: AggregationService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.hide = true;
-    this.token = '';
     this.mode = 'input';
+    this.spinner.show();
     this.ontologyTerms = '';
     this.searchResults = {};
     this.ontologyMatches = {};
+    this.filter_field = {};
     this.selectedTerm = {'key': '', 'index': 0};
+    this.templates = {
+      'ontology_status': this.ontologyStatusTemplate
+    };
+    // getting filters from url
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.resetFilter();
+      const filters = {};
+      for (const key in params) {
+        if (Array.isArray(params[key])) {
+          filters[key] = params[key];
+          for (const value of params[key]) {
+            this.aggregationService.current_active_filters.push(value);
+            this.aggregationService.active_filters[key].push(value);
+          }
+        } else {
+          filters[key] = [params[key]];
+          this.aggregationService.current_active_filters.push(params[key]);
+          this.aggregationService.active_filters[key].push(params[key]);
+        }
+      }
+      this.aggregationService.field.next(this.aggregationService.active_filters);
+      this.filter_field = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
+    });
+    // fetching data and aggregations
     this.ontologyService.getOntologies().subscribe(
       data => {
-        this.summaryTableData = new MatTableDataSource<any>(data);
-        this.summaryTableData.paginator = this.paginator;
-        this.summaryTableData.sort = this.sort;
+        this.summaryTableData = data;
+        this.spinner.hide();
+        this.aggregationService.getAggregations(data, 'ontology');
       }
     );
+    // setting urls params based on filters
+    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
+      const params = {};
+      for (const key of Object.keys(data)) {
+        if (data[key] && data[key].length !== 0) {
+          params[key] = data[key];
+        }
+      }
+      this.router.navigate(['ontology'], {queryParams: params});
+    });
+  }
+
+  ngAfterViewInit() {
+    this.tableComponents.changes.subscribe((comps: QueryList <TableClientSideComponent>) => {
+        this.tableClientComponent = comps.first;
+        this.aggregationService.getAggregations(this.tableClientComponent.dataSource.filteredData, 'ontology');
+    });
+  }
+
+  hasActiveFilters() {
+    if (typeof this.filter_field === 'undefined') {
+      return false;
+    }
+    for (const key of Object.keys(this.filter_field)) {
+      if (this.filter_field[key].length !== 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  resetFilter() {
+    for (const key of Object.keys(this.aggregationService.active_filters)) {
+      this.aggregationService.active_filters[key] = [];
+    }
+    this.aggregationService.current_active_filters = [];
+    this.filter_field = {};
+  }
+
+  removeFilter() {
+    this.resetFilter();
+    this.router.navigate(['ontology'], {queryParams: {}});
   }
 
   login() {
@@ -83,8 +164,9 @@ export class OntologyImproverComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.summaryTableData.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.filter_field['search'] = [filterValue];
+    this.filter_field = Object.assign({}, this.filter_field);
   }
 
   searchTerms() {
