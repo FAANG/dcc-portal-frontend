@@ -105,7 +105,9 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
           params[key] = data[key];
         }
       }
-      this.router.navigate(['ontology'], {queryParams: params});
+      if (Object.keys(params).length > 0) {
+        this.router.navigate(['ontology'], {queryParams: params});
+      }
     });
   }
 
