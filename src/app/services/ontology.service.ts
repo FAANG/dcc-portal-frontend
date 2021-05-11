@@ -14,8 +14,13 @@ export class OntologyService {
 
   constructor(private http: HttpClient, private _userService: UserService) { }
 
-  getOntologies() {
-    const url = validation_service_url + '/ontology_improver/search/';
+  getOntologies(size=null) {
+    var url: string;
+    if (size) { 
+      url = validation_service_url + '/ontology_improver/search/?size=' + size.toString();
+    } else { // fetch all records
+      url = validation_service_url + '/ontology_improver/search/';
+    }
     return this.http.get(url).pipe(
       map((data: any) => {
         return data.ontologies;
