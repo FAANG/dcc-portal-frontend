@@ -10,13 +10,13 @@
             <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
         </ng-container>
         <ng-container *ngIf="templates[col]">
-            <td mat-cell class="table-cell-data" *matCellDef="let item">
+            <td mat-cell [ngStyle]="{'width': col_width}" class="table-cell-data" *matCellDef="let item">
                 <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: { 'row': item, 'col': column_names[i] } }">
                 </ng-template>
             </td>
         </ng-container>
         <ng-container *ngIf="!templates[col]">
-            <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item[col]}} </td>
+            <td mat-cell [ngStyle]="{'width': col_width}" class="table-cell-data" *matCellDef="let item"> {{item[col]}} </td>
         </ng-container>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="display_fields"></tr>

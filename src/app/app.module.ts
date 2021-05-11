@@ -91,6 +91,7 @@ import { MatRadioModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -185,6 +186,7 @@ export function removeToken(): void {
     MatDialogModule,
     MatTabsModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,

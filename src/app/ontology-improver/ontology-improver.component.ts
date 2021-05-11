@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild, TemplateRef, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
 import {OntologyService} from '../services/ontology.service';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -34,6 +33,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   selectedTerm;
   error: string;
   dialogRef;
+  fetchedAllRecords: boolean;
   aggrSubscription: Subscription;
   ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
@@ -48,13 +48,12 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     public snackbar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private aggregationService: AggregationService,
-    private spinner: NgxSpinnerService) { }
+    private aggregationService: AggregationService) { }
 
   ngOnInit() {
     this.hide = true;
+    this.fetchedAllRecords = false;
     this.mode = 'input';
-    this.spinner.show();
     this.ontologyTerms = '';
     this.searchResults = {};
     this.ontologyMatches = {};
@@ -84,12 +83,18 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       this.filter_field = filters;
       this.filter_field = Object.assign({}, this.filter_field);
     });
-    // fetching data and aggregations
-    this.ontologyService.getOntologies().subscribe(
+    // fetch page 1 records only
+    this.ontologyService.getOntologies(10).subscribe(
       data => {
         this.summaryTableData = data;
-        this.spinner.hide();
-        this.aggregationService.getAggregations(data, 'ontology');
+        // fetching all records and aggregations
+        this.ontologyService.getOntologies().subscribe(
+          data => {
+            this.summaryTableData = data;
+            this.aggregationService.getAggregations(data, 'ontology');
+            this.fetchedAllRecords = true;
+          }
+        );
       }
     );
     // setting urls params based on filters
@@ -116,7 +121,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       return false;
     }
     for (const key of Object.keys(this.filter_field)) {
-      if (this.filter_field[key].length !== 0) {
+      if (key !== 'search' && this.filter_field[key].length !== 0) {
         return true;
       }
     }

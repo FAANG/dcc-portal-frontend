@@ -25,11 +25,14 @@
                               </div>
                         </div>
                         <div class="col-md-9" style="padding-top: 10px; padding-bottom: 10px;">
-                            <mat-form-field style="width: 100%;">
+                            <mat-form-field *ngIf="fetchedAllRecords" style="width: 100%;">
                                 <mat-label>Search livestock ontologies</mat-label>
                                 <input (keyup)="applyFilter($event)" matInput 
                                     placeholder="Search livestock ontologies by term, type, ID or status">
                             </mat-form-field>
+                            <div *ngIf="!fetchedAllRecords" style="padding-bottom: 20px;">
+                                <mat-spinner [diameter]="30"></mat-spinner>
+                            </div>
                             <div *ngIf="summaryTableData as ontologies;">
                                 <app-table-client-side #tableComp id="ontology-table"
                                     [display_fields]="displayFields"

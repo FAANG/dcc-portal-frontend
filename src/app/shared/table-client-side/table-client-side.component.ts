@@ -20,6 +20,7 @@ export class TableClientSideComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
   pageSize: number;
+  col_width;
 
   constructor() {
   }
@@ -31,6 +32,8 @@ export class TableClientSideComponent implements OnInit {
     this.dataSource.filterPredicate = this.createFilter();
     this.dataSource.filter = JSON.stringify(this.filter_values);
     this.pageSize = this.page_size ? this.page_size : 25;
+    // set equal width for all columns of the table
+    this.col_width = "calc(100%/" + this.column_names.length + ")";
   }
 
   // apply filter when component input "filter_values" is changed
