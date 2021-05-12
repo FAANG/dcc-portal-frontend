@@ -41,6 +41,7 @@ export class RulesetSampleComponent implements OnInit {
     'Purified cells': '../../../assets/purified_cells.xlsx',
     'Cell culture': '../../../assets/cell_culture.xlsx',
     'Cell line': '../../../assets/cell_line.xlsx',
+    'Single cell specimen': '../../../assets/single_cell_specimen.xlsx'
   };
   rule_groups = [];
   rules = [];
