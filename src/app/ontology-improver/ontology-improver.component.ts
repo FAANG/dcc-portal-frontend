@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild, TemplateRef, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
 import {OntologyService} from '../services/ontology.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTabGroup} from '@angular/material/tabs';
@@ -43,7 +42,6 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   filter_field: {};
   constructor(
     private ontologyService: OntologyService,
-    private http: HttpClient,
     public dialog: MatDialog,
     public snackbar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
@@ -144,23 +142,14 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   }
 
   login() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'text/plain',
-        'Authorization': 'Basic ' + btoa(this.username + ':' + this.password)
-      }),
-      responseType: 'text' as 'json'
-    };
-    this.http.get('https://explore.api.aai.ebi.ac.uk/auth', httpOptions)
-    .subscribe(
+    this.ontologyService.login(this.username, this.password).subscribe(
       data => {
-        this.error = null;
-        this.token = data.toString();
+        this.token = data;
       },
-      err => {
-        this.error = err;
+      error => {
+        this.error = error;
       }
-    );
+    )
   }
 
   logout() {

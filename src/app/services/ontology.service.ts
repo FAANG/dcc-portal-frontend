@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { HostSetting } from './host-setting';
-import { HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { validation_service_url } from '../shared/constants';
@@ -13,6 +13,17 @@ export class OntologyService {
   hostSetting = new HostSetting;
 
   constructor(private http: HttpClient, private _userService: UserService) { }
+
+  login(username: string, password: string) {
+    const url = validation_service_url + '/ontology_improver/auth/';
+    let auth = 'Basic ' + btoa(username + ':' + password);
+    return this.http.post(url, {'auth': auth}).pipe(
+      map((data: any) => {
+        return data.token;
+      }),
+      catchError(this.handleError),
+    );
+  }
 
   getOntologies(size=null) {
     var url: string;
