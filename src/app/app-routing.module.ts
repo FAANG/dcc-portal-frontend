@@ -41,7 +41,6 @@ import {SubprojectComponent} from './subprojects/subproject.component';
 import {AapComponent} from './aap/aap.component';
 import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
-import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 
 
 const routes: Routes = [
@@ -84,7 +83,6 @@ const routes: Routes = [
   {path: 'projects/:id', component: SubprojectDetailComponent},
   {path: 'login', component: LoginComponent},
   {path: 'upload_protocol', component: FilesUploadComponent},
-  {path: 'ontology', component: OntologyImproverComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];

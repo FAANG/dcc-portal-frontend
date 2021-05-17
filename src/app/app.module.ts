@@ -84,7 +84,6 @@ import {UserService} from './services/user.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -151,8 +150,7 @@ export function removeToken(): void {
     AapComponent,
     TableClientSideComponent,
     LoginComponent,
-    FilesUploadComponent,
-    OntologyImproverComponent
+    FilesUploadComponent
   ],
   imports: [
     BrowserModule,

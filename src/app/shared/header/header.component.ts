@@ -34,12 +34,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  isOntologyImprover() {
-    if (this.router.url.includes('ontology')) {
-      return 'active';
-    }
-  }
-
   recordsOpenDropdown() {
     return this.records_dropdown_open === true ? 'show' : '';
   }
