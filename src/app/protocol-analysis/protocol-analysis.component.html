@@ -1,3 +1,86 @@
-<p>
-  protocol-analysis works!
-</p>
+<div class="container">
+  <app-header></app-header>
+  <h2>FAANG protocols
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/protocol', 'samples']">
+      Samples
+      <i class="material-icons float-left">arrow_back</i>
+    </button>
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/protocol', 'experiments']">
+      Experiments
+      <i class="material-icons float-left">arrow_back</i>
+    </button>
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
+             [routerLink]="['/protocol', 'analysis']">
+      Analysis
+      <i class="material-icons float-right">home</i>
+    </button>
+  </h2>
+
+  <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
+    Active filters:
+    <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
+    <button class="btn btn-default" type = "button" (click)="removeFilter()">Remove all filters</button>
+  </h3>
+
+  <div class="row">
+    <div class="col-md-2">
+      <div class="row">
+        <div class="col-md-12 col-sm-6 faang-filter">
+          <app-filter title="Organisation" [filterSize]=2></app-filter>
+        </div>
+        <div class="col-md-12 col-sm-6 faang-filter">
+          <app-filter title="Protocol Year" [filterSize]=5></app-filter>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-10 table-responsive">
+      <div *ngIf="(protocolList | async) as protocols; else loading">
+        <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
+        <button class="btn btn-success" (click)="onUploadProtocolClick()">Upload protocol</button>
+        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
+          Export as CSV file
+        </app-export>
+        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
+          Export as Tabular file
+        </app-export>
+        <table class="table table-striped table-hover table-borderless table-sm">
+          <thead>
+          <tr>
+            <th *ngFor="let column of columnNames" style="cursor: pointer" [id]="column">
+              {{ column }}
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let protocol of protocols | filter: filter_field: 'protocol' | paginate: { itemsPerPage: 25, currentPage: p }">
+            <td><a style="cursor: pointer" [routerLink]="[protocol['key']]">{{protocol['protocol_name']}}</a></td>
+            <td>{{protocol['analysis_type']}}</td>
+            <td>{{protocol['university_name']}}</td>
+            <td>{{protocol['protocol_date']}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <ng-template #loading>
+        <div>
+          Loading...
+        </div>
+        <table class="table table-striped table-hover table-borderless table-sm">
+          <thead>
+          <tr>
+            <th *ngFor="let column of columnNames">
+              {{ column }}
+            </th>
+          </tr>
+          </thead>
+        </table>
+        <div>
+          Loading...
+        </div>
+      </ng-template>
+      <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
+    </div>
+  </div>
+</div>

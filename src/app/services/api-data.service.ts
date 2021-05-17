@@ -5,7 +5,7 @@ import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import {
   ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
-  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable
+  ProtocolFile, ProtocolSample, ProtocolAnalysis, SpecimenTable, SpecimenForProjectTable
 } from '../shared/interfaces';
 import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
 import {UserService} from './user.service';
@@ -520,6 +520,35 @@ export class ApiDataService {
 
   getSampleProtocol(id: string) {
     const url = this.hostSetting.host + 'protocol_samples/' + id;
+    return this.http.get(url).pipe(
+      map( (data: any) => {
+        return data;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllAnalysisProtocols() {
+    const url = this.hostSetting.host + 'protocol_analysis/_search/' + '?size=100';
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map(entry => ({
+          key: entry['_source']['key'],
+          protocol_name: entry['_source']['protocolName'],
+          analysis_type: entry['_source']['analysisType'],
+          university_name: entry['_source']['universityName'],
+          protocol_date: entry['_source']['protocolDate'],
+          } as ProtocolAnalysis)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAnalysisProtocol(id: string) {
+    const url = this.hostSetting.host + 'protocol_analysis/' + id;
     return this.http.get(url).pipe(
       map( (data: any) => {
         return data;
