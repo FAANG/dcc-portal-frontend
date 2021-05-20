@@ -112,7 +112,7 @@ export interface ProtocolAnalysis {
   protocol_name: string;
   university_name: string;
   protocol_date: string;
-  analysis_type: string;
+  protocol_analysis_type: string;
 }
 export interface ArticleTable {
   id: string;

@@ -536,9 +536,9 @@ export class ApiDataService {
         return data.hits.hits.map(entry => ({
           key: entry['_source']['key'],
           protocol_name: entry['_source']['protocolName'],
-          analysis_type: entry['_source']['analysisType'],
+          protocol_analysis_type: entry['_source']['analysisType'] ? entry['_source']['analysisType'] : 'N/A',
           university_name: entry['_source']['universityName'],
-          protocol_date: entry['_source']['protocolDate'],
+          protocol_date: entry['_source']['protocolDate'] ? entry['_source']['protocolDate'].split('-')[0]: '',
           } as ProtocolAnalysis)
         );
       }),

@@ -29,6 +29,9 @@
           <app-filter title="Organisation" [filterSize]=2></app-filter>
         </div>
         <div class="col-md-12 col-sm-6 faang-filter">
+          <app-filter title="Analysis Type" [filterSize]=2></app-filter>
+        </div>
+        <div class="col-md-12 col-sm-6 faang-filter">
           <app-filter title="Protocol Year" [filterSize]=5></app-filter>
         </div>
       </div>
@@ -53,9 +56,9 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let protocol of protocols | filter: filter_field: 'protocol' | paginate: { itemsPerPage: 25, currentPage: p }">
+          <tr *ngFor="let protocol of protocols | filter: filter_field: 'protocol_samples' | paginate: { itemsPerPage: 25, currentPage: p }">
             <td><a style="cursor: pointer" [routerLink]="[protocol['key']]">{{protocol['protocol_name']}}</a></td>
-            <td>{{protocol['analysis_type']}}</td>
+            <td>{{protocol['protocol_analysis_type']}}</td>
             <td>{{protocol['university_name']}}</td>
             <td>{{protocol['protocol_date']}}</td>
           </tr>

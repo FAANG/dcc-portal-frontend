@@ -74,6 +74,8 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['year'];
         } else if (this.title === 'Dataset source') {
           this.aggregation = data['datasetSource'];
+        } else if (this.title === 'Analysis Type') {
+          this.aggregation = data['protocol_analysis_type'];
         }
       }
     );
@@ -105,6 +107,10 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Analysis type': {
         data_key = 'analysisType';
+        break;
+      }
+      case 'Analysis Type': {
+        data_key = 'protocol_analysis_type';
         break;
       }
       case 'Instrument': {

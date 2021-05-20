@@ -34,7 +34,8 @@ export class AggregationService {
     paper_published: [],
     year: [],
     journal: [],
-    datasetSource: []
+    datasetSource: [],
+    protocol_analysis_type: []
   };
 
   protocolNames = protocolNames;
@@ -335,6 +336,33 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         assay_type: Object.entries(assay_type).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+      };
+      this.data.next(all_data);
+    } else if (type === 'protocol_samples') {
+      let protocol_name = {};
+      let university_name = {};
+      let protocol_date = {};
+      let protocol_analysis_type = {};
+      let all_data;
+      for (const item of recordList) {
+        protocol_name = this.updateAggregation(protocol_name, item['protocol_name']);
+        university_name = this.updateAggregation(university_name, item['university_name']);
+        protocol_date = this.updateAggregation(protocol_date, item['protocol_date']);
+        protocol_analysis_type = this.updateAggregation(protocol_analysis_type, item['protocol_analysis_type']);
+      }
+      all_data = {
+        protocol_name: Object.entries(protocol_name).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        university_name: Object.entries(university_name).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        protocol_date: Object.entries(protocol_date).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        protocol_analysis_type: Object.entries(protocol_analysis_type).sort(function(a: any, b: any) {
           return b[1] - a[1];
         }),
       };

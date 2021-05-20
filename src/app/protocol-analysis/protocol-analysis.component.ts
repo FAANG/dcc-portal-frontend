@@ -68,7 +68,7 @@ export class ProtocolAnalysisComponent implements OnInit, OnDestroy {
     this.protocolList = this.dataService.getAllAnalysisProtocols();
     this.spinner.hide();
     this.protocolListSubscription = this.protocolList.subscribe( data => {
-      this.aggregationService.getAggregations(data, 'protocol');
+      this.aggregationService.getAggregations(data, 'protocol_samples');
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
