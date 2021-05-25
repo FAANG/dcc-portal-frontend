@@ -1,0 +1,41 @@
+<div class="container">
+  <app-header></app-header>
+  <h1 class="text-center" *ngIf="fileId">{{fileId.split("_").slice(2, -1).join(" ")}}</h1>
+  <dl class="row">
+    <dt class="col-sm-3">Protocol:</dt>
+    <dd class="col-sm-9">
+      <app-robust-link [link]="link" [text]="file?.key"></app-robust-link>
+    </dd>
+    <dt class="col-sm-3">Organisation:</dt>
+    <dd class="col-sm-9">{{file?.universityName}}</dd>
+    <dt class="col-sm-3">Protocol date:</dt>
+    <dd class="col-sm-9">{{file?.protocolDate}}</dd>
+  </dl>
+
+  <h3 *ngIf="file?.analysis && file?.analysis.length > 0">Related Analysis</h3>
+  <div class="table-responsive" *ngIf="file?.analysis && file?.analysis.length > 0">
+    <table class="table table-striped table-hover table-borderless table-sm">
+      <thead>
+      <tr>
+        <th>Accession</th>
+        <th>Title</th>
+        <th>Dataset</th>
+        <th>Assay Type</th>
+        <th>Anaysis Type</th>
+        <th>Organism</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let analysis of file?.analysis | paginate: { itemsPerPage: 10, currentPage: p }">
+        <td><a [routerLink]="['/analysis', analysis.accession]">{{analysis.accession}}</a></td>
+        <td style="max-width: 300px;">{{analysis.title}}</td>
+        <td>{{analysis.dataset}}</td>
+        <td>{{analysis.assayType}}</td>
+        <td>{{analysis.analysisType}}</td>
+        <td>{{analysis.organism}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>

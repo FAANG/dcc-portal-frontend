@@ -28,6 +28,7 @@ import {SpecimensSummaryComponent} from './specimens-summary/specimens-summary.c
 import {DatasetsSummaryComponent} from './datasets-summary/datasets-summary.component';
 import {FilesSummaryComponent} from './files-summary/files-summary.component';
 import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.component';
+import {ProtocolAnalysisDetailsComponent} from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import {NonExistingComponent} from './non-existing/non-existing.component';
 import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
@@ -63,6 +64,7 @@ const routes: Routes = [
   {path: 'protocol/experiments', component: ProtocolExperimentComponent},
   {path: 'protocol/experiments/:id', component: ProtocolExperimentDetailsComponent},
   {path: 'protocol/analysis', component: ProtocolAnalysisComponent},
+  {path: 'protocol/analysis/:id', component: ProtocolAnalysisDetailsComponent},
   {path: 'search', component: SearchComponent},
   {path: 'help', component: HelpComponent},
   {path: 'help/api', component: ApiComponent},

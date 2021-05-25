@@ -55,6 +55,7 @@ import { FilesSummaryComponent } from './files-summary/files-summary.component';
 import {SlicePipe} from '@angular/common';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
+import {ProtocolAnalysisDetailsComponent} from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
 import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { IndeterminateDirective } from './shared/indeterminate.directive';
@@ -135,6 +136,7 @@ export function removeToken(): void {
     DatasetsSummaryComponent,
     FilesSummaryComponent,
     ProtocolAnalysisComponent,
+    ProtocolAnalysisDetailsComponent,
     NonExistingComponent,
     RulesetSampleComponent,
     RulesetExperimentComponent,

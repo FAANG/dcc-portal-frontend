@@ -19,13 +19,13 @@ export class ProtocolAnalysisComponent implements OnInit, OnDestroy {
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
   columnNames: string[] = ['Protocol name','Analysis Type', 'Organisation', 'Year of protocol'];
-  exportNames: string[] = ['Organisation', 'Protocol Year', 'Protocol name', 'Analysis Type'];
+  exportNames: string[] = ['Protocol name','Analysis Type', 'Organisation', 'Year of protocol'];
   filter_field: {};
   downloadData = false;
 
   optionsCsv;
   optionsTabular;
-  data = {};
+  data;
 
   // Local variable for pagination
   p = 1;
@@ -79,8 +79,11 @@ export class ProtocolAnalysisComponent implements OnInit, OnDestroy {
       }
       this.router.navigate(['protocol', 'analysis'], {queryParams: params});
     });
-    this.exportSubscription = this.exportService.data.subscribe((data) => {
-      this.data = data;
+    this.exportSubscription = this.exportService.data.subscribe((data: Array<any>) => {
+      this.data = data.map(record => {
+        delete record['key'];
+        return record;
+      })
     });
   }
 

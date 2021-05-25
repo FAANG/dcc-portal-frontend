@@ -19,7 +19,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
   columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol'];
-  exportNames: string[] = ['Organisation', 'Protocol Year', 'Protocol name'];
+  exportNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol'];
   filter_field: {};
   downloadData = false;
 
