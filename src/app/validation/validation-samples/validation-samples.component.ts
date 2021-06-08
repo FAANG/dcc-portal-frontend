@@ -85,6 +85,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('FAANG validation|Samples');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onBeforeUploadItem = (file) => {
+      this.conversion_status = 'Waiting';
+    }
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
       if (this.conversion_status == 'Success') {
