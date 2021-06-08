@@ -87,8 +87,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
+      if (this.conversion_status == 'Success') {
+        this.startValidation();
+      }
     };
-    this.conversion_status = 'Undefined';
     this.metadata_template_with_examples = sample_metadata_template_with_examples;
     this.metadata_template_without_examples = sample_metadata_template_without_examples;
     if (this._userService.token) {
