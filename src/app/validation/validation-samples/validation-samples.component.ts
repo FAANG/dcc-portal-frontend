@@ -115,6 +115,12 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       this.parseColumnNames(table['samples_core']);
     }
     this.parseColumnNames(table);
+    if ('teleostei_embryo' in table) {
+      this.parseColumnNames(table['teleostei_embryo']);
+    }
+    if ('teleostei_post-hatching' in table) {
+      this.parseColumnNames(table['teleostei_post-hatching']);
+    }
     if ('custom' in table) {
       this.parseColumnNames(table['custom']);
     }
@@ -135,6 +141,18 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       tmp = tmp.concat(type_parsing_results['data']);
       tmp_errors = tmp_errors.concat(type_parsing_results['errors']);
       tmp_warnings = tmp_warnings.concat(type_parsing_results['warnings']);
+      if ('teleostei_embryo' in record) {
+        const module_parsing_results = this.parseColumnData(record['teleostei_embryo']);
+        tmp = tmp.concat(module_parsing_results['data']);
+        tmp_errors = tmp_errors.concat(module_parsing_results['errors']);
+        tmp_warnings = tmp_warnings.concat(module_parsing_results['warnings']);
+      }
+      if ('teleostei_post-hatching' in record) {
+        const module_parsing_results = this.parseColumnData(record['teleostei_post-hatching']);
+        tmp = tmp.concat(module_parsing_results['data']);
+        tmp_errors = tmp_errors.concat(module_parsing_results['errors']);
+        tmp_warnings = tmp_warnings.concat(module_parsing_results['warnings']);
+      }
       if ('custom' in record) {
         const custom_parsing_results = this.parseColumnData(record['custom']);
         tmp = tmp.concat(custom_parsing_results['data']);
@@ -161,6 +179,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     };
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data)['response'];
+      console.log(data);
       if (data['conversion_status']) {
         this.conversion_status = data['conversion_status'];
       }
@@ -217,7 +236,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
           this.parseColumnNames(tmp);
         }
       } else {
-        if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
+        if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name' && name !== 'teleostei_embryo' &&
+          name !== 'teleostei_post-hatching') {
           this.column_names.push(replaceUnderscoreWithSpaceAndCapitalize(name));
           if (data[name].hasOwnProperty('term')) {
             this.column_names.push('Term Source ID');
@@ -245,7 +265,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
           warnings_to_return = warnings_to_return.concat(array_results['warnings']);
         }
       } else {
-        if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name') {
+        if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name' && name !== 'teleostei_embryo' &&
+          name !== 'teleostei_post-hatching') {
           if (data[name].hasOwnProperty('text')) {
             data_to_return.push(data[name]['text']);
             errors_to_return.push(this.dataHasErrors(data[name], 'errors'));
