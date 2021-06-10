@@ -14,6 +14,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./ontology-improver.component.css']
 })
 export class OntologyImproverComponent implements OnInit, AfterViewInit {
+  @ViewChild('loginModalTemplate', { static: true }) public loginModalTemplate: TemplateRef<any>;
   @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   @ViewChild('ontologyStatusTemplate', { static: true }) ontologyStatusTemplate: TemplateRef<any>;
@@ -144,7 +145,13 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   login() {
     this.ontologyService.login(this.username, this.password).subscribe(
       data => {
-        this.token = data;
+        if (data) {
+          this.token = data;
+          this.closeModal();
+        } 
+        else {
+          this.error = "invalid credentials";
+        }
       },
       error => {
         this.error = error;
@@ -156,6 +163,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.token = null;
     this.username = null;
     this.password = null;
+    this.error = null;
+    this.tabGroup.selectedIndex = 0;
     this.ngOnInit();
   }
 
@@ -228,6 +237,21 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.selectedTerm.key = key;
     this.selectedTerm.index = index;
     this.openModal(data);
+  }
+
+  openLoginModal() {
+    this.dialogRef = this.dialog.open(this.loginModalTemplate, {
+      width: '40%'
+    });
+
+    this.dialogRef.afterClosed().subscribe(result => {
+      if (!this.token) {
+        this.username = null;
+        this.password = null;
+        this.error = null;
+        this.tabGroup.selectedIndex = 0;
+      }
+    });
   }
 
   openModal(selectedOntology) {
@@ -363,6 +387,12 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
         this.tabGroup.selectedIndex = 0;
       }
     });
+  }
+
+  tabClick(tab) {
+    if (tab.index == 1 && !this.token) {
+      this.openLoginModal();
+    }
   }
 
 }
