@@ -92,6 +92,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -159,7 +160,8 @@ export function removeToken(): void {
     TableClientSideComponent,
     LoginComponent,
     FilesUploadComponent,
-    OntologyImproverComponent
+    OntologyImproverComponent,
+    OntologyDetailComponent
   ],
   imports: [
     BrowserModule,

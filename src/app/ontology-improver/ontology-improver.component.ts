@@ -7,6 +7,7 @@ import {Observable, Subscription} from 'rxjs';
 import {TableClientSideComponent}  from '../shared/table-client-side/table-client-side.component';
 import {AggregationService} from '../services/aggregation.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ontology-improver',
@@ -17,6 +18,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   @ViewChild('loginModalTemplate', { static: true }) public loginModalTemplate: TemplateRef<any>;
   @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
+  @ViewChild('ontologyTermTemplate', { static: true }) ontologyTermTemplate: TemplateRef<any>;
   @ViewChild('ontologyStatusTemplate', { static: true }) ontologyStatusTemplate: TemplateRef<any>;
   @ViewChildren("tableComp") tableComponents: QueryList<TableClientSideComponent>;
   private tableClientComponent: TableClientSideComponent;
@@ -47,9 +49,11 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     public snackbar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private titleService: Title,
     private aggregationService: AggregationService) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Ontology Improver');
     this.hide = true;
     this.fetchedAllRecords = false;
     this.mode = 'input';
@@ -59,6 +63,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.filter_field = {};
     this.selectedTerm = {'key': '', 'index': 0};
     this.templates = {
+      'ontology_term': this.ontologyTermTemplate,
       'ontology_status': this.ontologyStatusTemplate
     };
     // getting filters from url

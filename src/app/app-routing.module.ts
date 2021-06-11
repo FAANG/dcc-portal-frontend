@@ -42,6 +42,7 @@ import {AapComponent} from './aap/aap.component';
 import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
+import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 
 
 const routes: Routes = [
@@ -85,6 +86,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'upload_protocol', component: FilesUploadComponent},
   {path: 'ontology', component: OntologyImproverComponent},
+  {path: 'ontology/:id', component: OntologyDetailComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];

@@ -40,6 +40,16 @@ export class OntologyService {
     );
   }
 
+  getOntologyById(ontologyId) {
+    const url = validation_service_url + '/ontology_improver/ontology_detail/' + ontologyId;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   searchTerms(terms: any) {
     const url = validation_service_url + '/ontology_improver/search/';
     return this.http.post(url, {'terms': terms}).pipe(
@@ -63,16 +73,6 @@ export class OntologyService {
   validateTerms(body: any) {
     const url = validation_service_url + '/ontology_improver/validate/';
     return this.http.post(url, body).pipe(
-      map((data: any) => {
-        return data;
-      }),
-      catchError(this.handleError),
-    );
-  }
-  
-  getAllOntologies(terms: any) {
-    const url = validation_service_url + '/ontology_improver/search/';
-    return this.http.get(url).pipe(
       map((data: any) => {
         return data;
       }),
