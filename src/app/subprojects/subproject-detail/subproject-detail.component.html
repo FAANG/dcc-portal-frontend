@@ -22,7 +22,7 @@
         </h3>
       </div>
       <div class="col-md-6 text-center">
-        <img src="https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/bovreg/funding-logo-1.jpg" alt="Funding Logo" class="funding-logo">
+        <img src="https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/image.png" alt="Funding Logo" class="funding-logo">
       </div>
     </div>
 
@@ -34,7 +34,12 @@
 
 
     <div class="row first-row">
-      <div class="col-md-4">
+      <div class="col-md-4 scroll" *ngIf="project === 'BovReg'">
+        <h5>
+          {{setting.description}}
+        </h5>
+      </div>
+      <div class="col-md-4" *ngIf="project !== 'BovReg'">
         <h5>
           {{setting.description}}
         </h5>
