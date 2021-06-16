@@ -14,13 +14,12 @@ export class TableClientSideComponent implements OnInit {
   @Input() data: Array<any>; // Array data to be populated in the table
   @Input() page_size: number; // number of records in a page
   @Input() filter_values: Observable<Object>; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ... }
-  
+  @Input() col_width: Array<any>; // list of column widths
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource: MatTableDataSource<any>;
   pageSize: number;
-  col_width;
 
   constructor() {
   }
@@ -32,8 +31,13 @@ export class TableClientSideComponent implements OnInit {
     this.dataSource.filterPredicate = this.createFilter();
     this.dataSource.filter = JSON.stringify(this.filter_values);
     this.pageSize = this.page_size ? this.page_size : 25;
-    // set equal width for all columns of the table
-    this.col_width = "calc(100%/" + this.column_names.length + ")";
+    // if col widths not provided, set equal width for all columns
+    if (this.col_width == undefined) {
+      this.col_width = [];
+      this.column_names.forEach(el => {
+        this.col_width.push("calc(100%/" + this.column_names.length + ")");
+      })
+    }
   }
 
   // apply filter when component input "filter_values" is changed
