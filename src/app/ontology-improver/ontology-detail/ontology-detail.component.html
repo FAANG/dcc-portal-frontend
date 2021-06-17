@@ -4,10 +4,10 @@
         <h2 style="padding-top: 30px;">{{ontologyId}}</h2>
         <hr>
         <dl class="row">
-            <!-- label -->
-            <ng-container *ngIf="data.hasOwnProperty('label')">
+            <!-- ontology_term -->
+            <ng-container *ngIf="data.faang_data.hasOwnProperty('ontology_term')">
                 <dt class="col-sm-3">Ontology Term:</dt>
-                <dd class="col-sm-9">{{data?.label}}</dd>
+                <dd class="col-sm-9">{{data.faang_data?.ontology_term}}</dd>
             </ng-container>
             <!-- type -->
             <ng-container *ngIf="data.faang_data.hasOwnProperty('ontology_type')">
@@ -34,10 +34,15 @@
                     </button>
                 </dd>
             </ng-container>
-            <!-- last_update -->
-            <ng-container *ngIf="data.faang_data.hasOwnProperty('last_updated')">
-                <dt class="col-sm-3">Last Updated:</dt>
-                <dd class="col-sm-9">{{data.faang_data?.last_updated.split('T')[0]}}</dd>
+            <!-- project -->
+            <ng-container *ngIf="data.faang_data.hasOwnProperty('project') && data.faang_data.project">
+                <dt class="col-sm-3">Project:</dt>
+                <dd class="col-sm-9">{{data.faang_data?.project}}</dd>
+            </ng-container>
+            <!-- tags -->
+            <ng-container *ngIf="data.faang_data.hasOwnProperty('tags') && data.faang_data.tags">
+                <dt class="col-sm-3">Tags:</dt>
+                <dd class="col-sm-9">{{data.faang_data?.tags}}</dd>
             </ng-container>
             <!-- iri -->
             <ng-container *ngIf="data.hasOwnProperty('iri')">
