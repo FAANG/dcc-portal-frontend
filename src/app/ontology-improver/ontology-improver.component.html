@@ -220,7 +220,11 @@
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Ontology ID</mat-label>
-            <input matInput [(ngModel)]="data.ontology_id">
+            <mat-select [(ngModel)]="data.ontology_id">
+                <mat-option *ngFor="let id of ontologyIdOptions" [value]="id">
+                    {{id}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Project</mat-label>

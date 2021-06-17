@@ -33,6 +33,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   searchResults;
   ontologyMatches;
   ontologyMatchesOld;
+  ontologyIdOptions;
   selectedTerm;
   selectedOntologyData;
   newTag: string;
@@ -188,6 +189,17 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   }
 
   editOntology(data) {
+    // get possible ontology ID options from ZOOMA
+    this.ontologyIdOptions = [data['ontology_id']]; // initially has only currrent id
+    this.ontologyService.fetchZoomaMatches([data['ontology_term']]).subscribe(
+      res => {
+        this.ontologyIdOptions = res[data['ontology_term']].map(match => match['ontology_id']);
+        console.log(this.ontologyIdOptions);
+      },
+      error => {
+      }
+    );
+    // get current ontology ID
     this.selectedOntologyData = JSON.parse(JSON.stringify(data));
     this.dialogRef = this.dialog.open(this.editModalTemplate, {
       width: '50%',
@@ -196,6 +208,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       this.selectedOntologyData = null;
+      this.ontologyIdOptions = null;
       this.newTag = null;
     });
   }
@@ -244,14 +257,11 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       'id': data['id'],
       'ontology_status': 'Verified'
     }];
-    this.showSpinner = true;
     this.ontologyService.validateTerms(request).subscribe(
       data => {
-        this.showSpinner = false;
-        this.ngOnInit();
+        this.openSnackbar('Ontology Verified', 'Refresh table');
       },
       error => {
-        this.showSpinner = false;
         this.openSnackbar('Ontology Verification Failed!', 'Dismiss');
       }
     );
@@ -465,7 +475,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     });
 
     snackBarRef.afterDismissed().subscribe(result => {
-      if (message == 'Ontologies submitted successfully') {
+      if (message == 'Ontologies submitted successfully' || message == 'Ontology Verified') {
         this.ngOnInit();
         this.tabGroup.selectedIndex = 0;
       }
