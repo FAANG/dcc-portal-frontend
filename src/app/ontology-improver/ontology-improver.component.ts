@@ -16,6 +16,7 @@ import {Title} from '@angular/platform-browser';
 })
 export class OntologyImproverComponent implements OnInit, AfterViewInit {
   @ViewChild('loginModalTemplate', { static: true }) public loginModalTemplate: TemplateRef<any>;
+  @ViewChild('editModalTemplate', { static: true }) public editModalTemplate: TemplateRef<any>;
   @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   @ViewChild('ontologyTermTemplate', { static: true }) ontologyTermTemplate: TemplateRef<any>;
@@ -33,14 +34,18 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   ontologyMatches;
   ontologyMatchesOld;
   selectedTerm;
+  selectedOntologyData;
+  newTag: string;
   error: string;
   dialogRef;
+  showSpinner: boolean;
   fetchedAllRecords: boolean;
   aggrSubscription: Subscription;
   ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
-  columnNames: string[] = ['Term', 'Ontology Type', 'Ontology ID', 'Status'];
-  displayFields: string[] = ['ontology_term', 'ontology_type', 'ontology_id', 'ontology_status'];
+  columnNames: string[] = ['Term', 'Type', 'Ontology ID', 'Project', 'Tags', 'Status'];
+  displayFields: string[] = ['ontology_term', 'ontology_type', 'ontology_id', 'project', 'tags', 'ontology_status'];
+  column_widths: string[] = ["15%", "15%", "15%", "15%", "15%", "25%"];
   templates: Object;
   filter_field: {};
   constructor(
@@ -66,6 +71,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       'ontology_term': this.ontologyTermTemplate,
       'ontology_status': this.ontologyStatusTemplate
     };
+    this.showSpinner = false;
     // getting filters from url
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
@@ -152,6 +158,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       data => {
         if (data) {
           this.token = data;
+          // readjust table column to show edit and verify icons
+          this.column_widths = ["13%", "13%", "13%", "13%", "13%", "35%"];
           this.closeModal();
         } 
         else {
@@ -177,6 +185,76 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.filter_field['search'] = [filterValue];
     this.filter_field = Object.assign({}, this.filter_field);
+  }
+
+  editOntology(data) {
+    this.selectedOntologyData = JSON.parse(JSON.stringify(data));
+    this.dialogRef = this.dialog.open(this.editModalTemplate, {
+      width: '50%',
+      data: this.selectedOntologyData
+    });
+
+    this.dialogRef.afterClosed().subscribe(result => {
+      this.selectedOntologyData = null;
+      this.newTag = null;
+    });
+  }
+
+  addNewTag(tag) {
+    if (tag.length) {
+      let tagsList = this.selectedOntologyData.tags.split(', ');
+      tagsList = tagsList.filter(n => n);
+      tagsList.push(tag);
+      this.selectedOntologyData.tags = tagsList.join(', ');
+      this.newTag = null;
+    }
+  }
+
+  removeTag(tagIndex) {
+    let tagsList = this.selectedOntologyData.tags.split(', ');
+    tagsList.splice(tagIndex, 1);
+    this.selectedOntologyData.tags = tagsList.join(', ');
+  }
+
+  submitEditedOntology(data) {
+    data['ontology_status'] = 'Awaiting Assessment';
+    const request = {};
+    request['user'] = this.username;
+    request['ontologies'] = [data];
+    this.showSpinner = true;
+    this.ontologyService.validateTerms(request).subscribe(
+      data => {
+        this.showSpinner = false;
+        this.closeModal();
+        this.ngOnInit();
+      },
+      error => {
+        this.showSpinner = false;
+        this.openSnackbar('Submission Failed!', 'Dismiss');
+      }
+    );
+  }
+
+  verifyOntology(data){
+    // set verify icon color to green after selection
+    // reset verify icon color to default when deselcted
+    const request = {};
+    request['user'] = this.username
+    request['ontologies'] = [{
+      'id': data['id'],
+      'ontology_status': 'Verified'
+    }];
+    this.showSpinner = true;
+    this.ontologyService.validateTerms(request).subscribe(
+      data => {
+        this.showSpinner = false;
+        this.ngOnInit();
+      },
+      error => {
+        this.showSpinner = false;
+        this.openSnackbar('Ontology Verification Failed!', 'Dismiss');
+      }
+    );
   }
 
   searchTerms() {

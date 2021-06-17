@@ -32,3 +32,36 @@ textarea:focus {
     padding: 3px;
     margin-right: 10px;
 }
+
+.table-color-status {
+    border-radius: 7px;
+    cursor: default;
+    padding: 3px 7px 3px 7px;
+}
+
+.table-icon {
+    color:rgba(0, 0, 0, 0.6);
+    padding: 0;
+    margin-left: 7px;
+    margin-top: 10px;
+}
+
+.edit-icon:hover{
+    cursor: pointer;
+    color:rgba(0, 0, 0, 1);
+}
+
+.verify-icon:hover{
+    cursor: pointer;
+    color:rgba(35, 167, 35, 1);
+}
+
+.tags {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 1px 7px 1px 5px;
+    border-color: rgba(0, 0, 0, 0.5);
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    margin: 5px 10px 10px 0;
+}
