@@ -159,7 +159,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
         if (data) {
           this.token = data;
           // readjust table column to show edit and verify icons
-          this.column_widths = ["13%", "13%", "13%", "13%", "13%", "35%"];
+          this.column_widths = ["14%", "14%", "14%", "14%", "14%", "30%"];
           this.closeModal();
         } 
         else {

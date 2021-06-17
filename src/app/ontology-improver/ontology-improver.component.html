@@ -315,18 +315,20 @@
                 </span>
             </span>
     </button>
-    <mat-icon 
-        *ngIf="token"
-        aria-hidden="false" 
-        class="table-icon edit-icon"
-        (click)=editOntology(item.row)>
-        edit
-    </mat-icon>
-    <mat-icon 
-        *ngIf="token"   
-        aria-hidden="false" 
-        class="table-icon verify-icon"
-        (click)=verifyOntology(item.row)>
-        check_circle
-    </mat-icon>
+    <span style="float: right;">
+        <mat-icon 
+            *ngIf="token"
+            aria-hidden="false" 
+            class="table-icon edit-icon"
+            (click)=editOntology(item.row)>
+            edit
+        </mat-icon>
+        <mat-icon 
+            *ngIf="token"   
+            aria-hidden="false" 
+            class="table-icon verify-icon"
+            (click)=verifyOntology(item.row)>
+            check_circle
+        </mat-icon>
+    </span>
 </ng-template>
