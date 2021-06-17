@@ -36,7 +36,8 @@ export class AggregationService {
     journal: [],
     datasetSource: [],
     ontology_type: [],
-    ontology_status: []
+    ontology_status: [],
+    project: [],
   };
 
   protocolNames = protocolNames;
@@ -344,15 +345,20 @@ export class AggregationService {
     } else if (type === 'ontology') {
       let ontology_type = {};
       let ontology_status = {};
+      let project = {};
       for (const item of recordList) {
         ontology_type = this.updateAggregation(ontology_type, item['ontology_type']);
         ontology_status = this.updateAggregation(ontology_status, item['ontology_status']);
+        project = this.updateAggregation(project, item['project']);
       }
       let all_data = {
         ontology_type: Object.entries(ontology_type).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
         ontology_status: Object.entries(ontology_status).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        project: Object.entries(project).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
       };

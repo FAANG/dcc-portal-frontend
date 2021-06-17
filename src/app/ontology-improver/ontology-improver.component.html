@@ -23,12 +23,15 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3" style="padding-top: 10px; padding-bottom: 10px;">
-                        <div class="col-md-12 col-sm-6 faang-filter">
-                            <app-filter title="Ontology Type" [filterSize]=5></app-filter>
-                            </div>
-                            <div class="col-md-12 col-sm-6 faang-filter">
+                        <div class="col-md-12 faang-filter">
                             <app-filter title="Ontology Status" [filterSize]=4></app-filter>
-                            </div>
+                        </div>
+                        <div class="col-md-12 faang-filter">
+                            <app-filter title="Project" [filterSize]=4></app-filter>
+                        </div>
+                        <div class="col-md-12 faang-filter">
+                            <app-filter title="Ontology Type" [filterSize]=4></app-filter>
+                        </div>
                     </div>
                     <div class="col-md-9" style="padding-top: 10px; padding-bottom: 10px;">
                         <mat-form-field *ngIf="fetchedAllRecords" style="width: 100%;">
