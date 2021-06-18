@@ -18,8 +18,8 @@
             <ng-container *ngIf="data.faang_data.hasOwnProperty('ontology_status')">
                 <dt class="col-sm-3">Status:</dt>
                 <dd class="col-sm-9">
-                    <button class="btn" 
-                        [style.border-color]="getColour(data.faang_data.ontology_support, data.faang_data.ontology_status, 0.8)"
+                    <button class="btn table-color-status" 
+                        [style.background-color]="getColour(data.faang_data.ontology_support, data.faang_data.ontology_status, 0.2)"
                         style="border-width: 2px; cursor: default">
                         {{data.faang_data.ontology_status}}
                         <span *ngIf="data.faang_data.ontology_status == 'Verified'">
