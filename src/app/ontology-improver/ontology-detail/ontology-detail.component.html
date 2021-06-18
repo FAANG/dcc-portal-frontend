@@ -1,7 +1,7 @@
 <div class="container">
     <app-header></app-header>
     <div *ngIf="data">
-        <h2 style="padding-top: 30px;">{{ontologyId}}</h2>
+        <h2 style="padding-top: 30px;">{{data.faang_data?.ontology_id}}</h2>
         <hr>
         <dl class="row">
             <!-- ontology_term -->
@@ -43,6 +43,19 @@
             <ng-container *ngIf="data.faang_data.hasOwnProperty('tags') && data.faang_data.tags">
                 <dt class="col-sm-3">Tags:</dt>
                 <dd class="col-sm-9">{{data.faang_data?.tags}}</dd>
+            </ng-container>
+        </dl>
+        <hr>
+        <dl class="row">
+            <!-- id -->
+            <ng-container *ngIf="data.hasOwnProperty('id')">
+                <dt class="col-sm-3">Ontology ID:</dt>
+                <dd class="col-sm-9">{{data?.id}}</dd>
+            </ng-container>
+            <!-- label -->
+            <ng-container *ngIf="data.hasOwnProperty('id')">
+                <dt class="col-sm-3">Ontology Label:</dt>
+                <dd class="col-sm-9">{{data?.label}}</dd>
             </ng-container>
             <!-- iri -->
             <ng-container *ngIf="data.hasOwnProperty('iri')">

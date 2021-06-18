@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {OntologyService} from '../../services/ontology.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-ontology-detail',
@@ -9,22 +10,26 @@ import {OntologyService} from '../../services/ontology.service';
   styleUrls: ['./ontology-detail.component.css']
 })
 export class OntologyDetailComponent implements OnInit {
-  ontologyId: string;
+  ontologyDbId: string;
   data;
   
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    private ontologyService: OntologyService) { }
+    private ontologyService: OntologyService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.route.params.subscribe((params: Params) => {
-      this.ontologyId = params['id'];
-      this.titleService.setTitle(`${this.ontologyId} | Ontology`);
+      this.ontologyDbId = params['id'];
+      this.titleService.setTitle('Ontology');
     });
-    this.data = this.ontologyService.getOntologyById(this.ontologyId).subscribe(
+    this.data = this.ontologyService.getOntologyById(this.ontologyDbId).subscribe(
       (data: any) => {
         this.data = data;
+        this.spinner.hide();
+        this.titleService.setTitle(`${this.data.id} | Ontology`);
     });
   }
 
