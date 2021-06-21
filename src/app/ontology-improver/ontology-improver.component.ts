@@ -239,7 +239,14 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       data => {
         this.showSpinner = false;
         this.closeModal();
-        this.ngOnInit();
+        // refresh table
+        this.ontologyService.getOntologies().subscribe(
+          data => {
+            this.summaryTableData = data;
+            this.filter_field = Object.assign({}, this.filter_field);
+            this.aggregationService.getAggregations(data, 'ontology');
+          }
+        );
       },
       error => {
         this.showSpinner = false;
@@ -251,6 +258,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   verifyOntology(data){
     // set verify icon color to green after selection
     // reset verify icon color to default when deselcted
+    this.openSnackbar('Verifying Ontology...', 'Dismiss');
     const request = {};
     request['user'] = this.username
     request['ontologies'] = [{
@@ -259,7 +267,15 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     }];
     this.ontologyService.validateTerms(request).subscribe(
       data => {
-        this.openSnackbar('Ontology Verified', 'Refresh table');
+        // refresh table
+        this.ontologyService.getOntologies().subscribe(
+          data => {
+            this.summaryTableData = data;
+            this.filter_field = Object.assign({}, this.filter_field);
+            this.aggregationService.getAggregations(data, 'ontology');
+            this.openSnackbar('Ontology Verified', 'Dismiss');
+          }
+        );
       },
       error => {
         this.openSnackbar('Ontology Verification Failed!', 'Dismiss');
@@ -475,7 +491,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     });
 
     snackBarRef.afterDismissed().subscribe(result => {
-      if (message == 'Ontologies submitted successfully' || message == 'Ontology Verified') {
+      if (message == 'Ontologies submitted successfully') {
         this.ngOnInit();
         this.tabGroup.selectedIndex = 0;
       }
