@@ -239,14 +239,24 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       data => {
         this.showSpinner = false;
         this.closeModal();
-        // refresh table
-        this.ontologyService.getOntologies().subscribe(
-          data => {
-            this.summaryTableData = data;
-            this.filter_field = Object.assign({}, this.filter_field);
-            this.aggregationService.getAggregations(data, 'ontology');
-          }
-        );
+        if (this.tabGroup.selectedIndex == 0) {
+          // update summary table
+          this.ontologyService.getOntologies().subscribe(
+            data => {
+              this.summaryTableData = data;
+              this.filter_field = Object.assign({}, this.filter_field);
+              this.aggregationService.getAggregations(data, 'ontology');
+            }
+          );
+        } else {
+          // update table in ontology tool tab
+          const ontologyInput = this.ontologyTerms.split('\n').filter(n => n);
+          this.ontologyService.searchTerms(ontologyInput).subscribe(
+            data => {
+              this.searchResults = data;
+            }
+          );
+        }
       },
       error => {
         this.showSpinner = false;
@@ -267,15 +277,28 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     }];
     this.ontologyService.validateTerms(request).subscribe(
       data => {
-        // refresh table
-        this.ontologyService.getOntologies().subscribe(
-          data => {
-            this.summaryTableData = data;
-            this.filter_field = Object.assign({}, this.filter_field);
-            this.aggregationService.getAggregations(data, 'ontology');
-            this.openSnackbar('Ontology Verified', 'Dismiss');
-          }
-        );
+        if (this.tabGroup.selectedIndex == 0) {
+          // update summary table
+          this.ontologyService.getOntologies().subscribe(
+            data => {
+              this.summaryTableData = data;
+              this.filter_field = Object.assign({}, this.filter_field);
+              this.aggregationService.getAggregations(data, 'ontology');
+              // show message
+              this.openSnackbar('Ontology Verified', 'Dismiss');
+            }
+          );
+        } else {
+          // update table in ontology tool tab
+          const ontologyInput = this.ontologyTerms.split('\n').filter(n => n);
+          this.ontologyService.searchTerms(ontologyInput).subscribe(
+            data => {
+              this.searchResults = data;
+              // show message
+              this.openSnackbar('Ontology Verified', 'Dismiss');
+            }
+          );
+        }
       },
       error => {
         this.openSnackbar('Ontology Verification Failed!', 'Dismiss');
@@ -285,16 +308,18 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
 
   searchTerms() {
     const ontologyInput = this.ontologyTerms.split('\n').filter(n => n);
-    this.ontologyService.searchTerms(ontologyInput).subscribe(
-      data => {
-        this.searchResults = data;
-        this.getOntologyMatches(this.searchResults.not_found);
-      },
-      error => {
-        this.error = error;
-      }
-    );
-    this.mode = 'validate';
+    if (ontologyInput.length) {
+      this.ontologyService.searchTerms(ontologyInput).subscribe(
+        data => {
+          this.searchResults = data;
+          this.getOntologyMatches(this.searchResults.not_found);
+        },
+        error => {
+          this.error = error;
+        }
+      );
+      this.mode = 'validate';
+    }
   }
 
   getOntologyMatches(terms) {

@@ -80,38 +80,15 @@
                 <div class="container" style="margin-bottom: 40px;" *ngIf="(searchResults | json) != '{}' && mode == 'validate'">
                     <h4>Existing terms</h4>
                     <ng-container *ngIf="searchResults.found?.length">
-                        <table mat-table [dataSource]="searchResults.found" table-striped style="width: 100%; margin-bottom: 20px;">
-                            <ng-container matColumnDef='term'>
-                                <th mat-header-cell class="table-header" *matHeaderCellDef>Term</th>
-                                <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_term}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef='term_type'>
-                                <th mat-header-cell class="table-header" *matHeaderCellDef>Ontology Type</th>
-                                <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_type}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef='ontology_id'>
-                                <th mat-header-cell class="table-header" *matHeaderCellDef>Ontology ID</th>
-                                <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item.ontology_id}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef='mode'>
-                                <th mat-header-cell class="table-header" *matHeaderCellDef>Status</th>
-                                <td mat-cell class="table-cell-data" *matCellDef="let item"> 
-                                    <button class="btn color-status" [style.background-color]="getColour(item.ontology_support, item.ontology_status, 0.8)"></button>
-                                    {{item.ontology_status}}
-                                    <span *ngIf="item.ontology_status == 'Verified'">
-                                        by {{item.verified_count}}
-                                        <span *ngIf="item.verified_count == 1">
-                                            user
-                                        </span>
-                                        <span *ngIf="item.verified_count > 1">
-                                            users
-                                        </span>
-                                    </span>
-                                </td>
-                            </ng-container>
-                            <tr mat-header-row *matHeaderRowDef=" ['term', 'term_type', 'ontology_id', 'mode']"></tr>
-                            <tr mat-row *matRowDef="let row; columns:  ['term', 'term_type', 'ontology_id', 'mode'];"></tr>
-                        </table>
+                        <app-table-client-side #tableComp id="ontology-table"
+                            [display_fields]="displayFields"
+                            [column_names]="columnNames"
+                            [data]="searchResults.found"
+                            [filter_values]="{}"
+                            [templates]="templates"
+                            [page_size]=10
+                            [col_width]="column_widths">
+                        </app-table-client-side>
                     </ng-container>
                     <ng-container *ngIf="searchResults.found?.length == 0">
                         No terms found
