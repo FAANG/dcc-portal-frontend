@@ -194,9 +194,6 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.ontologyService.fetchZoomaMatches([data['ontology_term']]).subscribe(
       res => {
         this.ontologyIdOptions = res[data['ontology_term']].map(match => match['ontology_id']);
-        console.log(this.ontologyIdOptions);
-      },
-      error => {
       }
     );
     // get current ontology ID
@@ -347,9 +344,12 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     if (index == -1) {
       data = {'ontology_label': key, 'ontology_status': 'Not yet supported'};
       this.selectedTerm.index = 0;
+      this.ontologyIdOptions = [];
     } else {
       data = this.ontologyMatches[key][index];
       this.selectedTerm.index = index;
+      // set ontology id options
+      this.ontologyIdOptions = data.ontology_id.split(',');
     }
     // mark current ontology as selected
     data['selected'] = true;
@@ -370,6 +370,10 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     var data = this.ontologyMatches[key][index];
     this.selectedTerm.key = key;
     this.selectedTerm.index = index;
+    // set ontology id options and open modal for edit
+    if (data.ontology_id) {
+      this.ontologyIdOptions = data.ontology_id.split(',');
+    }
     this.openModal(data);
   }
 
