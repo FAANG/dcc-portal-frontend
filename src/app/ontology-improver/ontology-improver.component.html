@@ -154,7 +154,8 @@
 
 <!-- Template: Login Modal Dialog Box -->
 <ng-template #loginModalTemplate let-data>
-    <div mat-dialog-content>
+    <!-- User Login -->
+    <div *ngIf="!registerUser" mat-dialog-content>
         <h3><p>Login</p></h3>
         <mat-form-field appearance="fill" style="width: 100%">
             <mat-label>Enter your username</mat-label>
@@ -168,7 +169,7 @@
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-        <p *ngIf="error">Unable to login. Invalid credentials</p>
+        <p *ngIf="error">{{error}}</p>
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-3">
                 <button class="btn btn-primary" (click)="login()" style="width: 100%">
@@ -176,9 +177,74 @@
                 </button>
             </div>
             <div class="col-md-9" style="text-align: right;">
-                <p> If you do not have an AAP account, register 
-                    <a href="https://explore.aai.ebi.ac.uk/registerUser">here</a>
+                <p> If you do not have an account, click 
+                    <a href="" (click)="$event.preventDefault(); registerUser = !registerUser">here</a>
+                    to register
                 </p>
+            </div>
+        </div>
+    </div>
+    <!-- Register New User -->
+    <div *ngIf="registerUser" mat-dialog-content>
+        <h3><p>Register</p></h3>
+        <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Username</mat-label>
+            <input matInput [(ngModel)]="userRegData.username">
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)]="userRegData.email">
+        </mat-form-field>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>First Name</mat-label>
+                    <input matInput [(ngModel)]="userRegData.first_name">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput [(ngModel)]="userRegData.last_name">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Password</mat-label>
+                    <input matInput [(ngModel)]="userRegData.password" [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Confirm password</mat-label>
+                    <input matInput [(ngModel)]="userRegData.confirmPwd" [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-error *ngIf="userRegData.password !== userRegData.confirmPwd">
+                    Passwords do not match
+                </mat-error>
+            </div>
+        </div>
+        <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Institute</mat-label>
+            <input matInput [(ngModel)]="userRegData.organisation">
+        </mat-form-field>
+        <p *ngIf="error">{{error}}</p>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-3">
+                <button class="btn btn-primary" (click)="register()" style="width: 100%">
+                    Submit
+                </button>
+            </div>
+            <div class="col-md-9">
+                <button class="btn btn-info" (click)="registerUser = !registerUser">Back to Login</button>
             </div>
         </div>
     </div>

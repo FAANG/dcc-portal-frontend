@@ -25,6 +25,16 @@ export class OntologyService {
     );
   }
 
+  register(userData) {
+    const url = validation_service_url + '/ontology_improver/register/';
+    return this.http.post(url, userData).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   getOntologies(size=null) {
     var url: string;
     if (size) { 

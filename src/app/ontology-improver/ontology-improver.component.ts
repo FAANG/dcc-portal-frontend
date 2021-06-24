@@ -41,6 +41,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   dialogRef;
   showSpinner: boolean;
   fetchedAllRecords: boolean;
+  registerUser: boolean;
+  userRegData;
   aggrSubscription: Subscription;
   ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
@@ -63,6 +65,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.hide = true;
     this.fetchedAllRecords = false;
     this.mode = 'input';
+    this.registerUser = false;
+    this.userRegData = {};
     this.ontologyTerms = '';
     this.searchResults = {};
     this.ontologyMatches = {};
@@ -164,13 +168,33 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
           this.closeModal();
         } 
         else {
-          this.error = "invalid credentials";
+          this.error = "Unable to login. Invalid credentials";
         }
       },
       error => {
         this.error = error;
       }
     )
+  }
+
+  register() {
+    // check password match
+    if (this.userRegData.password == this.userRegData.confirmPwd) {
+      let request = JSON.parse(JSON.stringify(this.userRegData));
+      delete request['confirmPwd'];
+      request['password'] = btoa(request['password']);
+      this.ontologyService.register(request).subscribe(
+        data => {
+          // show login screen
+          this.registerUser = false;
+        },
+        error => {
+          this.error = error;
+        }
+      )
+    } else {
+      this.error = 'The Passwords do not match'
+    }
   }
 
   logout() {
@@ -388,6 +412,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
         this.password = null;
         this.error = null;
         this.tabGroup.selectedIndex = 0;
+        this.userRegData = null;
+        this.registerUser = false;
       }
     });
   }
