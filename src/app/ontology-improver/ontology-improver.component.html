@@ -169,7 +169,7 @@
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-        <p *ngIf="error">{{error}}</p>
+        <p *ngIf="error" class="alert alert-danger">{{error}}</p>
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-3">
                 <button class="btn btn-primary" (click)="login()" style="width: 100%">
@@ -187,66 +187,101 @@
     <!-- Register New User -->
     <div *ngIf="registerUser" mat-dialog-content>
         <h3><p>Register</p></h3>
-        <mat-form-field appearance="fill" style="width: 100%">
-            <mat-label>Username</mat-label>
-            <input matInput [(ngModel)]="userRegData.username">
-        </mat-form-field>
-        <mat-form-field appearance="fill" style="width: 100%">
-            <mat-label>Email</mat-label>
-            <input matInput [(ngModel)]="userRegData.email">
-        </mat-form-field>
-        <div class="row">
-            <div class="col-md-6">
-                <mat-form-field appearance="fill" style="width: 100%">
-                    <mat-label>First Name</mat-label>
-                    <input matInput [(ngModel)]="userRegData.first_name">
-                </mat-form-field>
+        <form [formGroup]="regForm" novalidate>
+            <!-- Username -->
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Username</label>
+                    <input class="form-control" formControlName="username" type="text" required>
+                </div>
             </div>
-            <div class="col-md-6">
-                <mat-form-field appearance="fill" style="width: 100%">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput [(ngModel)]="userRegData.last_name">
-                </mat-form-field>
+            <div *ngIf="regForm.controls['username'].invalid && (regForm.controls['username'].dirty || regForm.controls['username'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['username'].errors.required">
+                    Username is required
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <mat-form-field appearance="fill" style="width: 100%">
-                    <mat-label>Password</mat-label>
-                    <input matInput [(ngModel)]="userRegData.password" [type]="hide ? 'password' : 'text'">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-                </mat-form-field>
+            <!-- Name -->
+            <div class="row">
+                <!-- First Name -->
+                <div class="col-md-6 form-group" style="padding-right: 5px;">
+                    <label>First Name</label>
+                    <input class="form-control" formControlName="first_name" type="text" required>
+                </div>
+                <!-- Last Name -->
+                <div class="col-md-6 form-group" style="padding-left: 5px;">
+                    <label>Last Name</label>
+                    <input class="form-control" formControlName="last_name" type="text">
+                </div>
             </div>
-            <div class="col-md-6">
-                <mat-form-field appearance="fill" style="width: 100%">
-                    <mat-label>Confirm password</mat-label>
-                    <input matInput [(ngModel)]="userRegData.confirmPwd" [type]="hide ? 'password' : 'text'">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-                </mat-form-field>
-                <mat-error *ngIf="userRegData.password !== userRegData.confirmPwd">
-                    Passwords do not match
-                </mat-error>
+            <div *ngIf="regForm.controls['first_name'].invalid && (regForm.controls['first_name'].dirty || regForm.controls['first_name'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['first_name'].errors.required">
+                  First Name is required
+                </div>
             </div>
-        </div>
-        <mat-form-field appearance="fill" style="width: 100%">
-            <mat-label>Institute</mat-label>
-            <input matInput [(ngModel)]="userRegData.organisation">
-        </mat-form-field>
-        <p *ngIf="error">{{error}}</p>
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-md-3">
-                <button class="btn btn-primary" (click)="register()" style="width: 100%">
+            <!-- Email -->
+            <div class="row">
+                <div class="col-md-12 form-group">
+                   <label>Email</label>
+                   <input class="form-control" formControlName="email" type="email" required>
+               </div>
+            </div>
+            <div *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].dirty || regForm.controls['email'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['email'].errors.required">
+                  Email is required
+                </div>
+                <div *ngIf="regForm.controls['email'].errors.email">
+                  Enter valid email
+                </div>
+            </div>
+            <!-- Passwords -->
+            <div class="row">
+                 <div class="col-md-6 form-group" style="padding-right: 5px;">
+                    <label>Password</label>
+                    <input class="form-control" formControlName="password" type="password" required>
+                </div>
+                 <div class="col-md-6 form-group" style="padding-left: 5px;">
+                    <label>Confirm Password</label>
+                    <input class="form-control" formControlName="confirmPwd" type="password" required>
+                </div>
+            </div>
+            <div *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].dirty || regForm.controls['password'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['password'].errors.required">
+                    Password is required
+                </div>
+            </div>
+            <div *ngIf="regForm.controls['confirmPwd'].invalid && (regForm.controls['confirmPwd'].dirty || regForm.controls['confirmPwd'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['confirmPwd'].errors.required">
+                    Password confirmation is required
+                </div>
+                <div *ngIf="regForm.controls['confirmPwd'].errors.NotEqual">
+                    Password do not match
+                </div>
+            </div>
+            <!-- Organisation -->
+            <div class="row">
+                <div class="col-md-12 form-group">
+                   <label>Organisation</label>
+                   <input class="form-control" formControlName="organisation" type="text" required>
+               </div>
+            </div>
+            <div *ngIf="regForm.controls['organisation'].invalid && (regForm.controls['organisation'].dirty || regForm.controls['organisation'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['organisation'].errors.required">
+                    Organisation is required.
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="btn btn-success" type="submit" (click)=register()
+                    [disabled]="regForm.pristine || regForm.invalid">
                     Submit
                 </button>
+                <button class="btn btn-info" style="margin-left: 10px;"
+                    (click)="registerUser = !registerUser">
+                    Back to Login
+                </button>
             </div>
-            <div class="col-md-9">
-                <button class="btn btn-info" (click)="registerUser = !registerUser">Back to Login</button>
-            </div>
-        </div>
+      </form>
+      </br>
+      <p *ngIf="error" class="alert alert-danger">{{error}}</p>
     </div>
 </ng-template>
 

@@ -94,6 +94,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 import { MatSelectModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -191,6 +192,7 @@ export function removeToken(): void {
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    ReactiveFormsModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,

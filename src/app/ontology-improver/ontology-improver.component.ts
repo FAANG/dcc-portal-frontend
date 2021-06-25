@@ -8,6 +8,7 @@ import {TableClientSideComponent}  from '../shared/table-client-side/table-clien
 import {AggregationService} from '../services/aggregation.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-ontology-improver',
@@ -42,7 +43,6 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   showSpinner: boolean;
   fetchedAllRecords: boolean;
   registerUser: boolean;
-  userRegData;
   aggrSubscription: Subscription;
   ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
@@ -51,6 +51,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   column_widths: string[] = ["15%", "15%", "15%", "15%", "15%", "25%"];
   templates: Object;
   filter_field: {};
+  regForm: FormGroup;
   constructor(
     private ontologyService: OntologyService,
     public dialog: MatDialog,
@@ -58,7 +59,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private titleService: Title,
-    private aggregationService: AggregationService) { }
+    private aggregationService: AggregationService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
     this.titleService.setTitle('Ontology Improver');
@@ -66,7 +68,6 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.fetchedAllRecords = false;
     this.mode = 'input';
     this.registerUser = false;
-    this.userRegData = {};
     this.ontologyTerms = '';
     this.searchResults = {};
     this.ontologyMatches = {};
@@ -77,6 +78,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       'ontology_status': this.ontologyStatusTemplate
     };
     this.showSpinner = false;
+    this.createForm();
     // getting filters from url
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
@@ -158,6 +160,40 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.router.navigate(['ontology'], {queryParams: {}});
   }
 
+  passwordValidator(group: FormGroup) {
+    const password = group.get('password').value;
+    const confirmPwd = group.get('confirmPwd').value;
+    return password === confirmPwd ? null : { passwordsNotEqual: true }      
+  }
+
+  createForm() {
+    this.regForm = this.fb.group({
+       username: ['', Validators.required ],
+       first_name: ['', Validators.required ],
+       last_name: [''],
+       email: ['', [Validators.required, Validators.email]],
+       password: ['', Validators.required ],
+       confirmPwd: ['', [Validators.required, this.validateAreEqual.bind(this)]],
+       organisation: ['', Validators.required ]
+    },{
+      updateOn: 'blur', 
+    });
+  }
+
+  get pwd() {
+    return this.regForm ? this.regForm.get('password').value : null;
+  }
+
+  get confirmPwd() {
+    return this.regForm ? this.regForm.get('confirmPwd').value : null;
+  }
+
+  private validateAreEqual() {
+    return this.pwd == this.confirmPwd ? null : {
+        NotEqual: true
+    };
+  }
+
   login() {
     this.ontologyService.login(this.username, this.password).subscribe(
       data => {
@@ -179,8 +215,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
 
   register() {
     // check password match
-    if (this.userRegData.password == this.userRegData.confirmPwd) {
-      let request = JSON.parse(JSON.stringify(this.userRegData));
+    if (this.regForm.status == 'VALID') {
+      let request = JSON.parse(JSON.stringify(this.regForm.value));
       delete request['confirmPwd'];
       request['password'] = btoa(request['password']);
       this.ontologyService.register(request).subscribe(
@@ -192,8 +228,6 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
           this.error = error;
         }
       )
-    } else {
-      this.error = 'The Passwords do not match'
     }
   }
 
@@ -412,8 +446,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
         this.password = null;
         this.error = null;
         this.tabGroup.selectedIndex = 0;
-        this.userRegData = null;
         this.registerUser = false;
+        this.createForm();
       }
     });
   }
