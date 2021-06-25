@@ -359,20 +359,42 @@
             </mat-radio-button>
         </mat-radio-group>
         <!-- Let user suggest changes if ontology is not marked suitable -->
-        <mat-form-field *ngIf="data.ontology_status == 'Needs Improvement' || data.ontology_status == 'Awaiting Assessment' || data.ontology_status == 'Not yet supported'" 
-            appearance="fill" style="width: 100%;">
-            <mat-label>Proposed Ontology ID</mat-label>
-            <input *ngIf="ontologyIdOptions.length == 0" matInput [(ngModel)]="data.ontology_id">
-            <mat-select *ngIf="ontologyIdOptions.length" [(ngModel)]="data.ontology_id">
-                <mat-option *ngFor="let id of ontologyIdOptions" [value]="id">
-                    {{id}}
-                </mat-option>
+        <ng-container *ngIf="data.ontology_status == 'Needs Improvement' || data.ontology_status == 'Awaiting Assessment' || data.ontology_status == 'Not yet supported'">
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Proposed Ontology ID</mat-label>
+                <input *ngIf="ontologyIdOptions.length == 0" matInput [(ngModel)]="data.ontology_id">
+                <mat-select *ngIf="ontologyIdOptions.length" [(ngModel)]="data.ontology_id">
+                    <mat-option *ngFor="let id of ontologyIdOptions" [value]="id">
+                        {{id}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Proposed Ontology Text</mat-label>
+                <input matInput [(ngModel)]="data.ontology_label">
+            </mat-form-field>
+        </ng-container>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Project</mat-label>
+            <mat-select [(ngModel)]="data.project">
+                <mat-option value="AQUA-FAANG">AQUA-FAANG</mat-option>
+                <mat-option value="BovReg">BovReg</mat-option>
+                <mat-option value="GENE-SWitCH">GENE-SWitCH</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field *ngIf="data.ontology_status == 'Needs Improvement' || data.ontology_status == 'Awaiting Assessment' || data.ontology_status == 'Not yet supported'"
-            appearance="fill" style="width: 100%;">
-            <mat-label>Proposed Ontology Text</mat-label>
-            <input matInput [(ngModel)]="data.ontology_label">
+        Tags: 
+        <br>
+        <ng-container *ngFor="let tag of data.tags?.split(', '); let i = index">
+            <button *ngIf="tag.length" mat-button class="tags" (click)="data = removeTagToolsTab(data, i)">
+                <mat-icon>close</mat-icon>
+                {{tag}}
+            </button>
+        </ng-container>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <input matInput 
+                [(ngModel)]="newTag" 
+                (keyup.enter)="data = addTagToolTab(data, newTag)"
+                placeholder="Add more tags">
         </mat-form-field>
     </div>
     <div>
@@ -407,19 +429,22 @@
             </span>
     </button>
     <span style="float: right;">
-        <mat-icon 
-            *ngIf="token"
-            aria-hidden="false" 
-            class="table-icon edit-icon"
-            (click)=editOntology(item.row)>
-            edit
-        </mat-icon>
-        <mat-icon 
-            *ngIf="token"   
-            aria-hidden="false" 
-            class="table-icon verify-icon"
-            (click)=verifyOntology(item.row)>
-            check_circle
-        </mat-icon>
+        <button *ngIf="token" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editOntology(item.row)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit Ontology</span>
+            </button>
+            <button mat-menu-item (click)="changeOntologyStatus(item.row, 'Needs Improvement')">
+                <mat-icon>close</mat-icon>
+                <span>Ontology Needs Improvement</span>
+            </button>
+            <button mat-menu-item (click)="changeOntologyStatus(item.row, 'Verified')">
+                <mat-icon>check_circle</mat-icon>
+                <span>Ontology is Suitable</span>
+            </button>
+        </mat-menu>
     </span>
 </ng-template>

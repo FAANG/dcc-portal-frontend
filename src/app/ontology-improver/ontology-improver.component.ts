@@ -285,6 +285,28 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.selectedOntologyData.tags = tagsList.join(', ');
   }
 
+  addTagToolTab(data, tag) {
+    if (tag.length) {
+      if (data.tags) {
+        let tagsList = data.tags.split(', ');
+        tagsList = tagsList.filter(n => n);
+        tagsList.push(tag);
+        data.tags = tagsList.join(', ');
+      } else {
+        data.tags = tag;
+      }
+      this.newTag = null;
+    }
+    return data;
+  }
+
+  removeTagToolsTab(data, tagIndex) {
+    let tagsList = data.tags.split(', ');
+    tagsList.splice(tagIndex, 1);
+    data.tags = tagsList.join(', ');
+    return data;
+  }
+
   submitEditedOntology(data) {
     data['ontology_status'] = 'Awaiting Assessment';
     const request = {};
@@ -321,15 +343,14 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     );
   }
 
-  verifyOntology(data){
-    // set verify icon color to green after selection
-    // reset verify icon color to default when deselcted
-    this.openSnackbar('Verifying Ontology...', 'Dismiss');
+  changeOntologyStatus(data, status){
+    // TODO: disable for users who have already verified this ontology
+    this.openSnackbar('Updating Ontology Status...', 'Dismiss');
     const request = {};
     request['user'] = this.username
     request['ontologies'] = [{
       'id': data['id'],
-      'ontology_status': 'Verified'
+      'ontology_status': status
     }];
     this.ontologyService.validateTerms(request).subscribe(
       data => {
@@ -341,7 +362,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
               this.filter_field = Object.assign({}, this.filter_field);
               this.aggregationService.getAggregations(data, 'ontology');
               // show message
-              this.openSnackbar('Ontology Verified', 'Dismiss');
+              this.openSnackbar('Ontology Status Updated', 'Dismiss');
             }
           );
         } else {
@@ -351,13 +372,13 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
             data => {
               this.searchResults = data;
               // show message
-              this.openSnackbar('Ontology Verified', 'Dismiss');
+              this.openSnackbar('Ontology Status Updated', 'Dismiss');
             }
           );
         }
       },
       error => {
-        this.openSnackbar('Ontology Verification Failed!', 'Dismiss');
+        this.openSnackbar('Ontology Status Update Failed!', 'Dismiss');
       }
     );
   }
@@ -545,6 +566,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
           ontology['ontology_id'] = data['ontology_id'] ? data['ontology_id'] : '';
           ontology['ontology_support'] = data['source'] ? data['source'] : 'Not yet supported';
           ontology['ontology_status'] = data['ontology_status'];
+          ontology['project'] = data['project'] ? data['project'] : '';
+          ontology['tags'] = data['tags'] ? data['tags'] : '';
           validatedOntologies.push(ontology);
           break;
         }

@@ -40,23 +40,6 @@ textarea:focus {
     width: 165px;
 }
 
-.table-icon {
-    color:rgba(0, 0, 0, 0.6);
-    padding: 0;
-    margin-left: 5px;
-    margin-top: 10px;
-}
-
-.edit-icon:hover{
-    cursor: pointer;
-    color:rgba(0, 0, 0, 1);
-}
-
-.verify-icon:hover{
-    cursor: pointer;
-    color:rgba(35, 167, 35, 1);
-}
-
 .tags {
     background-color: rgba(0, 0, 0, 0.1);
     padding: 1px 7px 1px 5px;
