@@ -31,8 +31,12 @@ export class OntologyService {
       map((data: any) => {
         return data;
       }),
-      catchError(this.handleError),
+      catchError(this.handleRegError),
     );
+  }
+
+  private handleRegError(error: HttpErrorResponse) {
+    return throwError(error.error.message);
   }
 
   getOntologies(size=null) {
