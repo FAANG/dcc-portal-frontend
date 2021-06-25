@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './user.service';
 import { HostSetting } from './host-setting';
-import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { validation_service_url } from '../shared/constants';
@@ -12,7 +11,7 @@ import { validation_service_url } from '../shared/constants';
 export class OntologyService {
   hostSetting = new HostSetting;
 
-  constructor(private http: HttpClient, private _userService: UserService) { }
+  constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
     const url = validation_service_url + '/ontology_improver/auth/';
@@ -29,7 +28,7 @@ export class OntologyService {
     const url = validation_service_url + '/ontology_improver/register/';
     return this.http.post(url, userData).pipe(
       map((data: any) => {
-        return data;
+        return data.user_id;
       }),
       catchError(this.handleRegError),
     );

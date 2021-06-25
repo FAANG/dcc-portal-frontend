@@ -39,6 +39,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   selectedOntologyData;
   newTag: string;
   error: string;
+  success: string;
   dialogRef;
   showSpinner: boolean;
   fetchedAllRecords: boolean;
@@ -221,8 +222,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       request['password'] = btoa(request['password']);
       this.ontologyService.register(request).subscribe(
         data => {
-          // show login screen
-          this.registerUser = false;
+          this.error = null;
+          this.success = 'Registration successful, login to continue'
         },
         error => {
           this.error = error;
@@ -445,6 +446,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
         this.username = null;
         this.password = null;
         this.error = null;
+        this.success = null;
         this.tabGroup.selectedIndex = 0;
         this.registerUser = false;
         this.createForm();
