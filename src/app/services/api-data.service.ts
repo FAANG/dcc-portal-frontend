@@ -651,13 +651,18 @@ export class ApiDataService {
     );
   }
 
-  getRulesetAnalysis() {
-    const url =  ruleset_prefix_old + 'faang_analyses.metadata_rules.json';
+  getRulesetAnalysis(category: string) {
+    let rule_type;
+    if (category === 'eva') {
+      rule_type = 'module';
+    } else {
+      rule_type = 'type';
+    }
+    const url = ruleset_prefix_new + `${rule_type}/analyses/faang_analyses_${category}.metadata_rules.json`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
       }),
-      retry(3),
       catchError(this.handleError),
     );
   }
