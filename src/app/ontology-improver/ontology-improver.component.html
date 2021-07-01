@@ -6,7 +6,13 @@
             <div class="container">
                 <div class="row" style="margin: 30px 0 10px 15px;">
                     <div class="col-md-8">
-                        <h2>Livestock Ontologies</h2>
+                        <h2 style="display: inline-block;">Livestock Ontologies</h2>
+                        <sup>
+                            <button 
+                                style="padding: 2px 7px 2px 7px; margin-left: 8px; margin-bottom: 8px" 
+                                class="btn btn-info">Beta
+                            </button>
+                        </sup>
                     </div>
                     <div *ngIf="!token" class="col-md-4" style="text-align: right;">
                         <button class="btn btn-primary" (click)="openLoginModal()">Login</button>
