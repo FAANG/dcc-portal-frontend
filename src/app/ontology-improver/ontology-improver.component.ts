@@ -223,7 +223,11 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       this.ontologyService.register(request).subscribe(
         data => {
           this.error = null;
-          this.success = 'Registration successful, login to continue'
+          this.registerUser = false;
+          this.closeModal();
+          this.username = this.regForm.value.username;
+          this.password = this.regForm.value.password;
+          this.login();
         },
         error => {
           this.error = error;
