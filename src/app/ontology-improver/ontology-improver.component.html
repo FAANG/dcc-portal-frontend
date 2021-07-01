@@ -315,6 +315,14 @@
                 <mat-option value="GENE-SWitCH">GENE-SWitCH</mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Species</mat-label>
+            <mat-select [(ngModel)]="data.species">
+                <mat-option *ngFor="let spc of species" [value]="spc">
+                    {{spc}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
         Tags: 
         <br>
         <ng-container *ngFor="let tag of data.tags.split(', '); let i = index">
@@ -382,6 +390,14 @@
                 <mat-option value="AQUA-FAANG">AQUA-FAANG</mat-option>
                 <mat-option value="BovReg">BovReg</mat-option>
                 <mat-option value="GENE-SWitCH">GENE-SWitCH</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Species</mat-label>
+            <mat-select [(ngModel)]="data.species">
+                <mat-option *ngFor="let spc of species" [value]="spc">
+                    {{spc}}
+                </mat-option>
             </mat-select>
         </mat-form-field>
         Tags: 

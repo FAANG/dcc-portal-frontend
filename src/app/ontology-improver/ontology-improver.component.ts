@@ -53,6 +53,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   templates: Object;
   filter_field: {};
   regForm: FormGroup;
+  species: Array<string>;
   constructor(
     private ontologyService: OntologyService,
     public dialog: MatDialog,
@@ -111,6 +112,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
             this.summaryTableData = data;
             this.aggregationService.getAggregations(data, 'ontology');
             this.fetchedAllRecords = true;
+            this.species = this.getSpecies(data);
           }
         );
       }
@@ -245,6 +247,22 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.ngOnInit();
   }
 
+  getSpecies(records) {
+    // get species ontology terms
+    let species = records.map((record) => {
+      if (record.ontology_type == 'species') {
+        return record.ontology_term;
+      }
+    });
+    // remove empty values
+    species = species.filter(n => n);
+    // remove duplicates
+    species = species.filter(function(item, pos, self) {
+      return self.indexOf(item) == pos;
+    });
+    return species;
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.filter_field['search'] = [filterValue];
@@ -328,6 +346,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
               this.summaryTableData = data;
               this.filter_field = Object.assign({}, this.filter_field);
               this.aggregationService.getAggregations(data, 'ontology');
+              this.species = this.getSpecies(data);
             }
           );
         } else {
@@ -365,6 +384,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
               this.summaryTableData = data;
               this.filter_field = Object.assign({}, this.filter_field);
               this.aggregationService.getAggregations(data, 'ontology');
+              this.species = this.getSpecies(data);
               // show message
               this.openSnackbar('Ontology Status Updated', 'Dismiss');
             }
@@ -571,6 +591,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
           ontology['ontology_support'] = data['source'] ? data['source'] : 'Not yet supported';
           ontology['ontology_status'] = data['ontology_status'];
           ontology['project'] = data['project'] ? data['project'] : '';
+          ontology['species'] = data['species'] ? data['species'] : '';
           ontology['tags'] = data['tags'] ? data['tags'] : '';
           validatedOntologies.push(ontology);
           break;
