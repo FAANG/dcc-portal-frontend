@@ -8,14 +8,11 @@
                     <div class="col-md-8">
                         <h2 style="display: inline-block;">Livestock Ontologies</h2>
                         <sup>
-                            <button 
-                                style="padding: 2px 7px 2px 7px; margin-left: 8px; margin-bottom: 8px" 
-                                class="btn btn-info">Beta
-                            </button>
+                            <button disabled class="btn btn-primary beta-tag">Beta</button>
                         </sup>
                     </div>
                     <div *ngIf="!token" class="col-md-4" style="text-align: right;">
-                        <button class="btn btn-primary" (click)="openLoginModal()">Login</button>
+                        <button class="btn btn-success" (click)="openLoginModal()">Login</button>
                     </div>
                     <div *ngIf="token" class="col-md-4" style="text-align: right;">
                         <button class="btn btn-danger" (click)="logout()">Logout</button>
@@ -420,8 +417,7 @@
 <!-- Template: Ontology table status column -->
 <ng-template #ontologyStatusTemplate let-item>
     <button class="btn table-color-status" 
-            [style.background-color]="getColour(item.row.ontology_support, item.row.ontology_status, 0.2)"
-            [style.margin-bottom]="token ? '10px' : '0'">
+            [style.background-color]="getColour(item.row.ontology_support, item.row.ontology_status, 0.2)">
             {{item.row.ontology_status}}
             <span *ngIf="item.row.ontology_status == 'Verified'">
                 by {{item.row.verified_count}}

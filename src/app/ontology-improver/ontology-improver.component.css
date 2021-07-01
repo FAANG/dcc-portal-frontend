@@ -38,6 +38,8 @@ textarea:focus {
     cursor: default;
     padding: 3px 6px 3px 6px;
     width: 165px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .tags {
@@ -48,4 +50,12 @@ textarea:focus {
     border-radius: 5px;
     border-style: solid;
     margin: 5px 10px 10px 0;
+}
+
+.beta-tag {
+    padding: 2px 7px 2px 7px; 
+    margin-left: 8px; 
+    margin-bottom: 8px; 
+    cursor: default; 
+    opacity: 1;
 }
