@@ -1,0 +1,467 @@
+<div class="container">
+    <app-header></app-header>
+    <mat-tab-group #tabs (selectedTabChange)="tabClick($event)">
+        <!--Page 1 - Display all ontologies, search filter-->
+        <mat-tab label="Summary Table">
+            <div class="container">
+                <div class="row" style="margin: 30px 0 10px 15px;">
+                    <div class="col-md-8">
+                        <h2 style="display: inline-block;">Livestock Ontologies</h2>
+                        <sup>
+                            <button disabled class="btn btn-primary beta-tag">Beta</button>
+                        </sup>
+                    </div>
+                    <div *ngIf="!token" class="col-md-4" style="text-align: right;">
+                        <button class="btn btn-success" (click)="openLoginModal()">Login</button>
+                    </div>
+                    <div *ngIf="token" class="col-md-4" style="text-align: right;">
+                        <button class="btn btn-danger" (click)="logout()">Logout</button>
+                    </div>
+                </div>
+                <div *ngIf="hasActiveFilters()" class="row" style="margin: 10px 0 10px 15px;">
+                    <h5>Active filters:
+                        <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
+                        <button class="btn btn-light" type = "button" (click)="removeFilter()">Remove all filters</button>
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-3" style="padding-top: 10px; padding-bottom: 10px;">
+                        <div class="col-md-12 faang-filter">
+                            <app-filter title="Ontology Status" [filterSize]=4></app-filter>
+                        </div>
+                        <div class="col-md-12 faang-filter">
+                            <app-filter title="Project" [filterSize]=4></app-filter>
+                        </div>
+                        <div class="col-md-12 faang-filter">
+                            <app-filter title="Ontology Type" [filterSize]=4></app-filter>
+                        </div>
+                    </div>
+                    <div class="col-md-9" style="padding-top: 10px; padding-bottom: 10px;">
+                        <mat-form-field *ngIf="fetchedAllRecords" style="width: 100%;">
+                            <mat-label>Search livestock ontologies</mat-label>
+                            <input (keyup)="applyFilter($event)" matInput 
+                                placeholder="Search livestock ontologies by term, type, ID or status">
+                        </mat-form-field>
+                        <div *ngIf="!fetchedAllRecords || showSpinner" style="padding-bottom: 20px;">
+                            <mat-spinner [diameter]="30"></mat-spinner>
+                        </div>
+                        <div *ngIf="summaryTableData as ontologies;">
+                            <app-table-client-side #tableComp id="ontology-table"
+                                [display_fields]="displayFields"
+                                [column_names]="columnNames"
+                                [data]="ontologies"
+                                [filter_values]="filter_field"
+                                [templates]="templates"
+                                [page_size]=10
+                                [col_width]="column_widths">
+                            </app-table-client-side>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <!--Page 2 - Ontology Improvment tool (Requires login) -->
+        <mat-tab label="Ontology Improvement Tool">
+            <!-- Validate ontologies (Only for Authenticated Users) -->
+            <ng-container *ngIf="token">
+                <!--Page 2.1 - Input terms-->
+                <div class="container" style="margin-bottom: 40px;" *ngIf="mode == 'input' || mode == 'validate'">
+                    <div class="row" style="margin-top: 30px; margin-bottom: 20px;">
+                        <div class="col-md-8">
+                            <h2>Ontology Improver Service</h2>
+                        </div>
+                        <div class="col-md-4" style="text-align: right;">
+                            <button class="btn btn-danger" (click)="logout()">Logout</button>
+                        </div>
+                    </div>
+                    <p>Enter Ontology terms in the text box below. For batch input, enter one term per line.</p>
+                    <textarea class="ontology-input" [(ngModel)]="ontologyTerms"></textarea>
+                    <button class="btn btn-success" (click)="searchTerms()">Search</button>
+                </div>
+
+                <!--Page 2.2 - Display existing terms-->
+                <div class="container" style="margin-bottom: 40px;" *ngIf="(searchResults | json) != '{}' && mode == 'validate'">
+                    <h4>Existing terms</h4>
+                    <ng-container *ngIf="searchResults.found?.length">
+                        <app-table-client-side #tableComp id="ontology-table"
+                            [display_fields]="displayFields"
+                            [column_names]="columnNames"
+                            [data]="searchResults.found"
+                            [filter_values]="{}"
+                            [templates]="templates"
+                            [page_size]=10
+                            [col_width]="column_widths">
+                        </app-table-client-side>
+                    </ng-container>
+                    <ng-container *ngIf="searchResults.found?.length == 0">
+                        No terms found
+                    </ng-container>
+                </div>
+
+                <!--Page 2.3 - Display Ontology Matches for new terms-->
+                <div class="container" style="margin-bottom: 40px;" *ngIf="(ontologyMatches | json) != '{}' && mode == 'validate'">
+                    <h4>Ontology Matches for new terms</h4>
+                    <p>Select the best match for each your ontology terms</p>
+                    <br>
+                    <mat-accordion>
+                        <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;" 
+                            [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst" (opened)="panelOpenState = true" (closed)="panelOpenState = false" 
+                            style="margin-bottom: 20px;">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <h6><b>Ontology Matches for term '{{item.key}}'</b></h6>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <ng-container *ngIf="item.value?.length">
+                                <table mat-table [dataSource]="item.value" table-striped style="width: 100%">
+                                    <ng-container *ngFor="let col of ontologyMatchColsToDisplay; let i = index">
+                                        <ng-container *ngIf="col == 'source'" [matColumnDef]=col>
+                                            <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
+                                            <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index"> 
+                                                {{data[col]}} 
+                                                <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']" (click)="startValidation(item.key, j)" 
+                                                    style="margin-right: 40px; float: right;">
+                                                <button *ngIf="data['selected']" class="btn btn-info" (click)="editValidation(item.key, j)"
+                                                    style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;"> Edit
+                                                </button>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container *ngIf="col != 'source'" [matColumnDef]=col>
+                                            <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
+                                            <td mat-cell class="table-cell-data" *matCellDef="let data"> {{data[col]}} </td>
+                                        </ng-container>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="ontologyMatchColsToDisplay"></tr>
+                                    <tr mat-row [style.background-color]="getColour(row.source, row.ontology_status, 0.2)" *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
+                                </table>
+                            </ng-container>
+                            <ng-container *ngIf="item.value?.length == 0">
+                                <div class="row">
+                                    <div class="table-cell-data col-md-9">
+                                        No Matches Found
+                                    </div>
+                                    <div class="col-md-3" style="text-align: right;">
+                                        <button class="btn btn-info" (click)="startValidation(item.key, -1)">Provide Ontology</button>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    <br>
+                    <button class="btn btn-primary" (click)="submitTerms()">Submit</button>
+                </div>
+            </ng-container>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+<!-- Template: Login Modal Dialog Box -->
+<ng-template #loginModalTemplate let-data>
+    <!-- User Login -->
+    <div *ngIf="!registerUser" mat-dialog-content>
+        <h3><p>Login</p></h3>
+        <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Enter your username</mat-label>
+            <input matInput [(ngModel)]="username">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <p *ngIf="error" class="alert alert-danger">{{error}}</p>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-3">
+                <button class="btn btn-primary" (click)="login()" style="width: 100%">
+                    Submit
+                </button>
+            </div>
+            <div class="col-md-9" style="text-align: right;">
+                <p> If you do not have an account, click 
+                    <a href="" (click)="$event.preventDefault(); registerUser = !registerUser">here</a>
+                    to register
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Register New User -->
+    <div *ngIf="registerUser" mat-dialog-content>
+        <h3><p>Register</p></h3>
+        <form [formGroup]="regForm" novalidate>
+            <!-- Username -->
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Username</label>
+                    <input class="form-control" formControlName="username" type="text" required>
+                </div>
+            </div>
+            <div *ngIf="regForm.controls['username'].invalid && (regForm.controls['username'].dirty || regForm.controls['username'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['username'].errors.required">
+                    Username is required
+                </div>
+            </div>
+            <!-- Name -->
+            <div class="row">
+                <!-- First Name -->
+                <div class="col-md-6 form-group" style="padding-right: 5px;">
+                    <label>First Name</label>
+                    <input class="form-control" formControlName="first_name" type="text" required>
+                </div>
+                <!-- Last Name -->
+                <div class="col-md-6 form-group" style="padding-left: 5px;">
+                    <label>Last Name</label>
+                    <input class="form-control" formControlName="last_name" type="text">
+                </div>
+            </div>
+            <div *ngIf="regForm.controls['first_name'].invalid && (regForm.controls['first_name'].dirty || regForm.controls['first_name'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['first_name'].errors.required">
+                  First Name is required
+                </div>
+            </div>
+            <!-- Email -->
+            <div class="row">
+                <div class="col-md-12 form-group">
+                   <label>Email</label>
+                   <input class="form-control" formControlName="email" type="email" required>
+               </div>
+            </div>
+            <div *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].dirty || regForm.controls['email'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['email'].errors.required">
+                  Email is required
+                </div>
+                <div *ngIf="regForm.controls['email'].errors.email">
+                  Enter valid email
+                </div>
+            </div>
+            <!-- Passwords -->
+            <div class="row">
+                 <div class="col-md-6 form-group" style="padding-right: 5px;">
+                    <label>Password</label>
+                    <input class="form-control" formControlName="password" type="password" required>
+                </div>
+                 <div class="col-md-6 form-group" style="padding-left: 5px;">
+                    <label>Confirm Password</label>
+                    <input class="form-control" formControlName="confirmPwd" type="password" required>
+                </div>
+            </div>
+            <div *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].dirty || regForm.controls['password'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['password'].errors.required">
+                    Password is required
+                </div>
+            </div>
+            <div *ngIf="regForm.controls['confirmPwd'].invalid && (regForm.controls['confirmPwd'].dirty || regForm.controls['confirmPwd'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['confirmPwd'].errors.required">
+                    Password confirmation is required
+                </div>
+                <div *ngIf="regForm.controls['confirmPwd'].errors.NotEqual">
+                    Password do not match
+                </div>
+            </div>
+            <!-- Organisation -->
+            <div class="row">
+                <div class="col-md-12 form-group">
+                   <label>Organisation</label>
+                   <input class="form-control" formControlName="organisation" type="text" required>
+               </div>
+            </div>
+            <div *ngIf="regForm.controls['organisation'].invalid && (regForm.controls['organisation'].dirty || regForm.controls['organisation'].touched)" class="alert alert-danger">
+                <div *ngIf="regForm.controls['organisation'].errors.required">
+                    Organisation is required.
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="btn btn-success" type="submit" (click)=register()
+                    [disabled]="regForm.pristine || regForm.invalid">
+                    Submit
+                </button>
+                <button class="btn btn-info" style="margin-left: 10px;"
+                    (click)="registerUser = !registerUser">
+                    Back to Login
+                </button>
+            </div>
+      </form>
+      <br>
+      <p *ngIf="error" class="alert alert-danger">{{error}}</p>
+    </div>
+</ng-template>
+
+<!-- Template: Dialog Box - Edit existing Ontologies -->
+<ng-template #editModalTemplate let-data>
+    <div mat-dialog-content>
+        <mat-form-field appearance="fill" style="width: 40%; margin-right: 5%">
+            <mat-label>Ontology Type</mat-label>
+            <input matInput [(ngModel)]="data.ontology_type">
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 55%;">
+            <mat-label>Ontology Text</mat-label>
+            <input matInput [(ngModel)]="data.ontology_term">
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Ontology ID</mat-label>
+            <mat-select [(ngModel)]="data.ontology_id">
+                <mat-option *ngFor="let id of ontologyIdOptions" [value]="id">
+                    {{id}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Project</mat-label>
+            <mat-select [(ngModel)]="data.project">
+                <mat-option value="AQUA-FAANG">AQUA-FAANG</mat-option>
+                <mat-option value="BovReg">BovReg</mat-option>
+                <mat-option value="GENE-SWitCH">GENE-SWitCH</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Species</mat-label>
+            <mat-select [(ngModel)]="data.species">
+                <mat-option *ngFor="let spc of species" [value]="spc">
+                    {{spc}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        Tags: 
+        <br>
+        <ng-container *ngFor="let tag of data.tags.split(', '); let i = index">
+            <button *ngIf="tag.length" mat-button class="tags" (click)="removeTag(i)">
+                <mat-icon>close</mat-icon>
+                {{tag}}
+            </button>
+        </ng-container>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <input matInput 
+                [(ngModel)]="newTag" 
+                (keyup.enter)="addNewTag(newTag)"
+                placeholder="Add more tags">
+        </mat-form-field>
+    </div>
+    <div *ngIf="!showSpinner">
+        <button class="btn btn-danger" (click)="closeModal()" 
+            style="float:right; margin: 10px;">Cancel</button>
+        <button class="btn btn-success" (click)="submitEditedOntology(data)" 
+            style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
+    </div>
+    <div *ngIf="showSpinner">
+        <mat-spinner [diameter]="30"></mat-spinner>
+    </div>
+</ng-template>
+
+<!-- Template: Dialog Box - Ontology Validation -->
+<ng-template #modalTemplate let-data>
+    <div mat-dialog-content>
+        <!-- Let user edit/provide ontology type for non-FAANG ontologies -->
+        <mat-form-field *ngIf="data.source != 'https://www.ebi.ac.uk/vg/faang'" appearance="fill" style="width: 100%;">
+            <mat-label>Proposed Ontology Type</mat-label>
+            <input matInput [(ngModel)]="data.term_type">
+        </mat-form-field>
+        <!-- User should verify ontology or flag as needing improvement 
+             Only when selecting from available ontology matches -->
+        <mat-radio-group *ngIf="data.ontology_status != 'Not yet supported'" [(ngModel)]="data.ontology_status">
+            <mat-radio-button value="Verified">
+                Ontology is suitable for Livestock
+            </mat-radio-button>
+            <br>
+            <mat-radio-button value="Needs Improvement" style="margin-bottom: 10px;">
+                Ontology needs improvement
+            </mat-radio-button>
+        </mat-radio-group>
+        <!-- Let user suggest changes if ontology is not marked suitable -->
+        <ng-container *ngIf="data.ontology_status == 'Needs Improvement' || data.ontology_status == 'Awaiting Assessment' || data.ontology_status == 'Not yet supported'">
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Proposed Ontology ID</mat-label>
+                <input *ngIf="ontologyIdOptions.length == 0" matInput [(ngModel)]="data.ontology_id">
+                <mat-select *ngIf="ontologyIdOptions.length" [(ngModel)]="data.ontology_id">
+                    <mat-option *ngFor="let id of ontologyIdOptions" [value]="id">
+                        {{id}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Proposed Ontology Text</mat-label>
+                <input matInput [(ngModel)]="data.ontology_label">
+            </mat-form-field>
+        </ng-container>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Project</mat-label>
+            <mat-select [(ngModel)]="data.project">
+                <mat-option value="AQUA-FAANG">AQUA-FAANG</mat-option>
+                <mat-option value="BovReg">BovReg</mat-option>
+                <mat-option value="GENE-SWitCH">GENE-SWitCH</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Species</mat-label>
+            <mat-select [(ngModel)]="data.species">
+                <mat-option *ngFor="let spc of species" [value]="spc">
+                    {{spc}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        Tags: 
+        <br>
+        <ng-container *ngFor="let tag of data.tags?.split(', '); let i = index">
+            <button *ngIf="tag.length" mat-button class="tags" (click)="data = removeTagToolsTab(data, i)">
+                <mat-icon>close</mat-icon>
+                {{tag}}
+            </button>
+        </ng-container>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <input matInput 
+                [(ngModel)]="newTag" 
+                (keyup.enter)="data = addTagToolTab(data, newTag)"
+                placeholder="Add more tags">
+        </mat-form-field>
+    </div>
+    <div>
+        <button class="btn btn-danger" (click)="closeModal()" 
+            style="float:right; margin: 10px;">Cancel</button>
+        <button class="btn btn-success" (click)="saveModalData(data)" 
+            style="float:right; margin: 10px;" cdkFocusInitial>Save</button>
+    </div>
+</ng-template>
+
+<!-- Template: Ontology table term column -->
+<ng-template #ontologyTermTemplate let-item>
+    <span>
+        <a style="cursor: pointer" [routerLink]="item.row.id">{{item.row.ontology_term}}</a>
+    </span>
+</ng-template>
+
+<!-- Template: Ontology table status column -->
+<ng-template #ontologyStatusTemplate let-item>
+    <button class="btn table-color-status" 
+            [style.background-color]="getColour(item.row.ontology_support, item.row.ontology_status, 0.2)">
+            {{item.row.ontology_status}}
+            <span *ngIf="item.row.ontology_status == 'Verified'">
+                by {{item.row.verified_count}}
+                <span *ngIf="item.row.verified_count == 1">
+                    user
+                </span>
+                <span *ngIf="item.row.verified_count > 1">
+                    users
+                </span>
+            </span>
+    </button>
+    <span style="float: right;">
+        <button *ngIf="token" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editOntology(item.row)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit Ontology</span>
+            </button>
+            <button mat-menu-item (click)="changeOntologyStatus(item.row, 'Needs Improvement')">
+                <mat-icon>close</mat-icon>
+                <span>Ontology Needs Improvement</span>
+            </button>
+            <button mat-menu-item (click)="changeOntologyStatus(item.row, 'Verified')">
+                <mat-icon>check_circle</mat-icon>
+                <span>Ontology is Suitable</span>
+            </button>
+        </mat-menu>
+    </span>
+</ng-template>

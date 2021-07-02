@@ -84,6 +84,18 @@ import {UserService} from './services/user.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatInputModule} from '@angular/material/input';
+import { MatRadioModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
+import { MatSelectModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -150,7 +162,9 @@ export function removeToken(): void {
     AapComponent,
     TableClientSideComponent,
     LoginComponent,
-    FilesUploadComponent
+    FilesUploadComponent,
+    OntologyImproverComponent,
+    OntologyDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -171,6 +185,16 @@ export function removeToken(): void {
     MatTooltipModule,
     MatButtonModule,
     MatIconModule,
+    MatExpansionModule,
+    MatInputModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatMenuModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,

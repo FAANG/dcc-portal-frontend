@@ -1,0 +1,110 @@
+<div class="container">
+    <app-header></app-header>
+    <div *ngIf="data">
+        <h2 style="padding-top: 30px;">{{data.faang_data?.ontology_id}}</h2>
+        <hr>
+        <dl class="row">
+            <!-- ontology_term -->
+            <ng-container *ngIf="data.faang_data.hasOwnProperty('ontology_term')">
+                <dt class="col-sm-3">Ontology Term:</dt>
+                <dd class="col-sm-9">{{data.faang_data?.ontology_term}}</dd>
+            </ng-container>
+            <!-- type -->
+            <ng-container *ngIf="data.faang_data.hasOwnProperty('ontology_type')">
+                <dt class="col-sm-3">Ontology Type:</dt>
+                <dd class="col-sm-9">{{data.faang_data?.ontology_type}}</dd>
+            </ng-container>
+            <!-- status -->
+            <ng-container *ngIf="data.faang_data.hasOwnProperty('ontology_status')">
+                <dt class="col-sm-3">Status:</dt>
+                <dd class="col-sm-9">
+                    <button class="btn table-color-status" 
+                        [style.background-color]="getColour(data.faang_data.ontology_support, data.faang_data.ontology_status, 0.2)"
+                        style="border-width: 2px; cursor: default">
+                        {{data.faang_data.ontology_status}}
+                        <span *ngIf="data.faang_data.ontology_status == 'Verified'">
+                            by {{data.faang_data.verified_count}}
+                            <span *ngIf="data.faang_data.verified_count == 1">
+                                user
+                            </span>
+                            <span *ngIf="data.faang_data.verified_count > 1">
+                                users
+                            </span>
+                        </span>
+                    </button>
+                </dd>
+            </ng-container>
+            <!-- project -->
+            <ng-container *ngIf="data.faang_data.hasOwnProperty('project') && data.faang_data.project">
+                <dt class="col-sm-3">Project:</dt>
+                <dd class="col-sm-9">{{data.faang_data?.project}}</dd>
+            </ng-container>
+            <!-- tags -->
+            <ng-container *ngIf="data.faang_data.hasOwnProperty('tags') && data.faang_data.tags">
+                <dt class="col-sm-3">Tags:</dt>
+                <dd class="col-sm-9">{{data.faang_data?.tags}}</dd>
+            </ng-container>
+        </dl>
+        <hr>
+        <dl class="row">
+            <!-- id -->
+            <ng-container *ngIf="data.hasOwnProperty('id')">
+                <dt class="col-sm-3">Ontology ID:</dt>
+                <dd class="col-sm-9">{{data?.id}}</dd>
+            </ng-container>
+            <!-- label -->
+            <ng-container *ngIf="data.hasOwnProperty('id')">
+                <dt class="col-sm-3">Ontology Label:</dt>
+                <dd class="col-sm-9">{{data?.label}}</dd>
+            </ng-container>
+            <!-- iri -->
+            <ng-container *ngIf="data.hasOwnProperty('iri')">
+                <dt class="col-sm-3">Ontology IRI:</dt>
+                <dd class="col-sm-9">
+                    <a [href]="data?.iri" target="_blank" style="color: #0056b3;">{{data?.iri}}</a>
+                </dd>
+            </ng-container>
+            <!-- summary -->
+            <ng-container *ngIf="data.hasOwnProperty('summary')">
+                <dt class="col-sm-3">Summary:</dt>
+                <dd class="col-sm-9">{{data?.summary}}</dd>
+            </ng-container>
+            <!-- synonyms -->
+            <ng-container *ngIf="data.hasOwnProperty('synonyms')">
+                <dt class="col-sm-3">Synonyms:</dt>
+                <dd class="col-sm-9">
+                    <div *ngFor="let syn of data.synonyms" style="padding-bottom: 5px;">
+                        {{syn}}
+                    </div>
+                </dd>
+            </ng-container>
+            <!-- related_synonyms -->
+            <ng-container *ngIf="data.hasOwnProperty('related_synonyms')">
+                <dt class="col-sm-3">Related Synonyms:</dt>
+                <dd class="col-sm-9">
+                    <div *ngFor="let rel_syn of data.related_synonyms" style="padding-bottom: 5px;">
+                        {{rel_syn}}
+                    </div>
+                </dd>
+            </ng-container>
+            <!-- alternative_id -->
+            <ng-container *ngIf="data.hasOwnProperty('alternative_id')">
+                <dt class="col-sm-3">Alternative IDs:</dt>
+                <dd class="col-sm-9">
+                    <div *ngFor="let alt_id of data.alternative_id" style="padding-bottom: 5px;">
+                        {{alt_id}}
+                    </div>
+                </dd>
+            </ng-container>
+            <!-- database_cross_reference -->
+            <ng-container *ngIf="data.hasOwnProperty('database_cross_reference')">
+                <dt class="col-sm-3">Database Cross References:</dt>
+                <dd class="col-sm-9">
+                    <div *ngFor="let ref of data.database_cross_reference" style="padding-bottom: 5px;">
+                        {{ref}}
+                    </div>
+                </dd>
+            </ng-container>
+        </dl>
+    </div>
+</div>
