@@ -18,10 +18,18 @@ export class ApiDocsComponent implements OnInit {
       layout: 'BaseLayout',
       presets: [
         SwaggerUIBundle.presets.apis,
-        SwaggerUIBundle.SwaggerUIStandalonePreset
       ],
-      url: this.hostSetting.host + 'swagger.json'
+      url: this.hostSetting.host + 'swagger.json',
+      tagsSorter: 'alpha',
+      responseInterceptor: this.modifyResponse
     });
+  }
+
+  modifyResponse(res) {
+    if (res.headers['content-type'] == 'application/pdf' || res.headers['content-type'] == 'text/plain') {
+      let filename = res.url.split('/').slice(-1)[0];
+      res.headers['Content-Disposition'] = ' attachment; filename=' +  filename;
+    }
   }
 
 }
