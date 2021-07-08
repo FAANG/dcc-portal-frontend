@@ -211,14 +211,19 @@
           <label for="aapUsername">Username</label>
           <input class="form-control" id="aapUsername"
                  placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
-                 #username="ngModel">
+                 pattern="^(webin-).+" #username="ngModel">
           <small class="form-text text-muted">Please use this
             <a href="https://www.ebi.ac.uk/ena/submit/sra/#registration" class="link" target="_blank">service</a>
             to get your credentials
           </small>
-          <div [hidden]="username.valid || username.pristine"
+          <div *ngIf="username.touched && username.invalid"
                class="alert alert-danger form-danger">
-            Username is required
+               <div *ngIf="username.errors?.required">
+                Username is required
+               </div>
+               <div *ngIf="username.errors?.pattern">
+                Webin account required to submit data to ENA
+               </div>
           </div>
         </div>
 
