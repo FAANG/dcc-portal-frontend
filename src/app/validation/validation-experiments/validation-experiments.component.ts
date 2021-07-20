@@ -118,8 +118,8 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       let tmp_errors = [];
       let tmp_warnings = [];
       tmp.push(record['custom']['sample_descriptor']['value']);
-      tmp_errors.push('valid');
-      tmp_warnings.push('valid');
+      tmp_errors.push(this.dataHasErrors(record['custom']['sample_descriptor'], 'errors'));
+      tmp_warnings.push(this.dataHasErrors(record['custom']['sample_descriptor'], 'warnings'));
       if ('experiments_core' in record) {
         const core_parsing_results = this.parseColumnData(record['experiments_core']);
         tmp = tmp.concat(core_parsing_results['data']);
