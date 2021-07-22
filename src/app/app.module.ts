@@ -96,6 +96,7 @@ import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ont
 import { MatSelectModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { ApiDocsComponent } from './api-docs/api-docs.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -164,7 +165,8 @@ export function removeToken(): void {
     LoginComponent,
     FilesUploadComponent,
     OntologyImproverComponent,
-    OntologyDetailComponent
+    OntologyDetailComponent,
+    ApiDocsComponent
   ],
   imports: [
     BrowserModule,

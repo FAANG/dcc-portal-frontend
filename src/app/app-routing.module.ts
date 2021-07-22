@@ -43,6 +43,7 @@ import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
+import { ApiDocsComponent } from './api-docs/api-docs.component';
 
 
 const routes: Routes = [
@@ -87,6 +88,7 @@ const routes: Routes = [
   {path: 'upload_protocol', component: FilesUploadComponent},
   {path: 'ontology', component: OntologyImproverComponent},
   {path: 'ontology/:id', component: OntologyDetailComponent},
+  {path: 'api', component: ApiDocsComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];

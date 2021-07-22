@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   records_dropdown_open = false;
   projects_dropdown_open = false;
   validation_dropdown_open = false;
+  help_dropdown_open = false;
   show_banner = 'show';
 
   constructor(private router: Router) {}
@@ -52,6 +53,9 @@ export class HeaderComponent implements OnInit {
     if (this.validation_dropdown_open === true) {
       this.validation_dropdown_open = false;
     }
+    if (this.help_dropdown_open === true) {
+      this.help_dropdown_open = false;
+    }
   }
 
   isActiveProjects() {
@@ -67,6 +71,9 @@ export class HeaderComponent implements OnInit {
     }
     if (this.validation_dropdown_open === true) {
       this.validation_dropdown_open = false;
+    }
+    if (this.help_dropdown_open === true) {
+      this.help_dropdown_open = false;
     }
   }
 
@@ -85,6 +92,30 @@ export class HeaderComponent implements OnInit {
     }
     if (this.records_dropdown_open === true) {
       this.records_dropdown_open = false;
+    }
+    if (this.help_dropdown_open === true) {
+      this.help_dropdown_open = false;
+    }
+  }
+
+  helpOpenDropdown() {
+    let active = '';
+    if (this.router.url.includes('help')) {
+      active = 'active';
+    }
+    return this.help_dropdown_open === true ? (active + ' show') : active;
+  }
+
+  helpOnDropdownClick() {
+    this.help_dropdown_open = !this.help_dropdown_open;
+    if (this.projects_dropdown_open === true) {
+      this.projects_dropdown_open = false;
+    }
+    if (this.records_dropdown_open === true) {
+      this.records_dropdown_open = false;
+    }
+    if (this.validation_dropdown_open === true) {
+      this.validation_dropdown_open = false;
     }
   }
 
