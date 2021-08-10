@@ -41,6 +41,12 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  isQuery() {
+    if (this.router.url.includes('query')) {
+      return 'active';
+    }
+  }
+
   recordsOpenDropdown() {
     return this.records_dropdown_open === true ? 'show' : '';
   }
