@@ -21,15 +21,15 @@ export class QueryService {
     );
   }
   
-  getRecords(indices, fields) {
+  getRecords(indices, fields, from, sort) {
     // let params = new HttpParams().set('indices', indices).set('fields', fields);
     const params = new HttpParams({ 
       fromObject: { 'indices': indices } 
-    }).set('fields', fields);
+    }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
     let url = this.query_language_url + '/search';
     return this.http.get(url, { params: params }).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => entry['_source']);
+        return data;
       }),
       catchError(this.handleError),
     );

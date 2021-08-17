@@ -16,7 +16,7 @@
         <h6>{{displayName(index)}}</h6>
         <mat-form-field appearance="fill" style="width: 100%">
           <mat-label>Select columns to display</mat-label>
-          <mat-select [(value)]="selectedColumns[index]" multiple>
+          <mat-select [(value)]="selectedColumns[index]" (selectionChange)="fetchRecords()" multiple>
             <mat-option *ngFor="let col of columnsByIndex[index]['columns']" [value]="col">
               {{col}}
             </mat-option>
@@ -24,20 +24,34 @@
         </mat-form-field>
       </div>
     </div>
-    <button *ngIf="selectedIndices" class="btn btn-success" 
-      (click)="fetchRecords()" style="margin-bottom: 20px;">
-      Update table
-    </button>
     <br>
-    <div *ngIf="tableData as data" style="width: 100%; overflow-x: scroll;">
-        <app-table-client-side #tableComp
-            [display_fields]="columnNames"
-            [column_names]="columnNames"
-            [data]="data"
-            [filter_values]="filter_field"
-            [templates]="templates"
-            [page_size]=10>
-        </app-table-client-side>
+    <div [ngStyle]="{'display': tableData ? 'block' : 'none'}" style="width: 100%; overflow-x: scroll;">
+        <table mat-table matSort matSortDisableClear [dataSource]="tableData" table-striped style="width: 100%">
+          <ng-container [matColumnDef]=col *ngFor="let col of columnNames; let i = index">
+              <ng-container *ngIf="templates[col+'-header']">
+                  <th mat-header-cell class="table-header" *matHeaderCellDef="let header" mat-sort-header>
+                      <ng-template *ngTemplateOutlet="templates[col+'-header']; context: { $implicit: fields[i] }">
+                      </ng-template>
+                  </th>
+              </ng-container>
+              <ng-container *ngIf="!templates[col+'-header']">
+                  <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{fields[i]}} </th>
+              </ng-container>
+              <ng-container *ngIf="templates[col]">
+                  <td mat-cell class="table-cell-data" *matCellDef="let item">
+                      <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: { 'row': item, 'col': fields[i] } }">
+                      </ng-template>
+                  </td>
+              </ng-container>
+              <ng-container *ngIf="!templates[col]">
+                  <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item[col]}} </td>
+              </ng-container>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnNames;"></tr>
+      </table>
+      <mat-paginator [length]="totalHits" [pageSize]="pageSize">
+      </mat-paginator>
     </div>
     <div *ngIf="loading">
         <mat-spinner [diameter]="30"></mat-spinner>
