@@ -166,4 +166,8 @@ export class QueryLanguageComponent implements AfterViewInit {
     return index;
   }
 
+  downloadCSV() {
+    this.queryService.downloadCsv(this.selectedIndices, this.fields, this.sortFields);
+  }
+
 }

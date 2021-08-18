@@ -22,7 +22,6 @@ export class QueryService {
   }
   
   getRecords(indices, fields, from, sort) {
-    // let params = new HttpParams().set('indices', indices).set('fields', fields);
     const params = new HttpParams({ 
       fromObject: { 'indices': indices } 
     }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
@@ -33,6 +32,25 @@ export class QueryService {
       }),
       catchError(this.handleError),
     );
+  }
+
+  downloadCsv(indices, fields, sort) {
+    const params = new HttpParams({ 
+      fromObject: { 'indices': indices } 
+    }).set('_source', fields).set('sort', sort);
+    let url = this.query_language_url + '/download';
+    this.http.get(url, { params: params, responseType: 'blob' }).subscribe(
+      (response: any) => {
+        let dataType = response.type;
+        let binaryData = [];
+        binaryData.push(response);
+        let downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+        downloadLink.setAttribute('download', 'data.csv');
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+      }
+    )
   }
 
   private handleError(error: HttpErrorResponse) {

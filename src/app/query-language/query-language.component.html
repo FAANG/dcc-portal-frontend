@@ -1,7 +1,10 @@
 <div class="container">
   <app-header></app-header>
   <div class="container" style="margin: 10px;">
-    <h3>Custom Queries</h3>
+    <span style="font-size: 2rem;">Custom Queries</span>
+    <button *ngIf="tableData" class="btn btn-primary" (click)="downloadCSV()"
+      style="float: right;">Download as CSV
+    </button>
     <hr>
     <mat-form-field appearance="fill" style="width: 100%">
       <mat-label>Indices to display</mat-label>
