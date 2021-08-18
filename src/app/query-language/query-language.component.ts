@@ -42,9 +42,6 @@ export class QueryLanguageComponent implements AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
-    if (this.tableData) {
-      
-    }
     this.dataSource = new MatTableDataSource<any>(this.tableData); 
     this.templates = {};
     this.columnsByIndex = {};
@@ -89,44 +86,38 @@ export class QueryLanguageComponent implements AfterViewInit {
           return observableOf([]);
         })
       ).subscribe((res: any) => {
-          let data = res.hits.hits.map( entry => entry['_source']);
-          this.tableData = this.flattenTableData(data);
-          this.dataSource.data = this.tableData; // set table data
+          this.tableData = res.hits.hits.map( entry => entry['_source']);
+          for(let i=0; i<this.tableData.length; i+=1) {
+            this.tableData[i] = this.flattenObject(this.tableData[i], this.tableData[i], []);
+          }
+          console.log(this.tableData);
+          this.dataSource.data = this.tableData;
           this.totalHits = res.hits.total; // set length of paginator
           this.loading = false;
         });
   }
 
-  flattenTableData(data) {
-    for(let i=0; i<data.length; i+=1) {
-      for(let prop in data[i]) {
-        if (typeof data[i][prop] == "object") {
-          if (Array.isArray(data[i][prop]) && data[i][prop]) {
-            // flatten array
-            data[i][prop] = this.flattenArray(data[i][prop])
-            if (typeof data[i][prop] == "object") {
-              // flatten object
-              for (let prop2 in data[i][prop]) {
-                data[i][prop+'.'+prop2] = data[i][prop][prop2];
-                // if (typeof data[i][prop][prop2] == "object") {
-
-                // }
-              }
-            }
-          } else {
-            // flatten object
-            for (let prop2 in data[i][prop]) {
-              data[i][prop+'.'+prop2] = data[i][prop][prop2];
-            }
+  flattenObject(parentRecord, currentRecord, parentProps) {
+    for(let prop in currentRecord) {
+      parentProps.push(prop);
+      if (typeof currentRecord[prop] == "object") {
+        if (Array.isArray(currentRecord[prop]) && currentRecord[prop].length) {
+          currentRecord[prop] = this.flattenArray(currentRecord[prop]);
+          if (typeof currentRecord[prop] == "object") {
+            this.flattenObject(parentRecord, currentRecord[prop], parentProps);
           }
         }
+        else {
+          this.flattenObject(parentRecord, currentRecord[prop], parentProps);
+        }
+      } 
+      else {
+        let serailisedProp = parentProps.join('.');
+        parentRecord[serailisedProp] = JSON.parse(JSON.stringify(currentRecord[prop]));
       }
+      parentProps.pop();
     }
-    return data;
-  }
-
-  flattenObject(data) {
-
+    return parentRecord;
   }
 
   flattenArray(items) {
@@ -170,7 +161,6 @@ export class QueryLanguageComponent implements AfterViewInit {
   }
 
   displayName(index) {
-    // const titleCase = (str) => str.replace(/\b\S/g, t => t.toUpperCase());
     index = index.split('_').join(' ');
     index = index.replace(/\b\S/g, t => t.toUpperCase());
     return index;
