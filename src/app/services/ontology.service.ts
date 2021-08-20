@@ -94,7 +94,7 @@ export class OntologyService {
   }
 
   getUsageStatistics() {
-    const url = 'http://45.86.170.123:30792/ontology_improver/summary/';
+    const url = validation_service_url + '/ontology_improver/summary/';
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
