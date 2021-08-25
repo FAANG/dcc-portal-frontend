@@ -1,0 +1,24 @@
+<div class="container">
+    <app-header></app-header>
+    <div class="container" style="margin: 10px;">
+        <h2>Track Hubs Submission</h2  >
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field style="width: 80%;">
+                    <mat-label>Enter Genome Name</mat-label>
+                    <input matInput [(ngModel)]="trackhub.genome_name">
+                </mat-form-field>
+                <br>
+                <mat-form-field style="width: 80%;">
+                    <mat-label>Enter Subdirectory Name</mat-label>
+                    <input matInput [(ngModel)]="trackhub.folder">
+                </mat-form-field>
+                <br>
+                <button class="btn btn-primary" style="width: 80%;">
+                    Upload File
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
