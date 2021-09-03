@@ -4,20 +4,81 @@
         <h2>Track Hubs Submission</h2  >
         <hr>
         <div class="row">
-            <div class="col-md-6">
-                <mat-form-field style="width: 80%;">
-                    <mat-label>Enter Genome Name</mat-label>
-                    <input matInput [(ngModel)]="trackhub.genome_name">
-                </mat-form-field>
-                <br>
-                <mat-form-field style="width: 80%;">
-                    <mat-label>Enter Subdirectory Name</mat-label>
-                    <input matInput [(ngModel)]="trackhub.folder">
-                </mat-form-field>
-                <br>
-                <button class="btn btn-primary" style="width: 80%;">
-                    Upload File
+            <div class="col-md-5">
+                <div *ngIf="stage == 'form' || stage == 'upload-tracks' || stage == 'upload-text-files'">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Enter Genome Name</mat-label>
+                        <input matInput [(ngModel)]="trackhub.genome">
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Enter Subdirectory Name</mat-label>
+                        <input matInput [(ngModel)]="trackhub.directory">
+                    </mat-form-field>
+                </div>
+                <button class="btn btn-primary" *ngIf="stage == 'form'"
+                    (click)="startTracksUploads(trackhub.genome, trackhub.directory)">
+                    Proceed to upload tracks
                 </button>
+                <div *ngIf="stage == 'upload-tracks' || stage == 'upload-text-files'">
+                    <input type="file" name="file" ng2FileSelect [uploader]="tracksUploader" />
+                    <button type="button" class="btn btn-primary btn-sm"
+                            (click)="tracksUploader.uploadAll()"
+                            [disabled]="!tracksUploader.getNotUploadedItems().length" 
+                            style="float: right;">
+                        Upload File
+                    </button>
+                    <div [ngClass]="getAlertClass(tracks_submission_message)" style="margin-top: 15px;" role="alert">
+                      {{tracks_submission_message}}
+                    </div>
+                </div>
+                <button class="btn btn-primary" *ngIf="stage == 'upload-tracks'" 
+                    (click)="startTextFilesUploads(trackhub.genome)">
+                    Proceed to upload text files
+                </button>
+            </div>
+            <div class="col-md-1">
+                
+            </div>
+            <div class="col-md-6" *ngIf="stage == 'upload-text-files'">
+                <div class="row" style="padding: 12px;">
+                    <input type="file" name="file" ng2FileSelect [uploader]="textFileUploader" />
+                    <button type="button" class="btn btn-primary btn-sm"
+                            (click)="textFileUploader.uploadAll()"
+                            [disabled]="!textFileUploader.getNotUploadedItems().length" 
+                            style="float: right; width: 200px;">
+                        Upload genomes.txt File
+                    </button>
+                </div>
+                <div class="row" style="padding: 12px;">
+                    <input type="file" name="file" ng2FileSelect [uploader]="textFileUploader" />
+                    <button type="button" class="btn btn-primary btn-sm"
+                            (click)="textFileUploader.uploadAll()"
+                            [disabled]="!textFileUploader.getNotUploadedItems().length" 
+                            style="float: right; width: 200px;">
+                        Upload hub.txt File
+                    </button>
+                </div>
+                <div class="row" style="padding: 12px;">
+                    <input type="file" name="file" ng2FileSelect [uploader]="textFileUploader" />
+                    <button type="button" class="btn btn-primary btn-sm"
+                            (click)="textFileUploader.uploadAll()"
+                            [disabled]="!textFileUploader.getNotUploadedItems().length" 
+                            style="float: right; width: 200px;">
+                        Upload trackDB.txt File
+                    </button>
+                </div>
+                <div [ngClass]="getAlertClass(files_submission_message)" style="margin-top: 10px;" role="alert">
+                  <div *ngIf="files_submission_message == 'Validation failed'">
+                    <b>{{files_submission_message}}</b>
+                    <p *ngFor="let error of errors">
+                        {{error}}
+                    </p>
+                  </div>
+                  <div *ngIf="files_submission_message != 'Validation failed'">
+                    {{files_submission_message}}
+                  </div>
+                </div>
             </div>
         </div>
     </div>
