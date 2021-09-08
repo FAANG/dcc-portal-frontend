@@ -98,6 +98,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
+import { BulkFilesUploaderComponent } from './bulk-files-uploader/bulk-files-uploader.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -168,7 +169,8 @@ export function removeToken(): void {
     OntologyImproverComponent,
     OntologyDetailComponent,
     ApiDocsComponent,
-    TrackhubsSubmissionComponent
+    TrackhubsSubmissionComponent,
+    BulkFilesUploaderComponent
   ],
   imports: [
     BrowserModule,
