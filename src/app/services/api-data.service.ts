@@ -313,6 +313,7 @@ export class ApiDataService {
           standard: entry['_source']['standardMet'],
           idNumber: +entry['_source']['id_number'],
           paperPublished: entry['_source']['paperPublished'],
+          trackhubUrl: entry['_source']['trackhubUrl'],
           } as SpecimenTable)
         );
       }),
