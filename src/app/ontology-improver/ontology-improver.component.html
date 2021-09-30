@@ -152,6 +152,18 @@
                 </div>
             </ng-container>
         </mat-tab>
+        <!-- Page 3 - Display Ontology usage statistics summary for each project -->
+        <mat-tab label="Summary Statistics">
+            <div *ngIf="usageStats as summary;"style="margin: 30px 0 10px 15px;">
+                <app-table-client-side
+                    [display_fields]="statsFields"
+                    [column_names]="statsColumns"
+                    [templates]="templates"
+                    [data]="summary"
+                    [page_size]=10>
+                </app-table-client-side>
+            </div>
+        </mat-tab>
     </mat-tab-group>
 </div>
 
@@ -464,4 +476,22 @@
             </button>
         </mat-menu>
     </span>
+</ng-template>
+
+<!-- Template: Usage stats table ontology types count column -->
+<ng-template #typeCountTemplate let-item>
+    <div *ngFor="let item of item.row.ontology_type_count | keyvalue">
+        {{item.key}}: {{item.value}}
+    </div>
+</ng-template>
+
+<!-- Template: Usage stats table status count column -->
+<ng-template #statusCountTemplate let-item>
+    <div *ngFor="let item of item.row.status_count | keyvalue">
+        <button class="btn table-color-status" 
+                [style.background-color]="getColour('FAANG', item.key, 0.2)">
+                {{item.key}}
+        </button> 
+        : {{item.value}}
+    </div>
 </ng-template>

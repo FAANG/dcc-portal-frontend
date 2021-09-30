@@ -93,6 +93,16 @@ export class OntologyService {
     );
   }
 
+  getUsageStatistics() {
+    const url = validation_service_url + '/ontology_improver/summary/';
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.

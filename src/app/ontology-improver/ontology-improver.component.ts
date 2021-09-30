@@ -22,6 +22,8 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   @ViewChild('ontologyTermTemplate', { static: true }) ontologyTermTemplate: TemplateRef<any>;
   @ViewChild('ontologyStatusTemplate', { static: true }) ontologyStatusTemplate: TemplateRef<any>;
+  @ViewChild('typeCountTemplate', { static: true }) typeCountTemplate: TemplateRef<any>;
+  @ViewChild('statusCountTemplate', { static: true }) statusCountTemplate: TemplateRef<any>;
   @ViewChildren("tableComp") tableComponents: QueryList<TableClientSideComponent>;
   private tableClientComponent: TableClientSideComponent;
   summaryTableData: Observable<any[]>;
@@ -50,10 +52,13 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   columnNames: string[] = ['Term', 'Type', 'Ontology ID', 'Project', 'Tags', 'Status'];
   displayFields: string[] = ['ontology_term', 'ontology_type', 'ontology_id', 'project', 'tags', 'ontology_status'];
   column_widths: string[] = ["15%", "15%", "15%", "15%", "15%", "25%"];
+  statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Status Counts']
+  statsFields: string[] = ['project', 'species', 'ontology_type_count', 'status_count']
   templates: Object;
   filter_field: {};
   regForm: FormGroup;
   species: Array<string>;
+  usageStats: Observable<any[]>;
   constructor(
     private ontologyService: OntologyService,
     public dialog: MatDialog,
@@ -77,7 +82,9 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.selectedTerm = {'key': '', 'index': 0};
     this.templates = {
       'ontology_term': this.ontologyTermTemplate,
-      'ontology_status': this.ontologyStatusTemplate
+      'ontology_status': this.ontologyStatusTemplate,
+      'ontology_type_count': this.typeCountTemplate,
+      'status_count': this.statusCountTemplate
     };
     this.showSpinner = false;
     this.createForm();
@@ -128,6 +135,11 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       if (Object.keys(params).length > 0) {
         this.router.navigate(['ontology'], {queryParams: params});
       }
+    });
+    // fetch usage statistics summary
+    this.ontologyService.getUsageStatistics().subscribe((data) =>{
+      this.usageStats = data;
+      console.log(this.usageStats);
     });
   }
 
