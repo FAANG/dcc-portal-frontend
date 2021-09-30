@@ -18,7 +18,7 @@
       <div class="col-md-6">
         {{ file }}
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6" style="word-break: break-word;">
         <div [ngClass]="getAlertClass(submission_message[file])" role="alert"
               style="margin-top: 5px; padding: 5px; text-align: center;" >
           {{ submission_message[file] }}
@@ -45,7 +45,7 @@
         Upload
       </button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="word-break: break-word;">
       <div [ngClass]="getAlertClass(submission_message[fileNamesList[0]])" role="alert"
             style="padding: 5px; text-align: center;" >
         {{ submission_message[fileNamesList[0]] }}

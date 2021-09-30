@@ -17,7 +17,6 @@ export class BulkFilesUploaderComponent implements OnInit {
   fileNamesList: string[] = [];
   progressInfos: any[] = [];
   message: string[] = [];
-  fileInfos?: Observable<any>;
   socket;
   submission_message = {};
   errors = {};
@@ -46,6 +45,8 @@ export class BulkFilesUploaderComponent implements OnInit {
       console.log('WebSockets connection created.');
     };
     this.socket.onmessage = (event) => {
+      this.errors[filename] = null;
+      this.submission_message[filename] = null;
       const data = JSON.parse(event.data)['response'];
       if (data['submission_message']) {
         this.submission_message[filename] = data['submission_message'];
