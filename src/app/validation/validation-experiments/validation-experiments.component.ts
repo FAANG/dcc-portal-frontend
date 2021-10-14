@@ -21,7 +21,7 @@ const UploadURL = validation_service_url + '/conversion/experiments';
   styleUrls: ['./validation-experiments.component.css']
 })
 export class ValidationExperimentsComponent implements OnInit, OnDestroy {
-  model = new AAPUser('', '', 'test');
+  model = new AAPUser('', '', 'prod');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
   conversion_status: string;
@@ -430,10 +430,6 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     } else {
       return 'alert alert-primary';
     }
-  }
-
-  onChooseModeClick(mode: string) {
-    this.model.mode = mode;
   }
 
   onSubmit() {

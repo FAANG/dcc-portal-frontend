@@ -193,16 +193,6 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="submissionStarted === true && model.mode === 'test' && disableAuthForm">
-    <div class="col-md-12">
-      <div class="alert alert-warning" role="alert">
-        This is test submission and it will be removed in next 24 hours, <a (click)="goBack()"
-                                                                            style="cursor: pointer"
-                                                                            class="link">go back</a>
-      </div>
-    </div>
-  </div>
-
   <div class="row" *ngIf="submissionStarted === true">
     <div class="col-md-6" [hidden]="disableAuthForm">
       <h3>Submit data to ENA</h3>
@@ -233,19 +223,12 @@
         </div>
 
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="test" value="test" checked
-                 (click)="onChooseModeClick('test')">
-          <label class="form-check-label" for="test">
-            Test server
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="prod" value="prod"
-                 (click)="onChooseModeClick('prod')">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="prod" value="prod" checked>
           <label class="form-check-label" for="prod">
             Production server
           </label>
         </div>
+
         <button type="submit" class="btn btn-primary"
                 [disabled]="!enaForm.form.valid">Submit</button>
       </form>
