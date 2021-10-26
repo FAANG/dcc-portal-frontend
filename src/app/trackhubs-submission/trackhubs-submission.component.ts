@@ -11,7 +11,8 @@ import { HttpClient} from '@angular/common/http';
 export class TrackhubsSubmissionComponent implements OnInit {
   fileid;
   tracksUploadUrl;
-  textFileUploadUrl;
+  hubFileUploadUrl;
+  trackDbUploadUrl;
   trackhub = {};
   stage;
   error;
@@ -27,17 +28,20 @@ export class TrackhubsSubmissionComponent implements OnInit {
     this.stage = 'form';
   }
 
-  startUploads(genome: string, directory: string) {
+  startUploads(dir:string, genome: string, subdir: string) {
     this.stage = 'upload';
-    this.tracksUploadUrl = `${validation_service_url}/trackhubs/upload/${genome}/${directory}`;
-    this.textFileUploadUrl = `${validation_service_url}/trackhubs/upload/${genome}`;
+    this.tracksUploadUrl = `${validation_service_url}/trackhubs/upload/${dir}/${genome}/${subdir}`;
+    this.trackDbUploadUrl = `${validation_service_url}/trackhubs/upload/${dir}/${genome}`;
+    this.hubFileUploadUrl = `${validation_service_url}/trackhubs/upload/${dir}`;
   }
 
-  registerTrackHub(genome: string, genome_accession: string) {
+  registerTrackHub(dir: string, genome_name: string, genome_accession: string) {
     const url = `${validation_service_url}/trackhubs/register/`;
     this.loading = true;
     return this.http.post(url, {
-      'genome_id': genome_accession, 'genome_name': genome
+      'hub_dir': dir,
+      'genome_name': genome_name,
+      'genome_id': genome_accession
     }).subscribe(
       data => {
         console.log(data);

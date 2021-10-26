@@ -7,23 +7,28 @@
             <div class="col-md-6">
                 <div *ngIf="stage == 'form' || stage == 'upload'">
                     <mat-form-field style="width: 100%;">
+                        <mat-label>Provide a name for Track Hub directory</mat-label>
+                        <input matInput [(ngModel)]="trackhub.dir">
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field style="width: 100%;">
                         <mat-label>Enter genome name, e.g Oar_rambouillet_v1.0</mat-label>
                         <input matInput [(ngModel)]="trackhub.genome">
                     </mat-form-field>
                     <br>
                     <mat-form-field style="width: 100%;">
                         <mat-label>Enter Subdirectory Name</mat-label>
-                        <input matInput [(ngModel)]="trackhub.directory">
+                        <input matInput [(ngModel)]="trackhub.subdir">
                     </mat-form-field>
                 </div>
                 <button class="btn btn-primary" *ngIf="stage == 'form'"
                     style="margin-bottom: 15px;"
-                    (click)="startUploads(trackhub.genome, trackhub.directory)">
+                    (click)="startUploads(trackhub.dir, trackhub.genome, trackhub.subdir)">
                     Proceed to upload files
                 </button>
                 <button class="btn btn-primary" *ngIf="stage == 'upload'"
                     style="margin-bottom: 15px;"
-                    (click)="startUploads(trackhub.genome, trackhub.directory)">
+                    (click)="startUploads(trackhub.dir, trackhub.genome, trackhub.subdir)">
                     Update subdirectory name
                 </button>
             </div>
@@ -40,25 +45,25 @@
                 <h5>genomes.txt</h5>
                 <app-bulk-files-uploader
                     style="margin-bottom: 30px;"
-                    [uploadUrl]="textFileUploadUrl"
+                    [uploadUrl]="hubFileUploadUrl"
                     [mode]="'single'">
                 </app-bulk-files-uploader>
                 <h5>hub.txt</h5>
                 <app-bulk-files-uploader
                     style="margin-bottom: 30px;"
-                    [uploadUrl]="textFileUploadUrl"
+                    [uploadUrl]="hubFileUploadUrl"
                     [mode]="'single'">
                 </app-bulk-files-uploader>
                 <h5>trackDB.txt</h5>
                 <app-bulk-files-uploader
                     style="margin-bottom: 30px;"
-                    [uploadUrl]="textFileUploadUrl"
+                    [uploadUrl]="trackDbUploadUrl"
                     [mode]="'single'">
                 </app-bulk-files-uploader>
                 <h5>Other files</h5>
                 <app-bulk-files-uploader
                     style="margin-bottom: 30px;"
-                    [uploadUrl]="textFileUploadUrl"
+                    [uploadUrl]="hubFileUploadUrl"
                     [mode]="'bulk'">
                 </app-bulk-files-uploader>
             </div>
@@ -69,7 +74,7 @@
                 </mat-form-field>
                 <button class="btn btn-primary" *ngIf="stage == 'upload'"
                     style="margin-bottom: 20px;"
-                    (click)="registerTrackHub(trackhub.genome, trackhub.genome_accession)">
+                    (click)="registerTrackHub(trackhub.dir, trackhub.genome, trackhub.genome_accession)">
                     Register Track Hubs
                 </button>
             </div>
