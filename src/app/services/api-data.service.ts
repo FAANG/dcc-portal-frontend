@@ -47,7 +47,7 @@ export class ApiDataService {
   getAllFilesForProject(project: string, mode: string) {
     let url = this.hostSetting.host + 'file/_search/?size=100000&q=secondaryProject:' + project;
     if (mode === 'private') {
-      url = 'https://api.faang.org/private_portal/file/';
+      url = 'https://data.faang.org/api/private_portal/file/';
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           return data.hits.hits.map( entry => ({
@@ -94,7 +94,7 @@ export class ApiDataService {
   getAllDatasetsForProject(project: string, mode: string) {
     let url = this.hostSetting.host + 'dataset/_search/?size=100000&q=secondaryProject:' + project;
     if (mode === 'private') {
-      url = 'https://api.faang.org/private_portal/dataset/';
+      url = 'https://data.faang.org/api/private_portal/dataset/';
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           return data.hits.hits.map(entry => ({
@@ -139,7 +139,7 @@ export class ApiDataService {
   getFile(fileId: string, mode: string) {
     let url = this.hostSetting.host + 'file/' + fileId;
     if (mode === 'private') {
-      url = 'https://api.faang.org/private_portal/file/' + fileId;
+      url = 'https://data.faang.org/api/private_portal/file/' + fileId;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -191,7 +191,7 @@ export class ApiDataService {
   getAllOrganismsFromProject(project: string, mode: string) {
     let url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
     if (mode === 'private') {
-       url = 'https://api.faang.org/private_portal/organism/';
+       url = 'https://data.faang.org/api/private_portal/organism/';
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           return data.hits.hits.map( entry => ({
@@ -233,7 +233,7 @@ export class ApiDataService {
   getOrganism(biosampleId: string, mode: string) {
     let url = this.hostSetting.host + 'organism/' + biosampleId;
     if (mode === 'private') {
-      url = `https://api.faang.org/private_portal/organism/${biosampleId}/`;
+      url = `https://data.faang.org/api/private_portal/organism/${biosampleId}/`;
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -248,7 +248,7 @@ export class ApiDataService {
   getOrganismsSpecimens(biosampleId: any, mode: string) {
     let url = this.hostSetting.host + 'specimen/_search/?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
     if (mode === 'private') {
-      url = `https://api.faang.org/private_portal/specimen/?q=organism.biosampleId:${biosampleId}`;
+      url = `https://data.faang.org/api/private_portal/specimen/?q=organism.biosampleId:${biosampleId}`;
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -263,7 +263,7 @@ export class ApiDataService {
   getAllSpecimensForProject(project: string, mode: string) {
     let url = this.hostSetting.host + 'specimen/_search/?size=100000&q=secondaryProject:' + project;
     if (mode === 'private') {
-      url = 'https://api.faang.org/private_portal/specimen/';
+      url = 'https://data.faang.org/api/private_portal/specimen/';
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           return data.hits.hits.map( entry => ({
@@ -334,7 +334,7 @@ export class ApiDataService {
   getSpecimen(biosampleId: string, mode: string) {
     let url = this.hostSetting.host + 'specimen/' + biosampleId;
     if (mode === 'private') {
-      url = `https://api.faang.org/private_portal/specimen/${biosampleId}`;
+      url = `https://data.faang.org/api/private_portal/specimen/${biosampleId}`;
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -399,7 +399,7 @@ export class ApiDataService {
   getDataset(accession: string, mode: string) {
     let url = this.hostSetting.host + 'dataset/' + accession;
     if (mode === 'private') {
-      url = 'https://api.faang.org/private_portal/dataset/';
+      url = 'https://data.faang.org/api/private_portal/dataset/';
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
