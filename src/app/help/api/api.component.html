@@ -16,15 +16,15 @@
   represented as ":field". The optional fields are wrapped with [ ]. There are two types of endpoints:
   <ul>
     <li>List of records from one type</li>
-    <b>http://data.faang.org/api/:type/_search/?_source=_id[&size=:size]</b> where the parameter <i>size</i> defines
+    <b>http://data.faang.org/api/data/:type/_search/?_source=_id[&size=:size]</b> where the parameter <i>size</i> defines
     how many records are returned from the server and the default value is 20.
     <li>Record detail</li>
-    <b>http://data.faang.org/api/:type/:entityID</b><br>
+    <b>http://data.faang.org/api/data/:type/:entityID</b><br>
   </ul>
   <h4 class="example">Examples</h4>
-  Get all available animals: <pre><code>curl "http://data.faang.org/api/organism/_search/?_source=_id&size=1000"</code></pre>
-  Get information for animal with BioSample accession SAMEA7999918: <pre><code>curl "http://data.faang.org/api/organism/SAMEA7999918"</code></pre>
-  Get information for sample with BioSample accession SAMEA4451650: <pre><code>curl "http://data.faang.org/api/specimen/SAMEA4451650"</code></pre>
+  Get all available animals: <pre><code>curl "http://data.faang.org/api/data/organism/_search/?_source=_id&size=1000"</code></pre>
+  Get information for animal with BioSample accession SAMEA7999918: <pre><code>curl "http://data.faang.org/api/data/organism/SAMEA7999918"</code></pre>
+  Get information for sample with BioSample accession SAMEA4451650: <pre><code>curl "http://data.faang.org/api/data/specimen/SAMEA4451650"</code></pre>
 
   <h4 id="response">Parse the response</h4>
   The API is built on Elasticsearch, therefore the returned response is a typical Elasticsearch result. It is important
@@ -43,7 +43,7 @@
   </p>
   <h4 class="example">Examples</h4>
   Only return male animal records:
-  <pre><code>curl POST "http://data.faang.org/api/organism/_search/" -d '&#123;
+  <pre><code>curl POST "http://data.faang.org/api/data/organism/_search/" -d '&#123;
   "query": &#123;
             "bool" : &#123;
               "filter" : &#123;
@@ -53,7 +53,7 @@
   &#125;
 &#125;' </code></pre>
   List all species stores in the data portal with counts:
-  <pre><code>curl POST "http://data.faang.org/api/organism/_search/" -d '&#123;
+  <pre><code>curl POST "http://data.faang.org/api/data/organism/_search/" -d '&#123;
     "aggs" : &#123;
         "organism" : &#123;
             "terms" : &#123; "field" : "organism.text" &#125;

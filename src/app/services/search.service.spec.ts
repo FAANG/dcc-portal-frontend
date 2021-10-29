@@ -16,7 +16,7 @@ export function asyncError<T>(errorObject: any) {
 describe('SearchService', () => {
   let httpClientSpy: { post: jasmine.Spy };
   let searchService: SearchService;
-  const host = 'http://test.faang.org/api/';
+  const host = 'http://data.faang.org/api/data/';
   const expectedRecords = [{id: 1, name: 'recordA'}, {id: 2, name: 'recordB'}];
   const fileQuery = {
     'bool': {

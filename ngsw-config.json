@@ -26,7 +26,7 @@
   "dataGroups": [
     {
       "name": "file",
-      "urls": ["https://data.faang.org/api/file/_search/*"],
+      "urls": ["https://data.faang.org/api/data/file/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -35,7 +35,7 @@
     },
     {
       "name": "organism",
-      "urls": ["https://data.faang.org/api/organism/_search/*"],
+      "urls": ["https://data.faang.org/api/data/organism/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -44,7 +44,7 @@
     },
     {
       "name": "specimen",
-      "urls": ["https://data.faang.org/api/specimen/_search/*"],
+      "urls": ["https://data.faang.org/api/data/specimen/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -53,7 +53,7 @@
     },
     {
       "name": "dataset",
-      "urls": ["https://data.faang.org/api/dataset/_search/*"],
+      "urls": ["https://data.faang.org/api/data/dataset/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -62,7 +62,7 @@
     },
     {
       "name": "protocol_samples",
-      "urls": ["https://data.faang.org/api/protocol_samples/_search/*"],
+      "urls": ["https://data.faang.org/api/data/protocol_samples/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -71,7 +71,7 @@
     },
     {
       "name": "protocol_files",
-      "urls": ["https://data.faang.org/api/protocol_files/_search/*"],
+      "urls": ["https://data.faang.org/api/data/protocol_files/_search/*"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -80,7 +80,7 @@
     },
     {
       "name": "summary_organism",
-      "urls": ["https://data.faang.org/api/summary_organism/summary_organism"],
+      "urls": ["https://data.faang.org/api/data/summary_organism/summary_organism"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -89,7 +89,7 @@
     },
     {
       "name": "summary_specimen",
-      "urls": ["https://data.faang.org/api/summary_specimen/summary_specimen"],
+      "urls": ["https://data.faang.org/api/data/summary_specimen/summary_specimen"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -98,7 +98,7 @@
     },
     {
       "name": "summary_dataset",
-      "urls": ["https://data.faang.org/api/summary_dataset/summary_dataset"],
+      "urls": ["https://data.faang.org/api/data/summary_dataset/summary_dataset"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
@@ -107,7 +107,7 @@
     },
     {
       "name": "summary_file",
-      "urls": ["https://data.faang.org/api/summary_file/summary_file"],
+      "urls": ["https://data.faang.org/api/data/summary_file/summary_file"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1d",
