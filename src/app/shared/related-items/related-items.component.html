@@ -42,11 +42,39 @@
           <ng-container *ngFor="let attr of get_displayed_fields()">
             <td>
               <span *ngIf="get_field_values_for_links(attr); else plainBlock">
-                <app-robust-link [prefix]="get_field_values_for_links(attr)['prefix']"
-                                 [link]="getValue(record, get_field_values_for_links(attr)['url'])"
-                                 [text]="getValue(record, get_attr(attr))">
+                <ng-container *ngIf="!isRecordPrivate(record)">
+                  <app-robust-link [prefix]="get_field_values_for_links(attr)['prefix']"
+                                   [link]="getValue(record, get_field_values_for_links(attr)['url'])"
+                                   [text]="getValue(record, get_attr(attr))">
 
                 </app-robust-link>
+                </ng-container>
+                <ng-container *ngIf="source_type === 'project' && target_type === 'organism' && isRecordPrivate(record)">
+                  <a [routerLink]="['/organism', getValue(record, get_attr(attr))]">
+                    {{getValue(record, get_attr(attr))}}
+                  </a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
+                <ng-container *ngIf="source_type === 'project' && target_type === 'specimen' && isRecordPrivate(record)">
+                  <a [routerLink]="['/specimen', getValue(record, get_attr(attr))]">
+                    {{getValue(record, get_attr(attr))}}
+                  </a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
+                <ng-container *ngIf="source_type === 'organism' && target_type === 'specimen' && isRecordPrivate(record)">
+                  <a [routerLink]="['/specimen', getValue(record, get_attr(attr))]">
+                    {{getValue(record, get_attr(attr))}}
+                  </a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
+                <ng-container *ngIf="source_type === 'project' && target_type === 'file' && isRecordPrivate(record)">
+                  <a [routerLink]="['/file', record['fileId']]">{{record['name']}}</a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
+                <ng-container *ngIf="source_type === 'project' && target_type === 'dataset' && isRecordPrivate(record)">
+                  <a [routerLink]="['/dataset', record['datasetAccession']]">{{record['datasetAccession']}}</a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
               </span>
               <ng-template #plainBlock>
                 {{getValue(record, get_attr(attr))}}

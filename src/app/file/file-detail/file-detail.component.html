@@ -1,11 +1,28 @@
 <div class="container">
   <app-header></app-header>
+  <div class="row first-row" *ngIf="_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        <p>
+          You are logged in as {{ _userService.username }}. <br>
+          Token Expires: {{ _userService.token_expires }}
+        </p>
+        <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
+        <button (click)="_userService.logout()" class="btn btn-primary">Log Out</button>
+      </div>
+    </div>
+  </div>
   <ng-container *ngIf="file">
 
     <h1 class="text-center">{{fileId}}</h1>
     <dl class="row">
       <dt class="col-sm-3">File name:</dt>
       <dd class="col-sm-9">{{ file?.name }}</dd>
+
+      <ng-container *ngIf="file?.secondaryProject">
+        <dt class="col-sm-3">Sub-project:</dt>
+        <dd class="col-sm-9">{{file?.secondaryProject}}</dd>
+      </ng-container>
 
       <dt class="col-sm-3">Release date:</dt>
       <dd class="col-sm-9">{{file?.releaseDate}}</dd>
@@ -70,7 +87,7 @@
                   <ng-container *ngIf="experiment[key].hasOwnProperty('filename') && experiment[key]['filename']">
                     <p>
                       <b>{{fieldNames[key]}}:</b><br>
-                      <app-robust-link [link]="experiment[key]['url']"
+                      <app-robust-link [link]="getProtocolLink(experiment[key]['url'])"
                                        [text]="experiment[key]['filename'] | slice:0:62"></app-robust-link>
                     </p>
                   </ng-container>

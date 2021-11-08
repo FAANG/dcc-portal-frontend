@@ -1,0 +1,268 @@
+<div class="container" style="min-height:87vh">
+  <app-header></app-header>
+  <div class="row first-row" *ngIf="_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        <p>
+          You are logged in as {{ _userService.username }}. <br>
+          Token Expires: {{ _userService.token_expires }}
+        </p>
+        <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
+        <button (click)="_userService.logout()" class="btn btn-primary">Log Out</button>
+      </div>
+    </div>
+  </div>
+  <h2>FAANG validation
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'samples']">
+      Samples
+      <i class="material-icons float-right">menu</i>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
+            [routerLink]="['/validation', 'experiments']">
+      Experiments
+      <i class="material-icons float-right">home</i>
+    </button>
+
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'analyses']">
+      Analyses
+      <i class="material-icons float-right">menu</i>
+    </button>
+  </h2>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-success">
+        <a href="{{metadata_template_with_examples}}">Download example template</a>
+      </button>
+
+      <button type="button" class="btn btn-success">
+        <a href="{{metadata_template_without_examples}}">Download empty template</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-info">
+        <a href="https://dcc-documentation.readthedocs.io/en/latest/experiment/ena_template/" target="_blank">Submission guideline</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6" id="left">
+      <h3>1. Upload template:</h3>
+      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+      <button type="button" class="btn btn-success btn-sm"
+              (click)="uploader.uploadAll()"
+              [disabled]="!uploader.getNotUploadedItems().length" >
+        Upload a File
+      </button>
+    </div>
+    <div class="col-md-6" id="right">
+      <h3>2. Conversion results:</h3>
+      <div class="row">
+        <div class="col-md-6">
+          Status: <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
+        </div>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-success btn-sm" *ngIf="conversion_status === 'Success'"
+                  (click)="startValidation()"
+                  [disabled]="validation_started">
+            Start validation
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="conversion_status === 'Error'">
+        <div class="col-md-12">
+          Errors:
+          <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
+            {{error}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row first-row" *ngIf="bovreg_submission && !_userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You’re about to submit BovReg data as public data. If you wish to submit this data privately please
+        <a [routerLink]="['/login']" class="link">log in</a> to the private BovReg data portal before continuing with your submission.
+      </div>
+    </div>
+  </div>
+
+  <div class="row first-row" *ngIf="bovreg_submission && _userService.token">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        You’re about to submit BovReg data as private data. If you wish to submit this publicly to FAANG then please
+        logout of the Private BovReg data portal first.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6" *ngIf="validation_results">
+      <h3>3. Validation results:</h3>
+      Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
+      <br>
+      <button *ngFor="let key of record_types" type="button" class="btn btn-info validation_button"
+              [ngClass]="isButtonActive(key)" (click)="onRecordButtonClick(key)">
+        {{remove_underscores(key)}}
+      </button>
+    </div>
+
+    <div class="col-md-6" *ngIf="!validation_results && validation_started">
+      <h3>3. Validation results:</h3>
+      Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
+      <br>
+    </div>
+
+    <div class="col-md-6" *ngIf="validation_results">
+      <h3>4. Prepare data for submission:</h3>
+      Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
+      <br>
+      <button type="button" class="btn btn-success submission_data_button"
+              *ngIf="submission_status !== 'Data is ready' && submission_status !== 'Failed to convert data'"
+              (click)="onStartSubmissionClick()"
+              [disabled]="isSubmissionDisabled(submission_status)">
+        Start submission to ENA
+      </button>
+
+      <div class="alert alert-danger" role="alert" *ngFor="let error of conversion_errors">
+        {{error}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="validation_results">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-success validation_button"
+              (click)="onValidationResultsButtonClick('passed')"
+              [ngClass]="isRecordsButtonActive('passed')">
+        Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
+      </button>
+      <button type="button" class="btn btn-danger validation_button"
+              (click)="onValidationResultsButtonClick('issues')"
+              [ngClass]="isRecordsButtonActive('issues')">
+        Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
+      </button>
+      <button type="button" class="btn btn-success" (click)="getTemplateFile()"
+              *ngIf="annotation_status !== 'Download data'">
+        Get annotated template
+      </button>
+      <button type="button" class="btn btn-success" *ngIf="annotation_status === 'Download data'">
+        <a href="{{constructDownloadTemplateLink()}}" style="text-decoration: none">Download annotated template</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="show_table">
+    <div class="col-md-12 table-responsive">
+      <table class="table table-striped table-hover table-borderless table-sm">
+        <thead>
+        <tr>
+          <th *ngFor="let column of column_names">{{column}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let record of records_to_show; let i=index">
+          <td *ngFor="let data of record; let j=index"
+              [ngClass]="getCellClass(i, j)"
+              [ngStyle]="{'cursor': getCellStyle(i, j)}"
+              (click)="openModal(i, j)">{{data}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr *ngIf="submissionStarted === true">
+
+  <div class="row" *ngIf="submissionStarted === true">
+    <div class="col-md-12">
+      <div [ngClass]="submissionMessageClass()" role="alert">
+        {{submission_message}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="submissionStarted === true">
+    <div class="col-md-6" [hidden]="disableAuthForm">
+      <h3>Submit data to ENA</h3>
+      <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
+        <div class="form-group" *ngIf="!_userService.token">
+          <label for="aapUsername">Username</label>
+          <input class="form-control" id="aapUsername"
+                 placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
+                 #username="ngModel">
+          <small class="form-text text-muted">Please use this
+            <a href="https://www.ebi.ac.uk/ena/submit/sra/#registration" class="link" target="_blank">service</a>
+            to get your credentials
+          </small>
+          <div [hidden]="username.valid || username.pristine"
+               class="alert alert-danger form-danger">
+            Username is required
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="!_userService.token">
+          <label for="aapPassword">Password</label>
+          <input type="password" class="form-control" id="aapPassword" placeholder="Password"
+                 required [(ngModel)]="model.password" name="password" #password="ngModel">
+          <div [hidden]="password.valid || password.pristine"
+               class="alert alert-danger form-danger">
+            Password is required
+          </div>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="serverRadio" id="prod" value="prod" checked>
+          <label class="form-check-label" for="prod">
+            Production server
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary"
+                [disabled]="!enaForm.form.valid">Submit</button>
+      </form>
+    </div>
+
+    <div class="col-md-6" [hidden]="submissionResults.length === 0">
+      <h3>
+        Submission results
+        <button type="button" class="btn btn-success">
+          <a href="{{downloadSubmissionResults()}}" #myButton>Download submission results</a>
+        </button>
+      </h3>
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-info" *ngFor="let message of submissionResults[0]">
+          {{message}}
+        </li>
+        <li class="list-group-item list-group-item-danger" *ngFor="let message of submissionResults[1]">
+          {{message}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <ngx-smart-modal #myModal identifier="myModal" customClass="nsm-dialog-animation-fade">
+    <h3>{{active_column}}:</h3>
+    <div *ngIf="active_issues">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let issue of active_issues" class="list-group-item">
+          {{issue.split(',').join(' ')}}
+        </li>
+      </ul>
+    </div>
+    <button (click)="myModal.close()" type="button" class="btn btn-success modal-button">Close</button>
+  </ngx-smart-modal>
+
+</div>

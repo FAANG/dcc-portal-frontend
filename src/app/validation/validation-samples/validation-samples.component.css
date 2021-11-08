@@ -1,0 +1,41 @@
+#left {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#right {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.validation_button {
+  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.submission_data_button {
+  margin-top: 5px;
+}
+
+.modal-button {
+  margin-top: 10px;
+}
+
+button {
+  margin-left: 5px;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+a {
+  color: white;
+}
+
+.link {
+  color: #0074D9;
+}
+
+.form-danger {
+  margin-top: 5px;
+}

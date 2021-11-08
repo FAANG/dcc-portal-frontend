@@ -1,0 +1,16 @@
+.table-header {
+    background-color: rgba(0, 0, 0, 0.07);
+    font-size: 14px;
+    color: black;
+    font-weight: 600;
+}
+
+.table-cell-data {
+    padding-right: 5px !important;
+}
+
+td.mat-cell:first-of-type, 
+td.mat-footer-cell:first-of-type, 
+th.mat-header-cell:first-of-type {
+    padding-left: 10px;
+}

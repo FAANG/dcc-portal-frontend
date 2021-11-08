@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ApiDataService} from '../../services/api-data.service';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {Title} from '@angular/platform-browser';
-import {convertArrayToStr} from '../../shared/common_functions';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ApiDataService } from '../../services/api-data.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Title } from '@angular/platform-browser';
+import { convertArrayToStr, getProtocolLink } from '../../shared/common_functions';
 
 import {
   external_biosample_prefix,
@@ -23,6 +23,7 @@ export class AnalysisDetailComponent implements OnInit {
   analysis: any;
   error: any;
   convertArrayToStr: any;
+  getProtocolLink: any;
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly biosample_prefix = external_biosample_prefix;
@@ -37,6 +38,7 @@ export class AnalysisDetailComponent implements OnInit {
 
   ngOnInit() {
     this.convertArrayToStr = convertArrayToStr;
+    this.getProtocolLink = getProtocolLink;
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.accession = params['id'];
@@ -61,8 +63,8 @@ export class AnalysisDetailComponent implements OnInit {
     );
   }
 
-  // TODO: add new ES field to check existance of samples when importing the analysis
-  // the introduction of virtual pool of specimen which does not meet FAANG standard make it necessary to dynamically determine
+  // TODO: add new ES field to check existence of samples when importing the analysis
+  // the introduction of virtual pool of specimen which does not meet FAANG standard makes it necessary to dynamically determine
   // which prefix to use to create the link, either within data portal or ENA
   sampleInES(biosampleId: string) {
     return false;

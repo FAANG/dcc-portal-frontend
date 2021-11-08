@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HostSetting } from './host-setting';
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams, HttpHeaders} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
-import { AnalysisTable, DatasetTable, FileTable, OrganismTable, ProtocolFile, ProtocolSample, SpecimenTable} from '../shared/interfaces';
-import {ruleset_prefix} from '../shared/constants';
+import {
+  ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
+  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable
+} from '../shared/interfaces';
+import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
+import {UserService} from './user.service';
 
 
 @Injectable({
@@ -13,7 +17,8 @@ import {ruleset_prefix} from '../shared/constants';
 export class ApiDataService {
   hostSetting = new HostSetting;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private _userService: UserService) { }
 
   getAllFiles(query: any, size: number) {
     const url = this.hostSetting.host + 'file/' + '_search/' + '?size=' + size;
@@ -39,8 +44,107 @@ export class ApiDataService {
     );
   }
 
-  getFile(fileId: string) {
-    const url = this.hostSetting.host + 'file/' + fileId;
+  getAllFilesForProject(project: string, mode: string) {
+    let url = this.hostSetting.host + 'file/_search/?size=100000&q=secondaryProject:' + project;
+    if (mode === 'private') {
+      url = 'https://data.faang.org/api/private_portal/file/';
+      return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        map((data: any) => {
+          return data.hits.hits.map( entry => ({
+              name: entry['_source']['name'],
+              fileId: entry['_id'],
+              experiment: entry['_source']['experiment']['accession'],
+              assayType: entry['_source']['experiment']['assayType'],
+              experimentTarget: entry['_source']['experiment']['target'],
+              run: entry['_source']['run']['accession'],
+              readableSize: entry['_source']['readableSize'],
+              checksum: entry['_source']['checksum'],
+              checksumMethod: entry['_source']['checksumMethod'],
+              url: entry['_source']['url'],
+            private: entry['_source']['private']
+            } as FileForProjectTable )
+          );
+        }),
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          name: entry['_source']['name'],
+          fileId: entry['_id'],
+          experiment: entry['_source']['experiment']['accession'],
+          assayType: entry['_source']['experiment']['assayType'],
+          experimentTarget: entry['_source']['experiment']['target'],
+          run: entry['_source']['run']['accession'],
+          readableSize: entry['_source']['readableSize'],
+          checksum: entry['_source']['checksum'],
+          checksumMethod: entry['_source']['checksumMethod'],
+          url: entry['_source']['url'],
+          private: false
+          } as FileForProjectTable )
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllDatasetsForProject(project: string, mode: string) {
+    let url = this.hostSetting.host + 'dataset/_search/?size=100000&q=secondaryProject:' + project;
+    if (mode === 'private') {
+      url = 'https://data.faang.org/api/private_portal/dataset/';
+      return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        map((data: any) => {
+          return data.hits.hits.map(entry => ({
+              datasetAccession: entry['_source']['accession'],
+              title: entry['_source']['title'],
+              species: entry['_source']['species'][0]['text'],
+              archive: entry['_source']['archive'][0],
+              assayType: entry['_source']['assayType'][0],
+              numberOfExperiments: entry['_source']['experiment'].length,
+              numberOfSpecimens: entry['_source']['specimen'].length,
+              numberOfFiles: entry['_source']['file'].length,
+              standard: entry['_source']['standardMet'],
+              private: entry['_source']['private']
+            } as DatasetTable)
+          );
+        }),
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map(entry => ({
+            datasetAccession: entry['_source']['accession'],
+            title: entry['_source']['title'],
+            species: entry['_source']['species'][0]['text'],
+            archive: entry['_source']['archive'][0],
+            assayType: entry['_source']['assayType'][0],
+            numberOfExperiments: entry['_source']['experiment'].length,
+            numberOfSpecimens: entry['_source']['specimen'].length,
+            numberOfFiles: entry['_source']['file'].length,
+            standard: entry['_source']['standardMet'],
+            private: false
+        } as DatasetTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getFile(fileId: string, mode: string) {
+    let url = this.hostSetting.host + 'file/' + fileId;
+    if (mode === 'private') {
+      url = 'https://data.faang.org/api/private_portal/file/' + fileId;
+      return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -84,17 +188,111 @@ export class ApiDataService {
     );
   }
 
-  getOrganism(biosampleId: string) {
-    const url = this.hostSetting.host + 'organism/' + biosampleId;
+  getAllOrganismsFromProject(project: string, mode: string) {
+    let url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
+    if (mode === 'private') {
+       url = 'https://data.faang.org/api/private_portal/organism/';
+      return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        map((data: any) => {
+          return data.hits.hits.map( entry => ({
+              bioSampleId: entry['_source']['biosampleId'],
+              sex: entry['_source']['sex']['text'],
+              organism: entry['_source']['organism']['text'],
+              breed: entry['_source']['breed']['text'],
+              private: this.checkPrivateData(entry['_source']['customField'])
+            } as OrganismForProjectTable)
+          );
+        }),
+        catchError(this.handleError),
+      );
+    }
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          bioSampleId: entry['_source']['biosampleId'],
+          sex: entry['_source']['sex']['text'],
+          organism: entry['_source']['organism']['text'],
+          breed: entry['_source']['breed']['text'],
+          private: this.checkPrivateData(entry['_source']['customField'])
+        } as OrganismForProjectTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  checkPrivateData(entry: any) {
+    for (const data of entry) {
+      if (data['name'] === 'BovReg private submission') {
+        return true;
+      }
+    }
+  }
+
+  getOrganism(biosampleId: string, mode: string) {
+    let url = this.hostSetting.host + 'organism/' + biosampleId;
+    if (mode === 'private') {
+      url = `https://data.faang.org/api/private_portal/organism/${biosampleId}/`;
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
     );
   }
 
-  getOrganismsSpecimens(biosampleId: any) {
-    const url = this.hostSetting.host + 'specimen/_search/?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
+  getOrganismsSpecimens(biosampleId: any, mode: string) {
+    let url = this.hostSetting.host + 'specimen/_search/?q=organism.biosampleId:' + biosampleId + '&sort=id_number:desc' + '&size=100000';
+    if (mode === 'private') {
+      url = `https://data.faang.org/api/private_portal/specimen/?q=organism.biosampleId:${biosampleId}`;
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllSpecimensForProject(project: string, mode: string) {
+    let url = this.hostSetting.host + 'specimen/_search/?size=100000&q=secondaryProject:' + project;
+    if (mode === 'private') {
+      url = 'https://data.faang.org/api/private_portal/specimen/';
+      return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        map((data: any) => {
+          return data.hits.hits.map( entry => ({
+              bioSampleId: entry['_source']['biosampleId'],
+              material: this.checkField(entry['_source']['material']),
+              organismpart_celltype: this.checkField(entry['_source']['cellType']),
+              sex: this.checkField(entry['_source']['organism']['sex']),
+              organism: this.checkField(entry['_source']['organism']['organism']),
+              breed: this.checkField(entry['_source']['organism']['breed']),
+            private: this.checkPrivateData(entry['_source']['customField'])
+            } as SpecimenForProjectTable)
+          );
+        }),
+        catchError(this.handleError),
+      );
+    }
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          bioSampleId: entry['_source']['biosampleId'],
+          material: this.checkField(entry['_source']['material']),
+          organismpart_celltype: this.checkField(entry['_source']['cellType']),
+          sex: this.checkField(entry['_source']['organism']['sex']),
+          organism: this.checkField(entry['_source']['organism']['organism']),
+          breed: this.checkField(entry['_source']['organism']['breed']),
+          private: this.checkPrivateData(entry['_source']['customField'])
+          } as SpecimenForProjectTable)
+        );
+      }),
       retry(3),
       catchError(this.handleError),
     );
@@ -115,6 +313,7 @@ export class ApiDataService {
           standard: entry['_source']['standardMet'],
           idNumber: +entry['_source']['id_number'],
           paperPublished: entry['_source']['paperPublished'],
+          trackhubUrl: entry['_source']['trackhubUrl'],
           } as SpecimenTable)
         );
       }),
@@ -132,8 +331,15 @@ export class ApiDataService {
     }
   }
 
-  getSpecimen(biosampleId: string) {
-    const url = this.hostSetting.host + 'specimen/' + biosampleId;
+  getSpecimen(biosampleId: string, mode: string) {
+    let url = this.hostSetting.host + 'specimen/' + biosampleId;
+    if (mode === 'private') {
+      url = `https://data.faang.org/api/private_portal/specimen/${biosampleId}`;
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -190,8 +396,15 @@ export class ApiDataService {
     return value.substring(0, value.length - 1);
   }
 
-  getDataset(accession: string) {
-    const url = this.hostSetting.host + 'dataset/' + accession;
+  getDataset(accession: string, mode: string) {
+    let url = this.hostSetting.host + 'dataset/' + accession;
+    if (mode === 'private') {
+      url = 'https://data.faang.org/api/private_portal/dataset/';
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -243,17 +456,61 @@ export class ApiDataService {
     );
   }
 
-  getAllSamplesProtocols(query: any) {
-    const url = this.hostSetting.host + 'protocol_samples/_search/' + '?size=100';
-    const params = new HttpParams().set('_source', query['_source'].toString());
+  getAllArticlesForProject(project: string) {
+    const url = this.hostSetting.host + 'article/_search/?size=100000&q=secondaryProject:' + project;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          id: entry['_id'],
+          title: entry['_source']['title'],
+          year: entry['_source']['year'],
+          journal: entry['_source']['journal'],
+          datasetSource: entry['_source']['datasetSource']
+          } as ArticleTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllArticles(query: any, size: number) {
+    const url = this.hostSetting.host + 'article/' + '_search/' + '?size=' + size;
+    // const url = 'wp-np3-e2:9200/faang_build_6_article/' + '_search/' + '?size=' + size;
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
     return this.http.get(url, {params: params}).pipe(
+      map((data: any) => {
+        return data.hits.hits.map( entry => ({
+          id: entry['_id'],
+          title: entry['_source']['title'],
+          year: entry['_source']['year'],
+          journal: entry['_source']['journal'],
+          datasetSource: entry['_source']['datasetSource']
+          } as ArticleTable)
+        );
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getArticle(id: string) {
+    const url = this.hostSetting.host + 'article/' + id;
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllSamplesProtocols() {
+    const url = this.hostSetting.host + 'protocol_samples/_search/' + '?size=100';
+    return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits.map(entry => ({
           key: entry['_source']['key'],
           protocol_name: entry['_source']['protocolName'],
           university_name: entry['_source']['universityName'],
-          protocol_date: entry['_source']['protocolDate'],
-          protocol_type: entry['_source']['protocolType']
+          protocol_date: entry['_source']['protocolDate'].toString(),
           } as ProtocolSample)
         );
       }),
@@ -346,37 +603,105 @@ export class ApiDataService {
     );
   }
 
-  getRulesetSample() {
-    const url = ruleset_prefix + 'faang_samples.metadata_rules.json';
+  getRulesetSample(category: string) {
+    let rule_type;
+    if (category === 'standard') {
+      rule_type = 'core';
+      category = 'core';
+    } else {
+      if (category.indexOf('teleostei') !== -1) {
+        rule_type = 'module';
+        category = category.replace('teleostei', 'teleost');
+      } else {
+        rule_type = 'type';
+        if (category === 'specimen_standard_rules') {
+          category = 'specimen';
+        }
+      }
+    }
+    const url = ruleset_prefix_new + `${rule_type}/samples/faang_samples_${category}.metadata_rules.json`;
     return this.http.get(url).pipe(
       map((data: any) => {
+        console.log(data);
         return data;
       }),
-      retry(3),
       catchError(this.handleError),
     );
   }
 
-  getRulesetExperiment() {
-    const url =  ruleset_prefix + 'faang_experiments.metadata_rules.json';
+  getRulesetExperiment(category: string) {
+    let rule_type;
+    if (category === 'standard') {
+      rule_type = 'core';
+      category = 'core';
+    } else if (category === 'chip-seq_dna-binding_proteins' || category === 'chip-seq_input_dna') {
+      rule_type = 'module';
+    } else {
+      rule_type = 'type';
+      if (category === 'chip-seq_standard_rules') {
+        category = 'chip-seq';
+      }
+    }
+    const url = ruleset_prefix_new + `${rule_type}/experiments/faang_experiments_${category}.metadata_rules.json`;
+    console.log(url);
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
       }),
-      retry(3),
       catchError(this.handleError),
     );
   }
 
-  getRulesetAnalysis() {
-    const url =  ruleset_prefix + 'faang_analyses.metadata_rules.json';
+  getRulesetAnalysis(category: string) {
+    let rule_type;
+    if (category === 'eva') {
+      rule_type = 'module';
+    } else {
+      rule_type = 'type';
+    }
+    const url = ruleset_prefix_new + `${rule_type}/analyses/faang_analyses_${category}.metadata_rules.json`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
       }),
-      retry(3),
       catchError(this.handleError),
     );
+  }
+
+  startValidation(task_id, room_id, rules_type) {
+    const url =  validation_service_url + '/validation/' + rules_type + '/' + task_id + '/' + room_id;
+    return this.http.get(url);
+  }
+
+  startConversion(task_id, room_id, rules_type) {
+    const url = validation_service_url + '/submission/' + rules_type + '/' + task_id + '/' + room_id;
+    return this.http.get(url);
+  }
+
+  getTemplate(task_id, room_id, data_type) {
+    const url = `${validation_service_url}/submission/get_template/${task_id}/${room_id}/${data_type}`;
+    return this.http.get(url);
+  }
+
+  chooseDomain(username, password, mode, room_id, private_submission) {
+    const url = `${validation_service_url}/submission/samples/${room_id}/choose_domain`;
+    return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
+  }
+
+  submitDomain(username, password, mode, domain_name, domain_description, room_id, private_submission) {
+    const url = `${validation_service_url}/submission/samples/${room_id}/submit_domain`;
+    return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
+      domain_description: domain_description, private_submission: private_submission});
+  }
+
+  submitRecords(username, password, mode, domain_name, room_id, task_id, submission_type, private_submission) {
+    const url = `${validation_service_url}/submission/${submission_type}/${task_id}/${room_id}/submit_records`;
+    if (domain_name !== '') {
+      return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
+        private_submission: private_submission});
+    } else {
+      return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
+    }
   }
 
   private handleError(error: HttpErrorResponse) {

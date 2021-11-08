@@ -1,5 +1,6 @@
 export const FIELD_NAMES = {
   project: 'Project',
+  secondaryProject: 'Secondary project',
   assayType: 'Assay type',
   sampleStorage: 'Sample storage',
   sampleStorageProcessing: 'Sample storage processing',

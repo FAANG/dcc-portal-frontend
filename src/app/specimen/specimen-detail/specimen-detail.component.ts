@@ -4,6 +4,8 @@ import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {external_ols_prefix, internal_organism, internal_specimen} from '../../shared/constants';
+import {getProtocolLink} from '../../shared/common_functions';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-specimen-detail',
@@ -17,21 +19,24 @@ export class SpecimenDetailComponent implements OnInit {
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;
   readonly specimen_prefix = internal_specimen;
+  mode: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private dataService: ApiDataService,
               private spinner: NgxSpinnerService,
-              private titleService: Title) {
+              private titleService: Title,
+              public _userService: UserService) {
   }
 
   ngOnInit() {
+    this._userService.token ? this.mode = 'private' : this.mode = 'public';
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.biosampleId = params['id'];
       this.titleService.setTitle(`${this.biosampleId} | FAANG specimen`);
     });
-    this.dataService.getSpecimen(this.biosampleId).subscribe(
+    this.dataService.getSpecimen(this.biosampleId, this.mode).subscribe(
       (data: any) => {
         if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
@@ -68,11 +73,7 @@ export class SpecimenDetailComponent implements OnInit {
     }
   }
 
-  getProtocolLink() {
-    if (this.specimen.specimenFromOrganism.specimenCollectionProtocol.url.split('//')[0] === 'ftp:') {
-      return 'http://' + this.specimen.specimenFromOrganism.specimenCollectionProtocol.url.split('//')[1];
-    } else {
-      return this.specimen.specimenFromOrganism.specimenCollectionProtocol.url;
-    }
+  generateProtocolLink(url: string) {
+    return getProtocolLink(url);
   }
 }

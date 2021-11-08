@@ -32,9 +32,12 @@ export class AggregationService {
     name: [],
     experimentTarget: [],
     paper_published: [],
-    journal_title: [],
-    citations: [],
-    publication_year: []
+    year: [],
+    journal: [],
+    datasetSource: [],
+    ontology_type: [],
+    ontology_status: [],
+    project: [],
   };
 
   protocolNames = protocolNames;
@@ -268,6 +271,27 @@ export class AggregationService {
         }),
       };
       this.data.next(all_data);
+    } else if (type === 'article') {
+      let journal = {};
+      let year = {};
+      let dataset_source = {};
+      let all_data;
+      for (const item of recordList) {
+        journal = this.updateAggregation(journal, item['journal']);
+        year = this.updateAggregation(year, item['year']);
+        dataset_source = this.updateAggregation(dataset_source, item['datasetSource']);
+      }
+      delete dataset_source['All'];
+      all_data = {
+        journal: Object.entries(journal).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        year: Object.entries(year).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        datasetSource: Object.entries(dataset_source)
+      };
+      this.data.next(all_data);
     } else if (type === 'protocol') {
       let protocol_name = {};
       let university_name = {};
@@ -314,6 +338,27 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         assay_type: Object.entries(assay_type).sort(function(a: any, b: any) {
+          return b[1] - a[1];
+        }),
+      };
+      this.data.next(all_data);
+    } else if (type === 'ontology') {
+      let ontology_type = {};
+      let ontology_status = {};
+      let project = {};
+      for (const item of recordList) {
+        ontology_type = this.updateAggregation(ontology_type, item['ontology_type']);
+        ontology_status = this.updateAggregation(ontology_status, item['ontology_status']);
+        project = this.updateAggregation(project, item['project']);
+      }
+      let all_data = {
+        ontology_type: Object.entries(ontology_type).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        ontology_status: Object.entries(ontology_status).sort(function (a: any, b: any) {
+          return b[1] - a[1];
+        }),
+        project: Object.entries(project).sort(function (a: any, b: any) {
           return b[1] - a[1];
         }),
       };

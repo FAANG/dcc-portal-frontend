@@ -1,12 +1,12 @@
 <div class="container">
   <app-header></app-header>
   <h2>FAANG Rule sets
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/ruleset', 'samples']" fragment="standard">
+    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/ruleset', 'samples']">
       Samples
       <i class="material-icons float-right">menu</i>
     </button>
 
-    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'" [routerLink]="['/ruleset', 'experiments']" fragment="standard">
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'" [routerLink]="['/ruleset', 'experiments']">
       Experiments
       <i class="material-icons float-right">home</i>
     </button>
@@ -19,14 +19,14 @@
 
   <dl class="row">
     <dt class="col-sm-3">Name:</dt>
-    <dd class="col-sm-9">{{ data?.name }}</dd>
+    <dd class="col-sm-9">{{ name }}</dd>
 
     <dt class="col-sm-3">Description:</dt>
-    <dd class="col-sm-9">{{ data?.description }}</dd>
+    <dd class="col-sm-9">{{ description }}</dd>
 
     <dt class="col-sm-3">Further details:</dt>
     <dd class="col-sm-9">
-      <a href="{{data?.further_details_iri}}">{{ data?.further_details_iri }}</a>
+      <a href="{{ details }}">{{ details }}</a>
     </dd>
   </dl>
 
@@ -41,10 +41,13 @@
           Show only mandatory fields
         </label>
         <button type="button" class="btn btn-success">
-          <a href="{{metadata_template}}">Download empty template</a>
+          <a href="{{metadata_template_with_examples}}">Download example template</a>
         </button>
         <button type="button" class="btn btn-success">
-          <a href="{{metadata_template_with_examples}}">Download example template</a>
+          <a href="{{metadata_template_without_examples}}">Download empty template</a>
+        </button>
+        <button type="button" class="btn btn-success" *ngIf="active_rule !== 'Standard' && active_rule !== 'ChIP-seq_standard_rules'">
+          <a href="{{record_specific_templates[active_rule]}}">Download {{active_rule}} template</a>
         </button>
       </div>
     </div>
@@ -52,93 +55,102 @@
 
   <div class="row" *ngIf="data">
     <div class="col-md-2 left">
-      <ul *ngFor="let category of data['rule_groups']" class="list-group list-group-flush">
-        <li class="list-group-item" [ngClass]="{'active': checkIsActive(category['name'])}"><a [routerLink]="['/ruleset', 'experiments']" fragment="{{convertToSnakeCase(category['name'])}}">{{category['name']}}</a></li>
+      <ul *ngFor="let category of rule_groups" class="list-group list-group-flush">
+        <li class="list-group-item"
+            [ngClass]="{'active': checkIsActive(category)}">
+          <a style="cursor: pointer" (click)="clickOnRule(category)">{{category}}</a>
+          </li>
       </ul>
     </div>
     <div class="col-md-10 table-responsive center">
-      <ng-container *ngFor="let category of data['rule_groups']">
-        <h3 id="{{convertToSnakeCase(category['name'])}}">{{category['name']}} ({{category['rules'].length}} rules)</h3>
-        <p *ngIf="category['name'] === 'standard'">Applied to all entities</p>
-        <ng-container *ngIf="category['name'] !== 'standard'">
-          <p>Applied under these conditions:</p>
-          <p *ngIf="category['name'] !== 'RNA-seq'">assay type is "{{category['condition']['attribute_value_match']['assay type']}}"</p>
-          <p *ngIf="category['name'] === 'ChIP-seq DNA-binding proteins'">
-            experiment target is lead node descendant of <a href="https://www.ebi.ac.uk/ols/ontologies/so/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSO_0001700">SO_0001700</a>
+      <h3>{{active_rule}} ({{length}} rules)</h3>
+      <p *ngIf="active_rule === 'Standard'">Applied to all entities</p>
+      <ng-container *ngIf="active_rule !== 'Standard'">
+        <p>Applied under these conditions:</p>
+        <p *ngIf="active_rule !== 'RNA-seq'">
+          assay type is "{{getCondition('self')}}"
+        </p>
+        <p *ngIf="active_rule === 'ChIP-seq DNA-binding proteins'">
+          experiment target is lead node descendant of <a
+          href="https://www.ebi.ac.uk/ols/ontologies/so/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSO_0001700">
+          SO_0001700
+        </a>
+        </p>
+        <p *ngIf="active_rule === 'ChIP-seq input DNA'">
+          experiment target is input DNA
+        </p>
+        <ng-container *ngIf="active_rule === 'RNA-seq'">
+          <p>
+            assay type is one of:
           </p>
-          <p *ngIf="category['name'] === 'ChIP-seq input DNA'">
-            experiment target is {{category['condition']['attribute_value_match']['experiment target'][0]}}
+          <p>
+            microRNA profiling by high throughput sequencing
           </p>
-          <ng-container *ngIf="category['name'] === 'RNA-seq'">
-            <p>assay type is one of:</p>
-            <p *ngFor="let assay_type of category['condition']['attribute_value_match']['assay type']">"{{assay_type}}"</p>
-          </ng-container>
+          <p>
+            RNA-seq of total RNA
+          </p>
+          <p>
+            RNA-seq of coding RNA
+          </p>
+          <p>
+            RNA-seq of non coding RNA
+          </p>
+          <p>
+            transcription profiling by high throughput sequencing
+          </p>
+          <p>
+            ISO-Seq
+          </p>
         </ng-container>
-        <table class="table table-striped table-hover table-borderless table-sm">
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Required?</th>
-            <th>Allow multiple?</th>
-            <th>Valid values</th>
-            <th>Valid units</th>
-            <th>Valid terms</th>
-            <th>Condition</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let rule of category['rules']">
-            <td>{{rule.name}}</td>
-            <td>{{rule.description}}</td>
-            <td>{{rule.type}}</td>
-            <td>{{rule.mandatory}}</td>
-            <td>{{allowMultiple(rule)}}</td>
-            <td>{{getValidItems(rule, 'valid_values')}}</td>
-            <td>{{getValidItems(rule, 'valid_units')}}</td>
+      </ng-container>
+      <table class="table table-striped table-hover table-borderless table-sm">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Required?</th>
+          <th>Allow multiple?</th>
+          <th>Valid values</th>
+          <th>Valid units</th>
+          <th>Valid terms</th>
+          <th>Condition</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let rule of rules">
+          <ng-container
+            *ngIf="rule !== 'describedBy' &&
+            rule !== 'schema_version' &&
+            rule !== 'experiments_core' &&
+            rule !== 'input_dna' &&
+            rule !== 'dna-binding_proteins'">
+            <td>{{data['properties'][rule]['name']}}</td>
+            <td>{{data['properties'][rule]['description']}}</td>
+            <td>{{getType(data['properties'][rule])}}</td>
+            <td>{{getMandatoryField(data['properties'][rule])}}</td>
+            <td>{{allowMultiple(data['properties'][rule])}}</td>
+            <td>{{getValidValues(data['properties'][rule])}}</td>
+            <td>{{getValidUnits(data['properties'][rule])}}</td>
             <td>
-              <ng-container *ngIf="rule['valid_terms']">
-                <div *ngFor="let link of rule['valid_terms']">
-                  <a href="{{generateEbiOntologyLink(link['ontology_name'], link['term_iri'])}}" >{{getOntologyTerm(link['term_iri'])}}</a>
-                </div>
+              <ng-container *ngFor="let item of getValidTerms(data['properties'][rule]); let i=index">
+                <ng-container *ngIf="getOntologyName(data['properties'][rule]).length === 1">
+                  <a href="{{generateEbiOntologyLink(getOntologyName(data['properties'][rule])[0], item)}}">
+                    {{item}}
+                  </a>
+                </ng-container>
+                <ng-container *ngIf="getOntologyName(data['properties'][rule]).length !== 1">
+                  <a href="{{generateEbiOntologyLink(getOntologyName(data['properties'][rule])[i], item)}}">
+                    {{item}}
+                  </a>
+                </ng-container>
               </ng-container>
             </td>
-            <td>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <div class="card" *ngIf="category['imports']">
-          <div class="card-header">
-            Imports available ({{category['imports'].length}} sources)
-          </div>
-          <div class="card-body">
-            In addition, attributes from the sources listed can be used:
-            <ol>
-              <li *ngFor="let import_rule of category['imports']">
-                <a href="{{generateEbiOntologyLink(import_rule['term']['ontology_name'], import_rule['term']['term_iri'])}}">{{getOntologyTerm(import_rule['term']['term_iri'])}}</a> (include descendants)
-              </li>
-            </ol>
-          </div>
-        </div>
-
-        <div class="card card-bottom" *ngIf="category['name'] === 'animal'">
-          <div class="card-header">
-            Consistency checks (2 checks)
-          </div>
-          <div class="card-body">
-            The following consistency checks will be made:
-            <dl class="row">
-              <dt class="col-sm-3">Breed/species</dt>
-              <dd class="col-sm-9">Ensure that the animal breed is consistent with the species reported.</dd>
-
-              <dt class="col-sm-3">Child/parents ID</dt>
-              <dd class="col-sm-9">Ensure that the parent is not listing the child as its parent.</dd>
-            </dl>
-          </div>
-        </div>
-      </ng-container>
+            <td>{{getCondition(rule)}}</td>
+          </ng-container>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

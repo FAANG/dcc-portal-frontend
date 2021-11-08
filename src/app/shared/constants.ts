@@ -4,18 +4,33 @@ export const female_values = ['female', 'female genotypic sex', 'intact female',
 export const external_ena_prefix = 'https://www.ebi.ac.uk/ena/browser/view/';
 export const external_ols_prefix = 'https://www.ebi.ac.uk/ols/terms?iri=';
 export const external_biosample_prefix = 'https://www.ebi.ac.uk/biosamples/samples/';
-export const ruleset_prefix = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
+export const external_epmc_prefix = 'http://europepmc.org/search?query=';
+export const external_pubmed_prefix = 'https://www.ncbi.nlm.nih.gov/pubmed/';
+export const external_doi_prefix = 'https://doi.org/';
+export const ruleset_prefix_old = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
+export const ruleset_prefix_new = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/json_schema/';
+
+// export const validation_service_url = 'https://data.faang.org/validation_api';
+export const validation_service_url_download = 'https://data.faang.org/api';
+// export const validation_ws_url = 'wss://data.faang.org/validation_ws/ws/submission/';
+
+export const validation_service_url = 'https://data.faang.org/api';
+export const validation_ws_url = 'wss://data.faang.org/api/ws/submission/';
 
 export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';
 export const internal_dataset = '../dataset/';
 
-export const sample_metadata_template = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/' +
-  'faang_sample_metadata_empty_template_20181212.xlsx?version=1&modificationDate=1544608044067&api=v2';
-export const sample_metadata_template_with_examples = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/36769258/' +
-  'faang_sample_metadata_examples_macleod_horses_20181212.xlsx?version=1&modificationDate=1544608044177&api=v2';
-export const experiment_metadata_template = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/38273982/' +
-  'faang_experiment_metadata_empty_template_20190723.xlsx?version=2&modificationDate=1563977871917&api=v2';
-export const experiment_metadata_template_with_examples = 'https://www.ebi.ac.uk/seqdb/confluence/download/attachments/38273982/' +
-  'faang_experiment_metadata_examples_roslin_20190723.xlsx?version=2&modificationDate=1563977889833&api=v2';
+export const record_type = ['core', 'type', 'custom'];
+export const issue_type = ['errors', 'warnings'];
 
+export const sample_metadata_template_with_examples = '../../assets/with_examples/faang_sample.xlsx';
+export const experiment_metadata_template_with_examples = '../../assets/with_examples/faang_experiment.xlsx';
+export const analysis_metadata_template_with_examples = '../../assets/with_examples/faang_analysis.xlsx';
+
+export const sample_metadata_template_without_examples = '../../assets/empty/faang_sample.xlsx';
+export const experiment_metadata_template_without_examples = '../../assets/empty/faang_experiment.xlsx';
+export const analysis_metadata_template_without_examples = '../../assets/empty/faang_analysis.xlsx';
+
+export const missing_values = ['not applicable', 'not collected', 'not provided', 'restricted access'];
+export const special_sheets = ['describedBy', 'schema_version', 'samples_core', 'experiments_core', 'input_dna', 'dna-binding_proteins'];

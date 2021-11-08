@@ -1,3 +1,7 @@
 a {
   font-family: Arial;
 }
+
+.alert {
+  margin-top: 10px;
+}

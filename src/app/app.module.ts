@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FileComponent } from './file/file.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import {ApiDataService} from './services/api-data.service';
 import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
@@ -18,6 +18,7 @@ import { OrganismComponent } from './organism/organism.component';
 import { SpecimenComponent } from './specimen/specimen.component';
 import { DatasetComponent } from './dataset/dataset.component';
 import { AnalysisComponent } from './analysis/analysis.component';
+import { ArticleComponent } from './article/article.component';
 import { SearchComponent } from './search/search.component';
 import { HelpComponent } from './help/help.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -32,6 +33,9 @@ import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-det
 import { SearchTemplateComponent } from './search/search-template/search-template.component';
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
 import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
+import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
+import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
+
 import { SearchService } from './services/search.service';
 import { CookieLawModule } from 'angular2-cookie-law';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -52,12 +56,61 @@ import {SlicePipe} from '@angular/common';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { IndeterminateDirective } from './shared/indeterminate.directive';
 import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import {FormsModule} from '@angular/forms';
+import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
+import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
+import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
+import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
+import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
+import {FileUploadModule} from 'ng2-file-upload';
+import { SubprojectComponent } from './subprojects/subproject.component';
+import {AuthModule} from 'ng-ebi-authorization';
+import {JwtModule} from '@auth0/angular-jwt';
+import { AapComponent } from './aap/aap.component';
+import 'hammerjs';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material';
+import { MatSortModule } from '@angular/material';
+import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component';
+import {LoginComponent} from './login/login.component';
+import {FilesUploadComponent} from './files-upload/files-upload.component';
+import {UserService} from './services/user.service';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatInputModule} from '@angular/material/input';
+import { MatRadioModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
+import { MatSelectModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
+import { ApiDocsComponent } from './api-docs/api-docs.component';
+import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
+import { BulkFilesUploaderComponent } from './bulk-files-uploader/bulk-files-uploader.component';
+
+export function getToken(): string {
+  return localStorage.getItem('jwt_token') || '';
+}
+
+export function updateToken(newToken: string): void {
+  return localStorage.setItem('jwt_token', newToken);
+}
+
+export function removeToken(): void {
+  return localStorage.removeItem('jwt_token');
+}
 
 @NgModule({
   declarations: [
@@ -73,6 +126,7 @@ import { FooterComponent } from './shared/footer/footer.component';
     SpecimenComponent,
     DatasetComponent,
     AnalysisComponent,
+    ArticleComponent,
     SearchComponent,
     HelpComponent,
     HeaderComponent,
@@ -84,6 +138,8 @@ import { FooterComponent } from './shared/footer/footer.component';
     SearchTemplateComponent,
     DatasetDetailComponent,
     AnalysisDetailComponent,
+    ArticleDetailComponent,
+    SubprojectDetailComponent,
     ApiComponent,
     ProtocolSampleComponent,
     ProtocolExperimentComponent,
@@ -99,7 +155,22 @@ import { FooterComponent } from './shared/footer/footer.component';
     RulesetExperimentComponent,
     RulesetAnalysisComponent,
     IndeterminateDirective,
-    FooterComponent
+    FooterComponent,
+    ValidationSamplesComponent,
+    ValidationExperimentsComponent,
+    ValidationAnalysesComponent,
+    UsdaBovineComponent,
+    SheepatlasComponent,
+    SubprojectComponent,
+    AapComponent,
+    TableClientSideComponent,
+    LoginComponent,
+    FilesUploadComponent,
+    OntologyImproverComponent,
+    OntologyDetailComponent,
+    ApiDocsComponent,
+    TrackhubsSubmissionComponent,
+    BulkFilesUploaderComponent
   ],
   imports: [
     BrowserModule,
@@ -112,11 +183,43 @@ import { FooterComponent } from './shared/footer/footer.component';
     BrowserAnimationsModule,
     CookieLawModule,
     ChartsModule,
+    FormsModule,
+    FileUploadModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatInputModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatMenuModule,
+    AuthModule.forRoot({
+      aapURL: 'https://api.aai.ebi.ac.uk',
+      tokenGetter: getToken,
+      tokenUpdater: updateToken,
+      tokenRemover: removeToken
+    }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getToken,
+        whitelistedDomains: ['api.aai.ebi.ac.uk'],
+        blacklistedRoutes: ['https://api.aai.ebi.ac.uk/auth']
+      }
+    }),
     BsDropdownModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
+    NgbModule.forRoot(),
   ],
-  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe],
+  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

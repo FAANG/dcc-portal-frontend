@@ -17,3 +17,11 @@ input {
 .inner-input {
   margin-right: 5px;
 }
+
+.lock {
+  margin-left: 5px;
+}
+
+a {
+  color: steelblue;
+}

@@ -17,7 +17,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   specimenListShort: Observable<SpecimenTable[]>;
   specimenListLong: Observable<SpecimenTable[]>;
   columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard',
-    'Paper published'];
+    'Paper published', 'Track Hub'];
   spanClass = 'expand_more';
   defaultClass = 'unfold_more';
   selectedColumn = 'BioSample ID';
@@ -46,7 +46,8 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       'organism.breed.text',
       'standardMet',
       'id_number',
-      'paperPublished'],
+      'paperPublished',
+      'trackhubUrl'],
   };
   error: string;
 

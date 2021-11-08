@@ -18,8 +18,8 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   protocolListSubscription: Subscription;
   aggrSubscription: Subscription;
   exportSubscription: Subscription;
-  columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol', 'Protocol type'];
-  exportNames: string[] = ['Organisation', 'Protocol Year', 'Protocol name', 'Protocol type'];
+  columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol'];
+  exportNames: string[] = ['Organisation', 'Protocol Year', 'Protocol name'];
   filter_field: {};
   downloadData = false;
 
@@ -29,14 +29,6 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
 
   // Local variable for pagination
   p = 1;
-  private query = {
-    '_source': [
-      'key',
-      'protocolName',
-      'universityName',
-      'protocolDate',
-      'protocolType'],
-  };
   error: string;
 
   constructor(private dataService: ApiDataService,
@@ -73,7 +65,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     this.optionsTabular = this.exportService.optionsTabular;
     this.optionsCsv['headers'] = this.exportNames;
     this.optionsTabular['headers'] = this.exportNames;
-    this.protocolList = this.dataService.getAllSamplesProtocols(this.query);
+    this.protocolList = this.dataService.getAllSamplesProtocols();
     this.spinner.hide();
     this.protocolListSubscription = this.protocolList.subscribe( data => {
       this.aggregationService.getAggregations(data, 'protocol');
@@ -119,6 +111,10 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  onUploadProtocolClick() {
+    this.router.navigate(['upload_protocol']);
   }
 
   ngOnDestroy() {

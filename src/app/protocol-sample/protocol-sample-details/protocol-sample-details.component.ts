@@ -35,6 +35,7 @@ export class ProtocolSampleDetailsComponent implements OnInit {
           this.router.navigate(['404']);
         } else {
           this.file = data['hits']['hits'][0]['_source'];
+          console.log(this.file);
           if (this.file) {
             this.spinner.hide();
             this.link = getProtocolLink(this.file.url);
@@ -45,6 +46,10 @@ export class ProtocolSampleDetailsComponent implements OnInit {
         this.spinner.hide();
         this.error = error;
       });
+  }
+
+  checkIsArray(variable: any) {
+    return Array.isArray(variable);
   }
 
 }

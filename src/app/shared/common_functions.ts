@@ -10,6 +10,10 @@ export function replaceUnderscoreWithSpace(data) {
   }
 }
 
+export function replaceUnderscoreWithSpaceAndCapitalize(data) {
+  return data.split('_').map(item => item.charAt(0).toUpperCase() + item.substring(1)).join(' ');
+}
+
 export function convertArrayToStr(data: any[], subelement: string): string {
   if (data === undefined || data.length === 0) {
     return '';
@@ -27,7 +31,14 @@ export function convertArrayToStr(data: any[], subelement: string): string {
   return value.substring(0, value.length - 2);
 }
 
-export function allowMultiple(rule: any) {
+export function allowMultiple(data: any) {
+  if ('items' in data) {
+    return 'Yes';
+  }
+  return 'No';
+}
+
+export function allowMultipleOld(rule: any) {
   if (rule && rule['allow_multiple'] === 1) {
     return 'Yes';
   } else {
@@ -36,8 +47,8 @@ export function allowMultiple(rule: any) {
 }
 
 // extract data from given object into a key-value mapping
-export function  expandObject(data: any, result: any) {
-  const type_value = typeof(data);
+export function expandObject(data: any, result: any) {
+  const type_value = typeof (data);
   // if the given data is not an object, no data can be extracted, just return the existing result
   if (type_value !== 'object') {
     return result;
@@ -69,6 +80,13 @@ export function  expandObject(data: any, result: any) {
 
 export function getValidItems(rule: any, section_name: string) {
   if (rule[section_name]) {
+    return rule[section_name]['enum'];
+  }
+  return '';
+}
+
+export function getValidItemsOld(rule: any, section_name: string) {
+  if (rule[section_name]) {
     return rule[section_name].map(function (el) {
       return '"' + el + '"';
     }).join(', ');
@@ -87,15 +105,41 @@ export function getOntologyTermFromIRI(iri: string) {
 export const ols_prefix = 'https://www.ebi.ac.uk/ols/ontologies/';
 
 export function generateEbiOntologyLink(ontology_name, term_iri) {
+  let ontology_url;
+  if (ontology_name === 'EFO') {
+    ontology_url = 'http://www.ebi.ac.uk/efo/';
+  } else {
+    ontology_url = 'http://purl.obolibrary.org/obo/';
+  }
+  return ols_prefix + ontology_name + '/terms?iri=' + ontology_url + term_iri.replace(':', '_');
+}
+
+export function generateEbiOntologyLinkOld(ontology_name, term_iri) {
   return ols_prefix + ontology_name + '/terms?iri=' + term_iri;
 }
 
 export function getMandatoryRulesOnly(data: any) {
+  const data_to_return = {
+    'properties': {}
+  };
+  for (const key of Object.keys(data['properties'])) {
+    if ('properties' in data['properties'][key] && data['properties'][key]['properties']['mandatory']['const'] === 'mandatory') {
+      data_to_return['properties'][key] = data['properties'][key];
+    } else if ('items' in data['properties'][key] &&
+      data['properties'][key]['items']['properties']['mandatory']['const'] === 'mandatory') {
+      data_to_return['properties'][key] = data['properties'][key];
+    }
+  }
+  return data_to_return;
+}
+
+export function getMandatoryRulesOnlyOld(data: any) {
   const data_to_return = {};
   data_to_return['description'] = data['description'];
   data_to_return['name'] = data['name'];
   data_to_return['further_details_iri'] = data['further_details_iri'];
   data_to_return['rule_groups'] = [];
+
   for (const rule of data['rule_groups']) {
     const tmp = {};
     tmp['name'] = rule['name'];
@@ -120,7 +164,7 @@ export function convertToSnakeCase(id: string) {
 export function getProtocolLink(url) {
   let link: string;
   if (url.indexOf('ftp.faang.ebi.ac.uk') !== -1) {
-    link = 'https://hx.fire.sdo.ebi.ac.uk/fire/public/faang' + url.split('ftp.faang.ebi.ac.uk')[1];
+    link = 'https://data.faang.org/api/data/fire_api/' + url.split('ftp.faang.ebi.ac.uk/ftp/protocols/')[1];
   } else {
     if (url.split('//')[0] === 'ftp:') {
       link = 'http://' + url.split('//')[1];
@@ -130,3 +174,40 @@ export function getProtocolLink(url) {
   }
   return link;
 }
+
+export function makeid(length: number) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+export function getIssues(issues_list, issue_type) {
+  issues_list = issues_list.length;
+  if (issues_list === 0) {
+    return 'pass';
+  } else {
+    if (issues_list === 1) {
+      return issues_list + ' ' + issue_type;
+    } else {
+      return issues_list + ' ' + issue_type + 's';
+    }
+  }
+}
+
+export function getCellClass(issues_list, issue_type) {
+  issues_list = issues_list.length;
+  if (issues_list === 0) {
+    return '';
+  } else {
+    if (issue_type === 'warning') {
+      return 'table-warning';
+    } else {
+      return 'table-danger';
+    }
+  }
+}
+

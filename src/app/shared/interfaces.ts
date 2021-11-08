@@ -16,6 +16,19 @@ export interface FileTable {
   paperPublished: string;
 }
 
+export interface FileForProjectTable {
+  name: string;
+  fileId: string;
+  experiment: string;
+  assayType: string;
+  experimentTarget: string;
+  run: string;
+  readableSize: string;
+  checksum: string;
+  checksumMethod: string;
+  private: boolean;
+}
+
 export interface OrganismTable {
   bioSampleId: string;
   sex: string;
@@ -24,6 +37,14 @@ export interface OrganismTable {
   standard: string;
   idNumber: number;
   paperPublished: string;
+}
+
+export interface OrganismForProjectTable {
+  bioSampleId: string;
+  sex: string;
+  organism: string;
+  breed: string;
+  private: boolean;
 }
 
 export interface SpecimenTable {
@@ -36,6 +57,17 @@ export interface SpecimenTable {
   standard: string;
   idNumber: number;
   paperPublished: string;
+  trackhubUrl: string;
+}
+
+export interface SpecimenForProjectTable {
+  bioSampleId: string;
+  material: string;
+  organismpart_celltype: string;
+  sex: string;
+  organism: string;
+  breed: string;
+  private: boolean;
 }
 
 export interface DatasetTable {
@@ -49,6 +81,7 @@ export interface DatasetTable {
   numberOfFiles: string;
   standard: string;
   paperPublished: string;
+  private: boolean;
 }
 
 export interface AnalysisTable {
@@ -77,8 +110,9 @@ export interface ProtocolSample {
 }
 
 export interface ArticleTable {
-  pubmedId: string;
-  publicationYear: string;
+  id: string;
+  title: string;
+  year: string;
   journal: string;
-  citations: string;
+  datasetSource: string;
 }

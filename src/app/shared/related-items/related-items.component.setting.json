@@ -1,4 +1,33 @@
 {
+  "publication": {
+    "dataset": {
+      "display": [
+        "Accession",
+        "Species",
+        "Standard"
+      ],
+      "all": [
+        "Accession",
+        "Species",
+        "Standard"
+      ],
+      "fields": {
+        "Accession": {
+          "value": "accession",
+          "link": {
+            "prefix": "../dataset/",
+            "url": "accession"
+          }
+        },
+        "Standard": {
+          "value": "standardMet"
+        },
+        "Species": {
+          "value": "species"
+        }
+      }
+    }
+  },
   "analysis": {
     "file": {
       "display": [
@@ -52,8 +81,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "articleId"
           }
         },
         "Year": {
@@ -112,8 +141,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "articleId"
           }
         },
         "Year": {
@@ -244,8 +273,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "articleId"
           }
         },
         "Year": {
@@ -300,8 +329,8 @@
         "Title": {
           "value": "title",
           "link": {
-            "prefix": "https://doi.org/",
-            "url": "doi"
+            "prefix": "../article/",
+            "url": "articleId"
           }
         },
         "Year": {
@@ -430,6 +459,209 @@
             "prefix": "http://www.ebi.ac.uk/ena/data/view/",
             "url": "_source.datasetAccession"
           }
+        }
+      }
+    }
+  },
+  "project": {
+    "publication": {
+      "display": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "../article/",
+            "url": "id"
+          }
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
+        }
+      }
+    },
+    "organism": {
+      "display": [
+        "BioSamples ID",
+        "Species",
+        "Sex",
+        "Breed"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Species",
+        "Sex",
+        "Breed"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "bioSampleId",
+          "link": {
+            "prefix": "../organism/",
+            "url": "bioSampleId"
+          }
+        },
+        "Sex": {
+          "value": "sex"
+        },
+        "Species": {
+          "value": "organism"
+        },
+        "Breed": {
+          "value": "breed"
+        }
+      }
+    },
+    "specimen": {
+      "display": [
+        "BioSamples ID",
+        "Material",
+        "Organism part/Cell type",
+        "Sex",
+        "Species",
+        "Breed"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Material",
+        "Organism part/Cell type",
+        "Sex",
+        "Species",
+        "Breed"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "bioSampleId",
+          "link": {
+            "prefix": "../specimen/",
+            "url": "bioSampleId"
+          }
+        },
+        "Material": {
+          "value": "material"
+        },
+        "Organism part/Cell type": {
+          "value": "organismpart_celltype"
+        },
+        "Sex": {
+          "value": "sex"
+        },
+        "Species": {
+          "value": "organism"
+        },
+        "Breed": {
+          "value": "breed"
+        }
+      }
+    },
+    "file": {
+      "display": [
+        "File name",
+        "Assay type",
+        "Experiment target",
+        "File size"
+      ],
+      "all": [
+        "File name",
+        "Experiment",
+        "Run",
+        "Assay type",
+        "Experiment target",
+        "File size",
+        "Checksum",
+        "Checksum method"
+      ],
+      "fields": {
+        "File name": {
+          "value": "name",
+          "link": {
+            "prefix": "../file/",
+            "url": "fileId"
+          }
+        },
+        "Experiment": {
+          "value": "experiment"
+        },
+        "Run": {
+          "value":"run"
+        },
+        "Assay type": {
+          "value": "assayType"
+        },
+        "Experiment target": {
+          "value": "experimentTarget"
+        },
+        "File size": {
+          "value": "readableSize"
+        },
+        "Checksum": {
+          "value": "checksum"
+        },
+        "Checksum method": {
+          "value": "checksumMethod"
+        }
+      }
+    },
+    "dataset": {
+      "display": [
+        "Study name",
+        "Species",
+        "Archive",
+        "Assay type"
+      ],
+      "all": [
+        "Study name",
+        "Title",
+        "Species",
+        "Archive",
+        "Assay type",
+        "Number of experiments",
+        "Number of specimens",
+        "Number of files",
+        "Standard"
+      ],
+      "fields": {
+        "Study name": {
+          "value": "datasetAccession",
+          "link": {
+            "prefix": "../dataset/",
+            "url": "datasetAccession"
+          }
+        },
+        "Title": {
+          "value": "title"
+        },
+        "Species": {
+          "value": "species"
+        },
+        "Archive": {
+          "value": "archive"
+        },
+        "Assay type": {
+          "value": "assayType"
+        },
+        "Number of experiments": {
+          "value": "numberOfExperiments"
+        },
+        "Number of specimens": {
+          "value": "numberOfSpecimens"
+        },
+        "Number of files": {
+          "value": "numberOfFiles"
+        },
+        "Standard": {
+          "value": "standard"
         }
       }
     }

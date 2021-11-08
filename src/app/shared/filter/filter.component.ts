@@ -67,10 +67,19 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['target'];
         } else if (this.title === 'Paper published') {
           this.aggregation = data['paper_published'];
-        } else if (this.title === 'Journal title') {
-          this.aggregation = data['journal_title'];
+        } else if (this.title === 'Journal') {
+          this.aggregation = data['journal'];
         } else if (this.title === 'Year') {
-          this.aggregation = data['publication_year'];
+          // this.aggregation = data['publication_year'];
+          this.aggregation = data['year'];
+        } else if (this.title === 'Dataset source') {
+          this.aggregation = data['datasetSource'];
+        } else if (this.title === 'Ontology Type') {
+          this.aggregation = data['ontology_type'];
+        } else if (this.title === 'Ontology Status') {
+          this.aggregation = data['ontology_status'];
+        } else if (this.title === 'Project') {
+          this.aggregation = data['project'];
         }
       }
     );
@@ -161,12 +170,28 @@ export class FilterComponent implements OnInit, OnDestroy {
         data_key = 'paper_published';
         break;
       }
-      case 'Journal title': {
-        data_key = 'journal_title';
+      case 'Journal': {
+        data_key = 'journal';
         break;
       }
       case 'Year': {
-        data_key = 'publication_year';
+        data_key = 'year';
+        break;
+      }
+      case 'Dataset source': {
+        data_key = 'datasetSource';
+        break;
+      }
+      case 'Ontology Type': {
+        data_key = 'ontology_type';
+        break;
+      }
+      case 'Ontology Status': {
+        data_key = 'ontology_status';
+        break;
+      }
+      case 'Project': {
+        data_key = 'project';
         break;
       }
     }
