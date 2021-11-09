@@ -20,6 +20,7 @@ export class RelatedItemsComponent implements OnInit {
   checked = false;
   selected: Map<string, boolean> = new Map();
   mode: string;
+  pipelineArr: any[] = [];
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -43,6 +44,7 @@ export class RelatedItemsComponent implements OnInit {
     }
 
     const relationship_type = `${this.source_type}-${this.target_type}`;
+
     if (relationship_type === 'project-organism') {
       this.dataService.getAllOrganismsFromProject(this.record_id, this.mode).subscribe(
         (data: any) => {
@@ -61,6 +63,13 @@ export class RelatedItemsComponent implements OnInit {
           this.records = data;
         }
       );
+    } else if (relationship_type === 'project-pipeline') {
+      this.dataService.getAllPipelinesForProject(this.record_id).subscribe(
+        (data: any) => {
+
+          this.records = data;
+        }
+      );
     } else if (relationship_type === 'project-file') {
       this.dataService.getAllFilesForProject(this.record_id, this.mode).subscribe(
         (data: any) => {
@@ -70,7 +79,6 @@ export class RelatedItemsComponent implements OnInit {
     } else if (relationship_type === 'project-dataset') {
       this.dataService.getAllDatasetsForProject(this.record_id, this.mode).subscribe(
         (data: any) => {
-          console.log(data);
           this.records = data;
         }
       );
@@ -217,6 +225,7 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   getValue(record: any, attr: string) {
+    console.log("attr: ", attr)
     const elmts = attr.split('.');
     let curr: any = record;
     for (const elmt of elmts) {
