@@ -460,22 +460,12 @@ export class ApiDataService {
     const url = this.hostSetting.host + 'article/_search/?size=100000&q=secondaryProject:' + project;
     return this.http.get(url).pipe(
       map((data: any) => {
-        const koosumtest = data.hits.hits.map(entry => ({
-            id: entry['_id'],
-            title: entry['_source']['title'],
-            year: entry['_source']['year'],
-            journal: entry['_source']['journal'],
-            datasetSource: entry['_source']['datasetSource']
-          } as ArticleTable)
-        );
-
-        console.log(koosumtest);
-        return data.hits.hits.map(entry => ({
-            id: entry['_id'],
-            title: entry['_source']['title'],
-            year: entry['_source']['year'],
-            journal: entry['_source']['journal'],
-            datasetSource: entry['_source']['datasetSource']
+        return data.hits.hits.map( entry => ({
+          id: entry['_id'],
+          title: entry['_source']['title'],
+          year: entry['_source']['year'],
+          journal: entry['_source']['journal'],
+          datasetSource: entry['_source']['datasetSource']
           } as ArticleTable)
         );
       }),
@@ -485,24 +475,18 @@ export class ApiDataService {
   }
 
   getAllPipelinesForProject(project: string) {
-    // const url = this.hostSetting.host + 'article/_search/?size=100000&q=secondaryProject:' + project;
-    const url = 'https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/bovreg/pipelines.tsv';
-    console.log('URL:', url);
-    const pipelineArr: any[] = [];
+    const url = this.hostSetting.pipelineHost + project.toLowerCase() + '/pipelines.tsv';
+    let pipelineArr: any[] = [];
     return this.http.get(url, {responseType: 'text'})
       .pipe(
         map((data: any) => {
-          const list = data.split('\n');
-
-          // loop through array
-          list.forEach((element) => {
-            const eleList = element.split('\t');
-
-            const [name, assayType, link, documentation, platform] = eleList;
-            const yourObject = { name, assayType, link, documentation, platform };
-            pipelineArr.push(yourObject);
-          });
-          console.log('pipelineArr: ', pipelineArr);
+          const lineArr = data.split('\n');
+          pipelineArr = lineArr
+            .map((line) => {
+              const eleArr = line.split('\t');
+              const [name, assayType, link, documentation, platform] = eleArr;
+              return {name, assayType, link, documentation, platform} as PipelineTable;
+            }).filter(ele => ele.name !== 'Pipeline name' && ele.assayType !== 'Assay type');
           return pipelineArr;
         }),
         retry(3),
@@ -516,7 +500,7 @@ export class ApiDataService {
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map(entry => ({
+        return data.hits.hits.map( entry => ({
           id: entry['_id'],
           title: entry['_source']['title'],
           year: entry['_source']['year'],

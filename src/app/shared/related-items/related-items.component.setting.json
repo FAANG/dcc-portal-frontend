@@ -494,14 +494,14 @@
     "pipeline": {
       "display": [
         "Name",
-        "AssayType",
+        "Assay type",
         "Link",
         "Documentation",
         "Platform"
       ],
       "all": [
         "Name",
-        "AssayType",
+        "Assay type",
         "Link",
         "Documentation",
         "Platform"
@@ -510,7 +510,7 @@
         "Name": {
           "value": "name"
         },
-        "AssayType": {
+        "Assay type": {
           "value": "assayType"
         },
         "Link": {

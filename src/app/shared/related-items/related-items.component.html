@@ -1,13 +1,10 @@
 <div *ngIf="get_displayed_fields()?.length > 0 && records && records.length > 0">
   <hr>
-  <div ngbDropdown placement="bottom-right" style="background-color: yellow">
+  <div ngbDropdown placement="bottom-right">
     <h3>
       Related
       <ng-container *ngIf="target_type == 'analysis'">Analyses</ng-container>
       <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s</ng-container>
-
-
-
       <button type="button" class="btn btn-success btn-sm" (click)="downloadAllFiles()" [disabled]="disableButton()"
               *ngIf="showButton()">Download all files ({{getUrlsLength()}})
       </button>
@@ -32,26 +29,19 @@
         <ng-container *ngFor="let field of get_all_fields()">
           <th [ngClass]="{'hide-column': !isDisplayed(field)}">{{field}}</th>
         </ng-container>
-
-
         <th *ngIf="download_key.length>0">
           <label for="mainBox">Download </label>
           <input id="mainBox" type="checkbox" [checked]="mainCheckboxChecked() == 2"
                  [indeterminate]="mainCheckboxChecked() == 1" (click)="mainCheckboxClicked()">
         </th>
-
-
       </tr>
       </thead>
       <tbody>
       <ng-container *ngFor="let record of records |  paginate: { itemsPerPage: 10, currentPage: p, id: target_type }">
-
-
-
-       <tr>
+        <tr>
           <ng-container *ngFor="let attr of get_displayed_fields()">
             <td>
-               <span *ngIf="get_field_values_for_links(attr); else plainBlock">
+              <span *ngIf="get_field_values_for_links(attr); else plainBlock">
                 <ng-container *ngIf="!isRecordPrivate(record)">
                   <app-robust-link [prefix]="get_field_values_for_links(attr)['prefix']"
                                    [link]="getValue(record, get_field_values_for_links(attr)['url'])"
@@ -59,7 +49,6 @@
 
                 </app-robust-link>
                 </ng-container>
-
                 <ng-container *ngIf="source_type === 'project' && target_type === 'organism' && isRecordPrivate(record)">
                   <a [routerLink]="['/organism', getValue(record, get_attr(attr))]">
                     {{getValue(record, get_attr(attr))}}

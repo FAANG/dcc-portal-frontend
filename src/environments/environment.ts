@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   // host: 'http://wp-np3-e3:9200/'
   // host: 'http://ves-hx-e4:9200/faang_build_2/'
-  host: 'https://data.faang.org/api/'
+  host: 'https://data.faang.org/api/',
+  pipelineHost: 'https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/'
 };
 
 /*
