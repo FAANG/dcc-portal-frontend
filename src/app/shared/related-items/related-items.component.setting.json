@@ -493,33 +493,33 @@
     },
     "pipeline": {
       "display": [
-        "Name",
+        "Pipeline name",
         "Assay type",
-        "Link",
-        "Documentation",
+        "Pipeline link",
+        "Pipeline documentation",
         "Platform"
       ],
       "all": [
-        "Name",
+        "Pipeline name",
         "Assay type",
-        "Link",
-        "Documentation",
+        "Pipeline link",
+        "Pipeline documentation",
         "Platform"
       ],
       "fields": {
-        "Name": {
+        "Pipeline name": {
           "value": "name"
         },
         "Assay type": {
           "value": "assayType"
         },
-        "Link": {
+        "Pipeline link": {
           "value": "link",
           "link": {
             "url": "link"
           }
         },
-        "Documentation": {
+        "Pipeline documentation": {
           "value": "documentation",
           "link": {
             "url": "documentation"

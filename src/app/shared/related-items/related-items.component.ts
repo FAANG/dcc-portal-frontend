@@ -233,6 +233,10 @@ export class RelatedItemsComponent implements OnInit {
     return curr;
   }
 
+  displayPlatformLogo(record: any, attr: string) {
+    return (this.target_type === 'pipeline' && attr === 'Platform' && this.getValue(record, 'platform') === 'nf-core');
+  }
+
   // the behaviour of the checkbox in the table under Download column
   onCheckboxClick(url: string) {
     url = 'ftp://' + url;
