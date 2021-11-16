@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   envName: 'test',
-  host: 'http://test.faang.org/api/'
+  host: 'http://data.faang.org/api/data/'
 };

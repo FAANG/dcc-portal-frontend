@@ -45,6 +45,8 @@ import { OntologyImproverComponent } from './ontology-improver/ontology-improver
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { QueryLanguageComponent } from './query-language/query-language.component';
+import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
+
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -90,6 +92,7 @@ const routes: Routes = [
   {path: 'ontology/:id', component: OntologyDetailComponent},
   {path: 'api', component: ApiDocsComponent},
   {path: 'query', component: QueryLanguageComponent},
+  {path: 'trackhubs', component: TrackhubsSubmissionComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];

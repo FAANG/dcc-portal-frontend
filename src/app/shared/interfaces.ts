@@ -57,6 +57,7 @@ export interface SpecimenTable {
   standard: string;
   idNumber: number;
   paperPublished: string;
+  trackhubUrl: string;
 }
 
 export interface SpecimenForProjectTable {

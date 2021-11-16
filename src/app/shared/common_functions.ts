@@ -164,7 +164,7 @@ export function convertToSnakeCase(id: string) {
 export function getProtocolLink(url) {
   let link: string;
   if (url.indexOf('ftp.faang.ebi.ac.uk') !== -1) {
-    link = 'https://data.faang.org/api/fire_api/' + url.split('ftp.faang.ebi.ac.uk/ftp/protocols/')[1];
+    link = 'https://data.faang.org/api/data/fire_api/' + url.split('ftp.faang.ebi.ac.uk/ftp/protocols/')[1];
   } else {
     if (url.split('//')[0] === 'ftp:') {
       link = 'http://' + url.split('//')[1];

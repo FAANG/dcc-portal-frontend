@@ -46,6 +46,7 @@
     "ngx-pagination": "^3.3.1",
     "ngx-smart-modal": "^7.3.0",
     "ngx-spinner": "^6.1.2",
+    "path": "^0.12.7",
     "rxjs": "^6.5.4",
     "swagger-ui-dist": "^3.51.1",
     "tslib": "^1.10.0",
