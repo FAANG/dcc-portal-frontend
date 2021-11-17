@@ -92,7 +92,7 @@ export class QueryLanguageComponent implements AfterViewInit {
           }
           console.log(this.tableData);
           this.dataSource.data = this.tableData;
-          this.totalHits = res.hits.total; // set length of paginator
+          this.totalHits = res.hits.total.value; // set length of paginator
           this.loading = false;
         });
   }
