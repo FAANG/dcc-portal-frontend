@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HostSetting } from './host-setting';
 import {HttpClient, HttpErrorResponse, HttpParams, HttpHeaders} from '@angular/common/http';
-import {throwError} from 'rxjs';
-import { catchError, retry, map } from 'rxjs/operators';
+import {throwError, EMPTY} from 'rxjs';
+import {catchError, retry, map} from 'rxjs/operators';
 import {
   ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
   ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable, PipelineTable
@@ -483,14 +483,26 @@ export class ApiDataService {
           const lineArr = data.split('\n');
           pipelineArr = lineArr
             .map((line) => {
-              const eleArr = line.split('\t');
-              const [name, assayType, link, documentation, platform] = eleArr;
+              const [name, assayType, link, documentation, platform] = line.split('\t');
               return {name, assayType, link, documentation, platform} as PipelineTable;
             }).filter(ele => ele.name !== 'Pipeline name' && ele.assayType !== 'Assay type');
           return pipelineArr;
         }),
         retry(3),
-        catchError(this.handleError),
+        catchError(error => {
+          if (!(error.error instanceof ErrorEvent)) {
+            if (error.status === 404) {
+              return EMPTY.pipe(
+                map(() => {
+                  pipelineArr = [];
+                  return pipelineArr;
+                }),
+              );
+            }
+            return throwError(
+              'Something bad happened; please try again later.');
+          }
+        }),
       );
   }
 
