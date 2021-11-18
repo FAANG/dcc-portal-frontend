@@ -494,8 +494,7 @@ export class ApiDataService {
             if (error.status === 404) {
               return EMPTY.pipe(
                 map(() => {
-                  pipelineArr = [];
-                  return pipelineArr;
+                  return [];
                 }),
               );
             }
