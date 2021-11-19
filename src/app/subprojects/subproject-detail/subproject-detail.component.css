@@ -1,23 +1,28 @@
 .funding-logo {
-  margin-top: 50px;
-  max-width:256px;
-  max-height:256px;
-  width:auto;
-  height:auto;
+  float: right!important;
+  max-width: 70%!important;
 }
 
 .small-project-logo {
-  max-width:256px;
-  max-height:256px;
+  max-width:150px;
+  max-height:150px;
+  float: left;
   width:auto;
   height:auto;
+  margin-bottom: 10px;
 }
 
 .large-project-logo {
-  max-width:512px;
-  max-height:512px;
+  max-width:250px;
+  max-height:250px;
+  float: left;
   width:auto;
   height:auto;
+  margin-bottom: 10px;
+}
+
+h3{
+  clear: both;
 }
 
 .first-row {

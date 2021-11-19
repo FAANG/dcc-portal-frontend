@@ -21,11 +21,12 @@
           <a href="{{setting.url}}">{{setting.url}}</a>
         </h3>
       </div>
-      <div class="col-md-6 text-center" *ngIf="project !== 'Bovine'">
-        <img src="https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovreg/funding-logo-1.png" alt="Funding Logo" class="funding-logo">
-      </div>
-      <div class="col-md-6 text-center" *ngIf="project === 'Bovine'">
-        <img src="https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/funding-logo-1.png" alt="Funding Logo" class="funding-logo">
+      <div class="col-md-6 text-center">
+        <ng-container>
+          <img src="{{ project === 'Bovine' ? right_logo_url['bovine'] : right_logo_url['other'] }}"
+               alt="Funding Logo"
+               [ngClass]="project!=='AQUA-FAANG' ? 'large-project-logo funding-logo' : 'small-project-logo funding-logo'">
+        </ng-container>
       </div>
     </div>
 
