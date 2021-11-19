@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HostSetting } from './host-setting';
 import {HttpClient, HttpErrorResponse, HttpParams, HttpHeaders} from '@angular/common/http';
-import {throwError} from 'rxjs';
-import { catchError, retry, map } from 'rxjs/operators';
+import {throwError, EMPTY} from 'rxjs';
+import {catchError, retry, map} from 'rxjs/operators';
 import {
   ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
-  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable
+  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable, PipelineTable
 } from '../shared/interfaces';
 import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
 import {UserService} from './user.service';
@@ -472,6 +472,37 @@ export class ApiDataService {
       retry(3),
       catchError(this.handleError),
     );
+  }
+
+  getAllPipelinesForProject(project: string) {
+    const url = this.hostSetting.pipelineHost + project.toLowerCase() + '/pipelines.tsv';
+    let pipelineArr: any[] = [];
+    return this.http.get(url, {responseType: 'text'})
+      .pipe(
+        map((data: any) => {
+          const lineArr = data.split('\n');
+          pipelineArr = lineArr
+            .map((line) => {
+              const [name, assayType, link, documentation, platform] = line.split('\t');
+              return {name, assayType, link, documentation, platform} as PipelineTable;
+            }).filter(ele => ele.name !== 'Pipeline name' && ele.assayType !== 'Assay type');
+          return pipelineArr;
+        }),
+        retry(3),
+        catchError(error => {
+          if (!(error.error instanceof ErrorEvent)) {
+            if (error.status === 404) {
+              return EMPTY.pipe(
+                map(() => {
+                  return [];
+                }),
+              );
+            }
+            return throwError(
+              'Something bad happened; please try again later.');
+          }
+        }),
+      );
   }
 
   getAllArticles(query: any, size: number) {

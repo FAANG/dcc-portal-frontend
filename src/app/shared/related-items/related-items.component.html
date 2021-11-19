@@ -77,7 +77,12 @@
                 </ng-container>
               </span>
               <ng-template #plainBlock>
-                {{getValue(record, get_attr(attr))}}
+                <ng-container *ngIf="!displayPlatformLogo(record, attr); else platformLogo">
+                  {{getValue(record, get_attr(attr))}}
+                </ng-container>
+                <ng-template #platformLogo>
+                  <img src="assets/logos/nf-core-logo.png" class="img-fluid pipeline-platform-logo" alt="nf-core">
+                </ng-template>
               </ng-template>
             </td>
           </ng-container>

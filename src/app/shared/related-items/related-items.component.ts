@@ -61,6 +61,12 @@ export class RelatedItemsComponent implements OnInit {
           this.records = data;
         }
       );
+    } else if (relationship_type === 'project-pipeline') {
+      this.dataService.getAllPipelinesForProject(this.record_id).subscribe(
+        (data: any) => {
+          this.records = data;
+        }
+      );
     } else if (relationship_type === 'project-file') {
       this.dataService.getAllFilesForProject(this.record_id, this.mode).subscribe(
         (data: any) => {
@@ -70,7 +76,6 @@ export class RelatedItemsComponent implements OnInit {
     } else if (relationship_type === 'project-dataset') {
       this.dataService.getAllDatasetsForProject(this.record_id, this.mode).subscribe(
         (data: any) => {
-          console.log(data);
           this.records = data;
         }
       );
@@ -226,6 +231,10 @@ export class RelatedItemsComponent implements OnInit {
       curr = curr[elmt];
     }
     return curr;
+  }
+
+  displayPlatformLogo(record: any, attr: string) {
+    return (this.target_type === 'pipeline' && attr === 'Platform' && this.getValue(record, 'platform') === 'nf-core');
   }
 
   // the behaviour of the checkbox in the table under Download column

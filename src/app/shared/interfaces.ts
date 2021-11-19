@@ -116,3 +116,11 @@ export interface ArticleTable {
   journal: string;
   datasetSource: string;
 }
+
+export interface PipelineTable {
+  name: string;
+  assayType: string;
+  link: string;
+  documentation: string;
+  platform: string;
+}

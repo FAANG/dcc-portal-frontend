@@ -25,3 +25,10 @@ input {
 a {
   color: steelblue;
 }
+
+.pipeline-platform-logo {
+  max-width:90px;
+  max-height:50px;
+  width:auto;
+  height:auto;
+}
