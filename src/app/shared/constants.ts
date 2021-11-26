@@ -11,11 +11,11 @@ export const ruleset_prefix_old = 'https://raw.githubusercontent.com/FAANG/dcc-m
 export const ruleset_prefix_new = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/json_schema/';
 
 // export const validation_service_url = 'https://data.faang.org/validation_api';
-export const validation_service_url_download = 'https://data.faang.org/api';
+export const validation_service_url_download = 'https://apifaang.org.uk';
 // export const validation_ws_url = 'wss://data.faang.org/validation_ws/ws/submission/';
 
-export const validation_service_url = 'https://data.faang.org/api';
-export const validation_ws_url = 'wss://data.faang.org/api/ws/submission/';
+export const validation_service_url = 'https://apifaang.org.uk';
+export const validation_ws_url = 'wss://apifaang.org.uk/ws/submission/';
 
 export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';
