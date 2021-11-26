@@ -7,7 +7,7 @@ import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
   providedIn: 'root'
 })
 export class QueryService {
-  query_language_url = 'https://data.faang.org/query';
+  query_language_url = 'http://127.0.0.1:8000';
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +23,7 @@ export class QueryService {
   
   getRecords(indices, fields, from, sort) {
     if (sort.length) {
-      sort = "[" + sort + "]";
+      sort = '["' + sort + '"]';
     }
     const params = new HttpParams({ 
       fromObject: { 'indices': indices } 

@@ -86,56 +86,15 @@ export class QueryLanguageComponent implements AfterViewInit {
           return observableOf([]);
         })
       ).subscribe((res: any) => {
-          this.tableData = res.hits.hits.map( entry => entry['_source']);
-          for(let i=0; i<this.tableData.length; i+=1) {
-            this.tableData[i] = this.flattenObject(this.tableData[i], this.tableData[i], []);
-          }
+          this.tableData = res.data.hits.hits.map( entry => {
+            let res = entry['_source'];
+            return res;
+          });
           console.log(this.tableData);
           this.dataSource.data = this.tableData;
-          this.totalHits = res.hits.total.value; // set length of paginator
+          this.totalHits = res.count; // set length of paginator
           this.loading = false;
         });
-  }
-
-  flattenObject(parentRecord, currentRecord, parentProps) {
-    for(let prop in currentRecord) {
-      parentProps.push(prop);
-      if (typeof currentRecord[prop] == "object") {
-        if (Array.isArray(currentRecord[prop]) && currentRecord[prop].length) {
-          currentRecord[prop] = this.flattenArray(currentRecord[prop]);
-          if (typeof currentRecord[prop] == "object") {
-            this.flattenObject(parentRecord, currentRecord[prop], parentProps);
-          }
-        }
-        else {
-          this.flattenObject(parentRecord, currentRecord[prop], parentProps);
-        }
-      } 
-      else {
-        let serailisedProp = parentProps.join('.');
-        parentRecord[serailisedProp] = JSON.parse(JSON.stringify(currentRecord[prop]));
-      }
-      parentProps.pop();
-    }
-    return parentRecord;
-  }
-
-  flattenArray(items) {
-    if (typeof items[0] == "object") {
-      let result = {};
-      for(let i=0; i<items.length; i+=1) {
-        for(let prop in items[i]) {
-          if (prop in result) {
-            result[prop] = result[prop] + ', ' + items[i][prop];
-          } else {
-            result[prop] = items[i][prop];
-          }
-        }
-      } 
-      return result;
-    } else {
-      return items.join(', ');
-    }
   }
 
   updateDefaults(indices) {
