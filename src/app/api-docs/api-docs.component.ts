@@ -19,7 +19,7 @@ export class ApiDocsComponent implements OnInit {
       presets: [
         SwaggerUIBundle.presets.apis,
       ],
-      url: this.hostSetting.host + 'swagger.json',
+      url: 'https://apifaang.org.uk/data/' + 'swagger.json',
       tagsSorter: 'alpha',
       responseInterceptor: this.modifyResponse
     });

@@ -491,6 +491,45 @@
         }
       }
     },
+    "pipeline": {
+      "display": [
+        "Pipeline name",
+        "Assay type",
+        "Pipeline link",
+        "Pipeline documentation",
+        "Platform"
+      ],
+      "all": [
+        "Pipeline name",
+        "Assay type",
+        "Pipeline link",
+        "Pipeline documentation",
+        "Platform"
+      ],
+      "fields": {
+        "Pipeline name": {
+          "value": "name"
+        },
+        "Assay type": {
+          "value": "assayType"
+        },
+        "Pipeline link": {
+          "value": "link",
+          "link": {
+            "url": "link"
+          }
+        },
+        "Pipeline documentation": {
+          "value": "documentation",
+          "link": {
+            "url": "documentation"
+          }
+        },
+        "Platform": {
+          "value": "platform"
+        }
+      }
+    },
     "organism": {
       "display": [
         "BioSamples ID",
