@@ -15,6 +15,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   project: string;
   setting: any;
   error: any;
+  right_logo_url: {};
 
   constructor(private route: ActivatedRoute,
               private title: Title,
@@ -27,6 +28,10 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.spinner.show();
+    this.right_logo_url = {
+      bovine: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/funding-logo-1.png',
+      other: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovreg/funding-logo-1.png'
+    };
     this.route.params.subscribe((params: Params) => {
         this.project = params['id'];
         this.titleService.setTitle(`${this.project} | FAANG project`);
