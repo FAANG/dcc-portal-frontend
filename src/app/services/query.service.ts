@@ -7,7 +7,7 @@ import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
   providedIn: 'root'
 })
 export class QueryService {
-  query_language_url = 'http://127.0.0.1:8000';
+  query_language_url = 'http://45.88.80.212/query';
 
   constructor(private http: HttpClient) { }
 
@@ -25,16 +25,30 @@ export class QueryService {
     if (sort.length) {
       sort = '["' + sort + '"]';
     }
-    const params = new HttpParams({ 
-      fromObject: { 'indices': indices } 
-    }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
-    let url = this.query_language_url + '/search';
-    return this.http.get(url, { params: params }).pipe(
-      map((data: any) => {
-        return data;
-      }),
-      catchError(this.handleError),
-    );
+    if (indices.length == 1) {
+      const params = new HttpParams({ 
+        fromObject: { 'indices': indices } 
+      }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
+      let url = this.query_language_url + '/search';
+      return this.http.get(url, { params: params }).pipe(
+        map((data: any) => {
+          return data;
+        }),
+        catchError(this.handleError),
+      );
+    }
+    else if (indices.length == 2) {
+      const params = new HttpParams({ 
+        fromObject: { 'index1': indices[0], 'index2': indices[1] } 
+      }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
+      let url = this.query_language_url + '/join_search';
+      return this.http.get(url, { params: params }).pipe(
+        map((data: any) => {
+          return data;
+        }),
+        catchError(this.handleError),
+      );
+    }
   }
 
   downloadCsv(indices, fields, sort) {
