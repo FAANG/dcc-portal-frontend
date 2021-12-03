@@ -4,6 +4,7 @@ import { QueryService } from '../services/query.service';
 import { Observable, merge, of as observableOf } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { map, startWith, switchMap, catchError } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-query-language',
@@ -38,7 +39,8 @@ export class QueryLanguageComponent implements AfterViewInit {
 };
 
   constructor(
-    private queryService: QueryService
+    private queryService: QueryService,
+    public snackbar: MatSnackBar
   ) { }
 
   ngAfterViewInit() {
@@ -83,13 +85,11 @@ export class QueryLanguageComponent implements AfterViewInit {
         }),
         catchError(() => {
           this.loading = false;
+          this.openSnackbar('Indices cannot be combined!', 'Dismiss');
           return observableOf([]);
         })
       ).subscribe((res: any) => {
-          this.tableData = res.data.hits.hits.map( entry => {
-            let res = entry['_source'];
-            return res;
-          });
+          this.tableData = res.data;
           console.log(this.tableData);
           this.dataSource.data = this.tableData;
           this.totalHits = res.count; // set length of paginator
@@ -127,6 +127,17 @@ export class QueryLanguageComponent implements AfterViewInit {
 
   downloadCSV() {
     this.queryService.downloadCsv(this.selectedIndices, this.fields, this.sortFields);
+  }
+
+  isOptionDisabled(opt: any): boolean {
+    return this.indices.value && this.indices.value.length >= 2 && !this.indices.value.find(el => el == opt)
+  }
+
+  openSnackbar(message: string, action: string) {
+    const snackBarRef = this.snackbar.open(message, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
 }
