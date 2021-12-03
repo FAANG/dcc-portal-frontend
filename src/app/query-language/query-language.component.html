@@ -9,7 +9,7 @@
     <mat-form-field appearance="fill" style="width: 100%">
       <mat-label>Indices to display</mat-label>
       <mat-select [formControl]="indices" [(value)]="selectedIndices" (selectionChange)="updateDefaults($event.value)" multiple>
-        <mat-option *ngFor="let index of indicesList" [value]="index">
+        <mat-option *ngFor="let index of indicesList" [value]="index" [disabled]="isOptionDisabled(index)">
           {{index}}
         </mat-option>
       </mat-select>
