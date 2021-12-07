@@ -3,6 +3,34 @@
     <app-header></app-header>
     <h2>FAANG projects</h2><br>
 
+    {{eurofaang_proj | json}}
+
+    <ng-container *ngIf="(eurofaang_proj | keyvalue)?.length">
+      <div class="row">
+        <ng-container>
+          <div class="col-md-6">
+            <a [routerLink]="['/projects', eurofaang_proj.id]">
+              <img src="{{eurofaang_proj.image.url}}" alt="Project Logo" class="project-logo">
+            </a>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="row">
+        <ng-container>
+          <div class="col-md-4" *ngFor="let subproject of eurofaang_proj.key_projects | keyvalue">
+
+            {{subproject.key | json}}
+            <a [routerLink]="['/projects', subproject.key]">
+              <img src="{{subproject.value.image.url}}" alt="Project Logo" class="project-logo">
+            </a>
+          </div>
+        </ng-container>
+      </div>
+
+      <hr>
+    </ng-container>
+
     <ng-container *ngFor="let project of projects">
       <div class="row">
         <ng-container>
