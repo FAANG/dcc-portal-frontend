@@ -15,36 +15,26 @@ export class SubprojectComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('FAANG projects');
-    let idx = 0;
-    let isStart = true;
-    const tmp = [];
+    const eurofaang_keyproj = [];
 
     for (const [key, value] of Object.entries(setting)) {
-      const obj = value;
-      console.log(obj);
-
-      obj['id'] = key;
-      if (key !== 'EuroFAANG') {
-
-        obj['isStart'] = isStart;
-        tmp[idx] = obj;
-        idx++;
-        isStart = !isStart;
+      if (key !== 'EuroFAANG' && value.parent_project !== 'EuroFAANG') {
+        const obj = value;
+        obj['id'] = key;
+        this.projects.push(obj);
       } else {
-        // deal with eurofaang separately
-        this.eurofaang_proj = obj;
-        console.log(obj);
+        // eurofaang project
+        if (key === 'EuroFAANG') {
+          this.eurofaang_proj = value;
+          this.eurofaang_proj['id'] = key;
+        }
+        if (value.parent_project && value.parent_project === 'EuroFAANG') {
+          value['id'] = key;
+          eurofaang_keyproj.push(value);
+        }
       }
-
-
     }
-
-    const pair_num = Math.ceil(idx / 2);
-    for (let i = 0; i < pair_num; i++) {
-      const obj = {'left': tmp[i * 2], 'right': tmp[2 * i + 1]};
-      this.projects[i] = obj;
-    }
-    // console.log(this.projects);
+    this.eurofaang_proj['key_projects'] = eurofaang_keyproj;
   }
 
 }

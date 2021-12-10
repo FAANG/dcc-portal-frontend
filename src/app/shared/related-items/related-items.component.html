@@ -4,7 +4,7 @@
     <h3>
       Related
       <ng-container *ngIf="target_type == 'analysis'">Analyses</ng-container>
-      <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s</ng-container>
+      <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s<span *ngIf="isEuroFaangProj"> for <span class="childproj-title">{{record_id}}</span></span></ng-container>
       <button type="button" class="btn btn-success btn-sm" (click)="downloadAllFiles()" [disabled]="disableButton()"
               *ngIf="showButton()">Download all files ({{getUrlsLength()}})
       </button>

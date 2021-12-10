@@ -7,7 +7,7 @@ table {
 }
 
 button {
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 input {
@@ -31,4 +31,8 @@ a {
   max-height:50px;
   width:auto;
   height:auto;
+}
+
+.childproj-title {
+  color: #6f6f71;
 }

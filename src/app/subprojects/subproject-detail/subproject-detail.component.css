@@ -25,11 +25,15 @@ h3{
   clear: both;
 }
 
-.first-row {
+.spacer {
   margin-top: 15px;
 }
 
 .scroll {
   overflow: scroll;
   height: 400px;
+}
+
+div.keyproj{
+  width: 100%;
 }
