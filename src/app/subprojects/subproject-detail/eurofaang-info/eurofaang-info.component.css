@@ -15,8 +15,8 @@
   padding-right: 20px;
 }
 .second-section {
-  margin-left:0px;
-  margin-right:0px;
+  margin-left:0;
+  margin-right:0;
   text-align:center;
   overflow: hidden;
 }
@@ -34,19 +34,19 @@ span.sm-para{
   width: 100%;
   overflow: hidden;
 }
+
 .logo-col {
   width:25%;
   padding:10px 15px;
-  text-align:justify;
-  float:left; /* add this */
+  float:left;
   margin-left:0;
   margin-right:0;
   text-align:center;
-
 }
+
 .text-col {
-  margin-left:0px;
-  margin-right:0px;
+  margin-left:0;
+  margin-right:0;
   overflow: hidden;
 }
 
@@ -75,3 +75,11 @@ span.sm-para{
   padding:0 15px;
 }
 
+a {
+  text-decoration:none;
+  color:#5199a8;
+}
+
+a:hover {
+  color:#8dc7d3;
+}
