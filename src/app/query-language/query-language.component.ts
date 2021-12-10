@@ -15,6 +15,9 @@ export class QueryLanguageComponent implements AfterViewInit {
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('speciesTemplate', { static: true }) speciesTemplate: TemplateRef<any>;
+  @ViewChild('filenameTemplate', { static: true }) filenameTemplate: TemplateRef<any>;
+  @ViewChild('idTemplate', { static: true }) idTemplate: TemplateRef<any>;
   columnNames: string[];
   fields: string[];
   tableData: any[];
@@ -55,6 +58,9 @@ export class QueryLanguageComponent implements AfterViewInit {
         
       }
     );
+    this.templates = {
+      'species.text': this.speciesTemplate,
+    };
   }
 
   fetchRecords() {
@@ -77,7 +83,13 @@ export class QueryLanguageComponent implements AfterViewInit {
             this.sortFields = this.sort.active + ':' + this.sort.direction;
           }
           this.from = this.paginator.pageIndex * this.paginator.pageSize;
-          return this.queryService.getRecords(this.selectedIndices, this.fields, 
+          // fetch related fields
+          let fieldsToFetch = this.fields;
+          if (this.fields.includes('species.text')) {
+            fieldsToFetch.push('species.ontologyTerms');
+          }
+          console.log(fieldsToFetch);
+          return this.queryService.getRecords(this.selectedIndices, fieldsToFetch, 
                   this.from, this.sortFields);
         }),
         map(data => {

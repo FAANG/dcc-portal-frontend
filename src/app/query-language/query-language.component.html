@@ -38,7 +38,7 @@
                   </th>
               </ng-container>
               <ng-container *ngIf="!templates[col+'-header']">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{fields[i]}} </th>
+                  <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{fields[i].split('.').join(' ')}} </th>
               </ng-container>
               <ng-container *ngIf="templates[col]">
                   <td mat-cell class="table-cell-data" *matCellDef="let item">
@@ -61,3 +61,13 @@
     </div>
   </div>
 </div>
+
+<ng-template #speciesTemplate let-item>
+  <span>
+    <a style="cursor: pointer" 
+      href="{{'https://www.ebi.ac.uk/ols/terms?iri=' + item.row['species.ontologyTerms']}}" target="_blank">
+      {{item.row['species.text']}}
+    </a>
+  </span>
+</ng-template>
+
