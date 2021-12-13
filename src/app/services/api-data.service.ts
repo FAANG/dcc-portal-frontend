@@ -475,7 +475,7 @@ export class ApiDataService {
   }
 
   getAllPipelinesForProject(project: string) {
-    const url = this.hostSetting.pipelineHost + project.toLowerCase() + '/pipelines.tsv';
+    const url = this.hostSetting.relatedProjectsHost + project.toLowerCase() + '/pipelines.tsv';
     let pipelineArr: any[] = [];
     return this.http.get(url, {responseType: 'text'})
       .pipe(

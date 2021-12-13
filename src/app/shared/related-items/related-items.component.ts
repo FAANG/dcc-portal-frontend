@@ -21,6 +21,7 @@ export class RelatedItemsComponent implements OnInit {
   checked = false;
   selected: Map<string, boolean> = new Map();
   mode: string;
+  paginate_id: string;
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -33,6 +34,7 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.paginate_id = `${this.record_id}-${this.target_type}`;
     // Read in the initial column display settings
     // set those selected to be displayed
     this._userService.token ? this.mode = 'private' : this.mode = 'public';

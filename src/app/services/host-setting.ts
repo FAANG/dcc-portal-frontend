@@ -2,7 +2,7 @@ import { environment } from '../../environments/environment';
 
 export class HostSetting {
   host: string = environment.host;
-  pipelineHost: string = environment.pipelineHost;
+  relatedProjectsHost: string = environment.relatedProjectsHost;
 
   public getHost(): string {
     return this.host;
