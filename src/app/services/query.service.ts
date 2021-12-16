@@ -21,14 +21,14 @@ export class QueryService {
     );
   }
   
-  getRecords(indices, fields, from, sort) {
-    if (sort.length) {
-      sort = '["' + sort + '"]';
-    }
+  getRecords(indices, fields, from, sort, project) {
     if (indices.length == 1) {
-      const params = new HttpParams({ 
+      let params = new HttpParams({ 
         fromObject: { 'indices': indices } 
       }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
+      if (project) {
+        params = params.set('q', 'secondaryProject:' + project);
+      }
       let url = this.query_language_url + '/search';
       return this.http.get(url, { params: params }).pipe(
         map((data: any) => {
@@ -38,9 +38,17 @@ export class QueryService {
       );
     }
     else if (indices.length == 2) {
-      const params = new HttpParams({ 
+      if (sort.length) {
+        sort = sort.split(':');
+        sort[0] = sort[0] + '.keyword';
+        sort = sort.join(':');
+      }
+      let params = new HttpParams({ 
         fromObject: { 'index1': indices[0], 'index2': indices[1] } 
       }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
+      if (project) {
+        params = params.set('q', 'secondaryProject:' + project);
+      }
       let url = this.query_language_url + '/join_search';
       return this.http.get(url, { params: params }).pipe(
         map((data: any) => {
