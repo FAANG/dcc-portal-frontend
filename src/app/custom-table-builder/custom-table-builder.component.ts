@@ -27,7 +27,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   indices = new FormControl();
   indicesList = ['file', 'organism', 'specimen', 'dataset', 'article', 'analysis', 
     'experiment', 'protocol_files', 'protocol_samples', 'protocol_analysis'];
-  selectedIndices: Observable<any[]>;
+  selectedIndices;
   selectedColumns = {};
   columnsByIndex;
   loading: boolean;
@@ -56,7 +56,9 @@ export class CustomTableBuilderComponent implements AfterViewInit {
     this.queryService.getAllColumns().subscribe(
       data => {
         this.columnsByIndex = data;
-        
+        // set default value for selectedIndices
+        this.selectedIndices = ['file', 'specimen'];
+        this.updateDefaults(['file', 'specimen']);
       }
     );
     this.templates = {
@@ -144,7 +146,8 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   }
 
   isOptionDisabled(opt: any): boolean {
-    return this.indices.value && this.indices.value.length >= 2 && !this.indices.value.find(el => el == opt)
+    // return this.indices.value && this.indices.value.length >= 2 && !this.indices.value.find(el => el == opt)
+    return opt !== 'file' && opt !== 'specimen';
   }
 
   openSnackbar(message: string, action: string) {
