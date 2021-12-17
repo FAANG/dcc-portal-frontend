@@ -19,7 +19,7 @@
           <mat-label>Select columns to display</mat-label>
           <mat-select [(value)]="selectedColumns[index]" (selectionChange)="fetchRecords()" multiple>
             <mat-option *ngFor="let col of columnsByIndex[index]['columns']" [value]="col">
-              {{col}}
+              {{col.replace('.text', '').split('.').join(' ')}}
             </mat-option>
           </mat-select>
         </mat-form-field>
