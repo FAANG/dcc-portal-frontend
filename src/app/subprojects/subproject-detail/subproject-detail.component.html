@@ -73,5 +73,7 @@
                        [record_id]="project"></app-related-items>
     <app-related-items source_type="project" target_type="specimen" download_key=""
                        [record_id]="project"></app-related-items>
+    <app-custom-table-builder *ngIf="project == 'GENE-SWitCH'" [project]="project">
+    </app-custom-table-builder>
   </div>
 </ng-container>
