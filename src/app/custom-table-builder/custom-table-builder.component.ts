@@ -40,10 +40,10 @@ export class CustomTableBuilderComponent implements AfterViewInit {
     id: '',
     start: 'asc',
     disableClear: true
-};
+  };
 
   constructor(
-    private queryService: QueryService,
+    public queryService: QueryService,
     public snackbar: MatSnackBar
   ) { }
 
@@ -142,7 +142,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   }
 
   downloadCSV() {
-    this.queryService.downloadCsv(this.selectedIndices, this.fields, this.sortFields);
+    this.queryService.downloadCsv(this.selectedIndices.join('-'), this.fields, this.sortFields, this.project);
   }
 
   isOptionDisabled(opt: any): boolean {

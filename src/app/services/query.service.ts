@@ -7,7 +7,8 @@ import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
   providedIn: 'root'
 })
 export class QueryService {
-  query_language_url = 'http://45.88.80.212/query';
+  query_language_url = 'https://apifaang.org.uk/query';
+  downloading = false;
 
   constructor(private http: HttpClient) { }
 
@@ -59,11 +60,15 @@ export class QueryService {
     }
   }
 
-  downloadCsv(indices, fields, sort) {
-    const params = new HttpParams({ 
+  downloadCsv(indices, fields, sort, project) {
+    let params = new HttpParams({
       fromObject: { 'indices': indices } 
     }).set('_source', fields).set('sort', sort);
+    if (project) {
+      params = params.set('q', 'secondaryProject:' + project);
+    }
     let url = this.query_language_url + '/download';
+    this.downloading = true;
     this.http.get(url, { params: params, responseType: 'blob' }).subscribe(
       (response: any) => {
         let dataType = response.type;
@@ -74,6 +79,7 @@ export class QueryService {
         downloadLink.setAttribute('download', 'data.csv');
         document.body.appendChild(downloadLink);
         downloadLink.click();
+        this.downloading = false;
       }
     )
   }

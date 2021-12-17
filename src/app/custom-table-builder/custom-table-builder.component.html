@@ -1,8 +1,12 @@
 <div style="padding-bottom: 50px;">
     <hr>
-    <h3>Custom Queries</h3>
-    <button *ngIf="tableData" class="btn btn-primary" (click)="downloadCSV()"
-      style="float: right;">Download as CSV
+    <h3 style="display: inline;">Custom Queries</h3>
+    <mat-spinner *ngIf="queryService.downloading" [diameter]="30"
+      style="display: inline; float: right; margin-left: 10px; margin-bottom: 20px;">
+    </mat-spinner>
+    <button *ngIf="tableData && !queryService.downloading" class="btn btn-primary" (click)="downloadCSV()"
+      style="float: right; margin-bottom: 20px;">
+      Download as CSV
     </button>
     <mat-form-field appearance="fill" style="width: 100%">
       <mat-label>Indices to display</mat-label>
