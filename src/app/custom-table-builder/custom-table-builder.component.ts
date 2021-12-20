@@ -30,6 +30,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   selectedIndices;
   selectedColumns = {};
   columnsByIndex;
+  columnsByIndexDisplay;
   loading: boolean;
   col_width;
   pageSize = 10;
@@ -56,6 +57,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
     this.queryService.getAllColumns().subscribe(
       data => {
         this.columnsByIndex = data;
+        this.columnsByIndexDisplay = JSON.parse(JSON.stringify(this.columnsByIndex));
         // set default value for selectedIndices
         this.selectedIndices = ['file', 'specimen'];
         this.updateDefaults(['file', 'specimen']);
@@ -123,6 +125,14 @@ export class CustomTableBuilderComponent implements AfterViewInit {
     for (let index in this.selectedColumns) {
       if (!indices.includes(index)) {
         delete this.selectedColumns[index];
+      }
+    }
+    // reset columns to display
+    this.columnsByIndexDisplay = JSON.parse(JSON.stringify(this.columnsByIndex));
+    if (this.selectedIndices.includes('file') && this.selectedIndices.includes('specimen')) {
+      this.columnsByIndexDisplay['file']['columns'] = this.columnsByIndexDisplay['file']['columns'].filter(item => item !== 'organism');
+      if (this.selectedColumns['file']) {
+        this.selectedColumns['file'] = this.selectedColumns['file'].filter(item => item !== 'organism');
       }
     }
     // if user hasn't selected columns for the index, set defaults
