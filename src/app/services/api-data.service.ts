@@ -399,7 +399,7 @@ export class ApiDataService {
   getDataset(accession: string, mode: string) {
     let url = this.hostSetting.host + 'dataset/' + accession;
     if (mode === 'private') {
-      url = 'https://apifaang.org.uk/private_portal/dataset/';
+      url = `https://apifaang.org.uk/private_portal/dataset/${accession}`;
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
