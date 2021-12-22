@@ -1,27 +1,42 @@
 <ng-container>
   <div class="container" style="min-height:87vh">
     <app-header></app-header>
-    <h2>FAANG projects</h2><br>
+    <h2>FAANG projects</h2>
+
+    <ng-container *ngIf="(eurofaang_proj | keyvalue)?.length">
+      <div class="row mb-4">
+        <div class="col-md-12 text-center">
+          <a [routerLink]="['/projects', eurofaang_proj.id]">
+            <img src="{{eurofaang_proj.image.url}}" alt="Project Logo" class="parent-project-logo">
+          </a>
+          <div class="row mt-5">
+            <ng-container>
+              <div class="col-md-4" *ngFor="let keyproject of eurofaang_proj['key_projects']">
+                <a [routerLink]="['/projects', keyproject.id]">
+                  <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo">
+                </a>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <hr class="horizontal-rule"/>
 
     <ng-container *ngFor="let project of projects">
       <div class="row">
         <ng-container>
           <div class="col-md-6">
-            <a [routerLink]="['/projects', project.left.id]">
-              <img src="{{project.left.image.url}}" alt="Project Logo" class="project-logo">
-            </a>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="project.right">
-          <div class="col-md-6">
-            <a [routerLink]="['/projects', project.right.id]">
-              <img src="{{project.right.image.url}}" alt="Project Logo" class="project-logo">
+            <a [routerLink]="['/projects', project.id]">
+              <img src="{{project.image.url}}" alt="{{project}}" class="project-logo">
             </a>
           </div>
         </ng-container>
       </div>
 
-      <hr>
+      <hr class="horizontal-rule"/>
+
     </ng-container>
   </div>
 </ng-container>

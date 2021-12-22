@@ -4,7 +4,7 @@
     <h3>
       Related
       <ng-container *ngIf="target_type == 'analysis'">Analyses</ng-container>
-      <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s</ng-container>
+      <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s<span *ngIf="isEuroFaangProj"> for <span class="childproj-title">{{record_id}}</span></span></ng-container>
       <button type="button" class="btn btn-success btn-sm" (click)="downloadAllFiles()" [disabled]="disableButton()"
               *ngIf="showButton()">Download all files ({{getUrlsLength()}})
       </button>
@@ -37,7 +37,7 @@
       </tr>
       </thead>
       <tbody>
-      <ng-container *ngFor="let record of records |  paginate: { itemsPerPage: 10, currentPage: p, id: target_type }">
+      <ng-container *ngFor="let record of records |  paginate: { itemsPerPage: 10, currentPage: p, id: paginate_id }">
         <tr>
           <ng-container *ngFor="let attr of get_displayed_fields()">
             <td>
@@ -94,6 +94,6 @@
       </ng-container>
       </tbody>
     </table>
-    <pagination-controls (pageChange)="p = $event" [id]="target_type"></pagination-controls>
+    <pagination-controls (pageChange)="p = $event" [id]="paginate_id"></pagination-controls>
   </div>
 </div>
