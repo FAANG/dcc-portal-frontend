@@ -175,7 +175,7 @@ export function removeToken(): void {
     QueryLanguageComponent,
     TrackhubsSubmissionComponent,
     BulkFilesUploaderComponent,
-    EurofaangInfoComponent
+    EurofaangInfoComponent,
     CustomTableBuilderComponent
   ],
   imports: [
