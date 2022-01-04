@@ -7,7 +7,7 @@ import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
   providedIn: 'root'
 })
 export class QueryService {
-  query_language_url = 'https://apifaang.org.uk/query';
+  query_language_url = 'https://api.faang.org/query';
   downloading = false;
 
   constructor(private http: HttpClient) { }
@@ -21,11 +21,11 @@ export class QueryService {
       catchError(this.handleError),
     );
   }
-  
+
   getRecords(indices, fields, from, sort, project) {
     if (indices.length == 1) {
-      let params = new HttpParams({ 
-        fromObject: { 'indices': indices } 
+      let params = new HttpParams({
+        fromObject: { 'indices': indices }
       }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
       if (project) {
         params = params.set('q', 'secondaryProject:' + project);
@@ -44,8 +44,8 @@ export class QueryService {
         sort[0] = sort[0] + '.keyword';
         sort = sort.join(':');
       }
-      let params = new HttpParams({ 
-        fromObject: { 'index1': indices[0], 'index2': indices[1] } 
+      let params = new HttpParams({
+        fromObject: { 'index1': indices[0], 'index2': indices[1] }
       }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
       if (project) {
         params = params.set('q', 'secondaryProject:' + project);
@@ -62,7 +62,7 @@ export class QueryService {
 
   downloadCsv(indices, fields, sort, project) {
     let params = new HttpParams({
-      fromObject: { 'indices': indices } 
+      fromObject: { 'indices': indices }
     }).set('_source', fields).set('sort', sort);
     if (project) {
       params = params.set('q', 'secondaryProject:' + project);
