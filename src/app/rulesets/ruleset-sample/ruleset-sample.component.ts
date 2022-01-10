@@ -1,6 +1,6 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {sample_metadata_template_with_examples, sample_metadata_template_without_examples, missing_values,
   special_sheets} from '../../shared/constants';
@@ -53,7 +53,10 @@ export class RulesetSampleComponent implements OnInit {
   description: string;
   details: string;
 
-  constructor(private titleService: Title, private apiDataService: ApiDataService) { }
+  constructor(private titleService: Title,
+              private apiDataService: ApiDataService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.rule_groups = ['Standard', 'Organism', 'Organoid', 'Specimen standard rules', 'Specimen Teleostei embryo',
@@ -84,6 +87,15 @@ export class RulesetSampleComponent implements OnInit {
         this.error = error;
       }
     );
+
+    this.route.fragment
+      .subscribe(
+        fragment => {
+          console.log(fragment);
+          this.clickOnRule(fragment);
+        }
+      );
+
   }
 
   getCondition(rule: string) {

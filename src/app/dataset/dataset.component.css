@@ -39,3 +39,11 @@ table {
 h3 {
   color: #477AAF;
 }
+
+::ng-deep .blue-tooltip {
+  background-color: #DCEDF5;
+  color: black !important;
+  font-size: 14px;
+}
+
+

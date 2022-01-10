@@ -60,7 +60,10 @@
             <td>{{dataset['numberOfFiles']}}</td>
             <td>{{dataset['standard']}}</td>
             <td *ngIf="wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
-              <i class="material-icons">check_circle_outline</i>
+              <i class="material-icons"
+                 [matTooltip]="dataset['paperPublished']"
+                 [matTooltipClass]="'blue-tooltip'"
+                 matTooltipPosition="after">check_circle_outline</i>
             </td>
             <td *ngIf="!wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
               <i class="material-icons">highlight_off</i>
