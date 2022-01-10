@@ -1,3 +1,10 @@
+.parent-project-logo {
+  max-width:350px;
+  max-height:350px;
+  width:auto;
+  height:auto;
+}
+
 .project-logo {
   max-width:256px;
   max-height:256px;
@@ -8,3 +15,14 @@
 .left {
   border-right: 1px solid lightgrey;
 }
+ h2{
+   margin-bottom: 50px;
+ }
+
+ .horizontal-rule{
+   display: block;
+   border-top: 2px solid #dfecf5;
+   width: 100%;
+   overflow: hidden;
+   margin: 25px 0px;
+ }

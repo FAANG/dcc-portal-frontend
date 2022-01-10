@@ -7,7 +7,8 @@ import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
   providedIn: 'root'
 })
 export class QueryService {
-  query_language_url = 'http://45.88.80.212/query';
+  query_language_url = 'https://api.faang.org/query';
+  downloading = false;
 
   constructor(private http: HttpClient) { }
 
@@ -20,15 +21,15 @@ export class QueryService {
       catchError(this.handleError),
     );
   }
-  
-  getRecords(indices, fields, from, sort) {
-    if (sort.length) {
-      sort = '["' + sort + '"]';
-    }
+
+  getRecords(indices, fields, from, sort, project) {
     if (indices.length == 1) {
-      const params = new HttpParams({ 
-        fromObject: { 'indices': indices } 
+      let params = new HttpParams({
+        fromObject: { 'indices': indices }
       }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
+      if (project) {
+        params = params.set('q', 'secondaryProject:' + project);
+      }
       let url = this.query_language_url + '/search';
       return this.http.get(url, { params: params }).pipe(
         map((data: any) => {
@@ -38,9 +39,17 @@ export class QueryService {
       );
     }
     else if (indices.length == 2) {
-      const params = new HttpParams({ 
-        fromObject: { 'index1': indices[0], 'index2': indices[1] } 
+      if (sort.length) {
+        sort = sort.split(':');
+        sort[0] = sort[0] + '.keyword';
+        sort = sort.join(':');
+      }
+      let params = new HttpParams({
+        fromObject: { 'index1': indices[0], 'index2': indices[1] }
       }).set('_source', fields).set('from_', from).set('size', '10').set('sort', sort);
+      if (project) {
+        params = params.set('q', 'secondaryProject:' + project);
+      }
       let url = this.query_language_url + '/join_search';
       return this.http.get(url, { params: params }).pipe(
         map((data: any) => {
@@ -51,11 +60,15 @@ export class QueryService {
     }
   }
 
-  downloadCsv(indices, fields, sort) {
-    const params = new HttpParams({ 
-      fromObject: { 'indices': indices } 
+  downloadCsv(indices, fields, sort, project) {
+    let params = new HttpParams({
+      fromObject: { 'indices': indices }
     }).set('_source', fields).set('sort', sort);
+    if (project) {
+      params = params.set('q', 'secondaryProject:' + project);
+    }
     let url = this.query_language_url + '/download';
+    this.downloading = true;
     this.http.get(url, { params: params, responseType: 'blob' }).subscribe(
       (response: any) => {
         let dataType = response.type;
@@ -66,6 +79,7 @@ export class QueryService {
         downloadLink.setAttribute('download', 'data.csv');
         document.body.appendChild(downloadLink);
         downloadLink.click();
+        this.downloading = false;
       }
     )
   }

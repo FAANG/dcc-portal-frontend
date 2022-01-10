@@ -100,6 +100,8 @@ import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { QueryLanguageComponent } from './query-language/query-language.component';
 import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 import { BulkFilesUploaderComponent } from './bulk-files-uploader/bulk-files-uploader.component';
+import { EurofaangInfoComponent } from './subprojects/subproject-detail/eurofaang-info/eurofaang-info.component';
+import { CustomTableBuilderComponent } from './custom-table-builder/custom-table-builder.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -172,7 +174,9 @@ export function removeToken(): void {
     ApiDocsComponent,
     QueryLanguageComponent,
     TrackhubsSubmissionComponent,
-    BulkFilesUploaderComponent
+    BulkFilesUploaderComponent,
+    EurofaangInfoComponent,
+    CustomTableBuilderComponent
   ],
   imports: [
     BrowserModule,

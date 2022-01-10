@@ -14,6 +14,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   private twitter: any;
   project: string;
   setting: any;
+  eurofaang_keyproj: any = [];
   error: any;
   right_logo_url: {};
 
@@ -43,6 +44,14 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
       });
     if (setting.hasOwnProperty(this.project)) {
       this.setting = setting[this.project];
+
+      if (this.project === 'EuroFAANG') {
+        for (const [key, value] of Object.entries(setting)) {
+          if (value.parent_project && value.parent_project === 'EuroFAANG') {
+            this.eurofaang_keyproj.push(key);
+          }
+        }
+      }
     } else {
       this.router.navigate(['404']);
     }

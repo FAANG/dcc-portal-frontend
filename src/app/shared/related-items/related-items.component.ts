@@ -14,12 +14,14 @@ export class RelatedItemsComponent implements OnInit {
   @Input() source_type: string; // equal to the type of detail page, e.g. to list files in the dataset detail page, set to be dataset
   @Input() target_type: string; // the related entities, e.g. to list files in the dataset detail page, set to be file
   @Input() download_key: string; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
+  @Input() isEuroFaangProj = false; // specifies if datasets table is for EuroFAANG - display project title next to table header
 
   records: any;
   urls: string[] = [];
   checked = false;
   selected: Map<string, boolean> = new Map();
   mode: string;
+  paginate_id: string;
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -32,6 +34,7 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.paginate_id = `${this.record_id}-${this.target_type}`;
     // Read in the initial column display settings
     // set those selected to be displayed
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
