@@ -32,6 +32,13 @@
 
   <hr>
 
+  <div class="alert alert-danger" *ngIf="error">
+    <p>
+      {{ error }}
+    </p>
+  </div>
+
+  <ng-container *ngIf="(data | keyvalue)?.length">
   <div class="row">
     <div class="col-md-2"><h3>Rule groups</h3></div>
     <div class="col-md-10">
@@ -53,12 +60,12 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="data">
+  <div class="row">
     <div class="col-md-2 left">
       <ul *ngFor="let category of rule_groups" class="list-group list-group-flush">
         <li class="list-group-item"
             [ngClass]="{'active': checkIsActive(category)}">
-          <a style="cursor: pointer" (click)="clickOnRule(category)">{{category}}</a>
+          <a style="cursor: pointer" (click)="clickOnRule(category); clearUrlFragment();">{{category}}</a>
           </li>
       </ul>
     </div>
@@ -153,6 +160,6 @@
       </table>
     </div>
   </div>
+  </ng-container>
 
-  <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>

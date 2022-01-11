@@ -749,6 +749,6 @@ export class ApiDataService {
     }
     // return an observable with a user-facing errorSubject message
     return throwError(
-      'Something bad happened; please try again later.');
+      error);
   }
 }

@@ -1,6 +1,7 @@
-import {AfterViewChecked, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {ApiDataService} from '../../services/api-data.service';
 import {
   experiment_metadata_template_with_examples,
@@ -20,10 +21,11 @@ import {
 @Component({
   selector: 'app-ruleset-experiment',
   templateUrl: './ruleset-experiment.component.html',
-  styleUrls: ['../rulesets.css']
+  styleUrls: ['../rulesets.css'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
 })
 export class RulesetExperimentComponent implements OnInit {
-  error: string;
+  error: any;
   data: any;
   all_data: any;
   mandatory_data: any;
@@ -55,8 +57,15 @@ export class RulesetExperimentComponent implements OnInit {
   name: string;
   description: string;
   details: string;
+  location: Location;
 
-  constructor(private titleService: Title, private apiDataService: ApiDataService) { }
+  constructor(private titleService: Title,
+              private apiDataService: ApiDataService,
+              private route: ActivatedRoute,
+              private router: Router,
+              location: Location) {
+    this.location = location;
+  }
 
   ngOnInit() {
     this.rule_groups = [
@@ -83,21 +92,17 @@ export class RulesetExperimentComponent implements OnInit {
     this.metadata_template_with_examples = experiment_metadata_template_with_examples;
     this.metadata_template_without_examples = experiment_metadata_template_without_examples;
     this.titleService.setTitle('FAANG Rule set|experiments');
-    this.apiDataService.getRulesetExperiment('standard').subscribe(
-      data => {
-        this.data = data;
-        this.name = this.data.title;
-        this.description = this.data.description;
-        this.details = this.data.properties.describedBy.const;
-        this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
-        this.rules = Object.keys(this.data.properties);
-        this.all_data = data;
-        this.mandatory_data = this.getMandatoryData(data);
-      },
-      error => {
-        this.error = error;
-      }
-    );
+
+    this.route.fragment
+      .subscribe(
+        (fragment: string) => {
+          if (fragment) {
+            this.clickOnRule(fragment);
+          } else {
+            this.clickOnRule('standard');
+          }
+        }
+      );
   }
 
   getCondition(rule: string) {
@@ -207,7 +212,7 @@ export class RulesetExperimentComponent implements OnInit {
         } else if ('const' in item && item['const'] !== 'restricted access') {
           return [item['const']];
         } else if ('enum' in item) {
-          results.push.apply(results, item['enum'].filter(function(item) { return item !== 'restricted access'}));
+          results.push.apply(results, item['enum'].filter(function(item) { return item !== 'restricted access'; }));
         }
       }
       return results;
@@ -241,13 +246,23 @@ export class RulesetExperimentComponent implements OnInit {
   clickOnRule(rule: string) {
     this.apiDataService.getRulesetExperiment(convertToSnakeCase(rule.toLowerCase())).subscribe(data => {
       this.data = data;
-      console.log(this.data);
       this.all_data = data;
+      this.name = data.title;
+      this.description = data.description;
+      this.details = data.properties.describedBy.const;
       this.mandatory_data = this.getMandatoryData(data);
       this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
       this.rules = Object.keys(data.properties);
+      this.active_rule = rule;
+      this.error = '';
+    }, error => {
+      console.log(error);
+      if (error.status === 404) {
+        this.error = `${rule} is not a valid rule group. Please select a rule group from the following list: ${this.rule_groups}.`;
+      } else {
+        this.error = error.message;
+      }
     });
-    this.active_rule = rule;
   }
 
   mandatoryOnlyToggle() {
@@ -262,6 +277,11 @@ export class RulesetExperimentComponent implements OnInit {
       this.rules = Object.keys(this.data.properties);
       this.mandatory_only = false;
     }
+  }
+
+  clearUrlFragment() {
+    const pathWithoutHash = this.location.path(false);
+    this.location.replaceState(pathWithoutHash);
   }
 
 }
