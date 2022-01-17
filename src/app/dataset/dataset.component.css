@@ -24,6 +24,10 @@ button {
   text-align: center;
 }
 
+.crosshair-cursor{
+  cursor: crosshair;
+}
+
 .default {
   text-align: center;
 }

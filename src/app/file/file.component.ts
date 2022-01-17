@@ -48,7 +48,8 @@ export class FileComponent implements OnInit, OnDestroy {
       'specimen',
       'run.instrument',
       'experiment.standardMet',
-      'paperPublished'],
+      'paperPublished',
+      'submitterEmail'],
   };
   error: string;
 

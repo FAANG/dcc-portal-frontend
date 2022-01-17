@@ -14,6 +14,7 @@ export interface FileTable {
   instrument: string;
   standard: string;
   paperPublished: string;
+  submitterEmail: string;
 }
 
 export interface FileForProjectTable {
@@ -82,6 +83,7 @@ export interface DatasetTable {
   standard: string;
   paperPublished: string;
   private: boolean;
+  submitterEmail: string;
 }
 
 export interface AnalysisTable {

@@ -24,20 +24,26 @@
 
     <hr class="horizontal-rule"/>
 
-    <ng-container *ngFor="let project of projects">
-      <div class="row">
-        <ng-container>
-          <div class="col-md-6">
-            <a [routerLink]="['/projects', project.id]">
-              <img src="{{project.image.url}}" alt="{{project}}" class="project-logo">
-            </a>
+
+    <ng-container *ngIf="(faang_proj | keyvalue)?.length">
+      <div class="row mb-4">
+        <div class="col-md-12 text-center">
+          <a [routerLink]="['/projects', faang_proj.id]">
+            <img src="{{faang_proj.image.url}}" alt="Project Logo" class="parent-project-logo">
+          </a>
+          <div class="row mt-5">
+            <ng-container>
+              <div class="col-md-4" *ngFor="let keyproject of faang_proj['key_projects']">
+                <a [routerLink]="['/projects', keyproject.id]">
+                  <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo">
+                </a>
+              </div>
+            </ng-container>
           </div>
-        </ng-container>
+        </div>
       </div>
-
-      <hr class="horizontal-rule"/>
-
     </ng-container>
+
   </div>
 </ng-container>
 

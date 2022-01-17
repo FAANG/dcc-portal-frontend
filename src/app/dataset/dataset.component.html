@@ -59,9 +59,9 @@
             <td>{{dataset['numberOfSpecimens']}}</td>
             <td>{{dataset['numberOfFiles']}}</td>
             <td>{{dataset['standard']}}</td>
-            <td *ngIf="wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
+            <td *ngIf="wasPublished(dataset['paperPublished'])" [ngClass]="[isGreen(dataset['paperPublished']), dataset['submitterEmail'] ? 'crosshair-cursor' : '']">
               <i class="material-icons"
-                 [matTooltip]="dataset['paperPublished']"
+                 [matTooltip]="dataset['submitterEmail']"
                  [matTooltipClass]="'blue-tooltip'"
                  matTooltipPosition="after">check_circle_outline</i>
             </td>

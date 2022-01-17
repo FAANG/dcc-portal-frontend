@@ -35,7 +35,8 @@ export class ApiDataService {
           specimen: entry['_source']['specimen'],
           instrument: entry['_source']['run']['instrument'],
           standard: entry['_source']['experiment']['standardMet'],
-          paperPublished: entry['_source']['paperPublished']
+          paperPublished: entry['_source']['paperPublished'],
+          submitterEmail: entry['_source']['submitterEmail']
           } as FileTable )
         );
       }),
@@ -179,7 +180,7 @@ export class ApiDataService {
           breed: entry['_source']['breed']['text'],
           standard: entry['_source']['standardMet'],
           idNumber: +entry['_source']['id_number'],
-            paperPublished: entry['_source']['paperPublished'],
+          paperPublished: entry['_source']['paperPublished'],
         } as OrganismTable)
         );
       }),
@@ -378,7 +379,8 @@ export class ApiDataService {
           numberOfSpecimens: entry['_source']['specimen']['length'],
           numberOfFiles: entry['_source']['file']['length'],
           standard: entry['_source']['standardMet'],
-          paperPublished: entry['_source']['paperPublished']
+          paperPublished: entry['_source']['paperPublished'],
+          submitterEmail: entry['_source']['submitterEmail']
           } as DatasetTable)
         );
       }),

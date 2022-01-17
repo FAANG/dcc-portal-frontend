@@ -48,7 +48,8 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'specimen.biosampleId',
       'assayType',
       'standardMet',
-      'paperPublished'],
+      'paperPublished',
+      'submitterEmail'],
   };
   error: string;
 

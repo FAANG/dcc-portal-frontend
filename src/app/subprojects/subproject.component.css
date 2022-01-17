@@ -21,8 +21,8 @@
 
  .horizontal-rule{
    display: block;
-   border-top: 2px solid #dfecf5;
+   border-top: 5px solid #dfecf5;
    width: 100%;
    overflow: hidden;
-   margin: 25px 0px;
+   margin: 40px 0;
  }
