@@ -61,6 +61,26 @@
         </div>
       </div>
 
+      <div *ngIf="project === 'GENE-SWitCH'">
+        <h3>Ensembl Rapid Release</h3>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-md-2"><span class="badge badge-success badge-pill">Sus scrofa</span></div>
+              <div class="col-md-10"><a href="https://rapid.ensembl.org/Sus_scrofa_GCA_000003025.6/Info/Index"
+                                        target="_blank" class="btn btn-primary btn-sm">View data</a></div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-md-2"><span class="badge badge-success badge-pill">Gallus gallus</span></div>
+              <div class="col-md-10"><a href="https://rapid.ensembl.org/Gallus_gallus_GCA_000002315.5/Info/Index"
+                                        target="_blank" class="btn btn-primary btn-sm">View data</a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
       <app-related-items source_type="project" target_type="publication" download_key=""
                          [record_id]="project"></app-related-items>
       <app-related-items source_type="project" target_type="pipeline" download_key=""
