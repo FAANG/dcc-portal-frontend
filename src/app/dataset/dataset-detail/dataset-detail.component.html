@@ -84,6 +84,12 @@
 
       <dt class="col-sm-3">Standard:</dt>
       <dd class="col-sm-9">{{dataset?.standardMet}}</dd>
+
+      <ng-container *ngIf="dataset && dataset.hasOwnProperty('submitterEmail')">
+        <dt class="col-sm-3">Submitter Emails:</dt>
+        <dd class="col-sm-9">{{dataset.submitterEmail}}</dd>
+      </ng-container>
+
     </dl>
 
     <app-related-items source_type="dataset" target_type="paper"
