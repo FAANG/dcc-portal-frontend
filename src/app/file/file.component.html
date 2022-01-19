@@ -69,8 +69,11 @@
                  [matTooltipClass]="'blue-tooltip'"
                  matTooltipPosition="after">check_circle_outline</i>
             </td>
-            <td *ngIf="!wasPublished(file['paperPublished'])" [ngClass]="isGreen(file['paperPublished'])">
-              <i class="material-icons">highlight_off</i>
+            <td *ngIf="!wasPublished(file['paperPublished'])" [ngClass]="[isGreen(file['paperPublished']), file['submitterEmail'] ? 'crosshair-cursor' : '']">
+              <i class="material-icons"
+                 [matTooltip]="file['submitterEmail']"
+                 [matTooltipClass]="'blue-tooltip'"
+                 matTooltipPosition="after">highlight_off</i>
             </td>
           </tr>
           </tbody>

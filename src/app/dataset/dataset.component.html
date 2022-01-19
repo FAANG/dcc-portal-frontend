@@ -65,8 +65,11 @@
                  [matTooltipClass]="'blue-tooltip'"
                  matTooltipPosition="after">check_circle_outline</i>
             </td>
-            <td *ngIf="!wasPublished(dataset['paperPublished'])" [ngClass]="isGreen(dataset['paperPublished'])">
-              <i class="material-icons">highlight_off</i>
+            <td *ngIf="!wasPublished(dataset['paperPublished'])" [ngClass]="[isGreen(dataset['paperPublished']), dataset['submitterEmail'] ? 'crosshair-cursor' : '']">
+              <i class="material-icons"
+                 [matTooltip]="dataset['submitterEmail']"
+                 [matTooltipClass]="'blue-tooltip'"
+                 matTooltipPosition="after">highlight_off</i>
             </td>
           </tr>
           </tbody>
