@@ -9,14 +9,14 @@
       "url": "https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/eurofaang/project-logo.png"
     }
   },
-  "GENE-SWitCH": {
-    "description": "GENE-SWitCH aims to deliver new underpinning knowledge on the functional genomes of two main monogastric farm species (pig and chicken) and to enable immediate translation to the pig and poultry sectors.",
+  "AQUA-FAANG": {
+    "description": "AQUA-FAANG aims to generate genome-wide functional annotation maps for the six commercially most important fish species within European aquaculture and exploit their contribution to variation in traits of commercial\n        relevance, focusing on improved resistance to disease.",
     "tweeter": {
-      "id": "GeneSwitch"
+      "id": "AQUA_FAANG"
     },
-    "url": "https://www.gene-switch.eu/",
+    "url": "https://www.aqua-faang.eu/",
     "image": {
-      "url": "https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/gene-switch/project-logo.png"
+      "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/aquafaang/project-logo.png"
     },
     "parent_project": "EuroFAANG"
   },
@@ -30,14 +30,14 @@
     },
     "parent_project": "EuroFAANG"
   },
-  "AQUA-FAANG": {
-    "description": "AQUA-FAANG aims to generate genome-wide functional annotation maps for the six commercially most important fish species within European aquaculture and exploit their contribution to variation in traits of commercial\n        relevance, focusing on improved resistance to disease.",
+  "GENE-SWitCH": {
+    "description": "GENE-SWitCH aims to deliver new underpinning knowledge on the functional genomes of two main monogastric farm species (pig and chicken) and to enable immediate translation to the pig and poultry sectors.",
     "tweeter": {
-      "id": "AQUA_FAANG"
+      "id": "GeneSwitch"
     },
-    "url": "https://www.aqua-faang.eu/",
+    "url": "https://www.gene-switch.eu/",
     "image": {
-      "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/aquafaang/project-logo.png"
+      "url": "https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/gene-switch/project-logo.png"
     },
     "parent_project": "EuroFAANG"
   },

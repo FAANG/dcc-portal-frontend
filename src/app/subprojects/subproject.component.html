@@ -12,9 +12,16 @@
           <div class="row mt-5">
             <ng-container>
               <div class="col-md-4" *ngFor="let keyproject of eurofaang_proj['key_projects']">
-                <a [routerLink]="['/projects', keyproject.id]">
-                  <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo">
-                </a>
+                <ng-container *ngIf="keyproject.id !== 'AQUA-FAANG'">
+                  <a [routerLink]="['/projects', keyproject.id]">
+                    <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo">
+                  </a>
+                </ng-container>
+                <ng-container *ngIf="keyproject.id === 'AQUA-FAANG'">
+                  <a [routerLink]="['/projects', keyproject.id]">
+                    <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="small-project-logo">
+                  </a>
+                </ng-container>
               </div>
             </ng-container>
           </div>
