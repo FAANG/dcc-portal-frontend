@@ -5,9 +5,28 @@
   height:auto;
 }
 
+.faang-parent-project-logo {
+  max-height:150px;
+  width:auto;
+  height:auto;
+}
+
 .project-logo {
   max-width:256px;
   max-height:256px;
+  width:auto;
+  height:auto;
+}
+
+div-logo {
+  background-color: yellow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aquaa-project-logo{
+  max-height:130px;
   width:auto;
   height:auto;
 }

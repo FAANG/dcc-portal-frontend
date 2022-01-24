@@ -40,8 +40,8 @@ export class SubprojectComponent implements OnInit {
         }
       }
     }
-    this.faang_proj['key_projects'] = faang_keyproj;
-    this.eurofaang_proj['key_projects'] = eurofaang_keyproj;
+    this.faang_proj['key_projects'] = faang_keyproj.sort((a, b) => a.id.localeCompare(b.id));
+    this.eurofaang_proj['key_projects'] = eurofaang_keyproj.sort((a, b) => a.id.localeCompare(b.id));
   }
 
 }

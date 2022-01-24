@@ -11,17 +11,10 @@
           </a>
           <div class="row mt-5">
             <ng-container>
-              <div class="col-md-4" *ngFor="let keyproject of eurofaang_proj['key_projects']">
-                <ng-container *ngIf="keyproject.id !== 'AQUA-FAANG'">
-                  <a [routerLink]="['/projects', keyproject.id]">
-                    <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo">
-                  </a>
-                </ng-container>
-                <ng-container *ngIf="keyproject.id === 'AQUA-FAANG'">
-                  <a [routerLink]="['/projects', keyproject.id]">
-                    <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="small-project-logo">
-                  </a>
-                </ng-container>
+              <div class="col-md-4 mb-5 div-logo" *ngFor="let keyproject of eurofaang_proj['key_projects']">
+                <a [routerLink]="['/projects', keyproject.id]">
+                  <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo" [ngClass]="keyproject.id === 'AQUA-FAANG' ? 'aquaa-project-logo' : 'project-logo'">
+                </a>
               </div>
             </ng-container>
           </div>
@@ -36,7 +29,7 @@
       <div class="row mb-4">
         <div class="col-md-12 text-center">
           <a [routerLink]="['/projects', faang_proj.id]">
-            <img src="{{faang_proj.image.url}}" alt="Project Logo" class="parent-project-logo">
+            <img src="{{faang_proj.image.url}}" alt="Project Logo" class="faang-parent-project-logo">
           </a>
           <div class="row mt-5">
             <ng-container>

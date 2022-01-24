@@ -655,7 +655,6 @@ export class ApiDataService {
     const url = ruleset_prefix_new + `${rule_type}/samples/faang_samples_${category}.metadata_rules.json`;
     return this.http.get(url).pipe(
       map((data: any) => {
-        console.log(data);
         return data;
       }),
       catchError(this.handleError),
@@ -676,7 +675,6 @@ export class ApiDataService {
       }
     }
     const url = ruleset_prefix_new + `${rule_type}/experiments/faang_experiments_${category}.metadata_rules.json`;
-    console.log(url);
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
