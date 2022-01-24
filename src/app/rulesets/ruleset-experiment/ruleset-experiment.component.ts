@@ -256,7 +256,6 @@ export class RulesetExperimentComponent implements OnInit {
       this.active_rule = rule;
       this.error = '';
     }, error => {
-      console.log(error);
       if (error.status === 404) {
         this.error = `${rule} is not a valid rule group. Please select a rule group from the following list: ${this.rule_groups}.`;
       } else {
@@ -279,9 +278,9 @@ export class RulesetExperimentComponent implements OnInit {
     }
   }
 
-  clearUrlFragment() {
-    const pathWithoutHash = this.location.path(false);
-    this.location.replaceState(pathWithoutHash);
+  updateUrlFragment(category) {
+    const url = this.router.createUrlTree([], {relativeTo: this.route, fragment: category}).toString();
+    this.location.go(url);
   }
 
 }

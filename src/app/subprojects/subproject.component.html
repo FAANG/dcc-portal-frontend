@@ -13,7 +13,7 @@
             <ng-container>
               <div class="col-md-4 mb-5 div-logo" *ngFor="let keyproject of eurofaang_proj['key_projects']">
                 <a [routerLink]="['/projects', keyproject.id]">
-                  <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo" [ngClass]="keyproject.id === 'AQUA-FAANG' ? 'aquaa-project-logo' : 'project-logo'">
+                  <img src="{{keyproject.image.url}}" alt="{{keyproject}}" [ngClass]="keyproject.id === 'AQUA-FAANG' ? 'aquaa-project-logo' : 'project-logo'">
                 </a>
               </div>
             </ng-container>

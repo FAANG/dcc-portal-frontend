@@ -65,7 +65,7 @@
       <ul *ngFor="let category of rule_groups" class="list-group list-group-flush">
         <li class="list-group-item"
             [ngClass]="{'active': checkIsActive(category)}">
-          <a style="cursor: pointer" (click)="clickOnRule(category); clearUrlFragment();">{{category}}</a>
+          <a style="cursor: pointer" (click)="clickOnRule(category); updateUrlFragment(category);">{{category}}</a>
           </li>
       </ul>
     </div>
