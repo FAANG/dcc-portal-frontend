@@ -45,3 +45,18 @@ div-logo {
    overflow: hidden;
    margin: 40px 0;
  }
+
+.small-project-logo {
+  max-width:150px;
+  max-height:150px;
+  width:auto;
+  height:auto;
+}
+
+
+.large-project-logo {
+  max-width:350px;
+  max-height:350px;
+  width:auto;
+  height:auto;
+}
