@@ -30,14 +30,14 @@ export class TrackhubsSubmissionComponent implements OnInit {
 
   startUploads(dir:string, genome: string, subdir: string) {
     this.stage = 'upload';
-    this.tracksUploadUrl = `${validation_service_url}/trackhubs/upload/${dir}/${genome}/${subdir}`;
-    this.trackDbUploadUrl = `${validation_service_url}/trackhubs/upload/${dir}/${genome}`;
+    this.tracksUploadUrl = `${validation_service_url}/trackhub/upload/${dir}/${genome}/${subdir}`;
+    this.trackDbUploadUrl = `${validation_service_url}/trackhub/upload/${dir}/${genome}`;
     // this uploads hub files at /${dir} but backend needs {genome} for validations
-    this.hubFileUploadUrl = `${validation_service_url}/trackhubs/upload/${dir}/${genome}`; 
+    this.hubFileUploadUrl = `${validation_service_url}/trackhub/upload/${dir}/${genome}`; 
   }
 
   registerTrackHub(dir: string, genome_name: string, genome_accession: string) {
-    const url = `${validation_service_url}/trackhubs/register/`;
+    const url = `${validation_service_url}/trackhub/register/`;
     this.loading = true;
     return this.http.post(url, {
       'hub_dir': dir,
