@@ -36,18 +36,16 @@ export class TrackhubsSubmissionComponent implements OnInit {
     this.hubFileUploadUrl = `${validation_service_url}/trackhub/upload/${dir}/${genome}`; 
   }
 
-  registerTrackHub(dir: string, genome_name: string, genome_accession: string) {
-    const url = `${validation_service_url}/trackhub/register/`;
+  submitTrackHub(dir: string) {
+    const url = `${validation_service_url}/trackhub/submit/`;
     this.loading = true;
     return this.http.post(url, {
-      'hub_dir': dir,
-      'genome_name': genome_name,
-      'genome_id': genome_accession
+      'hub_path': dir
     }).subscribe(
       data => {
         console.log(data);
         this.registration_failed_msg = '';
-        this.registration_success_msg = data;
+        this.registration_success_msg = data['message'];
         this.loading = false;
       },
       error => {
