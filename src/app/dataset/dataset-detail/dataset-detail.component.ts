@@ -34,8 +34,8 @@ export class DatasetDetailComponent implements OnInit {
 
   ngOnInit() {
     this.downloadColumns = ['file.name', 'file.url', 'accession', 'experiment.accession', 'file.fileId', 'organism.biosampleId',
-    'species.text', 'organism.breed.text', 'cellLine.sex.text', 'specimenFromOrganism.animalAgeAtCollection.text',
-    'specimenFromOrganism.animalAgeAtCollection.unit', 'biosampleId', 'cellSpecimen.cellType.text'];
+    'species.text', 'organism.breed.text', 'organism.sex.text', 'specimenFromOrganism.animalAgeAtCollection.text',
+    'specimenFromOrganism.animalAgeAtCollection.unit', 'biosampleId', 'cellType.text'];
 
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
     this.spinner.show();

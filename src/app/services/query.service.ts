@@ -7,8 +7,7 @@ import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
   providedIn: 'root'
 })
 export class QueryService {
-  // query_language_url = 'https://api.faang.org/query';
-  query_language_url = 'http://127.0.0.1:8000';
+  query_language_url = 'https://api.faang.org/query';
   downloading = false;
 
   constructor(private http: HttpClient) { }
