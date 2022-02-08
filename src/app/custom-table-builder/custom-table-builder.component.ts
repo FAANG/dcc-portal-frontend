@@ -25,7 +25,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   templates: Object;
   filter_field: {};
   indices = new FormControl();
-  indicesList = ['file', 'organism', 'specimen', 'dataset', 'article', 'analysis', 
+  indicesList = ['file', 'organism', 'specimen', 'dataset', 'article', 'analysis',
     'experiment', 'protocol_files', 'protocol_samples', 'protocol_analysis'];
   selectedIndices;
   selectedColumns = {};
@@ -49,7 +49,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
-    this.dataSource = new MatTableDataSource<any>(this.tableData); 
+    this.dataSource = new MatTableDataSource<any>(this.tableData);
     this.templates = {};
     this.columnsByIndex = {};
     this.loading = false;
@@ -96,7 +96,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
           if (this.fields.includes('species.text') && !this.fields.includes('species.ontologyTerms')) {
             fieldsToFetch.push('species.ontologyTerms');
           }
-          return this.queryService.getRecords(this.selectedIndices, fieldsToFetch, 
+          return this.queryService.getRecords(this.selectedIndices, fieldsToFetch,
                   this.from, this.sortFields, this.project);
         }),
         map(data => {
@@ -152,7 +152,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   }
 
   downloadCSV() {
-    this.queryService.downloadCsv(this.selectedIndices.join('-'), this.fields, this.sortFields, this.project);
+    this.queryService.downloadCsv(this.selectedIndices.join('-'), this.fields, this.sortFields, this.project, 'csv');
   }
 
   isOptionDisabled(opt: any): boolean {

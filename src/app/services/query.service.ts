@@ -7,7 +7,8 @@ import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
   providedIn: 'root'
 })
 export class QueryService {
-  query_language_url = 'https://api.faang.org/query';
+  // query_language_url = 'https://api.faang.org/query';
+  query_language_url = 'http://127.0.0.1:8000';
   downloading = false;
 
   constructor(private http: HttpClient) { }
@@ -60,28 +61,28 @@ export class QueryService {
     }
   }
 
-  downloadCsv(indices, fields, sort, project) {
+  downloadCsv(indices, fields, sort, project, fileFormat) {
     let params = new HttpParams({
       fromObject: { 'indices': indices }
-    }).set('_source', fields).set('sort', sort);
+    }).set('_source', fields).set('sort', sort).set('file_format', fileFormat);
     if (project) {
       params = params.set('q', 'secondaryProject:' + project);
     }
-    let url = this.query_language_url + '/download';
+    const url = this.query_language_url + '/download';
     this.downloading = true;
     this.http.get(url, { params: params, responseType: 'blob' }).subscribe(
       (response: any) => {
-        let dataType = response.type;
-        let binaryData = [];
+        const dataType = response.type;
+        const binaryData = [];
         binaryData.push(response);
-        let downloadLink = document.createElement('a');
+        const downloadLink = document.createElement('a');
         downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-        downloadLink.setAttribute('download', 'data.csv');
+        downloadLink.setAttribute('download', `data.${fileFormat}`);
         document.body.appendChild(downloadLink);
         downloadLink.click();
         this.downloading = false;
       }
-    )
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
-import { external_ena_prefix, external_ols_prefix } from '../../shared/constants';
+import {external_ena_prefix, external_ols_prefix} from '../../shared/constants';
 import {UserService} from '../../services/user.service';
+import {QueryService} from '../../services/query.service';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-dataset-detail',
@@ -12,7 +14,7 @@ import {UserService} from '../../services/user.service';
   styleUrls: ['./dataset-detail.component.css']
 })
 
-export class DatasetDetailComponent implements OnInit {
+export class DatasetDetailComponent implements OnInit, AfterViewInit {
   accession: string;
   dataset: any;
   error: any;
@@ -20,15 +22,24 @@ export class DatasetDetailComponent implements OnInit {
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   mode: string;
+  tableData: any[];
+  dataSource: MatTableDataSource<any>;
+  downloadColumns: string[];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private dataService: ApiDataService,
               private spinner: NgxSpinnerService,
               private titleService: Title,
-              public _userService: UserService) { }
+              public _userService: UserService,
+              public queryService: QueryService) {
+  }
 
   ngOnInit() {
+    this.downloadColumns = ['file.name', 'file.url', 'accession', 'experiment.accession', 'file.fileId', 'organism.biosampleId',
+    'species.text', 'organism.breed.text', 'cellLine.sex.text', 'specimenFromOrganism.animalAgeAtCollection.text',
+    'specimenFromOrganism.animalAgeAtCollection.unit', 'biosampleId', 'cellSpecimen.cellType.text'];
+
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
     this.spinner.show();
     this.route.params.subscribe((params: Params) => {
@@ -57,4 +68,13 @@ export class DatasetDetailComponent implements OnInit {
       }
     );
   }
+
+  ngAfterViewInit() {
+    this.dataSource = new MatTableDataSource<any>(this.tableData);
+  }
+
+  downloadTSV() {
+    this.queryService.downloadCsv('dataset-specimen', this.downloadColumns, '', 'GENE-SWitCH', 'tsv');
+  }
 }
+
