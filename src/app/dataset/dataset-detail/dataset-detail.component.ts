@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -6,7 +6,6 @@ import {Title} from '@angular/platform-browser';
 import {external_ena_prefix, external_ols_prefix} from '../../shared/constants';
 import {UserService} from '../../services/user.service';
 import {QueryService} from '../../services/query.service';
-import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-dataset-detail',
@@ -14,7 +13,7 @@ import {MatTableDataSource} from '@angular/material';
   styleUrls: ['./dataset-detail.component.css']
 })
 
-export class DatasetDetailComponent implements OnInit, AfterViewInit {
+export class DatasetDetailComponent implements OnInit {
   accession: string;
   dataset: any;
   error: any;
@@ -22,8 +21,6 @@ export class DatasetDetailComponent implements OnInit, AfterViewInit {
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   mode: string;
-  tableData: any[];
-  dataSource: MatTableDataSource<any>;
   downloadColumns: string[];
 
   constructor(private route: ActivatedRoute,
@@ -67,10 +64,6 @@ export class DatasetDetailComponent implements OnInit, AfterViewInit {
         this.spinner.hide();
       }
     );
-  }
-
-  ngAfterViewInit() {
-    this.dataSource = new MatTableDataSource<any>(this.tableData);
   }
 
   downloadTSV() {
