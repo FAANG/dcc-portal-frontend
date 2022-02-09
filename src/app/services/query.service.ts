@@ -7,7 +7,8 @@ import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
   providedIn: 'root'
 })
 export class QueryService {
-  query_language_url = 'https://api.faang.org/query';
+  // query_language_url = 'https://api.faang.org/query';
+  query_language_url = 'http://127.0.0.1:8000';
   downloading = false;
 
   constructor(private http: HttpClient) { }
@@ -60,12 +61,15 @@ export class QueryService {
     }
   }
 
-  downloadCsv(indices, fields, sort, project, fileFormat) {
+  downloadCsv(indices, fields, sort, project, fileFormat, accession) {
     let params = new HttpParams({
       fromObject: { 'indices': indices }
     }).set('_source', fields).set('sort', sort).set('file_format', fileFormat);
     if (project) {
       params = params.set('q', 'secondaryProject:' + project);
+    }
+    if (accession) {
+      params = params.append('q', 'accession:' + accession);
     }
     const url = this.query_language_url + '/download';
     this.downloading = true;

@@ -67,7 +67,7 @@ export class DatasetDetailComponent implements OnInit {
   }
 
   downloadTSV() {
-    this.queryService.downloadCsv('dataset-specimen', this.downloadColumns, '', 'GENE-SWitCH', 'tsv');
+    this.queryService.downloadCsv('dataset-specimen', this.downloadColumns, '', '', 'tsv', this.accession);
   }
 }
 
