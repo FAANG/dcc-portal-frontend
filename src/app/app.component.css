@@ -3,6 +3,12 @@
   margin-bottom: 100px;
 }
 
+.container-fluid {
+  font-family: Arial;
+  margin-bottom: 100px;
+  padding: 1% 5% 1% 5% !important;
+}
+
 h1, h2, h3{
   color: #49494A;
 }
