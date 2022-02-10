@@ -67,7 +67,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.templates = {'fileName': this.bioSampleIdTemplate, 
+    this.templates = {'bioSampleId': this.bioSampleIdTemplate, 
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllOrganisms.bind(this.dataService);
     this.titleService.setTitle('FAANG organisms');
