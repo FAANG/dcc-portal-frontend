@@ -59,7 +59,7 @@ export class AggregationService {
   }
 
   getAggregations(recordList: any, type: string) {
-    if (type === 'file') {
+    if (type === 'file' || type === 'organism') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
@@ -100,49 +100,28 @@ export class AggregationService {
             }
           }
         }
+        // process sex
+        if (key == 'sex') {
+          let sex_values = {'male': 0, 'female': 0};
+          for (const val in all_data['sex']) {
+            male_values.indexOf(val) > -1 ? sex_values['male'] += all_data['sex'][val] 
+            : female_values.indexOf(val) > -1 ? sex_values['female'] += all_data['sex'][val] 
+            : sex_values[val] = all_data['sex'][val];
+          }
+          for (const val in sex_values) {
+            if (sex_values[val] == 0) {
+              delete sex_values[val];
+            }
+          }
+          all_data['sex'] = sex_values;
+        }
         all_data[key] = Object.entries(all_data[key]).sort(function (a: any, b: any) {
           return b[1] - a[1];
         })
       }
       this.data.next(all_data);
-    } else if (type === 'organism') {
-      let standard = {};
-      let sex = {};
-      let organism = {};
-      let breed = {};
-      let paper_published = {};
-      let all_data;
-
-      for (const item of recordList) {
-        let sex_value: string;
-        male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
-          sex_value = 'not determined');
-        standard = this.updateAggregation(standard, item['standard']);
-        sex = this.updateAggregation(sex, sex_value);
-        organism = this.updateAggregation(organism, item['organism']);
-        breed = this.updateAggregation(breed, item['breed']);
-        paper_published = this.updatePaperAggregation(paper_published, item['paperPublished']);
-      }
-
-      all_data = {
-        standard: Object.entries(standard).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        sex: Object.entries(sex).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        organism: Object.entries(organism).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        breed: Object.entries(breed).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        paper_published: Object.entries(paper_published).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-      };
-      this.data.next(all_data);
-    } else if (type === 'specimen') {
+    } 
+    else if (type === 'specimen') {
       let standard = {};
       let sex = {};
       let organism = {};

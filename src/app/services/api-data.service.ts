@@ -79,22 +79,9 @@ export class ApiDataService {
     );
   }
 
-  downloadFiles(query: any) {
-    const url = this.hostSetting.host + 'file/' + 'download/';
+  downloadRecords(index: string, mapping: any, query: any) {
+    const url = this.hostSetting.host + index + '/download/';
     let filters = query['filters'];
-    let mapping = {
-      'study': 'study.accession',
-      'experiment': 'experiment.accession',
-      'species': 'species.text',
-      'assay_type': 'experiment.assayType',
-      'target': 'experiment.target',
-      'specimen': 'specimen',
-      'instrument': 'run.instrument',
-      'assayType': 'experiment.assayType',
-      'standard': 'experiment.standardMet',
-      'paper_published': 'paperPublished',
-      'submitterEmail': 'submitterEmail'
-    }
     for (const prop in filters) {
       if (mapping[prop] && (prop !== mapping[prop])) {
         filters[mapping[prop]] = filters[prop];
@@ -237,19 +224,47 @@ export class ApiDataService {
 
   getAllOrganisms(query: any, size: number) {
     const url = this.hostSetting.host + 'organism/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    let aggs = {
+      'sex': 'sex.text',
+      'organism': 'organism.text',
+      'breed': 'breed.text',
+      'standard': 'standardMet',
+      'paper_published': 'paperPublished'
+    }
+    let mapping = {
+      'bioSampleId': 'biosampleId',
+      'sex': 'sex.text',
+      'organism': 'organism.text',
+      'breed': 'breed.text',
+      'standard': 'standardMet',
+      'idNumber': 'id_number',
+      'paper_published': 'paperPublished',
+    }
+    let filters = query['filters'];
+    for (const prop in filters) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map(entry => ({
           bioSampleId: entry['_source']['biosampleId'],
           sex: entry['_source']['sex']['text'],
           organism: entry['_source']['organism']['text'],
           breed: entry['_source']['breed']['text'],
           standard: entry['_source']['standardMet'],
-          idNumber: +entry['_source']['id_number'],
+          idNumber: entry['_source']['id_number'],
           paperPublished: entry['_source']['paperPublished'],
-        } as OrganismTable)
+          } as OrganismTable )
         );
+        res['totalHits'] = data.hits.total.value;
+        res['aggregations'] = data.aggregations;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),
