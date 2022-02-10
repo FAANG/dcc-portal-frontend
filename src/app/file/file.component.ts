@@ -38,7 +38,8 @@ export class FileComponent implements OnInit, OnDestroy {
       'specimen',
       'run.instrument',
       'experiment.standardMet',
-      'paperPublished'],
+      'paperPublished',
+      'submitterEmail'],
     'search': ''
   };
 
@@ -54,9 +55,10 @@ export class FileComponent implements OnInit, OnDestroy {
       '_source.specimen',
       '_source.run.instrument',
       '_source.experiment.standardMet',
-      '_source.paperPublished'
+      '_source.paperPublished',
+      '_source.submitterEmail'
     ],
-    'columns': this.columnNames,
+    'columns': this.columnNames.concat(['Submitter Email']),
     'filters': {},
     'file_format': 'csv',
   };
