@@ -22,10 +22,41 @@ export class ApiDataService {
 
   getAllFiles(query: any, size: number) {
     const url = this.hostSetting.host + 'file/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    let aggs = {
+      'species': 'species.text',
+      'assay_type': 'experiment.assayType',
+      'target': 'experiment.target',
+      'instrument': 'run.instrument',
+      'assayType': 'experiment.assayType',
+      'standard': 'experiment.standardMet',
+      'paper_published': 'paperPublished'
+    }
+    let mapping = {
+      'fileName': 'name',
+      'study': 'study.accession',
+      'experiment': 'experiment.accession',
+      'species': 'species.text',
+      'assay_type': 'experiment.assayType',
+      'target': 'experiment.target',
+      'specimen': 'specimen',
+      'instrument': 'run.instrument',
+      'assayType': 'experiment.assayType',
+      'standard': 'experiment.standardMet',
+      'paper_published': 'paperPublished',
+    }
+    let filters = query['filters'];
+    for (const prop in filters) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map(entry => ({
+        res['data'] = data.hits.hits.map(entry => ({
           fileName: entry['_id'],
           study: entry['_source']['study']['accession'],
           experiment: entry['_source']['experiment']['accession'],
@@ -39,10 +70,46 @@ export class ApiDataService {
           submitterEmail: entry['_source']['submitterEmail']
           } as FileTable )
         );
+        res['totalHits'] = data.hits.total.value;
+        res['aggregations'] = data.aggregations;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),
     );
+  }
+
+  downloadFiles(query: any) {
+    const url = this.hostSetting.host + 'file/' + 'download/';
+    let filters = query['filters'];
+    let mapping = {
+      'study': 'study.accession',
+      'experiment': 'experiment.accession',
+      'species': 'species.text',
+      'assay_type': 'experiment.assayType',
+      'target': 'experiment.target',
+      'specimen': 'specimen',
+      'instrument': 'run.instrument',
+      'assayType': 'experiment.assayType',
+      'standard': 'experiment.standardMet',
+      'paper_published': 'paperPublished',
+      'submitterEmail': 'submitterEmail'
+    }
+    for (const prop in filters) {
+      if (mapping[prop] && (prop !== mapping[prop])) {
+        filters[mapping[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('columns', JSON.stringify(query['columns'])).set('file_format', query['file_format']);
+    const fullURL = `${url}?${params.toString()}`;
+    return this.http.get(fullURL, {responseType: 'blob' as 'blob'}).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );;
   }
 
   getAllFilesForProject(project: string, mode: string) {
