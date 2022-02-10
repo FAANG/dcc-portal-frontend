@@ -12,3 +12,7 @@
 h1, h2, h3{
   color: #49494A;
 }
+
+.navbar {
+  padding: 0 0 2% 0 !important;
+}
