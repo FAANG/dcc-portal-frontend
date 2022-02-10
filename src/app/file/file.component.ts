@@ -145,22 +145,25 @@ export class FileComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
   }
 
-  downloadCsvFile() {
-    this.downloadQuery['file_format'] = 'csv';
-    this.dataService.downloadFiles(this.downloadQuery).subscribe((res:Response)=>{
+  downloadFile(format: string) {
+    this.downloadQuery['file_format'] = format;
+    let mapping = {
+      'study': 'study.accession',
+      'experiment': 'experiment.accession',
+      'species': 'species.text',
+      'assay_type': 'experiment.assayType',
+      'target': 'experiment.target',
+      'specimen': 'specimen',
+      'instrument': 'run.instrument',
+      'assayType': 'experiment.assayType',
+      'standard': 'experiment.standardMet',
+      'paper_published': 'paperPublished',
+      'submitterEmail': 'submitterEmail'
+    }
+    this.dataService.downloadRecords('file', mapping, this.downloadQuery).subscribe((res:Response)=>{
       var a = document.createElement("a");
       a.href = URL.createObjectURL(res);
-      a.download = 'faang_data.csv';
-      a.click();
-    });
-  }
-
-  downloadTabularFile() {
-    this.downloadQuery['file_format'] = 'txt';
-    this.dataService.downloadFiles(this.downloadQuery).subscribe((res:Response)=>{
-      var a = document.createElement("a");
-      a.href = URL.createObjectURL(res);
-      a.download = 'faang_data.txt';
+      a.download = 'faang_data.' + format;
       a.click();
     });
   }
