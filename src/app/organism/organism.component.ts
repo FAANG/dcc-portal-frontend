@@ -26,6 +26,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   filter_field: {};
   aggrSubscription: Subscription;
   downloadData = false;
+  downloading = false;
   data = {};
 
   private query = {
@@ -140,6 +141,8 @@ export class OrganismComponent implements OnInit, OnDestroy {
   }
 
   downloadFile(format: string) {
+    this.downloadData = !this.downloadData;
+    this.downloading = true;
     this.downloadQuery['file_format'] = format;
     let mapping = {
       'bioSampleId': 'biosampleId',
@@ -154,6 +157,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
       a.href = URL.createObjectURL(res);
       a.download = 'faang_data.' + format;
       a.click();
+      this.downloading = false;
     });
   }
 

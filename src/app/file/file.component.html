@@ -34,13 +34,18 @@
     </div>
 
     <div class="col-md-10 table-responsive">
-      <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
+      <button class="btn btn-success" (click)="onDownloadData()" [disabled]="downloading">
+        Download data
+      </button>
       <button (click)="downloadFile('csv')" class="btn btn-light" *ngIf="downloadData">
         Export as CSV file
       </button>
       <button (click)="downloadFile('txt')" class="btn btn-light" *ngIf="downloadData">
         Export as Tabular file
       </button>
+      <mat-spinner *ngIf="downloading" [diameter]="30" 
+        style="display: inline; margin-left: 10px;">
+      </mat-spinner>
       <app-table-server-side  [display_fields]="displayFields" 
             [column_names]="columnNames"
             [templates]="templates"
