@@ -84,3 +84,8 @@ a {
 a:hover {
   color:#8dc7d3;
 }
+
+.project-link {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
