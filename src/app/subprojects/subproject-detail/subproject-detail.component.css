@@ -37,3 +37,17 @@ h3{
 div.keyproj{
   width: 100%;
 }
+
+.project-link {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.project-link a{
+  text-decoration:none;
+  color:#5199a8;
+}
+
+.project-link a:hover{
+  color:#8dc7d3;
+}
