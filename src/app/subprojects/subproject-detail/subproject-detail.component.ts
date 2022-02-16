@@ -17,6 +17,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   eurofaang_keyproj: any = [];
   error: any;
   right_logo_url: {};
+  project_links: {};
 
   constructor(private route: ActivatedRoute,
               private title: Title,
@@ -32,6 +33,13 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
     this.right_logo_url = {
       bovine: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/funding-logo-1.png',
       other: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovreg/funding-logo-1.png'
+    };
+    this.project_links = {
+      'AQUA-FAANG': 'https://eurofaang.eu/projects/aquafaang',
+      'BovReg': 'https://eurofaang.eu/projects/bovreg',
+      'GENE-SWitCH': 'https://eurofaang.eu/projects/geneswitch',
+      'GEroNIMO': 'https://eurofaang.eu/projects/geronimo',
+      'RUMIGEN': 'https://eurofaang.eu/projects/rumigen'
     };
     this.route.params.subscribe((params: Params) => {
         this.project = params['id'];
