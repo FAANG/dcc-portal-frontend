@@ -59,7 +59,7 @@ export class AggregationService {
   }
 
   getAggregations(recordList: any, type: string) {
-    if (type === 'file' || type === 'organism') {
+    if (type === 'file' || type === 'organism' || type === 'specimen') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
@@ -120,55 +120,8 @@ export class AggregationService {
         })
       }
       this.data.next(all_data);
-    } 
-    else if (type === 'specimen') {
-      let standard = {};
-      let sex = {};
-      let organism = {};
-      let material = {};
-      let organismpart_celltype = {};
-      let breed = {};
-      let paper_published = {};
-      let all_data;
-
-      for (const item of recordList) {
-        let sex_value: string;
-        male_values.indexOf(item['sex']) > -1 ? sex_value = 'male' : (female_values.indexOf(item['sex']) > -1 ? sex_value = 'female' :
-          sex_value = 'not determined');
-        standard = this.updateAggregation(standard, item['standard']);
-        sex = this.updateAggregation(sex, sex_value);
-        organism = this.updateAggregation(organism, item['organism']);
-        material = this.updateAggregation(material, item['material']);
-        organismpart_celltype = this.updateAggregation(organismpart_celltype, item['organismpart_celltype']);
-        breed = this.updateAggregation(breed, item['breed']);
-        paper_published = this.updatePaperAggregation(paper_published, item['paperPublished']);
-      }
-
-      all_data = {
-        standard: Object.entries(standard).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        sex: Object.entries(sex).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        organism: Object.entries(organism).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        material: Object.entries(material).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        organismpart_celltype: Object.entries(organismpart_celltype).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        breed: Object.entries(breed).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        paper_published: Object.entries(paper_published).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-      };
-      this.data.next(all_data);
-    } else if (type === 'dataset') {
+    }
+    else if (type === 'dataset') {
       let standard = {};
       let species = {};
       let assay_type = {};

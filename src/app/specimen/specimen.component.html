@@ -1,6 +1,7 @@
-<div class="container">
+<div class="container-fluid">
   <app-header></app-header>
-  <h2>FAANG specimens</h2>
+  <h2>FAANG Specimens</h2>
+  <hr>
 
   <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
     Active filters:
@@ -36,93 +37,39 @@
     </div>
 
     <div class="col-md-10 table-responsive">
-      <div *ngIf="(specimenListLong | async) as specimens; else loading">
-        <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
-        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
-          Export as CSV file
-        </app-export>
-        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
-          Export as Tabular file
-        </app-export>
-        <table class="table table-striped table-hover table-borderless table-sm">
-          <thead>
-          <tr>
-            <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
-              {{ column }}
-              <i class="material-icons sorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column === selectedColumn" [id]="column">{{spanClass}}</i>
-              <i class="material-icons unsorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column !== selectedColumn" [id]="column">{{defaultClass}}</i>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let specimen of specimens | sort: sort_field | filter: filter_field: 'specimen' | paginate: { itemsPerPage: 30, currentPage: p }">
-            <td><a style="cursor: pointer" [routerLink]="specimen['bioSampleId']">{{specimen['bioSampleId']}}</a></td>
-            <td>{{specimen['material']}}</td>
-            <td>{{specimen['organismpart_celltype']}}</td>
-            <td>{{specimen['sex']}}</td>
-            <td>{{specimen['organism']}}</td>
-            <td>{{specimen['breed']}}</td>
-            <td>{{specimen['standard']}}</td>
-            <td *ngIf="wasPublished(specimen['paperPublished'])" [ngClass]="isGreen(specimen['paperPublished'])">
-              <i class="material-icons">check_circle_outline</i>
-            </td>
-            <td *ngIf="!wasPublished(specimen['paperPublished'])" [ngClass]="isGreen(specimen['paperPublished'])">
-              <i class="material-icons">highlight_off</i>
-            </td>
-            <td>
-              <a *ngIf="specimen['trackhubUrl']" class="btn btn-success"
-                target="_blank" style="color: white;"
-                [href]="'http://www.ensembl.org/Trackhub?url=' + specimen['trackhubUrl']">
-                Launch in Genome Browser
-              </a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
-      <ng-template #loading>
-        <div>
-          Loading...
-        </div>
-        <table class="table table-striped table-hover table-borderless table-sm">
-          <thead>
-          <tr>
-            <th *ngFor="let column of columnNames">
-              {{ column }}
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let specimen of specimenListShort">
-            <td><a style="cursor: pointer" [routerLink]="specimen['bioSampleId']">{{specimen['bioSampleId']}}</a></td>
-            <td>{{specimen['material']}}</td>
-            <td>{{specimen['organismpart_celltype']}}</td>
-            <td>{{specimen['sex']}}</td>
-            <td>{{specimen['organism']}}</td>
-            <td>{{specimen['breed']}}</td>
-            <td>{{specimen['standard']}}</td>
-            <td *ngIf="wasPublished(specimen['paperPublished'])" [ngClass]="isGreen(specimen['paperPublished'])">
-              <i class="material-icons">check_circle_outline</i>
-            </td>
-            <td *ngIf="!wasPublished(specimen['paperPublished'])" [ngClass]="isGreen(specimen['paperPublished'])">
-              <i class="material-icons">highlight_off</i>
-            </td>
-            <td>
-              <a *ngIf="specimen['trackhubUrl']" class="btn btn-success"
-                target="_blank" style="color: white;"
-                [href]="'http://www.ensembl.org/Trackhub?url=' + specimen['trackhubUrl']">
-                Launch in Genome Browser
-              </a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <div>
-          Loading...
-        </div>
-      </ng-template>
-      <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
+      <button class="btn btn-success" (click)="onDownloadData()" [disabled]="downloading">
+        Download data
+      </button>
+      <button (click)="downloadFile('csv')" class="btn btn-light" *ngIf="downloadData">
+        Export as CSV file
+      </button>
+      <button (click)="downloadFile('txt')" class="btn btn-light" *ngIf="downloadData">
+        Export as Tabular file
+      </button>
+      <mat-spinner *ngIf="downloading" [diameter]="30" 
+        style="display: inline; margin-left: 10px;">
+      </mat-spinner>
+      <app-table-server-side  [display_fields]="displayFields" 
+            [column_names]="columnNames"
+            [templates]="templates"
+            [filter_values]="filter_field"
+            [apiFunction]="loadTableDataFunction"
+            [query]="query"
+            [defaultSort]="defaultSort">
+      </app-table-server-side>
     </div>
   </div>
 </div>
+
+<ng-template #biosampleIdTemplate let-item>
+  <a style="cursor: pointer" target="_blank" [routerLink]="item">{{item}}</a>
+</ng-template>
+
+<ng-template #paperPublishedTemplate let-item>
+  <td *ngIf="wasPublished(item)" [ngClass]="isGreen(item)">
+    <i class="material-icons">check_circle</i>
+  </td>
+  <td *ngIf="!wasPublished(item)" [ngClass]="isGreen(item)">
+    <i class="material-icons">highlight_off</i>
+  </td>
+</ng-template>

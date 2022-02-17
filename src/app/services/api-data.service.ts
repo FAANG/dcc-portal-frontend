@@ -383,10 +383,39 @@ export class ApiDataService {
 
   getAllSpecimens(query: any, size: number) {
     const url = this.hostSetting.host + 'specimen/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    let aggs = {
+      'standard': 'standardMet',
+      'sex': 'organism.sex.text',
+      'organism': 'organism.organism.text',
+      'material': 'material.text',
+      'organismpart_celltype': 'cellType.text',
+      'breed': 'organism.breed.text',
+      'paper_published': 'paperPublished'
+    }
+    let mapping = {
+      'standard': 'standardMet',
+      'id_number': 'id_number',
+      'sex': 'organism.sex.text',
+      'organism': 'organism.organism.text',
+      'material': 'material.text',
+      'organismpart_celltype': 'cellType.text',
+      'breed': 'organism.breed.text',
+      'paper_published': 'paperPublished',
+      'trackhubUrl': 'trackhubUrl'
+    }
+    let filters = query['filters'];
+    for (const prop in filters) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
           material: this.checkField(entry['_source']['material']),
           organismpart_celltype: this.checkField(entry['_source']['cellType']),
@@ -394,11 +423,14 @@ export class ApiDataService {
           organism: this.checkField(entry['_source']['organism']['organism']),
           breed: this.checkField(entry['_source']['organism']['breed']),
           standard: entry['_source']['standardMet'],
-          idNumber: +entry['_source']['id_number'],
+          idNumber: entry['_source']['id_number'],
           paperPublished: entry['_source']['paperPublished'],
           trackhubUrl: entry['_source']['trackhubUrl'],
           } as SpecimenTable)
         );
+        res['totalHits'] = data.hits.total.value;
+        res['aggregations'] = data.aggregations;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),

@@ -1,12 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {SortParams, SpecimenTable} from '../shared/interfaces';
+import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {SpecimenTable} from '../shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
-import {ExportService} from '../services/export.service';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 
 @Component({
   selector: 'app-specimen',
@@ -14,29 +13,25 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./specimen.component.css']
 })
 export class SpecimenComponent implements OnInit, OnDestroy {
+  @ViewChild('biosampleIdTemplate', { static: true }) biosampleIdTemplate: TemplateRef<any>;
+  @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  public loadTableDataFunction: Function;
   specimenListShort: Observable<SpecimenTable[]>;
   specimenListLong: Observable<SpecimenTable[]>;
   columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard',
     'Paper published', 'Track Hub'];
-  spanClass = 'expand_more';
-  defaultClass = 'unfold_more';
-  selectedColumn = 'BioSample ID';
-  sort_field: SortParams;
-  filter_field: {};
-  aggrSubscription: Subscription;
-  exportSubscription: Subscription;
-  specimenListLongSubscription: Subscription;
-  downloadData = false;
-
-  optionsCsv;
-  optionsTabular;
-  data = {};
-
-  // Local variable for pagination
-  p = 1;
+    displayFields: string[] = ['bioSampleId', 'material', 'organismpart_celltype', 'sex', 'organism', 'breed', 'standard', 
+    'paperPublished', 'trackhubUrl'];
+    filter_field: {};
+    templates: Object;
+    aggrSubscription: Subscription;
+    downloadData = false;
+    downloading = false;
+    data = {};
 
   private query = {
-    'sort': 'id_number:desc',
+    'sort': ['id_number', 'desc'],
     '_source': [
       'biosampleId',
       'material.text',
@@ -47,21 +42,44 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       'standardMet',
       'id_number',
       'paperPublished',
-      'trackhubUrl'],
+      'trackhubUrl'
+    ],
+    'search': ''
   };
+
+  downloadQuery = {
+    'sort': ['id_number', 'desc'],
+    '_source': [
+      '_source.biosampleId',
+      '_source.id_number',
+      '_source.material.text',
+      '_source.cellType.text',
+      '_source.organism.sex.text',
+      '_source.organism.organism.text',
+      '_source.organism.breed.text',
+      '_source.standardMet',
+      '_source.paperPublished',
+      '_source.trackhubUrl'
+    ],
+    'columns': this.columnNames.concat(['Track Hub']),
+    'filters': {},
+    'file_format': 'csv',
+  };
+
+  defaultSort = ['id_number','desc'];
   error: string;
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
-              private exportService: ExportService,
-              private spinner: NgxSpinnerService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.templates = {'biosampleId': this.biosampleIdTemplate, 
+                      'paperPublished': this.paperPublishedTemplate };
+    this.loadTableDataFunction = this.dataService.getAllSpecimens.bind(this.dataService);
     this.titleService.setTitle('FAANG specimens');
-    this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
       const filters = {};
@@ -80,27 +98,15 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
+      this.query['filters'] = filters;
+      this.downloadQuery['filters'] = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
-    this.optionsCsv = this.exportService.optionsCsv;
-    this.optionsTabular = this.exportService.optionsTabular;
-    this.optionsCsv['headers'] = this.columnNames;
-    this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'idNumber', direction: 'desc'};
-    this.dataService.getAllSpecimens(this.query, 30).subscribe(
-      data => {
-        this.specimenListShort = data;
-        if (this.specimenListShort) {
-          this.spinner.hide();
-        }
-      },
-      error => {
-        this.error = error;
-        this.spinner.hide();
-      }
-    );
-    this.specimenListLong = this.dataService.getAllSpecimens(this.query, 100000);
-    this.specimenListLongSubscription = this.specimenListLong.subscribe((data) => {
-      this.aggregationService.getAggregations(data, 'specimen');
+    this.tableServerComponent.dataUpdate.subscribe((data) => {
+      this.aggregationService.getAggregations(data.aggregations, 'specimen');
+    });
+    this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
+      this.downloadQuery['sort'] = sortParams;
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -111,80 +117,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       }
       this.router.navigate(['specimen'], {queryParams: params});
     });
-    this.exportSubscription = this.exportService.data.subscribe((data) => {
-      this.data = data;
-    });
-  }
-
-  onTableClick(event: any) {
-    let event_class;
-    if (event['srcElement']['firstElementChild']) {
-      event_class = event['srcElement']['firstElementChild']['innerText'];
-    } else {
-      event_class = event['srcElement']['innerText'];
-    }
-    this.selectedColumn = event['srcElement']['id'];
-    this.selectColumn();
-    this.chooseClass(event_class);
-  }
-
-  chooseClass(event_class: string) {
-    if (this.selectedColumn === 'BioSample ID') {
-      if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      }
-    } else {
-      if (event_class === this.defaultClass) {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      } else if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'unfold_more';
-        this.sort_field['direction'] = 'desc';
-        this.sort_field['id'] = 'idNumber';
-        this.selectedColumn = 'BioSample ID';
-        this.spanClass = 'expand_more';
-      }
-    }
-  }
-
-  selectColumn() {
-    switch (this.selectedColumn) {
-      case 'BioSample ID': {
-        this.sort_field['id'] = 'idNumber';
-        break;
-      }
-      case 'Material': {
-        this.sort_field['id'] = 'material';
-        break;
-      }
-      case 'Organism part/Cell type': {
-        this.sort_field['id'] = 'organismpart_celltype';
-        break;
-      }
-      case 'Sex': {
-        this.sort_field['id'] = 'sex';
-        break;
-      }
-      case 'Organism': {
-        this.sort_field['id'] = 'organism';
-        break;
-      }
-      case 'Breed': {
-        this.sort_field['id'] = 'breed';
-        break;
-      }
-      case 'Standard': {
-        this.sort_field['id'] = 'standard';
-        break;
-      }
-    }
   }
 
   hasActiveFilters() {
@@ -204,7 +136,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       this.aggregationService.active_filters[key] = [];
     }
     this.aggregationService.current_active_filters = [];
-    this.filter_field = {};
+    this.filter_field = Object.assign({}, this.filter_field);
   }
 
   removeFilter() {
@@ -214,6 +146,29 @@ export class SpecimenComponent implements OnInit, OnDestroy {
 
   onDownloadData() {
     this.downloadData = !this.downloadData;
+  }
+
+  downloadFile(format: string) {
+    this.downloadData = !this.downloadData;
+    this.downloading = true;
+    this.downloadQuery['file_format'] = format;
+    let mapping = {
+      'standard': 'standardMet',
+      'sex': 'organism.sex.text',
+      'organism': 'organism.organism.text',
+      'material': 'material.text',
+      'organismpart_celltype': 'cellType.text',
+      'breed': 'organism.breed.text',
+      'paper_published': 'paperPublished',
+      'trackhubUrl': 'trackhubUrl'
+    }
+    this.dataService.downloadRecords('specimen', mapping, this.downloadQuery).subscribe((res:Blob)=>{
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(res);
+      a.download = 'faang_data.' + format;
+      a.click();
+      this.downloading = false;
+    });
   }
 
   wasPublished(published: any) {
@@ -229,8 +184,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       this.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
-    this.exportSubscription.unsubscribe();
-    this.specimenListLongSubscription.unsubscribe();
   }
 
 }
