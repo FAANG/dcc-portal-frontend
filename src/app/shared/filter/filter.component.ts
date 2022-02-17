@@ -111,6 +111,7 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Analysis type': {
         data_key = 'analysisType';
+        key = key.split(' ').join('_');
         break;
       }
       case 'Instrument': {

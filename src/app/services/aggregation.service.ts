@@ -59,7 +59,8 @@ export class AggregationService {
   }
 
   getAggregations(recordList: any, type: string) {
-    if (type === 'file' || type === 'organism' || type === 'specimen' || type == 'dataset') {
+    if (type === 'file' || type === 'organism' || type === 'specimen' || type == 'dataset' || 
+        type === 'analysis') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
@@ -115,52 +116,20 @@ export class AggregationService {
           }
           all_data['sex'] = sex_values;
         }
+        // process Analysis Type
+        if (key == 'analysis_type') {
+          for (const val in all_data['analysis_type']) {
+            all_data['analysis_type'][replaceUnderscoreWithSpace(val)] = all_data['analysis_type'][val];
+            delete all_data['analysis_type'][val];
+          }
+        }
         all_data[key] = Object.entries(all_data[key]).sort(function (a: any, b: any) {
           return b[1] - a[1];
         })
       }
       this.data.next(all_data);
     }
-    else if (type === 'analysis') {
-      let standard = {};
-      let species = {};
-      let assay_type = {};
-      let dataset = {};
-      let analysis_type = {};
-      let all_data;
-      for (const item of recordList) {
-        let assay_type_value = 'not provided';
-        if (item['assayType']) {
-          assay_type_value = item['assayType'];
-        }
-        standard = this.updateAggregation(standard, item['standard']);
-        for (const spec of item['species'].split(',')) {
-          species = this.updateAggregation(species, spec);
-        }
-        assay_type = this.updateAggregation(assay_type, assay_type_value);
-        dataset = this.updateAggregation(dataset, item['datasetAccession']);
-        analysis_type = this.updateAggregation(analysis_type, replaceUnderscoreWithSpace(item['analysisType']));
-      }
-
-      all_data = {
-        standard: Object.entries(standard).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        species: Object.entries(species).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        assay_type: Object.entries(assay_type).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        dataset: Object.entries(dataset).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        analysis_type: Object.entries(analysis_type).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-      };
-      this.data.next(all_data);
-    } else if (type === 'article') {
+    else if (type === 'article') {
       let journal = {};
       let year = {};
       let dataset_source = {};

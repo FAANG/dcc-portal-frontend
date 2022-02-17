@@ -9,6 +9,7 @@ import {
 } from '../shared/interfaces';
 import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
 import {UserService} from './user.service';
+import {replaceUnderscoreWithSpace} from '../shared/common_functions';
 
 
 @Injectable({
@@ -560,19 +561,47 @@ export class ApiDataService {
 
   getAllAnalyses(query: any, size: number) {
     const url = this.hostSetting.host + 'analysis/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    let aggs = {
+      'dataset': 'datasetAccession',
+      'species': 'organism.text', 
+      'assay_type': 'assayType', 
+      'analysis_type': 'analysisType', 
+      'standard': 'standardMet'
+    }
+    let mapping = {
+      'accession': 'accession', 
+      'datasetAccession': 'datasetAccession', 
+      'title': 'title', 
+      'species': 'organism.text', 
+      'assayType': 'assayType', 
+      'analysisType': 'analysisType', 
+      'standard': 'standardMet'
+    }
+    let filters = query['filters'];
+    for (const prop in filters) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map( entry => ({
           accession: entry['_source']['accession'],
           datasetAccession: entry['_source']['datasetAccession'],
           title: entry['_source']['title'],
           species: entry['_source']['organism']['text'],
           assayType: entry['_source']['assayType'],
-          analysisType: entry['_source']['analysisType'],
+          analysisType: replaceUnderscoreWithSpace(entry['_source']['analysisType']),
           standard: entry['_source']['standardMet']
           } as AnalysisTable)
         );
+        res['totalHits'] = data.hits.total.value;
+        res['aggregations'] = data.aggregations;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),

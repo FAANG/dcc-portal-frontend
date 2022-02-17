@@ -1,13 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AnalysisTable, SortParams} from '../shared/interfaces';
-import {Subscription} from 'rxjs';
+import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
-import {ExportService} from '../services/export.service';
-import {NgxSpinnerService} from 'ngx-spinner';
+import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {Observable} from 'rxjs/internal/Observable';
+import {AnalysisTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 
 @Component({
   selector: 'app-analysis',
@@ -15,29 +13,20 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./analysis.component.css']
 })
 export class AnalysisComponent implements OnInit, OnDestroy {
-  analysisListShort: Observable<AnalysisTable[]>;
-  analysisListLong: Observable<AnalysisTable[]>;
+  @ViewChild('accessionTemplate', { static: true }) accessionTemplate: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  public loadTableDataFunction: Function;
   columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard'];
-
-  spanClass = 'expand_more';
-  defaultClass = 'unfold_more';
-  selectedColumn = 'Analysis accession';
-  sort_field: SortParams;
-  filter_field = {};
+  displayFields: string[] = ['accession', 'datasetAccession', 'title', 'species', 'assayType', 'analysisType', 'standard'];
+  filter_field: {};
+  templates: Object;
   aggrSubscription: Subscription;
-  exportSubscription: Subscription;
-  analysisListLongSubscription: Subscription;
   downloadData = false;
-
-  optionsCsv;
-  optionsTabular;
+  downloading = false;
   data = {};
 
-  // Local variable for pagination
-  p = 1;
-
   private query = {
-    'sort': 'accession:desc',
+    'sort': ['accession','desc'],
     '_source': [
       'accession',
       'datasetAccession',
@@ -46,26 +35,42 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       'assayType',
       'analysisType',
       'standardMet'],
+    'search': ''
   };
-  error: string;
 
+  downloadQuery = {
+    'sort': ['accession','desc'],
+    '_source': [
+      '_source.accession',
+      '_source.datasetAccession',
+      '_source.title',
+      '_source.organism.text',
+      '_source.assayType',
+      '_source.analysisType',
+      '_source.standardMet'],
+    'columns': this.columnNames,
+    'filters': {},
+    'file_format': 'csv',
+  };
+
+  defaultSort = ['accession','desc'];
+  error: string;
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
-              private exportService: ExportService,
-              private spinner: NgxSpinnerService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.templates = {'accession': this.accessionTemplate};
+    this.loadTableDataFunction = this.dataService.getAllAnalyses.bind(this.dataService);
     this.titleService.setTitle('FAANG analyses');
-    this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      const filters = {};
       this.resetFilter();
+      const filters = {};
       for (const key in params) {
-        if (Array.isArray(params[key])) {
+        if (Array.isArray(params[key])) { // multiple values chosed for one filter
           filters[key] = params[key];
           for (const value of params[key]) {
             this.aggregationService.current_active_filters.push(value);
@@ -79,96 +84,25 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
+      this.query['filters'] = filters;
+      this.downloadQuery['filters'] = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
-    this.optionsCsv = this.exportService.optionsCsv;
-    this.optionsTabular = this.exportService.optionsTabular;
-    this.optionsCsv['headers'] = this.columnNames;
-    this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'accession', direction: 'desc'};
-    this.spinner.hide();
-    this.analysisListLong = this.dataService.getAllAnalyses(this.query, 100000);
-    this.analysisListLongSubscription = this.analysisListLong.subscribe((data) => {
-      this.aggregationService.getAggregations(data, 'analysis');
+    this.tableServerComponent.dataUpdate.subscribe((data) => {
+      this.aggregationService.getAggregations(data.aggregations, 'analysis');
     });
-    this.aggrSubscription = this.aggregationService.field.subscribe((data: any) => {
+    this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
+      this.downloadQuery['sort'] = sortParams;
+    });
+    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
-      for (const key in data) {
+      for (const key of Object.keys(data)) {
         if (data[key].length !== 0) {
           params[key] = data[key];
         }
       }
       this.router.navigate(['analysis'], {queryParams: params});
     });
-    this.exportSubscription = this.exportService.data.subscribe((data) => {
-      this.data = data;
-    });
-  }
-
-  onTableClick(event: any) {
-    let event_class;
-    if (event['srcElement']['firstElementChild']) {
-      event_class = event['srcElement']['firstElementChild']['innerText'];
-    } else {
-      event_class = event['srcElement']['innerText'];
-    }
-    this.selectedColumn = event['srcElement']['id'];
-    this.selectColumn();
-    this.chooseClass(event_class);
-  }
-
-  chooseClass(event_class: string) {
-    if (this.selectedColumn === 'Analysis accession') {
-      if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      }
-    } else {
-      if (event_class === this.defaultClass) {
-        this.spanClass = 'expand_more';
-        this.sort_field['direction'] = 'desc';
-      } else if (event_class === 'expand_more') {
-        this.spanClass = 'expand_less';
-        this.sort_field['direction'] = 'asc';
-      } else {
-        this.spanClass = 'unfold_more';
-        this.sort_field['direction'] = 'desc';
-        this.sort_field['id'] = 'datasetAccession';
-        this.selectedColumn = 'Analysis accession';
-        this.spanClass = 'expand_more';
-      }
-    }
-  }
-
-  selectColumn() {
-    switch (this.selectedColumn) {
-      case 'Dataset': {
-        this.sort_field['id'] = 'datasetAccession';
-        break;
-      }
-      case 'Title': {
-        this.sort_field['id'] = 'title';
-        break;
-      }
-      case 'Species': {
-        this.sort_field['id'] = 'species';
-        break;
-      }
-      case 'Analysis accession': {
-        this.sort_field['id'] = 'accession';
-        break;
-      }
-      case 'Assay type': {
-        this.sort_field['id'] = 'assayType';
-        break;
-      }
-      case 'Analysis type': {
-        this.sort_field['id'] = 'analysisType';
-        break;
-      }
-    }
   }
 
   hasActiveFilters() {
@@ -188,7 +122,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       this.aggregationService.active_filters[key] = [];
     }
     this.aggregationService.current_active_filters = [];
-    this.filter_field = {};
+    this.filter_field = Object.assign({}, this.filter_field);
   }
 
   removeFilter() {
@@ -200,12 +134,45 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
   }
 
+  downloadFile(format: string) {
+    this.downloadData = !this.downloadData;
+    this.downloading = true;
+    this.downloadQuery['file_format'] = format;
+    let mapping = {
+      'accession': 'accession', 
+      'datasetAccession': 'datasetAccession', 
+      'title': 'title', 
+      'species': 'organism.text', 
+      'assayType': 'assayType', 
+      'analysisType': 'analysisType', 
+      'standard': 'standardMet'
+    }
+    this.dataService.downloadRecords('analysis', mapping, this.downloadQuery).subscribe(
+      (res:Blob)=>{
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(res);
+        a.download = 'faang_data.' + format;
+        a.click();
+        this.downloading = false;
+      },
+      (err) => {
+        this.downloading = false;
+      }
+    );
+  }
+
+  wasPublished(published: any) {
+    return published === 'true';
+  }
+
+  isGreen(published: any) {
+    return published === 'true' ? 'green' : 'default';
+  }
+
   ngOnDestroy() {
-    if (typeof  this.filter_field !== 'undefined') {
+    if (typeof this.filter_field !== 'undefined') {
       this.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
-    this.exportSubscription.unsubscribe();
-    this.analysisListLongSubscription.unsubscribe();
   }
 }
