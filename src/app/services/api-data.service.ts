@@ -480,10 +480,38 @@ export class ApiDataService {
 
   getAllDatasets(query: any, size: number) {
     const url = this.hostSetting.host + 'dataset/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    let aggs = {
+      'archive': 'archive',
+      'species': 'species.text',
+      'assay_type': 'assayType',
+      'standard': 'standardMet',
+      'paper_published': 'paperPublished'
+    }
+    let mapping = {
+      'datasetAccession': 'accession',
+      'title': 'title',
+      'species': 'species.text',
+      'archive': 'archive',
+      'assayType': 'assayType',
+      'numberOfExperiments': 'experiment.accession', 
+      'numberOfSpecimens': 'specimen.biosampleId', 
+      'numberOfFiles': 'file.name',
+      'standard': 'standardMet',
+      'paper_published': 'paperPublished',
+    }
+    let filters = query['filters'];
+    for (const prop in filters) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map( entry => ({
           datasetAccession: entry['_source']['accession'],
           title: entry['_source']['title'],
           species: this.getSpeciesStr(entry),
@@ -497,6 +525,9 @@ export class ApiDataService {
           submitterEmail: entry['_source']['submitterEmail']
           } as DatasetTable)
         );
+        res['totalHits'] = data.hits.total.value;
+        res['aggregations'] = data.aggregations;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),

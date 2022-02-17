@@ -59,7 +59,7 @@ export class AggregationService {
   }
 
   getAggregations(recordList: any, type: string) {
-    if (type === 'file' || type === 'organism' || type === 'specimen') {
+    if (type === 'file' || type === 'organism' || type === 'specimen' || type == 'dataset') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
@@ -121,49 +121,7 @@ export class AggregationService {
       }
       this.data.next(all_data);
     }
-    else if (type === 'dataset') {
-      let standard = {};
-      let species = {};
-      let assay_type = {};
-      let archive = {};
-      let paper_published = {};
-      let all_data;
-      for (const item of recordList) {
-        standard = this.updateAggregation(standard, item['standard']);
-        for (const spec of item['species'].split(',')) {
-          species = this.updateAggregation(species, spec);
-        }
-        for (const arch of item['archive'].split(',')) {
-          archive = this.updateAggregation(archive, arch);
-        }
-        for (let my_type of item['assayType'].split(',')) {
-          if (my_type === 'transcription profiling by high throughput sequencing') {
-            my_type = 'RNA-Seq';
-          }
-          assay_type = this.updateAggregation(assay_type, my_type);
-        }
-        paper_published = this.updatePaperAggregation(paper_published, item['paperPublished']);
-      }
-
-      all_data = {
-        standard: Object.entries(standard).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        species: Object.entries(species).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        assay_type: Object.entries(assay_type).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        archive: Object.entries(archive).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        paper_published: Object.entries(paper_published).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-      };
-      this.data.next(all_data);
-    } else if (type === 'analysis') {
+    else if (type === 'analysis') {
       let standard = {};
       let species = {};
       let assay_type = {};
