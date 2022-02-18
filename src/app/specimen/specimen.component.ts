@@ -76,7 +76,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.templates = {'biosampleId': this.biosampleIdTemplate, 
+    this.templates = {'bioSampleId': this.biosampleIdTemplate, 
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllSpecimens.bind(this.dataService);
     this.titleService.setTitle('FAANG specimens');

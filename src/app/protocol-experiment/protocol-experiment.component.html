@@ -61,5 +61,5 @@
 </div>
 
 <ng-template #nameTemplate let-item>
-  <a style="cursor: pointer" target="_blank" [routerLink]="item">{{item}}</a>
+  <a style="cursor: pointer" target="_blank" [routerLink]="item['key']">{{item['protocol_type']}}</a>
 </ng-template>

@@ -163,7 +163,7 @@ export class FileComponent implements OnInit, OnDestroy {
       'paper_published': 'paperPublished',
       'submitterEmail': 'submitterEmail'
     }
-    this.dataService.downloadRecords('file', mapping, this.downloadQuery).subscribe((res:Response)=>{
+    this.dataService.downloadRecords('file', mapping, this.downloadQuery).subscribe((res:Blob)=>{
       var a = document.createElement("a");
       a.href = URL.createObjectURL(res);
       a.download = 'faang_data.' + format;

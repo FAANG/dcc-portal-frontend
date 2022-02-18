@@ -161,14 +161,6 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     );
   }
 
-  wasPublished(published: any) {
-    return published === 'true';
-  }
-
-  isGreen(published: any) {
-    return published === 'true' ? 'green' : 'default';
-  }
-
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
       this.resetFilter();

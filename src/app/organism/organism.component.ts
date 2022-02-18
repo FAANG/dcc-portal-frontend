@@ -152,7 +152,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
       'standard': 'standardMet',
       'paper_published': 'paperPublished',
     }
-    this.dataService.downloadRecords('organism', mapping, this.downloadQuery).subscribe((res:Response)=>{
+    this.dataService.downloadRecords('organism', mapping, this.downloadQuery).subscribe((res:Blob)=>{
       var a = document.createElement("a");
       a.href = URL.createObjectURL(res);
       a.download = 'faang_data.' + format;
