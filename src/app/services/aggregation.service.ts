@@ -60,7 +60,7 @@ export class AggregationService {
 
   getAggregations(recordList: any, type: string) {
     if (type === 'file' || type === 'organism' || type === 'specimen' || type == 'dataset' || 
-        type === 'analysis' || type === 'protocol' || type === 'protocol_experiments') {
+        type === 'analysis' || type === 'protocol' || type === 'protocol_experiments' || type === 'article') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
@@ -134,28 +134,6 @@ export class AggregationService {
           return b[1] - a[1];
         })
       }
-      this.data.next(all_data);
-    }
-    else if (type === 'article') {
-      let journal = {};
-      let year = {};
-      let dataset_source = {};
-      let all_data;
-      for (const item of recordList) {
-        journal = this.updateAggregation(journal, item['journal']);
-        year = this.updateAggregation(year, item['year']);
-        dataset_source = this.updateAggregation(dataset_source, item['datasetSource']);
-      }
-      delete dataset_source['All'];
-      all_data = {
-        journal: Object.entries(journal).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        year: Object.entries(year).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        datasetSource: Object.entries(dataset_source)
-      };
       this.data.next(all_data);
     } else if (type === 'ontology') {
       let ontology_type = {};

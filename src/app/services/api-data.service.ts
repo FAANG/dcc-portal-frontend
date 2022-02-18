@@ -684,11 +684,30 @@ export class ApiDataService {
 
   getAllArticles(query: any, size: number) {
     const url = this.hostSetting.host + 'article/' + '_search/' + '?size=' + size;
-    // const url = 'wp-np3-e2:9200/faang_build_6_article/' + '_search/' + '?size=' + size;
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', query['sort']);
+    let aggs = {
+      'year': 'year', 
+      'journal': 'journal', 
+      'datasetSource': 'datasetSource', 
+    }
+    let mapping = {
+      'title': 'title', 
+      'year': 'year', 
+      'journal': 'journal', 
+      'datasetSource': 'datasetSource', 
+    }
+    let filters = query['filters'];
+    for (const prop in filters) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map( entry => ({
           id: entry['_id'],
           title: entry['_source']['title'],
           year: entry['_source']['year'],
@@ -696,6 +715,9 @@ export class ApiDataService {
           datasetSource: entry['_source']['datasetSource']
           } as ArticleTable)
         );
+        res['totalHits'] = data.hits.total.value;
+        res['aggregations'] = data.aggregations;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),
