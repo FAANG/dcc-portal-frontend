@@ -70,7 +70,12 @@ export class TableServerSideComponent implements AfterViewInit {
         this.spinner.show();
         // reset query params before applying filter
         this.paginator.pageIndex = 0;
-        this.query['sort'] = [this.sort.active, this.sort.direction];
+        if(this.sort.active && this.sort.direction) {
+          this.query['sort'] = [this.sort.active, this.sort.direction];
+          this.sortUpdate.emit(this.query['sort']);
+        } else {
+          this.query['sort'] = this.defaultSort;
+        }
         this.sortUpdate.emit(this.query['sort']);
         this.query['from_'] = 0;
         for (const col in this.query['filters']) {
