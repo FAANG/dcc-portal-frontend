@@ -1,12 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/internal/Observable';
-import {Subscription} from 'rxjs/internal/Subscription';
+import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {ApiDataService} from '../services/api-data.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AggregationService} from '../services/aggregation.service';
-import {ExportService} from '../services/export.service';
-import {NgxSpinnerService} from 'ngx-spinner';
+import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 
 @Component({
   selector: 'app-protocol-sample',
@@ -14,34 +12,56 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./protocol-sample.component.css']
 })
 export class ProtocolSampleComponent implements OnInit, OnDestroy {
-  protocolList: Observable<any[]>;
-  protocolListSubscription: Subscription;
-  aggrSubscription: Subscription;
-  exportSubscription: Subscription;
-  columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol'];
-  exportNames: string[] = ['Organisation', 'Protocol Year', 'Protocol name'];
-  filter_field: {};
-  downloadData = false;
+  @ViewChild('nameTemplate', { static: true }) nameTemplate: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  public loadTableDataFunction: Function;
 
-  optionsCsv;
-  optionsTabular;
+  columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol'];
+  displayFields: string[] = ['protocol_name', 'university_name', 'protocol_date'];
+  templates: Object;
+  filter_field: {};
+  aggrSubscription: Subscription;
+  downloadData = false;
+  downloading = false;
   data = {};
 
-  // Local variable for pagination
-  p = 1;
+  private query = {
+    'sort': ['protocolName', 'asc'],
+    '_source': [
+      'key',
+      'protocolName',
+      'universityName',
+      'protocolDate'
+    ],
+    'search': ''
+  };
+
+  downloadQuery = {
+    'sort': ['protocolName', 'asc'],
+    '_source': [
+      '_source.key',
+      '_source.protocolName',
+      '_source.universityName',
+      '_source.protocolDate'
+    ],
+    'columns': this.columnNames,
+    'filters': {},
+    'file_format': 'csv',
+  };
+
+  defaultSort = ['protocolName', 'asc'];
   error: string;
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
-              private exportService: ExportService,
-              private spinner: NgxSpinnerService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.templates = {'protocol_name': this.nameTemplate};
+    this.loadTableDataFunction = this.dataService.getAllSamplesProtocols.bind(this.dataService);
     this.titleService.setTitle('FAANG protocols');
-    this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
       const filters = {};
@@ -60,27 +80,24 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
+      this.query['filters'] = filters;
+      this.downloadQuery['filters'] = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
-    this.optionsCsv = this.exportService.optionsCsv;
-    this.optionsTabular = this.exportService.optionsTabular;
-    this.optionsCsv['headers'] = this.exportNames;
-    this.optionsTabular['headers'] = this.exportNames;
-    this.protocolList = this.dataService.getAllSamplesProtocols();
-    this.spinner.hide();
-    this.protocolListSubscription = this.protocolList.subscribe( data => {
-      this.aggregationService.getAggregations(data, 'protocol');
+    this.tableServerComponent.dataUpdate.subscribe((data) => {
+      this.aggregationService.getAggregations(data.aggregations, 'protocol');
+    });
+    this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
+      this.downloadQuery['sort'] = sortParams;
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
       for (const key of Object.keys(data)) {
-        if (data[key].length !== 0) {
+        if (data[key] && data[key].length !== 0) {
           params[key] = data[key];
         }
       }
       this.router.navigate(['protocol', 'samples'], {queryParams: params});
-    });
-    this.exportSubscription = this.exportService.data.subscribe((data) => {
-      this.data = data;
     });
   }
 
@@ -101,7 +118,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
       this.aggregationService.active_filters[key] = [];
     }
     this.aggregationService.current_active_filters = [];
-    this.filter_field = {};
+    this.filter_field = Object.assign({}, this.filter_field);
   }
 
   removeFilter() {
@@ -113,6 +130,25 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
   }
 
+  downloadFile(format: string) {
+    this.downloadData = !this.downloadData;
+    this.downloading = true;
+    this.downloadQuery['file_format'] = format;
+    let mapping = {
+      'key': 'key',
+      'protocol_name': 'protocolName',
+      'university_name': 'universityName',
+      'protocol_date': 'protocolDate',
+    }
+    this.dataService.downloadRecords('protocol_samples', mapping, this.downloadQuery).subscribe((res:Blob)=>{
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(res);
+      a.download = 'faang_data.' + format;
+      a.click();
+      this.downloading = false;
+    });
+  }  
+  
   onUploadProtocolClick() {
     this.router.navigate(['upload_protocol']);
   }
@@ -121,9 +157,6 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     if (typeof this.filter_field !== 'undefined') {
       this.resetFilter();
     }
-    this.protocolListSubscription.unsubscribe();
     this.aggrSubscription.unsubscribe();
-    this.exportSubscription.unsubscribe();
   }
-
 }

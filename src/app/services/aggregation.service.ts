@@ -60,7 +60,7 @@ export class AggregationService {
 
   getAggregations(recordList: any, type: string) {
     if (type === 'file' || type === 'organism' || type === 'specimen' || type == 'dataset' || 
-        type === 'analysis') {
+        type === 'analysis' || type === 'protocol') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
@@ -148,33 +148,6 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         datasetSource: Object.entries(dataset_source)
-      };
-      this.data.next(all_data);
-    } else if (type === 'protocol') {
-      let protocol_name = {};
-      let university_name = {};
-      let protocol_date = {};
-      let protocol_type = {};
-      let all_data;
-      for (const item of recordList) {
-        protocol_name = this.updateAggregation(protocol_name, item['protocol_name']);
-        university_name = this.updateAggregation(university_name, item['university_name']);
-        protocol_date = this.updateAggregation(protocol_date, item['protocol_date']);
-        protocol_type = this.updateAggregation(protocol_type, item['protocol_type']);
-      }
-      all_data = {
-        protocol_name: Object.entries(protocol_name).sort(function(a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        university_name: Object.entries(university_name).sort(function(a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        protocol_date: Object.entries(protocol_date).sort(function(a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        protocol_type: Object.entries(protocol_type).sort(function(a: any, b: any) {
-          return b[1] - a[1];
-        }),
       };
       this.data.next(all_data);
     } else if (type === 'protocol_experiments') {
