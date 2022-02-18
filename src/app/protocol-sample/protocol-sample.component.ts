@@ -39,7 +39,6 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   downloadQuery = {
     'sort': ['protocolName', 'asc'],
     '_source': [
-      '_source.key',
       '_source.protocolName',
       '_source.universityName',
       '_source.protocolDate'
@@ -135,7 +134,6 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
     let mapping = {
-      'key': 'key',
       'protocol_name': 'protocolName',
       'university_name': 'universityName',
       'protocol_date': 'protocolDate',

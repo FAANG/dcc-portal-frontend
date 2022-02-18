@@ -41,10 +41,10 @@
       <button (click)="downloadFile('txt')" class="btn btn-light" *ngIf="downloadData">
         Export as Tabular file
       </button>
+      <button class="btn btn-success" (click)="onUploadProtocolClick()">Upload protocol</button>
       <mat-spinner *ngIf="downloading" [diameter]="30" 
         style="display: inline; margin-left: 10px;">
       </mat-spinner>
-      <button class="btn btn-success" (click)="onUploadProtocolClick()">Upload protocol</button>
       <app-table-server-side  [display_fields]="displayFields" 
             [column_names]="columnNames"
             [templates]="templates"
