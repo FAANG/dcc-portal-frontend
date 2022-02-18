@@ -60,7 +60,7 @@ export class AggregationService {
 
   getAggregations(recordList: any, type: string) {
     if (type === 'file' || type === 'organism' || type === 'specimen' || type == 'dataset' || 
-        type === 'analysis' || type === 'protocol') {
+        type === 'analysis' || type === 'protocol' || type === 'protocol_experiments') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
@@ -73,7 +73,7 @@ export class AggregationService {
         }
       }
       let paperPublishedProcessed = false;
-      for (const key in all_data) {
+      for (let key in all_data) {
         // process paperPublished values
         if ((key == 'paper_published' || key == 'paper_published_missing') && !paperPublishedProcessed) {
           let paper_values = {'Yes': 0, 'No': 0};
@@ -116,11 +116,18 @@ export class AggregationService {
           }
           all_data['sex'] = sex_values;
         }
-        // process Analysis Type
-        if (key == 'analysis_type') {
-          for (const val in all_data['analysis_type']) {
-            all_data['analysis_type'][replaceUnderscoreWithSpace(val)] = all_data['analysis_type'][val];
-            delete all_data['analysis_type'][val];
+        // process Analysis Type and Experiment Target
+        if (key == 'analysis_type' || key == 'experiment_target') {
+          for (const val in all_data[key]) {
+            all_data[key][replaceUnderscoreWithSpace(val)] = all_data[key][val];
+            delete all_data[key][val];
+          }
+        }
+        // process protocol name for experiment protocols
+        if (key == 'protocol_type') {
+          for (const val in all_data[key]) {
+            all_data['protocol_type'][this.getHumanName(val)] = all_data[key][val];
+            delete all_data[key][val];
           }
         }
         all_data[key] = Object.entries(all_data[key]).sort(function (a: any, b: any) {
@@ -148,29 +155,6 @@ export class AggregationService {
           return b[1] - a[1];
         }),
         datasetSource: Object.entries(dataset_source)
-      };
-      this.data.next(all_data);
-    } else if (type === 'protocol_experiments') {
-      let protocol_type = {};
-      let experiment_target = {};
-      let assay_type = {};
-      let all_data;
-      for (const item of recordList) {
-        const name = this.getHumanName(item['name']);
-        protocol_type = this.updateAggregation(protocol_type, name);
-        experiment_target = this.updateAggregation(experiment_target, replaceUnderscoreWithSpace(item['experimentTarget']));
-        assay_type = this.updateAggregation(assay_type, item['assayType']);
-      }
-      all_data = {
-        protocol_type: Object.entries(protocol_type).sort(function(a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        experiment_target: Object.entries(experiment_target).sort(function(a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        assay_type: Object.entries(assay_type).sort(function(a: any, b: any) {
-          return b[1] - a[1];
-        }),
       };
       this.data.next(all_data);
     } else if (type === 'ontology') {

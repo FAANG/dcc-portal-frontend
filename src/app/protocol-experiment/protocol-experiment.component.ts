@@ -1,13 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/internal/Observable';
-import {Subscription} from 'rxjs/internal/Subscription';
+import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {ApiDataService} from '../services/api-data.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AggregationService} from '../services/aggregation.service';
-import {ExportService} from '../services/export.service';
-import {NgxSpinnerService} from 'ngx-spinner';
+import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {protocolNames} from '../shared/protocolnames';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 
 @Component({
   selector: 'app-protocol-experiment',
@@ -15,42 +12,54 @@ import {protocolNames} from '../shared/protocolnames';
   styleUrls: ['./protocol-experiment.component.css']
 })
 export class ProtocolExperimentComponent implements OnInit, OnDestroy {
-  protocolList: Observable<any[]>;
-  protocolListSubscription: Subscription;
-  aggrSubscription: Subscription;
-  exportSubscription: Subscription;
+  @ViewChild('nameTemplate', { static: true }) nameTemplate: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  public loadTableDataFunction: Function;
   columnNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];
-  exportNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];
+  displayFields: string[] = ['protocol_type', 'experiment_target', 'assay_type'];
+  templates: Object;
   filter_field: {};
+  aggrSubscription: Subscription;
   downloadData = false;
-
-  optionsCsv;
-  optionsTabular;
+  downloading = false;
   data = {};
 
-  // Local variable for pagination
-  p = 1;
-
   private query = {
+    'sort': ['name', 'asc'],
     '_source': [
+      'key',
       'name',
       'experimentTarget',
-      'assayType',
-      'key'],
+      'assayType'
+    ],
+    'search': ''
   };
+
+  downloadQuery = {
+    'sort': ['name', 'asc'],
+    '_source': [
+      '_source.name',
+      '_source.experimentTarget',
+      '_source.assayType'
+    ],
+    'columns': this.columnNames,
+    'filters': {},
+    'file_format': 'csv',
+  };
+
+  defaultSort = ['name', 'asc'];
   error: string;
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
-              private exportService: ExportService,
-              private spinner: NgxSpinnerService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.templates = {'protocol_type': this.nameTemplate};
+    this.loadTableDataFunction = this.dataService.getAllExperimentsProtocols.bind(this.dataService);
     this.titleService.setTitle('FAANG protocols');
-    this.spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
       const filters = {};
@@ -69,27 +78,24 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
+      this.query['filters'] = filters;
+      this.downloadQuery['filters'] = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
-    this.optionsCsv = this.exportService.optionsCsv;
-    this.optionsTabular = this.exportService.optionsTabular;
-    this.optionsCsv['headers'] = this.exportNames;
-    this.optionsTabular['headers'] = this.exportNames;
-    this.protocolList = this.dataService.getAllExperimentsProtocols(this.query);
-    this.spinner.hide();
-    this.protocolListSubscription = this.protocolList.subscribe( data => {
-      this.aggregationService.getAggregations(data, 'protocol_experiments');
+    this.tableServerComponent.dataUpdate.subscribe((data) => {
+      this.aggregationService.getAggregations(data.aggregations, 'protocol_experiments');
+    });
+    this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
+      this.downloadQuery['sort'] = sortParams;
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
       for (const key of Object.keys(data)) {
-        if (data[key].length !== 0) {
+        if (data[key] && data[key].length !== 0) {
           params[key] = data[key];
         }
       }
       this.router.navigate(['protocol', 'experiments'], {queryParams: params});
-    });
-    this.exportSubscription = this.exportService.data.subscribe((data) => {
-      this.data = data;
     });
   }
 
@@ -110,7 +116,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
       this.aggregationService.active_filters[key] = [];
     }
     this.aggregationService.current_active_filters = [];
-    this.filter_field = {};
+    this.filter_field = Object.assign({}, this.filter_field);
   }
 
   removeFilter() {
@@ -122,10 +128,24 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
   }
 
-  getHumanName(data) {
-    return protocolNames[data];
-  }
-
+  downloadFile(format: string) {
+    this.downloadData = !this.downloadData;
+    this.downloading = true;
+    this.downloadQuery['file_format'] = format;
+    let mapping = {
+      'protocol_type': 'name',
+      'experiment_target': 'experimentTarget',
+      'assay_type': 'assayType',
+    }
+    this.dataService.downloadRecords('protocol_files', mapping, this.downloadQuery).subscribe((res:Blob)=>{
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(res);
+      a.download = 'faang_data.' + format;
+      a.click();
+      this.downloading = false;
+    });
+  }  
+  
   onUploadProtocolClick() {
     this.router.navigate(['upload_protocol']);
   }
@@ -134,9 +154,6 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
     if (typeof this.filter_field !== 'undefined') {
       this.resetFilter();
     }
-    this.protocolListSubscription.unsubscribe();
     this.aggrSubscription.unsubscribe();
-    this.exportSubscription.unsubscribe();
   }
-
 }

@@ -97,9 +97,9 @@ export interface AnalysisTable {
 }
 
 export interface ProtocolFile {
-  name: string;
-  experimentTarget: string;
-  assayType: string;
+  protocol_type: string;
+  experiment_target: string;
+  assay_type: string;
   key: string;
 }
 

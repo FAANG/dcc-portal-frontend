@@ -10,6 +10,7 @@ import {
 import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
 import {UserService} from './user.service';
 import {replaceUnderscoreWithSpace} from '../shared/common_functions';
+import {protocolNames} from '../shared/protocolnames';
 
 
 @Injectable({
@@ -760,18 +761,41 @@ export class ApiDataService {
     );
   }
 
-  getAllExperimentsProtocols(query: any) {
-    const url = this.hostSetting.host + 'protocol_files/_search/' + '?size=100';
-    const params = new HttpParams().set('_source', query['_source'].toString());
+  getAllExperimentsProtocols(query: any, size: number) {
+    const url = this.hostSetting.host + 'protocol_files/' + '_search/' + '?size=' + size;
+    let aggs = {
+      'protocol_type': 'name',
+      'experiment_target': 'experimentTarget',
+      'assay_type': 'assayType',
+    }
+    let mapping = {
+      'key': 'key',
+      'protocol_type': 'name',
+      'experiment_target': 'experimentTarget',
+      'assay_type': 'assayType',
+    }
+    let filters = query['filters'];
+    for (const prop in filters) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data.hits.hits.map(entry => ({
-          name: entry['_source']['name'],
-          experimentTarget: entry['_source']['experimentTarget'],
-          assayType: entry['_source']['assayType'],
-          key: entry['_source']['key']
+        res['data'] = data.hits.hits.map( entry => ({
+          key: entry['_source']['key'],
+          protocol_type: protocolNames[entry['_source']['name']],
+          experiment_target: entry['_source']['experimentTarget'],
+          assay_type: entry['_source']['assayType'],
           } as ProtocolFile)
         );
+        res['totalHits'] = data.hits.total.value;
+        res['aggregations'] = data.aggregations;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),

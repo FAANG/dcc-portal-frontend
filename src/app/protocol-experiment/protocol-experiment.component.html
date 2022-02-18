@@ -1,21 +1,22 @@
-<div class="container">
+<div class="container-fluid">
   <app-header></app-header>
-  <h2>FAANG protocols
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/protocol', 'samples']">
-      Samples
+  <h2>FAANG Protocols</h2>
+  <hr>
+  <div style="margin-bottom: 25px;">
+    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
+      [routerLink]="['/protocol', 'samples']"> Samples
       <i class="material-icons float-right">arrow_back</i>
     </button>
-    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
-            [routerLink]="['/protocol', 'experiments']">
-      Experiments
+    <button type="button" class="btn btn-info" aria-label="Left Align" 
+      [routerLink]="['/protocol', 'experiments']"> Experiments
       <i class="material-icons float-right">home</i>
     </button>
-  </h2>
+  </div>
 
   <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
     Active filters:
     <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
-    <button class="btn btn-default" type = "button" (click)="removeFilter()">Remove all filters</button>
+    <button class="btn btn-light" type = "button" (click)="removeFilter()">Remove all filters</button>
   </h3>
 
   <div class="row">
@@ -34,51 +35,31 @@
     </div>
 
     <div class="col-md-10 table-responsive">
-      <div *ngIf="(protocolList | async) as protocols; else loading">
-        <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
-        <button class="btn btn-success" (click)="onUploadProtocolClick()">Upload protocol</button>
-        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
-          Export as CSV file
-        </app-export>
-        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
-          Export as Tabular file
-        </app-export>
-        <table class="table table-striped table-hover table-borderless table-sm">
-          <thead>
-          <tr>
-            <th *ngFor="let column of columnNames" style="cursor: pointer" [id]="column">
-              {{ column }}
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let protocol of protocols | filter: filter_field: 'protocol_experiments' | paginate: { itemsPerPage: 25, currentPage: p }">
-            <td><a style="cursor: pointer" [routerLink]="[protocol['key']]">{{getHumanName(protocol['name'])}}</a></td>
-            <td>{{protocol['experimentTarget']}}</td>
-            <td>{{protocol['assayType']}}</td>
-          </tr>
-          </tbody>
-        </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
-      <ng-template #loading>
-        <div>
-          Loading...
-        </div>
-        <table class="table table-striped table-hover table-borderless table-sm">
-          <thead>
-          <tr>
-            <th *ngFor="let column of columnNames">
-              {{ column }}
-            </th>
-          </tr>
-          </thead>
-        </table>
-        <div>
-          Loading...
-        </div>
-      </ng-template>
-      <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
+      <button class="btn btn-success" (click)="onDownloadData()" [disabled]="downloading">
+        Download data
+      </button>
+      <button (click)="downloadFile('csv')" class="btn btn-light" *ngIf="downloadData">
+        Export as CSV file
+      </button>
+      <button (click)="downloadFile('txt')" class="btn btn-light" *ngIf="downloadData">
+        Export as Tabular file
+      </button>
+      <button class="btn btn-success" (click)="onUploadProtocolClick()">Upload protocol</button>
+      <mat-spinner *ngIf="downloading" [diameter]="30" 
+        style="display: inline; margin-left: 10px;">
+      </mat-spinner>
+      <app-table-server-side  [display_fields]="displayFields" 
+            [column_names]="columnNames"
+            [templates]="templates"
+            [filter_values]="filter_field"
+            [apiFunction]="loadTableDataFunction"
+            [query]="query"
+            [defaultSort]="defaultSort">
+      </app-table-server-side>
     </div>
   </div>
 </div>
+
+<ng-template #nameTemplate let-item>
+  <a style="cursor: pointer" target="_blank" [routerLink]="item">{{item}}</a>
+</ng-template>
