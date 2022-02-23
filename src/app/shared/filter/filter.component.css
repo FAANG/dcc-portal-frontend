@@ -28,6 +28,7 @@
 
 .active {
   background-color: #477AAF;
+  color: white;
 }
 
 .active>span {
