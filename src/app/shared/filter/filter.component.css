@@ -1,34 +1,29 @@
-li.list-group-item.title {
-  cursor: default;
-}
-ul.long-list {
+.long-list {
   max-height: 300px;
-  overflow: scroll;
-}
-ul.list-group {
-  margin-top: 0px;
+  overflow-y: scroll;
+  overflow-x: auto;
 }
 
-li {
+.item {
+  padding: 0.75rem 1.25rem;
   cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
-i {
-  cursor: pointer;
+.mat-card {
+  margin-bottom: 20px;
+  padding: 0;
 }
 
-/*the whole filter component*/
-.card {
-  /*width: 180px;*/
-}
-
-.card-header {
+.filter-header {
   background-color: #DCEDF5;
   color: #577C95;
+  cursor: default;
 }
 
-.list-group-item {
-  font-size: 14px;
+.filter-header i {
+  cursor: pointer;
 }
 
 .active {
@@ -42,4 +37,12 @@ i {
 
 h6 {
   font-size: 14px;
+}
+
+.badge-secondary {
+  background-color: #DCEDF5;
+  color: black;
+  width: 4em;
+  padding: 0.4em 0.6em 0.4em 0.6em;
+  border-radius: 7px
 }

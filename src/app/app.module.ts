@@ -103,6 +103,7 @@ import { BulkFilesUploaderComponent } from './bulk-files-uploader/bulk-files-upl
 import { EurofaangInfoComponent } from './subprojects/subproject-detail/eurofaang-info/eurofaang-info.component';
 import { CustomTableBuilderComponent } from './custom-table-builder/custom-table-builder.component';
 import { TableServerSideComponent } from './shared/table-server-side/table-server-side.component';
+import { MatCardModule } from '@angular/material/card';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -209,6 +210,7 @@ export function removeToken(): void {
     MatSelectModule,
     ReactiveFormsModule,
     MatMenuModule,
+    MatCardModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,
