@@ -2,41 +2,29 @@
   <app-header></app-header>
   <h2>FAANG Datasets</h2>
   <hr>
-  <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
-    Active filters:
-    <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
-    <button class="btn btn-light" type = "button" (click)="removeFilter()">Remove all filters</button>
-  </h3>
 
-  <div class="row">
-    <div class="col-md-2">
-      <div class="row">
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Standard" [filterSize]=6></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Species" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Assay type" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Archive" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Paper published" [filterSize]=2></app-filter>
-        </div>
-      </div>
+  <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
+    <div fxFlex="20">
+      <app-filter title="Standard" [filterSize]=6></app-filter>
+      <app-filter title="Species" [filterSize]=3></app-filter>
+      <app-filter title="Assay type" [filterSize]=3></app-filter>
+      <app-filter title="Archive" [filterSize]=3></app-filter>
+      <app-filter title="Paper published" [filterSize]=2></app-filter>
     </div>
 
-    <div class="col-md-10 table-responsive">
-      <button class="btn btn-success" (click)="onDownloadData()" [disabled]="downloading">
+    <div fxFlex="80" class="table-responsive">
+      <div *ngIf="hasActiveFilters()">
+        <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
+        <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
+        <hr>
+      </div>
+      <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
         Download data
       </button>
-      <button (click)="downloadFile('csv')" class="btn btn-light" *ngIf="downloadData">
+      <button (click)="downloadFile('csv')" mat-raised-button *ngIf="downloadData">
         Export as CSV file
       </button>
-      <button (click)="downloadFile('txt')" class="btn btn-light" *ngIf="downloadData">
+      <button (click)="downloadFile('txt')" mat-raised-button *ngIf="downloadData">
         Export as Tabular file
       </button>
       <mat-spinner *ngIf="downloading" [diameter]="30" 

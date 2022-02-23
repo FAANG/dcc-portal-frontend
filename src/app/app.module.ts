@@ -104,6 +104,7 @@ import { EurofaangInfoComponent } from './subprojects/subproject-detail/eurofaan
 import { CustomTableBuilderComponent } from './custom-table-builder/custom-table-builder.component';
 import { TableServerSideComponent } from './shared/table-server-side/table-server-side.component';
 import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -211,6 +212,7 @@ export function removeToken(): void {
     ReactiveFormsModule,
     MatMenuModule,
     MatCardModule,
+    FlexLayoutModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,
