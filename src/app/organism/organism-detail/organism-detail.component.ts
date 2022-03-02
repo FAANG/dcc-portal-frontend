@@ -46,13 +46,7 @@ export class OrganismDetailComponent implements OnInit {
               this.router.navigate(['/organism', this.organism.biosampleId]);
             });
           }
-          if (this.organism) {
-            this.spinner.hide();
-            if (this.organism.hasOwnProperty('publishedArticles')) {
-              this.organism.publishedArticles = this.organism.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-                ((b.year > a.year) ? 1 : 0));
-            }
-          }
+          this.spinner.hide();
         }
       },
       error => {
