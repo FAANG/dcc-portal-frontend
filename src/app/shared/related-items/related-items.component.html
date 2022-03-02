@@ -1,29 +1,36 @@
-<div *ngIf="get_displayed_fields()?.length > 0 && records && records.length > 0">
+<div [hidden]="display_fields.length == 0 || !records || records.length == 0">
   <hr>
-  <div ngbDropdown placement="bottom-right">
+  <!-- <div ngbDropdown placement="bottom-right">
     <h3>
-      Related
-      <ng-container *ngIf="target_type == 'analysis'">Analyses</ng-container>
-      <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s<span *ngIf="isEuroFaangProj"> for <span class="childproj-title">{{record_id}}</span></span></ng-container>
       <button type="button" class="btn btn-success btn-sm" (click)="downloadAllFiles()" [disabled]="disableButton()"
               *ngIf="showButton()">Download all files ({{getUrlsLength()}})
       </button>
-
-      <button class="btn btn-success btn-sm" id="dropdown" ngbDropdownToggle>Column selection</button>
-      <ul ngbDropdownMenu aria-labelledby="dropdown">
-        <ng-container *ngFor="let col of get_all_fields(); let i = index">
-          <li ngbDropdownItem *ngIf="i>0">
-            <input type="checkbox" [value]="col" [checked]="isDisplayed(col)" [id]="col"
-                   (click)="toggleSelectedColumn(col)" class="inner-input">
-            <label [for]="col">{{col}}</label>
-          </li>
-        </ng-container>
-      </ul>
-
     </h3>
+  </div> -->
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center"
+    style="margin: 20px 0 20px 0;">
+    <h3>Related
+      <ng-container *ngIf="target_type == 'analysis'">Analyses</ng-container>
+      <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s
+        <span *ngIf="isEuroFaangProj"> for 
+          <span class="childproj-title">
+            {{record_id}}
+          </span>
+        </span>
+      </ng-container>
+    </h3>
+    <button mat-raised-button color="primary" (click)=select.open()>Column Selection
+      <mat-icon>arrow_drop_down</mat-icon>
+      <mat-select [(value)]="display_fields" multiple #select style="width:0">
+        <mat-option *ngFor="let col of get_all_fields(); let i = index" 
+          [value]="col" [disabled]="i==0"> {{col}}
+        </mat-option>
+      </mat-select>
+    </button>
   </div>
+
   <div class="table-responsive">
-    <table class="table table-striped table-hover table-borderless table-sm">
+    <!-- <table class="table table-striped table-hover table-borderless table-sm">
       <thead>
       <tr>
         <ng-container *ngFor="let field of get_all_fields()">
@@ -94,6 +101,27 @@
       </ng-container>
       </tbody>
     </table>
-    <pagination-controls (pageChange)="p = $event" [id]="paginate_id"></pagination-controls>
+    <pagination-controls (pageChange)="p = $event" [id]="paginate_id"></pagination-controls> -->
+  
+    <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
+      <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
+        <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{display_fields[i]}} </th>
+        <ng-container *ngIf="!get_field_values_for_links(col)">
+          <td mat-cell class="table-cell-data" *matCellDef="let item"> {{item[col]}} </td>
+        </ng-container>
+        <ng-container *ngIf="get_field_values_for_links(col)">
+          <td mat-cell class="table-cell-data" *matCellDef="let item"> 
+            <app-robust-link [prefix]="get_field_values_for_links(col)['prefix']"
+              [link]="item[get_field_values_for_links(col)['url']]"
+              [text]="item[col]">
+            </app-robust-link>
+          </td>
+        </ng-container>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
+      <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
+    </table>
+    <mat-paginator pageSize="10"></mat-paginator>
+  
   </div>
 </div>

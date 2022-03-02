@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ApiDataService} from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
 import {UserService} from '../../services/user.service';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-related-items',
@@ -15,11 +16,14 @@ export class RelatedItemsComponent implements OnInit {
   @Input() target_type: string; // the related entities, e.g. to list files in the dataset detail page, set to be file
   @Input() download_key: string; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
   @Input() isEuroFaangProj = false; // specifies if datasets table is for EuroFAANG - display project title next to table header
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  dataSource: MatTableDataSource<any>;
+  display_fields: Array<string> = [];
 
   records: any;
   urls: string[] = [];
   checked = false;
-  selected: Map<string, boolean> = new Map();
   mode: string;
   paginate_id: string;
 
@@ -35,14 +39,14 @@ export class RelatedItemsComponent implements OnInit {
 
   ngOnInit() {
     this.paginate_id = `${this.record_id}-${this.target_type}`;
+    this.dataSource = new MatTableDataSource([]);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     // Read in the initial column display settings
     // set those selected to be displayed
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
-    for (const column of setting[this.source_type][this.target_type]['all']) {
-      this.selected.set(column, false);
-    }
     for (const column of setting[this.source_type][this.target_type]['display']) {
-      this.selected.set(column, true);
+      this.display_fields.push(column);
     }
 
     const relationship_type = `${this.source_type}-${this.target_type}`;
@@ -130,31 +134,37 @@ export class RelatedItemsComponent implements OnInit {
       this.dataService.getOrganism(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'organism-specimen') {
       this.dataService.getOrganismsSpecimens(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'specimen-paper') {
       this.dataService.getSpecimen(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'specimen-specimen') {
       this.dataService.getSpecimenRelationships(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'specimen-file') {
       this.dataService.getSpecimenFiles(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'specimen-analysis') {
       this.dataService.getAnalysesBySample(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'project-paper') {
       this.records = [{}];
@@ -163,6 +173,25 @@ export class RelatedItemsComponent implements OnInit {
     } else if (relationship_type === 'project-file') {
       this.records = [{}];
     }
+    this.display_fields = this.get_all_fields();
+  }
+
+  getDataSource(records) {
+    let tableData = [];
+    let fields = setting[this.source_type][this.target_type]['fields'];
+    for (let index in records) {
+      let rowObj = {};
+      for (let field in fields) {
+        let prop = fields[field]['value'].split('.');
+        rowObj[field] = records[index];
+        while (prop.length) {
+          rowObj[field] = rowObj[field][prop[0]];
+          prop.shift();
+        }
+      }
+      tableData.push(rowObj);
+    }
+    return tableData;
   }
 
   isRecordPrivate(record: any) {
@@ -175,23 +204,6 @@ export class RelatedItemsComponent implements OnInit {
   // get table headers
   get_all_fields() {
     return setting[this.source_type][this.target_type]['all'];
-  }
-
-  get_displayed_fields() {
-    const results: string[] = [];
-    const all_fields = this.get_all_fields();
-    // use all_fields to conserve the display order
-    for (const column of all_fields) {
-      if (this.isDisplayed(column)) {
-        results.push(column);
-      }
-    }
-    return results;
-  }
-
-  // get the attribute names to populate the table
-  get_attr(field: string) {
-    return setting[this.source_type][this.target_type]['fields'][field]['value'];
   }
 
   // the attributes to render the link
@@ -215,13 +227,6 @@ export class RelatedItemsComponent implements OnInit {
   // get the number of files selected
   getUrlsLength() {
     return this.urls.length;
-  }
-
-  isDisplayed(field_name: string) {
-    if (this.selected.has(field_name)) {
-      return this.selected.get(field_name);
-    }
-    return false;
   }
 
   getValue(record: any, attr: string) {
@@ -302,11 +307,5 @@ export class RelatedItemsComponent implements OnInit {
 
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  toggleSelectedColumn(column: string) {
-    if (this.selected.has(column)) {
-      this.selected.set(column, !this.selected.get(column));
-    }
   }
 }

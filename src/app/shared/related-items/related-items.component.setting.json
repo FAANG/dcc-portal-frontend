@@ -274,8 +274,11 @@
           "value": "title",
           "link": {
             "prefix": "../article/",
-            "url": "articleId"
+            "url": "Article ID"
           }
+        },
+        "Article ID": {
+          "value": "articleId"
         },
         "Year": {
           "value": "year"
@@ -301,7 +304,7 @@
           "value": "_source.biosampleId",
           "link": {
             "prefix": "../specimen/",
-            "url": "_source.biosampleId"
+            "url": "BioSamples ID"
           }
         },
         "Organism part/Cell type": {
