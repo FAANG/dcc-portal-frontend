@@ -94,7 +94,10 @@
 
     <div class="row" *ngIf="dataset?.secondaryProject.toString() === 'GENE-SWitCH'">
       <div class="col-md-12">
-        <button class="btn btn-primary" (click)="downloadTSV()" style="float: right;">
+        <mat-spinner *ngIf="queryService.downloading" [diameter]="30"
+                     style="display: inline; float: right;">
+        </mat-spinner>
+        <button *ngIf="!queryService.downloading" class="btn btn-primary" (click)="downloadTSV()" style="float: right;">
           Download metadata for analysis
         </button>
       </div>

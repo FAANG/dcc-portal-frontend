@@ -33,9 +33,10 @@ export class DatasetDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.downloadColumns = ['file.name', 'file.url', 'accession', 'experiment.accession', 'file.fileId', 'organism.biosampleId',
-    'species.text', 'organism.breed.text', 'organism.sex.text', 'specimenFromOrganism.animalAgeAtCollection.text',
-    'specimenFromOrganism.animalAgeAtCollection.unit', 'biosampleId', 'cellType.text'];
+    this.downloadColumns = ['file.name', 'file.url', 'study', 'file.experiment.accession', 'file.run.accession',
+      'specimen.organism.biosampleId', 'file.species.text',
+      'specimen.organism.breed.text', 'specimen.organism.sex.text', 'specimen.specimenFromOrganism.animalAgeAtCollection.text',
+      'specimen.specimenFromOrganism.animalAgeAtCollection.unit', 'specimen.biosampleId', 'specimen.cellType.text'];
 
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
     this.spinner.show();
@@ -67,7 +68,7 @@ export class DatasetDetailComponent implements OnInit {
   }
 
   downloadTSV() {
-    this.queryService.downloadCsv('dataset-specimen', this.downloadColumns, '', '', 'tsv', this.accession);
+    this.queryService.downloadDatasetTSV(this.downloadColumns, '', 'tsv', this.accession);
   }
 }
 
