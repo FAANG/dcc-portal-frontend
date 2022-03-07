@@ -4,6 +4,8 @@ import * as FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
 import {UserService} from '../../services/user.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpEventType} from '@angular/common/http';
+import { Observable, of as observableOf } from 'rxjs';
 
 @Component({
   selector: 'app-related-items',
@@ -20,6 +22,7 @@ export class RelatedItemsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   dataSource: MatTableDataSource<any>;
   display_fields: Array<string> = [];
+  progress: Observable<Object> = observableOf({});
 
   records: any;
   urls: string[] = [];
@@ -34,7 +37,10 @@ export class RelatedItemsComponent implements OnInit {
   // Step 3: add this component into the detail page
   // Step 4: make necessary adjustment (i.e. debugging) to the setting
 
-  constructor(private dataService: ApiDataService, private _userService: UserService) {
+  constructor(
+    private dataService: ApiDataService, 
+    private _userService: UserService,
+    private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -48,7 +54,9 @@ export class RelatedItemsComponent implements OnInit {
     for (const column of setting[this.source_type][this.target_type]['display']) {
       this.display_fields.push(column);
     }
-
+    if (this.download_key.length > 0) {
+      this.display_fields.push('Download');
+    }
     const relationship_type = `${this.source_type}-${this.target_type}`;
     if (relationship_type === 'project-organism') {
       this.dataService.getAllOrganismsFromProject(this.record_id, this.mode).subscribe(
@@ -173,7 +181,6 @@ export class RelatedItemsComponent implements OnInit {
     } else if (relationship_type === 'project-file') {
       this.records = [{}];
     }
-    this.display_fields = this.get_all_fields();
   }
 
   getDataSource(records) {
@@ -187,6 +194,14 @@ export class RelatedItemsComponent implements OnInit {
         while (prop.length) {
           rowObj[field] = rowObj[field][prop[0]];
           prop.shift();
+        }
+        if (this.download_key.length > 0) {
+          let dKey = this.download_key.split('.');
+          rowObj['Download'] = records[index];
+          while (dKey.length) {
+            rowObj['Download'] = rowObj['Download'][dKey[0]];
+            dKey.shift();
+          }
         }
       }
       tableData.push(rowObj);
@@ -211,43 +226,35 @@ export class RelatedItemsComponent implements OnInit {
     return setting[this.source_type][this.target_type]['fields'][attr]['link'];
   }
 
-  // only show the download button when the target is files
-  showButton() {
-    return this.target_type === 'file' || this.target_type === 'download';
-  }
-
   downloadAllFiles() {
-    this.urls.forEach(url => FileSaver.saveAs(url));
-  }
-
-  disableButton() {
-    return this.urls.length === 0;
-  }
-
-  // get the number of files selected
-  getUrlsLength() {
-    return this.urls.length;
-  }
-
-  getValue(record: any, attr: string) {
-    const elmts = attr.split('.');
-    let curr: any = record;
-    for (const elmt of elmts) {
-      if (curr[elmt] === null || curr[elmt] === undefined) {
-        return;
-      }
-      curr = curr[elmt];
-    }
-    return curr;
+    this.urls.forEach(url => {
+      let ftp_url = url.split('://')[1];
+      this.progress[ftp_url] = 0;
+      this.http.get(url, 
+        { 
+            responseType: 'blob',
+            reportProgress: true,
+            observe: 'events', 
+        }).subscribe(result => {
+        if (result.type === HttpEventType.DownloadProgress) {
+          const percentDone = Math.round(100 * result.loaded / result.total);
+          this.progress[ftp_url] = percentDone;
+        }
+        if (result.type === HttpEventType.Response) {
+          FileSaver.saveAs(result.body);
+        }
+      });
+      this.progress[ftp_url] = -1;
+    });
   }
 
   displayPlatformLogo(record: any, attr: string) {
-    return (this.target_type === 'pipeline' && attr === 'Platform' && this.getValue(record, 'platform') === 'nf-core');
+    return (this.target_type === 'pipeline' && attr === 'Platform' && record['platform'] === 'nf-core');
   }
 
   // the behaviour of the checkbox in the table under Download column
   onCheckboxClick(url: string) {
-    url = 'ftp://' + url;
+    url = 'http://' + url;
     const index = this.urls.indexOf(url);
     if (index !== -1) {
       this.urls.splice(index, 1);
@@ -258,7 +265,7 @@ export class RelatedItemsComponent implements OnInit {
 
   // the checked conversion_status of the checkbox in the table under Download column
   CheckboxChecked(url: string) {
-    url = 'ftp://' + url;
+    url = 'http://' + url;
     return this.urls.indexOf(url) !== -1;
   }
 
@@ -267,8 +274,8 @@ export class RelatedItemsComponent implements OnInit {
   // 1 means partially files selected (checkbox indeterminate conversion_status)
   // and 0 means none selected
   mainCheckboxChecked() {
-    if (this.records) {
-      if (this.urls.length === this.records.length) {
+    if (this.dataSource.data) {
+      if (this.urls.length === this.dataSource.data.length) {
         this.checked = true;
         return 2;
       } else {
@@ -289,13 +296,8 @@ export class RelatedItemsComponent implements OnInit {
     if (this.checked === true) {
       this.urls = [];
     } else {
-      const url_location = this.download_key.split('.');
-      for (const record of this.records) {
-        let curr: any = record;
-        for (const index of url_location) {
-          curr = curr[index];
-        }
-        const url = 'ftp://' + curr;
+      for (const record of this.dataSource.data) {
+        const url = 'http://' + record['Download'];
         const idx = this.urls.indexOf(url);
         if (idx === -1) {
           this.urls.push(url);

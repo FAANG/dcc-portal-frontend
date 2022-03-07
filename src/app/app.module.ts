@@ -105,6 +105,7 @@ import { CustomTableBuilderComponent } from './custom-table-builder/custom-table
 import { TableServerSideComponent } from './shared/table-server-side/table-server-side.component';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -213,6 +214,7 @@ export function removeToken(): void {
     MatMenuModule,
     MatCardModule,
     FlexLayoutModule,
+    MatProgressBarModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,
