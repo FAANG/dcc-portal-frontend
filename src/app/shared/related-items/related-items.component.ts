@@ -122,21 +122,25 @@ export class RelatedItemsComponent implements OnInit {
       this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['specimen'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'dataset-file') {
       this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['file'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'dataset-paper') {
       this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'dataset-analysis') {
       this.dataService.getAnalysesByDataset(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'organism-paper') {
       this.dataService.getOrganism(this.record_id, this.mode).subscribe(

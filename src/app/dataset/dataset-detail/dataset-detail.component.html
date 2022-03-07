@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <app-header></app-header>
   <div class="row first-row" *ngIf="_userService.token">
     <div class="col-md-12">
@@ -12,85 +12,96 @@
       </div>
     </div>
   </div>
-  <ng-container *ngIf="dataset">
-    <h1 class="text-center">{{dataset.accession}}</h1>
-    <dl class="row">
+  <div *ngIf="dataset">
+    <h2>{{dataset.accession}}</h2>
+    <hr>
+    <div fxLayout="column">
 
-      <dt class="col-sm-3">Study name:</dt>
-      <dd class="col-sm-9">
-        <app-robust-link [prefix]="ena_prefix" [link]="dataset?.accession"
-                         [text]="dataset?.accession"></app-robust-link>
-      </dd>
+      <div fxLayout="row">
+        <dt fxFlex="25">Study name:</dt>
+        <dd fxFlex="75">
+          <app-robust-link [prefix]="ena_prefix" [link]="dataset?.accession"
+                           [text]="dataset?.accession"></app-robust-link>
+        </dd>
+      </div>
 
-      <dt class="col-sm-3">Title:</dt>
-      <dd class="col-sm-9">{{dataset?.title}}</dd>
+      <div fxLayout="row">
+        <dt fxFlex="25">Title:</dt>
+        <dd fxFlex="75">{{dataset?.title}}</dd>
+      </div>
 
-      <ng-container *ngIf="dataset?.alias">
-        <dt class="col-sm-3">Alias:</dt>
-        <dd class="col-sm-9">{{dataset?.alias}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="dataset?.alias">
+        <dt fxFlex="25">Alias:</dt>
+        <dd fxFlex="75">{{dataset?.alias}}</dd>
+      </div>
 
-      <ng-container *ngIf="dataset?.secondaryProject">
-        <dt class="col-sm-3">Sub-project:</dt>
-        <dd class="col-sm-9">{{dataset?.secondaryProject}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="dataset?.secondaryProject">
+        <dt fxFlex="25">Sub-project:</dt>
+        <dd fxFlex="75">{{dataset?.secondaryProject}}</dd>
+      </div>
 
-      <ng-container *ngIf="dataset?.type">
-        <dt class="col-sm-3">Type:</dt>
-        <dd class="col-sm-9">{{dataset?.type}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="dataset?.type">
+        <dt fxFlex="25">Type:</dt>
+        <dd fxFlex="75">{{dataset?.type}}</dd>
+      </div>
 
-      <ng-container *ngIf="dataset?.secondaryAccession">
-        <dt class="col-sm-3">Secondary accession:</dt>
-        <dd class="col-sm-9">
+      <div fxLayout="row" *ngIf="dataset?.secondaryAccession">
+        <dt fxFlex="25">Secondary accession:</dt>
+        <dd fxFlex="75">
           <app-robust-link [prefix]="ena_prefix" [link]="dataset?.secondaryAccession"
                            [text]="dataset?.secondaryAccession"></app-robust-link>
         </dd>
-      </ng-container>
+      </div>
 
-      <dt class="col-sm-3">Species</dt>
-      <dd class="col-sm-9">
-        <ng-container *ngFor="let organism of dataset?.species">
-          <app-robust-link [prefix]="ols_prefix" [link]="organism?.ontologyTerms"
-                           [text]="organism?.text"></app-robust-link>
-          &nbsp;
-        </ng-container>
-      </dd>
-
-      <ng-container *ngIf="dataset?.experiment">
-        <dt class="col-sm-3">Experiment accessions:</dt>
-        <dd class="col-sm-9">
-          <ng-container *ngFor="let experiment of dataset?.experiment">
-            <app-robust-link [prefix]="ena_prefix" [link]="experiment.accession"
-                             [text]="experiment.accession"></app-robust-link>
+      <div fxLayout="row">
+        <dt fxFlex="25">Species</dt>
+        <dd fxFlex="75">
+  
+          <div fxLayout="row" *ngFor="let organism of dataset?.species">
+            <app-robust-link [prefix]="ols_prefix" [link]="organism?.ontologyTerms"
+                             [text]="organism?.text"></app-robust-link>
             &nbsp;
-          </ng-container>
+          </div>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="dataset?.instrument">
-        <dt class="col-sm-3">Instruments:</dt>
-        <dd class="col-sm-9">
-          <ng-container *ngFor="let instrument of dataset?.instrument">{{instrument}}  </ng-container>
+      <div fxLayout="row" *ngIf="dataset?.experiment">
+        <dt fxFlex="25">Experiment accessions:</dt>
+        <dd fxFlex="75">
+          <div fxLayout="row wrap" fxLayout.lt-md="column">
+            <div *ngFor="let experiment of dataset?.experiment" fxFlex="15" fxLayoutGap="16px">
+                <app-robust-link [prefix]="ena_prefix" [link]="experiment.accession"
+                                 [text]="experiment.accession"></app-robust-link>
+            </div>
+          </div>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="dataset?.centerName">
-        <dt class="col-sm-3">Sequencing center:</dt>
-        <dd class="col-sm-9">
-          <ng-container *ngFor="let center of dataset?.centerName">{{center}}</ng-container>
+      <div fxLayout="row" *ngIf="dataset?.instrument">
+        <dt fxFlex="25">Instruments:</dt>
+        <dd fxFlex="75">
+          <div fxLayout="row" *ngFor="let instrument of dataset?.instrument">{{instrument}}  </div>
         </dd>
-      </ng-container>
+      </div>
 
-      <dt class="col-sm-3">Standard:</dt>
-      <dd class="col-sm-9">{{dataset?.standardMet}}</dd>
+      <div fxLayout="row" *ngIf="dataset?.centerName">
+        <dt fxFlex="25">Sequencing center:</dt>
+        <dd fxFlex="75">
+          <div fxLayout="row" *ngFor="let center of dataset?.centerName">{{center}}</div>
+        </dd>
+      </div>
 
-      <ng-container *ngIf="dataset && dataset.hasOwnProperty('submitterEmail')">
-        <dt class="col-sm-3">Submitter Emails:</dt>
-        <dd class="col-sm-9">{{dataset.submitterEmail}}</dd>
-      </ng-container>
+      <div fxLayout="row">
+        <dt fxFlex="25">Standard:</dt>
+        <dd fxFlex="75">{{dataset?.standardMet}}</dd>
+      </div>
 
-    </dl>
+      <div fxLayout="row" *ngIf="dataset && dataset.hasOwnProperty('submitterEmail')">
+        <dt fxFlex="25">Submitter Emails:</dt>
+        <dd fxFlex="75">{{dataset.submitterEmail}}</dd>
+      </div>
+
+    </div>
 
     <app-related-items source_type="dataset" target_type="paper"
                        download_key="" [record_id]="dataset.accession"></app-related-items>
@@ -100,6 +111,6 @@
                        download_key="url" [record_id]="dataset.accession"></app-related-items>
     <app-related-items source_type="dataset" target_type="analysis"
                        download_key="" [record_id]="dataset.accession"></app-related-items>
-  </ng-container>
+  </div>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>

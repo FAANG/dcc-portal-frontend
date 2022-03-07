@@ -142,8 +142,11 @@
           "value": "title",
           "link": {
             "prefix": "../article/",
-            "url": "articleId"
+            "url": "Article ID"
           }
+        },
+        "Article ID": {
+          "value": "articleId"
         },
         "Year": {
           "value": "year"
@@ -175,7 +178,7 @@
           "value": "biosampleId",
           "link": {
             "prefix": "../specimen/",
-            "url": "biosampleId"
+            "url": "BioSamples ID"
           }
         },
         "Material": {
@@ -214,8 +217,11 @@
           "value": "name",
           "link": {
             "prefix": "../file/",
-            "url": "fileId"
+            "url": "File ID"
           }
+        },
+        "File ID": {
+          "value": "fileId"
         },
         "Experiment": {
           "value": "experiment"
@@ -248,7 +254,7 @@
           "value": "_id",
           "link": {
             "prefix": "../analysis/",
-            "url": "_id"
+            "url": "Accession"
           }
         },
         "Type": {
