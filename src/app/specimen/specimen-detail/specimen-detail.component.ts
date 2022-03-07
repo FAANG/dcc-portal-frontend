@@ -49,14 +49,8 @@ export class SpecimenDetailComponent implements OnInit {
               this.router.navigate(['/specimen', this.specimen.biosampleId]);
             });
           }
-          if (this.specimen) {
-            this.spinner.hide();
-            if (this.specimen.hasOwnProperty('publishedArticles')) {
-              this.specimen.publishedArticles = this.specimen.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-                ((b.year > a.year) ? 1 : 0));
-            }
-          }
         }
+        this.spinner.hide();
       },
       error => {
         this.error = error;

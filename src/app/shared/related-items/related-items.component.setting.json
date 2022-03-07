@@ -333,8 +333,11 @@
           "value": "title",
           "link": {
             "prefix": "../article/",
-            "url": "articleId"
+            "url": "Article ID"
           }
+        },
+        "Article ID": {
+          "value": "articleId"
         },
         "Year": {
           "value": "year"
@@ -360,7 +363,7 @@
           "value": "_source.biosampleId",
           "link": {
             "prefix": "../specimen/",
-            "url": "_source.biosampleId"
+            "url": "BioSamples ID"
           }
         },
         "Organism part/Cell type": {
@@ -397,7 +400,7 @@
           "value": "_id",
           "link": {
             "prefix": "../file/",
-            "url": "_id"
+            "url": "Name"
           }
         },
         "Archive": {
@@ -407,14 +410,14 @@
           "value": "_source.experiment.accession",
           "link": {
             "prefix": "http://www.ebi.ac.uk/ena/data/view/",
-            "url": "_source.experiment.accession"
+            "url": "Experiment"
           }
         },
         "Run": {
           "value": "_source.run.accession",
           "link": {
             "prefix": "http://www.ebi.ac.uk/ena/data/view/",
-            "url": "_source.run.accession"
+            "url": "Run"
           }
         },
         "Assay type": {
@@ -450,7 +453,7 @@
           "value": "_id",
           "link": {
             "prefix": "../analysis/",
-            "url": "_id"
+            "url": "Accession"
           }
         },
         "Type": {
@@ -460,7 +463,7 @@
           "value": "_source.datasetAccession",
           "link": {
             "prefix": "http://www.ebi.ac.uk/ena/data/view/",
-            "url": "_source.datasetAccession"
+            "url": "Dataset"
           }
         }
       }
