@@ -107,6 +107,7 @@ export class RelatedItemsComponent implements OnInit {
       this.dataService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['files'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'file-download') {
       this.dataService.getFilesByRun(this.record_id).subscribe(

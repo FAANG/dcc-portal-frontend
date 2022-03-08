@@ -47,8 +47,11 @@
           "value": "name",
           "link": {
             "prefix": "ftp://",
-            "url": "url"
+            "url": "URL"
           }
+        },
+        "URL": {
+          "value": "url"
         },
         "Type": {
           "value": "type"

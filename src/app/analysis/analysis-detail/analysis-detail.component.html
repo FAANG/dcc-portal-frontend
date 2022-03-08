@@ -1,131 +1,146 @@
-<div class="container">
+<div class="container-fluid">
   <app-header></app-header>
-  <ng-container *ngIf="analysis">
-    <h1 class="text-center">{{analysis.accession}}</h1>
-    <dl class="row">
-      <dt class="col-sm-3">Analysis accession:</dt>
-      <dd class="col-sm-9">
-        <app-robust-link [prefix]="ena_prefix" [link]="analysis?.accession"
-                         [text]="analysis?.accession"></app-robust-link>
-      </dd>
+  <div *ngIf="analysis">
+    <h2>{{analysis.accession}}</h2>
+    <hr>
+    <div fxLayout="column">
+      <div fxLayout="row">
+        <dt fxFlex="25">Analysis accession:</dt>
+        <dd fxFlex="75">
+          <app-robust-link [prefix]="ena_prefix" [link]="analysis?.accession"
+                           [text]="analysis?.accession"></app-robust-link>
+        </dd>
+      </div>
 
-      <dt class="col-sm-3">Title:</dt>
-      <dd class="col-sm-9">{{analysis?.title}}</dd>
+      <div fxLayout="row">
+        <dt fxFlex="25">Title:</dt>
+        <dd fxFlex="75">{{analysis?.title}}</dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.alias">
-        <dt class="col-sm-3">Alias:</dt>
-        <dd class="col-sm-9">{{analysis?.alias}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.alias">
+        <dt fxFlex="25">Alias:</dt>
+        <dd fxFlex="75">{{analysis?.alias}}</dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.type">
-        <dt class="col-sm-3">Type:</dt>
-        <dd class="col-sm-9">{{analysis?.type}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.type">
+        <dt fxFlex="25">Type:</dt>
+        <dd fxFlex="75">{{analysis?.type}}</dd>
+      </div>
 
-      <dt class="col-sm-3">Dataset accession:</dt>
-      <dd class="col-sm-9">
-        <ng-container *ngIf="analysis?.datasetInPortal">
-          <app-robust-link [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
-                         [text]="analysis?.datasetAccession"></app-robust-link>
-        </ng-container>
-        <ng-container *ngIf="!analysis?.datasetInPortal">
-          <app-robust-link [prefix]="ena_prefix" [link]="analysis?.datasetAccession"
-                         [text]="analysis?.datasetAccession"></app-robust-link>
-        </ng-container>
-      </dd>
+      <div fxLayout="row">
+        <dt fxFlex="25">Dataset accession:</dt>
+        <dd fxFlex="75">
+          <div *ngIf="analysis?.datasetInPortal">
+            <app-robust-link [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
+                           [text]="analysis?.datasetAccession"></app-robust-link>
+          </div>
+          <div *ngIf="!analysis?.datasetInPortal">
+            <app-robust-link [prefix]="ena_prefix" [link]="analysis?.datasetAccession"
+                           [text]="analysis?.datasetAccession"></app-robust-link>
+          </div>
+        </dd>
+      </div>
 
-      <dt class="col-sm-3">Analysis type:</dt>
-      <dd class="col-sm-9">
-        {{analysis?.analysisType}}
-      </dd>
+      <div fxLayout="row">
+        <dt fxFlex="25">Analysis type:</dt>
+        <dd fxFlex="75">
+          {{analysis?.analysisType}}
+        </dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.type">
-        <dt class="col-sm-3">Assay type:</dt>
-        <dd class="col-sm-9">{{analysis?.assayType}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.type">
+        <dt fxFlex="25">Assay type:</dt>
+        <dd fxFlex="75">{{analysis?.assayType}}</dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.standardMet">
-        <dt class="col-sm-3">Standard:</dt>
-        <dd class="col-sm-9">{{analysis?.standardMet}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.standardMet">
+        <dt fxFlex="25">Standard:</dt>
+        <dd fxFlex="75">{{analysis?.standardMet}}</dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.analysisCenter">
-        <dt class="col-sm-3">Analysis center:</dt>
-        <dd class="col-sm-9">{{analysis?.analysisCenter}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.analysisCenter">
+        <dt fxFlex="25">Analysis center:</dt>
+        <dd fxFlex="75">{{analysis?.analysisCenter}}</dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.releaseDate">
-        <dt class="col-sm-3">Release date:</dt>
-        <dd class="col-sm-9">{{analysis?.releaseDate}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.releaseDate">
+        <dt fxFlex="25">Release date:</dt>
+        <dd fxFlex="75">{{analysis?.releaseDate}}</dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.updateDate">
-        <dt class="col-sm-3">Update date:</dt>
-        <dd class="col-sm-9">{{analysis?.updateDate}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.updateDate">
+        <dt fxFlex="25">Update date:</dt>
+        <dd fxFlex="75">{{analysis?.updateDate}}</dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.organism">
-        <dt class="col-sm-3">Species:</dt>
-        <dd class="col-sm-9">
+      <div fxLayout="row" *ngIf="analysis?.organism">
+        <dt fxFlex="25">Species:</dt>
+        <dd fxFlex="75">
           <app-robust-link [prefix]="ols_prefix" [link]="analysis?.organism?.ontologyTerms"
                            [text]="analysis?.organism?.text"></app-robust-link>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="analysis?.sampleAccessions">
-        <dt class="col-sm-3">Related Samples:</dt>
-        <dd class="col-sm-9">
-          <ng-container *ngFor="let accession of analysis?.sampleAccessions">
-            <ng-container *ngIf="sampleInES(accession)">
-              <app-robust-link [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
-            </ng-container>
-            <ng-container *ngIf="!sampleInES(accession)">
-              <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
-            </ng-container>&nbsp;
-          </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.sampleAccessions">
+        <dt fxFlex="25">Related Samples:</dt>
+        <dd fxFlex="75">
+          <div fxLayout="row wrap" fxLayout.lt-md="column">
+            <div *ngFor="let accession of analysis?.sampleAccessions" fxFlex="15" fxLayoutGap="16px">
+              <div *ngIf="sampleInES(accession)">
+                <app-robust-link [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
+              </div>
+              <div *ngIf="!sampleInES(accession)">
+                <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
+              </div>
+            </div>
+          </div> 
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="analysis?.experimentAccessions && analysis?.experimentAccessions.length > 0">
-        <dt class="col-sm-3">Related Experiments:</dt>
-        <dd class="col-sm-9">
-          <ng-container *ngFor="let exp of analysis?.experimentAccessions">
-            <app-robust-link [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
-            &nbsp;
-          </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.experimentAccessions && analysis?.experimentAccessions.length > 0">
+        <dt fxFlex="25">Related Experiments:</dt>
+        <dd fxFlex="75">
+          <div fxLayout="row wrap" fxLayout.lt-md="column">
+            <div *ngFor="let exp of analysis?.experimentAccessions" fxFlex="15" fxLayoutGap="16px">
+              <app-robust-link [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
+              &nbsp;
+            </div>
+          </div>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="analysis?.runAccessions && analysis?.runAccessions.length > 0">
-        <dt class="col-sm-3">Related Runs:</dt>
-        <dd class="col-sm-9">
-          <ng-container *ngFor="let run of analysis?.runAccessions">
-            <app-robust-link [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
-            &nbsp;
-          </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.runAccessions && analysis?.runAccessions.length > 0">
+        <dt fxFlex="25">Related Runs:</dt>
+        <dd fxFlex="75">
+          <div fxLayout="row wrap" fxLayout.lt-md="column">
+            <div *ngFor="let run of analysis?.runAccessions" fxFlex="15" fxLayoutGap="16px">
+              <app-robust-link [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
+              &nbsp;
+            </div>
+          </div>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="analysis?.experimentType">
-        <dt class="col-sm-3">Experiment type:</dt>
-        <dd class="col-sm-9">{{convertArrayToStr(analysis.experimentType, '')}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.experimentType">
+        <dt fxFlex="25">Experiment type:</dt>
+        <dd fxFlex="75">{{convertArrayToStr(analysis.experimentType, '')}}</dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.platform">
-        <dt class="col-sm-3">Platform:</dt>
-        <dd class="col-sm-9">{{convertArrayToStr(analysis.platform, '')}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="analysis?.platform">
+        <dt fxFlex="25">Platform:</dt>
+        <dd fxFlex="75">{{convertArrayToStr(analysis.platform, '')}}</dd>
+      </div>
 
-      <ng-container *ngIf="analysis?.analysisProtocol">
-        <dt class="col-sm-3">Analysis Protocol:</dt>
-        <dd class="col-sm-9"><app-robust-link prefix="" [link]="getProtocolLink(analysis.analysisProtocol.url)"
+      <div fxLayout="row" *ngIf="analysis?.analysisProtocol">
+        <dt fxFlex="25">Analysis Protocol:</dt>
+        <dd fxFlex="75"><app-robust-link prefix="" [link]="getProtocolLink(analysis.analysisProtocol.url)"
                               [text]="analysis.analysisProtocol.filename"></app-robust-link></dd>
 
 
-      </ng-container>
-    </dl>
+      </div>
+    </div>
 
     <app-related-items source_type="analysis" target_type="file"
                        download_key="url" [record_id]="analysis.accession"></app-related-items>
-  </ng-container>
+  </div>
 </div>
