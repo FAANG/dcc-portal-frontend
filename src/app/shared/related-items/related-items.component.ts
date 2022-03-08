@@ -4,7 +4,7 @@ import * as FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
 import {UserService} from '../../services/user.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import { HttpClient, HttpParams, HttpErrorResponse, HttpEventType} from '@angular/common/http';
+import { HttpClient, HttpEventType} from '@angular/common/http';
 import { Observable, of as observableOf } from 'rxjs';
 
 @Component({

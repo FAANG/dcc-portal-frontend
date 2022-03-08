@@ -1,50 +1,59 @@
-<div class="container">
+<div class="container-fluid">
   <app-header></app-header>
-  <h1 class="text-center" *ngIf="fileId">{{fileId.split("_").slice(2, -1).join(" ")}}</h1>
-  <dl class="row">
-    <dt class="col-sm-3">Specimen collection protocol:</dt>
-    <dd class="col-sm-9">
-      <app-robust-link [link]="link" [text]="file?.key"></app-robust-link>
-    </dd>
-    <dt class="col-sm-3">Organisation:</dt>
-    <dd class="col-sm-9">{{file?.universityName}}</dd>
-    <dt class="col-sm-3">Protocol date:</dt>
-    <dd class="col-sm-9">{{file?.protocolDate}}</dd>
-  </dl>
+  <h2 *ngIf="fileId">{{fileId.split("_").slice(2, -1).join(" ")}}</h2>
+  <hr>
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayout.lt-md="column">
+      <dt fxFlex="25">Specimen collection protocol:</dt>
+      <dd fxFlex="75">
+        <app-robust-link [link]="link" [text]="file?.key"></app-robust-link>
+      </dd>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+      <dt fxFlex="25">Organisation:</dt>
+      <dd fxFlex="75">{{file?.universityName}}</dd>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+      <dt fxFlex="25">Protocol date:</dt>
+      <dd fxFlex="75">{{file?.protocolDate}}</dd>
+    </div>
+  </div>
+  <hr>
 
-  <h3 *ngIf="file?.specimens && file?.specimens.length > 0">Related Specimens and Organisms</h3>
-  <div class="table-responsive" *ngIf="file?.specimens && file?.specimens.length > 0">
-    <table class="table table-striped table-hover table-borderless table-sm">
-      <thead>
-      <tr>
-        <th>Specimen</th>
-        <th>Organism part/Cell type</th>
-        <th>Organism</th>
-        <th>Breed</th>
-        <th>Derived from</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let sample of file?.specimens | paginate: { itemsPerPage: 10, currentPage: p }">
-        <td><a [routerLink]="['/specimen', sample.id]">{{sample.id}}</a></td>
-        <td>{{sample.organismPartCellType}}</td>
-        <td>{{sample.organism}}</td>
-        <td>{{sample.breed}}</td>
-        <td>
-          <ng-container *ngIf="!checkIsArray(sample.derivedFrom)">
-            <a [routerLink]="['/organism', sample.derivedFrom]">{{sample.derivedFrom}}</a>
+  <h3 *ngIf="file?.specimens && file?.specimens.length > 0" style="margin: 20px 0 20px 0;">Related Specimens and Organisms</h3>
+  <div class="table-responsive" [hidden]="!file?.specimens || file?.specimens.length == 0">
+
+    <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
+      <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
+        <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
+          <ng-container *ngIf="col == 'id'">
+            <td mat-cell class="table-cell-data" *matCellDef="let item">
+              <a [routerLink]="['/specimen', item[col]]" target="_blank">{{item[col]}}</a>
+            </td>
           </ng-container>
-          <ng-container *ngIf="checkIsArray(sample.derivedFrom)">
-            <ul>
-              <li *ngFor="let parent of sample.derivedFrom">
-                <a [routerLink]="['/specimen', parent]">{{parent}}</a>
-              </li>
-            </ul>
+          <ng-container *ngIf="col == 'derivedFrom'">
+            <td mat-cell class="table-cell-data" *matCellDef="let item">
+              <ng-container *ngIf="!checkIsArray(item[col])">
+                  <a [routerLink]="['/organism', item[col]]" target="_blank">{{item[col]}}</a>
+              </ng-container>
+              <ng-container *ngIf="checkIsArray(item[col])">
+                <ul>
+                  <li *ngFor="let parent of item[col]">
+                    <a [routerLink]="['/specimen', parent]" target="_blank">{{parent}}</a>
+                  </li>
+                </ul>
+              </ng-container>
+            </td>
           </ng-container>
-        </td>
-      </tr>
-      </tbody>
+          <ng-container *ngIf="col != 'id' && col != 'derivedFrom'">
+            <td mat-cell class="table-cell-data" *matCellDef="let item"> 
+              {{item[col]}}
+            </td>
+          </ng-container>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
+      <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
     </table>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <mat-paginator pageSize="10"></mat-paginator>
   </div>
 </div>
