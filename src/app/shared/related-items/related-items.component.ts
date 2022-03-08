@@ -112,11 +112,13 @@ export class RelatedItemsComponent implements OnInit {
       this.dataService.getFilesByRun(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'file-paper') {
       this.dataService.getFile(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
+          this.dataSource.data = this.getDataSource(this.records);
         });
     } else if (relationship_type === 'dataset-specimen') {
       this.dataService.getDataset(this.record_id, this.mode).subscribe(
@@ -248,7 +250,7 @@ export class RelatedItemsComponent implements OnInit {
           FileSaver.saveAs(result.body);
         }
       });
-      this.progress[ftp_url] = -1;
+      this.progress[ftp_url] = 0;
     });
   }
 

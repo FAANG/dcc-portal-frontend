@@ -82,8 +82,11 @@
           "value": "title",
           "link": {
             "prefix": "../article/",
-            "url": "articleId"
+            "url": "Article ID"
           }
+        },
+        "Article ID": {
+          "value": "articleId"
         },
         "Year": {
           "value": "year"
@@ -110,8 +113,11 @@
           "value": "_source.name",
           "link": {
             "prefix": "ftp://",
-            "url": "_source.url"
+            "url": "URL"
           }
+        },
+        "URL": {
+          "value": "_source.url"
         },
         "File size": {
           "value": "_source.readableSize"
