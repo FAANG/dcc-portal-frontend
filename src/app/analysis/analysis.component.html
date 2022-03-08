@@ -45,3 +45,8 @@
 <ng-template #accessionTemplate let-item>
   <a style="cursor: pointer" target="_blank" [routerLink]="item['accession']">{{item['accession']}}</a>
 </ng-template>
+
+<ng-template #assayTypeTemplate let-item>
+  <span *ngIf="item['assayType']">{{item['assayType']}}</span>
+  <span *ngIf="!item['assayType']">Not Specified</span>
+</ng-template>

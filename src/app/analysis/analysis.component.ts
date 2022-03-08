@@ -14,6 +14,7 @@ import {TableServerSideComponent}  from '../shared/table-server-side/table-serve
 })
 export class AnalysisComponent implements OnInit, OnDestroy {
   @ViewChild('accessionTemplate', { static: true }) accessionTemplate: TemplateRef<any>;
+  @ViewChild('assayTypeTemplate', { static: true }) assayTypeTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
   columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard'];
@@ -63,7 +64,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.templates = {'accession': this.accessionTemplate};
+    this.templates = {'accession': this.accessionTemplate, 'assayType': this.assayTypeTemplate};
     this.loadTableDataFunction = this.dataService.getAllAnalyses.bind(this.dataService);
     this.titleService.setTitle('FAANG analyses');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
