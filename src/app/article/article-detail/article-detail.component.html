@@ -5,39 +5,39 @@
     <hr>
     <dl fxLayout="column">
 
-      <div fxLayout="row">
+      <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Paper Title:</dt>
         <dd fxFlex="75">{{article?.title}}</dd>
       </div>
 
-      <div fxLayout="row">
+      <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Author(s):</dt>
         <dd fxFlex="75">{{article?.authorString}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="article?.journal">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="article?.journal">
         <dt fxFlex="25">Journal Name:</dt>
         <dd fxFlex="75">{{article?.journal}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="article?.issue">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="article?.issue">
         <dt fxFlex="25">Journal Issue:</dt>
         <dd fxFlex="75">{{article?.issue}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="article?.volume">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="article?.volume">
         <dt fxFlex="25">Journal Volume:</dt>
         <dd fxFlex="75">{{article?.volume}}
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="article?.pages">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="article?.pages">
         <dt fxFlex="25">Journal Page:</dt>
         <dd fxFlex="75">{{article?.pages}}
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="article?.pmcId">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="article?.pmcId">
         <dt fxFlex="25">Europe PMC:</dt>
         <dd fxFlex="75">
           <app-robust-link [prefix]="epmc_prefix" [link]="article.pmcId"
@@ -45,7 +45,7 @@
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="article?.pubmedId">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="article?.pubmedId">
         <dt fxFlex="25">PubMed:</dt>
         <dd fxFlex="75">
           <app-robust-link [prefix]="pubmed_prefix" [link]="article.pubmedId"
@@ -53,7 +53,7 @@
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="article?.doi">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="article?.doi">
         <dt fxFlex="25">DOI:</dt>
         <dd fxFlex="75">
           <app-robust-link [prefix]="doi_prefix" [link]="article.doi"
@@ -61,7 +61,7 @@
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="article?.datasetSource">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="article?.datasetSource">
         <dt fxFlex="25">Dataset source:</dt>
         <dd fxFlex="75">{{article?.datasetSource}}</dd>
       </div>

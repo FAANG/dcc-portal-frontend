@@ -17,7 +17,7 @@
     <hr>
     <div fxLayout="column">
 
-      <div fxLayout="row">
+      <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Study name:</dt>
         <dd fxFlex="75">
           <app-robust-link [prefix]="ena_prefix" [link]="dataset?.accession"
@@ -25,27 +25,27 @@
         </dd>
       </div>
 
-      <div fxLayout="row">
+      <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Title:</dt>
         <dd fxFlex="75">{{dataset?.title}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="dataset?.alias">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="dataset?.alias">
         <dt fxFlex="25">Alias:</dt>
         <dd fxFlex="75">{{dataset?.alias}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="dataset?.secondaryProject">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="dataset?.secondaryProject">
         <dt fxFlex="25">Sub-project:</dt>
         <dd fxFlex="75">{{dataset?.secondaryProject}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="dataset?.type">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="dataset?.type">
         <dt fxFlex="25">Type:</dt>
         <dd fxFlex="75">{{dataset?.type}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="dataset?.secondaryAccession">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="dataset?.secondaryAccession">
         <dt fxFlex="25">Secondary accession:</dt>
         <dd fxFlex="75">
           <app-robust-link [prefix]="ena_prefix" [link]="dataset?.secondaryAccession"
@@ -53,11 +53,11 @@
         </dd>
       </div>
 
-      <div fxLayout="row">
+      <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Species</dt>
         <dd fxFlex="75">
   
-          <div fxLayout="row" *ngFor="let organism of dataset?.species">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let organism of dataset?.species">
             <app-robust-link [prefix]="ols_prefix" [link]="organism?.ontologyTerms"
                              [text]="organism?.text"></app-robust-link>
             &nbsp;
@@ -65,7 +65,7 @@
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="dataset?.experiment">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="dataset?.experiment">
         <dt fxFlex="25">Experiment accessions:</dt>
         <dd fxFlex="75">
           <div fxLayout="row wrap" fxLayout.lt-md="column">
@@ -77,26 +77,26 @@
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="dataset?.instrument">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="dataset?.instrument">
         <dt fxFlex="25">Instruments:</dt>
         <dd fxFlex="75">
-          <div fxLayout="row" *ngFor="let instrument of dataset?.instrument">{{instrument}}  </div>
+          <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let instrument of dataset?.instrument">{{instrument}}  </div>
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="dataset?.centerName">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="dataset?.centerName">
         <dt fxFlex="25">Sequencing center:</dt>
         <dd fxFlex="75">
-          <div fxLayout="row" *ngFor="let center of dataset?.centerName">{{center}}</div>
+          <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let center of dataset?.centerName">{{center}}</div>
         </dd>
       </div>
 
-      <div fxLayout="row">
+      <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Standard:</dt>
         <dd fxFlex="75">{{dataset?.standardMet}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="dataset && dataset.hasOwnProperty('submitterEmail')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="dataset && dataset.hasOwnProperty('submitterEmail')">
         <dt fxFlex="25">Submitter Emails:</dt>
         <dd fxFlex="75">{{dataset.submitterEmail}}</dd>
       </div>

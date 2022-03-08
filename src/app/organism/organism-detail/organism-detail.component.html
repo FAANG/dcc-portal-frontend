@@ -17,170 +17,170 @@
     <h2>{{biosampleId}}</h2>
     <hr>
     <div fxLayout="column">
-      <div fxLayout="row" *ngIf="organism && organism.hasOwnProperty('name')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism && organism.hasOwnProperty('name')">
         <dt fxFlex="25">Name:</dt>
         <dd fxFlex="75">{{organism?.name}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism && organism.hasOwnProperty('biosampleId')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism && organism.hasOwnProperty('biosampleId')">
         <dt fxFlex="25">BioSample ID:</dt>
         <dd fxFlex="75">
           <a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a>
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism && organism.hasOwnProperty('alternativeId') && organism.alternativeId.length !== 0">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism && organism.hasOwnProperty('alternativeId') && organism.alternativeId.length !== 0">
         <dt fxFlex="25">Alternative ID:</dt>
         <dd fxFlex="75">{{organism.alternativeId.toString()}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism && organism.hasOwnProperty('releaseDate')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism && organism.hasOwnProperty('releaseDate')">
         <dt fxFlex="25">Release date:</dt>
         <dd fxFlex="75">{{organism?.releaseDate}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism && organism.hasOwnProperty('updateDate')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism && organism.hasOwnProperty('updateDate')">
         <dt fxFlex="25">Update date:</dt>
         <dd fxFlex="75">{{organism?.updateDate}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism && organism.hasOwnProperty('sex')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism && organism.hasOwnProperty('sex')">
         <dt fxFlex="25">Sex:</dt>
         <dd fxFlex="75">
           <app-robust-link [prefix]="ols_prefix" [link]="organism?.sex?.ontologyTerms" [text]="organism?.sex?.text"></app-robust-link>
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism && organism.hasOwnProperty('organism')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism && organism.hasOwnProperty('organism')">
         <dt fxFlex="25">Organism:</dt>
         <dd fxFlex="75">
           <app-robust-link [prefix]="ols_prefix" [link]="organism?.organism?.ontologyTerms" [text]="organism?.organism?.text"></app-robust-link>
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism && organism.hasOwnProperty('breed')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism && organism.hasOwnProperty('breed')">
         <dt fxFlex="25">Breed:</dt>
         <dd fxFlex="75">
           <app-robust-link [prefix]="ols_prefix" [link]="organism?.breed.ontologyTerms" [text]="organism?.breed?.text"></app-robust-link>
         </dd>
       </div>
 
-      <div fxLayout="row">
+      <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Material:</dt>
         <dd fxFlex="75">
           <a href="https://www.ebi.ac.uk/ols/terms?iri=http://purl.obolibrary.org/obo/UBERON_0000468" target="_blank">organism</a>
         </dd>
       </div>
 
-      <div fxLayout="row"  *ngIf="organism && organism.hasOwnProperty('standardMet')">
+      <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="organism && organism.hasOwnProperty('standardMet')">
         <dt fxFlex="25">Standard met:</dt>
         <dd fxFlex="75">{{organism?.standardMet}}</dd>
       </div>
 
-      <div fxLayout="row"  *ngIf="organism && organism.hasOwnProperty('project')">
+      <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="organism && organism.hasOwnProperty('project')">
         <dt fxFlex="25">Project:</dt>
         <dd fxFlex="75">{{organism?.project}}</dd>
       </div>
 
-      <div fxLayout="row"  *ngIf="organism && organism.hasOwnProperty('secondaryProject')">
+      <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="organism && organism.hasOwnProperty('secondaryProject')">
         <dt fxFlex="25">Secondary project:</dt>
         <dd fxFlex="75">{{organism?.secondaryProject}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.healthStatus">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.healthStatus">
         <dt fxFlex="25">Health status:</dt>
         <dd fxFlex="75">
-          <div fxLayout="row" *ngFor="let status of organism?.healthStatus;">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let status of organism?.healthStatus;">
             <app-robust-link [link]="status.ontologyTerms" [text]="status.text"></app-robust-link>
           </div>
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.availability">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.availability">
         <dt fxFlex="25">Availability:</dt>
         <dd fxFlex="75"><a href={{organism?.availability}}>{{dealWithAvailability(organism?.availability)}}</a></dd>
       </div>
 
-      <div fxLayout="row"  *ngIf="organism && organism.hasOwnProperty('organization')">
+      <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="organism && organism.hasOwnProperty('organization')">
         <dt fxFlex="25">Organisation:</dt>
         <dd fxFlex="75">
-          <div fxLayout="row" *ngFor="let organization of organism?.organization;">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let organization of organism?.organization;">
             <app-robust-link [link]="organization.URL" [text]="organization.name"></app-robust-link>&nbsp;( {{organization.role}})
           </div>
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.description">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.description">
         <dt fxFlex="25">Description:</dt>
         <dd fxFlex="75">{{organism?.description}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.birthDate?.text">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.birthDate?.text">
         <dt fxFlex="25">Birth date:</dt>
         <dd fxFlex="75">{{organism?.birthDate?.text}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.birthLocation">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.birthLocation">
         <dt fxFlex="25">Birth location:</dt>
         <dd fxFlex="75">{{organism?.birthLocation}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.birthLocationLongitude?.text">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.birthLocationLongitude?.text">
         <dt fxFlex="25">Birth longitude:</dt>
         <dd fxFlex="75">{{organism?.birthLocationLongitude?.text}} {{organism?.birthLocationLongitude.unit}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.birthLocationLatitude?.text">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.birthLocationLatitude?.text">
         <dt fxFlex="25">Birth latitude:</dt>
         <dd fxFlex="75">{{organism?.birthLocationLatitude?.text}} {{organism?.birthLocationLatitude?.unit}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.birthWeight?.text">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.birthWeight?.text">
         <dt fxFlex="25">Birth weight:</dt>
         <dd fxFlex="75">{{organism?.birthWeight?.text}} {{organism?.birthWeight?.unit}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.placentalWeight?.text">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.placentalWeight?.text">
         <dt fxFlex="25">Placental weight:</dt>
         <dd fxFlex="75">{{organism?.placentalWeight?.text}} {{organism?.placentalWeight?.unit}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.pregnancyLength?.text">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.pregnancyLength?.text">
         <dt fxFlex="25">Pregnancy length:</dt>
         <dd fxFlex="75">{{organism?.pregnancyLength?.text}} {{organism?.pregnancyLength?.unit}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.deliveryTiming">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.deliveryTiming">
         <dt fxFlex="25">Delivery timing:</dt>
         <dd fxFlex="75">{{organism?.deliveryTiming}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.deliveryEase">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.deliveryEase">
         <dt fxFlex="25">Delivery ease:</dt>
         <dd fxFlex="75">{{organism?.deliveryEase}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.sameAs">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.sameAs">
         <dt fxFlex="25">Same as:</dt>
         <dd fxFlex="75">{{organism?.sameAs}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.childOf">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.childOf">
         <dt fxFlex="25">Child of:</dt>
         <dd fxFlex="75">
-          <div fxLayout="row" *ngFor="let child of organism?.childOf;">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let child of organism?.childOf;">
             <app-robust-link [prefix]="organism_prefix" [link]="child" [text]="child"></app-robust-link>
           </div>
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="organism?.pedigree">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism?.pedigree">
         <dt fxFlex="25">Pedigree:</dt>
         <dd fxFlex="75"><a href={{organism?.pedigree}}>{{organism?.pedigree}}</a></dd>
       </div>
 
       <div fxLayout="column" *ngIf="organism?.customField?.length > 0;">
-        <div fxLayout="row" *ngFor="let field of organism?.customField;">
+        <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let field of organism?.customField;">
           <dt fxFlex="25">{{field.name}}:</dt>
           <dd fxFlex="75">
             <app-robust-link [prefix]="ols_prefix" [link]="field.ontologyTerms" [text]="field.value"></app-robust-link>  {{field?.unit}}

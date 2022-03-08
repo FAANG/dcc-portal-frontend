@@ -16,30 +16,30 @@
     <h2>{{biosampleId}}</h2>
     <hr>
     <dl fxLayout="column">
-      <div fxLayout="row" *ngIf="specimen && specimen.hasOwnProperty('name')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.hasOwnProperty('name')">
         <dt fxFlex="25">Name:</dt>
         <dd fxFlex="75">{{specimen?.name}}</dd>
       </div>
-      <div fxLayout="row" *ngIf="specimen && specimen.hasOwnProperty('biosampleId')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.hasOwnProperty('biosampleId')">
         <dt fxFlex="25">BioSample ID:</dt>
         <dd fxFlex="75"><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a>
         </dd>
       </div>
-      <div fxLayout="row" *ngIf="specimen && specimen.hasOwnProperty('alternativeId') && specimen.alternativeId.length !== 0">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.hasOwnProperty('alternativeId') && specimen.alternativeId.length !== 0">
         <dt fxFlex="25">Alternative ID:</dt>
         <dd fxFlex="75">{{specimen.alternativeId.toString()}}</dd>
       </div>
-      <div fxLayout="row" *ngIf="specimen && specimen.hasOwnProperty('releaseDate')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.hasOwnProperty('releaseDate')">
         <dt fxFlex="25">Release date:</dt>
         <dd fxFlex="75">{{specimen?.releaseDate}}</dd>
       </div>
-      <div fxLayout="row" *ngIf="specimen && specimen.hasOwnProperty('updateDate')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.hasOwnProperty('updateDate')">
         <dt fxFlex="25">Update date:</dt>
         <dd fxFlex="75">{{specimen?.updateDate}}</dd>
       </div>
       <div fxLayout="column"
         *ngIf="(specimen?.material?.text !== 'pool of specimens' && specimen?.material?.text !=='cell line')">
-        <div fxLayout="row" *ngIf="specimen && specimen?.organism?.hasOwnProperty('sex')">
+        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.organism?.hasOwnProperty('sex')">
           <dt fxFlex="25">Sex:</dt>
           <dd fxFlex="75">
             <app-robust-link [prefix]="ols_prefix"
@@ -48,7 +48,7 @@
           </dd>
         </div>
 
-        <div fxLayout="row" *ngIf="specimen && specimen?.organism?.hasOwnProperty('biosampleId')">
+        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.organism?.hasOwnProperty('biosampleId')">
           <dt fxFlex="25">Organism BioSample Id:</dt>
           <dd fxFlex="75">
             <app-robust-link [prefix]="organism_prefix" [link]="specimen?.organism?.biosampleId"
@@ -56,7 +56,7 @@
           </dd>
         </div>
 
-        <div fxLayout="row" *ngIf="specimen && specimen?.organism?.hasOwnProperty('organism')">
+        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.organism?.hasOwnProperty('organism')">
           <dt fxFlex="25">Organism:</dt>
           <dd fxFlex="75">
             <app-robust-link [prefix]="ols_prefix"
@@ -65,7 +65,7 @@
           </dd>
         </div>
 
-        <div fxLayout="row" *ngIf="specimen && specimen?.organism?.hasOwnProperty('breed')">
+        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.organism?.hasOwnProperty('breed')">
           <dt fxFlex="25">Breed:</dt>
           <dd fxFlex="75">
             <app-robust-link [prefix]="ols_prefix"
@@ -74,10 +74,10 @@
           </dd>
         </div>
 
-        <div fxLayout="row" *ngIf="specimen && specimen?.organism?.hasOwnProperty('healthStatus')">
+        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.organism?.hasOwnProperty('healthStatus')">
           <dt fxFlex="25">Health status:</dt>
           <dd fxFlex="75">
-            <div fxLayout="row" *ngFor="let status of specimen?.organism?.healthStatus;">
+            <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let status of specimen?.organism?.healthStatus;">
               <app-robust-link [prefix]="ols_prefix" [link]="status.ontologyTerms"
                                [text]="status.text"></app-robust-link>
             </div>
@@ -85,42 +85,42 @@
         </div>
       </div>
 
-      <div fxLayout="row" *ngIf="specimen?.description">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.description">
         <dt fxFlex="25">Description:</dt>
         <dd fxFlex="75">{{specimen?.description}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="specimen && specimen.hasOwnProperty('standardMet')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.hasOwnProperty('standardMet')">
         <dt fxFlex="25">Standard met:</dt>
         <dd fxFlex="75">{{specimen?.standardMet}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="specimen && specimen.hasOwnProperty('project')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.hasOwnProperty('project')">
         <dt fxFlex="25">Project:</dt>
         <dd fxFlex="75">{{specimen?.project}}</dd>
       </div>
 
-      <div fxLayout="row"  *ngIf="specimen && specimen.hasOwnProperty('secondaryProject')">
+      <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="specimen && specimen.hasOwnProperty('secondaryProject')">
         <dt fxFlex="25">Secondary project:</dt>
         <dd fxFlex="75">{{specimen?.secondaryProject}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="specimen?.availability">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.availability">
         <dt fxFlex="25">Availability:</dt>
         <dd fxFlex="75"><a href={{specimen?.availability}}>{{dealWithAvailability(specimen?.availability)}}</a></dd>
       </div>
 
-      <div fxLayout="row" *ngIf="specimen && specimen?.hasOwnProperty('organization')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.hasOwnProperty('organization')">
         <dt fxFlex="25">Organisation:</dt>
         <dd fxFlex="75">
-          <div fxLayout="row" *ngFor="let organization of specimen?.organization;">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let organization of specimen?.organization;">
             <app-robust-link [link]="organization.URL" [text]="organization.name"></app-robust-link>
             ( {{organization.role}})
           </div>
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="specimen && specimen?.hasOwnProperty('material')">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.hasOwnProperty('material')">
         <dt fxFlex="25">Material:</dt>
         <dd fxFlex="75">
           <app-robust-link [prefix]="ols_prefix" [link]="specimen?.material?.ontologyTerms"
@@ -128,19 +128,19 @@
         </dd>
       </div>
 
-      <div fxLayout="row" *ngIf="specimen?.sameAs">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.sameAs">
         <dt fxFlex="25">Same as:</dt>
         <dd fxFlex="75">{{specimen?.sameAs}}</dd>
       </div>
 
-      <div fxLayout="row" *ngIf="specimen?.derivedFrom">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.derivedFrom">
         <dt fxFlex="25">Derived from:</dt>
         <dd fxFlex="75">
-          <div fxLayout="row" [ngSwitch]="specimen?.material?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" [ngSwitch]="specimen?.material?.text">
             <ng-template ngSwitchCase="pool of specimens">
-              <div fxLayout="row" *ngFor="let derived of specimen?.derivedFrom; let i = index">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let derived of specimen?.derivedFrom; let i = index">
                 <!--            <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>-->
-                <div fxLayout="row" *ngIf="i > 0">,</div>
+                <div fxLayout="row" fxLayout.lt-md="column" *ngIf="i > 0">,</div>
                 <app-robust-link [prefix]="specimen_prefix" [link]="derived" [text]="derived"></app-robust-link>
               </div>
             </ng-template>
@@ -162,17 +162,17 @@
 
       <div fxLayout="column" [ngSwitch]="specimen?.material?.text">
         <ng-template ngSwitchCase="specimen from organism">
-          <div fxLayout="row" *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('specimenCollectionDate')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('specimenCollectionDate')">
             <dt fxFlex="25">Specimen collection date:</dt>
             <dd fxFlex="75">{{specimen?.specimenFromOrganism?.specimenCollectionDate?.text}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('animalAgeAtCollection')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('animalAgeAtCollection')">
             <dt fxFlex="25">Animal age at collection:</dt>
             <dd fxFlex="75">{{specimen?.specimenFromOrganism?.animalAgeAtCollection?.text}} {{specimen?.specimenFromOrganism?.animalAgeAtCollection?.unit}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('developmentalStage')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('developmentalStage')">
             <dt fxFlex="25">Developmental stage:</dt>
             <dd fxFlex="75">
               <app-robust-link [prefix]="ols_prefix"
@@ -181,7 +181,7 @@
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('organismPart')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('organismPart')">
             <dt fxFlex="25">Organism part:</dt>
             <dd fxFlex="75">
               <app-robust-link [prefix]="ols_prefix"
@@ -190,95 +190,95 @@
             </dd>
           </div>
 
-          <div fxLayout="row"
+          <div fxLayout="row" fxLayout.lt-md="column"
             *ngIf="specimen && specimen?.specimenFromOrganism?.hasOwnProperty('specimenCollectionProtocol')">
             <dt fxFlex="25">Specimen collection protocol:</dt>
             <dd fxFlex="75">
-              <div fxLayout="row" *ngIf="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
                 <app-robust-link
                   [link]="generateProtocolLink(specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url)"
                   [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename"></app-robust-link>
               </div>
-              <div fxLayout="row" *ngIf="!specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="!specimen?.specimenFromOrganism?.specimenCollectionProtocol?.filename">
                 <app-robust-link [link]="generateProtocolLink(specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url)"
                                  [text]="specimen?.specimenFromOrganism?.specimenCollectionProtocol?.url"></app-robust-link>
               </div>
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.specimenFromOrganism?.fastedStatus">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.specimenFromOrganism?.fastedStatus">
             <dt fxFlex="25">Fasted status:</dt>
             <dd fxFlex="75">{{specimen?.specimenFromOrganism?.fastedStatus}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.specimenFromOrganism?.numberOfPieces?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.specimenFromOrganism?.numberOfPieces?.text">
             <dt fxFlex="25">Number of pieces:</dt>
             <dd fxFlex="75">{{specimen?.specimenFromOrganism?.numberOfPieces?.text}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.specimenFromOrganism?.specimenVolume?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.specimenFromOrganism?.specimenVolume?.text">
             <dt fxFlex="25">Specimen volume:</dt>
             <dd fxFlex="75">{{specimen?.specimenFromOrganism?.specimenVolume?.text}} {{specimen?.specimenFromOrganism?.specimenVolume?.unit}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.specimenFromOrganism?.specimenSize?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.specimenFromOrganism?.specimenSize?.text">
             <dt fxFlex="25">Specimen size:</dt>
             <dd fxFlex="75">{{specimen?.specimenFromOrganism?.specimenSize?.text}} {{specimen?.specimenFromOrganism?.specimenSize?.unit}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.specimenFromOrganism?.specimenWeight?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.specimenFromOrganism?.specimenWeight?.text">
             <dt fxFlex="25">Specimen weight:</dt>
             <dd fxFlex="75">{{specimen?.specimenFromOrganism?.specimenWeight?.text}} {{specimen?.specimenFromOrganism?.specimenWeight?.unit}}</dd>
           </div>
 
-          <div fxLayout="row"
+          <div fxLayout="row" fxLayout.lt-md="column"
             *ngIf="specimen && specimen.specimenFromOrganism?.hasOwnProperty('specimenPictureUrl') && specimen.specimenFromOrganism.specimenPictureUrl.length !== 0">
             <dt fxFlex="25">Specimen picture URL:</dt>
             <dd fxFlex="75">{{specimen.specimenFromOrganism.specimenPictureUrl.toString()}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text">
             <dt fxFlex="25">Gestational age at sample collection:</dt>
             <dd fxFlex="75">{{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.text}} {{specimen?.specimenFromOrganism?.gestationalAgeAtSampleCollection?.unit}}</dd>
           </div>
         </ng-template>
 
         <ng-template ngSwitchCase="pool of specimens">
-          <div fxLayout="row" *ngIf="specimen && specimen.poolOfSpecimens.hasOwnProperty('poolCreationDate')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.poolOfSpecimens.hasOwnProperty('poolCreationDate')">
             <dt fxFlex="25">Pool creation date:</dt>
             <dd fxFlex="75">{{specimen.poolOfSpecimens.poolCreationDate.text}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.poolOfSpecimens?.hasOwnProperty('poolCreationProtocol')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.poolOfSpecimens?.hasOwnProperty('poolCreationProtocol')">
             <dt fxFlex="25">Pool creation protocol:</dt>
             <dd fxFlex="75">
-              <div fxLayout="row" *ngIf="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
                 <app-robust-link [link]="generateProtocolLink(specimen?.poolOfSpecimens?.poolCreationProtocol?.url)"
                                  [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.filename"></app-robust-link>
               </div>
-              <div fxLayout="row" *ngIf="!specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="!specimen?.poolOfSpecimens?.poolCreationProtocol?.filename">
                 <app-robust-link [link]="generateProtocolLink(specimen?.poolOfSpecimens?.poolCreationProtocol?.url)"
                                  [text]="specimen?.poolOfSpecimens?.poolCreationProtocol?.url"></app-robust-link>
               </div>
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.poolOfSpecimens?.specimenVolume?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.poolOfSpecimens?.specimenVolume?.text">
             <dt fxFlex="25">Specimen volume:</dt>
             <dd fxFlex="75">{{specimen.poolOfSpecimens.specimenVolume.text}} {{specimen.poolOfSpecimens.specimenVolume.unit}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.poolOfSpecimens?.specimenSize?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.poolOfSpecimens?.specimenSize?.text">
             <dt fxFlex="25">Specimen size:</dt>
             <dd fxFlex="75">{{specimen.poolOfSpecimens.specimenSize.text}} {{specimen.poolOfSpecimens.specimenSize.unit}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.poolOfSpecimens?.specimenWeight?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.poolOfSpecimens?.specimenWeight?.text">
             <dt fxFlex="25">Specimen weight:</dt>
             <dd fxFlex="75">{{specimen.poolOfSpecimens.specimenWeight.text}} {{specimen.poolOfSpecimens.specimenWeight.unit}}</dd>
           </div>
 
-          <div fxLayout="row"
+          <div fxLayout="row" fxLayout.lt-md="column"
             *ngIf="specimen && specimen.poolOfSpecimens?.hasOwnProperty('specimenPictureUrl') && specimen.poolOfSpecimens.specimenPictureUrl.length !== 0">
             <dt fxFlex="25">Specimen picture URL:</dt>
             <dd fxFlex="75">{{specimen.poolOfSpecimens.specimenPictureUrl.toString()}}</dd>
@@ -287,29 +287,29 @@
 
         <ng-template ngSwitchCase="cell specimen">
 
-          <div fxLayout="row" *ngIf="specimen?.cellSpecimen?.markers">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellSpecimen?.markers">
             <dt fxFlex="25">Markers:</dt>
             <dd fxFlex="75">{{specimen.cellSpecimen.markers}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellSpecimen?.hasOwnProperty('cellType')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellSpecimen?.hasOwnProperty('cellType')">
             <dt fxFlex="25">Cell type:</dt>
             <dd fxFlex="75">
-              <div fxLayout="row" *ngFor="let type of specimen?.cellSpecimen?.cellType;">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let type of specimen?.cellSpecimen?.cellType;">
                 <app-robust-link [prefix]="ols_prefix" [link]="type?.ontologyTerms[0]"
                                  [text]="type?.text"></app-robust-link>
               </div>
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellSpecimen?.hasOwnProperty('purificationProtocol')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellSpecimen?.hasOwnProperty('purificationProtocol')">
             <dt fxFlex="25">Purification protocol:</dt>
             <dd fxFlex="75">
-              <div fxLayout="row" *ngIf="specimen?.cellSpecimen?.purificationProtocol?.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellSpecimen?.purificationProtocol?.filename">
                 <app-robust-link [link]="generateProtocolLink(specimen?.cellSpecimen?.purificationProtocol?.url)"
                                  [text]="specimen?.cellSpecimen?.purificationProtocol?.filename"></app-robust-link>
               </div>
-              <div fxLayout="row" *ngIf="!specimen?.cellSpecimen?.purificationProtocol?.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="!specimen?.cellSpecimen?.purificationProtocol?.filename">
                 <app-robust-link [link]="generateProtocolLink(specimen?.cellSpecimen?.purificationProtocol?.url)"
                                  [text]="specimen?.cellSpecimen?.purificationProtocol?.url"></app-robust-link>
               </div>
@@ -318,7 +318,7 @@
         </ng-template>
 
         <ng-template ngSwitchCase="cell culture">
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cultureType')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cultureType')">
             <dt fxFlex="25">Culture type:</dt>
             <dd fxFlex="75">
               <app-robust-link [prefix]="ols_prefix"
@@ -327,7 +327,7 @@
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cellType')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cellType')">
             <dt fxFlex="25">Cell type:</dt>
             <dd fxFlex="75">
               <app-robust-link [prefix]="ols_prefix"
@@ -336,38 +336,38 @@
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cellCultureProtocol')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cellCultureProtocol')">
             <dt fxFlex="25">Cell culture protocol:</dt>
             <dd fxFlex="75">
-              <div fxLayout="row" *ngIf="specimen?.cellCulture?.cellCultureProtocol?.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellCulture?.cellCultureProtocol?.filename">
                 <app-robust-link [link]="generateProtocolLink(specimen?.cellCulture?.cellCultureProtocol?.url)"
                                  [text]="specimen?.cellCulture?.cellCultureProtocol?.filename"></app-robust-link>
               </div>
-              <div fxLayout="row" *ngIf="!specimen?.cellCulture?.cellCultureProtocol?.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="!specimen?.cellCulture?.cellCultureProtocol?.filename">
                 <app-robust-link [link]="generateProtocolLink(specimen?.cellCulture?.cellCultureProtocol?.url)"
                                  [text]="specimen?.cellCulture?.cellCultureProtocol?.url"></app-robust-link>
               </div>
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cultureConditions')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('cultureConditions')">
             <dt fxFlex="25">Culture conditions:</dt>
             <dd fxFlex="75">{{specimen?.cellCulture?.cultureConditions}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('numberOfPassages')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellCulture?.hasOwnProperty('numberOfPassages')">
             <dt fxFlex="25">Number of passages:</dt>
             <dd fxFlex="75">{{specimen?.cellCulture?.numberOfPassages}}</dd>
           </div>
         </ng-template>
 
         <ng-template ngSwitchCase="cell line">
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('cellLine')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('cellLine')">
             <dt fxFlex="25">Cell line:</dt>
             <dd fxFlex="75">{{specimen?.cellLine?.cellLine}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('organism')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('organism')">
             <dt fxFlex="25">Organism:</dt>
             <dd fxFlex="75">
               <app-robust-link [prefix]="ols_prefix"
@@ -376,7 +376,7 @@
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('sex')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('sex')">
             <dt fxFlex="25">Sex:</dt>
             <dd fxFlex="75">
               <app-robust-link [prefix]="ols_prefix"
@@ -385,32 +385,32 @@
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('biomaterialProvider')">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.cellLine?.hasOwnProperty('biomaterialProvider')">
             <dt fxFlex="25">Biomaterial provider:</dt>
             <dd fxFlex="75">{{specimen?.cellLine?.biomaterialProvider}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.catalogueNumber">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.catalogueNumber">
             <dt fxFlex="25">Catalogue number:</dt>
             <dd fxFlex="75">{{specimen.cellLine.catalogueNumber}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.numberOfPassages">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.numberOfPassages">
             <dt fxFlex="25">Number of passages:</dt>
             <dd fxFlex="75">{{specimen?.cellLine?.numberOfPassages}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.dateEstablished">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.dateEstablished">
             <dt fxFlex="25">Date established:</dt>
             <dd fxFlex="75">{{specimen?.cellLine?.dateEstablished.text}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.publication">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.publication">
             <dt fxFlex="25">Publication:</dt>
             <dd fxFlex="75">{{specimen.cellLine.publication}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.breed?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.breed?.text">
             <dt fxFlex="25">Breed:</dt>
             <dd fxFlex="75">
               <app-robust-link [prefix]="ols_prefix"
@@ -419,7 +419,7 @@
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.cellType?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.cellType?.text">
             <dt fxFlex="25">Cell type:</dt>
             <dd fxFlex="75">
               <app-robust-link [prefix]="ols_prefix"
@@ -428,26 +428,26 @@
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.cultureConditions">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.cultureConditions">
             <dt fxFlex="25">Culture conditions:</dt>
             <dd fxFlex="75">{{specimen.cellLine.cultureConditions}}</dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.cultureProtocol?.url">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.cultureProtocol?.url">
             <dt fxFlex="25">Culture protocol:</dt>
             <dd fxFlex="75">
-              <div fxLayout="row" *ngIf="specimen.cellLine.cultureprotocol.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen.cellLine.cultureprotocol.filename">
                 <app-robust-link [link]="generateProtocolLink(specimen.cellLine.cultureProtocol.url)"
                                  [text]="specimen.cellLine.cultureProtocol.filename"></app-robust-link>
               </div>
-              <div fxLayout="row" *ngIf="!specimen.cellLine.cultureprotocol.filename">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngIf="!specimen.cellLine.cultureprotocol.filename">
                 <app-robust-link [link]="generateProtocolLink(specimen.cellLine.cultureProtocol.url)"
                                  [text]="specimen.cellLine.cultureProtocol.url"></app-robust-link>
               </div>
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.disease?.text">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.disease?.text">
             <dt fxFlex="25">Disease:</dt>
             <dd fxFlex="75">
               <app-robust-link [prefix]="ols_prefix"
@@ -456,7 +456,7 @@
             </dd>
           </div>
 
-          <div fxLayout="row" *ngIf="specimen?.cellLine?.karyotype">
+          <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.cellLine?.karyotype">
             <dt fxFlex="25">Karyotype:</dt>
             <dd fxFlex="75">{{specimen.cellLine.karyotype}}</dd>
           </div>
@@ -465,7 +465,7 @@
       </div>
 
       <div fxLayout="column" *ngIf="specimen?.customField?.length > 0;">
-        <div fxLayout="row" *ngFor="let field of specimen?.customField;">
+        <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let field of specimen?.customField;">
           <dt fxFlex="25" *ngIf="field.name !== 'Sex' && field.ontologyTerms || field.value">{{field.name}}:</dt>
           <dd fxFlex="75" *ngIf="field.name !== 'Sex' && field.ontologyTerms || field.value">
             <app-robust-link [prefix]="ols_prefix" [link]="field.ontologyTerms"
