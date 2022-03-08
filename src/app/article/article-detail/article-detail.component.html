@@ -1,67 +1,75 @@
-<div class="container">
+<div class="container-fluid">
   <app-header></app-header>
-  <ng-container *ngIf="article">
-    <h1 class="text-center">{{id}}</h1>
-    <dl class="row">
+  <div *ngIf="article">
+    <h2>{{id}}</h2>
+    <hr>
+    <dl fxLayout="column">
 
-      <dt class="col-sm-3">Paper Title:</dt>
-      <dd class="col-sm-9">{{article?.title}}</dd>
+      <div fxLayout="row">
+        <dt fxFlex="25">Paper Title:</dt>
+        <dd fxFlex="75">{{article?.title}}</dd>
+      </div>
 
-      <dt class="col-sm-3">Author(s):</dt>
-      <dd class="col-sm-9">{{article?.authorString}}</dd>
+      <div fxLayout="row">
+        <dt fxFlex="25">Author(s):</dt>
+        <dd fxFlex="75">{{article?.authorString}}</dd>
+      </div>
 
-      <ng-container *ngIf="article?.journal">
-        <dt class="col-sm-3">Journal Name:</dt>
-        <dd class="col-sm-9">{{article?.journal}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="article?.journal">
+        <dt fxFlex="25">Journal Name:</dt>
+        <dd fxFlex="75">{{article?.journal}}</dd>
+      </div>
 
-      <ng-container *ngIf="article?.issue">
-        <dt class="col-sm-3">Journal Issue:</dt>
-        <dd class="col-sm-9">{{article?.issue}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="article?.issue">
+        <dt fxFlex="25">Journal Issue:</dt>
+        <dd fxFlex="75">{{article?.issue}}</dd>
+      </div>
 
-      <ng-container *ngIf="article?.volume">
-        <dt class="col-sm-3">Journal Volume:</dt>
-        <dd class="col-sm-9">{{article?.volume}}
+      <div fxLayout="row" *ngIf="article?.volume">
+        <dt fxFlex="25">Journal Volume:</dt>
+        <dd fxFlex="75">{{article?.volume}}
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="article?.pages">
-        <dt class="col-sm-3">Journal Page:</dt>
-        <dd class="col-sm-9">{{article?.pages}}
+      <div fxLayout="row" *ngIf="article?.pages">
+        <dt fxFlex="25">Journal Page:</dt>
+        <dd fxFlex="75">{{article?.pages}}
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="article?.pmcId">
-        <dt class="col-sm-3">Europe PMC:</dt>
-        <dd class="col-sm-9"><app-robust-link [prefix]="epmc_prefix" [link]="article.pmcId"
+      <div fxLayout="row" *ngIf="article?.pmcId">
+        <dt fxFlex="25">Europe PMC:</dt>
+        <dd fxFlex="75">
+          <app-robust-link [prefix]="epmc_prefix" [link]="article.pmcId"
                              [text]="article.pmcId"></app-robust-link>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="article?.pubmedId">
-        <dt class="col-sm-3">PubMed:</dt>
-        <dd class="col-sm-9"><app-robust-link [prefix]="pubmed_prefix" [link]="article.pubmedId"
+      <div fxLayout="row" *ngIf="article?.pubmedId">
+        <dt fxFlex="25">PubMed:</dt>
+        <dd fxFlex="75">
+          <app-robust-link [prefix]="pubmed_prefix" [link]="article.pubmedId"
                              [text]="article.pubmedId"></app-robust-link>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="article?.doi">
-        <dt class="col-sm-3">DOI:</dt>
-        <dd class="col-sm-9"><app-robust-link [prefix]="doi_prefix" [link]="article.doi"
+      <div fxLayout="row" *ngIf="article?.doi">
+        <dt fxFlex="25">DOI:</dt>
+        <dd fxFlex="75">
+          <app-robust-link [prefix]="doi_prefix" [link]="article.doi"
                              [text]="article.doi"></app-robust-link>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="article?.datasetSource">
-        <dt class="col-sm-3">Dataset source:</dt>
-        <dd class="col-sm-9">{{article?.datasetSource}}</dd>
-      </ng-container>
+      <div fxLayout="row" *ngIf="article?.datasetSource">
+        <dt fxFlex="25">Dataset source:</dt>
+        <dd fxFlex="75">{{article?.datasetSource}}</dd>
+      </div>
     </dl>
 
     <app-related-items source_type="publication" target_type="dataset"
                        download_key="" [record_id]="id"></app-related-items>
 
-  </ng-container>
+  </div>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>

@@ -16,7 +16,7 @@
           "value": "accession",
           "link": {
             "prefix": "../dataset/",
-            "url": "accession"
+            "url": "Accession"
           }
         },
         "Standard": {

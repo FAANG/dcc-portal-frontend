@@ -101,6 +101,7 @@ export class RelatedItemsComponent implements OnInit {
           for (const record of this.records) {
             record['species'] = record['species'].sort();
           }
+          this.dataSource.data = this.getDataSource(this.records);
         }
       );
     } else if (relationship_type === 'analysis-file') {
