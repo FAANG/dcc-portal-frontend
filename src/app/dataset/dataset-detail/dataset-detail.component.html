@@ -1,15 +1,13 @@
 <div class="container-fluid">
   <app-header></app-header>
-  <div class="row first-row" *ngIf="_userService.token">
-    <div class="col-md-12">
-      <div class="alert alert-info" role="alert">
-        <p>
-          You are logged in as {{ _userService.username }}. <br>
-          Token Expires: {{ _userService.token_expires }}
-        </p>
-        <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
-        <button (click)="_userService.logout()" class="btn btn-primary">Log Out</button>
-      </div>
+  <div *ngIf="_userService.token">
+    <div class="alert alert-info" role="alert">
+      <p>
+        You are logged in as {{ _userService.username }}. <br>
+        Token Expires: {{ _userService.token_expires }}
+      </p>
+      <button mat-raised-button color="primary" (click)="_userService.refreshToken()">Refresh Token</button>&nbsp;
+      <button mat-raised-button color="primary" (click)="_userService.logout()">Log Out</button>
     </div>
   </div>
   <div *ngIf="dataset">
