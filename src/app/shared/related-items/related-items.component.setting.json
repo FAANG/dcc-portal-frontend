@@ -501,8 +501,11 @@
           "value": "title",
           "link": {
             "prefix": "../article/",
-            "url": "id"
+            "url": "ID"
           }
+        },
+        "ID": {
+          "value": "id"
         },
         "Year": {
           "value": "year"
@@ -537,13 +540,13 @@
         "Pipeline link": {
           "value": "link",
           "link": {
-            "url": "link"
+            "url": "Pipeline link"
           }
         },
         "Pipeline documentation": {
           "value": "documentation",
           "link": {
-            "url": "documentation"
+            "url": "Pipeline documentation"
           }
         },
         "Platform": {
@@ -569,7 +572,7 @@
           "value": "bioSampleId",
           "link": {
             "prefix": "../organism/",
-            "url": "bioSampleId"
+            "url": "BioSamples ID"
           }
         },
         "Sex": {
@@ -605,7 +608,7 @@
           "value": "bioSampleId",
           "link": {
             "prefix": "../specimen/",
-            "url": "bioSampleId"
+            "url": "BioSamples ID"
           }
         },
         "Material": {
@@ -647,8 +650,11 @@
           "value": "name",
           "link": {
             "prefix": "../file/",
-            "url": "fileId"
+            "url": "File ID"
           }
+        },
+        "File ID": {
+          "value": "fileId"
         },
         "Experiment": {
           "value": "experiment"
@@ -696,7 +702,7 @@
           "value": "datasetAccession",
           "link": {
             "prefix": "../dataset/",
-            "url": "datasetAccession"
+            "url": "Study name"
           }
         },
         "Title": {

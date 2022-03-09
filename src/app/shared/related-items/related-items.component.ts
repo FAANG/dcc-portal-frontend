@@ -62,36 +62,42 @@ export class RelatedItemsComponent implements OnInit {
       this.dataService.getAllOrganismsFromProject(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data;
+          this.dataSource.data = this.getDataSource(this.records);
         }
       );
     } else if (relationship_type === 'project-specimen') {
       this.dataService.getAllSpecimensForProject(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data;
+          this.dataSource.data = this.getDataSource(this.records);
         }
       );
     } else if (relationship_type === 'project-publication') {
       this.dataService.getAllArticlesForProject(this.record_id).subscribe(
         (data: any) => {
           this.records = data;
+          this.dataSource.data = this.getDataSource(this.records);
         }
       );
     } else if (relationship_type === 'project-pipeline') {
       this.dataService.getAllPipelinesForProject(this.record_id).subscribe(
         (data: any) => {
           this.records = data;
+          this.dataSource.data = this.getDataSource(this.records);
         }
       );
     } else if (relationship_type === 'project-file') {
       this.dataService.getAllFilesForProject(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data;
+          this.dataSource.data = this.getDataSource(this.records);
         }
       );
     } else if (relationship_type === 'project-dataset') {
       this.dataService.getAllDatasetsForProject(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data;
+          this.dataSource.data = this.getDataSource(this.records);
         }
       );
     } else if (relationship_type === 'publication-dataset') {
@@ -257,7 +263,7 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   displayPlatformLogo(record: any, attr: string) {
-    return (this.target_type === 'pipeline' && attr === 'Platform' && record['platform'] === 'nf-core');
+    return (this.target_type === 'pipeline' && attr === 'Platform' && record['Platform'] === 'nf-core');
   }
 
   // the behaviour of the checkbox in the table under Download column

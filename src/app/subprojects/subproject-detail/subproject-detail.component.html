@@ -1,6 +1,7 @@
 <ng-container *ngIf="setting">
-  <div class="container" style="min-height:87vh">
+  <div class="container-fluid" style="min-height:87vh">
     <app-header></app-header>
+    <hr>
     <div class="row spacer" *ngIf="_userService.token">
       <div class="col-md-12">
         <div class="alert alert-info" role="alert">
