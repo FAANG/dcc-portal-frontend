@@ -1,45 +1,43 @@
 <ng-container>
-  <div class="container" style="min-height:87vh">
+  <div class="container-fluid" style="min-height:87vh">
     <app-header></app-header>
-    <h2>FAANG projects</h2>
+    <h2>FAANG Projects</h2>
+    <hr>
 
     <ng-container *ngIf="(eurofaang_proj | keyvalue)?.length">
-      <div class="row mb-4">
-        <div class="col-md-12 text-center">
-          <a [routerLink]="['/projects', eurofaang_proj.id]">
-            <img src="{{eurofaang_proj.image.url}}" alt="Project Logo" class="parent-project-logo">
+      <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayout.lt-md="column" style="margin-bottom:20px">
+        <a [routerLink]="['/projects', eurofaang_proj.id]">
+          <img src="{{eurofaang_proj.image.url}}" alt="Project Logo" class="parent-project-logo">
+        </a>
+      </div>
+      <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
+        <div *ngFor="let keyproject of eurofaang_proj['key_projects']" 
+          fxFlex="30" fxFlex.lt-md="100" style="text-align: center;">
+          <a [routerLink]="['/projects', keyproject.id]">
+            <mat-card style="height: 170px; margin-bottom: 20px" class="z-depth">
+              <img src="{{keyproject.image.url}}" alt="{{keyproject}}" [ngClass]="keyproject.id === 'AQUA-FAANG' ? 'aquaa-project-logo' : 'project-logo'">
+            </mat-card>
           </a>
-          <div class="row mt-5">
-            <ng-container>
-              <div class="col-md-4 mb-5 div-logo" *ngFor="let keyproject of eurofaang_proj['key_projects']">
-                <a [routerLink]="['/projects', keyproject.id]">
-                  <img src="{{keyproject.image.url}}" alt="{{keyproject}}" [ngClass]="keyproject.id === 'AQUA-FAANG' ? 'aquaa-project-logo' : 'project-logo'">
-                </a>
-              </div>
-            </ng-container>
-          </div>
         </div>
       </div>
     </ng-container>
 
-    <hr class="horizontal-rule"/>
-
+    <hr class="horizontal-rule">
 
     <ng-container *ngIf="(faang_proj | keyvalue)?.length">
-      <div class="row mb-4">
-        <div class="col-md-12 text-center">
-          <a [routerLink]="['/projects', faang_proj.id]">
-            <img src="{{faang_proj.image.url}}" alt="Project Logo" class="faang-parent-project-logo">
+      <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayout.lt-md="column" style="margin-bottom:20px">
+        <a [routerLink]="['/projects', faang_proj.id]">
+          <img src="{{faang_proj.image.url}}" alt="Project Logo" class="faang-parent-project-logo">
+        </a>
+      </div>
+      <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
+        <div *ngFor="let keyproject of faang_proj['key_projects']" 
+          fxFlex="30" fxFlex.lt-md="100" style="text-align: center;">
+          <a [routerLink]="['/projects', keyproject.id]">
+            <mat-card style="height: 170px; margin-bottom: 20px" class="z-depth">
+              <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo">
+            </mat-card>
           </a>
-          <div class="row mt-5">
-            <ng-container>
-              <div class="col-md-4" *ngFor="let keyproject of faang_proj['key_projects']">
-                <a [routerLink]="['/projects', keyproject.id]">
-                  <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo">
-                </a>
-              </div>
-            </ng-container>
-          </div>
         </div>
       </div>
     </ng-container>
