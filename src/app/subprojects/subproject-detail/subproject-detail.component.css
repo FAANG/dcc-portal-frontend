@@ -1,6 +1,6 @@
 .funding-logo {
   float: right!important;
-  max-width: 70%!important;
+  max-width: 60%!important;
 }
 
 .small-project-logo {
@@ -30,8 +30,9 @@ h3{
 }
 
 .scroll {
-  overflow: scroll;
+  overflow-y: scroll;
   height: 400px;
+  padding-right: 20px;
 }
 
 div.keyproj{
@@ -50,4 +51,8 @@ div.keyproj{
 
 .project-link a:hover{
   color:#8dc7d3;
+}
+
+h5 {
+  text-align: justify;
 }
