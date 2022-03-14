@@ -50,7 +50,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
   downloadQuery = {
     'sort': ['accession','desc'],
     '_source': [
-      '_id',
       '_source.accession',
       '_source.title',
       '_source.species.text',
