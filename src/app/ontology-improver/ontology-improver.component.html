@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <app-header></app-header>
     <mat-tab-group #tabs (selectedTabChange)="tabClick($event)">
         <!--Page 1 - Display all ontologies, search filter-->
@@ -65,7 +65,7 @@
             <!-- Validate ontologies (Only for Authenticated Users) -->
             <ng-container *ngIf="token">
                 <!--Page 2.1 - Input terms-->
-                <div class="container" style="margin-bottom: 40px;" *ngIf="mode == 'input' || mode == 'validate'">
+                <div class="container-fluid" style="margin-bottom: 40px;" *ngIf="mode == 'input' || mode == 'validate'">
                     <div class="row" style="margin-top: 30px; margin-bottom: 20px;">
                         <div class="col-md-8">
                             <h2>Ontology Improver Service</h2>
@@ -80,7 +80,7 @@
                 </div>
 
                 <!--Page 2.2 - Display existing terms-->
-                <div class="container" style="margin-bottom: 40px;" *ngIf="(searchResults | json) != '{}' && mode == 'validate'">
+                <div class="container-fluid" style="margin-bottom: 40px;" *ngIf="(searchResults | json) != '{}' && mode == 'validate'">
                     <h4>Existing terms</h4>
                     <ng-container *ngIf="searchResults.found?.length">
                         <app-table-client-side #tableComp id="ontology-table"
@@ -99,7 +99,7 @@
                 </div>
 
                 <!--Page 2.3 - Display Ontology Matches for new terms-->
-                <div class="container" style="margin-bottom: 40px;" *ngIf="(ontologyMatches | json) != '{}' && mode == 'validate'">
+                <div class="container-fluid" style="margin-bottom: 40px;" *ngIf="(ontologyMatches | json) != '{}' && mode == 'validate'">
                     <h4>Ontology Matches for new terms</h4>
                     <p>Select the best match for each your ontology terms</p>
                     <br>
