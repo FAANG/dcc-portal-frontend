@@ -5,3 +5,16 @@ a {
 .alert {
   margin-top: 10px;
 }
+
+.nav-link {
+  color: rgba(0,0,0,.5);
+  font-size: 18px;
+}
+
+.active {
+  color: black;
+}
+
+button:focus {
+  outline: none;
+}

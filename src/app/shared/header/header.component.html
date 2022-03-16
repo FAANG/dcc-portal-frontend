@@ -1,4 +1,109 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<mat-toolbar style="margin-bottom: 20px; height: 70px; padding: 15px 35px;">
+  <div fxFlex fxLayout>
+    <div style="margin-right: 15px;">
+      <a routerLink="/home">
+        <img alt="FAANG logo" src="../../../assets/FAANG_logo_RGBc.png" height="50" width="auto" class="d-inline-block align-top">
+      </a>
+    </div>
+    <div fxFlex fxLayout fxHide.sm>
+      <div>
+        <button mat-button>
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </button>
+      </div>
+      <div>
+        <button mat-button [matMenuTriggerFor]="data">
+          <a class="nav-link" [ngClass]="isActive('data')">Data
+            <mat-icon style="vertical-align: middle;">arrow_drop_down</mat-icon>
+          </a>
+        </button>
+        <mat-menu #data="matMenu">
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/organism" routerLinkActive="active">Organisms</a>
+          </button>
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/specimen" routerLinkActive="active">Specimens</a>
+          </button>
+          <div class="dropdown-divider"></div>
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/dataset" routerLinkActive="active">Datasets</a>
+          </button>
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/file" routerLinkActive="active">Files</a>
+          </button>
+          <div class="dropdown-divider"></div>
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/analysis" routerLinkActive="active">Analyses</a>
+          </button>
+          <div class="dropdown-divider"></div>
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/protocol/samples" [ngClass]="isActive('protocol')">Protocols</a>
+          </button>
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/article" routerLinkActive="active">Publications</a>
+          </button>
+        </mat-menu>
+      </div>
+      <div>
+        <button mat-button>
+          <a class="nav-link" routerLink="/projects" routerLinkActive="active">Projects</a>
+        </button>
+      </div>
+      <div>
+        <button mat-button>
+          <a class="nav-link" routerLink="/summary" routerLinkActive="active">Summary</a>
+        </button>
+      </div>
+      <div>
+        <button mat-button [matMenuTriggerFor]="submit">
+          <a class="nav-link" [ngClass]="isActive('submit')">Submit
+            <mat-icon style="vertical-align: middle;">arrow_drop_down</mat-icon>
+          </a>
+        </button>
+        <mat-menu #submit="matMenu">
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/ruleset/samples" routerLinkActive="active">Rule sets</a>
+          </button>
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/validation/samples" [ngClass]="isActive('validation')">Validation service</a>
+          </button>
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/trackhubs" routerLinkActive="active">Track Hubs <sup>Beta</sup></a>
+          </button>
+          <div class="dropdown-divider"></div>
+          <button mat-menu-item>
+            <a class="nav-link" href="https://dcc-documentation.readthedocs.io/en/latest/" 
+              target="_blank" routerLinkActive="active">Help</a>
+          </button>
+        </mat-menu>
+      </div>
+      <div>
+        <button mat-button>
+          <a class="nav-link" routerLink="/ontology" routerLinkActive="active">
+            Ontology Improver <sup>Beta</sup>
+          </a>
+        </button>
+      </div>
+      <div>
+        <button mat-button [matMenuTriggerFor]="help">
+          <a class="nav-link" [ngClass]="isActive('help')">Help
+            <mat-icon style="vertical-align: middle;">arrow_drop_down</mat-icon>
+          </a>
+        </button>
+        <mat-menu #help="matMenu">
+          <button mat-menu-item>
+            <a class="nav-link" href="https://dcc-documentation.readthedocs.io/en/latest/faq/" target="_blank">FAQ</a>
+          </button>
+          <button mat-menu-item>
+            <a class="nav-link" routerLink="/api" routerLinkActive="active">API Documentation</a>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</mat-toolbar>
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" routerLink="/home"><img alt="FAANG logo" src="../../../assets/FAANG_logo_RGBc.png" width="80" height="40" class="d-inline-block align-top"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapse()">
     <span class="navbar-toggler-icon"></span>
@@ -58,12 +163,6 @@
       <li class="nav-item" [ngClass]="isOntologyImprover()">
         <a class="nav-link" routerLink="/ontology">Ontology Improver <sup>Beta</sup></a>
       </li>
-      <!-- <li class="nav-item" [ngClass]="isQuery()">
-        <a class="nav-link" routerLink="/query">Query</a>
-      </li> -->
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/search">Search</a>
-      </li>
       <li class="nav-item dropdown" [ngClass]="helpOpenDropdown()" routerLinkActive="active">
         <a class="nav-link dropdown-toggle"
            role="button"
@@ -81,4 +180,4 @@
       </li>
     </ul>
   </div>
-</nav>
+</nav> -->

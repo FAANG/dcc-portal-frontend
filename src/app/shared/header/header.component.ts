@@ -23,30 +23,6 @@ export class HeaderComponent implements OnInit {
     this.collapsed = ! this.collapsed;
   }
 
-  isActiveSummary() {
-    if (this.router.url.includes('summary')) {
-      return 'active';
-    }
-  }
-
-  isActiveProtocols() {
-    if (this.router.url.includes('protocol')) {
-      return 'active';
-    }
-  }
-
-  isOntologyImprover() {
-    if (this.router.url.includes('ontology')) {
-      return 'active';
-    }
-  }
-
-  isQuery() {
-    if (this.router.url.includes('query')) {
-      return 'active';
-    }
-  }
-
   recordsOpenDropdown() {
     return this.records_dropdown_open === true ? 'show' : '';
   }
@@ -61,12 +37,6 @@ export class HeaderComponent implements OnInit {
     }
     if (this.help_dropdown_open === true) {
       this.help_dropdown_open = false;
-    }
-  }
-
-  isActiveProjects() {
-    if (this.router.url.includes('projects')) {
-      return 'active';
     }
   }
 
@@ -129,4 +99,18 @@ export class HeaderComponent implements OnInit {
     this.show_banner = 'hide';
   }
 
+  isActive(option) {
+    let menuItems = {
+      'data': ['organism', 'specimen', 'dataset', 'file', 'analysis', 'protocol', 'article'],
+      'submit': ['ruleset', 'validation', 'trackhubs'],
+      'help': ['api'],
+      'protocol': ['protocol'],
+      'validation': ['validation']
+    }
+    for (let item of menuItems[option]) {
+      if (this.router.url.includes(item)) {
+        return 'active';
+      }
+    }
+  }
 }

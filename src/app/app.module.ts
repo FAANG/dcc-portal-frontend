@@ -106,6 +106,7 @@ import { TableServerSideComponent } from './shared/table-server-side/table-serve
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -215,6 +216,7 @@ export function removeToken(): void {
     MatCardModule,
     FlexLayoutModule,
     MatProgressBarModule,
+    MatToolbarModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,
