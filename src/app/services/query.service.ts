@@ -59,7 +59,7 @@ export class QueryService {
     }
   }
 
-  downloadCsv(indices, fields, sort, project, fileFormat, accession) {
+  downloadCsv(indices, fields, sort, project, fileFormat) {
     let params = new HttpParams({
       fromObject: { 'indices': indices + '-v1' }
     }).set('_source', fields)
@@ -68,9 +68,7 @@ export class QueryService {
     if (project) {
       params = params.set('q', ((indices === 'file-specimen') ? 'file.secondaryProject:' : 'secondaryProject:') + project);
     }
-    if (accession) {
-      params = params.append('q', 'accession:' + accession);
-    }
+
     const url = this.query_language_url + '/download';
     this.downloading = true;
     this.http.get(url, { params: params, responseType: 'blob' }).subscribe(

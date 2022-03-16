@@ -154,7 +154,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   }
 
   downloadCSV() {
-    this.queryService.downloadCsv(this.selectedIndices.join('-'), this.fields, this.sortFields, this.project, 'csv', '');
+    this.queryService.downloadCsv(this.selectedIndices.join('-'), this.fields, this.sortFields, this.project, 'csv');
   }
 
   isOptionDisabled(opt: any): boolean {
