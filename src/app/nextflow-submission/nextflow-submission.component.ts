@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {validation_service_url} from '../shared/constants';
 import {Title} from '@angular/platform-browser';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-nextflow-submission',
@@ -15,8 +14,7 @@ export class NextflowSubmissionComponent implements OnInit {
   error;
   loading = false;
 
-  constructor(private titleService: Title) {
-  }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
     this.titleService.setTitle('FAANG Nextflow Upload');
