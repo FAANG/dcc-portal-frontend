@@ -1,4 +1,4 @@
-<div class="container" style="min-height:87vh">
+<div class="container-fluid" style="min-height:87vh">
   <app-header></app-header>
   <div *ngIf="_userService.token">
     <div class="alert alert-info" role="alert">
@@ -10,146 +10,128 @@
       <button mat-raised-button color="primary" (click)="_userService.logout()">Log Out</button>
     </div>
   </div>
-  <h2>FAANG validation
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'samples']">
-      Samples
-      <i class="material-icons float-right">menu</i>
-    </button>
-
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/validation', 'experiments']">
-      Experiments
-      <i class="material-icons float-right">menu</i>
-    </button>
-
-    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
-            [routerLink]="['/validation', 'analyses']">
-      Analyses
-      <i class="material-icons float-right">home</i>
-    </button>
-  </h2>
-
+  <h2>FAANG Validation</h2>
   <hr>
 
-  <div class="row" style="margin-bottom: 20px;">
-    <div class="col-md-12">
-      <button type="button" class="btn btn-success">
-        <a href="{{metadata_template_with_examples}}">Download example template</a>
-      </button>
+  <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+    <mat-tab label="Samples" style="font-size: 16px; font-weight: 500;"></mat-tab>
+    <mat-tab label="Experiments"></mat-tab>
+    <mat-tab label="Analysis"></mat-tab>
+  </mat-tab-group>
 
-      <button type="button" class="btn btn-success">
-        <a href="{{metadata_template_without_examples}}">Download empty template</a>
-      </button>
+  <div fxLayout="row" fxLayout.lt-md="column" style="margin-bottom: 20px;">
+    <button mat-raised-button color="primary">
+      <a href="{{metadata_template_with_examples}}">Download example template</a>
+    </button>
 
-      <button type="button" class="btn btn-info">
-        <a href="https://dcc-documentation.readthedocs.io/en/latest/analysis/analysis_index/" target="_blank">Submission guideline</a>
-      </button>
-    </div>
+    <button mat-raised-button color="primary">
+      <a href="{{metadata_template_without_examples}}">Download empty template</a>
+    </button>
+
+    <button mat-raised-button color="accent">
+      <a href="https://dcc-documentation.readthedocs.io/en/latest/analysis/analysis_index/" target="_blank"
+        style="color: black;">Submission guideline</a>
+    </button>
   </div>
 
   <!-- Step 1: Upload Template -->
-  <div class="row">
-    <div class="col-md-12">
-      <h3>1. Upload template:</h3>
+  <h3 style="margin: 25px 0 20px 0;">1. Upload template</h3>
+  <div fxLayout="row" fxLayout.lt-md="column">
       <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-      <button type="button" class="btn btn-success btn-sm"
+      <button mat-raised-button color="primary"
               (click)="uploader.uploadAll()"
               [disabled]="!uploader.getNotUploadedItems().length" >
         Upload a File
       </button>
-    </div>
   </div>
   <hr>
 
-  <div class="row first-row" *ngIf="bovreg_submission && !_userService.token">
-    <div class="col-md-12">
-      <div class="alert alert-info" role="alert">
-        You’re about to submit BovReg data as public data. If you wish to submit this data privately please
-        <a [routerLink]="['/login']" class="link">log in</a> to the private BovReg data portal before continuing with your submission.
-      </div>
+  <div fxLayout="row" *ngIf="bovreg_submission && !_userService.token">
+    <div class="alert alert-info" role="alert">
+      You’re about to submit BovReg data as public data. If you wish to submit this data privately please
+      <a [routerLink]="['/login']" class="link">log in</a> to the private BovReg data portal before continuing with your submission.
     </div>
   </div>
 
-  <div class="row first-row" *ngIf="bovreg_submission && _userService.token">
-    <div class="col-md-12">
-      <div class="alert alert-info" role="alert">
-        You’re about to submit BovReg data as private data. If you wish to submit this publicly to FAANG then please
-        logout of the Private BovReg data portal first.
-      </div>
+  <div fxLayout="row" *ngIf="bovreg_submission && _userService.token">
+    <div class="alert alert-info" role="alert">
+      You’re about to submit BovReg data as private data. If you wish to submit this publicly to FAANG then please
+      logout of the Private BovReg data portal first.
     </div>
   </div>
 
   <!-- Step 2.1 Show conversion and validation status -->
-  <div class="row" *ngIf="conversion_status || validation_started || validation_results">
-    <div class="col-md-12">
-      <h3>2. Conversion and  Validation results:</h3>
-      <div *ngIf="conversion_status" style="margin-left: 5px;">
-        Conversion Status: <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
+  <div fxLayout="column" *ngIf="conversion_status || validation_started || validation_results">
+    <h3 style="margin: 10px 0 20px 0;">2. Conversion and Validation results</h3>
+    <div fxLayout="row" *ngIf="conversion_status">
+      <div fxFlex.gt-sm="30" fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+        <h6>Conversion Status</h6>
+        <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
       </div>
-      <div class="row" *ngIf="conversion_status === 'Error'" style="margin-left: 5px;">
-        Errors:
-        <div class="col-md-12 alert alert-danger" role="alert" *ngFor="let error of errors">
-          {{error}}
-        </div>
+    </div>
+    <div fxLayout="column" *ngIf="conversion_status === 'Error'">
+      Errors:
+      <div fxLayout="row" role="alert" *ngFor="let error of errors">
+        {{error}}
       </div>
-      <div *ngIf="validation_results">
-        <div style="margin-left: 5px;">
-          Validation Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
+    </div>
+    <div fxLayout="column" *ngIf="validation_results">
+      <div fxLayout="row">
+        <div fxFlex.gt-sm="30" fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+          <h6>Validation Status</h6> 
+          <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
         </div>
-        <div style="margin-top: 15px;">
-          <button *ngFor="let key of record_types" type="button" class="btn btn-info validation_button"
-                  [ngClass]="isButtonActive(key)" (click)="onRecordButtonClick(key)">
-            {{remove_underscores(key)}}
-          </button>
-        </div>
+      </div> 
+      <div fxLayout="row" style="margin-top: 10px;">
+        <mat-tab-group (selectedTabChange)="onRecordButtonClick($event)">
+          <mat-tab *ngFor="let key of record_types" [label]="remove_underscores(key)"></mat-tab>
+        </mat-tab-group>
       </div>
-      <div *ngIf="!validation_results && validation_started" style="margin-left: 5px;">
-        Validation Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
-        <br>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex.gt-sm="30" fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!validation_results && validation_started">
+        <h6>Validation Status</h6>
+        <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
       </div>
     </div>
   </div>
 
   <!-- Step 2.2 Show validation results table -->
-  <div class="row" *ngIf="validation_results">
-    <div class="col-md-12">
-      <button type="button" class="btn btn-success validation_button"
-              (click)="onValidationResultsButtonClick('passed')"
-              [ngClass]="isRecordsButtonActive('passed')">
-        Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
-      </button>
-      <button type="button" class="btn btn-danger validation_button"
-              (click)="onValidationResultsButtonClick('issues')"
-              [ngClass]="isRecordsButtonActive('issues')">
-        Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
-      </button>
-      <button type="button" class="btn btn-success" (click)="getTemplateFile()"
-              *ngIf="annotation_status !== 'Download data'">
-        Get annotated template
-      </button>
-      <button type="button" class="btn btn-success" *ngIf="annotation_status === 'Download data'">
-        <a href="{{constructDownloadTemplateLink()}}" style="text-decoration: none">Download annotated template</a>
-      </button>
-    </div>
+  <div fxLayout="row" *ngIf="validation_results">
+    <button class="validation_button" mat-stroked-button color="primary"
+      [ngClass]="active_issue == 'passed' ? 'mat-stroked-button' : 'mat-raised-button'"
+      [style.font-weight]="active_issue == 'passed' ? 700 : 500"
+      (click)="onValidationResultsButtonClick('passed')">
+      Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
+    </button>
+    <button class="validation_button" mat-raised-button color="warn"
+      [ngClass]="active_issue == 'issues' ? 'mat-stroked-button' : 'mat-raised-button'"
+      [style.font-weight]="active_issue == 'issues' ? 700 : 500" 
+      (click)="onValidationResultsButtonClick('issues')">
+      Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
+    </button>
+    <button mat-raised-button color="accent" class="validation_button" 
+      (click)="getTemplateFile()" *ngIf="annotation_status !== 'Download data'">
+      Get annotated template
+    </button>
+    <button mat-raised-button color="accent" class="validation_button" *ngIf="annotation_status === 'Download data'">
+      <a href="{{constructDownloadTemplateLink()}}" target="_blank" style="text-decoration: none; color: black;">Download annotated template</a>
+    </button>
   </div>
 
-  <div class="row" *ngIf="show_table">
-    <div class="col-md-12 table-responsive">
-      <table class="table table-striped table-hover table-borderless table-sm">
-        <thead>
-        <tr>
-          <th *ngFor="let column of column_names">{{column}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let record of records_to_show; let i=index">
-          <td *ngFor="let data of record; let j=index"
-              [ngClass]="getCellClass(i, j)"
-              [ngStyle]="{'cursor': getCellStyle(i, j)}"
-              (click)="openModal(i, j)">{{data}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="table-responsive" *ngIf="show_table && dataSource.data.length > 0">
+    <table mat-table [dataSource]="dataSource" table-striped style="width: 100%; margin-top: 15px;">
+      <ng-container [matColumnDef]=col *ngFor="let col of col_index; let j = index">
+        <th mat-header-cell class="table-header" *matHeaderCellDef>{{column_names[j]}}</th>
+        <td mat-cell class="table-cell-data" *matCellDef="let item; let i = index"
+          [ngClass]="getCellClass(i, j)" [ngStyle]="{'cursor': getCellStyle(i, j)}"
+          (click)="openModal(i, j)">
+          {{item[col]}}
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="col_index"></tr>
+      <tr mat-row *matRowDef="let row; columns: col_index;"></tr>
+    </table>
   </div>
 
   <!-- Step 3: Prepare data for submission -->

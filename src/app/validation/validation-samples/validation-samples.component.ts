@@ -15,6 +15,9 @@ import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/comm
 import {AAPUser} from '../aap_user';
 import {SubmissionDomain} from '../submission_domain';
 import {UserService} from '../../services/user.service';
+import {Router} from '@angular/router';
+import {MatTabGroup} from '@angular/material/tabs';
+import { MatTableDataSource } from '@angular/material';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -24,6 +27,8 @@ const UploadURL = validation_service_url + '/conversion/samples';
   styleUrls: ['./validation-samples.component.css']
 })
 export class ValidationSamplesComponent implements OnInit, OnDestroy {
+  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
+  dataSource: MatTableDataSource<any>;
   p = 1;
   model = new AAPUser('', '', 'test');
   aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
@@ -70,6 +75,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   downloadData = false;
   bovreg_submission = false;
   private_submission = false;
+  col_index = [];
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
@@ -77,10 +83,13 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
     private apiDataService: ApiDataService,
-    public _userService: UserService
+    public _userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.tabGroup.selectedIndex = 0;
+    this.dataSource = new MatTableDataSource([]); 
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Samples');
     this.setSocket();
@@ -110,6 +119,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       this.active_key = this.record_types[0];
       this.active_table = this.validation_results[this.active_key];
       this.setTables();
+      this.onValidationResultsButtonClick('passed');
     }
   }
 
@@ -345,9 +355,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       return 'inactive';
     }
   }
-
-  onRecordButtonClick(button_record: string) {
-    this.active_key = button_record;
+  
+  onRecordButtonClick(tab) {
+    this.active_key = tab['tab']['textLabel'].replace(/[ ]/g, '_');
     this.active_table = this.validation_results[this.active_key];
     this.records_with_issues = [];
     this.records_that_pass = [];
@@ -357,12 +367,23 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.table_warnings = [];
     this.show_table = false;
     this.setTables();
+    this.onValidationResultsButtonClick('passed');
   }
 
   onValidationResultsButtonClick(issues_type) {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
+    let data = [];
+    this.records_to_show.forEach(record => {
+      let rowObj = {};
+      for (let index in this.column_names) {
+        rowObj[index] = record[index];
+      }
+      data.push(rowObj);
+    });
+    this.dataSource.data = data;
+    this.col_index = Array.from(this.column_names.keys()).map(col => col.toString());
   }
 
   openModal(i: number, j: number) {
@@ -517,6 +538,18 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.disableChooseDomainForm = true;
     this.submission_message = 'Please login';
     this.submissionResults = [];
+  }
+
+  tabClick(tab) {
+    if (tab.index == 0) {
+      this.router.navigate(['validation/samples']);
+    }
+    else if (tab.index == 1) {
+      this.router.navigate(['validation/experiments']);
+    }
+    else if (tab.index == 2) {
+      this.router.navigate(['validation/analyses']);
+    }
   }
 
   ngOnDestroy(): void {
