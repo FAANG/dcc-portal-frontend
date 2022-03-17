@@ -40,7 +40,7 @@
                   </th>
               </ng-container>
               <ng-container *ngIf="!templates[col+'-header']">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{fields[i].replace('.text', '').split('.').join(' ')}} </th>
+                  <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{fields[i].replace('.text', '').split('.').slice(1).join(' ')}}</th>
               </ng-container>
               <ng-container *ngIf="templates[col]">
                   <td mat-cell class="table-cell-data" *matCellDef="let item">
@@ -62,30 +62,30 @@
         <mat-spinner [diameter]="30"></mat-spinner>
     </div>
 </div>
-  
+
   <ng-template #speciesTemplate let-item>
     <span>
-      <a style="cursor: pointer" 
-        href="{{'https://www.ebi.ac.uk/ols/terms?iri=' + item.row['species.ontologyTerms']}}" target="_blank">
-        {{item.row['species.text']}}
+      <a style="cursor: pointer"
+        href="{{'https://www.ebi.ac.uk/ols/terms?iri=' + item.row['file.species.ontologyTerms']}}" target="_blank">
+        {{item.row['file.species.text']}}
       </a>
     </span>
   </ng-template>
-  
+
   <ng-template #fileIdTemplate let-item>
     <span>
       <a style="cursor: pointer" target="_blank"
-        [routerLink]="'/file/' + item.row['filename']">
-        {{item.row['filename']}}
+        [routerLink]="'/file/' + item.row['file.filename']">
+        {{item.row['file.filename']}}
       </a>
     </span>
   </ng-template>
-  
+
   <ng-template #specimenIdTemplate let-item>
     <span>
       <a style="cursor: pointer" target="_blank"
-        [routerLink]="'/specimen/' + item.row['biosampleId']">
-        {{item.row['biosampleId']}}
+        [routerLink]="'/specimen/' + item.row['specimen.biosampleId']">
+        {{item.row['specimen.biosampleId']}}
       </a>
     </span>
   </ng-template>
