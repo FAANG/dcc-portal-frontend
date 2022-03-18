@@ -1,77 +1,80 @@
 <app-header></app-header>
 <div class="container-fluid">
-  <div class="row intro">
-    <div class="col-12 col-md-4">
-      <a href="http://www.faang.org"><img src="../../assets/FAANG_WebLogo.png" alt="logo" class="center-block faang-logo"></a>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%" style="margin-bottom: 15px;">
+    <div fxFlex="50">
+      <a href="http://www.faang.org">
+        <img src="../../assets/FAANG_WebLogo.png" alt="logo" class="center-block faang-logo">
+      </a>
     </div>
-    <div class="col-12 col-md-7 offset-md-1">
+    <div fxFlex="50" fxLayout="column" fxLayoutGap="2%" fxLayoutAlign="space-around" style="padding: 2%;">
       <h1 class="text-center">Data Portal</h1>
-      <p>
-        <a href="http://www.faang.org">FAANG</a> is the
-        <strong>F</strong>unctional
-        <strong>A</strong>nnotation of
-        <strong>AN</strong>imal
-        <strong>G</strong>enomes project.
-        We are working to understand the genotype to phenotype link in domesticated animals.
-      </p>
-      <p>
-        This data portal will help find and browse FAANG's data. Let us know what you think at <a href="mailto:faang-dcc@ebi.ac.uk?Subject=Data%20portal" target="_top">faang-dcc@ebi.ac.uk</a>.
-      </p>
+      <div>
+        <p>
+          <a href="http://www.faang.org">FAANG</a> is the
+          <strong>F</strong>unctional
+          <strong>A</strong>nnotation of
+          <strong>AN</strong>imal
+          <strong>G</strong>enomes project.
+          We are working to understand the genotype to phenotype link in domesticated animals.
+        </p>
+        <p>
+          This data portal will help find and browse FAANG's data. Let us know what you think at 
+          <a href="mailto:faang-dcc@ebi.ac.uk?Subject=Data%20portal" target="_top">faang-dcc@ebi.ac.uk</a>.
+        </p>
+      </div>
     </div>
   </div><!--end of row intro-->
 
-  <div class="row">
-    <div class="col-12 col-md-6">
-      <div class="card">
-        <h6 class="card-header">Using this site</h6>
-        <div class="card-body">
-          <p>
-            The <a routerLink="/organism">Organisms</a> page lets you search for any organism in the FAANG data set.
-            We use the term "organism" to mean any individual animal that has contributed a biological specimen.
-            Click an item in the list to see full details of the organism.
-          </p>
-          <p>
-            The <a routerLink="/specimen">Specimens</a> page lets you search for any specimen in the FAANG data set.
-            We use the term "specimen" to mean any biological material originating from a particular organism.
-            Click an item in the list to see full details of the specimen.
-          </p>
-          <p>
-            The <a routerLink="/dataset">Dataset</a> page lets you search for any dataset in the FAANG data set.
-            We use the term "dataset" to mean the Study concept used in ENA (also referred as a Project).
-            Click an item in the list to see full details of the dataset.
-          </p>
-          <p>
-            The <a routerLink="/file">File</a> page lets you search for any experiment files in the FAANG data set.
-            We use the term "file" to mean any experiment assay file that has been submitted to a public archive.
-            Click an item in the list to see full details of the file.
-          </p>
-          <p>
-            The <a routerLink="/search">Search</a> page lets you search for both organisms and specimens contained in the FAANG data set.
-            It returns results based on the text you enter.
-            Click an item in the results list to see full details.
-          </p>
-        </div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+    <mat-card fxFlex="50" class="home-card">
+      <h5>Using this site</h5>
+      <hr>
+      <div>
+        <p>
+          The <a routerLink="/organism">Organisms</a> page lets you search for any organism in the FAANG data set.
+          We use the term "organism" to mean any individual animal that has contributed a biological specimen.
+          Click an item in the list to see full details of the organism.
+        </p>
+        <p>
+          The <a routerLink="/specimen">Specimens</a> page lets you search for any specimen in the FAANG data set.
+          We use the term "specimen" to mean any biological material originating from a particular organism.
+          Click an item in the list to see full details of the specimen.
+        </p>
+        <p>
+          The <a routerLink="/dataset">Dataset</a> page lets you search for any dataset in the FAANG data set.
+          We use the term "dataset" to mean the Study concept used in ENA (also referred as a Project).
+          Click an item in the list to see full details of the dataset.
+        </p>
+        <p>
+          The <a routerLink="/file">File</a> page lets you search for any experiment files in the FAANG data set.
+          We use the term "file" to mean any experiment assay file that has been submitted to a public archive.
+          Click an item in the list to see full details of the file.
+        </p>
+        <p>
+          The <a routerLink="/search">Search</a> page lets you search for both organisms and specimens contained in the FAANG data set.
+          It returns results based on the text you enter.
+          Click an item in the results list to see full details.
+        </p>
       </div>
-    </div>
+    </mat-card>
 
-    <div class="col-12 col-md-6">
-
-      <div class="card">
-        <h6 class="card-header">Contribute to FAANG</h6>
-        <div class="card-body">
+    <div fxFlex="50" fxLayout="column" fxLayoutGap="2%">
+      <mat-card fxFlex="50" class="home-card">
+        <h5>Contribute to FAANG</h5>
+        <hr>
+        <div>
           <p><a href="http://www.faang.org/cgi-bin/host/misc/FAANG/mem" target="_blank">Sign up to become part of the FAANG community</a> and join the working commitees.</p>
           <p>Instructions on how to submit your samples and analyses to FAANG are detailed on the <a href="https://dcc-documentation.readthedocs.io/en/latest/">FAANG submission guidelines</a>.</p>
         </div>
-      </div>
-
-      <div class="card">
-        <h6 class="card-header">It's good to share</h6>
-        <div class="card-body">
+      </mat-card>
+      <mat-card fxFlex="50" class="home-card">
+        <h5>It's good to share</h5>
+        <hr>
+        <div>
           <p>FAANG is committed to sharing data rapidly, before publication. All members have agreed to the <a href="https://www.faang.org/data-share-principle" target="_blank">FAANG Data Sharing Statement</a> for pre-publication data release.</p>
           <p>FAANG is also committed to making regular public releases of primary and secondary analysis results to provide access to the wider community.</p>
         </div>
-      </div>
-
+      </mat-card>
     </div>
 
   </div>
