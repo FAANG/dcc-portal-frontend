@@ -61,7 +61,7 @@ export class QueryService {
 
   downloadCsv(indices, fields, sort, project, fileFormat) {
     let params = new HttpParams({
-      fromObject: { 'indices': indices + '-v1' }
+      fromObject: { 'indices': indices }
     }).set('_source', fields)
       .set('sort', sort)
       .set('file_format', fileFormat);
