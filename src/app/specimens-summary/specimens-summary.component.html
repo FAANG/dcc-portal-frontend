@@ -1,27 +1,14 @@
 <app-header></app-header>
 <div class="container-fluid">
-  <h2>FAANG Summary
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/summary', 'organisms']">
-      Organisms
-      <i class="material-icons float-right">menu</i>
-    </button>
+  <h2>FAANG Summary</h2>
+  <hr>
 
-    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
-            [routerLink]="['/summary', 'specimens']">
-      Specimens
-      <i class="material-icons float-right">home</i>
-    </button>
-
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/summary', 'datasets']">
-      Datasets
-      <i class="material-icons float-right">menu</i>
-    </button>
-
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/summary', 'files']">
-      Files
-      <i class="material-icons float-right">menu</i>
-    </button>
-  </h2>
+  <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+    <mat-tab label="Organisms"></mat-tab>
+    <mat-tab label="Specimens"></mat-tab>
+    <mat-tab label="Datasets"></mat-tab>
+    <mat-tab label="Files"></mat-tab>
+  </mat-tab-group>
 
   <div class="form-check">
     <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="onCheckboxClick()" checked>

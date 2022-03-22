@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {barChartOptions, pieChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
+import {MatTabGroup} from '@angular/material/tabs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-organisms-summary',
@@ -10,6 +12,7 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./organisms-summary.component.css']
 })
 export class OrganismsSummaryComponent implements OnInit {
+  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   name: string;
   error: string;
   chartData;
@@ -44,10 +47,15 @@ export class OrganismsSummaryComponent implements OnInit {
   public breedChartData = [];
 
 
-  constructor(private dataService: ApiDataService, private titleService: Title) { }
+  constructor(
+    private dataService: ApiDataService, 
+    private titleService: Title,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.titleService.setTitle('FAANG summary|organisms');
+    this.tabGroup.selectedIndex = 0;
     this.dataService.getOrganismSummary('summary_organism').subscribe(
       data => {
         this.chartData = data['hits']['hits'][0]['_source'];
@@ -133,5 +141,20 @@ export class OrganismsSummaryComponent implements OnInit {
     this.excludeLegacyData = !this.excludeLegacyData;
     this.clearChartData();
     this.assignChartData(this.chartData, this.excludeLegacyData);
+  }
+
+  tabClick(tab) {
+    if (tab.index == 0) {
+      this.router.navigate(['summary/organisms']);
+    }
+    else if (tab.index == 1) {
+      this.router.navigate(['summary/specimens']);
+    }
+    else if (tab.index == 2) {
+      this.router.navigate(['summary/datasets']);
+    }
+    else if (tab.index == 3) {
+      this.router.navigate(['summary/files']);
+    }
   }
 }
