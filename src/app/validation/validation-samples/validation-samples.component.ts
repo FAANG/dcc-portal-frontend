@@ -29,6 +29,7 @@ const UploadURL = validation_service_url + '/conversion/samples';
 export class ValidationSamplesComponent implements OnInit, OnDestroy {
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   dataSource: MatTableDataSource<any>;
+  subResults: MatTableDataSource<any>;
   p = 1;
   model = new AAPUser('', '', 'test');
   aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
@@ -90,6 +91,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.tabGroup.selectedIndex = 0;
     this.dataSource = new MatTableDataSource([]); 
+    this.subResults = new MatTableDataSource([]); 
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Samples');
     this.setSocket();
@@ -210,6 +212,16 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       if (data['submission_results']) {
         this.submissionResults = Object.entries(data['submission_results']);
         if (this.submissionResults.length !== 0) {
+          let data = [];
+          this.submissionResults.forEach(record => {
+            let rowObj = {};
+            let cols = ['Sample Name', 'BioSample ID'];
+            for (let index in cols) {
+              rowObj[cols[index]] = record[index];
+            }
+            data.push(rowObj);
+          });
+          this.subResults.data = data;
           this.triggerFalseClick();
         }
       }

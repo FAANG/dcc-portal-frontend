@@ -47,14 +47,14 @@
   <hr>
 
   <div fxLayout="row" *ngIf="bovreg_submission && !_userService.token">
-    <div class="alert alert-info" role="alert">
+    <div fxFlex="100" class="alert alert-info" role="alert">
       You’re about to submit BovReg data as public data. If you wish to submit this data privately please
       <a [routerLink]="['/login']" class="link">log in</a> to the private BovReg data portal before continuing with your submission.
     </div>
   </div>
 
   <div fxLayout="row" *ngIf="bovreg_submission && _userService.token">
-    <div class="alert alert-info" role="alert">
+    <div fxFlex="100" class="alert alert-info" role="alert">
       You’re about to submit BovReg data as private data. If you wish to submit this publicly to FAANG then please
       logout of the Private BovReg data portal first.
     </div>
@@ -64,7 +64,7 @@
   <div fxLayout="column" *ngIf="conversion_status || validation_started || validation_results">
     <h3 style="margin: 10px 0 20px 0;">2. Conversion and Validation results</h3>
     <div fxLayout="row" *ngIf="conversion_status">
-      <div fxFlex.gt-sm="30" fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
         <h6>Conversion Status</h6>
         <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
       </div>
@@ -77,7 +77,7 @@
     </div>
     <div fxLayout="column" *ngIf="validation_results">
       <div fxLayout="row">
-        <div fxFlex.gt-sm="30" fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
           <h6>Validation Status</h6> 
           <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
         </div>
@@ -89,7 +89,7 @@
       </div>
     </div>
     <div fxLayout="row">
-      <div fxFlex.gt-sm="30" fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!validation_results && validation_started">
+      <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!validation_results && validation_started">
         <h6>Validation Status</h6>
         <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
       </div>
@@ -136,38 +136,35 @@
 
   <!-- Step 3: Prepare data for submission -->
   <hr *ngIf="validation_results">
-  <div class="row" *ngIf="validation_results">
-    <div class="col-md-12">
-      <h3>3. Prepare data for submission:</h3>
-      <div style="margin-left: 5px;">
-        Status: <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
+  <div fxLayout="column" *ngIf="validation_results">
+    <h3 style="margin: 10px 0 20px 0;">3. Prepare data for submission</h3>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
+      <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
+        <h6>Status</h6>
+        <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
       </div>
-      <div style="margin: 10px 0 20px 0;">
-        <button type="button" class="btn btn-success submission_data_button"
-                *ngIf="submission_status !== 'Data is ready'" (click)="onStartSubmissionClick()"
-                [disabled]="isSubmissionDisabled(submission_status)">
-          Start submission to ENA
-        </button>
-        <button type="button" class="btn btn-success submission_data_button" *ngIf="submission_status === 'Data is ready'">
-          <a href="{{constructDownloadLink()}}">Download data</a>
-        </button>
-      </div>
+      <button mat-raised-button color="primary" class="submission_data_button"
+              *ngIf="submission_status !== 'Data is ready'" (click)="onStartSubmissionClick()"
+              [disabled]="isSubmissionDisabled(submission_status)">
+        Start submission to ENA
+      </button>
+      <button mat-raised-button color="accent" class="submission_data_button" *ngIf="submission_status === 'Data is ready'">
+        <a href="{{constructDownloadLink()}}" style="color: black;">Download data</a>
+      </button>
     </div>
   </div>
 
   <hr *ngIf="submissionStarted === true">
 
-  <div class="row" *ngIf="submissionStarted === true">
-    <div class="col-md-12">
-      <div [ngClass]="submissionMessageClass()" role="alert">
-        {{submission_message}}
-      </div>
+  <div fxLayout="row" *ngIf="submissionStarted === true">
+    <div fxFlex="100" [ngClass]="submissionMessageClass()" role="alert">
+      {{submission_message}}
     </div>
   </div>
 
-  <div class="row" *ngIf="submissionStarted === true">
-    <div class="col-md-6" [hidden]="disableAuthForm">
-      <h3>Submit data to ENA</h3>
+  <div *ngIf="submissionStarted === true" fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="6%">
+    <div  fxFlex="47" [hidden]="disableAuthForm">
+      <h3 style="margin: 10px 0 20px 0;">Submit data to ENA</h3>
       <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
         <div class="form-group" *ngIf="!_userService.token">
           <label for="aapUsername">Username</label>
@@ -194,18 +191,22 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary"
-                [disabled]="!enaForm.form.valid">Submit</button>
+        <button mat-raised-button color="primary"class="validation_button"
+                type="submit" [disabled]="!enaForm.form.valid">Submit</button>
       </form>
     </div>
 
-    <div class="col-md-6" [hidden]="submissionResults.length === 0">
-      <h3>
-        Submission results
-        <button type="button" class="btn btn-success">
-          <a href="{{downloadSubmissionResults()}}" #myButton>Download submission results</a>
+    <div fxFlex="47" [hidden]="submissionResults.length === 0">
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" style="margin: 10px 0 20px 0;">
+        <h3>
+          Submission results
+        </h3>
+        <button mat-raised-button color="accent">
+          <a href="{{downloadSubmissionResults()}}" #myButton style="color: black;">
+            Download submission results
+          </a>
         </button>
-      </h3>
+      </div>
       <ul class="list-group">
         <li class="list-group-item list-group-item-info" *ngFor="let message of submissionResults[0]">
           {{message}}
@@ -219,7 +220,8 @@
 
 
   <ngx-smart-modal #myModal identifier="myModal" customClass="nsm-dialog-animation-fade">
-    <h3>{{active_column}}:</h3>
+    <h3>{{active_column}}</h3>
+    <hr>
     <div *ngIf="active_issues">
       <ul class="list-group list-group-flush">
         <li *ngFor="let issue of active_issues" class="list-group-item">
@@ -227,6 +229,6 @@
         </li>
       </ul>
     </div>
-    <button (click)="myModal.close()" type="button" class="btn btn-success modal-button">Close</button>
+    <button mat-raised-button color="primary" (click)="myModal.close()" class="modal-button">Close</button>
   </ngx-smart-modal>
 </div>
