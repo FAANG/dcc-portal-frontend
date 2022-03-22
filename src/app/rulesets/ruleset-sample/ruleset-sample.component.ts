@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
@@ -14,6 +14,7 @@ import {
   getValidItems,
   replaceUnderscoreWithSpace
 } from '../../shared/common_functions';
+import {MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-ruleset-sample',
@@ -22,6 +23,7 @@ import {
   styleUrls: ['../rulesets.css']
 })
 export class RulesetSampleComponent implements OnInit {
+  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   error: any;
   data: any;
   all_data: any;
@@ -65,6 +67,7 @@ export class RulesetSampleComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tabGroup.selectedIndex = 0;
     this.rule_groups = ['Standard', 'Organism', 'Organoid', 'Specimen standard rules', 'Specimen Teleostei embryo',
       'Specimen Teleostei post-hatching', 'Single cell specimen', 'Pool of specimens', 'Purified cells', 'Cell culture', 'Cell line'];
     this.convertToSnakeCase = convertToSnakeCase;
@@ -279,6 +282,18 @@ export class RulesetSampleComponent implements OnInit {
   updateUrlFragment(category) {
     const url = this.router.createUrlTree([], {relativeTo: this.route, fragment: category}).toString();
     this.location.go(url);
+  }
+
+  tabClick(tab) {
+    if (tab.index == 0) {
+      this.router.navigate(['ruleset/samples']);
+    }
+    else if (tab.index == 1) {
+      this.router.navigate(['ruleset/experiments']);
+    }
+    else if (tab.index == 2) {
+      this.router.navigate(['ruleset/analyses']);
+    }
   }
 
 }

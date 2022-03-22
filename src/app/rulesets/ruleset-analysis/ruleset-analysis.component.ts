@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
@@ -17,6 +17,7 @@ import {
   analysis_metadata_template_without_examples, missing_values,
   special_sheets
 } from '../../shared/constants';
+import {MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-ruleset-analysis',
@@ -25,6 +26,7 @@ import {
   providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class RulesetAnalysisComponent implements OnInit {
+  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   error: any;
   data: any;
   all_data: any;
@@ -62,6 +64,7 @@ export class RulesetAnalysisComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tabGroup.selectedIndex = 2;
     this.rule_groups = ['FAANG', 'ENA', 'EVA'];
     this.active_rule = 'FAANG';
     this.convertToSnakeCase = convertToSnakeCase;
@@ -234,6 +237,18 @@ export class RulesetAnalysisComponent implements OnInit {
   updateUrlFragment(category) {
     const url = this.router.createUrlTree([], {relativeTo: this.route, fragment: category}).toString();
     this.location.go(url);
+  }
+
+  tabClick(tab) {
+    if (tab.index == 0) {
+      this.router.navigate(['ruleset/samples']);
+    }
+    else if (tab.index == 1) {
+      this.router.navigate(['ruleset/experiments']);
+    }
+    else if (tab.index == 2) {
+      this.router.navigate(['ruleset/analyses']);
+    }
   }
 
 }
