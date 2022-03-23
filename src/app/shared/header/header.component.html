@@ -103,7 +103,7 @@
 <!-- Submit Menu Dropdown -->
 <mat-menu #submit="matMenu">
   <button mat-menu-item>
-    <a class="nav-link" routerLink="/ruleset/samples" routerLinkActive="active">Rule sets</a>
+    <a class="nav-link" routerLink="/ruleset/samples" fragment="Standard" [ngClass]="isActive('ruleset')">Rule sets</a>
   </button>
   <button mat-menu-item>
     <a class="nav-link" routerLink="/validation/samples" [ngClass]="isActive('validation')">Validation service</a>

@@ -25,11 +25,18 @@ export class HeaderComponent implements OnInit {
       'submit': ['ruleset', 'validation', 'trackhubs'],
       'help': ['api'],
       'protocol': ['protocol'],
-      'validation': ['validation']
+      'validation': ['validation'],
+      'ruleset': ['ruleset']
     }
     for (let item of menuItems[option]) {
-      if (this.router.url.includes(item)) {
-        return 'active';
+      if (option == 'data') {
+        if (this.router.url.includes(item) && !this.router.url.includes('summary') ) {
+          return 'active';
+        }
+      } else {
+        if (this.router.url.includes(item)) {
+          return 'active';
+        }
       }
     }
   }
