@@ -18,6 +18,7 @@ import {
   replaceUnderscoreWithSpace
 } from '../../shared/common_functions';
 import {MatTabGroup} from '@angular/material/tabs';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-ruleset-experiment',
@@ -27,6 +28,8 @@ import {MatTabGroup} from '@angular/material/tabs';
 })
 export class RulesetExperimentComponent implements OnInit {
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
+  dataSource: MatTableDataSource<any>;
+  column_names = ['Name', 'Description', 'Type', 'Required?', 'Allow multiple?', 'Valid values', 'Valid units', 'Valid terms', 'Condition'];
   error: any;
   data: any;
   all_data: any;
@@ -71,6 +74,7 @@ export class RulesetExperimentComponent implements OnInit {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 1;
+    this.dataSource = new MatTableDataSource([]); 
     this.rule_groups = [
       'Standard',
       'ATAC-seq',
@@ -258,6 +262,7 @@ export class RulesetExperimentComponent implements OnInit {
       this.rules = Object.keys(data.properties);
       this.active_rule = rule;
       this.error = '';
+      this.dataSource.data = this.getDataSource(data['properties'], this.rules);
     }, error => {
       if (error.status === 404) {
         this.error = `${rule} is not a valid rule group. Please select a rule group from the following list: ${this.rule_groups}.`;
@@ -273,11 +278,13 @@ export class RulesetExperimentComponent implements OnInit {
       this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
       this.rules = Object.keys(this.data.properties);
       this.mandatory_only = true;
+      this.dataSource.data = this.getDataSource(this.mandatory_data['properties'], this.rules);
     } else {
       this.data = this.all_data;
       this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
       this.rules = Object.keys(this.data.properties);
       this.mandatory_only = false;
+      this.dataSource.data = this.getDataSource(this.all_data['properties'], this.rules);
     }
   }
 
@@ -286,15 +293,28 @@ export class RulesetExperimentComponent implements OnInit {
     this.location.go(url);
   }
 
+  getDataSource(data, rules){
+    let ds = [];
+    for (let rule of rules) {
+      if (rule !== 'describedBy' && rule !== 'schema_version' && rule !== 'experiments_core'
+          && rule !== 'input_dna' && rule !== 'dna-binding_proteins') {
+        let rowObj = data[rule];
+        rowObj['rule'] = rule;
+        ds.push(rowObj);
+      }
+    }
+    return ds;
+  }
+
   tabClick(tab) {
     if (tab.index == 0) {
-      this.router.navigate(['ruleset/samples']);
+      this.router.navigate(['ruleset/samples'], {fragment: 'Standard'});
     }
     else if (tab.index == 1) {
-      this.router.navigate(['ruleset/experiments']);
+      this.router.navigate(['ruleset/experiments'], {fragment: 'Standard'});
     }
     else if (tab.index == 2) {
-      this.router.navigate(['ruleset/analyses']);
+      this.router.navigate(['ruleset/analyses'], {fragment: 'FAANG'});
     }
   }
 
