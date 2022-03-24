@@ -13,7 +13,7 @@
       <div *ngFor="let keyproject of eurofaang_proj['key_projects']" 
         fxFlex="30" fxFlex.lt-md="100" style="text-align: center;">
         <a [routerLink]="['/projects', keyproject.id]">
-          <mat-card style="height: 170px; margin-bottom: 20px" class="z-depth">
+          <mat-card style="height: 170px; margin-bottom: 20px" class="z-depth card">
             <img src="{{keyproject.image.url}}" alt="{{keyproject}}" [ngClass]="keyproject.id === 'AQUA-FAANG' ? 'aquaa-project-logo' : 'project-logo'">
           </mat-card>
         </a>
@@ -33,7 +33,7 @@
       <div *ngFor="let keyproject of faang_proj['key_projects']" 
         fxFlex="30" fxFlex.lt-md="100" style="text-align: center;">
         <a [routerLink]="['/projects', keyproject.id]">
-          <mat-card style="height: 170px; margin-bottom: 20px" class="z-depth">
+          <mat-card style="height: 170px; margin-bottom: 20px" class="z-depth card">
             <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo">
           </mat-card>
         </a>
