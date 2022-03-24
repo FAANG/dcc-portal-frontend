@@ -12,20 +12,20 @@
         <button mat-raised-button color="primary" (click)="logout()">Log Out</button>
       </div>
     </div>
-    <div class="spacer" fxLayout="row" fxLayout.lt-md="column">
-      <div fxFlex="50" fxLayout="column">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" class="spacer">
+      <div fxFlex="50">
         <img src="{{setting.image.url}}" alt="Project Logo"
-             [ngClass]="{'small-project-logo':project==='AQUA-FAANG', 'large-project-logo':project!=='AQUA-FAANG'}">
-        <h3>
-          <a href="{{setting.url}}">{{setting.url}}</a>
-        </h3>
+             [ngClass]="{'small-project-logo':project==='AQUA-FAANG' || project==='BovReg', 'large-project-logo':project!=='AQUA-FAANG' && project!=='BovReg'}">
       </div>
       <div fxFlex="50">
         <img src="{{ project === 'Bovine' ? right_logo_url['bovine'] : right_logo_url['other'] }}"
               alt="Funding Logo"
-              [ngClass]="project!=='AQUA-FAANG' ? 'large-project-logo funding-logo' : 'small-project-logo funding-logo'">
+              [ngClass]="project!=='AQUA-FAANG' && project!=='BovReg' ? 'large-project-logo funding-logo' : 'small-project-logo funding-logo'">
       </div>
     </div>
+    <h3 class="spacer">
+      <a href="{{setting.url}}">{{setting.url}}</a>
+    </h3>
 
     <div *ngIf="!_userService.token && project === 'BovReg'"
       fxLayout="row" fxLayout.lt-md="column" style="margin-bottom: 30px;">
@@ -33,14 +33,14 @@
     </div>
 
     <ng-container *ngIf="project !== 'EuroFAANG'; else eurofaangProject">
-      <div class="spacer" fxLayoutAlign="space-between" fxLayout="row" fxLayout.lt-md="column">
-        <div class="scroll" fxFlex="45" *ngIf="project === 'Bovine'">
+      <div class="spacer" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
+        <mat-card class="card scroll" fxFlex="50" fxFlex.lt-md="100" *ngIf="project === 'Bovine'">
           <h5>{{setting.description}}</h5>
-        </div>
-        <div fxFlex="40" *ngIf="project !== 'Bovine'">
+        </mat-card>
+        <mat-card class="card" fxFlex="45" fxFlex.lt-md="100" *ngIf="project !== 'Bovine'" style="padding-top: 30px;">
           <h5>{{setting.description}}</h5>
-        </div>
-        <div fxFlex="50" *ngIf="project !== 'Bovine'" style="text-align: right;">
+        </mat-card>
+        <mat-card class="card" fxFlex="50" fxFlex.lt-md="100" *ngIf="project !== 'Bovine'" style="text-align: right;">
           <a class="twitter-timeline" href="https://twitter.com/{{setting.tweeter.id}}?ref_src=twsrc%5Etfw"
              data-height="300"
              data-theme="light"
@@ -50,7 +50,7 @@
             Tweets by {{setting.tweeter.id}}
           </a>
           <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
+        </mat-card>
       </div>
 
       <div class="project-link">
