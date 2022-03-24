@@ -5,6 +5,7 @@ import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-protocol-sample',
@@ -12,6 +13,7 @@ import {TableServerSideComponent}  from '../shared/table-server-side/table-serve
   styleUrls: ['./protocol-sample.component.css']
 })
 export class ProtocolSampleComponent implements OnInit, OnDestroy {
+  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   @ViewChild('nameTemplate', { static: true }) nameTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
@@ -58,6 +60,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
+    this.tabGroup.selectedIndex = 0;
     this.templates = {'protocol_name': this.nameTemplate};
     this.loadTableDataFunction = this.dataService.getAllSamplesProtocols.bind(this.dataService);
     this.titleService.setTitle('FAANG protocols');
@@ -149,6 +152,15 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   
   onUploadProtocolClick() {
     this.router.navigate(['upload_protocol']);
+  }
+
+  tabClick(tab) {
+    if (tab.index == 0) {
+      this.router.navigate(['protocol/samples']);
+    }
+    else if (tab.index == 1) {
+      this.router.navigate(['protocol/experiments']);
+    }
   }
 
   ngOnDestroy() {

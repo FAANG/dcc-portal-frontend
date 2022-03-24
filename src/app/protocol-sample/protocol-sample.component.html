@@ -2,16 +2,11 @@
 <div class="container-fluid">
   <h2>FAANG Protocols</h2>
   <hr>
-  <div style="margin-bottom: 25px;">
-    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
-      [routerLink]="['/protocol', 'samples']"> Samples
-      <i class="material-icons float-right">home</i>
-    </button>
-    <button type="button" class="btn btn-info" aria-label="Left Align" 
-      [routerLink]="['/protocol', 'experiments']"> Experiments
-      <i class="material-icons float-right">arrow_forward</i>
-    </button>
-  </div>
+
+  <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+    <mat-tab label="Samples"></mat-tab>
+    <mat-tab label="Experiments"></mat-tab>
+  </mat-tab-group>
 
   <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
     <div fxFlex="20">
