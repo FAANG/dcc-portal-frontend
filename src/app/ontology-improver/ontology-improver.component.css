@@ -36,8 +36,6 @@ textarea:focus {
 .table-color-status {
     border-radius: 7px;
     cursor: default;
-    padding: 3px 6px 3px 6px;
-    width: 165px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
@@ -53,9 +51,14 @@ textarea:focus {
 }
 
 .beta-tag {
-    padding: 2px 7px 2px 7px; 
     margin-left: 8px; 
-    margin-bottom: 8px; 
     cursor: default; 
-    opacity: 1;
+}
+
+button:focus {
+    outline: none;
+}
+
+:host ::ng-deep .mat-tab-body-content {
+    padding: 10px 20px 10px 20px;
 }

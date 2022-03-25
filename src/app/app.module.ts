@@ -107,6 +107,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatBadgeModule } from '@angular/material/badge';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -217,6 +218,7 @@ export function removeToken(): void {
     FlexLayoutModule,
     MatProgressBarModule,
     MatToolbarModule,
+    MatBadgeModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,
