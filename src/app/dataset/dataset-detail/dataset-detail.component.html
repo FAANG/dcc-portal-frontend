@@ -101,15 +101,12 @@
 
     </div>
 
-    <div class="row" *ngIf="dataset?.secondaryProject.toString() === 'GENE-SWitCH'">
-      <div class="col-md-12">
-        <mat-spinner *ngIf="queryService.downloading" [diameter]="30"
-                     style="display: inline; float: right;">
-        </mat-spinner>
-        <button *ngIf="!queryService.downloading" class="btn btn-primary" (click)="downloadTSV()" style="float: right;">
-          Download metadata for analysis
-        </button>
-      </div>
+    <div fxLayout="row" fxLayoutAlign="end" *ngIf="dataset?.secondaryProject.toString() === 'GENE-SWitCH'">
+      <mat-spinner *ngIf="queryService.downloading" [diameter]="30">
+      </mat-spinner>
+      <button mat-raised-button color="accent" *ngIf="!queryService.downloading" (click)="downloadTSV()">
+        Download metadata for analysis
+      </button>
     </div>
 
 

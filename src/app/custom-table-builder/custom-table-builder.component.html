@@ -4,7 +4,7 @@
     <mat-spinner *ngIf="queryService.downloading" [diameter]="30"
       style="display: inline; float: right; margin-left: 10px; margin-bottom: 20px;">
     </mat-spinner>
-    <button *ngIf="tableData && !queryService.downloading" class="btn btn-primary" (click)="downloadCSV()"
+    <button *ngIf="tableData && !queryService.downloading" mat-raised-button color="accent" (click)="downloadCSV()"
       style="float: right; margin-bottom: 20px;">
       Download as CSV
     </button>
@@ -16,8 +16,8 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <div *ngIf="selectedIndices" class="row">
-      <div class="col-md-3" *ngFor="let index of selectedIndices">
+    <div *ngIf="selectedIndices" fxLayout="row" fxLayoutGap="2%">
+      <div *ngFor="let index of selectedIndices">
         <h6>{{displayName(index)}}</h6>
         <mat-form-field appearance="fill" style="width: 100%">
           <mat-label>Select columns to display</mat-label>

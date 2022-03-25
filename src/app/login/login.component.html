@@ -1,17 +1,17 @@
 <app-header></app-header>
 <div class="container-fluid">
-  <div class="row" *ngIf="!_userService.token">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-      <h1 class="text-center">Log in</h1>
+  <h2>Login</h2>
+  <hr>
+  <div fxLayout="row" *ngIf="!_userService.token">
+    <div fxFlex="50" fxFlex.lt-md="100">
       <form (ngSubmit)="login()" #userForm="ngForm">
         <div class="form-group">
           <label for="aapUsername">Username</label>
           <input class="form-control" id="aapUsername"
-                 placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
-                 #username="ngModel">
+                  placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
+                  #username="ngModel">
           <div [hidden]="username.valid || username.pristine"
-               class="alert alert-danger form-danger">
+                class="alert alert-danger form-danger">
             Username is required
           </div>
           <span *ngFor="let error of _userService.errors.username"><br />{{ error }}</span>
@@ -20,19 +20,18 @@
         <div class="form-group">
           <label for="aapPassword">Password</label>
           <input type="password" class="form-control" id="aapPassword" placeholder="Password"
-                 required [(ngModel)]="model.password" name="password" #password="ngModel">
+                  required [(ngModel)]="model.password" name="password" #password="ngModel">
           <div [hidden]="password.valid || password.pristine"
-               class="alert alert-danger form-danger">
+                class="alert alert-danger form-danger">
             Password is required
           </div>
         </div>
         <span *ngFor="let error of _userService.errors.password"><br />{{ error }}</span>
 
-        <button type="submit" class="btn btn-primary"
+        <button type="submit" mat-raised-button color="primary"
                 [disabled]="!userForm.form.valid">Submit</button>
         <span *ngFor="let error of _userService.errors.non_field_errors">{{ error }}<br /></span>
       </form>
     </div>
-    <div class="col-md-4"></div>
   </div>
 </div>

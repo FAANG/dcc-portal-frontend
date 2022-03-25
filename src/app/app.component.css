@@ -16,3 +16,7 @@ h1, h2, h3{
 .navbar {
   padding: 0 0 2% 0 !important;
 }
+
+button:focus {
+  outline: none !important;
+}

@@ -38,10 +38,6 @@ a {
   margin-top: 5px;
 }
 
-button:focus {
-  outline: none;
-}
-
 .table-header {
   background-color: rgba(0, 0, 0, 0.07);
   font-size: 14px;

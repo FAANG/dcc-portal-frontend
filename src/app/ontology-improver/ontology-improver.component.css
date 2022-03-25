@@ -55,10 +55,6 @@ textarea:focus {
     cursor: default; 
 }
 
-button:focus {
-    outline: none;
-}
-
 :host ::ng-deep .mat-tab-body-content {
     padding: 10px 20px 10px 20px;
 }

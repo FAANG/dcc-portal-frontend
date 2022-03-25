@@ -17,7 +17,3 @@ button {
 .card {
   border: solid 0.2px rgba(0,0,0,0.15);
 }
-
-button:focus {
-  outline: none;
-}
