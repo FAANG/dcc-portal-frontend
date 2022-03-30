@@ -59,11 +59,10 @@ export class QueryService {
     }
   }
 
-  downloadCsv(indices, fields, sort, project, fileFormat) {
+  downloadCsv(indices, fields, project, fileFormat) {
     let params = new HttpParams({
       fromObject: { 'indices': indices }
     }).set('_source', fields)
-      .set('sort', sort)
       .set('file_format', fileFormat);
     if (project) {
       params = params.set('q', ((indices === 'file-specimen') ? 'file.secondaryProject:' : 'secondaryProject:') + project);
