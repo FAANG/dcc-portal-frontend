@@ -495,9 +495,9 @@ export class ApiDataService {
       'species': 'species.text',
       'archive': 'archive',
       'assayType': 'assayType',
-      'numberOfExperiments': 'experiment.accession', 
-      'numberOfSpecimens': 'specimen.biosampleId', 
-      'numberOfFiles': 'file.name',
+      'numberOfExperiments': 'experiment', 
+      'numberOfSpecimens': 'specimen', 
+      'numberOfFiles': 'file',
       'standard': 'standardMet',
       'paper_published': 'paperPublished',
     }
@@ -509,7 +509,12 @@ export class ApiDataService {
       }
     }
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query['sort'][1]; 
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    let params = new HttpParams().set('_source', query['_source'].toString()).set('filters', JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    if (query['sort'][0] == 'numberOfExperiments' || query['sort'][0] == 'numberOfSpecimens' || query['sort'][0] == 'numberOfFiles') {
+      params = params.set('sort_by_count', sortParams);
+    } else {
+      params = params.set('sort', sortParams);
+    }
     let res = {};
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
