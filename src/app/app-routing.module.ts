@@ -46,6 +46,7 @@ import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ont
 import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { QueryLanguageComponent } from './query-language/query-language.component';
 import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
+import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 
 
 const routes: Routes = [
@@ -93,6 +94,7 @@ const routes: Routes = [
   {path: 'api', component: ApiDocsComponent},
   {path: 'query', component: QueryLanguageComponent},
   {path: 'trackhubs', component: TrackhubsSubmissionComponent},
+  {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];

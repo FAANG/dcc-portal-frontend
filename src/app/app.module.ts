@@ -108,6 +108,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
+import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -183,7 +184,8 @@ export function removeToken(): void {
     BulkFilesUploaderComponent,
     EurofaangInfoComponent,
     CustomTableBuilderComponent,
-    TableServerSideComponent
+    TableServerSideComponent,
+    NextflowSubmissionComponent
   ],
   imports: [
     BrowserModule,

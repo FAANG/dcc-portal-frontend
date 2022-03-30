@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   isActive(option) {
     let menuItems = {
       'data': ['organism', 'specimen', 'dataset', 'file', 'analysis', 'protocol', 'article'],
-      'submit': ['ruleset', 'validation', 'trackhubs'],
+      'submit': ['ruleset', 'validation', 'trackhubs', 'nextflowSubmission'],
       'help': ['api'],
       'protocol': ['protocol'],
       'validation': ['validation'],
