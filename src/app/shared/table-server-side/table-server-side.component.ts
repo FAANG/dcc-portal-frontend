@@ -28,6 +28,8 @@ export class TableServerSideComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource();
   totalHits = 0;
+  timer: any;
+  delaySearch: boolean = true;
 
   constructor(private spinner: NgxSpinnerService,) { }
 
@@ -117,23 +119,31 @@ export class TableServerSideComponent implements AfterViewInit {
       }
     }
 
-    applySearchFilter(event: Event) {
-      // search triggers when 'Enter' key is pressed
-      if (event['keyCode'] == '13') {
-        // reset query params before applying filter
-        this.paginator.pageIndex = 0;
-        this.query['from_'] = 0;
-
-        const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-        this.query['search'] = searchFilterValue;
-        this.spinner.show();
-        this.apiFunction(this.query, 25).subscribe((res: any) => {
-          this.dataSource.data = res.data; // set table data
-          this.dataUpdate.emit(res); // emit data update event
-          this.totalHits = res.totalHits; // set length of paginator
-          this.spinner.hide();
-        });
+    searchChanged(event: any){
+      const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+      if (this.delaySearch){
+        if (this.timer){
+          clearTimeout(this.timer);
+        }
+        this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
+      } 
+      else {
+        this.applySearchFilter(searchFilterValue);
       }
+    }
+
+    applySearchFilter(value: string) {
+      // reset query params before applying search
+      this.paginator.pageIndex = 0;
+      this.query['from_'] = 0;
+      this.query['search'] = value;
+      this.spinner.show();
+      this.apiFunction(this.query, 25).subscribe((res: any) => {
+        this.dataSource.data = res.data; // set table data
+        this.dataUpdate.emit(res); // emit data update event
+        this.totalHits = res.totalHits; // set length of paginator
+        this.spinner.hide();
+      });
     }
 
 }

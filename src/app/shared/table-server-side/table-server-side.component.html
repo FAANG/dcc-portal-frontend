@@ -1,7 +1,7 @@
 
-<mat-form-field style="width: 100%;">
+<mat-form-field style="width: 100%; margin-top: 10px;">
     <mat-label>Search</mat-label>
-    <input (keyup)="applySearchFilter($event)" matInput 
+    <input (keyup)="searchChanged($event)" matInput 
         placeholder="Search">
 </mat-form-field>
 <table mat-table matSort [dataSource]="dataSource" table-striped style="width: 100%">
