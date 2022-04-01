@@ -55,7 +55,10 @@ export class RelatedItemsComponent implements OnInit {
     if (this.download_key.length > 0) {
       this.display_fields.push('Download');
     }
-    this.fetchData();
+    // random delay for concurrent requests
+    setTimeout(() => {
+      this.fetchData();
+    }, Math.floor(Math.random() * 200));
     const relationship_type = `${this.source_type}-${this.target_type}`;
     let client_side = ['project-pipeline', 'publication-dataset', 'analysis-file', 
                       'file-paper', 'dataset-specimen', 'dataset-file', 'dataset-paper', 
