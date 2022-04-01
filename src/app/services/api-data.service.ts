@@ -101,13 +101,15 @@ export class ApiDataService {
     );;
   }
 
-  getAllFilesForProject(project: string, mode: string) {
-    let url = this.hostSetting.host + 'file/_search/?size=100000&q=secondaryProject:' + project;
+  getAllFilesForProject(project: string, mode: string, sort: string, offset: number) {
+    let url = this.hostSetting.host + 'file/_search/?size=10&q=secondaryProject:'
+              + project + '&sort=' + sort + '&from_=' + offset ;
+    let res = {};
     if (mode === 'private') {
       url = 'https://api.faang.org/private_portal/file/';
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
-          return data.hits.hits.map( entry => ({
+          res['data'] = data.hits.hits.map( entry => ({
               name: entry['_source']['name'],
               fileId: entry['_id'],
               experiment: entry['_source']['experiment']['accession'],
@@ -121,6 +123,8 @@ export class ApiDataService {
             private: entry['_source']['private']
             } as FileForProjectTable )
           );
+          res['totalHits'] = data.hits.total.value;
+          return res;
         }),
         retry(3),
         catchError(this.handleError),
@@ -128,7 +132,7 @@ export class ApiDataService {
     }
     return this.http.get(url).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map( entry => ({
           name: entry['_source']['name'],
           fileId: entry['_id'],
           experiment: entry['_source']['experiment']['accession'],
@@ -142,19 +146,29 @@ export class ApiDataService {
           private: false
           } as FileForProjectTable )
         );
+        res['totalHits'] = data.hits.total.value;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),
     );
   }
 
-  getAllDatasetsForProject(project: string, mode: string) {
-    let url = this.hostSetting.host + 'dataset/_search/?size=100000&q=secondaryProject:' + project;
+  getAllDatasetsForProject(project: string, mode: string, sort: string, offset: number) {
+    let url = this.hostSetting.host + 'dataset/_search/?size=10&q=secondaryProject:'
+              + project + '&from_=' + offset ;
+    let sort_field = sort.split(':')[0];
+    if ( sort_field == 'experiment' || sort_field == 'specimen' || sort_field == 'file') {
+      url = url + '&sort_by_count=' + sort;
+    } else {
+      url = url + '&sort=' + sort;
+    }
+    let res = {};
     if (mode === 'private') {
       url = 'https://api.faang.org/private_portal/dataset/';
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
-          return data.hits.hits.map(entry => ({
+          res['data'] = data.hits.hits.map(entry => ({
               datasetAccession: entry['_source']['accession'],
               title: entry['_source']['title'],
               species: entry['_source']['species'][0]['text'],
@@ -167,6 +181,8 @@ export class ApiDataService {
               private: entry['_source']['private']
             } as DatasetTable)
           );
+          res['totalHits'] = data.hits.total.value;
+          return res;
         }),
         retry(3),
         catchError(this.handleError),
@@ -174,7 +190,7 @@ export class ApiDataService {
     }
     return this.http.get(url).pipe(
       map((data: any) => {
-        return data.hits.hits.map(entry => ({
+        res['data'] = data.hits.hits.map(entry => ({
             datasetAccession: entry['_source']['accession'],
             title: entry['_source']['title'],
             species: entry['_source']['species'][0]['text'],
@@ -187,6 +203,8 @@ export class ApiDataService {
             private: false
         } as DatasetTable)
         );
+        res['totalHits'] = data.hits.total.value;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),
@@ -208,9 +226,16 @@ export class ApiDataService {
     );
   }
 
-  getFilesByRun(runId: any) {
-    const url = this.hostSetting.host + 'file/_search/?q=run.accession:' + runId + '&sort=name:asc';
+  getFilesByRun(runId: any, sort: string, offset: number) {
+    const url = this.hostSetting.host + 'file/_search/?q=run.accession:' + runId 
+                + '&size=10&sort=' + sort + '&from_=' + offset ;
+    let res = {};
     return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits;
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
       retry(3),
       catchError(this.handleError),
     );
@@ -273,13 +298,15 @@ export class ApiDataService {
     );
   }
 
-  getAllOrganismsFromProject(project: string, mode: string) {
-    let url = this.hostSetting.host + 'organism/_search/?size=100000&q=secondaryProject:' + project;
+  getAllOrganismsFromProject(project: string, mode: string, sort: string, offset: number) {
+    let url = this.hostSetting.host + 'organism/_search/?size=10&q=secondaryProject:' 
+              + project + '&sort=' + sort + '&from_=' + offset ;
+    let res = {};
     if (mode === 'private') {
-       url = 'https://api.faang.org/private_portal/organism/';
+      url = 'https://api.faang.org/private_portal/organism/';
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
-          return data.hits.hits.map( entry => ({
+          res['data'] = data.hits.hits.map( entry => ({
               bioSampleId: entry['_source']['biosampleId'],
               sex: entry['_source']['sex']['text'],
               organism: entry['_source']['organism']['text'],
@@ -287,13 +314,15 @@ export class ApiDataService {
               private: this.checkPrivateData(entry['_source']['customField'])
             } as OrganismForProjectTable)
           );
+          res['totalHits'] = data.hits.total.value;
+          return res;
         }),
         catchError(this.handleError),
       );
     }
     return this.http.get(url).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
           sex: entry['_source']['sex']['text'],
           organism: entry['_source']['organism']['text'],
@@ -301,6 +330,8 @@ export class ApiDataService {
           private: this.checkPrivateData(entry['_source']['customField'])
         } as OrganismForProjectTable)
         );
+        res['totalHits'] = data.hits.total.value;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),
@@ -345,13 +376,15 @@ export class ApiDataService {
     );
   }
 
-  getAllSpecimensForProject(project: string, mode: string) {
-    let url = this.hostSetting.host + 'specimen/_search/?size=100000&q=secondaryProject:' + project;
+  getAllSpecimensForProject(project: string, mode: string, sort: string, offset: number) {
+    let url = this.hostSetting.host + 'specimen/_search/?size=10&q=secondaryProject:' 
+              + project + '&sort=' + sort + '&from_=' + offset ;
+    let res = {};
     if (mode === 'private') {
       url = 'https://api.faang.org/private_portal/specimen/';
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
-          return data.hits.hits.map( entry => ({
+          res['data'] = data.hits.hits.map( entry => ({
               bioSampleId: entry['_source']['biosampleId'],
               material: this.checkField(entry['_source']['material']),
               organismpart_celltype: this.checkField(entry['_source']['cellType']),
@@ -361,13 +394,15 @@ export class ApiDataService {
             private: this.checkPrivateData(entry['_source']['customField'])
             } as SpecimenForProjectTable)
           );
+          res['totalHits'] = data.hits.total.value;
+          return res;
         }),
         catchError(this.handleError),
       );
     }
     return this.http.get(url).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map( entry => ({
           bioSampleId: entry['_source']['biosampleId'],
           material: this.checkField(entry['_source']['material']),
           organismpart_celltype: this.checkField(entry['_source']['cellType']),
@@ -377,6 +412,8 @@ export class ApiDataService {
           private: this.checkPrivateData(entry['_source']['customField'])
           } as SpecimenForProjectTable)
         );
+        res['totalHits'] = data.hits.total.value;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),
@@ -463,18 +500,31 @@ export class ApiDataService {
     );
   }
 
-  getSpecimenFiles(biosampleId: any) {
-    const url = this.hostSetting.host + 'file/_search/?q=specimen:' + biosampleId + '&size=100000' + '&sort=run.accession:asc,name:asc';
+  getSpecimenFiles(biosampleId: any, sort: string, offset: number) {
+    const url = this.hostSetting.host + 'file/_search/?q=specimen:' + biosampleId
+                + '&size=10&sort=' + sort + '&from_=' + offset ;
+    let res = {};
     return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits;
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
       retry(3),
       catchError(this.handleError)
     );
   }
 
-  getSpecimenRelationships(biosampleId: any) {
-    const url = this.hostSetting.host + 'specimen/_search/?q=allDeriveFromSpecimens:' + biosampleId +
-      '&size=100000' + '&sort=biosampleId:asc';
+  getSpecimenRelationships(biosampleId: any, sort: string, offset: number) {
+    const url = this.hostSetting.host + 'specimen/_search/?q=allDeriveFromSpecimens:' + biosampleId
+                + '&size=10&sort=' + sort + '&from_=' + offset ;
+    let res = {};
     return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits;
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
       retry(3),
       catchError(this.handleError)
     );
@@ -614,17 +664,31 @@ export class ApiDataService {
     );
   }
 
-  getAnalysesBySample(sampleId: any) {
-    const url = this.hostSetting.host + 'analysis/_search/?q=sampleAccessions:' + sampleId + '&sort=accession:asc&size=10000';
+  getAnalysesBySample(sampleId: any, sort: string, offset: number) {
+    const url = this.hostSetting.host + 'analysis/_search/?q=sampleAccessions:' + sampleId
+                + '&size=10&sort=' + sort + '&from_=' + offset ;
+    let res = {};    
     return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits;
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
       retry(3),
       catchError(this.handleError),
     );
   }
 
-  getAnalysesByDataset(accession: any) {
-    const url = this.hostSetting.host + 'analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc&size=10000';
+  getAnalysesByDataset(accession: any, sort: string, offset: number) {
+    const url = this.hostSetting.host + 'analysis/_search/?q=datasetAccession:' + accession
+                + '&size=10&sort=' + sort + '&from_=' + offset ;
+    let res = {};
     return this.http.get<any>(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits;
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
       retry(3),
       catchError(this.handleError),
     );
@@ -638,11 +702,13 @@ export class ApiDataService {
     );
   }
 
-  getAllArticlesForProject(project: string) {
-    const url = this.hostSetting.host + 'article/_search/?size=100000&q=secondaryProject:' + project;
+  getAllArticlesForProject(project: string, sort: string, offset: number) {
+    const url = this.hostSetting.host + 'article/_search/?size=10&q=secondaryProject:'
+              + project + '&sort=' + sort + '&from_=' + offset ;
+    let res = {};
     return this.http.get(url).pipe(
       map((data: any) => {
-        return data.hits.hits.map( entry => ({
+        res['data'] = data.hits.hits.map( entry => ({
           id: entry['_id'],
           title: entry['_source']['title'],
           year: entry['_source']['year'],
@@ -650,6 +716,8 @@ export class ApiDataService {
           datasetSource: entry['_source']['datasetSource']
           } as ArticleTable)
         );
+        res['totalHits'] = data.hits.total.value;
+        return res;
       }),
       retry(3),
       catchError(this.handleError),
@@ -670,7 +738,7 @@ export class ApiDataService {
             }).filter(ele => ele.name !== 'Pipeline name' && ele.assayType !== 'Assay type');
           return pipelineArr;
         }),
-        retry(3),
+        retry(1),
         catchError(error => {
           if (!(error.error instanceof ErrorEvent)) {
             if (error.status === 404) {

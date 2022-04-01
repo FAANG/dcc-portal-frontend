@@ -23,12 +23,12 @@ export class RelatedItemsComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   display_fields: Array<string> = [];
   progress: Observable<Object> = observableOf({});
+  totalHits = 0;
 
   records: any;
   urls: string[] = [];
   checked = false;
   mode: string;
-  paginate_id: string;
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -44,10 +44,7 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.paginate_id = `${this.record_id}-${this.target_type}`;
     this.dataSource = new MatTableDataSource([]);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     // Read in the initial column display settings
     // set those selected to be displayed
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
@@ -57,47 +54,68 @@ export class RelatedItemsComponent implements OnInit {
     if (this.download_key.length > 0) {
       this.display_fields.push('Download');
     }
+    this.fetchData();
+    const relationship_type = `${this.source_type}-${this.target_type}`;
+    let client_side = ['project-pipeline', 'publication-dataset', 'analysis-file', 
+                      'file-paper', 'dataset-specimen', 'dataset-file', 'dataset-paper', 
+                      'organism-paper', 'organism-specimen', 'specimen-paper'];
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0;
+      if (!client_side.includes(relationship_type)) {
+        this.fetchData();
+      }
+    });
+    this.paginator.page.subscribe(() => {
+      if (!client_side.includes(relationship_type)) {
+        this.fetchData();
+      }
+    });
+  }
+
+  fetchData() {
     const relationship_type = `${this.source_type}-${this.target_type}`;
     if (relationship_type === 'project-organism') {
-      this.dataService.getAllOrganismsFromProject(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data;
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getAllOrganismsFromProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-specimen') {
-      this.dataService.getAllSpecimensForProject(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data;
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getAllSpecimensForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-publication') {
-      this.dataService.getAllArticlesForProject(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data;
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getAllArticlesForProject(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-pipeline') {
       this.dataService.getAllPipelinesForProject(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data;
-          this.dataSource.data = this.getDataSource(this.records);
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         }
       );
     } else if (relationship_type === 'project-file') {
-      this.dataService.getAllFilesForProject(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data;
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getAllFilesForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-dataset') {
-      this.dataService.getAllDatasetsForProject(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data;
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getAllDatasetsForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'publication-dataset') {
@@ -108,92 +126,130 @@ export class RelatedItemsComponent implements OnInit {
             record['species'] = record['species'].sort();
           }
           this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         }
       );
     } else if (relationship_type === 'analysis-file') {
       this.dataService.getAnalysis(this.record_id).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['files'];
-          this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.data = this.getDataSource(data['hits']['hits'][0]['_source']['files']);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'file-download') {
-      this.dataService.getFilesByRun(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getFilesByRun(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'file-paper') {
       this.dataService.getFile(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
           this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'dataset-specimen') {
       this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['specimen'];
           this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'dataset-file') {
       this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['file'];
           this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'dataset-paper') {
       this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
           this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'dataset-analysis') {
-      this.dataService.getAnalysesByDataset(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getAnalysesByDataset(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'organism-paper') {
       this.dataService.getOrganism(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
           this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'organism-specimen') {
       this.dataService.getOrganismsSpecimens(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
           this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'specimen-paper') {
       this.dataService.getSpecimen(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
           this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'specimen-specimen') {
-      this.dataService.getSpecimenRelationships(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getSpecimenRelationships(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'specimen-file') {
-      this.dataService.getSpecimenFiles(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getSpecimenFiles(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'specimen-analysis') {
-      this.dataService.getAnalysesBySample(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
-          this.dataSource.data = this.getDataSource(this.records);
+      this.dataService.getAnalysesBySample(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
-    } else if (relationship_type === 'project-paper') {
-      this.records = [{}];
-    } else if (relationship_type === 'project-specimen') {
-      this.records = [{}];
-    } else if (relationship_type === 'project-file') {
-      this.records = [{}];
+    }
+  }
+
+  getSort() {
+    let defaults = {
+      'organism' : 'BioSamples ID',
+      'specimen' : 'BioSamples ID',
+      'publication': 'Title',
+      'file' : 'File name',
+      'dataset': 'Study name',
+      'download': 'Name',
+      'analysis': 'Accession'
+    }
+    if(this.sort.active && this.sort.direction) {
+      return setting[this.source_type][this.target_type]['fields'][this.sort.active]['source'] + ':' + this.sort.direction;
+    } else {
+      return setting[this.source_type][this.target_type]['fields'][defaults[this.target_type]]['source'] + ':asc';
     }
   }
 

@@ -1,4 +1,4 @@
-<div [hidden]="display_fields.length == 0 || !records || records.length == 0">
+<div [hidden]="display_fields.length == 0 || !dataSource.data || dataSource.data.length == 0">
   <hr>
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center"
     style="margin: 20px 0 20px 0;">
@@ -76,7 +76,7 @@
       <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
       <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
     </table>
-    <mat-paginator pageSize="10"></mat-paginator>
+    <mat-paginator pageSize="10" [length]="totalHits"></mat-paginator>
   
   </div>
 </div>
