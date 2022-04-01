@@ -20,6 +20,7 @@ export class SpecimenDetailComponent implements OnInit {
   readonly organism_prefix = internal_organism;
   readonly specimen_prefix = internal_specimen;
   mode: string;
+  relatedArticles: Array<any>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -43,6 +44,9 @@ export class SpecimenDetailComponent implements OnInit {
           this.router.navigate(['404']);
         } else {
           this.specimen = data['hits']['hits'][0]['_source'];
+          if (this.specimen) {
+            this.relatedArticles = data['hits']['hits'][0]['_source']['publishedArticles'];
+          }
           if (this.biosampleId !== this.specimen.biosampleId) {
             // this.router.navigate(['/specimen', this.specimen.biosampleId]);
             this.router.navigate(['/']).then(() => {

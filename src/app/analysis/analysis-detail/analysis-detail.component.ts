@@ -24,6 +24,7 @@ export class AnalysisDetailComponent implements OnInit {
   error: any;
   convertArrayToStr: any;
   getProtocolLink: any;
+  relatedFiles: Array<any>;
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly biosample_prefix = external_biosample_prefix;
@@ -52,6 +53,7 @@ export class AnalysisDetailComponent implements OnInit {
         } else {
           this.analysis = data['hits']['hits'][0]['_source'];
           if (this.analysis) {
+            this.relatedFiles = data['hits']['hits'][0]['_source']['files'];
             this.spinner.hide();
           }
         }

@@ -18,6 +18,7 @@ export class RelatedItemsComponent implements OnInit {
   @Input() target_type: string; // the related entities, e.g. to list files in the dataset detail page, set to be file
   @Input() download_key: string; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
   @Input() isEuroFaangProj = false; // specifies if datasets table is for EuroFAANG - display project title next to table header
+  @Input() data: Array<any>; // Array data to be populated in the table
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   dataSource: MatTableDataSource<any>;
@@ -119,27 +120,18 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'publication-dataset') {
-      this.dataService.getArticle(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['relatedDatasets'];
-          for (const record of this.records) {
-            record['species'] = record['species'].sort();
-          }
-          this.dataSource.data = this.getDataSource(this.records);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.totalHits = this.dataSource.data.length;
+        for (const record of this.data) {
+          record['species'] = record['species'].sort();
         }
-      );
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'analysis-file') {
-      this.dataService.getAnalysis(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['files'];
-          this.dataSource.data = this.getDataSource(data['hits']['hits'][0]['_source']['files']);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.totalHits = this.dataSource.data.length;
-        });
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'file-download') {
       this.dataService.getFilesByRun(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
         (res: any) => {
@@ -147,41 +139,16 @@ export class RelatedItemsComponent implements OnInit {
           this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'file-paper') {
-      this.dataService.getFile(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
-          this.dataSource.data = this.getDataSource(this.records);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.totalHits = this.dataSource.data.length;
-        });
-    } else if (relationship_type === 'dataset-specimen') {
-      this.dataService.getDataset(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['specimen'];
-          this.dataSource.data = this.getDataSource(this.records);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.totalHits = this.dataSource.data.length;
-        });
-    } else if (relationship_type === 'dataset-file') {
-      this.dataService.getDataset(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['file'];
-          this.dataSource.data = this.getDataSource(this.records);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.totalHits = this.dataSource.data.length;
-        });
-    } else if (relationship_type === 'dataset-paper') {
-      this.dataService.getDataset(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
-          this.dataSource.data = this.getDataSource(this.records);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.totalHits = this.dataSource.data.length;
-        });
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
+    } else if (relationship_type === 'dataset-specimen' || relationship_type === 'dataset-file' 
+              || relationship_type === 'dataset-paper') {
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'dataset-analysis') {
       this.dataService.getAnalysesByDataset(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
         (res: any) => {
@@ -189,14 +156,10 @@ export class RelatedItemsComponent implements OnInit {
           this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'organism-paper') {
-      this.dataService.getOrganism(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
-          this.dataSource.data = this.getDataSource(this.records);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.totalHits = this.dataSource.data.length;
-        });
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'organism-specimen') {
       this.dataService.getOrganismsSpecimens(this.record_id, this.mode).subscribe(
         (data: any) => {
@@ -207,14 +170,10 @@ export class RelatedItemsComponent implements OnInit {
           this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'specimen-paper') {
-      this.dataService.getSpecimen(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
-          this.dataSource.data = this.getDataSource(this.records);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.totalHits = this.dataSource.data.length;
-        });
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'specimen-specimen') {
       this.dataService.getSpecimenRelationships(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
         (res: any) => {
@@ -261,7 +220,7 @@ export class RelatedItemsComponent implements OnInit {
       for (let field in fields) {
         let prop = fields[field]['value'].split('.');
         rowObj[field] = records[index];
-        while (prop.length) {
+        while (prop.length && rowObj[field] && rowObj[field].hasOwnProperty(prop[0])) {
           rowObj[field] = rowObj[field][prop[0]];
           prop.shift();
         }

@@ -110,11 +110,11 @@
     </div>
 
 
-    <app-related-items source_type="dataset" target_type="paper"
+    <app-related-items source_type="dataset" target_type="paper" [data]="relatedArticles"
                        download_key="" [record_id]="dataset.accession"></app-related-items>
-    <app-related-items source_type="dataset" target_type="specimen"
+    <app-related-items source_type="dataset" target_type="specimen" [data]="relatedSpecimen"
                        download_key="" [record_id]="dataset.accession"></app-related-items>
-    <app-related-items source_type="dataset" target_type="file"
+    <app-related-items source_type="dataset" target_type="file" [data]="relatedFiles"
                        download_key="url" [record_id]="dataset.accession"></app-related-items>
     <app-related-items source_type="dataset" target_type="analysis"
                        download_key="" [record_id]="dataset.accession"></app-related-items>

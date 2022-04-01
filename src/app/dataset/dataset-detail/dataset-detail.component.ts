@@ -22,6 +22,9 @@ export class DatasetDetailComponent implements OnInit {
   readonly ols_prefix = external_ols_prefix;
   mode: string;
   downloadColumns: string[];
+  relatedSpecimen: Array<any>;
+  relatedFiles: Array<any>;
+  relatedArticles: Array<any>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -51,6 +54,11 @@ export class DatasetDetailComponent implements OnInit {
           this.router.navigate(['404']);
         } else {
           this.dataset = data['hits']['hits'][0]['_source'];
+          if (this.dataset) {
+            this.relatedSpecimen = data['hits']['hits'][0]['_source']['specimen'];
+            this.relatedFiles = data['hits']['hits'][0]['_source']['file'];
+            this.relatedArticles = data['hits']['hits'][0]['_source']['publishedArticles'];
+          }
         }
         this.spinner.hide();
       },
