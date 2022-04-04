@@ -15,6 +15,7 @@ import {TableServerSideComponent}  from '../shared/table-server-side/table-serve
 export class SpecimenComponent implements OnInit, OnDestroy {
   @ViewChild('biosampleIdTemplate', { static: true }) biosampleIdTemplate: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
+  @ViewChild('trackhubUrlTemplate', { static: true }) trackhubUrlTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
   specimenListShort: Observable<SpecimenTable[]>;
@@ -77,7 +78,8 @@ export class SpecimenComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.templates = {'bioSampleId': this.biosampleIdTemplate, 
-                      'paperPublished': this.paperPublishedTemplate };
+                      'paperPublished': this.paperPublishedTemplate,
+                      'trackhubUrl': this.trackhubUrlTemplate };
     this.loadTableDataFunction = this.dataService.getAllSpecimens.bind(this.dataService);
     this.titleService.setTitle('FAANG specimens');
     this.activatedRoute.queryParams.subscribe((params: Params) => {

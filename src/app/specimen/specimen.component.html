@@ -57,3 +57,11 @@
     <i class="material-icons">highlight_off</i>
   </td>
 </ng-template>
+
+<ng-template #trackhubUrlTemplate let-item>
+  <button *ngIf="item['trackhubUrl']" mat-raised-button color="accent">
+    <a target="_blank" style="color: black; margin: 5px;"
+    [href]="'http://www.ensembl.org/Trackhub?url=' + item['trackhubUrl']">
+    Launch in Genome Browser</a>
+  </button>
+</ng-template>
