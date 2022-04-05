@@ -1,13 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ArticleTable, SortParams} from '../shared/interfaces';
-import {Subscription} from 'rxjs';
+import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {ApiDataService} from '../services/api-data.service';
 import {AggregationService} from '../services/aggregation.service';
-import {ExportService} from '../services/export.service';
-import {NgxSpinnerService} from 'ngx-spinner';
+import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {Observable} from 'rxjs/internal/Observable';
+import {ArticleTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 
 @Component({
   selector: 'app-article',
@@ -15,52 +13,58 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit, OnDestroy {
-  articleListShort: Observable<ArticleTable[]>;
-  articleListLong: Observable<ArticleTable[]>;
+  @ViewChild('titleTemplate', { static: true }) titleTemplate: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  public loadTableDataFunction: Function;  
   columnNames: string[] = ['Title', 'Journal', 'Year', 'Dataset source'];
-  spanClass = 'expand_more';
-  defaultClass = 'unfold_more';
-  selectedColumn = 'title';
-  sort_field: SortParams;
-  filter_field = {};
+  displayFields: string[] = ['title', 'journal', 'year', 'datasetSource'];
+  filter_field: {};
+  templates: Object;
   aggrSubscription: Subscription;
-  exportSubscription: Subscription;
-  articleListLongSubscription: Subscription;
   downloadData = false;
-
-  optionsCsv;
-  optionsTabular;
+  downloading = false;
   data = {};
 
-  // Local variable for pagination
-  p = 1;
-
   private query = {
-    'sort': 'pmcId:desc',
+    'sort': ['pmcId','asc'],
     '_source': [
       'title',
+      'journal',
       'year',
-      'datasetSource',
-      'journal']
+      'datasetSource'],
+    'search': ''
   };
+
+  downloadQuery = {
+    'sort': ['title','asc'],
+    '_source': [
+      '_source.title',
+      '_source.journal',
+      '_source.year',
+      '_source.datasetSource'],
+    'columns': this.columnNames,
+    'filters': {},
+    'file_format': 'csv',
+  };
+
+  defaultSort = ['pmcId','asc'];
   error: string;
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private aggregationService: AggregationService,
-              private exportService: ExportService,
-              private spinner: NgxSpinnerService,
               private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle('FAANG articles');
-    this.spinner.show();
+    this.templates = {'title': this.titleTemplate};
+    this.loadTableDataFunction = this.dataService.getAllArticles.bind(this.dataService);
+    this.titleService.setTitle('FAANG Articles');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
       const filters = {};
       for (const key in params) {
-        if (Array.isArray(params[key])) {
+        if (Array.isArray(params[key])) { // multiple values chosed for one filter
           filters[key] = params[key];
           for (const value of params[key]) {
             this.aggregationService.current_active_filters.push(value);
@@ -74,16 +78,15 @@ export class ArticleComponent implements OnInit, OnDestroy {
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
+      this.query['filters'] = filters;
+      this.downloadQuery['filters'] = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
-    this.optionsCsv = this.exportService.optionsCsv;
-    this.optionsTabular = this.exportService.optionsTabular;
-    this.optionsCsv['headers'] = this.columnNames;
-    this.optionsTabular['headers'] = this.optionsTabular;
-    this.sort_field = {id: 'pmcId', direction: 'desc'};
-    this.spinner.hide();
-    this.articleListLong = this.dataService.getAllArticles(this.query, 100000);
-    this.articleListLongSubscription = this.articleListLong.subscribe((data) => {
-      this.aggregationService.getAggregations(data, 'article');
+    this.tableServerComponent.dataUpdate.subscribe((data) => {
+      this.aggregationService.getAggregations(data.aggregations, 'article');
+    });
+    this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
+      this.downloadQuery['sort'] = sortParams;
     });
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -94,58 +97,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
       }
       this.router.navigate(['article'], {queryParams: params});
     });
-    this.exportSubscription = this.exportService.data.subscribe((data) => {
-      this.data = data;
-    });
-  }
-
-  onTableClick(event: any) {
-    let event_class;
-    if (event['srcElement']['firstElementChild']) {
-      event_class = event['srcElement']['firstElementChild']['innerText'];
-    } else {
-      event_class = event['srcElement']['innerText'];
-    }
-    this.selectedColumn = event['srcElement']['id'];
-    this.selectColumn();
-    this.chooseClass(event_class);
-  }
-
-  chooseClass(event_class: string) {
-    if (event_class === this.defaultClass) {
-      this.spanClass = 'expand_more';
-      this.sort_field['direction'] = 'desc';
-    } else if (event_class === 'expand_more') {
-      this.spanClass = 'expand_less';
-      this.sort_field['direction'] = 'asc';
-    } else {
-      this.spanClass = 'unfold_more';
-      this.sort_field['direction'] = 'desc';
-      this.sort_field['id'] = 'pmcId';
-      this.selectedColumn = '';
-      this.spanClass = 'expand_more';
-    }
-  }
-
-  selectColumn() {
-    switch (this.selectedColumn) {
-      case 'Title': {
-        this.sort_field['id'] = 'title';
-        break;
-      }
-      case 'Year': {
-        this.sort_field['id'] = 'year';
-        break;
-      }
-      case 'Journal': {
-        this.sort_field['id'] = 'journal';
-        break;
-      }
-      case 'Dataset source': {
-        this.sort_field['id'] = 'datasetSource';
-        break;
-      }
-    }
   }
 
   hasActiveFilters() {
@@ -165,7 +116,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
       this.aggregationService.active_filters[key] = [];
     }
     this.aggregationService.current_active_filters = [];
-    this.filter_field = {};
+    this.filter_field = Object.assign({}, this.filter_field);
   }
 
   removeFilter() {
@@ -177,12 +128,34 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
   }
 
+  downloadFile(format: string) {
+    this.downloadData = !this.downloadData;
+    this.downloading = true;
+    this.downloadQuery['file_format'] = format;
+    let mapping = {
+      'title': 'title', 
+      'year': 'year', 
+      'journal': 'journal', 
+      'datasetSource': 'datasetSource', 
+    }
+    this.dataService.downloadRecords('article', mapping, this.downloadQuery).subscribe(
+      (res:Blob)=>{
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(res);
+        a.download = 'faang_data.' + format;
+        a.click();
+        this.downloading = false;
+      },
+      (err) => {
+        this.downloading = false;
+      }
+    );
+  }
+
   ngOnDestroy() {
-    if (typeof  this.filter_field !== 'undefined') {
+    if (typeof this.filter_field !== 'undefined') {
       this.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
-    this.exportSubscription.unsubscribe();
-    this.articleListLongSubscription.unsubscribe();
   }
 }

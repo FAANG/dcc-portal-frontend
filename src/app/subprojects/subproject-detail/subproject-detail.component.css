@@ -1,24 +1,22 @@
 .funding-logo {
   float: right!important;
-  max-width: 70%!important;
+  max-width: 75%!important;
 }
 
 .small-project-logo {
-  max-width:150px;
+  max-width:fit-content;
+  max-height:200px;
+  float: left;
+  width:auto;
+  height:auto;
+}
+
+.large-project-logo {
+  max-width:fit-content;
   max-height:150px;
   float: left;
   width:auto;
   height:auto;
-  margin-bottom: 10px;
-}
-
-.large-project-logo {
-  max-width:250px;
-  max-height:250px;
-  float: left;
-  width:auto;
-  height:auto;
-  margin-bottom: 10px;
 }
 
 h3{
@@ -26,12 +24,13 @@ h3{
 }
 
 .spacer {
-  margin-top: 15px;
+  padding: 10px 0 10px 0;
 }
 
 .scroll {
-  overflow: scroll;
+  overflow-y: scroll;
   height: 400px;
+  padding: 20px;
 }
 
 div.keyproj{
@@ -50,4 +49,8 @@ div.keyproj{
 
 .project-link a:hover{
   color:#8dc7d3;
+}
+
+h5 {
+  text-align: justify;
 }

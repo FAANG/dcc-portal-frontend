@@ -15,6 +15,7 @@ export class ArticleDetailComponent implements OnInit {
   id: string;
   article: any;
   error: any;
+  relatedDatasets: Array<any>;
   readonly dataset_prefix = internal_dataset;
   readonly doi_prefix = external_doi_prefix;
   readonly epmc_prefix = external_epmc_prefix;
@@ -40,6 +41,7 @@ export class ArticleDetailComponent implements OnInit {
         } else {
           this.article = data['hits']['hits'][0]['_source'];
           if (this.article) {
+            this.relatedDatasets = data['hits']['hits'][0]['_source']['relatedDatasets'];
             this.spinner.hide();
           }
         }

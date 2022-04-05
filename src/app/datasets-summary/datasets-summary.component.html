@@ -1,120 +1,87 @@
-<div class="container">
-  <app-header></app-header>
-  <h2>FAANG Summary
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/summary', 'organisms']">
-      Organisms
-      <i class="material-icons float-right">menu</i>
-    </button>
-
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/summary', 'specimens']">
-      Specimens
-      <i class="material-icons float-right">menu</i>
-    </button>
-
-    <button type="button" class="btn btn-info" aria-label="Left Align" [ngClass]="'active'"
-            [routerLink]="['/summary', 'datasets']">
-      Datasets
-      <i class="material-icons float-right">home</i>
-    </button>
-
-    <button type="button" class="btn btn-info" aria-label="Left Align" [routerLink]="['/summary', 'files']">
-      Files
-      <i class="material-icons float-right">menu</i>
-    </button>
-  </h2>
-
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="onCheckboxClick()" checked>
-    <label class="form-check-label" for="defaultCheck1">
-      Show only FAANG data (exclude legacy data)
-    </label>
-  </div>
-
-  <div class="row" *ngIf="!error">
-    <div class="col-md-6">
-      <h3>Standard</h3>
-      <p class="subheader">click on legend to exclude item</p>
-      <div>
-        <div>
-          <div style="display: block">
-            <canvas baseChart
-                    [data]="standardChartData"
-                    [labels]="standardChartLabels"
-                    [chartType]="'doughnut'"
-                    [colors]="pieChartColors"
-                    [legend]="true">
-            </canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <h3>Paper published</h3>
-      <p class="subheader">click on legend to exclude item</p>
-      <div>
-        <div>
-          <div style="display: block">
-            <canvas baseChart
-                    [data]="paperChartData"
-                    [labels]="paperChartLabels"
-                    [chartType]="'pie'"
-                    [options]="pieChartOptions"
-                    [plugins]="pieChartPlugins"
-                    [colors]="pieChartColors"
-                    [legend]="true">
-            </canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<app-header></app-header>
+<div class="container-fluid">
+  <h2>FAANG Summary</h2>
   <hr>
 
-  <div class="row" *ngIf="!error">
-    <div class="col-md-6">
-      <h3>Species</h3>
-      <p class="subheader">hover over bar to see full name</p>
-      <div>
-        <div>
-          <div style="display: block">
-            <canvas baseChart
-                    [data]="speciesChartData"
-                    [labels]="speciesChartLabels"
-                    [chartType]="'bar'"
-                    [options]="barChartOptions"
-                    [plugins]="barChartPlugins"
-                    [legend]="false">
-            </canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <h3>Assay type</h3>
-      <p class="subheader">hover over bar to see full name</p>
-      <div>
-        <div>
-          <div style="display: block">
-            <canvas baseChart
-                    [data]="assayTypeChartData"
-                    [labels]="assayTypeChartLabels"
-                    [chartType]="'bar'"
-                    [options]="barChartOptions"
-                    [plugins]="barChartPlugins"
-                    [legend]="false">
-            </canvas>
-          </div>
-        </div>
-      </div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" style="margin-bottom: 20px;">
+    <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+      <mat-tab label="Organisms"></mat-tab>
+      <mat-tab label="Specimens"></mat-tab>
+      <mat-tab label="Datasets"></mat-tab>
+      <mat-tab label="Files"></mat-tab>
+    </mat-tab-group>
+  
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="onCheckboxClick()" checked>
+      <label class="form-check-label" for="defaultCheck1">
+        Show only FAANG data (exclude legacy data)
+      </label>
     </div>
   </div>
 
-  <div class="row" *ngIf="error">
-    <div class="col-md-12">
-      <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
+  <div *ngIf="!error" fxLayout="column" fxLayoutGap="4%">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
+      <mat-card fxFlex="48" class="card">
+        <h3>Standard</h3>
+        <span class="subheader">Click on legend to exclude item</span>
+        <hr>
+        <canvas baseChart
+                [data]="standardChartData"
+                [labels]="standardChartLabels"
+                [chartType]="'doughnut'"
+                [colors]="pieChartColors"
+                [legend]="true">
+        </canvas>
+      </mat-card>
+  
+      <mat-card fxFlex="48" class="card">
+        <h3>Paper published</h3>
+        <span class="subheader">Click on legend to exclude item</span>
+        <hr>
+        <canvas baseChart
+                [data]="paperChartData"
+                [labels]="paperChartLabels"
+                [chartType]="'pie'"
+                [options]="pieChartOptions"
+                [plugins]="pieChartPlugins"
+                [colors]="pieChartColors"
+                [legend]="true">
+        </canvas>
+      </mat-card>
     </div>
+  
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
+      <mat-card fxFlex="48" class="card">
+        <h3>Species</h3>
+        <span class="subheader">Hover over bar to see full name</span>
+        <hr>
+        <canvas baseChart
+                [data]="speciesChartData"
+                [labels]="speciesChartLabels"
+                [chartType]="'bar'"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="false">
+        </canvas>
+      </mat-card>
+  
+      <mat-card fxFlex="48" class="card">
+        <h3>Assay type</h3>
+        <span class="subheader">Hover over bar to see full name</span>
+        <hr>
+        <canvas baseChart
+                [data]="assayTypeChartData"
+                [labels]="assayTypeChartLabels"
+                [chartType]="'bar'"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="false">
+        </canvas>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="error" fxLayout="row">
+    <div fxFlex="100" class="alert alert-danger"><p>{{ error }}</p></div>
   </div>
 </div>

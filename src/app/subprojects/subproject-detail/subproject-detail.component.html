@@ -1,64 +1,56 @@
 <ng-container *ngIf="setting">
-  <div class="container" style="min-height:87vh">
-    <app-header></app-header>
-    <div class="row spacer" *ngIf="_userService.token">
-      <div class="col-md-12">
-        <div class="alert alert-info" role="alert">
-          <p>
-            You are logged in as {{ _userService.username }}. <br>
-            Token Expires: {{ _userService.token_expires }}
-          </p>
-          <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
-          <button (click)="logout()" class="btn btn-primary">Log Out</button>
-        </div>
+  <app-header></app-header>
+  <div class="container-fluid" style="min-height:87vh">
+    <hr>
+    <div class="spacer" *ngIf="_userService.token">
+      <div class="alert alert-info" role="alert">
+        <p>
+          You are logged in as {{ _userService.username }}. <br>
+          Token Expires: {{ _userService.token_expires }}
+        </p>
+        <button mat-raised-button color="primary" (click)="_userService.refreshToken()">Refresh Token</button>&nbsp;
+        <button mat-raised-button color="primary" (click)="logout()">Log Out</button>
       </div>
     </div>
-    <div class="row spacer">
-      <div class="col-md-6">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" class="spacer">
+      <div fxFlex="50">
         <img src="{{setting.image.url}}" alt="Project Logo"
-             [ngClass]="{'small-project-logo':project==='AQUA-FAANG', 'large-project-logo':project!=='AQUA-FAANG'}">
-        <h3>
-          <a href="{{setting.url}}">{{setting.url}}</a>
-        </h3>
+             [ngClass]="{'small-project-logo':project==='AQUA-FAANG' || project==='BovReg', 'large-project-logo':project!=='AQUA-FAANG' && project!=='BovReg'}">
       </div>
-      <div class="col-md-6 text-center">
-        <ng-container>
-          <img src="{{ project === 'Bovine' ? right_logo_url['bovine'] : right_logo_url['other'] }}"
-               alt="Funding Logo"
-               [ngClass]="project!=='AQUA-FAANG' ? 'large-project-logo funding-logo' : 'small-project-logo funding-logo'">
-        </ng-container>
+      <div fxFlex="50">
+        <img src="{{ project === 'Bovine' ? right_logo_url['bovine'] : right_logo_url['other'] }}"
+              alt="Funding Logo"
+              [ngClass]="project!=='AQUA-FAANG' && project!=='BovReg' ? 'large-project-logo funding-logo' : 'small-project-logo funding-logo'">
       </div>
     </div>
+    <h3 class="spacer">
+      <a href="{{setting.url}}">{{setting.url}}</a>
+    </h3>
 
-    <div class="row" *ngIf="!_userService.token && project === 'BovReg'">
-      <div class="col-md-4">
-        <button type="button" class="btn btn-success" (click)="login()">Login to BovReg Portal</button>
-      </div>
+    <div *ngIf="!_userService.token && project === 'BovReg'"
+      fxLayout="row" fxLayout.lt-md="column" style="margin-bottom: 30px;">
+      <button mat-raised-button color="primary" (click)="login()">Login to BovReg Portal</button>
     </div>
 
     <ng-container *ngIf="project !== 'EuroFAANG'; else eurofaangProject">
-      <div class="row spacer">
-        <div class="col-md-4 scroll" *ngIf="project === 'Bovine'">
-          <h5>
-            {{setting.description}}
-          </h5>
-        </div>
-        <div class="col-md-4" *ngIf="project !== 'Bovine'">
-          <h5>
-            {{setting.description}}
-          </h5>
-        </div>
-        <div class="col-md-8 text-center" *ngIf="project !== 'Bovine'">
+      <div class="spacer" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
+        <mat-card class="card scroll" fxFlex="50" fxFlex.lt-md="100" *ngIf="project === 'Bovine'">
+          <h5>{{setting.description}}</h5>
+        </mat-card>
+        <mat-card class="card" fxFlex="45" fxFlex.lt-md="100" *ngIf="project !== 'Bovine'" style="padding-top: 30px;">
+          <h5>{{setting.description}}</h5>
+        </mat-card>
+        <mat-card class="card" fxFlex="50" fxFlex.lt-md="100" *ngIf="project !== 'Bovine'" style="text-align: right;">
           <a class="twitter-timeline" href="https://twitter.com/{{setting.tweeter.id}}?ref_src=twsrc%5Etfw"
              data-height="300"
              data-theme="light"
-             data-width="650"
+             data-width="100%"
              data-chrome="noborders nofooter noscrollbar transparent"
           >
             Tweets by {{setting.tweeter.id}}
           </a>
           <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
+        </mat-card>
       </div>
 
       <div class="project-link">
@@ -66,21 +58,29 @@
         {{project}} </a>
       </div>
 
-      <div *ngIf="project === 'GENE-SWitCH'">
-        <h3>Ensembl Rapid Release</h3>
+      <div *ngIf="project === 'GENE-SWitCH'" class="spacer">
+        <h3 style="margin-bottom: 20px;">Ensembl Rapid Release</h3>
         <ul class="list-group">
           <li class="list-group-item">
-            <div class="row">
-              <div class="col-md-2"><span class="badge badge-success badge-pill">Sus scrofa</span></div>
-              <div class="col-md-10"><a href="https://rapid.ensembl.org/Sus_scrofa_GCA_000003025.6/Info/Index"
-                                        target="_blank" class="btn btn-primary btn-sm">View data</a></div>
+            <div fxLayout="row" fxLayout.lt-sm="column">
+              <div fxFlex="20"><span class="badge badge-success badge-pill">Sus scrofa</span></div>
+              <div fxFlex="20">
+                <button mat-raised-button color="accent">
+                  <a href="https://rapid.ensembl.org/Sus_scrofa_GCA_000003025.6/Info/Index"
+                  target="_blank" style="color: black">View data</a>
+                </button>
+              </div>
             </div>
           </li>
           <li class="list-group-item">
-            <div class="row">
-              <div class="col-md-2"><span class="badge badge-success badge-pill">Gallus gallus</span></div>
-              <div class="col-md-10"><a href="https://rapid.ensembl.org/Gallus_gallus_GCA_000002315.5/Info/Index"
-                                        target="_blank" class="btn btn-primary btn-sm">View data</a></div>
+            <div fxLayout="row" fxLayout.lt-sm="column">
+              <div fxFlex="20"><span class="badge badge-success badge-pill">Gallus gallus</span></div>
+              <div fxFlex="20">
+                <button mat-raised-button color="accent">
+                  <a href="https://rapid.ensembl.org/Gallus_gallus_GCA_000002315.5/Info/Index"
+                                          target="_blank" style="color: black">View data</a>
+                </button>
+              </div>
             </div>
           </li>
         </ul>
@@ -102,18 +102,13 @@
       </app-custom-table-builder>
     </ng-container>
 
-
     <ng-template #eurofaangProject>
-      <div class="row spacer">
-        <app-eurofaang-info></app-eurofaang-info>
-
-        <div *ngFor="let keyproj of eurofaang_keyproj" class="keyproj">
-          <app-related-items source_type="project" target_type="dataset" download_key=""
-                             [record_id]="keyproj" [isEuroFaangProj]="true"></app-related-items>
-        </div>
+      <app-eurofaang-info></app-eurofaang-info>
+      <div *ngFor="let keyproj of eurofaang_keyproj" class="keyproj">
+        <app-related-items source_type="project" target_type="dataset" download_key=""
+                            [record_id]="keyproj" [isEuroFaangProj]="true"></app-related-items>
       </div>
     </ng-template>
-
 
   </div>
 </ng-container>

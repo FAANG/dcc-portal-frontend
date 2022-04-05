@@ -33,14 +33,16 @@
 .left {
   border-right: 1px solid lightgrey;
 }
- h2{
-   margin-bottom: 50px;
- }
 
- .horizontal-rule{
-   display: block;
-   border-top: 5px solid #dfecf5;
-   width: 100%;
-   overflow: hidden;
-   margin: 40px 0;
- }
+.horizontal-rule{
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  margin: 40px 0;
+}
+
+.z-depth:hover {
+  box-shadow: 0 4px 4px 4px rgba(0,0,0,.2), 0 4px 4px 0 rgba(0,0,0,.1), 0 4px 4px 0 rgba(0,0,0,.1) !important;
+  transform: translate3d(0,0,0);
+  transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+}

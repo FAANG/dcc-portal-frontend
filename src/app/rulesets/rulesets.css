@@ -24,7 +24,13 @@ table {
   border-right: 1px solid lightgrey;
 }
 
-p {
+.rule-condition-header {
+  color: grey;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.rule-condition {
   color: grey;
   font-size: 14px;
 }
@@ -45,6 +51,27 @@ button a {
   color: white;
 }
 
-.card-bottom {
+.card {
   margin-top: 15px;
+}
+
+.table-header {
+  background-color: rgba(0, 0, 0, 0.07);
+  font-size: 14px;
+  color: black;
+  font-weight: 600;
+  padding: 6px !important;
+}
+
+.table-cell-data {
+  padding: 6px !important;
+  max-width: 150px;
+  min-width: 50px;
+  overflow-wrap: break-word;
+}
+
+td.mat-cell:first-of-type, 
+td.mat-footer-cell:first-of-type, 
+th.mat-header-cell:first-of-type {
+  padding-left: 10px;
 }

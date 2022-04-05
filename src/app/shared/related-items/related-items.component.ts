@@ -1,8 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ApiDataService} from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
 import {UserService} from '../../services/user.service';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { HttpClient, HttpEventType} from '@angular/common/http';
+import { Observable, of as observableOf } from 'rxjs';
 
 @Component({
   selector: 'app-related-items',
@@ -15,13 +18,18 @@ export class RelatedItemsComponent implements OnInit {
   @Input() target_type: string; // the related entities, e.g. to list files in the dataset detail page, set to be file
   @Input() download_key: string; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
   @Input() isEuroFaangProj = false; // specifies if datasets table is for EuroFAANG - display project title next to table header
+  @Input() data: Array<any>; // Array data to be populated in the table
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  dataSource: MatTableDataSource<any>;
+  display_fields: Array<string> = [];
+  progress: Observable<Object> = observableOf({});
+  totalHits = 0;
 
   records: any;
   urls: string[] = [];
   checked = false;
-  selected: Map<string, boolean> = new Map();
   mode: string;
-  paginate_id: string;
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -30,141 +38,208 @@ export class RelatedItemsComponent implements OnInit {
   // Step 3: add this component into the detail page
   // Step 4: make necessary adjustment (i.e. debugging) to the setting
 
-  constructor(private dataService: ApiDataService, private _userService: UserService) {
+  constructor(
+    private dataService: ApiDataService,
+    private _userService: UserService,
+    private http: HttpClient) {
   }
 
   ngOnInit() {
-    this.paginate_id = `${this.record_id}-${this.target_type}`;
+    this.dataSource = new MatTableDataSource([]);
     // Read in the initial column display settings
     // set those selected to be displayed
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
-    for (const column of setting[this.source_type][this.target_type]['all']) {
-      this.selected.set(column, false);
-    }
     for (const column of setting[this.source_type][this.target_type]['display']) {
-      this.selected.set(column, true);
+      this.display_fields.push(column);
     }
+    if (this.download_key.length > 0) {
+      this.display_fields.push('Download');
+    }
+    // random delay for concurrent requests
+    setTimeout(() => {
+      this.fetchData();
+    }, Math.floor(Math.random() * 200));
+    const relationship_type = `${this.source_type}-${this.target_type}`;
+    const client_side = ['project-pipeline', 'publication-dataset', 'analysis-file',
+      'file-paper', 'dataset-specimen', 'dataset-file', 'dataset-paper', 'organism-paper', 'organism-specimen', 'specimen-paper'];
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0;
+      if (!client_side.includes(relationship_type)) {
+        this.fetchData();
+      }
+    });
+    this.paginator.page.subscribe(() => {
+      if (!client_side.includes(relationship_type)) {
+        this.fetchData();
+      }
+    });
+  }
 
+  fetchData() {
     const relationship_type = `${this.source_type}-${this.target_type}`;
     if (relationship_type === 'project-organism') {
-      this.dataService.getAllOrganismsFromProject(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data;
+      this.dataService.getAllOrganismsFromProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-specimen') {
-      this.dataService.getAllSpecimensForProject(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data;
+      this.dataService.getAllSpecimensForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-publication') {
-      this.dataService.getAllArticlesForProject(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data;
+      this.dataService.getAllArticlesForProject(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-pipeline') {
       this.dataService.getAllPipelinesForProject(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data;
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         }
       );
     } else if (relationship_type === 'project-file') {
-      this.dataService.getAllFilesForProject(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data;
+      this.dataService.getAllFilesForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-dataset') {
-      this.dataService.getAllDatasetsForProject(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data;
+      this.dataService.getAllDatasetsForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'publication-dataset') {
-      this.dataService.getArticle(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['relatedDatasets'];
-          for (const record of this.records) {
-            record['species'] = record['species'].sort();
-          }
+        for (const record of this.data) {
+          record['species'] = record['species'].sort();
         }
-      );
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'analysis-file') {
-      this.dataService.getAnalysis(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['files'];
-        });
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'file-download') {
-      this.dataService.getFilesByRun(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
+      this.dataService.getFilesByRun(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'file-paper') {
-      this.dataService.getFile(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
-        });
-    } else if (relationship_type === 'dataset-specimen') {
-      this.dataService.getDataset(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['specimen'];
-        });
-    } else if (relationship_type === 'dataset-file') {
-      this.dataService.getDataset(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['file'];
-        });
-    } else if (relationship_type === 'dataset-paper') {
-      this.dataService.getDataset(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
-        });
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
+    } else if (relationship_type === 'dataset-specimen' || relationship_type === 'dataset-file'
+              || relationship_type === 'dataset-paper') {
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'dataset-analysis') {
-      this.dataService.getAnalysesByDataset(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
+      this.dataService.getAnalysesByDataset(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'organism-paper') {
-      this.dataService.getOrganism(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
-        });
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'organism-specimen') {
       this.dataService.getOrganismsSpecimens(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
+          this.dataSource.data = this.getDataSource(this.records);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.totalHits = this.dataSource.data.length;
         });
     } else if (relationship_type === 'specimen-paper') {
-      this.dataService.getSpecimen(this.record_id, this.mode).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
-        });
+        this.dataSource.data = this.getDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'specimen-specimen') {
-      this.dataService.getSpecimenRelationships(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
+      this.dataService.getSpecimenRelationships(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'specimen-file') {
-      this.dataService.getSpecimenFiles(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
+      this.dataService.getSpecimenFiles(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'specimen-analysis') {
-      this.dataService.getAnalysesBySample(this.record_id).subscribe(
-        (data: any) => {
-          this.records = data['hits']['hits'];
+      this.dataService.getAnalysesBySample(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
         });
-    } else if (relationship_type === 'project-paper') {
-      this.records = [{}];
-    } else if (relationship_type === 'project-specimen') {
-      this.records = [{}];
-    } else if (relationship_type === 'project-file') {
-      this.records = [{}];
     }
     console.log(this.source_type);
     console.log(this.target_type);
+  }
+
+  getSort() {
+    const defaults = {
+      'organism' : 'BioSamples ID',
+      'specimen' : 'BioSamples ID',
+      'publication': 'Title',
+      'file' : 'File name',
+      'dataset': 'Study name',
+      'download': 'Name',
+      'analysis': 'Accession'
+    };
+    if (this.sort.active && this.sort.direction) {
+      return setting[this.source_type][this.target_type]['fields'][this.sort.active]['source'] + ':' + this.sort.direction;
+    } else {
+      return setting[this.source_type][this.target_type]['fields'][defaults[this.target_type]]['source'] + ':asc';
+    }
+  }
+
+  getDataSource(records) {
+    const tableData = [];
+    const fields = setting[this.source_type][this.target_type]['fields'];
+    for (const index of Object.keys(records)) {
+      const rowObj = {};
+      for (const field of Object.keys(fields)) {
+        const prop = fields[field]['value'].split('.');
+        rowObj[field] = records[index];
+        while (prop.length && rowObj[field] && rowObj[field].hasOwnProperty(prop[0])) {
+          rowObj[field] = rowObj[field][prop[0]];
+          prop.shift();
+        }
+        if (this.download_key.length > 0) {
+          const dKey = this.download_key.split('.');
+          rowObj['Download'] = records[index];
+          while (dKey.length) {
+            rowObj['Download'] = rowObj['Download'][dKey[0]];
+            dKey.shift();
+          }
+        }
+      }
+      tableData.push(rowObj);
+    }
+    return tableData;
   }
 
   isRecordPrivate(record: any) {
@@ -179,72 +254,39 @@ export class RelatedItemsComponent implements OnInit {
     return setting[this.source_type][this.target_type]['all'];
   }
 
-  get_displayed_fields() {
-    const results: string[] = [];
-    const all_fields = this.get_all_fields();
-    // use all_fields to conserve the display order
-    for (const column of all_fields) {
-      if (this.isDisplayed(column)) {
-        results.push(column);
-      }
-    }
-    return results;
-  }
-
-  // get the attribute names to populate the table
-  get_attr(field: string) {
-    return setting[this.source_type][this.target_type]['fields'][field]['value'];
-  }
-
   // the attributes to render the link
   get_field_values_for_links(attr: string) {
     return setting[this.source_type][this.target_type]['fields'][attr]['link'];
   }
 
-  // only show the download button when the target is files
-  showButton() {
-    return this.target_type === 'file' || this.target_type === 'download';
-  }
-
   downloadAllFiles() {
-    this.urls.forEach(url => FileSaver.saveAs(url));
-  }
-
-  disableButton() {
-    return this.urls.length === 0;
-  }
-
-  // get the number of files selected
-  getUrlsLength() {
-    return this.urls.length;
-  }
-
-  isDisplayed(field_name: string) {
-    if (this.selected.has(field_name)) {
-      return this.selected.get(field_name);
-    }
-    return false;
-  }
-
-  getValue(record: any, attr: string) {
-    const elmts = attr.split('.');
-    let curr: any = record;
-    for (const elmt of elmts) {
-      if (curr[elmt] === null || curr[elmt] === undefined) {
-        return;
-      }
-      curr = curr[elmt];
-    }
-    return curr;
+    this.urls.forEach(url => {
+      const ftp_url = url.split('://')[1];
+      this.progress[ftp_url] = 0;
+      this.http.get(url,
+        {
+            responseType: 'blob',
+            reportProgress: true,
+            observe: 'events',
+        }).subscribe(result => {
+        if (result.type === HttpEventType.DownloadProgress) {
+          this.progress[ftp_url] = Math.round(100 * result.loaded / result.total);;
+        }
+        if (result.type === HttpEventType.Response) {
+          FileSaver.saveAs(result.body);
+        }
+      });
+      this.progress[ftp_url] = 0;
+    });
   }
 
   displayPlatformLogo(record: any, attr: string) {
-    return (this.target_type === 'pipeline' && attr === 'Platform' && this.getValue(record, 'platform') === 'nf-core');
+    return (this.target_type === 'pipeline' && attr === 'Platform' && record['Platform'] === 'nf-core');
   }
 
   // the behaviour of the checkbox in the table under Download column
   onCheckboxClick(url: string) {
-    url = 'ftp://' + url;
+    url = `https://${url}`;
     const index = this.urls.indexOf(url);
     if (index !== -1) {
       this.urls.splice(index, 1);
@@ -255,7 +297,7 @@ export class RelatedItemsComponent implements OnInit {
 
   // the checked conversion_status of the checkbox in the table under Download column
   CheckboxChecked(url: string) {
-    url = 'ftp://' + url;
+    url = `https://${url}`;
     return this.urls.indexOf(url) !== -1;
   }
 
@@ -264,8 +306,8 @@ export class RelatedItemsComponent implements OnInit {
   // 1 means partially files selected (checkbox indeterminate conversion_status)
   // and 0 means none selected
   mainCheckboxChecked() {
-    if (this.records) {
-      if (this.urls.length === this.records.length) {
+    if (this.dataSource.data) {
+      if (this.urls.length === this.dataSource.data.length) {
         this.checked = true;
         return 2;
       } else {
@@ -286,13 +328,8 @@ export class RelatedItemsComponent implements OnInit {
     if (this.checked === true) {
       this.urls = [];
     } else {
-      const url_location = this.download_key.split('.');
-      for (const record of this.records) {
-        let curr: any = record;
-        for (const index of url_location) {
-          curr = curr[index];
-        }
-        const url = 'ftp://' + curr;
+      for (const record of this.dataSource.data) {
+        const url = `https://${record['Download']}`;
         const idx = this.urls.indexOf(url);
         if (idx === -1) {
           this.urls.push(url);
@@ -304,11 +341,5 @@ export class RelatedItemsComponent implements OnInit {
 
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  toggleSelectedColumn(column: string) {
-    if (this.selected.has(column)) {
-      this.selected.set(column, !this.selected.get(column));
-    }
   }
 }

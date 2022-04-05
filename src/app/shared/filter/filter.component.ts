@@ -111,6 +111,7 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Analysis type': {
         data_key = 'analysisType';
+        key = key.split(' ').join('_');
         break;
       }
       case 'Instrument': {
@@ -154,12 +155,13 @@ export class FilterComponent implements OnInit, OnDestroy {
         break;
       }
       case 'Protocol': {
-        data_key = 'name';
+        data_key = 'protocol_type';
         key = this.getReverseHumanName(key);
         break;
       }
       case 'Experiment target': {
         data_key = 'experimentTarget';
+        key = key.split(' ').join('_');
         break;
       }
       case 'Target': {

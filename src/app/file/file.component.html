@@ -1,122 +1,57 @@
-<div class="container">
-  <app-header></app-header>
-  <h2>FAANG files</h2>
+<app-header></app-header>
+<div class="container-fluid">
+  <h2>FAANG Files</h2>
+  <hr>
 
-  <h3 class="col-md-10 offset-md-1" *ngIf="hasActiveFilters()">
-    Active filters:
-    <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
-    <button class="btn btn-light" type = "button" (click)="removeFilter()">Remove all filters</button>
-  </h3>
-
-  <div class="row">
-    <div class="col-md-2">
-      <div class="row">
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Standard" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Species" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Assay type" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Target" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Instrument" [filterSize]=3></app-filter>
-        </div>
-        <div class="col-md-12 col-sm-6 faang-filter">
-          <app-filter title="Paper published" [filterSize]=2></app-filter>
-        </div>
-      </div>
+  <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
+    <div fxFlex="20">
+      <app-filter title="Standard" [filterSize]=3></app-filter>
+      <app-filter title="Species" [filterSize]=3></app-filter>
+      <app-filter title="Assay type" [filterSize]=3></app-filter>
+      <app-filter title="Target" [filterSize]=3></app-filter>
+      <app-filter title="Instrument" [filterSize]=3></app-filter>
+      <app-filter title="Paper published" [filterSize]=2></app-filter>
     </div>
 
-    <div class="col-md-10 table-responsive">
-      <div *ngIf="(fileListLong | async) as files; else loading">
-        <button class="btn btn-success" (click)="onDownloadData()">Download data</button>
-        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsCsv" *ngIf="downloadData">
-          Export as CSV file
-        </app-export>
-        <app-export [data]="data" [filename]="'faang_data'" [options]="optionsTabular" *ngIf="downloadData">
-          Export as Tabular file
-        </app-export>
-        <table class="table table-striped table-hover table-borderless table-sm">
-          <thead>
-          <tr>
-            <th *ngFor="let column of columnNames" style="cursor: pointer" (click)="onTableClick($event)" [id]="column">
-              {{ column }}
-              <i class="material-icons sorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column === selectedColumn" [id]="column">{{spanClass}}</i>
-              <i class="material-icons unsorted" *ngIf="column !== 'Standard' && column !== 'Paper published' && column !== selectedColumn" [id]="column">{{defaultClass}}</i>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let file of files | sort: sort_field | filter: filter_field: 'file' | paginate: { itemsPerPage: 25, currentPage: p }">
-            <td><a style="cursor: pointer" [routerLink]="file['fileName']">{{file['fileName']}}</a></td>
-            <td>{{file['study']}}</td>
-            <td>{{file['experiment']}}</td>
-            <td>{{file['species']}}</td>
-            <td>{{file['assayType']}}</td>
-            <td>{{file['target']}}</td>
-            <td>{{file['specimen']}}</td>
-            <td>{{file['instrument']}}</td>
-            <td>{{file['standard']}}</td>
-
-            <td *ngIf="wasPublished(file['paperPublished'])" [ngClass]="[isGreen(file['paperPublished']), file['submitterEmail'] ? 'crosshair-cursor' : '']">
-              <i class="material-icons"
-                 [matTooltip]="file['submitterEmail']"
-                 [matTooltipClass]="'blue-tooltip'"
-                 matTooltipPosition="after">check_circle_outline</i>
-            </td>
-            <td *ngIf="!wasPublished(file['paperPublished'])" [ngClass]="[isGreen(file['paperPublished']), file['submitterEmail'] ? 'crosshair-cursor' : '']">
-              <i class="material-icons"
-                 [matTooltip]="file['submitterEmail']"
-                 [matTooltipClass]="'blue-tooltip'"
-                 matTooltipPosition="after">highlight_off</i>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <div fxFlex="80" class="table-responsive">
+      <div *ngIf="hasActiveFilters()">
+        <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
+        <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
+        <hr>
       </div>
-      <ng-template #loading>
-        <div>
-          Loading...
-        </div>
-        <table class="table table-striped table-hover table-borderless table-sm">
-          <thead>
-          <tr>
-            <th *ngFor="let column of columnNames">
-              {{ column }}
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let file of fileListShort">
-            <td><a style="cursor: pointer" [routerLink]="file['fileName']">{{file['fileName']}}</a></td>
-            <td>{{file['study']}}</td>
-            <td>{{file['experiment']}}</td>
-            <td>{{file['species']}}</td>
-            <td>{{file['assayType']}}</td>
-            <td>{{file['target']}}</td>
-            <td>{{file['specimen']}}</td>
-            <td>{{file['instrument']}}</td>
-            <td>{{file['standard']}}</td>
-            <td *ngIf="wasPublished(file['paperPublished'])" [ngClass]="isGreen(file['paperPublished'])">
-              <i class="material-icons">check_circle_outline</i>
-            </td>
-            <td *ngIf="!wasPublished(file['paperPublished'])" [ngClass]="isGreen(file['paperPublished'])">
-              <i class="material-icons">highlight_off</i>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <div>
-          Loading...
-        </div>
-      </ng-template>
-      <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
+      <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
+        Download data
+      </button>
+      <button (click)="downloadFile('csv')" mat-raised-button *ngIf="downloadData">
+        Export as CSV file
+      </button>
+      <button (click)="downloadFile('txt')" mat-raised-button *ngIf="downloadData">
+        Export as Tabular file
+      </button>
+      <mat-spinner *ngIf="downloading" [diameter]="30" 
+        style="display: inline; margin-left: 10px;">
+      </mat-spinner>
+      <app-table-server-side  [display_fields]="displayFields" 
+            [column_names]="columnNames"
+            [templates]="templates"
+            [filter_values]="filter_field"
+            [apiFunction]="loadTableDataFunction"
+            [query]="query"
+            [defaultSort]="defaultSort">
+      </app-table-server-side>
     </div>
   </div>
 </div>
+
+<ng-template #fileNameTemplate let-item>
+  <a style="cursor: pointer" target="_blank" [routerLink]="item['fileName']">{{item['fileName']}}</a>
+</ng-template>
+
+<ng-template #paperPublishedTemplate let-item>
+  <td *ngIf="wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
+    <i class="material-icons">check_circle</i>
+  </td>
+  <td *ngIf="!wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
+    <i class="material-icons">highlight_off</i>
+  </td>
+</ng-template>

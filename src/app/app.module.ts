@@ -102,6 +102,13 @@ import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-s
 import { BulkFilesUploaderComponent } from './bulk-files-uploader/bulk-files-uploader.component';
 import { EurofaangInfoComponent } from './subprojects/subproject-detail/eurofaang-info/eurofaang-info.component';
 import { CustomTableBuilderComponent } from './custom-table-builder/custom-table-builder.component';
+import { TableServerSideComponent } from './shared/table-server-side/table-server-side.component';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatBadgeModule } from '@angular/material/badge';
+import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -176,7 +183,9 @@ export function removeToken(): void {
     TrackhubsSubmissionComponent,
     BulkFilesUploaderComponent,
     EurofaangInfoComponent,
-    CustomTableBuilderComponent
+    CustomTableBuilderComponent,
+    TableServerSideComponent,
+    NextflowSubmissionComponent
   ],
   imports: [
     BrowserModule,
@@ -207,6 +216,11 @@ export function removeToken(): void {
     MatSelectModule,
     ReactiveFormsModule,
     MatMenuModule,
+    MatCardModule,
+    FlexLayoutModule,
+    MatProgressBarModule,
+    MatToolbarModule,
+    MatBadgeModule,
     AuthModule.forRoot({
       aapURL: 'https://api.aai.ebi.ac.uk',
       tokenGetter: getToken,

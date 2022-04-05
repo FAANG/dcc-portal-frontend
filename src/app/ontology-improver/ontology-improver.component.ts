@@ -139,7 +139,6 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     // fetch usage statistics summary
     this.ontologyService.getUsageStatistics().subscribe((data) =>{
       this.usageStats = data;
-      console.log(this.usageStats);
     });
   }
 

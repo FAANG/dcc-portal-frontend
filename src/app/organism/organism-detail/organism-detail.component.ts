@@ -18,6 +18,7 @@ export class OrganismDetailComponent implements OnInit {
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;
   mode: string;
+  relatedArticles: Array<any>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -41,18 +42,15 @@ export class OrganismDetailComponent implements OnInit {
           this.router.navigate(['404']);
         } else {
           this.organism = data['hits']['hits'][0]['_source'];
+          if (this.organism) {
+            this.relatedArticles = data['hits']['hits'][0]['_source']['publishedArticles'];
+          }
           if (this.biosampleId !== this.organism.biosampleId) {
             this.router.navigate(['/']).then(() => {
               this.router.navigate(['/organism', this.organism.biosampleId]);
             });
           }
-          if (this.organism) {
-            this.spinner.hide();
-            if (this.organism.hasOwnProperty('publishedArticles')) {
-              this.organism.publishedArticles = this.organism.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-                ((b.year > a.year) ? 1 : 0));
-            }
-          }
+          this.spinner.hide();
         }
       },
       error => {

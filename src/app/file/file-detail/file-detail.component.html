@@ -1,191 +1,203 @@
-<div class="container">
-  <app-header></app-header>
-  <div class="row first-row" *ngIf="_userService.token">
-    <div class="col-md-12">
-      <div class="alert alert-info" role="alert">
-        <p>
-          You are logged in as {{ _userService.username }}. <br>
-          Token Expires: {{ _userService.token_expires }}
-        </p>
-        <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
-        <button (click)="_userService.logout()" class="btn btn-primary">Log Out</button>
-      </div>
+<app-header></app-header>
+<div class="container-fluid">
+  <div *ngIf="_userService.token">
+    <div class="alert alert-info" role="alert">
+      <p>
+        You are logged in as {{ _userService.username }}. <br>
+        Token Expires: {{ _userService.token_expires }}
+      </p>
+      <button mat-raised-button color="primary" (click)="_userService.refreshToken()">Refresh Token</button>&nbsp;
+      <button mat-raised-button color="primary" (click)="_userService.logout()">Log Out</button>
     </div>
   </div>
-  <ng-container *ngIf="file">
+  <div *ngIf="file">
+    <h2>{{fileId}}</h2>
+    <hr>
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <dt fxFlex="25">File name:</dt>
+        <dd fxFlex="75">{{ file?.name }}</dd>
+      </div>
 
-    <h1 class="text-center">{{fileId}}</h1>
-    <dl class="row">
-      <dt class="col-sm-3">File name:</dt>
-      <dd class="col-sm-9">{{ file?.name }}</dd>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.secondaryProject">
+        <dt fxFlex="25">Sub-project:</dt>
+        <dd fxFlex="75">{{file?.secondaryProject}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.secondaryProject">
-        <dt class="col-sm-3">Sub-project:</dt>
-        <dd class="col-sm-9">{{file?.secondaryProject}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <dt fxFlex="25">Release date:</dt>
+        <dd fxFlex="75">{{file?.releaseDate}}</dd>
+      </div>
 
-      <dt class="col-sm-3">Release date:</dt>
-      <dd class="col-sm-9">{{file?.releaseDate}}</dd>
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <dt fxFlex="25">Update date:</dt>
+        <dd fxFlex="75">{{file?.updateDate}}</dd>
+      </div>
 
-      <dt class="col-sm-3">Update date:</dt>
-      <dd class="col-sm-9">{{file?.updateDate}}</dd>
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <dt fxFlex="25">Organism:</dt>
+        <dd fxFlex="75">
+          <app-robust-link [prefix]="ols_prefix" [link]="file?.species?.ontologyTerms"
+                           [text]="file?.species?.text"></app-robust-link>
+        </dd>
+      </div>
 
-      <dt class="col-sm-3">Organism:</dt>
-      <dd class="col-sm-9">
-        <app-robust-link [prefix]="ols_prefix" [link]="file?.species?.ontologyTerms"
-                         [text]="file?.species?.text"></app-robust-link>
-      </dd>
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <dt fxFlex="25">Specimen:</dt>
+        <dd fxFlex="75">
+          <app-robust-link [prefix]="specimen_prefix" [link]="file?.specimen" [text]="file?.specimen"></app-robust-link>
+        </dd>
+      </div>
 
-      <dt class="col-sm-3">Specimen:</dt>
-      <dd class="col-sm-9">
-        <app-robust-link [prefix]="specimen_prefix" [link]="file?.specimen" [text]="file?.specimen"></app-robust-link>
-      </dd>
-
-      <ng-container *ngIf="file?.organism">
-        <dt class="col-sm-3">BioSample ID:</dt>
-        <dd class="col-sm-9">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.organism">
+        <dt fxFlex="25">BioSample ID:</dt>
+        <dd fxFlex="75">
           <app-robust-link [prefix]="organism_prefix" [link]="file?.organism" [text]="file?.organism"></app-robust-link>
         </dd>
-      </ng-container>
+      </div>
 
-      <dt class="col-sm-3">File size:</dt>
-      <dd class="col-sm-9">{{file?.size}} ({{file?.readableSize}})</dd>
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <dt fxFlex="25">File size:</dt>
+        <dd fxFlex="75">{{file?.size}} ({{file?.readableSize}})</dd>
+      </div>
 
-      <dt class="col-sm-3">Archive:</dt>
-      <dd class="col-sm-9">{{file?.archive}}</dd>
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <dt fxFlex="25">Archive:</dt>
+        <dd fxFlex="75">{{file?.archive}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.readCount">
-        <dt class="col-sm-3">Read count:</dt>
-        <dd class="col-sm-9">{{file?.readCount}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.readCount">
+        <dt fxFlex="25">Read count:</dt>
+        <dd fxFlex="75">{{file?.readCount}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.baseCount">
-        <dt class="col-sm-3">Base count:</dt>
-        <dd class="col-sm-9">{{file?.baseCount}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.baseCount">
+        <dt fxFlex="25">Base count:</dt>
+        <dd fxFlex="75">{{file?.baseCount}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.submission">
-        <dt class="col-sm-3">Submission:</dt>
-        <dd class="col-sm-9">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.submission">
+        <dt fxFlex="25">Submission:</dt>
+        <dd fxFlex="75">
           <app-robust-link [prefix]="ena_prefix" [link]="file?.submission"
                            [text]="file?.submission"></app-robust-link>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="file?.experiment?.accession">
-        <dt class="col-sm-3">Experiment:</dt>
-        <dd class="col-sm-9">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.experiment?.accession">
+        <dt fxFlex="25">Experiment:</dt>
+        <dd fxFlex="75">
           <app-robust-link [prefix]="ena_prefix" [link]="file?.experiment?.accession"
                            [text]="file?.experiment?.accession"></app-robust-link>
           <button class="btn btn-info btn-sm" id="exp_dropdown" (click)="toggleExperiment()">Experiment details</button>
-          <ng-container  *ngIf="showExperimentDetail">
+          <div *ngIf="showExperimentDetail">
             <hr>
-            <ng-container *ngIf="experiment && fieldNames">
-              <ng-container *ngFor="let key of objectKeys(fieldNames)">
+            <div *ngIf="experiment && fieldNames">
+              <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let key of objectKeys(fieldNames)">
 
-                <ng-container *ngIf="experiment.hasOwnProperty(key) && checkIsObject(experiment[key])">
-                  <ng-container *ngIf="experiment[key].hasOwnProperty('filename') && experiment[key]['filename']">
+                <div *ngIf="experiment.hasOwnProperty(key) && checkIsObject(experiment[key])">
+                  <div *ngIf="experiment[key].hasOwnProperty('filename') && experiment[key]['filename']">
                     <p>
                       <b>{{fieldNames[key]}}:</b><br>
                       <app-robust-link [link]="getProtocolLink(experiment[key]['url'])"
                                        [text]="experiment[key]['filename'] | slice:0:62"></app-robust-link>
                     </p>
-                  </ng-container>
-                  <ng-container *ngIf="experiment[key].hasOwnProperty('text') && experiment[key]['text']">
+                  </div>
+                  <div *ngIf="experiment[key].hasOwnProperty('text') && experiment[key]['text']">
                     <p>
                       <b>{{fieldNames[key]}}: </b><br>
                       {{experiment[key]['text']}} ({{experiment[key]['unit']}})
                     </p>
-                  </ng-container>
-                </ng-container>
+                  </div>
+                </div>
 
-                <ng-container *ngIf="experiment.hasOwnProperty(key) && !checkIsObject(experiment[key])">
+                <div *ngIf="experiment.hasOwnProperty(key) && !checkIsObject(experiment[key])">
                   <p>
                     <b>{{fieldNames[key]}}:</b><br>
                     {{experiment[key]}}
                   </p>
-                </ng-container>
+                </div>
 
-              </ng-container>
-            </ng-container>
+              </div>
+            </div>
             <hr>
-          </ng-container>
+          </div>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="file?.study?.accession">
-        <dt class="col-sm-3">Study:</dt>
-        <dd class="col-sm-9">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.study?.accession">
+        <dt fxFlex="25">Study:</dt>
+        <dd fxFlex="75">
           <app-robust-link [prefix]="dataset_prefix" [link]="file?.study?.accession"
                            [text]="file?.study?.accession"></app-robust-link>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="file?.study?.title">
-        <dt class="col-sm-3">Study title:</dt>
-        <dd class="col-sm-9">{{file?.study?.title}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.study?.title">
+        <dt fxFlex="25">Study title:</dt>
+        <dd fxFlex="75">{{file?.study?.title}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.run?.accession">
-        <dt class="col-sm-3">Run:</dt>
-        <dd class="col-sm-9">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.accession">
+        <dt fxFlex="25">Run:</dt>
+        <dd fxFlex="75">
           <app-robust-link [prefix]="ena_prefix" [link]="file?.run?.accession"
                            [text]="file?.run?.accession"></app-robust-link>
         </dd>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="file?.run?.platform">
-        <dt class="col-sm-3">Platform:</dt>
-        <dd class="col-sm-9">{{file?.run?.platform}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.platform">
+        <dt fxFlex="25">Platform:</dt>
+        <dd fxFlex="75">{{file?.run?.platform}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.run?.instrument">
-        <dt class="col-sm-3">Instrument:</dt>
-        <dd class="col-sm-9">{{file?.run?.instrument}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.instrument">
+        <dt fxFlex="25">Instrument:</dt>
+        <dd fxFlex="75">{{file?.run?.instrument}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.run?.centerName">
-        <dt class="col-sm-3">Center name:</dt>
-        <dd class="col-sm-9">{{file?.run?.centerName}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.centerName">
+        <dt fxFlex="25">Center name:</dt>
+        <dd fxFlex="75">{{file?.run?.centerName}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.run?.sequencingDate">
-        <dt class="col-sm-3">Sequencing date:</dt>
-        <dd class="col-sm-9">{{file?.run?.sequencingDate}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.sequencingDate">
+        <dt fxFlex="25">Sequencing date:</dt>
+        <dd fxFlex="75">{{file?.run?.sequencingDate}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.run?.sequencingLocation">
-        <dt class="col-sm-3">Sequencing location:</dt>
-        <dd class="col-sm-9">{{file?.run?.sequencingLocation}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.sequencingLocation">
+        <dt fxFlex="25">Sequencing location:</dt>
+        <dd fxFlex="75">{{file?.run?.sequencingLocation}}</dd>
+      </div>
 
-      <ng-container *ngIf="file?.run?.sequencingLatitude">
-        <dt class="col-sm-3">Sequencing latitude:</dt>
-        <dd class="col-sm-9">{{file?.run?.sequencingLatitude}} (decimal degrees)</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.sequencingLatitude">
+        <dt fxFlex="25">Sequencing latitude:</dt>
+        <dd fxFlex="75">{{file?.run?.sequencingLatitude}} (decimal degrees)</dd>
+      </div>
 
-      <ng-container *ngIf="file?.run?.sequencingLongitude">
-        <dt class="col-sm-3">Sequencing longitude:</dt>
-        <dd class="col-sm-9">{{file?.run?.sequencingLongitude}} (decimal degrees)</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.sequencingLongitude">
+        <dt fxFlex="25">Sequencing longitude:</dt>
+        <dd fxFlex="75">{{file?.run?.sequencingLongitude}} (decimal degrees)</dd>
+      </div>
 
-      <ng-container *ngIf="file && file.hasOwnProperty('experiment') && file.experiment.hasOwnProperty('standardMet')">
-        <dt class="col-sm-3">Standard met:</dt>
-        <dd class="col-sm-9">{{file.experiment.standardMet}}</dd>
-      </ng-container>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file && file.hasOwnProperty('experiment') && file.experiment.hasOwnProperty('standardMet')">
+        <dt fxFlex="25">Standard met:</dt>
+        <dd fxFlex="75">{{file.experiment.standardMet}}</dd>
+      </div>
 
-      <ng-container *ngIf="file && file.hasOwnProperty('submitterEmail')">
-        <dt class="col-sm-3">Submitter Emails:</dt>
-        <dd class="col-sm-9">{{file.submitterEmail}}</dd>
-      </ng-container>
-    </dl>
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file && file.hasOwnProperty('submitterEmail')">
+        <dt fxFlex="25">Submitter Emails:</dt>
+        <dd fxFlex="75">{{file.submitterEmail}}</dd>
+      </div>
+    </div>
 
-    <app-related-items source_type="file" target_type="paper" download_key=""
+    <app-related-items source_type="file" target_type="paper" download_key="" [data]="relatedArticles"
                        [record_id]="fileId">
     </app-related-items>
     <app-related-items source_type="file" target_type="download" download_key="_source.url"
                        [record_id]="file.run.accession">
     </app-related-items>
-  </ng-container>
+  </div>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>

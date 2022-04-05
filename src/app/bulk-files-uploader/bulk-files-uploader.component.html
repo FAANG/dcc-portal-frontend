@@ -1,11 +1,11 @@
 <!-- View for Bulk upload mode -->
 <div *ngIf="mode == 'bulk'">
-  <div class="row" style="margin-bottom: 20px;">
-    <div class="col-md-6">
+  <div fxLayout="row" style="margin-bottom: 20px;">
+    <div fxFlex="48">
       <label class="btn btn-default p-0">
         <input *ngIf="mode == 'bulk'" type="file" multiple (change)="selectFiles($event)" />
       </label>
-      <button class="btn btn-success"
+      <button mat-raised-button color="primary"
         [disabled]="!selectedFiles" (click)="uploadFiles()"
         style="float: right;">
         Upload
@@ -14,11 +14,11 @@
   </div>
   <hr>
   <div *ngFor="let file of fileNamesList" style="word-break: break-all;">
-    <div class="row">
-      <div class="col-md-6">
+    <div fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%">
+      <div fxFlex="48">
         {{ file }}
       </div>
-      <div class="col-md-6" style="word-break: break-word;">
+      <div fxFlex="47" style="word-break: break-word;">
         <div [ngClass]="getAlertClass(submission_message[file])" role="alert"
               style="margin-top: 5px; padding: 5px; text-align: center;" >
           {{ submission_message[file] }}
@@ -34,18 +34,18 @@
 
 <!-- View for Single upload mode -->
 <div *ngIf="mode == 'single'">
-  <div class="row" style="margin-bottom: 20px;">
-    <div class="col-md-6">
+  <div fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%" style="margin-bottom: 20px;">
+    <div fxFlex="48">
       <label class="btn btn-default p-0">
         <input *ngIf="mode == 'single'" type="file" (change)="selectFiles($event)" />
       </label>
-      <button class="btn btn-success"
+      <button mat-raised-button color="primary"
         [disabled]="!selectedFiles" (click)="uploadFiles()"
         style="float: right;">
         Upload
       </button>
     </div>
-    <div class="col-md-6" style="word-break: break-word;">
+    <div fxFlex="47" fxlayout="column" style="word-break: break-word;">
       <div [ngClass]="getAlertClass(submission_message[fileNamesList[0]])" role="alert"
             style="padding: 5px; text-align: center;" >
         {{ submission_message[fileNamesList[0]] }}

@@ -12,6 +12,9 @@ import {
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {AAPUser} from '../aap_user';
 import {UserService} from '../../services/user.service';
+import {Router} from '@angular/router';
+import {MatTabGroup} from '@angular/material/tabs';
+import { MatTableDataSource } from '@angular/material';
 
 const UploadURL = validation_service_url + '/conversion/experiments';
 
@@ -21,6 +24,8 @@ const UploadURL = validation_service_url + '/conversion/experiments';
   styleUrls: ['./validation-experiments.component.css']
 })
 export class ValidationExperimentsComponent implements OnInit, OnDestroy {
+  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
+  dataSource: MatTableDataSource<any>;
   model = new AAPUser('', '', 'prod');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
@@ -59,6 +64,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   submission_task_id: string;
   bovreg_submission = false;
   private_submission = false;
+  col_index = [];
 
   @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
 
@@ -66,18 +72,26 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
     private apiDataService: ApiDataService,
-    public _userService: UserService
+    public _userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.tabGroup.selectedIndex = 1;
+    this.dataSource = new MatTableDataSource([]); 
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Experiments');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onBeforeUploadItem = (file) => {
+      this.conversion_status = 'Waiting';
+    }
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
+      if (this.conversion_status == 'Success') {
+        this.startValidation();
+      }
     };
-    this.conversion_status = 'Undefined';
     this.metadata_template_with_examples = experiment_metadata_template_with_examples;
     this.metadata_template_without_examples = experiment_metadata_template_without_examples;
     if (this._userService.token) {
@@ -94,6 +108,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       this.active_key = this.record_types[0];
       this.active_table = this.validation_results[this.active_key];
       this.setTables();
+      this.onValidationResultsButtonClick('passed');
     }
   }
 
@@ -326,8 +341,8 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRecordButtonClick(button_record: string) {
-    this.active_key = button_record;
+  onRecordButtonClick(tab) {
+    this.active_key = tab['tab']['textLabel'].replace(/[ ]/g, '_');
     this.active_table = this.validation_results[this.active_key];
     this.records_with_issues = [];
     this.records_that_pass = [];
@@ -337,12 +352,23 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     this.table_warnings = [];
     this.show_table = false;
     this.setTables();
+    this.onValidationResultsButtonClick('passed');
   }
 
   onValidationResultsButtonClick(issues_type) {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
+    let data = [];
+    this.records_to_show.forEach(record => {
+      let rowObj = {};
+      for (let index in this.column_names) {
+        rowObj[index] = record[index];
+      }
+      data.push(rowObj);
+    });
+    this.dataSource.data = data;
+    this.col_index = Array.from(this.column_names.keys()).map(col => col.toString());  
   }
 
   openModal(i: number, j: number) {
@@ -459,6 +485,18 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     this.disableAuthForm = false;
     this.submission_message = 'Please login';
     this.submissionResults = [];
+  }
+
+  tabClick(tab) {
+    if (tab.index == 0) {
+      this.router.navigate(['validation/samples']);
+    }
+    else if (tab.index == 1) {
+      this.router.navigate(['validation/experiments']);
+    }
+    else if (tab.index == 2) {
+      this.router.navigate(['validation/analyses']);
+    }
   }
 
   ngOnDestroy(): void {

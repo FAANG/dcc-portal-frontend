@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {barChartOptions, pieChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
+import {MatTabGroup} from '@angular/material/tabs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-files-summary',
@@ -10,6 +12,7 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./files-summary.component.css']
 })
 export class FilesSummaryComponent implements OnInit {
+  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   error: string;
   chartData;
   excludeLegacyData = true;
@@ -36,10 +39,15 @@ export class FilesSummaryComponent implements OnInit {
   public assayTypeChartLabels = [];
   public assayTypeChartData = [];
 
-  constructor(private dataService: ApiDataService, private titleService: Title) { }
+  constructor(
+    private dataService: ApiDataService, 
+    private titleService: Title,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.titleService.setTitle('FAANG summary|files');
+    this.tabGroup.selectedIndex = 3;
     this.dataService.getFileSummary('summary_file').subscribe(
       data => {
         this.chartData = data['hits']['hits'][0]['_source'];
@@ -98,6 +106,21 @@ export class FilesSummaryComponent implements OnInit {
     this.excludeLegacyData = !this.excludeLegacyData;
     this.clearChartData();
     this.assignChartData(this.chartData, this.excludeLegacyData);
+  }
+
+  tabClick(tab) {
+    if (tab.index == 0) {
+      this.router.navigate(['summary/organisms']);
+    }
+    else if (tab.index == 1) {
+      this.router.navigate(['summary/specimens']);
+    }
+    else if (tab.index == 2) {
+      this.router.navigate(['summary/datasets']);
+    }
+    else if (tab.index == 3) {
+      this.router.navigate(['summary/files']);
+    }
   }
 
 }

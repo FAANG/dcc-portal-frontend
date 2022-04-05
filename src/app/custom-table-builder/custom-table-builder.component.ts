@@ -25,7 +25,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   templates: Object;
   filter_field: {};
   indices = new FormControl();
-  indicesList = ['file', 'organism', 'specimen', 'dataset', 'article', 'analysis', 
+  indicesList = ['file', 'organism', 'specimen', 'dataset', 'article', 'analysis',
     'experiment', 'protocol_files', 'protocol_samples', 'protocol_analysis'];
   selectedIndices;
   selectedColumns = {};
@@ -49,7 +49,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
-    this.dataSource = new MatTableDataSource<any>(this.tableData); 
+    this.dataSource = new MatTableDataSource<any>(this.tableData);
     this.templates = {};
     this.columnsByIndex = {};
     this.loading = false;
@@ -64,9 +64,9 @@ export class CustomTableBuilderComponent implements AfterViewInit {
       }
     );
     this.templates = {
-      'species.text': this.speciesTemplate,
-      'filename': this.fileIdTemplate,
-      'biosampleId': this.specimenIdTemplate,
+      'file.species.text': this.speciesTemplate,
+      'file.filename': this.fileIdTemplate,
+      'specimen.biosampleId': this.specimenIdTemplate,
     };
   }
 
@@ -74,29 +74,31 @@ export class CustomTableBuilderComponent implements AfterViewInit {
     this.loading = true;
     // get selected fields and columnNames
     let uniqueSelections = [];
-    for (let prop in this.selectedColumns) {
-      uniqueSelections = uniqueSelections.concat(this.selectedColumns[prop]);
-      uniqueSelections = uniqueSelections.filter((value,pos) => {return uniqueSelections.indexOf(value) == pos;});
+
+    for (const index in this.selectedColumns) {
+      const indexColsArr = this.selectedColumns[index].map(colName => `${index}.${colName}`);
+      uniqueSelections = uniqueSelections.concat(indexColsArr);
     }
     this.columnNames = uniqueSelections.slice();
     this.fields = uniqueSelections.slice();
-    console.log(this.columnNames);
-    // Reset back to the first page when sort order is changed
+
+    // Reset back to the first page when sort order is changed`
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
-          if(this.sort.active && this.sort.direction) {
+          if (this.sort.active && this.sort.direction) {
             this.sortFields = this.sort.active + ':' + this.sort.direction;
           }
           this.from = this.paginator.pageIndex * this.paginator.pageSize;
+
           // fetch related fields
-          let fieldsToFetch = this.fields;
-          if (this.fields.includes('species.text') && !this.fields.includes('species.ontologyTerms')) {
-            fieldsToFetch.push('species.ontologyTerms');
+          const fieldsToFetch = this.fields;
+          if (this.fields.includes('file.species.text') && !this.fields.includes('file.species.ontologyTerms')) {
+            fieldsToFetch.push('file.species.ontologyTerms');
           }
-          return this.queryService.getRecords(this.selectedIndices, fieldsToFetch, 
+          return this.queryService.getRecords(this.selectedIndices, fieldsToFetch,
                   this.from, this.sortFields, this.project);
         }),
         map(data => {
@@ -122,7 +124,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
     this.fields = [];
     this.sort.sort(this.defaultSort);
     // remove selections for indices which are deselected
-    for (let index in this.selectedColumns) {
+    for (const index in this.selectedColumns) {
       if (!indices.includes(index)) {
         delete this.selectedColumns[index];
       }
@@ -137,7 +139,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
     }
     // if user hasn't selected columns for the index, set defaults
     for (let i=0; i<indices.length; i+=1) {
-      let index = indices[i];
+      const index = indices[i];
       if (!(index in this.selectedColumns)) {
         this.selectedColumns[index] = this.columnsByIndex[index]['defaults'];
       }
@@ -152,7 +154,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   }
 
   downloadCSV() {
-    this.queryService.downloadCsv(this.selectedIndices.join('-'), this.fields, this.sortFields, this.project);
+    this.queryService.downloadCsv(this.selectedIndices.join('-'), this.fields, this.project, 'csv');
   }
 
   isOptionDisabled(opt: any): boolean {

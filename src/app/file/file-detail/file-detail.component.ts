@@ -22,6 +22,7 @@ export class FileDetailComponent implements OnInit {
   showExperimentDetail = false;
   expandObject: any;
   getProtocolLink: any;
+  relatedArticles: Array<any>;
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;
@@ -55,11 +56,8 @@ export class FileDetailComponent implements OnInit {
         } else {
           this.file = data['hits']['hits'][0]['_source'];
           if (this.file) {
+            this.relatedArticles = data['hits']['hits'][0]['_source']['publishedArticles'];
             this.spinner.hide();
-            if (this.file.hasOwnProperty('publishedArticles')) {
-              this.file.publishedArticles = this.file.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
-                ((b.year > a.year) ? 1 : 0));
-            }
             if (this.file.hasOwnProperty('experiment')) {
               this.dataService.getExperimentByAccession(this.file['experiment']['accession']).subscribe(
                 (experiment_data: any) => {

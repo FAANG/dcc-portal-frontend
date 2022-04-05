@@ -9,9 +9,7 @@
 }
 
 .validation_button {
-  margin-left: 5px;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin: 15px 5px 5px 0;
 }
 
 .submission_data_button {
@@ -43,4 +41,25 @@ a {
 
 .container {
   margin-bottom: 100px;
+}
+
+.table-header {
+  background-color: rgba(0, 0, 0, 0.07);
+  font-size: 14px;
+  color: black;
+  font-weight: 600;
+  padding: 6px !important;
+}
+
+.table-cell-data {
+  padding: 6px !important;
+  max-width: 200px;
+  min-width: 200px;
+  overflow-wrap: break-word;
+}
+
+td.mat-cell:first-of-type, 
+td.mat-footer-cell:first-of-type, 
+th.mat-header-cell:first-of-type {
+  padding-left: 10px;
 }
