@@ -92,7 +92,7 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'analysis-file') {
-      this.dataService.getAnalysis(this.record_id).subscribe(
+      this.dataService.getAnalysis(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'][0]['_source']['files'];
         });
@@ -122,7 +122,7 @@ export class RelatedItemsComponent implements OnInit {
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
     } else if (relationship_type === 'dataset-analysis') {
-      this.dataService.getAnalysesByDataset(this.record_id).subscribe(
+      this.dataService.getAnalysesByDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
           this.records = data['hits']['hits'];
         });
@@ -163,6 +163,8 @@ export class RelatedItemsComponent implements OnInit {
     } else if (relationship_type === 'project-file') {
       this.records = [{}];
     }
+    console.log(this.source_type);
+    console.log(this.target_type);
   }
 
   isRecordPrivate(record: any) {
