@@ -19,7 +19,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   public loadTableDataFunction: Function;
   datasetListShort: Observable<DatasetTable[]>;
   datasetListLong: Observable<DatasetTable[]>;
-  displayFields: string[] = ['datasetAccession', 'title', 'species', 'archive', 'assayType', 'numberOfExperiments', 
+  displayFields: string[] = ['datasetAccession', 'title', 'species', 'archive', 'assayType', 'numberOfExperiments',
     'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished'];
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
   'Number of Specimens', 'Number of Files', 'Standard', 'Paper published'];
@@ -30,7 +30,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   downloading = false;
   data = {};
 
-  private query = {
+  query = {
     'sort': ['accession','desc'],
     '_source': [
       'accession',
@@ -77,7 +77,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.templates = {'datasetAccession': this.datasetAccessionTemplate, 
+    this.templates = {'datasetAccession': this.datasetAccessionTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllDatasets.bind(this.dataService);
     this.titleService.setTitle('FAANG datasets');
@@ -159,8 +159,8 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'species': 'species.text',
       'archive': 'archive',
       'assayType': 'assayType',
-      'numberOfExperiments': 'experiment.accession', 
-      'numberOfSpecimens': 'specimen.biosampleId', 
+      'numberOfExperiments': 'experiment.accession',
+      'numberOfSpecimens': 'specimen.biosampleId',
       'numberOfFiles': 'file.name',
       'standard': 'standardMet',
       'paper_published': 'paperPublished',

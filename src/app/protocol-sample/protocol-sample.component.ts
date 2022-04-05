@@ -27,7 +27,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   downloading = false;
   data = {};
 
-  private query = {
+  query = {
     'sort': ['protocolName', 'asc'],
     '_source': [
       'key',
@@ -148,8 +148,8 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
       a.click();
       this.downloading = false;
     });
-  }  
-  
+  }
+
   onUploadProtocolClick() {
     this.router.navigate(['upload_protocol']);
   }

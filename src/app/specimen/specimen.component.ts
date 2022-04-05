@@ -22,7 +22,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   specimenListLong: Observable<SpecimenTable[]>;
   columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard',
     'Paper published', 'Track Hub'];
-    displayFields: string[] = ['bioSampleId', 'material', 'organismpart_celltype', 'sex', 'organism', 'breed', 'standard', 
+    displayFields: string[] = ['bioSampleId', 'material', 'organismpart_celltype', 'sex', 'organism', 'breed', 'standard',
     'paperPublished', 'trackhubUrl'];
     filter_field: {};
     templates: Object;
@@ -31,7 +31,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     downloading = false;
     data = {};
 
-  private query = {
+  query = {
     'sort': ['id_number', 'desc'],
     '_source': [
       'biosampleId',
@@ -77,7 +77,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.templates = {'bioSampleId': this.biosampleIdTemplate, 
+    this.templates = {'bioSampleId': this.biosampleIdTemplate,
                       'paperPublished': this.paperPublishedTemplate,
                       'trackhubUrl': this.trackhubUrlTemplate };
     this.loadTableDataFunction = this.dataService.getAllSpecimens.bind(this.dataService);

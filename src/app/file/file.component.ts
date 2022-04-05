@@ -5,7 +5,7 @@ import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import {FileTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 
 @Component({
   selector: 'app-file-table',
@@ -28,8 +28,8 @@ export class FileComponent implements OnInit, OnDestroy {
   downloading = false;
   data = {};
 
-  private query = {
-    'sort': ['fileName','desc'],
+  query = {
+    'sort': ['fileName', 'desc'],
     '_source': [
       'study.accession',
       'experiment.accession',
@@ -74,7 +74,7 @@ export class FileComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.templates = {'fileName': this.fileNameTemplate, 
+    this.templates = {'fileName': this.fileNameTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllFiles.bind(this.dataService);
     this.titleService.setTitle('FAANG files');

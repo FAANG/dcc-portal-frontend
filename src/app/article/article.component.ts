@@ -15,7 +15,7 @@ import {TableServerSideComponent}  from '../shared/table-server-side/table-serve
 export class ArticleComponent implements OnInit, OnDestroy {
   @ViewChild('titleTemplate', { static: true }) titleTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
-  public loadTableDataFunction: Function;  
+  public loadTableDataFunction: Function;
   columnNames: string[] = ['Title', 'Journal', 'Year', 'Dataset source'];
   displayFields: string[] = ['title', 'journal', 'year', 'datasetSource'];
   filter_field: {};
@@ -25,8 +25,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
   downloading = false;
   data = {};
 
-  private query = {
-    'sort': ['pmcId','asc'],
+  query = {
+    'sort': ['pmcId', 'asc'],
     '_source': [
       'title',
       'journal',
@@ -133,10 +133,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
     let mapping = {
-      'title': 'title', 
-      'year': 'year', 
-      'journal': 'journal', 
-      'datasetSource': 'datasetSource', 
+      'title': 'title',
+      'year': 'year',
+      'journal': 'journal',
+      'datasetSource': 'datasetSource',
     }
     this.dataService.downloadRecords('article', mapping, this.downloadQuery).subscribe(
       (res:Blob)=>{

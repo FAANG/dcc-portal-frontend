@@ -29,7 +29,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   downloading = false;
   data = {};
 
-  private query = {
+  query = {
     'sort': ['id_number', 'desc'],
     '_source': [
       'biosampleId',
@@ -68,7 +68,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.templates = {'bioSampleId': this.bioSampleIdTemplate, 
+    this.templates = {'bioSampleId': this.bioSampleIdTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllOrganisms.bind(this.dataService);
     this.titleService.setTitle('FAANG organisms');

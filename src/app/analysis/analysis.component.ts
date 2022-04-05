@@ -26,8 +26,8 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   downloading = false;
   data = {};
 
-  private query = {
-    'sort': ['accession','desc'],
+  query = {
+    'sort': ['accession', 'desc'],
     '_source': [
       'accession',
       'datasetAccession',
@@ -140,12 +140,12 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
     let mapping = {
-      'accession': 'accession', 
-      'datasetAccession': 'datasetAccession', 
-      'title': 'title', 
-      'species': 'organism.text', 
-      'assayType': 'assayType', 
-      'analysisType': 'analysisType', 
+      'accession': 'accession',
+      'datasetAccession': 'datasetAccession',
+      'title': 'title',
+      'species': 'organism.text',
+      'assayType': 'assayType',
+      'analysisType': 'analysisType',
       'standard': 'standardMet'
     }
     this.dataService.downloadRecords('analysis', mapping, this.downloadQuery).subscribe(
