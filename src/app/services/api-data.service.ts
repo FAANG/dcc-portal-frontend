@@ -432,6 +432,7 @@ export class ApiDataService {
       'paper_published': 'paperPublished'
     }
     let mapping = {
+      'bioSampleId': 'biosampleId',
       'standard': 'standardMet',
       'id_number': 'id_number',
       'sex': 'organism.sex.text',
