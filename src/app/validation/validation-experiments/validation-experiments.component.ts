@@ -14,7 +14,7 @@ import {AAPUser} from '../aap_user';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {MatTabGroup} from '@angular/material/tabs';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 const UploadURL = validation_service_url + '/conversion/experiments';
 
@@ -66,7 +66,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   private_submission = false;
   col_index = [];
 
-  @ViewChild('myButton', {static: false}) myButton: ElementRef<HTMLElement>;
+  @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
   constructor(
     private titleService: Title,

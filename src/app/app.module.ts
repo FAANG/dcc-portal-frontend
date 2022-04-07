@@ -12,7 +12,6 @@ import {FilterPipe} from './pipes/filter.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {HttpClientModule} from '@angular/common/http';
 import { ActiveFilterComponent } from './shared/active-filter/active-filter.component';
-import { ExportComponent } from './shared/export/export.component';
 import { HomeComponent } from './home/home.component';
 import { OrganismComponent } from './organism/organism.component';
 import { SpecimenComponent } from './specimen/specimen.component';
@@ -22,7 +21,6 @@ import { ArticleComponent } from './article/article.component';
 import { SearchComponent } from './search/search.component';
 import { HelpComponent } from './help/help.component';
 import { HeaderComponent } from './shared/header/header.component';
-import {Angular2CsvModule} from 'angular2-csv';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ExportService} from './services/export.service';
 import { FileDetailComponent } from './file/file-detail/file-detail.component';
@@ -37,7 +35,7 @@ import { ArticleDetailComponent } from './article/article-detail/article-detail.
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 
 import { SearchService } from './services/search.service';
-import { CookieLawModule } from 'angular2-cookie-law';
+import { NgcCookieConsentModule, NgcCookieConsentConfig, NgcCookieConsentService } from 'ngx-cookieconsent';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -53,7 +51,7 @@ import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary
 import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
 import { FilesSummaryComponent } from './files-summary/files-summary.component';
 import {SlicePipe} from '@angular/common';
-import {BsDropdownModule} from 'ngx-bootstrap';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
 import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -70,13 +68,11 @@ import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.compo
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { SubprojectComponent } from './subprojects/subproject.component';
-import {AuthModule} from 'ng-ebi-authorization';
 import {JwtModule} from '@auth0/angular-jwt';
 import { AapComponent } from './aap/aap.component';
-import 'hammerjs';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material';
-import { MatSortModule } from '@angular/material';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component';
 import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
@@ -87,13 +83,13 @@ import {MatIconModule} from '@angular/material/icon';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatInputModule} from '@angular/material/input';
-import { MatRadioModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
-import { MatSelectModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
@@ -109,6 +105,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
+import {AuthModule} from 'ng-ebi-authorization';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -122,6 +119,22 @@ export function removeToken(): void {
   return localStorage.removeItem('jwt_token');
 }
 
+const cookieConfig:NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'data.faang.org'
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  theme: 'edgeless',
+  type: 'opt-out'
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -130,7 +143,6 @@ export function removeToken(): void {
     SortPipe,
     FilterPipe,
     ActiveFilterComponent,
-    ExportComponent,
     HomeComponent,
     OrganismComponent,
     SpecimenComponent,
@@ -192,11 +204,10 @@ export function removeToken(): void {
     AppRoutingModule,
     HttpClientModule,
     NgxPaginationModule,
-    Angular2CsvModule,
     NgxSpinnerModule,
     NgbDropdownModule,
     BrowserAnimationsModule,
-    CookieLawModule,
+    NgcCookieConsentModule,
     ChartsModule,
     FormsModule,
     FileUploadModule,
@@ -237,9 +248,9 @@ export function removeToken(): void {
     BsDropdownModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
-    NgbModule.forRoot(),
+    NgbModule,
   ],
-  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe, UserService],
+  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe, UserService, NgcCookieConsentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
 import { Component, AfterViewInit, TemplateRef, ViewChild, Input } from '@angular/core';
-import { MatPaginator, MatSort, MatSortable, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { QueryService } from '../services/query.service';
 import { Observable, merge, of as observableOf } from 'rxjs';
 import { FormControl } from '@angular/forms';

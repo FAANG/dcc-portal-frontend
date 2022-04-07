@@ -389,7 +389,7 @@
         Tags: 
         <br>
         <ng-container *ngFor="let tag of data.tags?.split(', '); let i = index">
-            <button *ngIf="tag.length" mat-button class="tags" (click)="data = removeTagToolsTab(data, i)">
+            <button *ngIf="tag.length" mat-button class="tags" (click)="removeTagToolsTab(data, i)">
                 <mat-icon>close</mat-icon>
                 {{tag}}
             </button>
@@ -397,7 +397,7 @@
         <mat-form-field appearance="fill" style="width: 100%;">
             <input matInput 
                 [(ngModel)]="newTag" 
-                (keyup.enter)="data = addTagToolTab(data, newTag)"
+                (keyup.enter)="addTagToolTab(data, newTag)"
                 placeholder="Add more tags">
         </mat-form-field>
     </div>

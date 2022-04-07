@@ -15,7 +15,7 @@ import {
   replaceUnderscoreWithSpace
 } from '../../shared/common_functions';
 import {MatTabGroup} from '@angular/material/tabs';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-ruleset-sample',

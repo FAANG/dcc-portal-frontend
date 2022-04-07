@@ -29,7 +29,7 @@ export const barChartOptions: ChartOptions = {
     enabled: true,
     mode: 'label',
     callbacks: {
-      title: function (tooltipItems, data) {
+      title: function (tooltipItems, data: any) {
         const idx = tooltipItems[0].index;
         return data.labels[idx];
       }

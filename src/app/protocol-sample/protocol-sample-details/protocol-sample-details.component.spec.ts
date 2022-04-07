@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProtocolSampleDetailsComponent } from './protocol-sample-details.component';
 import {HeaderComponent} from '../../shared/header/header.component';
@@ -11,7 +11,7 @@ describe('ProtocolSampleDetailsComponent', () => {
   let component: ProtocolSampleDetailsComponent;
   let fixture: ComponentFixture<ProtocolSampleDetailsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         ProtocolSampleDetailsComponent,

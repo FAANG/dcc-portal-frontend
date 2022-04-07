@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SheepatlasComponent } from './sheepatlas.component';
 import {HeaderComponent} from '../../shared/header/header.component';
@@ -12,7 +12,7 @@ describe('SheepatlasComponent', () => {
   let component: SheepatlasComponent;
   let fixture: ComponentFixture<SheepatlasComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         SheepatlasComponent,

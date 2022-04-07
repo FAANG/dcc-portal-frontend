@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubprojectComponent } from './subproject.component';
 import { HeaderComponent } from '../shared/header/header.component';
@@ -8,7 +8,7 @@ describe('SubprojectsLandingComponent', () => {
   let component: SubprojectComponent;
   let fixture: ComponentFixture<SubprojectComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         SubprojectComponent,

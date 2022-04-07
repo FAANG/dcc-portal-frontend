@@ -1,12 +1,12 @@
 import {FilterPipe} from './filter.pipe';
-import {async, inject, TestBed} from '@angular/core/testing';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {AggregationService} from '../services/aggregation.service';
 import {ExportService} from '../services/export.service';
 
 describe('Pipe: FilterPipe', () => {
   let pipe: FilterPipe;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         FilterPipe

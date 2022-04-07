@@ -8,22 +8,22 @@ import {environment} from '../environments/environment';
 })
 export class AppComponent implements OnInit {
   title = 'faang-portal-frontend-angular6-second';
-  name = 'Angular2 Cookie Law with Angular6';
-  cookieLawSeen: boolean;
+  // name = 'Angular2 Cookie Law with Angular6';
+  // cookieLawSeen: boolean;
 
-  @ViewChild('cookieLaw', { static: true })
-  cookieLawEl: any;
+  // @ViewChild('cookieLaw', { static: true })
+  // cookieLawEl: any;
 
   ngOnInit() {
-    this.cookieLawSeen = this.cookieLawEl.cookieLawSeen;
-    if (environment.production) {
-      if (location.protocol === 'http:' && location.hostname === 'data.faang.org') {
-        window.location.href = location.href.replace('http', 'https');
-      }
-    }
+    // this.cookieLawSeen = this.cookieLawEl.cookieLawSeen;
+    // if (environment.production) {
+    //   if (location.protocol === 'http:' && location.hostname === 'data.faang.org') {
+    //     window.location.href = location.href.replace('http', 'https');
+    //   }
+    // }
   }
 
-  dismiss(): void {
-    this.cookieLawEl.dismiss();
-  }
+  // dismiss(): void {
+  //   this.cookieLawEl.dismiss();
+  // }
 }

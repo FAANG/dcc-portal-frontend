@@ -7,7 +7,9 @@ import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {protocolNames} from '../../shared/protocolnames';
 import {getProtocolLink, expandObject} from '../../shared/common_functions';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-protocol-experiment-details',
