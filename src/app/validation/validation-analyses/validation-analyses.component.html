@@ -83,7 +83,7 @@
   <!-- Step 2.1 Show conversion and validation status -->
   <div class="row" *ngIf="conversion_status || validation_started || validation_results">
     <div class="col-md-12">
-      <h3>2. Conversion and  Validation results:</h3>
+      <h3>2. Conversion and Validation results:</h3>
       <div *ngIf="conversion_status" style="margin-left: 5px;">
         Conversion Status: <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
       </div>
@@ -106,7 +106,9 @@
       </div>
       <div *ngIf="!validation_results && validation_started" style="margin-left: 5px;">
         Validation Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
-        <br>
+        <div class="col-md-12 alert alert-danger" *ngFor="let error of errors">
+          {{error}}
+        </div>
       </div>
     </div>
   </div>
@@ -181,6 +183,9 @@
     <div class="col-md-12">
       <div [ngClass]="submissionMessageClass()" role="alert">
         {{submission_message}}
+        <div *ngFor="let error of errors">
+          {{error}}
+        </div>
       </div>
     </div>
   </div>

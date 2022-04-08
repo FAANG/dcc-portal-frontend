@@ -106,7 +106,9 @@
       </div>
       <div *ngIf="!validation_results && validation_started" style="margin-left: 5px;">
         Validation Status: <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
-        <br>
+        <div class="col-md-12 alert alert-danger" *ngFor="let error of errors">
+          {{error}}
+        </div>
       </div>
     </div>
   </div>
@@ -182,6 +184,9 @@
     <div class="col-md-12">
       <div [ngClass]="submissionMessageClass()" role="alert">
         {{submission_message}}
+        <div *ngFor="let error of errors">
+          {{error}}
+        </div>
       </div>
     </div>
   </div>
