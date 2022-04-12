@@ -35,7 +35,6 @@ import { ArticleDetailComponent } from './article/article-detail/article-detail.
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 
 import { SearchService } from './services/search.service';
-import { NgcCookieConsentModule, NgcCookieConsentConfig, NgcCookieConsentService } from 'ngx-cookieconsent';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -104,6 +103,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
+import { NgcCookieConsentModule } from 'ngx-cookieconsent';
+import { cookieConfig } from './app.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -116,22 +117,6 @@ export function updateToken(newToken: string): void {
 export function removeToken(): void {
   return localStorage.removeItem('jwt_token');
 }
-
-const cookieConfig:NgcCookieConsentConfig = {
-  cookie: {
-    domain: 'data.faang.org'
-  },
-  palette: {
-    popup: {
-      background: '#000'
-    },
-    button: {
-      background: '#f1d600'
-    }
-  },
-  theme: 'edgeless',
-  type: 'opt-out'
-};
 
 @NgModule({
   declarations: [
@@ -204,7 +189,6 @@ const cookieConfig:NgcCookieConsentConfig = {
     NgxSpinnerModule,
     NgbDropdownModule,
     BrowserAnimationsModule,
-    NgcCookieConsentModule,
     ChartsModule,
     FormsModule,
     FileUploadModule,
@@ -240,8 +224,9 @@ const cookieConfig:NgcCookieConsentConfig = {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
     NgbModule,
+    NgcCookieConsentModule.forRoot(cookieConfig)
   ],
-  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe, UserService, NgcCookieConsentService],
+  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
