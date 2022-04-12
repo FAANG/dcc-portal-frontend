@@ -38,7 +38,6 @@ import {ValidationAnalysesComponent} from './validation/validation-analyses/vali
 import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
 import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
 import {SubprojectComponent} from './subprojects/subproject.component';
-import {AapComponent} from './aap/aap.component';
 import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';

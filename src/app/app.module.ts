@@ -69,7 +69,6 @@ import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.compone
 import {FileUploadModule} from 'ng2-file-upload';
 import { SubprojectComponent } from './subprojects/subproject.component';
 import {JwtModule} from '@auth0/angular-jwt';
-import { AapComponent } from './aap/aap.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -105,7 +104,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
-import {AuthModule} from 'ng-ebi-authorization';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -184,7 +182,6 @@ const cookieConfig:NgcCookieConsentConfig = {
     UsdaBovineComponent,
     SheepatlasComponent,
     SubprojectComponent,
-    AapComponent,
     TableClientSideComponent,
     LoginComponent,
     FilesUploadComponent,
@@ -232,12 +229,6 @@ const cookieConfig:NgcCookieConsentConfig = {
     MatProgressBarModule,
     MatToolbarModule,
     MatBadgeModule,
-    AuthModule.forRoot({
-      aapURL: 'https://api.aai.ebi.ac.uk',
-      tokenGetter: getToken,
-      tokenUpdater: updateToken,
-      tokenRemover: removeToken
-    }),
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,

@@ -38,7 +38,6 @@
     "core-js": "^2.6.11",
     "file-saver": "^2.0.2",
     "material-design-icons": "^3.0.1",
-    "ng-ebi-authorization": "^1.0.0-beta.7",
     "ng2-charts": "^2.3.0",
     "ng2-file-upload": "^1.4.0",
     "ngx-bootstrap": "^5.2.0",
