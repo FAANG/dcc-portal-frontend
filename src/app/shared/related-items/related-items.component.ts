@@ -61,7 +61,7 @@ export class RelatedItemsComponent implements OnInit {
     }, Math.floor(Math.random() * 200));
     const relationship_type = `${this.source_type}-${this.target_type}`;
     const client_side = ['project-pipeline', 'publication-dataset', 'analysis-file',
-      'file-paper', 'dataset-specimen', 'dataset-file', 'dataset-paper', 'organism-paper', 'organism-specimen', 'specimen-paper'];
+      'file-paper', 'dataset-specimen', 'dataset-file', 'dataset-paper', 'organism-paper', 'specimen-paper'];
     this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0;
       if (!client_side.includes(relationship_type)) {
@@ -163,13 +163,11 @@ export class RelatedItemsComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'organism-specimen') {
-      this.dataService.getOrganismsSpecimens(this.record_id, this.mode).subscribe(
+      this.dataService.getOrganismsSpecimens(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode).subscribe(
         (data: any) => {
-          this.records = data['hits']['hits'];
+          this.records = data.hits.hits;
           this.dataSource.data = this.getDataSource(this.records);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.totalHits = this.dataSource.data.length;
+          this.totalHits = data.hits.total.value;
         });
     } else if (relationship_type === 'specimen-paper') {
         this.dataSource.data = this.getDataSource(this.data);
@@ -195,8 +193,6 @@ export class RelatedItemsComponent implements OnInit {
           this.totalHits = res['totalHits'];
         });
     }
-    console.log(this.source_type);
-    console.log(this.target_type);
   }
 
   getSort() {
@@ -235,6 +231,9 @@ export class RelatedItemsComponent implements OnInit {
             rowObj['Download'] = rowObj['Download'][dKey[0]];
             dKey.shift();
           }
+        }
+        if (records[index]['private']) {
+          rowObj['private'] = records[index]['private'];
         }
       }
       tableData.push(rowObj);

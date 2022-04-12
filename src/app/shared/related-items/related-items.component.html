@@ -48,7 +48,7 @@
           </td>
         </ng-container>
         <ng-container *ngIf="col != 'Download'">
-          <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{display_fields[i]}} </th>
+          <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode == 'private'"> {{display_fields[i]}} </th>
           <td mat-cell class="table-cell-data" *matCellDef="let item"> 
             <ng-container *ngIf="get_field_values_for_links(col)">
                 <ng-container *ngIf="!isRecordPrivate(item)">

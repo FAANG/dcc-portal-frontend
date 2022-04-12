@@ -323,16 +323,19 @@
       "fields": {
         "BioSamples ID": {
           "value": "_source.biosampleId",
+          "source": "biosampleId",
           "link": {
             "prefix": "../specimen/",
             "url": "BioSamples ID"
           }
         },
         "Organism part/Cell type": {
-          "value": "_source.cellType.text"
+          "value": "_source.cellType.text",
+          "source": "cellType.text"
         },
         "Material type": {
-          "value": "_source.material.text"
+          "value": "_source.material.text",
+          "source": "material.text"
         }
       }
     }
