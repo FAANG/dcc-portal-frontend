@@ -7,8 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import {ApiDataService} from './services/api-data.service';
 import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
-import {SortPipe} from './pipes/sort.pipe';
-import {FilterPipe} from './pipes/filter.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {HttpClientModule} from '@angular/common/http';
 import { ActiveFilterComponent } from './shared/active-filter/active-filter.component';
@@ -18,27 +16,20 @@ import { SpecimenComponent } from './specimen/specimen.component';
 import { DatasetComponent } from './dataset/dataset.component';
 import { AnalysisComponent } from './analysis/analysis.component';
 import { ArticleComponent } from './article/article.component';
-import { SearchComponent } from './search/search.component';
-import { HelpComponent } from './help/help.component';
 import { HeaderComponent } from './shared/header/header.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
-import {ExportService} from './services/export.service';
 import { FileDetailComponent } from './file/file-detail/file-detail.component';
 import { RobustLinkComponent } from './shared/robust-link/robust-link.component';
 import { RelatedItemsComponent } from './shared/related-items/related-items.component';
 import { OrganismDetailComponent } from './organism/organism-detail/organism-detail.component';
 import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-detail.component';
-import { SearchTemplateComponent } from './search/search-template/search-template.component';
 import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
 import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
 import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
-
-import { SearchService } from './services/search.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { ApiComponent } from './help/api/api.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
@@ -123,8 +114,6 @@ export function removeToken(): void {
     AppComponent,
     FileComponent,
     FilterComponent,
-    SortPipe,
-    FilterPipe,
     ActiveFilterComponent,
     HomeComponent,
     OrganismComponent,
@@ -132,20 +121,16 @@ export function removeToken(): void {
     DatasetComponent,
     AnalysisComponent,
     ArticleComponent,
-    SearchComponent,
-    HelpComponent,
     HeaderComponent,
     FileDetailComponent,
     RobustLinkComponent,
     RelatedItemsComponent,
     OrganismDetailComponent,
     SpecimenDetailComponent,
-    SearchTemplateComponent,
     DatasetDetailComponent,
     AnalysisDetailComponent,
     ArticleDetailComponent,
     SubprojectDetailComponent,
-    ApiComponent,
     ProtocolSampleComponent,
     ProtocolExperimentComponent,
     ProtocolSampleDetailsComponent,
@@ -226,7 +211,7 @@ export function removeToken(): void {
     NgbModule,
     NgcCookieConsentModule.forRoot(cookieConfig)
   ],
-  providers: [ApiDataService, AggregationService, ExportService, SearchService, SlicePipe, UserService],
+  providers: [ApiDataService, AggregationService, SlicePipe, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

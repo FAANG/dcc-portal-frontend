@@ -7,9 +7,6 @@ import {SpecimenComponent} from './specimen/specimen.component';
 import {DatasetComponent} from './dataset/dataset.component';
 import {AnalysisComponent} from './analysis/analysis.component';
 import {ArticleComponent} from './article/article.component';
-
-import {SearchComponent} from './search/search.component';
-import {HelpComponent} from './help/help.component';
 import {FileDetailComponent} from './file/file-detail/file-detail.component';
 import {OrganismDetailComponent} from './organism/organism-detail/organism-detail.component';
 import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detail.component';
@@ -17,8 +14,6 @@ import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.co
 import {AnalysisDetailComponent} from './analysis/analysis-detail/analysis-detail.component';
 import {ArticleDetailComponent} from './article/article-detail/article-detail.component';
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
-
-import {ApiComponent} from './help/api/api.component';
 import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.component';
 import {ProtocolExperimentComponent} from './protocol-experiment/protocol-experiment.component';
 import {ProtocolSampleDetailsComponent} from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
@@ -68,9 +63,6 @@ const routes: Routes = [
   {path: 'protocol/experiments', component: ProtocolExperimentComponent},
   {path: 'protocol/experiments/:id', component: ProtocolExperimentDetailsComponent},
   {path: 'protocol/analysis', component: ProtocolAnalysisComponent},
-  {path: 'search', component: SearchComponent},
-  {path: 'help', component: HelpComponent},
-  {path: 'help/api', component: ApiComponent},
   {path: 'summary', redirectTo: 'summary/organisms', pathMatch: 'full'},
   {path: 'summary/organisms', component: OrganismsSummaryComponent},
   {path: 'summary/specimens', component: SpecimensSummaryComponent},
