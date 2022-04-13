@@ -108,6 +108,9 @@ export class TableServerSideComponent implements AfterViewInit {
               else if (val == 'female') {
                 sex_val = sex_val.concat(female_values);
               }
+              else {
+                sex_val.push(val);
+              }
             });
             this.query['filters'][col] = sex_val;
           }
