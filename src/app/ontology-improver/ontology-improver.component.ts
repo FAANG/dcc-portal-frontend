@@ -330,14 +330,12 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
       }
       this.newTag = null;
     }
-    return data;
   }
 
   removeTagToolsTab(data, tagIndex) {
     let tagsList = data.tags.split(', ');
     tagsList.splice(tagIndex, 1);
     data.tags = tagsList.join(', ');
-    return data;
   }
 
   submitEditedOntology(data) {

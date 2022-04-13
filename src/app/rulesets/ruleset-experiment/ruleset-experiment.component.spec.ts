@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RulesetExperimentComponent } from './ruleset-experiment.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -9,7 +9,7 @@ describe('RulesetExperimentComponent', () => {
   let component: RulesetExperimentComponent;
   let fixture: ComponentFixture<RulesetExperimentComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         RulesetExperimentComponent,

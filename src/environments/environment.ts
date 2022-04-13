@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  // host: 'http://wp-np3-e3:9200/'
-  // host: 'http://ves-hx-e4:9200/faang_build_2/'
+  cookieDomain: 'localhost',
   host: 'https://api.faang.org/',
   relatedProjectsHost: 'https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/'
 };
@@ -16,4 +15,4 @@ export const environment = {
  * below file. Don't forget to comment it out in production mode
  * because it will have a performance impact when errors are thrown
  */
-// import 'zone.js/dist/zone-errorSubject';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-errorSubject';  // Included with Angular CLI.

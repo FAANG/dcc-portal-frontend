@@ -19,12 +19,12 @@ export class SubprojectComponent implements OnInit {
     const faang_keyproj = [];
 
     for (const [key, value] of Object.entries(setting)) {
-      if (key !== 'EuroFAANG' && value.parent_project !== 'EuroFAANG') {
+      if (key !== 'EuroFAANG' && value['parent_project'] !== 'EuroFAANG') {
         if (key === 'FAANG') {
           this.faang_proj = value;
           this.faang_proj['id'] = key;
         }
-        if (value.parent_project && value.parent_project === 'FAANG') {
+        if (value['parent_project'] && value['parent_project'] === 'FAANG') {
           value['id'] = key;
           faang_keyproj.push(value);
         }
@@ -34,7 +34,7 @@ export class SubprojectComponent implements OnInit {
           this.eurofaang_proj = value;
           this.eurofaang_proj['id'] = key;
         }
-        if (value.parent_project && value.parent_project === 'EuroFAANG') {
+        if (value['parent_project'] && value['parent_project'] === 'EuroFAANG') {
           value['id'] = key;
           eurofaang_keyproj.push(value);
         }

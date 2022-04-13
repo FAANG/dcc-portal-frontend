@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DatasetComponent } from './dataset.component';
 import {HeaderComponent} from '../shared/header/header.component';
@@ -15,7 +15,7 @@ describe('DatasetComponent', () => {
   let component: DatasetComponent;
   let fixture: ComponentFixture<DatasetComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         DatasetComponent,

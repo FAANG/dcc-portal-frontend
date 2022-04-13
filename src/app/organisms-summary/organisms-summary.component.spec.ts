@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OrganismsSummaryComponent } from './organisms-summary.component';
 import {HeaderComponent} from '../shared/header/header.component';
@@ -10,7 +10,7 @@ describe('OrganismsSummaryComponent', () => {
   let component: OrganismsSummaryComponent;
   let fixture: ComponentFixture<OrganismsSummaryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         OrganismsSummaryComponent,

@@ -55,7 +55,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
 
       if (this.project === 'EuroFAANG') {
         for (const [key, value] of Object.entries(setting)) {
-          if (value.parent_project && value.parent_project === 'EuroFAANG') {
+          if (value['parent_project'] && value['parent_project'] === 'EuroFAANG') {
             this.eurofaang_keyproj.push(key);
           }
         }

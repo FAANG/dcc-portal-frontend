@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FileComponent } from './file.component';
 import {HeaderComponent} from '../shared/header/header.component';
@@ -15,7 +15,7 @@ describe('FileTableComponent', () => {
   let component: FileComponent;
   let fixture: ComponentFixture<FileComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         FileComponent,

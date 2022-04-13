@@ -21,9 +21,12 @@
       "styles": [ 
         "../node_modules/normalize.css/normalize.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
+        "../node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
+        "../node_modules/cookieconsent/build/cookieconsent.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/cookieconsent/build/cookieconsent.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

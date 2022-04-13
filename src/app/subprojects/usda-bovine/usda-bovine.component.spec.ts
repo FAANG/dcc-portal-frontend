@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { UsdaBovineComponent } from './usda-bovine.component';
 import {HeaderComponent} from '../../shared/header/header.component';
@@ -12,7 +12,7 @@ describe('UsdaBovineComponent', () => {
   let component: UsdaBovineComponent;
   let fixture: ComponentFixture<UsdaBovineComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         UsdaBovineComponent,
