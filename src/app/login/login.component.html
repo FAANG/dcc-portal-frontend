@@ -1,9 +1,9 @@
 <app-header></app-header>
 <div class="container-fluid">
-  <h2>Login</h2>
+  <h2 style="text-align: center;">Login</h2>
   <hr>
-  <div fxLayout="row" *ngIf="!_userService.token">
-    <div fxFlex="50" fxFlex.lt-md="100">
+  <div fxLayout="row" fxLayoutAlign="space-around" *ngIf="!_userService.token">
+    <div fxFlex="35" fxFlex.lt-md="50" fxFlex.lt-sm="100" >
       <form (ngSubmit)="login()" #userForm="ngForm">
         <div class="form-group">
           <label for="aapUsername">Username</label>

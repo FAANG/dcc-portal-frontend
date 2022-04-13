@@ -12,13 +12,13 @@
   </h3>
 
   <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
-    <div fxFlex="20">
+    <div fxFlex="17">
       <app-filter title="Dataset source" [filterSize]=2></app-filter>
       <app-filter title="Year" [filterSize]=6></app-filter>
       <app-filter title="Journal" [filterSize]=6></app-filter>
     </div>
 
-    <div fxFlex="80" class="table-responsive">
+    <div fxFlex="83" class="table-responsive">
       <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
         Download data
       </button>

@@ -14,12 +14,12 @@
                 <button *ngIf="token" mat-raised-button color="warn" (click)="logout()">Logout</button>
             </div>
             <div class="row" fxlayout.lt-md="column" fxLayoutGap="2%" style="padding-top: 10px; padding-bottom: 10px;">
-                <div fxFlex="20" fxFlex.lt-md="100">
+                <div fxFlex="17" fxFlex.lt-md="100">
                     <app-filter title="Ontology Status" [filterSize]=4></app-filter>
                     <app-filter title="Project" [filterSize]=4></app-filter>
                     <app-filter title="Ontology Type" [filterSize]=5></app-filter>
                 </div>
-                <div fxFlex="78" fxFlex.lt-md="100">
+                <div fxFlex="81" fxFlex.lt-md="100">
                     <div *ngIf="hasActiveFilters()">
                       <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
                       <button mat-raised-button (click)="removeFilter()">Remove all filters</button>

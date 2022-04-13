@@ -9,13 +9,13 @@
   </mat-tab-group>
 
   <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
-    <div fxFlex="20">
+    <div fxFlex="17">
       <app-filter title="Protocol" [filterSize]=2></app-filter>
       <app-filter title="Experiment target" [filterSize]=3></app-filter>
       <app-filter title="Assay type" [filterSize]=2></app-filter>
     </div>
 
-    <div fxFlex="80" class="table-responsive">
+    <div fxFlex="83" class="table-responsive">
       <div *ngIf="hasActiveFilters()">
         <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
         <button mat-raised-button (click)="removeFilter()">Remove all filters</button>

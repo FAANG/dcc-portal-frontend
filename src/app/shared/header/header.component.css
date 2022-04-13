@@ -10,3 +10,7 @@ a {
 .active {
   color: black;
 }
+
+.mat-button {
+  padding: 0;
+}
