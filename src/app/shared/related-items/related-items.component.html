@@ -31,7 +31,11 @@
   </div>
 
   <div class="table-responsive">
-  
+    <mat-form-field style="width: 98%;">
+      <mat-label>Search</mat-label>
+      <input (keyup)="searchChanged($event)" matInput 
+          placeholder="Search">
+    </mat-form-field>
     <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
       <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
         <ng-container *ngIf="col == 'Download'">

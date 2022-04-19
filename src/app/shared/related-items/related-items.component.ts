@@ -27,11 +27,16 @@ export class RelatedItemsComponent implements OnInit {
   display_fields: Array<string> = [];
   progress: Observable<Object> = observableOf({});
   totalHits = 0;
-
+  client_side = ['project-pipeline', 'publication-dataset', 'analysis-file',
+    'file-paper', 'dataset-specimen', 'dataset-file', 'dataset-paper', 'organism-paper', 'specimen-paper'];
+  relationship_type;
   records: any;
   urls: string[] = [];
   checked = false;
   mode: string;
+  timer: any;
+  delaySearch: boolean = true;
+  search = '';
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -61,17 +66,15 @@ export class RelatedItemsComponent implements OnInit {
     setTimeout(() => {
       this.fetchData();
     }, Math.floor(Math.random() * 200));
-    const relationship_type = `${this.source_type}-${this.target_type}`;
-    const client_side = ['project-pipeline', 'publication-dataset', 'analysis-file',
-      'file-paper', 'dataset-specimen', 'dataset-file', 'dataset-paper', 'organism-paper', 'specimen-paper'];
+    this.relationship_type = `${this.source_type}-${this.target_type}`;
     this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0;
-      if (!client_side.includes(relationship_type)) {
+      if (!this.client_side.includes(this.relationship_type)) {
         this.fetchData();
       }
     });
     this.paginator.page.subscribe(() => {
-      if (!client_side.includes(relationship_type)) {
+      if (!this.client_side.includes(this.relationship_type)) {
         this.fetchData();
       }
     });
@@ -80,21 +83,22 @@ export class RelatedItemsComponent implements OnInit {
   fetchData() {
     const relationship_type = `${this.source_type}-${this.target_type}`;
     if (relationship_type === 'project-organism') {
-      this.dataService.getAllOrganismsFromProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+      this.dataService.getAllOrganismsFromProject(
+        this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-specimen') {
-      this.dataService.getAllSpecimensForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+      this.dataService.getAllSpecimensForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-publication') {
-      this.dataService.getAllArticlesForProject(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+      this.dataService.getAllArticlesForProject(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -110,14 +114,14 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-file') {
-      this.dataService.getAllFilesForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+      this.dataService.getAllFilesForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-dataset') {
-      this.dataService.getAllDatasetsForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+      this.dataService.getAllDatasetsForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -137,7 +141,7 @@ export class RelatedItemsComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'file-download') {
-      this.dataService.getFilesByRun(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+      this.dataService.getFilesByRun(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -154,7 +158,7 @@ export class RelatedItemsComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'dataset-analysis') {
-      this.dataService.getAnalysesByDataset(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode).subscribe(
+      this.dataService.getAnalysesByDataset(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -165,7 +169,7 @@ export class RelatedItemsComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'organism-specimen') {
-      this.dataService.getOrganismsSpecimens(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode).subscribe(
+      this.dataService.getOrganismsSpecimens(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode, this.search).subscribe(
         (data: any) => {
           this.records = data.hits.hits;
           this.dataSource.data = this.getDataSource(this.records);
@@ -177,19 +181,19 @@ export class RelatedItemsComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'specimen-specimen') {
-      this.dataService.getSpecimenRelationships(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+      this.dataService.getSpecimenRelationships(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'specimen-file') {
-      this.dataService.getSpecimenFiles(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+      this.dataService.getSpecimenFiles(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         });
     } else if (relationship_type === 'specimen-analysis') {
-      this.dataService.getAnalysesBySample(this.record_id, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+      this.dataService.getAnalysesBySample(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -342,5 +346,28 @@ export class RelatedItemsComponent implements OnInit {
 
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  searchChanged(event: any){
+    const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    if (this.delaySearch){
+      if (this.timer){
+        clearTimeout(this.timer);
+      }
+      this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
+    } 
+    else {
+      this.applySearchFilter(searchFilterValue);
+    }
+  }
+
+  applySearchFilter(value: string) {
+    this.paginator.pageIndex = 0;
+    this.search = value;
+    if (!this.client_side.includes(this.relationship_type)) {
+      this.fetchData();
+    } else {
+      this.dataSource.filter = value;
+    }
   }
 }
