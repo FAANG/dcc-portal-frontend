@@ -78,10 +78,10 @@
     <div fxLayout="column" *ngIf="validation_results">
       <div fxLayout="row">
         <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
-          <h6>Validation Status</h6> 
+          <h6>Validation Status</h6>
           <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
         </div>
-      </div> 
+      </div>
       <div fxLayout="row" style="margin-top: 10px;">
         <mat-tab-group (selectedTabChange)="onRecordButtonClick($event)">
           <mat-tab *ngFor="let key of record_types" [label]="remove_underscores(key)"></mat-tab>
@@ -92,6 +92,12 @@
       <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!validation_results && validation_started">
         <h6>Validation Status</h6>
         <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
+      </div>
+    </div>
+    <div fxLayout="column" *ngIf="validation_status === 'Error'">
+      Errors:
+      <div fxLayout="row" role="alert" *ngFor="let error of errors">
+        {{error}}
       </div>
     </div>
   </div>
@@ -110,7 +116,7 @@
       (click)="onValidationResultsButtonClick('issues')">
       Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
     </button>
-    <button mat-raised-button color="accent" class="validation_button" 
+    <button mat-raised-button color="accent" class="validation_button"
       (click)="getTemplateFile()" *ngIf="annotation_status !== 'Download data'">
       Get annotated template
     </button>
@@ -118,7 +124,7 @@
       <a href="{{constructDownloadTemplateLink()}}" target="_blank" style="text-decoration: none; color: black;">Download annotated template</a>
     </button>
   </div>
-  
+
   <div class="table-responsive" *ngIf="show_table && dataSource.data.length > 0">
     <table mat-table [dataSource]="dataSource" table-striped style="width: 100%; margin-top: 15px;">
       <ng-container [matColumnDef]=col *ngFor="let col of col_index; let j = index">
@@ -143,8 +149,8 @@
         <h6>Status</h6>
         <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
       </div>
-      <button class="submission_data_button" mat-raised-button color="primary" 
-        *ngIf="submission_status !== 'Data is ready'" (click)="onStartSubmissionClick()" 
+      <button class="submission_data_button" mat-raised-button color="primary"
+        *ngIf="submission_status !== 'Data is ready'" (click)="onStartSubmissionClick()"
         [disabled]="isSubmissionDisabled(submission_status)">
         Start submission to BioSamples
       </button>
@@ -156,6 +162,9 @@
   <div fxLayout="row" *ngIf="submissionStarted === true">
     <div fxFlex="100" [ngClass]="submissionMessageClass()" role="alert">
       {{submission_message}}
+      <div *ngFor="let error of errors">
+        {{error}}
+      </div>
     </div>
   </div>
 

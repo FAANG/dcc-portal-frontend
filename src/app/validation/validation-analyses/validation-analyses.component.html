@@ -165,6 +165,9 @@
   <div fxLayout="row" *ngIf="submissionStarted === true">
     <div fxFlex="100" [ngClass]="submissionMessageClass()" role="alert">
       {{submission_message}}
+      <div *ngFor="let error of errors">
+        {{error}}
+      </div>
     </div>
   </div>
 
