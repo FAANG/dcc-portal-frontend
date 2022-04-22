@@ -922,6 +922,59 @@ export class ApiDataService {
     );
   }
 
+  getAllAnalysisProtocols(query: any, size: number) {
+    const url = `${this.hostSetting.host}data/protocol_analysis/_search/?size=${size}`;
+    const aggs = {
+      'university_name': 'universityName',
+      'protocol_date': 'protocolDate',
+    };
+    const mapping = {
+      'key': 'key',
+      'protocol_name': 'protocolName',
+      'university_name': 'universityName',
+      'protocol_date': 'protocolDate',
+    };
+    const filters = query['filters'];
+    for (const prop of Object.keys(filters)) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query[
+      'sort'][1];
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
+      JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    const res = {};
+    return this.http.get(url, {params: params}).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits.map( entry => ({
+          key: entry['_source']['key'],
+          protocol_name: entry['_source']['protocolName'],
+          university_name: entry['_source']['universityName'],
+          protocol_date: entry['_source']['protocolDate'].toString(),
+          } as ProtocolSample)
+        );
+        res['totalHits'] = data.hits.total.value;
+        res['aggregations'] = data.aggregations;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAnalysisProtocol(id: string) {
+    const url = `${this.hostSetting.host}data/protocol_analysis/${id}`;
+    return this.http.get(url).pipe(
+      map( (data: any) => {
+        return data;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getAllExperimentsProtocols(query: any, size: number) {
     const url = `${this.hostSetting.host}data/protocol_files/_search/?size=${size}`;
     const aggs = {

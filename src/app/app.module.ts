@@ -96,6 +96,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { cookieConfig } from './app.component';
+import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -164,7 +165,8 @@ export function removeToken(): void {
     EurofaangInfoComponent,
     CustomTableBuilderComponent,
     TableServerSideComponent,
-    NextflowSubmissionComponent
+    NextflowSubmissionComponent,
+    ProtocolAnalysisDetailsComponent
   ],
   imports: [
     BrowserModule,

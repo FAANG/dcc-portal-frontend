@@ -1,3 +1,51 @@
-<p>
-  protocol-analysis works!
-</p>
+<app-header></app-header>
+<div class="container-fluid">
+  <h2>FAANG Protocols</h2>
+  <hr>
+
+  <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+    <mat-tab label="Samples"></mat-tab>
+    <mat-tab label="Experiments"></mat-tab>
+    <mat-tab label="Analyses"></mat-tab>
+  </mat-tab-group>
+
+  <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
+    <div fxFlex="17">
+      <app-filter title="Organisation" [filterSize]=2></app-filter>
+      <app-filter title="Protocol Year" [filterSize]=5></app-filter>
+    </div>
+
+    <div fxFlex="83" class="table-responsive">
+      <div *ngIf="hasActiveFilters()">
+        <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
+        <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
+        <hr>
+      </div>
+      <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
+        Download data
+      </button>
+      <button (click)="downloadFile('csv')" mat-raised-button *ngIf="downloadData">
+        Export as CSV file
+      </button>
+      <button (click)="downloadFile('txt')" mat-raised-button *ngIf="downloadData">
+        Export as Tabular file
+      </button>
+      <button mat-raised-button style="background-color: green; color: white;" (click)="onUploadProtocolClick()">Upload protocol</button>
+      <mat-spinner *ngIf="downloading" [diameter]="30" 
+        style="display: inline; margin-left: 10px;">
+      </mat-spinner>
+      <app-table-server-side  [display_fields]="displayFields" 
+            [column_names]="columnNames"
+            [templates]="templates"
+            [filter_values]="filter_field"
+            [apiFunction]="loadTableDataFunction"
+            [query]="query"
+            [defaultSort]="defaultSort">
+      </app-table-server-side>
+    </div>
+  </div>
+</div>
+
+<ng-template #nameTemplate let-item>
+  <a style="cursor: pointer" target="_blank" [routerLink]="item['key']">{{item['protocol_name']}}</a>
+</ng-template>

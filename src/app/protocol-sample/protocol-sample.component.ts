@@ -161,6 +161,9 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     else if (tab.index == 1) {
       this.router.navigate(['protocol/experiments']);
     }
+    else if (tab.index == 2) {
+      this.router.navigate(['protocol/analysis']);
+    }
   }
 
   ngOnDestroy() {
