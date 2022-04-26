@@ -78,10 +78,10 @@
     <div fxLayout="column" *ngIf="validation_results">
       <div fxLayout="row">
         <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
-          <h6>Validation Status</h6> 
+          <h6>Validation Status</h6>
           <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
         </div>
-      </div> 
+      </div>
       <div fxLayout="row" style="margin-top: 10px;">
         <mat-tab-group (selectedTabChange)="onRecordButtonClick($event)">
           <mat-tab *ngFor="let key of record_types" [label]="remove_underscores(key)"></mat-tab>
@@ -92,6 +92,12 @@
       <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!validation_results && validation_started">
         <h6>Validation Status</h6>
         <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
+      </div>
+    </div>
+    <div fxLayout="column" *ngIf="validation_status === 'Error'">
+      Errors:
+      <div fxLayout="row" role="alert" *ngFor="let error of errors">
+        {{error}}
       </div>
     </div>
   </div>
@@ -106,11 +112,11 @@
     </button>
     <button class="validation_button" mat-raised-button color="warn"
       [ngClass]="active_issue == 'issues' ? 'mat-stroked-button' : 'mat-raised-button'"
-      [style.font-weight]="active_issue == 'issues' ? 700 : 500" 
+      [style.font-weight]="active_issue == 'issues' ? 700 : 500"
       (click)="onValidationResultsButtonClick('issues')">
       Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
     </button>
-    <button mat-raised-button color="accent" class="validation_button" 
+    <button mat-raised-button color="accent" class="validation_button"
       (click)="getTemplateFile()" *ngIf="annotation_status !== 'Download data'">
       Get annotated template
     </button>
@@ -159,6 +165,9 @@
   <div fxLayout="row" *ngIf="submissionStarted === true">
     <div fxFlex="100" [ngClass]="submissionMessageClass()" role="alert">
       {{submission_message}}
+      <div *ngFor="let error of errors">
+        {{error}}
+      </div>
     </div>
   </div>
 
@@ -191,7 +200,7 @@
           </div>
         </div>
 
-        <button mat-raised-button color="primary"class="validation_button"
+        <button mat-raised-button color="primary" class="validation_button"
                 type="submit" [disabled]="!enaForm.form.valid">Submit</button>
       </form>
     </div>

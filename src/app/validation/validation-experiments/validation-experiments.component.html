@@ -94,6 +94,12 @@
         <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
       </div>
     </div>
+    <div fxLayout="column" *ngIf="validation_status === 'Error'">
+      Errors:
+      <div fxLayout="row" role="alert" *ngFor="let error of errors">
+        {{error}}
+      </div>
+    </div>
   </div>
 
   <!-- Step 2.2 Show validation results table -->
@@ -110,7 +116,7 @@
       (click)="onValidationResultsButtonClick('issues')">
       Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
     </button>
-    <button mat-raised-button color="accent" class="validation_button" 
+    <button mat-raised-button color="accent" class="validation_button"
       (click)="getTemplateFile()" *ngIf="annotation_status !== 'Download data'">
       Get annotated template
     </button>
@@ -160,6 +166,9 @@
   <div fxLayout="row" *ngIf="submissionStarted === true">
     <div fxFlex="100" [ngClass]="submissionMessageClass()" role="alert">
       {{submission_message}}
+      <div *ngFor="let error of errors">
+        {{error}}
+      </div>
     </div>
   </div>
 
