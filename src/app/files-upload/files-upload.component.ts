@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FileUploader} from 'ng2-file-upload';
-import {validation_service_url, validation_ws_url} from '../shared/constants';
-import {makeid} from '../shared/common_functions';
+import {validation_service_url } from '../shared/constants';
 import {Title} from '@angular/platform-browser';
 
 @Component({
