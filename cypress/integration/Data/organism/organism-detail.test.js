@@ -4,7 +4,7 @@ describe('Organism Detail Page', () => {
   })
 
   it('should display "SAMEA104728877" in title and detailed information', () => {
-    cy.get('h2', {timeout: 10000}).should("contain", 'SAMEA104728877');
+    cy.get('h2').should("contain", 'SAMEA104728877');
 
     cy.get('app-organism-detail.ng-star-inserted > .container-fluid > :nth-child(1) > div > div').then(menuitems => {
       expect(menuitems[0]).to.contain.text('ECA_UCD_AH2')
@@ -15,7 +15,7 @@ describe('Organism Detail Page', () => {
 
   it('should redirect to 404 when navigate to non-existing path', () => {
     cy.visit('organism/SAMEA1047288778');
-    cy.get('h2', {timeout: 10000}).should("contain", "Sorry, this page doesn't exist...")
+    cy.get('h2').should("contain", "Sorry, this page doesn't exist...")
   });
 
 })
