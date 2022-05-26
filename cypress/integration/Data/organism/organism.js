@@ -15,6 +15,8 @@ export class OrganismPage {
   }
 
   check_header_sort_asc(classname) {
+
+    cy.visit('/organism')
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
 
     cy.get('tbody')
@@ -22,10 +24,10 @@ export class OrganismPage {
       .should("have.length", 25)
 
     cy.wait('@organismList').then(({ request, response }) => {
-      cy.get('.mat-header-row > .cdk-column-bioSampleId').should('have.attr', 'aria-sort', 'ascending')
+      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
       expect(response.statusCode).to.eq(200)
 
-      console.log("request", request.url)
+      console.log("request", request)
       console.log("response:", response)
     })
   }

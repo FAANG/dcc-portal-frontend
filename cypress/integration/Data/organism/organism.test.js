@@ -41,11 +41,11 @@ describe('Organism Page', () => {
     organismPage.check_title()
   });
 
-  it.only('should sort table on column BioSample ID', () => {
+  it.only('should sort table on column BioSample ID asc', () => {
     organismPage.check_header_sort_asc('.cdk-column-bioSampleId')
   });
 
-  it('should sort table on column BioSample ID', () => {
+  it('should sort table on column BioSample ID desc', () => {
     organismPage.check_header_sort_desc('.cdk-column-bioSampleId')
   });
 
