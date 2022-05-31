@@ -2,78 +2,117 @@ import {SpecimenPage} from "./specimen"
 
 describe('Specimen Page', () => {
   beforeEach(() => {
+    cy.intercept('GET', '/data/specimen/_search/*&sort=id_number:desc&*', {fixture: 'specimen.json'}).as("specimenList")
     cy.visit('/specimen');
   })
 
   let specimenPage = new SpecimenPage()
 
-  it.only('should display "FAANG Specimens"', () => {
+  it('should display "FAANG Specimens"', () => {
     specimenPage.check_title()
   });
 
-  it('should sort table on column BioSample ID', () => {
-    specimenPage.compare_value('.cdk-column-bioSampleId')
+  it('should sort table on column BioSample ID asc', () => {
+    specimenPage.check_header_sort_asc('.cdk-column-bioSampleId', 'biosampleId')
   });
 
-  it('should sort table on column Material', () => {
-    specimenPage.sort_column('.cdk-column-material', 'cell culture', 'specimen from organism')
+  it('should sort table on column BioSample ID desc', () => {
+    specimenPage.check_header_sort_desc('.cdk-column-bioSampleId', 'biosampleId')
   });
 
-  it('should sort table on column Organism part/Cell type', () => {
-    specimenPage.sort_column('.cdk-column-organismpart_celltype', '16-cell', 'zone of skin')
+  // --------------------
+  it('should sort table on column Material asc', () => {
+    specimenPage.check_header_sort_asc('.cdk-column-material', 'material.text')
   });
 
-  it('should sort table on column Sex', () => {
-    specimenPage.sort_column('.cdk-column-sex', 'female', 'restricted access')
+  it('should sort table on column Material desc', () => {
+    specimenPage.check_header_sort_desc('.cdk-column-material', 'material.text')
   });
 
-  it('should sort table on column Organism', () => {
-    specimenPage.sort_column('.cdk-column-organism', 'Bos indicus', 'gallus gallus')
+  // --------------------
+  it('should sort table on column Organism part/Cell type asc', () => {
+    specimenPage.check_header_sort_asc('.cdk-column-organismpart_celltype', 'cellType.text')
   });
 
-  it('should sort table on column Breed', () => {
-    specimenPage.sort_column('.cdk-column-breed', '(Large White x Landrace) x Meatline', 'yufen i')
+  it('should sort table on column Organism part/Cell type desc', () => {
+    specimenPage.check_header_sort_desc('.cdk-column-organismpart_celltype', 'cellType.text')
   });
 
-  it('should sort table on column Standard', () => {
-    specimenPage.sort_column('.cdk-column-standard', 'FAANG', 'Legacy (basic)')
+  // --------------------
+  it('should sort table on column Sex asc', () => {
+    specimenPage.check_header_sort_asc('.cdk-column-sex', 'organism.sex.text')
   });
+
+  it('should sort table on column Sex desc', () => {
+    specimenPage.check_header_sort_desc('.cdk-column-sex', 'organism.sex.text')
+  });
+
+  // --------------------
+  it('should sort table on column Organism asc', () => {
+    specimenPage.check_header_sort_asc('.cdk-column-organism', 'organism.organism.text')
+  });
+
+  it('should sort table on column Organism desc', () => {
+    specimenPage.check_header_sort_desc('.cdk-column-organism', 'organism.organism.text')
+  });
+
+  // --------------------
+  it('should sort table on column Breed asc', () => {
+    specimenPage.check_header_sort_asc('.cdk-column-breed', 'organism.breed.text')
+  });
+
+  it('should sort table on column Breed desc', () => {
+    specimenPage.check_header_sort_desc('.cdk-column-breed', 'organism.breed.text')
+  });
+
+  // --------------------
+  it('should sort table on column Standard asc', () => {
+    specimenPage.check_header_sort_asc('.cdk-column-standard', 'standardMet')
+  });
+
+  it('should sort table on column Standard desc', () => {
+    specimenPage.check_header_sort_desc('.cdk-column-standard', 'standardMet')
+  });
+
+  // --------------------
 
   it('should filter table by Sex - Female', () => {
-    specimenPage.compare_filter_value('[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path',  '?sex=female')
+    specimenPage.check_url_filter('[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path',  'organism.sex.text')
   });
 
   it('should filter table by Organism - Bos taurus', () => {
-    specimenPage.compare_filter_value('[title="Organism"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?organism=Bos%20taurus')
+    specimenPage.check_url_filter('[title="Organism"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.organism.text')
   });
 
-  it('should filter table by Material - specimen from organism', () => {
-    specimenPage.compare_filter_value('[title="Material"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?material=specimen%20from%20organism')
+  it('should filter table by by Material - specimen from organism', () => {
+    specimenPage.check_url_filter('[title="Material"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'material.text')
   });
 
   it('should filter table by Organism part/Cell type - blood', () => {
-    specimenPage.compare_filter_value('[title="Organism part/Cell type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?organismpart_celltype=blood')
+    specimenPage.check_url_filter('[title="Organism part/Cell type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'cellType.text')
   });
 
   it('should filter table by Breed - Holstein', () => {
-    specimenPage.compare_filter_value('[title="Breed"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?breed=Holstein')
+    specimenPage.check_url_filter('[title="Breed"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.breed.text')
   });
 
   it('should filter table by Paper published - Yes', () => {
-    specimenPage.compare_filter_value('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?paper_published=Yes')
+    specimenPage.check_url_filter('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'paperPublished')
   });
 
   it('should allow multiple filters', () => {
     specimenPage.allow_multiple_filters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
       '[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '?sex=female&paper_published=Yes',
+      'paperPublished',
+      'organism.sex.text',
       ['female', 'yes'])
   });
 
   it('should remove filters', () => {
     specimenPage.removeFilters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
       '[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '/specimen')
+      'paperPublished',
+      'organism.sex.text')
   });
 
   it('should verify pagination', () => {
@@ -87,8 +126,6 @@ describe('Specimen Page', () => {
   it('should export data as txt', () => {
     specimenPage.downloadData(3, 'Export as Tabular file', 'faang_data.txt')
   });
-
-
 
 
 

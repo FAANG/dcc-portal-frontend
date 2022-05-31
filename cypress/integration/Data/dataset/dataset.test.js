@@ -2,6 +2,7 @@ import {DatasetPage} from "./dataset"
 
 describe('Dataset Page', () => {
   beforeEach(() => {
+    cy.intercept('GET', '/data/dataset/_search/*&sort=accession:desc&*', {fixture: 'dataset.json'}).as("datasetList")
     cy.visit('/dataset');
   })
 
@@ -11,73 +12,119 @@ describe('Dataset Page', () => {
     datasetPage.check_title()
   });
 
-  it('should sort table on column BioSample ID', () => {
-    datasetPage.compare_value('.cdk-column-datasetAccession')
+  it('should sort table on column Dataset Accession asc', () => {
+    datasetPage.check_header_sort_asc('.cdk-column-datasetAccession', 'accession')
   });
 
-  /* sort table */
-  it('should sort table on column Title', () => {
-    datasetPage.compare_value('.cdk-column-title')
+  it('should sort table on column Dataset Accession desc', () => {
+    datasetPage.check_header_sort_desc('.cdk-column-datasetAccession', 'accession')
   });
 
-  it('should sort table on column Species', () => {
-    datasetPage.compare_value('.cdk-column-species')
+  // --------------------
+  it('should sort table on column Title asc', () => {
+    datasetPage.check_header_sort_asc('.cdk-column-title', 'title')
   });
 
-  it('should sort table on column Archive', () => {
-    datasetPage.compare_value('.cdk-column-archive')
+  it('should sort table on column Title desc', () => {
+    datasetPage.check_header_sort_desc('.cdk-column-title', 'title')
   });
 
-  it('should sort table on column Assay Type', () => {
-    datasetPage.compare_value('.cdk-column-assayType')
+  // --------------------
+  it('should sort table on column Species asc', () => {
+    datasetPage.check_header_sort_asc('.cdk-column-species', 'species.text')
   });
 
-  it('should sort table on column Number of Experiments', () => {
-    datasetPage.compare_value('.cdk-column-numberOfExperiments')
+  it('should sort table on column Species desc', () => {
+    datasetPage.check_header_sort_desc('.cdk-column-species', 'species.text')
   });
 
-  it('should sort table on column Number of Specimens', () => {
-    datasetPage.compare_value('.cdk-column-numberOfSpecimens')
+  // --------------------
+  it('should sort table on column Archive asc', () => {
+    datasetPage.check_header_sort_asc('.cdk-column-archive', 'archive')
   });
 
-  it('should sort table on column Number of Files', () => {
-    datasetPage.compare_value('.cdk-column-numberOfFiles')
-  });
-  it('should sort table on column Standard', () => {
-    datasetPage.compare_value('.cdk-column-standard')
+  it('should sort table on column Archive desc', () => {
+    datasetPage.check_header_sort_desc('.cdk-column-archive', 'archive')
   });
 
-  /* filter table */
+  // --------------------
+  it('should sort table on column Assay Type asc', () => {
+    datasetPage.check_header_sort_asc('.cdk-column-assayType', 'assayType')
+  });
+
+  it('should sort table on column Assay Type desc', () => {
+    datasetPage.check_header_sort_desc('.cdk-column-assayType', 'assayType')
+  });
+
+  // --------------------
+  it('should sort table on column Number of Experiments asc', () => {
+    datasetPage.check_header_sort_asc('.cdk-column-numberOfExperiments', 'experiment')
+  });
+
+  it('should sort table on column Number of Experiments desc', () => {
+    datasetPage.check_header_sort_desc('.cdk-column-numberOfExperiments', 'experiment')
+  });
+
+  // --------------------
+  it('should sort table on column Number of Specimens asc', () => {
+    datasetPage.check_header_sort_asc('.cdk-column-numberOfSpecimens', 'specimen')
+  });
+
+  it('should sort table on column Number of Specimens desc', () => {
+    datasetPage.check_header_sort_desc('.cdk-column-numberOfSpecimens', 'specimen')
+  });
+
+  // --------------------
+  it('should sort table on column Number of Files asc', () => {
+    datasetPage.check_header_sort_asc('.cdk-column-numberOfFiles', 'file')
+  });
+
+  it('should sort table on column Number of Files desc', () => {
+    datasetPage.check_header_sort_desc('.cdk-column-numberOfFiles', 'file')
+  });
+
+  // --------------------
+  it('should sort table on column Number of Standard asc', () => {
+    datasetPage.check_header_sort_asc('.cdk-column-standard', 'standardMet')
+  });
+
+  it('should sort table on column Number of Standard desc', () => {
+    datasetPage.check_header_sort_desc('.cdk-column-standard', 'standardMet')
+  });
+
+  // --------------------
+
   it('should filter table by Species - Gallus gallus', () => {
-    datasetPage.compare_filter_value('[title="Species"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?species=Gallus%20gallus')
+    datasetPage.check_url_filter('[title="Species"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path',  'species.text')
   });
 
   it('should filter table by Assay Type - RNA-Seq', () => {
-    datasetPage.compare_filter_value('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?assayType=RNA-Seq')
+    datasetPage.check_url_filter('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'assayType')
   });
 
   it('should filter table by Archive - ENA', () => {
-    datasetPage.compare_filter_value('[title="Archive"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?archive=ENA')
+    datasetPage.check_url_filter('[title="Archive"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'archive')
   });
 
   it('should filter table by Paper published - Yes', () => {
-    datasetPage.compare_filter_value('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?paper_published=Yes')
+    datasetPage.check_url_filter('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'paperPublished')
   });
 
   it('should allow multiple filters', () => {
     datasetPage.allow_multiple_filters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
       '[title="Archive"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '?archive=ENA&paper_published=Yes',
+      'paperPublished',
+      'archive',
       ['ena', 'yes'])
   });
 
   it('should remove filters', () => {
     datasetPage.removeFilters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
       '[title="Archive"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '/dataset')
+      'paperPublished',
+      'archive')
   });
 
-  /* pagination & file download */
   it('should verify pagination', () => {
     datasetPage.verify_pagination()
   });
@@ -89,4 +136,5 @@ describe('Dataset Page', () => {
   it('should export data as txt', () => {
     datasetPage.downloadData(3, 'Export as Tabular file', 'faang_data.txt')
   });
+
 })

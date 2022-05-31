@@ -1,55 +1,71 @@
 import {AnalysisPage} from "./analysis"
 
-describe('Protocol Sample Page', () => {
+describe('Protocol Analysis Page', () => {
   beforeEach(() => {
+    cy.intercept('GET', '/data/protocol_analysis/_search/*&sort=protocolName:asc&*', {fixture: 'protocol-analyses.json'}).as("protocolAnalysesList")
     cy.visit('/protocol/analysis');
   })
 
   let analysisPage = new AnalysisPage()
 
-  it.only('should display "FAANG Protocols"', () => {
+  it('should display "FAANG Protocols"', () => {
     analysisPage.check_title()
   });
 
-  it('should sort table on column Protocol name', () => {
-    analysisPage.compare_value('.cdk-column-protocol_name')
-  });
 
   /* sort table */
 
-  it('should sort table on column Protocol name', () => {
-    analysisPage.compare_value('.cdk-column-protocol_name', 'xxx', 'xxx')
+  it('should sort table on column Protocol name asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-protocol_name', 'protocolName')
   });
 
-  it('should sort table on column Organisation', () => {
-    analysisPage.sort_column('.cdk-column-university_name', 'xxx', 'xxx')
+  it('should sort table on column Protocol name desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-protocol_name', 'protocolName')
+  });
+  // --------------------
+
+  it('should sort table on column Organisation asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-university_name', 'universityName')
   });
 
-  it('should sort table on column Year of Protocol', () => {
-    analysisPage.sort_column('.cdk-protocol_date', 'xxx', 'xxx')
+  it('should sort table on column Organisation desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-university_name', 'universityName')
   });
+  // --------------------
+
+  it('should sort table on column Year of Protocol asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-protocol_date', 'protocolDate')
+  });
+
+  it('should sort table on column Year of Protocol desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-protocol_date', 'protocolDate')
+  });
+  // --------------------
 
 
   /* filter table */
   it('should filter table by Protocol Year - 2020', () => {
-    analysisPage.compare_filter_value('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?protocol_date=2020')
+    analysisPage.check_url_filter('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'protocolDate')
   });
 
 
   it('should allow multiple filters', () => {
     analysisPage.allow_multiple_filters('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
       '[title="Organisation"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '?university_name=Roslin%20Institute%20(Edinburgh,%20UK)&protocol_date=2020',
+      'protocolDate',
+      'universityName',
       ['Roslin Institute (Edinburgh, UK)', '2020'])
   });
 
   it('should remove filters', () => {
     analysisPage.removeFilters('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
       '[title="Organisation"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '/protocol/analysis')
+      'protocolDate',
+      'universityName')
   });
 
-  /* pagination & file download */
+
+  /* Pagination and Exports */
   it('should verify pagination', () => {
     analysisPage.verify_pagination()
   });

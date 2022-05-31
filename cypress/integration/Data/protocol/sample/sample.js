@@ -5,136 +5,120 @@ export class SamplePage {
     cy.get('h2').should("contain", 'FAANG Protocols')
   }
 
-  sort_column(classname, asc_val, desc_val) {
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
-    cy.get('.ngx-spinner-overlay').should('not.exist')
-    cy.get(`tbody > :nth-child(2) > ${classname}`).should("contain", `${asc_val}`)
+  check_header_sort_asc(classname, colname) {
+    cy.intercept('GET', `/data/protocol_samples/_search/*&sort=*${colname}:asc*`, {fixture: 'protocol-samples.json'}).as('ascendingList')
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
-    cy.get('.ngx-spinner-overlay').should('not.exist')
-    cy.get(`tbody > :nth-child(2) > ${classname}`).should("contain", `${desc_val}`)
 
+    cy.get('tbody')
+      .find('tr')
+      .should("have.length", 25)
+
+    cy.wait('@ascendingList').then(({request, response}) => {
+      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
+      expect(response.statusCode).to.eq(200)
+      expect(request.url).to.contain(colname + ':asc')
+
+      console.log("request", request.url)
+      console.log("response:", response)
+    })
   }
 
-  compare_value(classname) {
+  check_header_sort_desc(classname, colname) {
+    cy.intercept('GET', `/data/protocol_samples/_search/*&sort=*${colname}:desc*`, {fixture: 'protocol-samples.json'}).as('descendingList')
+
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
-    cy.get('.ngx-spinner-overlay').should('not.exist')
-    cy.get(`tbody > :nth-child(1) > ${classname}`)
-      .invoke('text')
-      .then((ascVal) => {
+    cy.get(`.mat-header-row > ${classname}`).click({force: true})
 
-        // click on desc link
-        cy.get(`.mat-header-row > ${classname}`).click({force: true})
-        cy.get('.ngx-spinner-overlay').should('not.exist')
-        cy.get('[title="Standard"] > .mat-card > :nth-child(2) > :nth-child(1) > .badge').should('be.visible');
-
-        cy.get('tbody')
-          .find('tr')
-          .should("have.length", 25)
-
-        // grab the value again and compare the previous text to the current one
-        cy.get(`tbody > :nth-child(1) > ${classname}`)
-          .invoke('text')
-          .should((descVal) => {
-            expect(ascVal).not.to.eq(descVal)
-          })
-      })
+    cy.wait('@descendingList', {timeout: 60000}).then(({request, response}) => {
+      cy.get('tbody').find('tr').should("have.length", 25)
+      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
+      expect(response.statusCode).to.eq(200)
+      expect(request.url).to.contain(colname + ':desc')
+    })
   }
 
-  compare_filter_value(filterAccessor, filterAccessorType, queryParam) {
-    const organisationCountAccessor = '[title="Organisation"] > .mat-card > :nth-child(2) > :nth-child(1) > .badge'
-    cy.get(organisationCountAccessor)
-      .invoke('text')
-      .then((initialCount) => {
+  check_url_filter(filterAccessor, filterAccessorType, colname) {
+    cy.intercept('GET', '/data/protocol_samples/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'protocol-samples.json'}).as('filteredList')
+    // click on filter
+    if (filterAccessorType === 'string') {
+      cy.contains(filterAccessor).click()
+    } else {
+      cy.get(filterAccessor).click({force: true})
+    }
 
-        // click on filter
-        if (filterAccessorType === 'string'){
-          cy.contains(filterAccessor).click()
-        } else{
-          cy.get(filterAccessor).click({force: true})
-        }
-
-        cy.get('.ngx-spinner-overlay').should('not.exist')
-        cy.url().should('include', queryParam)
-        cy.get('tbody').find('tr').should("have.length", 25)
-
-        // grab the div again and compare its previous text to the current text
-        cy.get(organisationCountAccessor)
-          .invoke('text')
-          .should((updatedCount) => {
-            expect(initialCount).not.to.eq(updatedCount)
-          })
-      })
+    cy.wait('@filteredList').then(({request, response}) => {
+      cy.get('tbody').find('tr').should("have.length", 25)
+      expect(response.statusCode).to.eq(200)
+      expect(request.url).to.contain('filters=%7B%22' + colname + '%22:')
+      console.log("request", request.url)
+    })
   }
 
-  allow_multiple_filters(filterAccessor_1, filterAccessor_2, queryParam, filterArr) {
-    cy.get(filterAccessor_1).click({force: true})
-    cy.get(filterAccessor_2).click({force: true})
-    cy.url().should('include', queryParam)
+  allow_multiple_filters(filterAccessor_1, filterAccessor_2, colname1, colname2, filterArr) {
+    cy.intercept('GET', '/data/protocol_samples/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'protocol-samples.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/protocol_samples/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'protocol-samples.json'}).as('filteredList2')
+
+    // click on filters
+    cy.get(filterAccessor_1).click()
+    cy.wait("@filteredList1").its("request.url").should("contain", colname1 + '%22:')
+
+    cy.get(filterAccessor_2).click()
+    cy.wait("@filteredList2").its("request.url").should("contain", colname2 + '%22:')
+
+    cy.get('tbody')
+      .find('tr')
+      .should("have.length", 25)
+
     cy.get('app-active-filter.ng-star-inserted').children()
       .should('have.length', 2)
       .each((el) => {
-        const filtername = el.text().trim().toLowerCase().split(/(\s+)/)[0];
+        const filtername = el.text().split('highlight_off')[0].trim();
+        console.log(filtername)
         expect(filtername).to.be.oneOf(filterArr);
       })
   }
 
-  removeFilters(filterAccessor_1, filterAccessor_2, queryParam){
-    cy.get(filterAccessor_1).click({force: true})
-    cy.get(filterAccessor_2).click({force: true})
-    cy.get('app-active-filter.ng-star-inserted').children().should('have.length', 2)
-    this.compare_filter_value('Remove all filters', 'string', queryParam)
-  }
+  removeFilters(filterAccessor_1, filterAccessor_2, colname1, colname2) {
+    cy.intercept('GET', '/data/protocol_samples/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'protocol-samples.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/protocol_samples/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'protocol-samples.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/protocol_samples/_search/*filters=%7B%7D&aggs=*', {fixture: 'protocol-samples.json'}).as('noFilter')
 
+    // click on filters
+    cy.get(filterAccessor_1).click()
+    cy.wait("@filteredList1").its("request.url").should("contain", colname1 + '%22:')
+
+    cy.get(filterAccessor_2).click()
+    cy.wait("@filteredList2").its("request.url").should("contain", colname2 + '%22:')
+
+    cy.get('app-active-filter.ng-star-inserted').children().should('have.length', 2)
+
+    cy.contains('Remove all filters').click()
+    cy.wait("@noFilter", {timeout: 60000}).its("request.url").should("contain", 'filters=%7B%7D&aggs')
+    cy.get('app-active-filter.ng-star-inserted').should('not.exist')
+  }
 
   verify_pagination() {
-    const protocolType = 'tbody > :nth-child(1) > .cdk-column-protocol_name > a'
-    cy.get(protocolType)
-      .invoke('text')
-      .then((firstVal) => {
+    cy.intercept('GET', '/data/protocol_samples/_search/*&from_=25&*', {fixture: 'protocol-samples.json'}).as('pagination1')
+    cy.intercept('GET', '/data/protocol_samples/_search/*&from_=50&*', {fixture: 'protocol-samples.json'}).as('pagination2')
 
-        // click on pagination
-        cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
-        cy.get('.ngx-spinner-overlay').should('not.exist')
+    // click on pagination
+    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+    cy.wait("@pagination1").its("request.url").should("contain", '&from_=25&')
 
-
-        // grab the div again and compare its previous text to the current text
-        let secVal
-        cy.get(protocolType)
-          .invoke('text')
-          .should((secondVal) => {
-            secVal = secondVal
-            expect(firstVal).not.to.eq(secondVal)
-          })
-
-        // click on pagination again
-        cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
-        cy.get('.ngx-spinner-overlay').should('not.exist')
-
-        cy.get(protocolType)
-          .invoke('text')
-          .should((thirdVal) => {
-            expect(secVal).not.to.eq(thirdVal)
-          })
-      })
-
-
-
+    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+    cy.wait("@pagination2").its("request.url").should("contain", '&from_=50&')
   }
 
-  downloadData(buttonPos, buttonTitle, fileName){
-    cy.get('.mat-raised-button > .mat-button-wrapper')
-      .should('contain', 'Download data')
-      .click()
+  downloadData(buttonPos, buttonTitle, fileName) {
+    cy.contains('Download data').click()
     cy.get('.ngx-spinner-overlay').should('not.exist')
 
     cy.get(`.table-responsive > :nth-child(${buttonPos}) > .mat-button-wrapper`)
       .should('contain', buttonTitle)
       .click()
     cy.get('.ngx-spinner-overlay').should('not.exist')
-    cy.verifyDownload(fileName, { timeout: 60000 });
+    cy.verifyDownload(fileName, {timeout: 60000});
   }
-
-
 
 }

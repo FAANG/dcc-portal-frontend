@@ -2,77 +2,112 @@ import {AnalysisPage} from "./analysis"
 
 describe('Analysis Page', () => {
   beforeEach(() => {
+    cy.intercept('GET', '/data/analysis/_search/*&sort=accession:desc&*', {fixture: 'analysis.json'}).as("analysisList")
     cy.visit('/analysis');
   })
 
-  let analysisPage = new AnalysisPage
-  ()
+  let analysisPage = new AnalysisPage()
 
   it('should display "FAANG Analyses"', () => {
     analysisPage.check_title()
   });
 
-  it('should sort table on column Analysis accession', () => {
-    analysisPage.compare_value('.cdk-column-accession')
+  it('should sort table on column Analysis accession asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-accession', 'accession')
   });
 
-  /* sort table */
-  it('should sort table on column Dataset', () => {
-    analysisPage.sort_column('.cdk-column-datasetAccession', 'xxx', 'xxx')
+  it('should sort table on column Analysis accession desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-accession', 'accession')
+  });
+  // --------------------
+
+  it('should sort table on column Dataset asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-datasetAccession', 'datasetAccession')
   });
 
-  it('should sort table on column Title', () => {
-    analysisPage.sort_column('.cdk-column-title', 'xxx', 'xxx')
+  it('should sort table on column Dataset desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-datasetAccession', 'datasetAccession')
+  });
+  // --------------------
+
+  it('should sort table on column Title asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-title', 'title')
   });
 
-  it('should sort table on column Species', () => {
-    analysisPage.sort_column('.cdk-column-species', 'xxx', 'xxx')
+  it('should sort table on column Title desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-title', 'title')
+  });
+  // --------------------
+
+  it('should sort table on column Species asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-species', 'organism.text')
   });
 
-  it('should sort table on column Assay Type', () => {
-    analysisPage.sort_column('.cdk-column-assayType', 'xxx', 'xxx')
+  it('should sort table on column Species desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-species', 'organism.text')
+  });
+  // --------------------
+
+  it('should sort table on column Assay Type asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-assayType', 'assayType')
   });
 
-  it('should sort table on column Analysis Type', () => {
-    analysisPage.sort_column('.cdk-column-analysisType', 'xxx', 'xxx')
+  it('should sort table on column Assay Type desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-assayType', 'assayType')
+  });
+  // --------------------
+
+  it('should sort table on column Analysis Type asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-analysisType', 'analysisType')
   });
 
-  it('should sort table on column Standard', () => {
-    analysisPage.sort_column('.cdk-column-standard', 'xxx', 'xxx')
+  it('should sort table on column Analysis Type desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-analysisType', 'analysisType')
   });
+  // --------------------
+
+  it('should sort table on column Standard asc', () => {
+    analysisPage.check_header_sort_asc('.cdk-column-standard', 'standardMet')
+  });
+
+  it('should sort table on column Standard desc', () => {
+    analysisPage.check_header_sort_desc('.cdk-column-standard', 'standardMet')
+  });
+
 
   /* filter table */
   it('should filter table by Species - Sus scrofa', () => {
-    analysisPage.compare_filter_value('[title="Species"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?species=Sus%20scrofa')
+    analysisPage.check_url_filter('[title="Species"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.text')
   });
 
   it('should filter table by Assay Type - microRNA profiling by high throughput sequencing', () => {
-    analysisPage.compare_filter_value('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?assayType=microRNA%20profiling%20by%20high%20throughput%20sequencing')
+    analysisPage.check_url_filter('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'assayType')
   });
 
   it('should filter table by Dataset - PRJEB19199', () => {
-    analysisPage.compare_filter_value('[title="Dataset"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?datasetAccession=PRJEB19199')
+    analysisPage.check_url_filter('[title="Dataset"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'datasetAccession')
   });
 
   it('should filter table by Analysis Type - SEQUENCE_ANNOTATION', () => {
-    analysisPage.compare_filter_value('[title="Analysis type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?analysisType=SEQUENCE_ANNOTATION')
+    analysisPage.check_url_filter('[title="Analysis type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'analysisType')
   });
-
 
   it('should allow multiple filters', () => {
     analysisPage.allow_multiple_filters('[title="Analysis type"] > .mat-card > :nth-child(2) > :nth-child(1)',
       '[title="Dataset"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '?datasetAccession=PRJEB42001&analysisType=SEQUENCE_ANNOTATION',
-      ['PRJEB42001', 'SEQUENCE_ANNOTATION'])
+      'analysisType',
+      'datasetAccession',
+      ['PRJEB19199', 'SEQUENCE_ANNOTATION'])
   });
 
   it('should remove filters', () => {
-    analysisPage.removeFilters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Instrument"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '/file')
+    analysisPage.removeFilters('[title="Analysis type"] > .mat-card > :nth-child(2) > :nth-child(1)',
+      '[title="Dataset"] > .mat-card > :nth-child(2) > :nth-child(1)',
+      'analysisType',
+      'datasetAccession')
   });
 
-  /* pagination & file download */
+  /* Pagination and Exports */
   it('should verify pagination', () => {
     analysisPage.verify_pagination()
   });
@@ -84,6 +119,7 @@ describe('Analysis Page', () => {
   it('should export data as txt', () => {
     analysisPage.downloadData(3, 'Export as Tabular file', 'faang_data.txt')
   });
+
 })
 
 

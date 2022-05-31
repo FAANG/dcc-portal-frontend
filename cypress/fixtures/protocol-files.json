@@ -1,0 +1,562 @@
+{
+  "took": 32,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 98,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "bisulfiteConversionProtocol-methylationprofilingbyhighthroughputsequencing-DNAmethylation",
+        "_score": null,
+        "_source": {
+          "name": "bisulfiteConversionProtocol",
+          "assayType": "methylation profiling by high throughput sequencing",
+          "experimentTarget": "DNA methylation",
+          "key": "bisulfiteConversionProtocol-methylationprofilingbyhighthroughputsequencing-DNAmethylation"
+        },
+        "sort": [
+          "bisulfiteConversionProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "cageProtocol-CAGE-seq-TSS",
+        "_score": null,
+        "_source": {
+          "name": "cageProtocol",
+          "assayType": "CAGE-seq",
+          "experimentTarget": "TSS",
+          "key": "cageProtocol-CAGE-seq-TSS"
+        },
+        "sort": [
+          "cageProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "chipProtocol-ChIP-seq-histone_modification",
+        "_score": null,
+        "_source": {
+          "name": "chipProtocol",
+          "assayType": "ChIP-seq",
+          "experimentTarget": "histone_modification",
+          "key": "chipProtocol-ChIP-seq-histone_modification"
+        },
+        "sort": [
+          "chipProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "chipProtocol-ChIP-seq-inputDNA",
+        "_score": null,
+        "_source": {
+          "name": "chipProtocol",
+          "assayType": "ChIP-seq",
+          "experimentTarget": "input DNA",
+          "key": "chipProtocol-ChIP-seq-inputDNA"
+        },
+        "sort": [
+          "chipProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "chipProtocol-ChIP-seq-TF_binding_site",
+        "_score": null,
+        "_source": {
+          "name": "chipProtocol",
+          "assayType": "ChIP-seq",
+          "experimentTarget": "TF_binding_site",
+          "key": "chipProtocol-ChIP-seq-TF_binding_site"
+        },
+        "sort": [
+          "chipProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-ChIP-seq-inputDNA",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "ChIP-seq",
+          "experimentTarget": "input DNA",
+          "key": "experimentalProtocol-ChIP-seq-inputDNA"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-ChIP-seq-histone_modification",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "ChIP-seq",
+          "experimentTarget": "histone_modification",
+          "key": "experimentalProtocol-ChIP-seq-histone_modification"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-ChIP-seq-TF_binding_site",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "ChIP-seq",
+          "experimentTarget": "TF_binding_site",
+          "key": "experimentalProtocol-ChIP-seq-TF_binding_site"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "transcription profiling by high throughput sequencing",
+          "experimentTarget": "total RNA",
+          "key": "experimentalProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-transcriptionprofilingbyhighthroughputsequencing-polyARNA",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "transcription profiling by high throughput sequencing",
+          "experimentTarget": "polyA RNA",
+          "key": "experimentalProtocol-transcriptionprofilingbyhighthroughputsequencing-polyARNA"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-methylationprofilingbyhighthroughputsequencing-DNAmethylation",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "methylation profiling by high throughput sequencing",
+          "experimentTarget": "DNA methylation",
+          "key": "experimentalProtocol-methylationprofilingbyhighthroughputsequencing-DNAmethylation"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-RNA-seqofcodingRNA-polyARNA",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "RNA-seq of coding RNA",
+          "experimentTarget": "polyA RNA",
+          "key": "experimentalProtocol-RNA-seqofcodingRNA-polyARNA"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-Hi-C-chromatin",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "Hi-C",
+          "experimentTarget": "chromatin",
+          "key": "experimentalProtocol-Hi-C-chromatin"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-wholegenomesequencingassay-inputDNA",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "whole genome sequencing assay",
+          "experimentTarget": "input DNA",
+          "key": "experimentalProtocol-wholegenomesequencingassay-inputDNA"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-RNA-seqoftotalRNA-totalRNA",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "RNA-seq of total RNA",
+          "experimentTarget": "total RNA",
+          "key": "experimentalProtocol-RNA-seqoftotalRNA-totalRNA"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "experimentalProtocol-ATAC-seq-open_chromatin_region",
+        "_score": null,
+        "_source": {
+          "name": "experimentalProtocol",
+          "assayType": "ATAC-seq",
+          "experimentTarget": "open_chromatin_region",
+          "key": "experimentalProtocol-ATAC-seq-open_chromatin_region"
+        },
+        "sort": [
+          "experimentalProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "extractionProtocol-RNA-seqofnoncodingRNA-CHEBI_33697",
+        "_score": null,
+        "_source": {
+          "name": "extractionProtocol",
+          "assayType": "RNA-seq of non coding RNA",
+          "experimentTarget": "CHEBI_33697",
+          "key": "extractionProtocol-RNA-seqofnoncodingRNA-CHEBI_33697"
+        },
+        "sort": [
+          "extractionProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "extractionProtocol-methylationprofilingbyhighthroughputsequencing-DNAmethylation",
+        "_score": null,
+        "_source": {
+          "name": "extractionProtocol",
+          "assayType": "methylation profiling by high throughput sequencing",
+          "experimentTarget": "DNA methylation",
+          "key": "extractionProtocol-methylationprofilingbyhighthroughputsequencing-DNAmethylation"
+        },
+        "sort": [
+          "extractionProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "extractionProtocol-RNA-seqofnoncodingRNA-RNA",
+        "_score": null,
+        "_source": {
+          "name": "extractionProtocol",
+          "assayType": "RNA-seq of non coding RNA",
+          "experimentTarget": "RNA",
+          "key": "extractionProtocol-RNA-seqofnoncodingRNA-RNA"
+        },
+        "sort": [
+          "extractionProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "extractionProtocol-Hi-C-chromatin",
+        "_score": null,
+        "_source": {
+          "name": "extractionProtocol",
+          "assayType": "Hi-C",
+          "experimentTarget": "chromatin",
+          "key": "extractionProtocol-Hi-C-chromatin"
+        },
+        "sort": [
+          "extractionProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "extractionProtocol-RNA-seqofcodingRNA-messengerRNA",
+        "_score": null,
+        "_source": {
+          "name": "extractionProtocol",
+          "assayType": "RNA-seq of coding RNA",
+          "experimentTarget": "messenger RNA",
+          "key": "extractionProtocol-RNA-seqofcodingRNA-messengerRNA"
+        },
+        "sort": [
+          "extractionProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "extractionProtocol-RNA-seqoftotalRNA-totalRNA",
+        "_score": null,
+        "_source": {
+          "name": "extractionProtocol",
+          "assayType": "RNA-seq of total RNA",
+          "experimentTarget": "total RNA",
+          "key": "extractionProtocol-RNA-seqoftotalRNA-totalRNA"
+        },
+        "sort": [
+          "extractionProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "extractionProtocol-ChIP-seq-histone_modification",
+        "_score": null,
+        "_source": {
+          "name": "extractionProtocol",
+          "assayType": "ChIP-seq",
+          "experimentTarget": "histone_modification",
+          "key": "extractionProtocol-ChIP-seq-histone_modification"
+        },
+        "sort": [
+          "extractionProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "extractionProtocol-ChIP-seq-inputDNA",
+        "_score": null,
+        "_source": {
+          "name": "extractionProtocol",
+          "assayType": "ChIP-seq",
+          "experimentTarget": "input DNA",
+          "key": "extractionProtocol-ChIP-seq-inputDNA"
+        },
+        "sort": [
+          "extractionProtocol"
+        ]
+      },
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "extractionProtocol-CAGE-seq-TSS",
+        "_score": null,
+        "_source": {
+          "name": "extractionProtocol",
+          "assayType": "CAGE-seq",
+          "experimentTarget": "TSS",
+          "key": "extractionProtocol-CAGE-seq-TSS"
+        },
+        "sort": [
+          "extractionProtocol"
+        ]
+      }
+    ]
+  },
+  "aggregations": {
+    "assay_type": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "RNA-seq of coding RNA",
+          "doc_count": 25
+        },
+        {
+          "key": "transcription profiling by high throughput sequencing",
+          "doc_count": 14
+        },
+        {
+          "key": "RNA-seq of non coding RNA",
+          "doc_count": 12
+        },
+        {
+          "key": "microRNA profiling by high throughput sequencing",
+          "doc_count": 12
+        },
+        {
+          "key": "ChIP-seq",
+          "doc_count": 9
+        },
+        {
+          "key": "RNA-seq of total RNA",
+          "doc_count": 7
+        },
+        {
+          "key": "whole genome sequencing assay",
+          "doc_count": 7
+        },
+        {
+          "key": "methylation profiling by high throughput sequencing",
+          "doc_count": 4
+        },
+        {
+          "key": "ATAC-seq",
+          "doc_count": 3
+        },
+        {
+          "key": "Hi-C",
+          "doc_count": 3
+        },
+        {
+          "key": "CAGE-seq",
+          "doc_count": 2
+        }
+      ]
+    },
+    "protocol_type": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "extractionProtocol",
+          "doc_count": 20
+        },
+        {
+          "key": "libraryGenerationPcrProductIsolationProtocol",
+          "doc_count": 13
+        },
+        {
+          "key": "libraryGenerationProtocol",
+          "doc_count": 13
+        },
+        {
+          "key": "experimentalProtocol",
+          "doc_count": 11
+        },
+        {
+          "key": "preparationReverseTranscriptionProtocol",
+          "doc_count": 11
+        },
+        {
+          "key": "rnaPreparation3AdapterLigationProtocol",
+          "doc_count": 11
+        },
+        {
+          "key": "rnaPreparation5AdapterLigationProtocol",
+          "doc_count": 11
+        },
+        {
+          "key": "chipProtocol",
+          "doc_count": 3
+        },
+        {
+          "key": "bisulfiteConversionProtocol",
+          "doc_count": 1
+        },
+        {
+          "key": "cageProtocol",
+          "doc_count": 1
+        },
+        {
+          "key": "hi-cProtocol",
+          "doc_count": 1
+        },
+        {
+          "key": "pcrProductIsolationProtocol",
+          "doc_count": 1
+        },
+        {
+          "key": "transposaseProtocol",
+          "doc_count": 1
+        }
+      ]
+    },
+    "experiment_target": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "CHEBI_33697",
+          "doc_count": 18
+        },
+        {
+          "key": "RNA",
+          "doc_count": 18
+        },
+        {
+          "key": "polyA RNA",
+          "doc_count": 14
+        },
+        {
+          "key": "total RNA",
+          "doc_count": 14
+        },
+        {
+          "key": "input DNA",
+          "doc_count": 7
+        },
+        {
+          "key": "messenger RNA",
+          "doc_count": 6
+        },
+        {
+          "key": "DNA methylation",
+          "doc_count": 4
+        },
+        {
+          "key": "EFO_0005031",
+          "doc_count": 3
+        },
+        {
+          "key": "TF_binding_site",
+          "doc_count": 3
+        },
+        {
+          "key": "chromatin",
+          "doc_count": 3
+        },
+        {
+          "key": "histone_modification",
+          "doc_count": 3
+        },
+        {
+          "key": "open_chromatin_region",
+          "doc_count": 3
+        },
+        {
+          "key": "TSS",
+          "doc_count": 2
+        }
+      ]
+    }
+  }
+}

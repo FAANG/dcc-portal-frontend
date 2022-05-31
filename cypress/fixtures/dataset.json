@@ -1,0 +1,4397 @@
+{
+  "took": 1126,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2872,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP211652",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR9502419.fastq.gz"
+            },
+            {
+              "name": "SRR9502420.fastq.gz"
+            },
+            {
+              "name": "SRR9502421.fastq.gz"
+            },
+            {
+              "name": "SRR9502422.fastq.gz"
+            },
+            {
+              "name": "SRR9502423.fastq.gz"
+            },
+            {
+              "name": "SRR9502424.fastq.gz"
+            },
+            {
+              "name": "SRR9502425.fastq.gz"
+            },
+            {
+              "name": "SRR9502426.fastq.gz"
+            },
+            {
+              "name": "SRR9502427.fastq.gz"
+            },
+            {
+              "name": "SRR9502428.fastq.gz"
+            },
+            {
+              "name": "SRR9502429.fastq.gz"
+            },
+            {
+              "name": "SRR9502430.fastq.gz"
+            },
+            {
+              "name": "SRR9502431.fastq.gz"
+            },
+            {
+              "name": "SRR9502432.fastq.gz"
+            },
+            {
+              "name": "SRR9502433.fastq.gz"
+            },
+            {
+              "name": "SRR9502434.fastq.gz"
+            },
+            {
+              "name": "SRR9502435.fastq.gz"
+            },
+            {
+              "name": "SRR9502436.fastq.gz"
+            },
+            {
+              "name": "SRR9502437.fastq.gz"
+            },
+            {
+              "name": "SRR9502438.fastq.gz"
+            },
+            {
+              "name": "SRR9502439.fastq.gz"
+            },
+            {
+              "name": "SRR9502440.fastq.gz"
+            },
+            {
+              "name": "SRR9502441.fastq.gz"
+            },
+            {
+              "name": "SRR9502442.fastq.gz"
+            },
+            {
+              "name": "SRR9502443.fastq.gz"
+            },
+            {
+              "name": "SRR9502444.fastq.gz"
+            },
+            {
+              "name": "SRR9502445.fastq.gz"
+            },
+            {
+              "name": "SRR9502446.fastq.gz"
+            },
+            {
+              "name": "SRR9502447.fastq.gz"
+            },
+            {
+              "name": "SRR9502448.fastq.gz"
+            },
+            {
+              "name": "SRR9502449.fastq.gz"
+            },
+            {
+              "name": "SRR9502450.fastq.gz"
+            },
+            {
+              "name": "SRR9502451.fastq.gz"
+            },
+            {
+              "name": "SRR9502452.fastq.gz"
+            },
+            {
+              "name": "SRR9502453.fastq.gz"
+            },
+            {
+              "name": "SRR9502454.fastq.gz"
+            },
+            {
+              "name": "SRR9502455.fastq.gz"
+            },
+            {
+              "name": "SRR9502456.fastq.gz"
+            },
+            {
+              "name": "SRR9502457.fastq.gz"
+            },
+            {
+              "name": "SRR9502458.fastq.gz"
+            },
+            {
+              "name": "SRR9502459.fastq.gz"
+            },
+            {
+              "name": "SRR9502460.fastq.gz"
+            },
+            {
+              "name": "SRR9502461.fastq.gz"
+            },
+            {
+              "name": "SRR9502462.fastq.gz"
+            },
+            {
+              "name": "SRR9502463.fastq.gz"
+            },
+            {
+              "name": "SRR9502464.fastq.gz"
+            },
+            {
+              "name": "SRR9502465.fastq.gz"
+            },
+            {
+              "name": "SRR9502466.fastq.gz"
+            },
+            {
+              "name": "SRR9502467.fastq.gz"
+            },
+            {
+              "name": "SRR9502468.fastq.gz"
+            },
+            {
+              "name": "SRR9502469.fastq.gz"
+            },
+            {
+              "name": "SRR9502470.fastq.gz"
+            },
+            {
+              "name": "SRR9502471.fastq.gz"
+            },
+            {
+              "name": "SRR9502472.fastq.gz"
+            },
+            {
+              "name": "SRR9502473.fastq.gz"
+            },
+            {
+              "name": "SRR9502474.fastq.gz"
+            },
+            {
+              "name": "SRR9502475.fastq.gz"
+            },
+            {
+              "name": "SRR9502476.fastq.gz"
+            },
+            {
+              "name": "SRR9502477.fastq.gz"
+            },
+            {
+              "name": "SRR9502478.fastq.gz"
+            },
+            {
+              "name": "SRR9502479.fastq.gz"
+            },
+            {
+              "name": "SRR9502480.fastq.gz"
+            },
+            {
+              "name": "SRR9502481.fastq.gz"
+            },
+            {
+              "name": "SRR9502482.fastq.gz"
+            },
+            {
+              "name": "SRR9502483.fastq.gz"
+            },
+            {
+              "name": "SRR9502484.fastq.gz"
+            },
+            {
+              "name": "SRR9502485.fastq.gz"
+            },
+            {
+              "name": "SRR9502486.fastq.gz"
+            },
+            {
+              "name": "SRR9502487.fastq.gz"
+            },
+            {
+              "name": "SRR9502488.fastq.gz"
+            },
+            {
+              "name": "SRR9502489.fastq.gz"
+            },
+            {
+              "name": "SRR9502490.fastq.gz"
+            },
+            {
+              "name": "SRR9502491.fastq.gz"
+            },
+            {
+              "name": "SRR9502492.fastq.gz"
+            },
+            {
+              "name": "SRR9502493.fastq.gz"
+            },
+            {
+              "name": "SRR9502494.fastq.gz"
+            },
+            {
+              "name": "SRR9502495.fastq.gz"
+            },
+            {
+              "name": "SRR9502496.fastq.gz"
+            },
+            {
+              "name": "SRR9502497.fastq.gz"
+            },
+            {
+              "name": "SRR9502498.fastq.gz"
+            },
+            {
+              "name": "SRR9502499.fastq.gz"
+            },
+            {
+              "name": "SRR9502500.fastq.gz"
+            },
+            {
+              "name": "SRR9502501.fastq.gz"
+            },
+            {
+              "name": "SRR9502502.fastq.gz"
+            },
+            {
+              "name": "SRR9502503.fastq.gz"
+            },
+            {
+              "name": "SRR9502504.fastq.gz"
+            },
+            {
+              "name": "SRR9502505.fastq.gz"
+            },
+            {
+              "name": "SRR9502506.fastq.gz"
+            },
+            {
+              "name": "SRR9502507.fastq.gz"
+            },
+            {
+              "name": "SRR9502508.fastq.gz"
+            },
+            {
+              "name": "SRR9502509.fastq.gz"
+            },
+            {
+              "name": "SRR9502510.fastq.gz"
+            },
+            {
+              "name": "SRR9502511.fastq.gz"
+            },
+            {
+              "name": "SRR9502512.fastq.gz"
+            },
+            {
+              "name": "SRR9502513.fastq.gz"
+            },
+            {
+              "name": "SRR9502514.fastq.gz"
+            },
+            {
+              "name": "SRR9502515.fastq.gz"
+            },
+            {
+              "name": "SRR9502516.fastq.gz"
+            },
+            {
+              "name": "SRR9502517.fastq.gz"
+            },
+            {
+              "name": "SRR9502518.fastq.gz"
+            },
+            {
+              "name": "SRR9502519.fastq.gz"
+            },
+            {
+              "name": "SRR9502520.fastq.gz"
+            },
+            {
+              "name": "SRR9502521.fastq.gz"
+            },
+            {
+              "name": "SRR9502522.fastq.gz"
+            },
+            {
+              "name": "SRR9502523.fastq.gz"
+            },
+            {
+              "name": "SRR9502524.fastq.gz"
+            },
+            {
+              "name": "SRR9502525.fastq.gz"
+            },
+            {
+              "name": "SRR9502526.fastq.gz"
+            },
+            {
+              "name": "SRR9502527.fastq.gz"
+            },
+            {
+              "name": "SRR9502528.fastq.gz"
+            },
+            {
+              "name": "SRR9502529.fastq.gz"
+            },
+            {
+              "name": "SRR9502530.fastq.gz"
+            },
+            {
+              "name": "SRR9502531.fastq.gz"
+            },
+            {
+              "name": "SRR9502532.fastq.gz"
+            },
+            {
+              "name": "SRR9502533.fastq.gz"
+            },
+            {
+              "name": "SRR9502534.fastq.gz"
+            },
+            {
+              "name": "SRR9502535.fastq.gz"
+            },
+            {
+              "name": "SRR9502536.fastq.gz"
+            },
+            {
+              "name": "SRR9502537.fastq.gz"
+            },
+            {
+              "name": "SRR9502538.fastq.gz"
+            },
+            {
+              "name": "SRR9502539.fastq.gz"
+            },
+            {
+              "name": "SRR9502540.fastq.gz"
+            },
+            {
+              "name": "SRR9502541.fastq.gz"
+            },
+            {
+              "name": "SRR9502542.fastq.gz"
+            },
+            {
+              "name": "SRR9502543.fastq.gz"
+            },
+            {
+              "name": "SRR9502544.fastq.gz"
+            },
+            {
+              "name": "SRR9502545.fastq.gz"
+            },
+            {
+              "name": "SRR9502546.fastq.gz"
+            },
+            {
+              "name": "SRR9502547.fastq.gz"
+            },
+            {
+              "name": "SRR9502548.fastq.gz"
+            },
+            {
+              "name": "SRR9502549.fastq.gz"
+            },
+            {
+              "name": "SRR9502550.fastq.gz"
+            },
+            {
+              "name": "SRR9502551.fastq.gz"
+            },
+            {
+              "name": "SRR9502552.fastq.gz"
+            },
+            {
+              "name": "SRR9502553.fastq.gz"
+            },
+            {
+              "name": "SRR9502554.fastq.gz"
+            },
+            {
+              "name": "SRR9502555.fastq.gz"
+            },
+            {
+              "name": "SRR9502556.fastq.gz"
+            },
+            {
+              "name": "SRR9502557.fastq.gz"
+            },
+            {
+              "name": "SRR9502558.fastq.gz"
+            },
+            {
+              "name": "SRR9502559.fastq.gz"
+            },
+            {
+              "name": "SRR9502560.fastq.gz"
+            },
+            {
+              "name": "SRR9502561.fastq.gz"
+            },
+            {
+              "name": "SRR9502562.fastq.gz"
+            },
+            {
+              "name": "SRR9502563.fastq.gz"
+            },
+            {
+              "name": "SRR9502564.fastq.gz"
+            },
+            {
+              "name": "SRR9502565.fastq.gz"
+            },
+            {
+              "name": "SRR9502566.fastq.gz"
+            },
+            {
+              "name": "SRR9502567.fastq.gz"
+            },
+            {
+              "name": "SRR9502568.fastq.gz"
+            },
+            {
+              "name": "SRR9502569.fastq.gz"
+            },
+            {
+              "name": "SRR9502570.fastq.gz"
+            },
+            {
+              "name": "SRR9502571.fastq.gz"
+            },
+            {
+              "name": "SRR9502572.fastq.gz"
+            },
+            {
+              "name": "SRR9502573.fastq.gz"
+            },
+            {
+              "name": "SRR9502574.fastq.gz"
+            },
+            {
+              "name": "SRR9502575.fastq.gz"
+            },
+            {
+              "name": "SRR9502576.fastq.gz"
+            },
+            {
+              "name": "SRR9502577.fastq.gz"
+            },
+            {
+              "name": "SRR9502578.fastq.gz"
+            },
+            {
+              "name": "SRR9502579.fastq.gz"
+            },
+            {
+              "name": "SRR9502580.fastq.gz"
+            },
+            {
+              "name": "SRR9502581.fastq.gz"
+            },
+            {
+              "name": "SRR9502582.fastq.gz"
+            },
+            {
+              "name": "SRR9502583.fastq.gz"
+            },
+            {
+              "name": "SRR9502584.fastq.gz"
+            },
+            {
+              "name": "SRR9502585.fastq.gz"
+            },
+            {
+              "name": "SRR9502586.fastq.gz"
+            },
+            {
+              "name": "SRR9502587.fastq.gz"
+            },
+            {
+              "name": "SRR9502588.fastq.gz"
+            },
+            {
+              "name": "SRR9502589.fastq.gz"
+            },
+            {
+              "name": "SRR9502590.fastq.gz"
+            },
+            {
+              "name": "SRR9502591.fastq.gz"
+            },
+            {
+              "name": "SRR9502592.fastq.gz"
+            },
+            {
+              "name": "SRR9502593.fastq.gz"
+            },
+            {
+              "name": "SRR9502594.fastq.gz"
+            },
+            {
+              "name": "SRR9502595.fastq.gz"
+            },
+            {
+              "name": "SRR9502596.fastq.gz"
+            },
+            {
+              "name": "SRR9502597.fastq.gz"
+            },
+            {
+              "name": "SRR9502598.fastq.gz"
+            },
+            {
+              "name": "SRR9502599.fastq.gz"
+            },
+            {
+              "name": "SRR9502600.fastq.gz"
+            },
+            {
+              "name": "SRR9502601.fastq.gz"
+            },
+            {
+              "name": "SRR9502602.fastq.gz"
+            },
+            {
+              "name": "SRR9502603.fastq.gz"
+            },
+            {
+              "name": "SRR9502604.fastq.gz"
+            },
+            {
+              "name": "SRR9502605.fastq.gz"
+            },
+            {
+              "name": "SRR9502606.fastq.gz"
+            },
+            {
+              "name": "SRR9502607.fastq.gz"
+            },
+            {
+              "name": "SRR9502608.fastq.gz"
+            },
+            {
+              "name": "SRR9502609.fastq.gz"
+            },
+            {
+              "name": "SRR9502610.fastq.gz"
+            },
+            {
+              "name": "SRR9502611.fastq.gz"
+            },
+            {
+              "name": "SRR9502612.fastq.gz"
+            },
+            {
+              "name": "SRR9502613.fastq.gz"
+            },
+            {
+              "name": "SRR9502614.fastq.gz"
+            },
+            {
+              "name": "SRR9502615.fastq.gz"
+            },
+            {
+              "name": "SRR9502616.fastq.gz"
+            },
+            {
+              "name": "SRR9502617.fastq.gz"
+            },
+            {
+              "name": "SRR9502618.fastq.gz"
+            },
+            {
+              "name": "SRR9502619.fastq.gz"
+            },
+            {
+              "name": "SRR9502620.fastq.gz"
+            },
+            {
+              "name": "SRR9502621.fastq.gz"
+            },
+            {
+              "name": "SRR9502622.fastq.gz"
+            },
+            {
+              "name": "SRR9502623.fastq.gz"
+            },
+            {
+              "name": "SRR9502624.fastq.gz"
+            },
+            {
+              "name": "SRR9502625.fastq.gz"
+            },
+            {
+              "name": "SRR9502626.fastq.gz"
+            },
+            {
+              "name": "SRR9502627.fastq.gz"
+            },
+            {
+              "name": "SRR9502628.fastq.gz"
+            },
+            {
+              "name": "SRR9502629.fastq.gz"
+            },
+            {
+              "name": "SRR9502630.fastq.gz"
+            },
+            {
+              "name": "SRR9502631.fastq.gz"
+            },
+            {
+              "name": "SRR9502632.fastq.gz"
+            },
+            {
+              "name": "SRR9502633.fastq.gz"
+            },
+            {
+              "name": "SRR9502634.fastq.gz"
+            },
+            {
+              "name": "SRR9502635.fastq.gz"
+            },
+            {
+              "name": "SRR9502636.fastq.gz"
+            },
+            {
+              "name": "SRR9502637.fastq.gz"
+            },
+            {
+              "name": "SRR9502638.fastq.gz"
+            },
+            {
+              "name": "SRR9502639.fastq.gz"
+            },
+            {
+              "name": "SRR9502640.fastq.gz"
+            },
+            {
+              "name": "SRR9502641.fastq.gz"
+            },
+            {
+              "name": "SRR9502642.fastq.gz"
+            },
+            {
+              "name": "SRR9502643.fastq.gz"
+            },
+            {
+              "name": "SRR9502644.fastq.gz"
+            },
+            {
+              "name": "SRR9502645.fastq.gz"
+            },
+            {
+              "name": "SRR9502646.fastq.gz"
+            },
+            {
+              "name": "SRR9502647.fastq.gz"
+            },
+            {
+              "name": "SRR9502648.fastq.gz"
+            },
+            {
+              "name": "SRR9502649.fastq.gz"
+            },
+            {
+              "name": "SRR9502650.fastq.gz"
+            },
+            {
+              "name": "SRR9502651.fastq.gz"
+            },
+            {
+              "name": "SRR9502652.fastq.gz"
+            },
+            {
+              "name": "SRR9502653.fastq.gz"
+            },
+            {
+              "name": "SRR9502654.fastq.gz"
+            },
+            {
+              "name": "SRR9502655.fastq.gz"
+            },
+            {
+              "name": "SRR9502656.fastq.gz"
+            },
+            {
+              "name": "SRR9502657.fastq.gz"
+            },
+            {
+              "name": "SRR9502658.fastq.gz"
+            },
+            {
+              "name": "SRR9502659.fastq.gz"
+            },
+            {
+              "name": "SRR9502660.fastq.gz"
+            },
+            {
+              "name": "SRR9502661.fastq.gz"
+            },
+            {
+              "name": "SRR9502662.fastq.gz"
+            },
+            {
+              "name": "SRR9502663.fastq.gz"
+            },
+            {
+              "name": "SRR9502664.fastq.gz"
+            },
+            {
+              "name": "SRR9502665.fastq.gz"
+            },
+            {
+              "name": "SRR9502666.fastq.gz"
+            },
+            {
+              "name": "SRR9502667.fastq.gz"
+            },
+            {
+              "name": "SRR9502668.fastq.gz"
+            },
+            {
+              "name": "SRR9502669.fastq.gz"
+            },
+            {
+              "name": "SRR9502670.fastq.gz"
+            },
+            {
+              "name": "SRR9502671.fastq.gz"
+            },
+            {
+              "name": "SRR9502672.fastq.gz"
+            },
+            {
+              "name": "SRR9502673.fastq.gz"
+            },
+            {
+              "name": "SRR9502674.fastq.gz"
+            },
+            {
+              "name": "SRR9502675.fastq.gz"
+            },
+            {
+              "name": "SRR9502676.fastq.gz"
+            },
+            {
+              "name": "SRR9502677.fastq.gz"
+            },
+            {
+              "name": "SRR9502678.fastq.gz"
+            },
+            {
+              "name": "SRR9502679.fastq.gz"
+            },
+            {
+              "name": "SRR9502680.fastq.gz"
+            },
+            {
+              "name": "SRR9502681.fastq.gz"
+            },
+            {
+              "name": "SRR9502682.fastq.gz"
+            },
+            {
+              "name": "SRR9502683.fastq.gz"
+            },
+            {
+              "name": "SRR9502684.fastq.gz"
+            },
+            {
+              "name": "SRR9502685.fastq.gz"
+            },
+            {
+              "name": "SRR9502686.fastq.gz"
+            },
+            {
+              "name": "SRR9502687.fastq.gz"
+            },
+            {
+              "name": "SRR9502688.fastq.gz"
+            },
+            {
+              "name": "SRR9502689.fastq.gz"
+            },
+            {
+              "name": "SRR9502690.fastq.gz"
+            },
+            {
+              "name": "SRR9502691.fastq.gz"
+            },
+            {
+              "name": "SRR9502692.fastq.gz"
+            },
+            {
+              "name": "SRR9502693.fastq.gz"
+            },
+            {
+              "name": "SRR9502694.fastq.gz"
+            },
+            {
+              "name": "SRR9502695.fastq.gz"
+            },
+            {
+              "name": "SRR9502696.fastq.gz"
+            },
+            {
+              "name": "SRR9502697.fastq.gz"
+            },
+            {
+              "name": "SRR9502698.fastq.gz"
+            },
+            {
+              "name": "SRR9502699.fastq.gz"
+            },
+            {
+              "name": "SRR9502700.fastq.gz"
+            },
+            {
+              "name": "SRR9502701.fastq.gz"
+            },
+            {
+              "name": "SRR9502702.fastq.gz"
+            },
+            {
+              "name": "SRR9502703.fastq.gz"
+            },
+            {
+              "name": "SRR9502704.fastq.gz"
+            },
+            {
+              "name": "SRR9502705.fastq.gz"
+            },
+            {
+              "name": "SRR9502706.fastq.gz"
+            },
+            {
+              "name": "SRR9502707.fastq.gz"
+            },
+            {
+              "name": "SRR9502708.fastq.gz"
+            },
+            {
+              "name": "SRR9502709.fastq.gz"
+            },
+            {
+              "name": "SRR9502710.fastq.gz"
+            },
+            {
+              "name": "SRR9502711.fastq.gz"
+            },
+            {
+              "name": "SRR9502712.fastq.gz"
+            },
+            {
+              "name": "SRR9502713.fastq.gz"
+            },
+            {
+              "name": "SRR9502714.fastq.gz"
+            },
+            {
+              "name": "SRR9502715.fastq.gz"
+            },
+            {
+              "name": "SRR9502716.fastq.gz"
+            },
+            {
+              "name": "SRR9502717.fastq.gz"
+            },
+            {
+              "name": "SRR9502718.fastq.gz"
+            },
+            {
+              "name": "SRR9502719.fastq.gz"
+            },
+            {
+              "name": "SRR9502720.fastq.gz"
+            },
+            {
+              "name": "SRR9502721.fastq.gz"
+            },
+            {
+              "name": "SRR9502722.fastq.gz"
+            },
+            {
+              "name": "SRR9502723.fastq.gz"
+            },
+            {
+              "name": "SRR9502724.fastq.gz"
+            },
+            {
+              "name": "SRR9502725.fastq.gz"
+            },
+            {
+              "name": "SRR9502726.fastq.gz"
+            },
+            {
+              "name": "SRR9502727.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX6267640"
+            },
+            {
+              "accession": "SRX6267641"
+            },
+            {
+              "accession": "SRX6267642"
+            },
+            {
+              "accession": "SRX6267643"
+            },
+            {
+              "accession": "SRX6267644"
+            },
+            {
+              "accession": "SRX6267645"
+            },
+            {
+              "accession": "SRX6267646"
+            },
+            {
+              "accession": "SRX6267647"
+            },
+            {
+              "accession": "SRX6267648"
+            },
+            {
+              "accession": "SRX6267649"
+            },
+            {
+              "accession": "SRX6267650"
+            },
+            {
+              "accession": "SRX6267651"
+            },
+            {
+              "accession": "SRX6267652"
+            },
+            {
+              "accession": "SRX6267653"
+            },
+            {
+              "accession": "SRX6267654"
+            },
+            {
+              "accession": "SRX6267655"
+            },
+            {
+              "accession": "SRX6267656"
+            },
+            {
+              "accession": "SRX6267657"
+            },
+            {
+              "accession": "SRX6267658"
+            },
+            {
+              "accession": "SRX6267659"
+            },
+            {
+              "accession": "SRX6267660"
+            },
+            {
+              "accession": "SRX6267661"
+            },
+            {
+              "accession": "SRX6267662"
+            },
+            {
+              "accession": "SRX6267663"
+            },
+            {
+              "accession": "SRX6267664"
+            },
+            {
+              "accession": "SRX6267665"
+            },
+            {
+              "accession": "SRX6267666"
+            },
+            {
+              "accession": "SRX6267667"
+            },
+            {
+              "accession": "SRX6267668"
+            },
+            {
+              "accession": "SRX6267669"
+            },
+            {
+              "accession": "SRX6267670"
+            },
+            {
+              "accession": "SRX6267671"
+            },
+            {
+              "accession": "SRX6267672"
+            },
+            {
+              "accession": "SRX6267673"
+            },
+            {
+              "accession": "SRX6267674"
+            },
+            {
+              "accession": "SRX6267675"
+            },
+            {
+              "accession": "SRX6267676"
+            },
+            {
+              "accession": "SRX6267677"
+            },
+            {
+              "accession": "SRX6267678"
+            },
+            {
+              "accession": "SRX6267679"
+            },
+            {
+              "accession": "SRX6267680"
+            },
+            {
+              "accession": "SRX6267681"
+            },
+            {
+              "accession": "SRX6267682"
+            },
+            {
+              "accession": "SRX6267683"
+            },
+            {
+              "accession": "SRX6267684"
+            },
+            {
+              "accession": "SRX6267685"
+            },
+            {
+              "accession": "SRX6267686"
+            },
+            {
+              "accession": "SRX6267687"
+            },
+            {
+              "accession": "SRX6267688"
+            },
+            {
+              "accession": "SRX6267689"
+            },
+            {
+              "accession": "SRX6267690"
+            },
+            {
+              "accession": "SRX6267691"
+            },
+            {
+              "accession": "SRX6267692"
+            },
+            {
+              "accession": "SRX6267693"
+            },
+            {
+              "accession": "SRX6267694"
+            },
+            {
+              "accession": "SRX6267695"
+            },
+            {
+              "accession": "SRX6267696"
+            },
+            {
+              "accession": "SRX6267697"
+            },
+            {
+              "accession": "SRX6267698"
+            },
+            {
+              "accession": "SRX6267699"
+            },
+            {
+              "accession": "SRX6267700"
+            },
+            {
+              "accession": "SRX6267701"
+            },
+            {
+              "accession": "SRX6267702"
+            },
+            {
+              "accession": "SRX6267703"
+            },
+            {
+              "accession": "SRX6267704"
+            },
+            {
+              "accession": "SRX6267705"
+            },
+            {
+              "accession": "SRX6267706"
+            },
+            {
+              "accession": "SRX6267707"
+            },
+            {
+              "accession": "SRX6267708"
+            },
+            {
+              "accession": "SRX6267709"
+            },
+            {
+              "accession": "SRX6267710"
+            },
+            {
+              "accession": "SRX6267711"
+            },
+            {
+              "accession": "SRX6267712"
+            },
+            {
+              "accession": "SRX6267713"
+            },
+            {
+              "accession": "SRX6267714"
+            },
+            {
+              "accession": "SRX6267715"
+            },
+            {
+              "accession": "SRX6267716"
+            },
+            {
+              "accession": "SRX6267717"
+            },
+            {
+              "accession": "SRX6267718"
+            },
+            {
+              "accession": "SRX6267719"
+            },
+            {
+              "accession": "SRX6267720"
+            },
+            {
+              "accession": "SRX6267721"
+            },
+            {
+              "accession": "SRX6267722"
+            },
+            {
+              "accession": "SRX6267723"
+            },
+            {
+              "accession": "SRX6267724"
+            },
+            {
+              "accession": "SRX6267773"
+            },
+            {
+              "accession": "SRX6267774"
+            },
+            {
+              "accession": "SRX6267775"
+            },
+            {
+              "accession": "SRX6267776"
+            },
+            {
+              "accession": "SRX6267777"
+            },
+            {
+              "accession": "SRX6267778"
+            },
+            {
+              "accession": "SRX6267779"
+            },
+            {
+              "accession": "SRX6267780"
+            },
+            {
+              "accession": "SRX6267781"
+            },
+            {
+              "accession": "SRX6267782"
+            },
+            {
+              "accession": "SRX6267783"
+            },
+            {
+              "accession": "SRX6267784"
+            },
+            {
+              "accession": "SRX6267785"
+            },
+            {
+              "accession": "SRX6267786"
+            },
+            {
+              "accession": "SRX6267787"
+            },
+            {
+              "accession": "SRX6267788"
+            },
+            {
+              "accession": "SRX6267789"
+            },
+            {
+              "accession": "SRX6267790"
+            },
+            {
+              "accession": "SRX6267791"
+            },
+            {
+              "accession": "SRX6267792"
+            },
+            {
+              "accession": "SRX6267793"
+            },
+            {
+              "accession": "SRX6267794"
+            },
+            {
+              "accession": "SRX6267795"
+            },
+            {
+              "accession": "SRX6267796"
+            },
+            {
+              "accession": "SRX6267797"
+            },
+            {
+              "accession": "SRX6267798"
+            },
+            {
+              "accession": "SRX6267799"
+            },
+            {
+              "accession": "SRX6267800"
+            },
+            {
+              "accession": "SRX6267801"
+            },
+            {
+              "accession": "SRX6267802"
+            },
+            {
+              "accession": "SRX6267803"
+            },
+            {
+              "accession": "SRX6267804"
+            },
+            {
+              "accession": "SRX6267805"
+            },
+            {
+              "accession": "SRX6267806"
+            },
+            {
+              "accession": "SRX6267807"
+            },
+            {
+              "accession": "SRX6267808"
+            },
+            {
+              "accession": "SRX6267809"
+            },
+            {
+              "accession": "SRX6267810"
+            },
+            {
+              "accession": "SRX6267811"
+            },
+            {
+              "accession": "SRX6267812"
+            },
+            {
+              "accession": "SRX6267813"
+            },
+            {
+              "accession": "SRX6267814"
+            },
+            {
+              "accession": "SRX6267815"
+            },
+            {
+              "accession": "SRX6267816"
+            },
+            {
+              "accession": "SRX6267817"
+            },
+            {
+              "accession": "SRX6267818"
+            },
+            {
+              "accession": "SRX6267819"
+            },
+            {
+              "accession": "SRX6267820"
+            },
+            {
+              "accession": "SRX6267821"
+            },
+            {
+              "accession": "SRX6267822"
+            },
+            {
+              "accession": "SRX6267823"
+            },
+            {
+              "accession": "SRX6267824"
+            },
+            {
+              "accession": "SRX6267825"
+            },
+            {
+              "accession": "SRX6267826"
+            },
+            {
+              "accession": "SRX6267827"
+            },
+            {
+              "accession": "SRX6267828"
+            },
+            {
+              "accession": "SRX6267829"
+            },
+            {
+              "accession": "SRX6267830"
+            },
+            {
+              "accession": "SRX6267831"
+            },
+            {
+              "accession": "SRX6267832"
+            },
+            {
+              "accession": "SRX6267833"
+            },
+            {
+              "accession": "SRX6267834"
+            },
+            {
+              "accession": "SRX6267835"
+            },
+            {
+              "accession": "SRX6267836"
+            },
+            {
+              "accession": "SRX6267837"
+            },
+            {
+              "accession": "SRX6267838"
+            },
+            {
+              "accession": "SRX6267839"
+            },
+            {
+              "accession": "SRX6267840"
+            },
+            {
+              "accession": "SRX6267841"
+            },
+            {
+              "accession": "SRX6267842"
+            },
+            {
+              "accession": "SRX6267843"
+            },
+            {
+              "accession": "SRX6267844"
+            },
+            {
+              "accession": "SRX6267845"
+            },
+            {
+              "accession": "SRX6267846"
+            },
+            {
+              "accession": "SRX6267847"
+            },
+            {
+              "accession": "SRX6267848"
+            },
+            {
+              "accession": "SRX6267849"
+            },
+            {
+              "accession": "SRX6267850"
+            },
+            {
+              "accession": "SRX6267851"
+            },
+            {
+              "accession": "SRX6267852"
+            },
+            {
+              "accession": "SRX6267853"
+            },
+            {
+              "accession": "SRX6267854"
+            },
+            {
+              "accession": "SRX6267855"
+            },
+            {
+              "accession": "SRX6267856"
+            },
+            {
+              "accession": "SRX6267857"
+            },
+            {
+              "accession": "SRX6267858"
+            },
+            {
+              "accession": "SRX6267859"
+            },
+            {
+              "accession": "SRX6267860"
+            },
+            {
+              "accession": "SRX6267861"
+            },
+            {
+              "accession": "SRX6267862"
+            },
+            {
+              "accession": "SRX6267863"
+            },
+            {
+              "accession": "SRX6267864"
+            },
+            {
+              "accession": "SRX6267865"
+            },
+            {
+              "accession": "SRX6267866"
+            },
+            {
+              "accession": "SRX6267867"
+            },
+            {
+              "accession": "SRX6267868"
+            },
+            {
+              "accession": "SRX6267917"
+            },
+            {
+              "accession": "SRX6267918"
+            },
+            {
+              "accession": "SRX6267919"
+            },
+            {
+              "accession": "SRX6267920"
+            },
+            {
+              "accession": "SRX6267921"
+            },
+            {
+              "accession": "SRX6267922"
+            },
+            {
+              "accession": "SRX6267923"
+            },
+            {
+              "accession": "SRX6267924"
+            },
+            {
+              "accession": "SRX6267925"
+            },
+            {
+              "accession": "SRX6267926"
+            },
+            {
+              "accession": "SRX6267927"
+            },
+            {
+              "accession": "SRX6267928"
+            },
+            {
+              "accession": "SRX6267929"
+            },
+            {
+              "accession": "SRX6267930"
+            },
+            {
+              "accession": "SRX6267931"
+            },
+            {
+              "accession": "SRX6267932"
+            },
+            {
+              "accession": "SRX6267933"
+            },
+            {
+              "accession": "SRX6267934"
+            },
+            {
+              "accession": "SRX6267935"
+            },
+            {
+              "accession": "SRX6267936"
+            },
+            {
+              "accession": "SRX6267937"
+            },
+            {
+              "accession": "SRX6267938"
+            },
+            {
+              "accession": "SRX6267939"
+            },
+            {
+              "accession": "SRX6267940"
+            },
+            {
+              "accession": "SRX6267941"
+            },
+            {
+              "accession": "SRX6267942"
+            },
+            {
+              "accession": "SRX6267943"
+            },
+            {
+              "accession": "SRX6267944"
+            },
+            {
+              "accession": "SRX6267945"
+            },
+            {
+              "accession": "SRX6267946"
+            },
+            {
+              "accession": "SRX6267947"
+            },
+            {
+              "accession": "SRX6267948"
+            },
+            {
+              "accession": "SRX6267949"
+            },
+            {
+              "accession": "SRX6267950"
+            },
+            {
+              "accession": "SRX6267951"
+            },
+            {
+              "accession": "SRX6267952"
+            },
+            {
+              "accession": "SRX6267953"
+            },
+            {
+              "accession": "SRX6267954"
+            },
+            {
+              "accession": "SRX6267955"
+            },
+            {
+              "accession": "SRX6267956"
+            },
+            {
+              "accession": "SRX6267957"
+            },
+            {
+              "accession": "SRX6267958"
+            },
+            {
+              "accession": "SRX6267959"
+            },
+            {
+              "accession": "SRX6267960"
+            },
+            {
+              "accession": "SRX6267961"
+            },
+            {
+              "accession": "SRX6267962"
+            },
+            {
+              "accession": "SRX6267963"
+            },
+            {
+              "accession": "SRX6267964"
+            },
+            {
+              "accession": "SRX6268013"
+            },
+            {
+              "accession": "SRX6268014"
+            },
+            {
+              "accession": "SRX6268015"
+            },
+            {
+              "accession": "SRX6268016"
+            },
+            {
+              "accession": "SRX6268017"
+            },
+            {
+              "accession": "SRX6268018"
+            },
+            {
+              "accession": "SRX6268019"
+            },
+            {
+              "accession": "SRX6268020"
+            },
+            {
+              "accession": "SRX6268021"
+            },
+            {
+              "accession": "SRX6268022"
+            },
+            {
+              "accession": "SRX6268023"
+            },
+            {
+              "accession": "SRX6268024"
+            },
+            {
+              "accession": "SRX6268025"
+            },
+            {
+              "accession": "SRX6268026"
+            },
+            {
+              "accession": "SRX6268027"
+            },
+            {
+              "accession": "SRX6268028"
+            },
+            {
+              "accession": "SRX6268029"
+            },
+            {
+              "accession": "SRX6268030"
+            },
+            {
+              "accession": "SRX6268031"
+            },
+            {
+              "accession": "SRX6268032"
+            },
+            {
+              "accession": "SRX6268033"
+            },
+            {
+              "accession": "SRX6268034"
+            },
+            {
+              "accession": "SRX6268035"
+            },
+            {
+              "accession": "SRX6268036"
+            },
+            {
+              "accession": "SRX6268037"
+            },
+            {
+              "accession": "SRX6268038"
+            },
+            {
+              "accession": "SRX6268039"
+            },
+            {
+              "accession": "SRX6268040"
+            },
+            {
+              "accession": "SRX6268041"
+            },
+            {
+              "accession": "SRX6268042"
+            },
+            {
+              "accession": "SRX6268043"
+            },
+            {
+              "accession": "SRX6268044"
+            },
+            {
+              "accession": "SRX6268045"
+            },
+            {
+              "accession": "SRX6268046"
+            },
+            {
+              "accession": "SRX6268047"
+            },
+            {
+              "accession": "SRX6268048"
+            },
+            {
+              "accession": "SRX6268049"
+            },
+            {
+              "accession": "SRX6268050"
+            },
+            {
+              "accession": "SRX6268051"
+            },
+            {
+              "accession": "SRX6268052"
+            },
+            {
+              "accession": "SRX6268053"
+            },
+            {
+              "accession": "SRX6268054"
+            },
+            {
+              "accession": "SRX6268055"
+            },
+            {
+              "accession": "SRX6268056"
+            },
+            {
+              "accession": "SRX6268057"
+            },
+            {
+              "accession": "SRX6268058"
+            },
+            {
+              "accession": "SRX6268059"
+            },
+            {
+              "accession": "SRX6268060"
+            },
+            {
+              "accession": "SRX6268109"
+            },
+            {
+              "accession": "SRX6268110"
+            },
+            {
+              "accession": "SRX6268111"
+            },
+            {
+              "accession": "SRX6268112"
+            },
+            {
+              "accession": "SRX6268113"
+            },
+            {
+              "accession": "SRX6268114"
+            },
+            {
+              "accession": "SRX6268115"
+            },
+            {
+              "accession": "SRX6268116"
+            },
+            {
+              "accession": "SRX6268117"
+            },
+            {
+              "accession": "SRX6268118"
+            },
+            {
+              "accession": "SRX6268119"
+            },
+            {
+              "accession": "SRX6268120"
+            },
+            {
+              "accession": "SRX6268121"
+            },
+            {
+              "accession": "SRX6268122"
+            },
+            {
+              "accession": "SRX6268123"
+            },
+            {
+              "accession": "SRX6268124"
+            },
+            {
+              "accession": "SRX6268125"
+            },
+            {
+              "accession": "SRX6268126"
+            },
+            {
+              "accession": "SRX6268127"
+            },
+            {
+              "accession": "SRX6268128"
+            },
+            {
+              "accession": "SRX6268129"
+            },
+            {
+              "accession": "SRX6268130"
+            },
+            {
+              "accession": "SRX6268131"
+            },
+            {
+              "accession": "SRX6268132"
+            },
+            {
+              "accession": "SRX6268133"
+            },
+            {
+              "accession": "SRX6268134"
+            },
+            {
+              "accession": "SRX6268135"
+            },
+            {
+              "accession": "SRX6268136"
+            },
+            {
+              "accession": "SRX6268137"
+            },
+            {
+              "accession": "SRX6268138"
+            },
+            {
+              "accession": "SRX6268139"
+            },
+            {
+              "accession": "SRX6268140"
+            }
+          ],
+          "species": [
+            {
+              "text": "Gallus gallus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN12121928"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP211652",
+          "title": "Sequencing GALLUS GALLUS"
+        },
+        "sort": [
+          "SRP211652"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP211234",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR9493239.fastq.gz"
+            },
+            {
+              "name": "SRR9493240.fastq.gz"
+            },
+            {
+              "name": "SRR9493241.fastq.gz"
+            },
+            {
+              "name": "SRR9493242.fastq.gz"
+            },
+            {
+              "name": "SRR9493243.fastq.gz"
+            },
+            {
+              "name": "SRR9493244.fastq.gz"
+            },
+            {
+              "name": "SRR9493245.fastq.gz"
+            },
+            {
+              "name": "SRR9493246.fastq.gz"
+            },
+            {
+              "name": "SRR9493249.fastq.gz"
+            },
+            {
+              "name": "SRR9493250.fastq.gz"
+            },
+            {
+              "name": "SRR9493255.fastq.gz"
+            },
+            {
+              "name": "SRR9493256.fastq.gz"
+            },
+            {
+              "name": "SRR9493257.fastq.gz"
+            },
+            {
+              "name": "SRR9493258.fastq.gz"
+            },
+            {
+              "name": "SRR9493259.fastq.gz"
+            },
+            {
+              "name": "SRR9493260.fastq.gz"
+            },
+            {
+              "name": "SRR9493261.fastq.gz"
+            },
+            {
+              "name": "SRR9493262.fastq.gz"
+            },
+            {
+              "name": "SRR9493263.fastq.gz"
+            },
+            {
+              "name": "SRR9493271.fastq.gz"
+            },
+            {
+              "name": "SRR9493272.fastq.gz"
+            },
+            {
+              "name": "SRR9493273.fastq.gz"
+            },
+            {
+              "name": "SRR9493274.fastq.gz"
+            },
+            {
+              "name": "SRR9493285.fastq.gz"
+            },
+            {
+              "name": "SRR9493286.fastq.gz"
+            },
+            {
+              "name": "SRR9493287.fastq.gz"
+            },
+            {
+              "name": "SRR9493288.fastq.gz"
+            },
+            {
+              "name": "SRR9493289.fastq.gz"
+            },
+            {
+              "name": "SRR9493290.fastq.gz"
+            },
+            {
+              "name": "SRR9493291.fastq.gz"
+            },
+            {
+              "name": "SRR9493292.fastq.gz"
+            },
+            {
+              "name": "SRR9493293.fastq.gz"
+            },
+            {
+              "name": "SRR9493294.fastq.gz"
+            },
+            {
+              "name": "SRR9493295.fastq.gz"
+            },
+            {
+              "name": "SRR9493296.fastq.gz"
+            },
+            {
+              "name": "SRR9493297.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX6259085"
+            },
+            {
+              "accession": "SRX6259086"
+            },
+            {
+              "accession": "SRX6259087"
+            },
+            {
+              "accession": "SRX6259088"
+            },
+            {
+              "accession": "SRX6259089"
+            },
+            {
+              "accession": "SRX6259090"
+            },
+            {
+              "accession": "SRX6259091"
+            },
+            {
+              "accession": "SRX6259092"
+            },
+            {
+              "accession": "SRX6259095"
+            },
+            {
+              "accession": "SRX6259096"
+            },
+            {
+              "accession": "SRX6259101"
+            },
+            {
+              "accession": "SRX6259102"
+            },
+            {
+              "accession": "SRX6259103"
+            },
+            {
+              "accession": "SRX6259104"
+            },
+            {
+              "accession": "SRX6259105"
+            },
+            {
+              "accession": "SRX6259106"
+            },
+            {
+              "accession": "SRX6259107"
+            },
+            {
+              "accession": "SRX6259108"
+            },
+            {
+              "accession": "SRX6259109"
+            },
+            {
+              "accession": "SRX6259117"
+            },
+            {
+              "accession": "SRX6259118"
+            },
+            {
+              "accession": "SRX6259119"
+            },
+            {
+              "accession": "SRX6259120"
+            },
+            {
+              "accession": "SRX6259131"
+            },
+            {
+              "accession": "SRX6259132"
+            },
+            {
+              "accession": "SRX6259133"
+            },
+            {
+              "accession": "SRX6259134"
+            },
+            {
+              "accession": "SRX6259135"
+            },
+            {
+              "accession": "SRX6259136"
+            },
+            {
+              "accession": "SRX6259137"
+            },
+            {
+              "accession": "SRX6259138"
+            },
+            {
+              "accession": "SRX6259139"
+            },
+            {
+              "accession": "SRX6259140"
+            },
+            {
+              "accession": "SRX6259141"
+            },
+            {
+              "accession": "SRX6259142"
+            },
+            {
+              "accession": "SRX6259143"
+            }
+          ],
+          "species": [
+            {
+              "text": "Sus scrofa"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN12121391"
+            },
+            {
+              "biosampleId": "SAMN12121392"
+            },
+            {
+              "biosampleId": "SAMN12121393"
+            },
+            {
+              "biosampleId": "SAMN12121394"
+            },
+            {
+              "biosampleId": "SAMN12121395"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP211234",
+          "title": "Sequencing SUS SCROFA"
+        },
+        "sort": [
+          "SRP211234"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP211233",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR9809850.fastq.gz"
+            },
+            {
+              "name": "SRR9809851.fastq.gz"
+            },
+            {
+              "name": "SRR9809852.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX6557544"
+            },
+            {
+              "accession": "SRX6557545"
+            },
+            {
+              "accession": "SRX6557546"
+            }
+          ],
+          "species": [
+            {
+              "text": "Sus scrofa"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN12121389"
+            }
+          ],
+          "assayType": [
+            "transcription profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP211233",
+          "title": "Sequencing SUS SCROFA"
+        },
+        "sort": [
+          "SRP211233"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP211071",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR9439353.fastq.gz"
+            },
+            {
+              "name": "SRR9439355.fastq.gz"
+            },
+            {
+              "name": "SRR9439358.fastq.gz"
+            },
+            {
+              "name": "SRR9439360.fastq.gz"
+            },
+            {
+              "name": "SRR9439362.fastq.gz"
+            },
+            {
+              "name": "SRR9439365.fastq.gz"
+            },
+            {
+              "name": "SRR9439368.fastq.gz"
+            },
+            {
+              "name": "SRR9439370.fastq.gz"
+            },
+            {
+              "name": "SRR9439375.fastq.gz"
+            },
+            {
+              "name": "SRR9439378.fastq.gz"
+            },
+            {
+              "name": "SRR9439384.fastq.gz"
+            },
+            {
+              "name": "SRR9439386.fastq.gz"
+            },
+            {
+              "name": "SRR9439390.fastq.gz"
+            },
+            {
+              "name": "SRR9439392.fastq.gz"
+            },
+            {
+              "name": "SRR9439394.fastq.gz"
+            },
+            {
+              "name": "SRR9439397.fastq.gz"
+            },
+            {
+              "name": "SRR9439401.fastq.gz"
+            },
+            {
+              "name": "SRR9439406.fastq.gz"
+            },
+            {
+              "name": "SRR9439408.fastq.gz"
+            },
+            {
+              "name": "SRR9439414.fastq.gz"
+            },
+            {
+              "name": "SRR9439416.fastq.gz"
+            },
+            {
+              "name": "SRR9439418.fastq.gz"
+            },
+            {
+              "name": "SRR9439420.fastq.gz"
+            },
+            {
+              "name": "SRR9439425.fastq.gz"
+            },
+            {
+              "name": "SRR9439426.fastq.gz"
+            },
+            {
+              "name": "SRR9439427.fastq.gz"
+            },
+            {
+              "name": "SRR9439428.fastq.gz"
+            },
+            {
+              "name": "SRR9439429.fastq.gz"
+            },
+            {
+              "name": "SRR9439430.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX6205199"
+            },
+            {
+              "accession": "SRX6205201"
+            },
+            {
+              "accession": "SRX6205204"
+            },
+            {
+              "accession": "SRX6205206"
+            },
+            {
+              "accession": "SRX6205208"
+            },
+            {
+              "accession": "SRX6205211"
+            },
+            {
+              "accession": "SRX6205214"
+            },
+            {
+              "accession": "SRX6205216"
+            },
+            {
+              "accession": "SRX6205221"
+            },
+            {
+              "accession": "SRX6205224"
+            },
+            {
+              "accession": "SRX6205230"
+            },
+            {
+              "accession": "SRX6205232"
+            },
+            {
+              "accession": "SRX6205236"
+            },
+            {
+              "accession": "SRX6205238"
+            },
+            {
+              "accession": "SRX6205240"
+            },
+            {
+              "accession": "SRX6205243"
+            },
+            {
+              "accession": "SRX6205247"
+            },
+            {
+              "accession": "SRX6205252"
+            },
+            {
+              "accession": "SRX6205254"
+            },
+            {
+              "accession": "SRX6205260"
+            },
+            {
+              "accession": "SRX6205262"
+            },
+            {
+              "accession": "SRX6205264"
+            },
+            {
+              "accession": "SRX6205266"
+            },
+            {
+              "accession": "SRX6205271"
+            },
+            {
+              "accession": "SRX6205272"
+            },
+            {
+              "accession": "SRX6205273"
+            },
+            {
+              "accession": "SRX6205274"
+            },
+            {
+              "accession": "SRX6205275"
+            },
+            {
+              "accession": "SRX6205276"
+            }
+          ],
+          "species": [
+            {
+              "text": "Bos taurus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN12121097"
+            },
+            {
+              "biosampleId": "SAMN12121098"
+            },
+            {
+              "biosampleId": "SAMN12121100"
+            },
+            {
+              "biosampleId": "SAMN12121101"
+            },
+            {
+              "biosampleId": "SAMN12121102"
+            },
+            {
+              "biosampleId": "SAMN12121104"
+            },
+            {
+              "biosampleId": "SAMN12121106"
+            },
+            {
+              "biosampleId": "SAMN12121107"
+            },
+            {
+              "biosampleId": "SAMN12121111"
+            },
+            {
+              "biosampleId": "SAMN12121113"
+            },
+            {
+              "biosampleId": "SAMN12121118"
+            },
+            {
+              "biosampleId": "SAMN12121119"
+            },
+            {
+              "biosampleId": "SAMN12121122"
+            },
+            {
+              "biosampleId": "SAMN12121123"
+            },
+            {
+              "biosampleId": "SAMN12121124"
+            },
+            {
+              "biosampleId": "SAMN12121126"
+            },
+            {
+              "biosampleId": "SAMN12121129"
+            },
+            {
+              "biosampleId": "SAMN12121133"
+            },
+            {
+              "biosampleId": "SAMN12121134"
+            },
+            {
+              "biosampleId": "SAMN12121139"
+            },
+            {
+              "biosampleId": "SAMN12121140"
+            },
+            {
+              "biosampleId": "SAMN12121141"
+            },
+            {
+              "biosampleId": "SAMN12121142"
+            },
+            {
+              "biosampleId": "SAMN12121147"
+            },
+            {
+              "biosampleId": "SAMN12121148"
+            },
+            {
+              "biosampleId": "SAMN12121149"
+            },
+            {
+              "biosampleId": "SAMN12121150"
+            },
+            {
+              "biosampleId": "SAMN12121151"
+            },
+            {
+              "biosampleId": "SAMN12121152"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP211071",
+          "title": "Sequencing BOS TAURUS"
+        },
+        "sort": [
+          "SRP211071"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP202148",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR9339427.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX6105315"
+            }
+          ],
+          "species": [
+            {
+              "text": "Ovis aries"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN12109148"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP202148",
+          "title": "Sequencing OVIS ARIES"
+        },
+        "sort": [
+          "SRP202148"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP030134",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR999276_1.fastq.gz"
+            },
+            {
+              "name": "SRR999276_2.fastq.gz"
+            },
+            {
+              "name": "SRR999277_1.fastq.gz"
+            },
+            {
+              "name": "SRR999277_2.fastq.gz"
+            },
+            {
+              "name": "SRR999278_1.fastq.gz"
+            },
+            {
+              "name": "SRR999278_2.fastq.gz"
+            },
+            {
+              "name": "SRR999279_1.fastq.gz"
+            },
+            {
+              "name": "SRR999279_2.fastq.gz"
+            },
+            {
+              "name": "SRR999280_1.fastq.gz"
+            },
+            {
+              "name": "SRR999280_2.fastq.gz"
+            },
+            {
+              "name": "SRR999281_1.fastq.gz"
+            },
+            {
+              "name": "SRR999281_2.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX357345"
+            },
+            {
+              "accession": "SRX357346"
+            },
+            {
+              "accession": "SRX357347"
+            },
+            {
+              "accession": "SRX357348"
+            },
+            {
+              "accession": "SRX357349"
+            },
+            {
+              "accession": "SRX357350"
+            }
+          ],
+          "species": [
+            {
+              "text": "Bos taurus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN02361029"
+            },
+            {
+              "biosampleId": "SAMN02361030"
+            },
+            {
+              "biosampleId": "SAMN02361031"
+            }
+          ],
+          "assayType": [
+            "transcription profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP030134",
+          "title": "Male-specific region of the bovine Y chromosome is gene rich with a high transcriptomic activity in testis development"
+        },
+        "sort": [
+          "SRP030134"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP012260",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR488213_1.fastq.gz"
+            },
+            {
+              "name": "SRR488213_2.fastq.gz"
+            },
+            {
+              "name": "SRR488214_1.fastq.gz"
+            },
+            {
+              "name": "SRR488214_2.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX142889"
+            },
+            {
+              "accession": "SRX142890"
+            }
+          ],
+          "species": [
+            {
+              "text": "Equus caballus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00857893"
+            },
+            {
+              "biosampleId": "SAMN00857894"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP012260",
+          "title": "A DMRT3 mutation alters the pattern of locomotion in horses",
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SRP012260"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP011641",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR446961.fastq.gz"
+            },
+            {
+              "name": "SRR446964.fastq.gz"
+            },
+            {
+              "name": "SRR446965.fastq.gz"
+            },
+            {
+              "name": "SRR446967.fastq.gz"
+            },
+            {
+              "name": "SRR446968.fastq.gz"
+            },
+            {
+              "name": "SRR446969.fastq.gz"
+            },
+            {
+              "name": "SRR446970.fastq.gz"
+            },
+            {
+              "name": "SRR446971.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX130570"
+            },
+            {
+              "accession": "SRX130571"
+            },
+            {
+              "accession": "SRX130572"
+            },
+            {
+              "accession": "SRX130573"
+            },
+            {
+              "accession": "SRX130576"
+            },
+            {
+              "accession": "SRX130580"
+            },
+            {
+              "accession": "SRX130582"
+            },
+            {
+              "accession": "SRX130583"
+            }
+          ],
+          "species": [
+            {
+              "text": "Bos taurus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00829219"
+            },
+            {
+              "biosampleId": "SAMN00829220"
+            },
+            {
+              "biosampleId": "SAMN00829221"
+            },
+            {
+              "biosampleId": "SAMN00829222"
+            },
+            {
+              "biosampleId": "SAMN00829223"
+            },
+            {
+              "biosampleId": "SAMN00829224"
+            },
+            {
+              "biosampleId": "SAMN00829225"
+            },
+            {
+              "biosampleId": "SAMN00829226"
+            }
+          ],
+          "assayType": [
+            "transcription profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP011641",
+          "title": "Alternative splicing regulated by butyrate in the bovine epithelial cell"
+        },
+        "sort": [
+          "SRP011641"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP009666",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR388336_1.fastq.gz"
+            },
+            {
+              "name": "SRR388336_2.fastq.gz"
+            },
+            {
+              "name": "SRR388337_1.fastq.gz"
+            },
+            {
+              "name": "SRR388337_2.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX110702"
+            }
+          ],
+          "species": [
+            {
+              "text": "Equus caballus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00764144"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP009666",
+          "title": "Whole-Genome Sequencing and Genetic Variant Analysis of a Quarter Horse Mare"
+        },
+        "sort": [
+          "SRP009666"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP008449",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR346917.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX098724"
+            }
+          ],
+          "species": [
+            {
+              "text": "Gallus gallus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00727717"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP008449",
+          "title": "Identification of avian W-linked contigs by short-read sequencing",
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SRP008449"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP008249",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR346093.fastq.gz"
+            },
+            {
+              "name": "SRR346094.fastq.gz"
+            },
+            {
+              "name": "SRR346095.fastq.gz"
+            },
+            {
+              "name": "SRR346096.fastq.gz"
+            },
+            {
+              "name": "SRR346097.fastq.gz"
+            },
+            {
+              "name": "SRR346098.fastq.gz"
+            },
+            {
+              "name": "SRR346099.fastq.gz"
+            },
+            {
+              "name": "SRR346101.fastq.gz"
+            },
+            {
+              "name": "SRR346103.fastq.gz"
+            },
+            {
+              "name": "SRR346105.fastq.gz"
+            },
+            {
+              "name": "SRR346107.fastq.gz"
+            },
+            {
+              "name": "SRR346110.fastq.gz"
+            },
+            {
+              "name": "SRR346111.fastq.gz"
+            },
+            {
+              "name": "SRR346112.fastq.gz"
+            },
+            {
+              "name": "SRR346113.fastq.gz"
+            },
+            {
+              "name": "SRR346115.fastq.gz"
+            },
+            {
+              "name": "SRR346116.fastq.gz"
+            },
+            {
+              "name": "SRR346117.fastq.gz"
+            },
+            {
+              "name": "SRR346119.fastq.gz"
+            },
+            {
+              "name": "SRR346120.fastq.gz"
+            },
+            {
+              "name": "SRR346121.fastq.gz"
+            },
+            {
+              "name": "SRR346122.fastq.gz"
+            },
+            {
+              "name": "SRR346123.fastq.gz"
+            },
+            {
+              "name": "SRR346124.fastq.gz"
+            },
+            {
+              "name": "SRR346125.fastq.gz"
+            },
+            {
+              "name": "SRR346126.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX098097"
+            },
+            {
+              "accession": "SRX098098"
+            },
+            {
+              "accession": "SRX098099"
+            },
+            {
+              "accession": "SRX098103"
+            },
+            {
+              "accession": "SRX098104"
+            },
+            {
+              "accession": "SRX098106"
+            },
+            {
+              "accession": "SRX098108"
+            },
+            {
+              "accession": "SRX098111"
+            },
+            {
+              "accession": "SRX098112"
+            },
+            {
+              "accession": "SRX098114"
+            },
+            {
+              "accession": "SRX098116"
+            },
+            {
+              "accession": "SRX098118"
+            },
+            {
+              "accession": "SRX098119"
+            },
+            {
+              "accession": "SRX098120"
+            },
+            {
+              "accession": "SRX098121"
+            },
+            {
+              "accession": "SRX098123"
+            },
+            {
+              "accession": "SRX098124"
+            },
+            {
+              "accession": "SRX098126"
+            },
+            {
+              "accession": "SRX098127"
+            }
+          ],
+          "species": [
+            {
+              "text": "Equus caballus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00717264"
+            },
+            {
+              "biosampleId": "SAMN00717265"
+            },
+            {
+              "biosampleId": "SAMN00722479"
+            },
+            {
+              "biosampleId": "SAMN00722480"
+            },
+            {
+              "biosampleId": "SAMN00722481"
+            },
+            {
+              "biosampleId": "SAMN00722482"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP008249",
+          "title": "Improving the performance of true-Single Molecule Sequencing for ancient DNA"
+        },
+        "sort": [
+          "SRP008249"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP006794",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR208048.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX063209"
+            }
+          ],
+          "species": [
+            {
+              "text": "Ovis aries"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00618966"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP006794",
+          "title": "Ovis aries whole genome sequencing project",
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SRP006794"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP005902",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR111892.fastq.gz"
+            },
+            {
+              "name": "SRR111908.fastq.gz"
+            },
+            {
+              "name": "SRR111909.fastq.gz"
+            },
+            {
+              "name": "SRR203479.fastq.gz"
+            },
+            {
+              "name": "SRR203480.fastq.gz"
+            },
+            {
+              "name": "SRR203481.fastq.gz"
+            },
+            {
+              "name": "SRR203482.fastq.gz"
+            },
+            {
+              "name": "SRR203483.fastq.gz"
+            },
+            {
+              "name": "SRR203484.fastq.gz"
+            },
+            {
+              "name": "SRR203485.fastq.gz"
+            },
+            {
+              "name": "SRR203487.fastq.gz"
+            },
+            {
+              "name": "SRR203494.fastq.gz"
+            },
+            {
+              "name": "SRR203495.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX045369"
+            },
+            {
+              "accession": "SRX045394"
+            },
+            {
+              "accession": "SRX045395"
+            },
+            {
+              "accession": "SRX045385"
+            },
+            {
+              "accession": "SRX045389"
+            },
+            {
+              "accession": "SRX045386"
+            },
+            {
+              "accession": "SRX045371"
+            },
+            {
+              "accession": "SRX045390"
+            },
+            {
+              "accession": "SRX045393"
+            },
+            {
+              "accession": "SRX045391"
+            },
+            {
+              "accession": "SRX045392"
+            },
+            {
+              "accession": "SRX045387"
+            },
+            {
+              "accession": "SRX045388"
+            }
+          ],
+          "species": [
+            {
+              "text": "Equus caballus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00216520"
+            },
+            {
+              "biosampleId": "SAMN00216521"
+            },
+            {
+              "biosampleId": "SAMN00216537"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP005902",
+          "title": "True Single-Molecule DNA Sequencing of a Pleistocene Horse bone",
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SRP005902"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP005900",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR108991_1.fastq.gz"
+            },
+            {
+              "name": "SRR108991_2.fastq.gz"
+            },
+            {
+              "name": "SRR108994_1.fastq.gz"
+            },
+            {
+              "name": "SRR108994_2.fastq.gz"
+            },
+            {
+              "name": "SRR108996_1.fastq.gz"
+            },
+            {
+              "name": "SRR108996_2.fastq.gz"
+            },
+            {
+              "name": "SRR108998_1.fastq.gz"
+            },
+            {
+              "name": "SRR108998_2.fastq.gz"
+            },
+            {
+              "name": "SRR109000_1.fastq.gz"
+            },
+            {
+              "name": "SRR109000_2.fastq.gz"
+            },
+            {
+              "name": "SRR109002_1.fastq.gz"
+            },
+            {
+              "name": "SRR109002_2.fastq.gz"
+            },
+            {
+              "name": "SRR109004_1.fastq.gz"
+            },
+            {
+              "name": "SRR109004_2.fastq.gz"
+            },
+            {
+              "name": "SRR109006_1.fastq.gz"
+            },
+            {
+              "name": "SRR109006_2.fastq.gz"
+            },
+            {
+              "name": "SRR109008_1.fastq.gz"
+            },
+            {
+              "name": "SRR109008_2.fastq.gz"
+            },
+            {
+              "name": "SRR109010_1.fastq.gz"
+            },
+            {
+              "name": "SRR109010_2.fastq.gz"
+            },
+            {
+              "name": "SRR109012_1.fastq.gz"
+            },
+            {
+              "name": "SRR109012_2.fastq.gz"
+            },
+            {
+              "name": "SRR109014_1.fastq.gz"
+            },
+            {
+              "name": "SRR109014_2.fastq.gz"
+            },
+            {
+              "name": "SRR109016_1.fastq.gz"
+            },
+            {
+              "name": "SRR109016_2.fastq.gz"
+            },
+            {
+              "name": "SRR109018_1.fastq.gz"
+            },
+            {
+              "name": "SRR109018_2.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX044554"
+            },
+            {
+              "accession": "SRX044555"
+            },
+            {
+              "accession": "SRX044556"
+            },
+            {
+              "accession": "SRX044557"
+            },
+            {
+              "accession": "SRX044558"
+            },
+            {
+              "accession": "SRX044559"
+            },
+            {
+              "accession": "SRX044560"
+            },
+            {
+              "accession": "SRX044561"
+            },
+            {
+              "accession": "SRX044562"
+            },
+            {
+              "accession": "SRX044563"
+            },
+            {
+              "accession": "SRX044564"
+            },
+            {
+              "accession": "SRX044565"
+            },
+            {
+              "accession": "SRX044566"
+            },
+            {
+              "accession": "SRX044567"
+            }
+          ],
+          "species": [
+            {
+              "text": "Ovis aries"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00216499"
+            },
+            {
+              "biosampleId": "SAMN00216500"
+            },
+            {
+              "biosampleId": "SAMN00216501"
+            },
+            {
+              "biosampleId": "SAMN00216502"
+            },
+            {
+              "biosampleId": "SAMN00216503"
+            },
+            {
+              "biosampleId": "SAMN00216504"
+            },
+            {
+              "biosampleId": "SAMN00216505"
+            },
+            {
+              "biosampleId": "SAMN00216506"
+            },
+            {
+              "biosampleId": "SAMN00216507"
+            },
+            {
+              "biosampleId": "SAMN00216508"
+            },
+            {
+              "biosampleId": "SAMN00216509"
+            },
+            {
+              "biosampleId": "SAMN00216510"
+            },
+            {
+              "biosampleId": "SAMN00216511"
+            },
+            {
+              "biosampleId": "SAMN00216512"
+            }
+          ],
+          "assayType": [
+            "transcription profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP005900",
+          "title": "The fetal sheep heart transcriptome"
+        },
+        "sort": [
+          "SRP005900"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP004715",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR081275_1.fastq.gz"
+            },
+            {
+              "name": "SRR081275_2.fastq.gz"
+            },
+            {
+              "name": "SRR081557_1.fastq.gz"
+            },
+            {
+              "name": "SRR081557_2.fastq.gz"
+            },
+            {
+              "name": "SRR081558_1.fastq.gz"
+            },
+            {
+              "name": "SRR081558_2.fastq.gz"
+            },
+            {
+              "name": "SRR081559_1.fastq.gz"
+            },
+            {
+              "name": "SRR081559_2.fastq.gz"
+            },
+            {
+              "name": "SRR081560_1.fastq.gz"
+            },
+            {
+              "name": "SRR081560_2.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX033127"
+            },
+            {
+              "accession": "SRX033128"
+            },
+            {
+              "accession": "SRX032872"
+            },
+            {
+              "accession": "SRX032873"
+            }
+          ],
+          "species": [
+            {
+              "text": "Gallus gallus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00139337"
+            },
+            {
+              "biosampleId": "SAMN00139338"
+            },
+            {
+              "biosampleId": "SAMN00139477"
+            },
+            {
+              "biosampleId": "SAMN00139478"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP004715",
+          "title": "Structural variation in the chicken genome identified by paired-end next-generation DNA sequencing of reduced representation libraries."
+        },
+        "sort": [
+          "SRP004715"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP004233",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR071981.fastq.gz"
+            },
+            {
+              "name": "SRR071982.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX030557"
+            },
+            {
+              "accession": "SRX030555"
+            }
+          ],
+          "species": [
+            {
+              "text": "Gallus gallus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00115893"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay",
+            "ChIP-seq"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP004233",
+          "title": "Shox ChIp-seq in chicken micromass cell cultures"
+        },
+        "sort": [
+          "SRP004233"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP002558",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR054648.fastq.gz"
+            },
+            {
+              "name": "SRR054649.fastq.gz"
+            },
+            {
+              "name": "SRR054650.fastq.gz"
+            },
+            {
+              "name": "SRR054651.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX021594"
+            },
+            {
+              "accession": "SRX021600"
+            },
+            {
+              "accession": "SRX021601"
+            },
+            {
+              "accession": "SRX021602"
+            }
+          ],
+          "species": [
+            {
+              "text": "Bos taurus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00014457"
+            },
+            {
+              "biosampleId": "SAMN00014458"
+            },
+            {
+              "biosampleId": "SAMN00014459"
+            },
+            {
+              "biosampleId": "SAMN00014460"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP002558",
+          "title": "Metagenomics detects a minimal disruption in the bovine abomasal microbiota by the parasitic nematode Ostertagia ostertagi in immune animals"
+        },
+        "sort": [
+          "SRP002558"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "SRP001885",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR035503_1.fastq.gz"
+            },
+            {
+              "name": "SRR035503_2.fastq.gz"
+            },
+            {
+              "name": "SRR036924_1.fastq.gz"
+            },
+            {
+              "name": "SRR036924_2.fastq.gz"
+            },
+            {
+              "name": "SRR042537_1.fastq.gz"
+            },
+            {
+              "name": "SRR042537_2.fastq.gz"
+            },
+            {
+              "name": "SRR042542_1.fastq.gz"
+            },
+            {
+              "name": "SRR042542_2.fastq.gz"
+            },
+            {
+              "name": "SRR042543_1.fastq.gz"
+            },
+            {
+              "name": "SRR042543_2.fastq.gz"
+            },
+            {
+              "name": "SRR042544_1.fastq.gz"
+            },
+            {
+              "name": "SRR042544_2.fastq.gz"
+            },
+            {
+              "name": "SRR042545_1.fastq.gz"
+            },
+            {
+              "name": "SRR042545_2.fastq.gz"
+            },
+            {
+              "name": "SRR042546_1.fastq.gz"
+            },
+            {
+              "name": "SRR042546_2.fastq.gz"
+            },
+            {
+              "name": "SRR042547_1.fastq.gz"
+            },
+            {
+              "name": "SRR042547_2.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX016522"
+            }
+          ],
+          "species": [
+            {
+              "text": "Capra hircus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00008644"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "SRP001885",
+          "title": "Whole Genome Sequence of Goat"
+        },
+        "sort": [
+          "SRP001885"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "PRJNA90347",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR019555.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX006867"
+            }
+          ],
+          "species": [
+            {
+              "text": "Ovis aries"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00002758"
+            }
+          ],
+          "assayType": [
+            "whole genome sequencing assay"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "PRJNA90347",
+          "title": "Parasite resistance in the small intestine of sheep",
+          "paperPublished": "true"
+        },
+        "sort": [
+          "PRJNA90347"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "PRJNA81817",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR409948.fastq.gz"
+            },
+            {
+              "name": "SRR445814.fastq.gz"
+            },
+            {
+              "name": "SRR445815.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX120782"
+            }
+          ],
+          "species": [
+            {
+              "text": "Bos taurus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00791332"
+            }
+          ],
+          "assayType": [
+            "transcription profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "PRJNA81817",
+          "title": "Transcriptome profile of cancerous horn tissue in Kankrej Bullock",
+          "paperPublished": "true"
+        },
+        "sort": [
+          "PRJNA81817"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "PRJNA81815",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR409947.fastq.gz"
+            },
+            {
+              "name": "SRR446367.fastq.gz"
+            },
+            {
+              "name": "SRR446368.fastq.gz"
+            },
+            {
+              "name": "SRR446370.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX119730"
+            }
+          ],
+          "species": [
+            {
+              "text": "Bos taurus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00788861"
+            }
+          ],
+          "assayType": [
+            "transcription profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "PRJNA81815",
+          "title": "Transcriptome profile of healthy horn tissue in Kankrej Bullock",
+          "paperPublished": "true"
+        },
+        "sort": [
+          "PRJNA81815"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "PRJNA79673",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR064199.fastq.gz"
+            },
+            {
+              "name": "SRR064342.fastq.gz"
+            },
+            {
+              "name": "SRR064343.fastq.gz"
+            },
+            {
+              "name": "SRR064344.fastq.gz"
+            },
+            {
+              "name": "SRR064345.fastq.gz"
+            },
+            {
+              "name": "SRR064346.fastq.gz"
+            },
+            {
+              "name": "SRR064347.fastq.gz"
+            },
+            {
+              "name": "SRR064348.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX025776"
+            },
+            {
+              "accession": "SRX025777"
+            },
+            {
+              "accession": "SRX025778"
+            },
+            {
+              "accession": "SRX025779"
+            },
+            {
+              "accession": "SRX025780"
+            },
+            {
+              "accession": "SRX025781"
+            },
+            {
+              "accession": "SRX025782"
+            },
+            {
+              "accession": "SRX025783"
+            }
+          ],
+          "species": [
+            {
+              "text": "Ovis aries"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00103467"
+            },
+            {
+              "biosampleId": "SAMN00103503"
+            },
+            {
+              "biosampleId": "SAMN00103504"
+            },
+            {
+              "biosampleId": "SAMN00103505"
+            },
+            {
+              "biosampleId": "SAMN00103506"
+            },
+            {
+              "biosampleId": "SAMN00103507"
+            },
+            {
+              "biosampleId": "SAMN00103508"
+            },
+            {
+              "biosampleId": "SAMN00103509"
+            }
+          ],
+          "assayType": [
+            "transcription profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "PRJNA79673",
+          "title": "Time series of standard and delayed bone healing in Ovis Aries"
+        },
+        "sort": [
+          "PRJNA79673"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "PRJNA73723",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR350917_1.fastq.gz"
+            },
+            {
+              "name": "SRR350917_2.fastq.gz"
+            },
+            {
+              "name": "SRR350918_1.fastq.gz"
+            },
+            {
+              "name": "SRR350918_2.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX099228"
+            },
+            {
+              "accession": "SRX099903"
+            }
+          ],
+          "species": [
+            {
+              "text": "Sus scrofa"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN00727957"
+            },
+            {
+              "biosampleId": "SAMN00727958"
+            }
+          ],
+          "assayType": [
+            "transcription profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "PRJNA73723",
+          "title": "Sus scrofa strain: Iberian",
+          "paperPublished": "true"
+        },
+        "sort": [
+          "PRJNA73723"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "PRJNA694531",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR13518405.fastq.gz"
+            },
+            {
+              "name": "SRR13518406.fastq.gz"
+            },
+            {
+              "name": "SRR13518407.fastq.gz"
+            },
+            {
+              "name": "SRR13518408.fastq.gz"
+            },
+            {
+              "name": "SRR13518409.fastq.gz"
+            },
+            {
+              "name": "SRR13518410.fastq.gz"
+            },
+            {
+              "name": "SRR13518411.fastq.gz"
+            },
+            {
+              "name": "SRR13518412.fastq.gz"
+            },
+            {
+              "name": "SRR13518413.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX9929461"
+            },
+            {
+              "accession": "SRX9929460"
+            },
+            {
+              "accession": "SRX9929459"
+            },
+            {
+              "accession": "SRX9929458"
+            },
+            {
+              "accession": "SRX9929457"
+            },
+            {
+              "accession": "SRX9929456"
+            },
+            {
+              "accession": "SRX9929455"
+            },
+            {
+              "accession": "SRX9929454"
+            },
+            {
+              "accession": "SRX9929453"
+            }
+          ],
+          "species": [
+            {
+              "text": "Ovis aries"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN15952176"
+            },
+            {
+              "biosampleId": "SAMN15952177"
+            },
+            {
+              "biosampleId": "SAMN15952178"
+            },
+            {
+              "biosampleId": "SAMN15952179"
+            },
+            {
+              "biosampleId": "SAMN15952180"
+            },
+            {
+              "biosampleId": "SAMN15952181"
+            },
+            {
+              "biosampleId": "SAMN15952182"
+            },
+            {
+              "biosampleId": "SAMN15952183"
+            },
+            {
+              "biosampleId": "SAMN15952184"
+            }
+          ],
+          "assayType": [
+            "microRNA profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "PRJNA694531",
+          "title": "MicroRNA sequencing of sheep epididymis tissue"
+        },
+        "sort": [
+          "PRJNA694531"
+        ]
+      },
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "PRJNA693046",
+        "_score": null,
+        "_source": {
+          "standardMet": "Legacy",
+          "file": [
+            {
+              "name": "SRR13479576_1.fastq.gz"
+            },
+            {
+              "name": "SRR13479576_2.fastq.gz"
+            },
+            {
+              "name": "SRR13479578_1.fastq.gz"
+            },
+            {
+              "name": "SRR13479578_2.fastq.gz"
+            },
+            {
+              "name": "SRR13479579_1.fastq.gz"
+            },
+            {
+              "name": "SRR13479579_2.fastq.gz"
+            },
+            {
+              "name": "SRR13479580_1.fastq.gz"
+            },
+            {
+              "name": "SRR13479580_2.fastq.gz"
+            },
+            {
+              "name": "SRR13479582_1.fastq.gz"
+            },
+            {
+              "name": "SRR13479582_2.fastq.gz"
+            },
+            {
+              "name": "SRR13479583_1.fastq.gz"
+            },
+            {
+              "name": "SRR13479583_2.fastq.gz"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "SRX9892288"
+            },
+            {
+              "accession": "SRX9892290"
+            },
+            {
+              "accession": "SRX9892291"
+            },
+            {
+              "accession": "SRX9892284"
+            },
+            {
+              "accession": "SRX9892286"
+            },
+            {
+              "accession": "SRX9892287"
+            }
+          ],
+          "species": [
+            {
+              "text": "Capra hircus"
+            }
+          ],
+          "specimen": [
+            {
+              "biosampleId": "SAMN17376449"
+            },
+            {
+              "biosampleId": "SAMN17376450"
+            },
+            {
+              "biosampleId": "SAMN17376452"
+            },
+            {
+              "biosampleId": "SAMN17376453"
+            },
+            {
+              "biosampleId": "SAMN17376454"
+            },
+            {
+              "biosampleId": "SAMN17376456"
+            }
+          ],
+          "assayType": [
+            "transcription profiling by high throughput sequencing"
+          ],
+          "archive": [
+            "ENA"
+          ],
+          "accession": "PRJNA693046",
+          "title": "Long non-coding RNA lnc_3712 impedes nuclear reprogramming via repressing Kdm5b",
+          "paperPublished": "true"
+        },
+        "sort": [
+          "PRJNA693046"
+        ]
+      }
+    ]
+  },
+  "aggregations": {
+    "standard": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "Legacy",
+          "doc_count": 2800
+        },
+        {
+          "key": "FAANG",
+          "doc_count": 72
+        }
+      ]
+    },
+    "assay_type": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "transcription profiling by high throughput sequencing",
+          "doc_count": 1848
+        },
+        {
+          "key": "whole genome sequencing assay",
+          "doc_count": 527
+        },
+        {
+          "key": "microRNA profiling by high throughput sequencing",
+          "doc_count": 336
+        },
+        {
+          "key": "ChIP-seq",
+          "doc_count": 105
+        },
+        {
+          "key": "methylation profiling by high throughput sequencing",
+          "doc_count": 100
+        },
+        {
+          "key": "ATAC-seq",
+          "doc_count": 31
+        },
+        {
+          "key": "Hi-C",
+          "doc_count": 12
+        },
+        {
+          "key": "",
+          "doc_count": 8
+        },
+        {
+          "key": "RNA-seq of total RNA",
+          "doc_count": 8
+        },
+        {
+          "key": "RNA-seq of coding RNA",
+          "doc_count": 7
+        },
+        {
+          "key": "CAGE-seq",
+          "doc_count": 3
+        },
+        {
+          "key": "ISO-Seq",
+          "doc_count": 2
+        },
+        {
+          "key": "ChIP-Seq",
+          "doc_count": 1
+        },
+        {
+          "key": "DNase-Hypersensitivity seq",
+          "doc_count": 1
+        },
+        {
+          "key": "RNA-seq of non coding RNA",
+          "doc_count": 1
+        }
+      ]
+    },
+    "paper_published": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "true",
+          "doc_count": 1745
+        }
+      ]
+    },
+    "species": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "Gallus gallus",
+          "doc_count": 758
+        },
+        {
+          "key": "Bos taurus",
+          "doc_count": 746
+        },
+        {
+          "key": "Sus scrofa",
+          "doc_count": 740
+        },
+        {
+          "key": "Ovis aries",
+          "doc_count": 292
+        },
+        {
+          "key": "Equus caballus",
+          "doc_count": 209
+        },
+        {
+          "key": "Capra hircus",
+          "doc_count": 204
+        },
+        {
+          "key": "Bos indicus",
+          "doc_count": 5
+        },
+        {
+          "key": "Salmo salar",
+          "doc_count": 2
+        },
+        {
+          "key": "Scophthalmus maximus",
+          "doc_count": 2
+        },
+        {
+          "key": "Bubalus bubalis",
+          "doc_count": 1
+        }
+      ]
+    },
+    "paper_published_missing": {
+      "doc_count": 1127
+    },
+    "archive": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "ENA",
+          "doc_count": 2871
+        },
+        {
+          "key": "SRA",
+          "doc_count": 4
+        }
+      ]
+    }
+  }
+}
