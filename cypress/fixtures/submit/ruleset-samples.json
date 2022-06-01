@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Validation rules for the FAANG project. Rules are divided into one group that is applied to all samples, and additional groups based on the sample type. In addition to rules defined individually, attribute names are imported from the VT, ATOL and EOL ontologies.",
+  "title": "FAANG sample core metadata rules",
+  "name": "faang_samples_core.metadata_rules",
+  "$async": true,
+  "type": "object",
+  "required": [
+    "material",
+    "project"
+  ],
+  "properties": {
+    "describedBy": {
+      "const": "https://github.com/FAANG/faang-metadata/blob/master/docs/faang_sample_metadata.md"
+    },
+    "schema_version": {
+      "description": "The version number of the schema in major.minor.patch format.",
+      "type": "string",
+      "pattern": "^[0-9]{1,}.[0-9]{1,}.[0-9]{1,}$",
+      "example": "4.6.1"
+    },
+    "sample_description": {
+      "type": "object",
+      "name": "Sample Description",
+      "description": "A brief description of the sample including species name.",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "mandatory": {
+          "const": "optional"
+        }
+      }
+    },
+    "material": {
+      "type": "object",
+      "name": "Material",
+      "description": "The type of material being described.",
+      "required": [
+        "text",
+        "term"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "enum": [
+            "organism",
+            "specimen from organism",
+            "cell specimen",
+            "single cell specimen",
+            "pool of specimens",
+            "cell culture",
+            "cell line",
+            "organoid",
+            "restricted access"
+          ]
+        },
+        "term": {
+          "type": "string",
+          "enum": [
+            "OBI:0100026",
+            "OBI:0001479",
+            "OBI:0001468",
+            "OBI_0002127",
+            "OBI:0302716",
+            "OBI:0001876",
+            "CLO:0000031",
+            "NCIT_C172259",
+            "restricted access"
+          ]
+        },
+        "mandatory": {
+          "const": "mandatory"
+        },
+        "ontology_name": {
+          "const": "OBI"
+        },
+        "_comment": {
+          "const": "Covers organism, specimen from organism, cell specimen, pool of specimens, cell culture, cell line, organoid."
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "name": "Project",
+      "description": "State that the project is 'FAANG'.",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "const": "FAANG"
+        },
+        "mandatory": {
+          "const": "mandatory"
+        }
+      }
+    },
+    "secondary_project": {
+      "type": "array",
+      "name": "Secondary project",
+      "description": "State the secondary project(s) that this data belongs to e.g. 'AQUA-FAANG', 'GENE-SWitCH' or 'BovReg'. Please use your official consortium shortened acronym if available. If your secondary project is not in the list, please contact the faang-dcc helpdesk to have it added. If your project uses the FAANG data portal project slices (https://data.faang.org/projects) then this field is required to ensure that your data appears in the data slice.",
+      "items": {
+        "type": "object",
+        "required": [
+          "value"
+        ],
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "AQUA-FAANG",
+              "BovReg",
+              "GENE-SWitCH",
+              "Bovine-FAANG",
+              "EFFICACE",
+              "GEroNIMO",
+              "RUMIGEN"
+            ]
+          },
+          "mandatory": {
+            "const": "optional"
+          }
+        }
+      }
+    },
+    "availability": {
+      "type": "object",
+      "name": "Availability",
+      "description": "Either a link to a web page giving information on sample availability (who to contact and if the sample is available), or a e-mail address to contact about availability. E-mail addresses should be prefixed with 'mailto:', e.g. 'mailto:samples@example.ac.uk'. In either case, long term support of the web page or e-mail address is necessary. Group e-mail addresses are preferable to indiviudal.",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "string",
+          "format": "uri"
+        },
+        "mandatory": {
+          "const": "optional"
+        }
+      }
+    },
+    "same_as": {
+      "type": "object",
+      "name": "Same as",
+      "description": "BioSample ID for an equivalent sample record, created before the FAANG metadata specification was available. This is optional and not intended for general use, please contact the data coordination centre (faang-dcc@ebi.ac.uk) before using it.",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "mandatory": {
+          "const": "optional"
+        }
+      }
+    }
+  }
+}

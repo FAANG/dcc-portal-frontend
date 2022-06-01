@@ -1,5 +1,6 @@
 describe('Summary Organisms Page', () => {
   beforeEach(() => {
+    cy.intercept('GET', 'data/summary_organism/summary_organism*', {fixture: 'summary/summary_organism.json'}).as("organismList")
     cy.visit('/summary/organisms');
   })
 

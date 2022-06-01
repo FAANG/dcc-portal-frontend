@@ -2,7 +2,8 @@ import {PublicationPage} from "./publication"
 
 describe('Publication Page', () => {
   beforeEach(() => {
-    cy.visit('/dataset');
+    cy.intercept('GET', '/data/article/_search/*&sort=pmcId:asc&*', {fixture: 'publication.json'}).as("publicationList")
+    cy.visit('/article');
   })
 
   let publicationPage = new PublicationPage()
@@ -11,47 +12,74 @@ describe('Publication Page', () => {
     publicationPage.check_title()
   });
 
-  it('should sort table on column Title', () => {
-    publicationPage.compare_value('.cdk-column-title')
-  });
-
   /* sort table */
 
-  it('should sort table on column Journal', () => {
-    publicationPage.compare_value('.cdk-column-journal')
+  it('should sort table on column Title asc', () => {
+    publicationPage.check_header_sort_asc('.cdk-column-title', 'title')
   });
 
-  it('should sort table on column Year', () => {
-    publicationPage.compare_value('.cdk-column-year')
+  it('should sort table on column Title desc', () => {
+    publicationPage.check_header_sort_desc('.cdk-column-title', 'title')
+  });
+  // --------------------
+
+  it('should sort table on column Journal asc', () => {
+    publicationPage.check_header_sort_asc('.cdk-column-journal', 'journal')
   });
 
-  it('should sort table on column Dataset Source', () => {
-    publicationPage.compare_value('.cdk-column-datasetSource')
+  it('should sort table on column Journal desc', () => {
+    publicationPage.check_header_sort_desc('.cdk-column-journal', 'journal')
+  });
+  // --------------------
+
+  it('should sort table on column Year asc', () => {
+    publicationPage.check_header_sort_asc('.cdk-column-year', 'year')
   });
 
-  /* filter table */
-  it('should filter table by Year - 2020', () => {
-    publicationPage.compare_filter_value('[title="Year"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?year=2020')
+  it('should sort table on column Year desc', () => {
+    publicationPage.check_header_sort_desc('.cdk-column-year', 'year')
+  });
+  // --------------------
+
+  it('should sort table on column Dataset Source asc', () => {
+    publicationPage.check_header_sort_asc('.cdk-column-datasetSource', 'datasetSource')
+  });
+
+  it('should sort table on column Dataset Source desc', () => {
+    publicationPage.check_header_sort_desc('.cdk-column-datasetSource', 'datasetSource')
+  });
+  // --------------------
+
+
+  it('should filter table by  Year - 2020', () => {
+    publicationPage.check_url_filter('[title="Year"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'year')
   });
 
   it('should filter table by Journal - BMC Genomics', () => {
-    publicationPage.compare_filter_value('[title="Journal"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', '?journal=BMC%20Genomics')
+    publicationPage.check_url_filter('[title="Journal"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'journal')
   });
+
+
+
+  /* filter table */
 
   it('should allow multiple filters', () => {
     publicationPage.allow_multiple_filters('[title="Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
       '[title="Journal"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '?year=2020&journal=BMC%20Genomics',
+      'year',
+      'journal',
       ['2020', 'BMC Genomics'])
   });
 
   it('should remove filters', () => {
     publicationPage.removeFilters('[title="Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
       '[title="Journal"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '/article')
+      'year',
+      'journal')
   });
 
-  /* pagination & file download */
+
+  /* Pagination and Exports */
   it('should verify pagination', () => {
     publicationPage.verify_pagination()
   });
@@ -63,4 +91,5 @@ describe('Publication Page', () => {
   it('should export data as txt', () => {
     publicationPage.downloadData(3, 'Export as Tabular file', 'faang_data.txt')
   });
+
 })

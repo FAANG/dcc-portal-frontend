@@ -1,0 +1,579 @@
+{
+  "took": 25,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 822,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663862_1",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253159",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/002/ERR6663862/ERR6663862_1.fastq.gz",
+          "name": "ERR6663862_1.fastq.gz",
+          "type": "fastq",
+          "size": "3166150858",
+          "readableSize": "2.95999GB",
+          "checksumMethod": "md5",
+          "checksum": "4649f7ec8cc629f269c1a0af91889486",
+          "archive": "ENA",
+          "baseCount": "14016043800",
+          "readCount": "93440292",
+          "releaseDate": "2021-09-08",
+          "updateDate": "2021-09-08",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289093",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663862",
+            "alias": "C1110101",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663862_1.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663862_2",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253159",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/002/ERR6663862/ERR6663862_2.fastq.gz",
+          "name": "ERR6663862_2.fastq.gz",
+          "type": "fastq",
+          "size": "2956297554",
+          "readableSize": "2.75GB",
+          "checksumMethod": "md5",
+          "checksum": "11e542bf8ea03a923e86339cb50037e9",
+          "archive": "ENA",
+          "baseCount": "14016043800",
+          "readCount": "93440292",
+          "releaseDate": "2021-09-08",
+          "updateDate": "2021-09-08",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289093",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663862",
+            "alias": "C1110101",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663862_2.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663863_1",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253160",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/003/ERR6663863/ERR6663863_1.fastq.gz",
+          "name": "ERR6663863_1.fastq.gz",
+          "type": "fastq",
+          "size": "3053458042",
+          "readableSize": "2.84GB",
+          "checksumMethod": "md5",
+          "checksum": "08468432a4c89ee40334839c2cc5d383",
+          "archive": "ENA",
+          "baseCount": "17019087600",
+          "readCount": "113460584",
+          "releaseDate": "2021-09-07",
+          "updateDate": "2021-09-07",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289094",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663863",
+            "alias": "C1110102",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663863_1.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663863_2",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253160",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/003/ERR6663863/ERR6663863_2.fastq.gz",
+          "name": "ERR6663863_2.fastq.gz",
+          "type": "fastq",
+          "size": "2961429095",
+          "readableSize": "2.76GB",
+          "checksumMethod": "md5",
+          "checksum": "44e4e543a944c2c664b083464f2748ae",
+          "archive": "ENA",
+          "baseCount": "17019087600",
+          "readCount": "113460584",
+          "releaseDate": "2021-09-07",
+          "updateDate": "2021-09-07",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289094",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663863",
+            "alias": "C1110102",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663863_2.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663864_1",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253161",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/004/ERR6663864/ERR6663864_1.fastq.gz",
+          "name": "ERR6663864_1.fastq.gz",
+          "type": "fastq",
+          "size": "4051956709",
+          "readableSize": "3.77GB",
+          "checksumMethod": "md5",
+          "checksum": "efafafbd983b9140784cd4863875252c",
+          "archive": "ENA",
+          "baseCount": "19388790000",
+          "readCount": "129258600",
+          "releaseDate": "2021-09-07",
+          "updateDate": "2021-09-07",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289095",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663864",
+            "alias": "C1110103",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663864_1.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663864_2",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253161",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/004/ERR6663864/ERR6663864_2.fastq.gz",
+          "name": "ERR6663864_2.fastq.gz",
+          "type": "fastq",
+          "size": "3872034651",
+          "readableSize": "3.61GB",
+          "checksumMethod": "md5",
+          "checksum": "c8306255838a421fde5a4580dda32881",
+          "archive": "ENA",
+          "baseCount": "19388790000",
+          "readCount": "129258600",
+          "releaseDate": "2021-09-07",
+          "updateDate": "2021-09-07",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289095",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663864",
+            "alias": "C1110103",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663864_2.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663865_1",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253163",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/005/ERR6663865/ERR6663865_1.fastq.gz",
+          "name": "ERR6663865_1.fastq.gz",
+          "type": "fastq",
+          "size": "3084569373",
+          "readableSize": "2.87GB",
+          "checksumMethod": "md5",
+          "checksum": "a1eaedc2da0992ead1a5700b1386e5a9",
+          "archive": "ENA",
+          "baseCount": "14666659200",
+          "readCount": "97777728",
+          "releaseDate": "2021-09-07",
+          "updateDate": "2021-09-07",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289096",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663865",
+            "alias": "C1110105",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663865_1.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663865_2",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253163",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/005/ERR6663865/ERR6663865_2.fastq.gz",
+          "name": "ERR6663865_2.fastq.gz",
+          "type": "fastq",
+          "size": "2873599840",
+          "readableSize": "2.68GB",
+          "checksumMethod": "md5",
+          "checksum": "53b16272e7957276abc1d5489400d4e2",
+          "archive": "ENA",
+          "baseCount": "14666659200",
+          "readCount": "97777728",
+          "releaseDate": "2021-09-07",
+          "updateDate": "2021-09-07",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289096",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663865",
+            "alias": "C1110105",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663865_2.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663866_1",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253164",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/006/ERR6663866/ERR6663866_1.fastq.gz",
+          "name": "ERR6663866_1.fastq.gz",
+          "type": "fastq",
+          "size": "3035845548",
+          "readableSize": "2.83GB",
+          "checksumMethod": "md5",
+          "checksum": "f4834829ca956bc011590207e453f0f8",
+          "archive": "ENA",
+          "baseCount": "14903002200",
+          "readCount": "99353348",
+          "releaseDate": "2021-09-08",
+          "updateDate": "2021-09-08",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289097",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663866",
+            "alias": "C1110106",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663866_1.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR6663866_2",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA9253164",
+          "organism": "SAMEA9253111",
+          "species": {
+            "text": "Salmo salar",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_8030"
+          },
+          "secondaryProject": "AQUA-FAANG",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR666/006/ERR6663866/ERR6663866_2.fastq.gz",
+          "name": "ERR6663866_2.fastq.gz",
+          "type": "fastq",
+          "size": "2807032630",
+          "readableSize": "2.61GB",
+          "checksumMethod": "md5",
+          "checksum": "ca8c4eb6823b86aad8c26e3de6c76ffc",
+          "archive": "ENA",
+          "baseCount": "14903002200",
+          "readCount": "99353348",
+          "releaseDate": "2021-09-08",
+          "updateDate": "2021-09-08",
+          "submission": "ERA6082157",
+          "experiment": {
+            "accession": "ERX6289097",
+            "assayType": "",
+            "target": "",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR6663866",
+            "alias": "C1110106",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "NORWEGIAN UNIVERSITY OF LIFE SCIENCES",
+            "sequencingDate": "",
+            "sequencingLocation": "",
+            "sequencingLatitude": "",
+            "sequencingLongitude": ""
+          },
+          "study": {
+            "accession": "PRJEB47408",
+            "alias": "SSA_NMBU_AF_WP1_ATAC",
+            "title": "ATACseq for Atlantic Salmon tissues",
+            "type": null,
+            "secondaryAccession": "ERP131681"
+          },
+          "submitterEmail": "faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR6663866_2.fastq.gz"
+        ]
+      }
+    ]
+  }
+}

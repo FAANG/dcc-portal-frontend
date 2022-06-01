@@ -1,5 +1,6 @@
 describe('Summary Datasets Page', () => {
   beforeEach(() => {
+    cy.intercept('GET', 'data/summary_dataset/summary_dataset*', {fixture: 'summary/summary_dataset.json'}).as("datasetList")
     cy.visit('/summary/datasets');
   })
 
