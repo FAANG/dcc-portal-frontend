@@ -11,11 +11,11 @@ export const ruleset_prefix_old = 'https://raw.githubusercontent.com/FAANG/dcc-m
 export const ruleset_prefix_new = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/json_schema/';
 
 // export const validation_service_url = 'https://data.faang.org/validation_api';
-export const validation_service_url_download = 'https://api.faang.org';
+// export const validation_service_url_download = 'https://api.faang.org';
 // export const validation_ws_url = 'wss://data.faang.org/validation_ws/ws/submission/';
 
-export const validation_service_url = 'https://api.faang.org';
-export const validation_ws_url = 'wss://api.faang.org/ws/submission/';
+// export const validation_service_url = 'https://api.faang.org';
+// export const validation_ws_url = 'wss://api.faang.org/ws/submission/';
 
 export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';
@@ -34,3 +34,8 @@ export const analysis_metadata_template_without_examples = '../../assets/empty/f
 
 export const missing_values = ['not applicable', 'not collected', 'not provided', 'restricted access'];
 export const special_sheets = ['describedBy', 'schema_version', 'samples_core', 'experiments_core', 'input_dna', 'dna-binding_proteins'];
+
+export const validation_service_url_download = 'http://127.0.0.1:8000';
+export const validation_service_url = 'http://127.0.0.1:8000';
+
+export const validation_ws_url = 'ws://127.0.0.1:8000/ws/submission/';
