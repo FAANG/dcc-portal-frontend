@@ -5,7 +5,7 @@ export class PublicationPage {
   }
 
   check_header_sort_asc(classname, colname) {
-    cy.intercept('GET', `/data/article/_search/*&sort=*${colname}:asc*`, {fixture: 'publication.json'}).as('ascendingList')
+    cy.intercept('GET', `/data/article/_search/*&sort=*${colname}:asc*`, {fixture: 'data/publication.json'}).as('ascendingList')
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
 
@@ -21,7 +21,7 @@ export class PublicationPage {
   }
 
   check_header_sort_desc(classname, colname) {
-    cy.intercept('GET', `/data/article/_search/*&sort=*${colname}:desc*`, {fixture: 'publication.json'}).as('descendingList')
+    cy.intercept('GET', `/data/article/_search/*&sort=*${colname}:desc*`, {fixture: 'data/publication.json'}).as('descendingList')
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
@@ -35,7 +35,7 @@ export class PublicationPage {
   }
 
   check_url_filter(filterAccessor, filterAccessorType, colname) {
-    cy.intercept('GET', '/data/article/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'publication.json'}).as('filteredList')
+    cy.intercept('GET', '/data/article/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'data/publication.json'}).as('filteredList')
     // click on filter
     if (filterAccessorType === 'string') {
       cy.contains(filterAccessor).click()
@@ -52,8 +52,8 @@ export class PublicationPage {
   }
 
   allow_multiple_filters(filterAccessor_1, filterAccessor_2, colname1, colname2, filterArr) {
-    cy.intercept('GET', '/data/article/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'publication.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/article/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'publication.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/article/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/publication.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/article/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/publication.json'}).as('filteredList2')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -73,9 +73,9 @@ export class PublicationPage {
   }
 
   removeFilters(filterAccessor_1, filterAccessor_2, colname1, colname2) {
-    cy.intercept('GET', '/data/article/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'publication.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/article/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'publication.json'}).as('filteredList2')
-    cy.intercept('GET', '/data/article/_search/*filters=%7B%7D&aggs=*', {fixture: 'publication.json'}).as('noFilter')
+    cy.intercept('GET', '/data/article/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/publication.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/article/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/publication.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/article/_search/*filters=%7B%7D&aggs=*', {fixture: 'data/publication.json'}).as('noFilter')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -92,8 +92,8 @@ export class PublicationPage {
   }
 
   verify_pagination() {
-    cy.intercept('GET', '/data/article/_search/*&from_=25&*', {fixture: 'publication.json'}).as('pagination1')
-    cy.intercept('GET', '/data/article/_search/*&from_=50&*', {fixture: 'publication.json'}).as('pagination2')
+    cy.intercept('GET', '/data/article/_search/*&from_=25&*', {fixture: 'data/publication.json'}).as('pagination1')
+    cy.intercept('GET', '/data/article/_search/*&from_=50&*', {fixture: 'data/publication.json'}).as('pagination2')
 
 
     cy.get('tbody').then((body) => {
@@ -112,6 +112,7 @@ export class PublicationPage {
   }
 
   downloadData(buttonPos, buttonTitle, fileName) {
+    cy.intercept('GET', '/data/article/_search/*', {fixture: 'data/publication.json'}).as("publicationList")
     cy.contains('Download data').click()
     cy.get('.ngx-spinner-overlay').should('not.exist')
 

@@ -9,11 +9,11 @@ describe('Experiment Submission Page', () => {
 
   it('should display correct contents', () => {
     validationPage.check_page_contents()
-  });
+  })
 
   it.only('should upload file', () => {
     validationPage.uploadFile('experiment')
-  });
+  })
 
 
 

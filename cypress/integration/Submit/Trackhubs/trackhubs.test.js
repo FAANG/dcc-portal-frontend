@@ -9,10 +9,6 @@ describe('Track Hub Submission', () => {
     cy.get('h2').should("contain", 'Track Hubs Submission')
     cy.get('button:contains("Proceed to upload files")')
       .should('exist')
-  });
-
-
-
-
+  })
 
 })

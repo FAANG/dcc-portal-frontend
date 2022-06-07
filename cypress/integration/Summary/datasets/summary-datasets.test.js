@@ -6,7 +6,7 @@ describe('Summary Datasets Page', () => {
 
   it('should display "FAANG Summary"', () => {
     cy.get('h2').should("contain", 'FAANG Summary');
-  });
+  })
 
   it('should display charts', () => {
     cy.get('app-datasets-summary.ng-star-inserted > .container-fluid')
@@ -21,7 +21,7 @@ describe('Summary Datasets Page', () => {
       expect(menuitems[1]).to.contain.text('Assay type')
     })
 
-  });
+  })
 
 
 

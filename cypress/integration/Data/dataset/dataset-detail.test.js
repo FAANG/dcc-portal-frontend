@@ -1,5 +1,6 @@
 describe('Dataset Detail Page', () => {
   beforeEach(() => {
+    cy.intercept('GET', '/data/dataset/PRJEB28219', {fixture: 'data/detail/dataset-PRJEB28219.json'})
     cy.visit('/dataset/PRJEB28219');
   })
 
@@ -10,13 +11,7 @@ describe('Dataset Detail Page', () => {
       expect(menuitems[0]).to.contain.text('PRJEB28219')
       expect(menuitems[1]).to.contain.text('Bovine small and micro RNA expression atlas')
     })
-  });
-
-
-  it('should redirect to 404 when navigate to non-existing path', () => {
-    cy.visit('/dataset/SAMEA1047288778');
-    cy.get('.container-fluid > .text-center', {timeout: 10000}).should("contain", "Sorry, this page doesn't exist...")
-  });
+  })
 
 })
 

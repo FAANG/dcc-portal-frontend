@@ -1,5 +1,6 @@
 describe('Specimen Detail Page', () => {
   beforeEach(() => {
+    cy.intercept('GET', '/data/specimen/SAMEA104728909', {fixture: 'data/detail/specimen-SAMEA104728909.json'})
     cy.visit('/specimen/SAMEA104728909');
   })
 
@@ -10,13 +11,7 @@ describe('Specimen Detail Page', () => {
       expect(menuitems[0]).to.contain.text('ECA_UCD_S63')
       expect(menuitems[1]).to.contain.text('SAMEA104728909')
     })
-  });
-
-
-  it('should redirect to 404 when navigate to non-existing path', () => {
-    cy.visit('/specimen/SAMEA1047288778');
-    cy.get('.container-fluid > .text-center').should("contain", "Sorry, this page doesn't exist...")
-  });
+  })
 
 })
 

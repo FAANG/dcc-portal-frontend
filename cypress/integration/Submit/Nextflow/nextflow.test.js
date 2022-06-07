@@ -9,11 +9,5 @@ describe('Track Hub Submission', () => {
     cy.get('h2').should("contain", 'Nextflow Submission')
     cy.get('h4').eq(0).should('contain', 'Upload NextFlow Configuration File')
     cy.get('h4').eq(1).should('contain', 'Upload Spreadsheet File')
-
-  });
-
-
-
-
-
+  })
 })

@@ -19,7 +19,7 @@ export class SamplesPage{
     cy.get('.table-responsive.center').should('exist')
     cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
 
-    cy.get('.mat-table.cdk-table > tbody > tr').each((tr)=> {
+    cy.get('.mat-table.cdk-table > tbody > tr').each(()=> {
       cy.get('tr > td:nth-child(1)').should('contain', 'Sample Description')
       cy.get('tr > td:nth-child(1)').should('contain', 'Material')
       cy.get('tr > td:nth-child(1)').should('contain', 'Project')
@@ -74,7 +74,7 @@ export class SamplesPage{
   check_ruleset_table_headers(rulegroup){
     switch(rulegroup) {
       case 'Standard':
-        cy.get('.mat-table.cdk-table > thead > tr > th').each((th)=> {
+        cy.get('.mat-table.cdk-table > thead > tr > th').each(()=> {
           cy.get('th').should('contain', 'Name')
           cy.get('th').should('contain', 'Description')
           cy.get('th').should('contain', 'Type')
@@ -87,7 +87,7 @@ export class SamplesPage{
         })
         break;
       case 'Organism':
-        cy.get('.mat-table.cdk-table > thead > tr > th').each((th)=> {
+        cy.get('.mat-table.cdk-table > thead > tr > th').each(()=> {
           cy.get('th').should('contain', 'Name')
           cy.get('th').should('contain', 'Description')
           cy.get('th').should('contain', 'Type')
@@ -102,8 +102,6 @@ export class SamplesPage{
       default:
       // code block
     }
-
-
   }
 
 
@@ -113,7 +111,7 @@ export class SamplesPage{
         cy.get('.table-responsive.center').should('exist')
         cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
 
-        cy.get('.mat-table.cdk-table > tbody > tr').each((tr)=> {
+        cy.get('.mat-table.cdk-table > tbody > tr').each(()=> {
           cy.get('tr > td:nth-child(1)').should('contain', 'Sample Description')
           cy.get('tr > td:nth-child(1)').should('contain', 'Material')
           cy.get('tr > td:nth-child(1)').should('contain', 'Project')

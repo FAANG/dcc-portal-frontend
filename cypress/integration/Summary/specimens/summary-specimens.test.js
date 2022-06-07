@@ -6,7 +6,7 @@ describe('Summary Specimens Page', () => {
 
   it('should display "FAANG Summary"', () => {
     cy.get('h2').should("contain", 'FAANG Summary');
-  });
+  })
 
   it('should display charts', () => {
     cy.get('app-specimens-summary.ng-star-inserted > .container-fluid')
@@ -24,7 +24,7 @@ describe('Summary Specimens Page', () => {
 
     cy.get('[fxlayout="column"] > :nth-child(4) > mat-card >  :nth-child(2) > h3').should("contain", "Breeds of")
 
-  });
+  })
 
 
 

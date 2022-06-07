@@ -6,7 +6,7 @@ export class ExperimentPage {
   }
 
   check_header_sort_asc(classname, colname) {
-    cy.intercept('GET', `/data/protocol_files/_search/*&sort=*${colname}:asc*`, {fixture: 'protocol-files.json'}).as('ascendingList')
+    cy.intercept('GET', `/data/protocol_files/_search/*&sort=*${colname}:asc*`, {fixture: 'data/protocol-files.json'}).as('ascendingList')
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
 
@@ -25,7 +25,7 @@ export class ExperimentPage {
   }
 
   check_header_sort_desc(classname, colname) {
-    cy.intercept('GET', `/data/protocol_files/_search/*&sort=*${colname}:desc*`, {fixture: 'protocol-files.json'}).as('descendingList')
+    cy.intercept('GET', `/data/protocol_files/_search/*&sort=*${colname}:desc*`, {fixture: 'data/protocol-files.json'}).as('descendingList')
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
@@ -39,7 +39,7 @@ export class ExperimentPage {
   }
 
   check_url_filter(filterAccessor, filterAccessorType, colname) {
-    cy.intercept('GET', '/data/protocol_files/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'protocol-files.json'}).as('filteredList')
+    cy.intercept('GET', '/data/protocol_files/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'data/protocol-files.json'}).as('filteredList')
     // click on filter
     if (filterAccessorType === 'string') {
       cy.contains(filterAccessor).click()
@@ -56,8 +56,8 @@ export class ExperimentPage {
   }
 
   allow_multiple_filters(filterAccessor_1, filterAccessor_2, colname1, colname2, filterArr) {
-    cy.intercept('GET', '/data/protocol_files/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'protocol-files.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/protocol_files/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'protocol-files.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/protocol_files/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/protocol-files.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/protocol_files/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/protocol-files.json'}).as('filteredList2')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -80,9 +80,9 @@ export class ExperimentPage {
   }
 
   removeFilters(filterAccessor_1, filterAccessor_2, colname1, colname2) {
-    cy.intercept('GET', '/data/protocol_files/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'protocol-files.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/protocol_files/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'protocol-files.json'}).as('filteredList2')
-    cy.intercept('GET', '/data/protocol_files/_search/*filters=%7B%7D&aggs=*', {fixture: 'protocol-files.json'}).as('noFilter')
+    cy.intercept('GET', '/data/protocol_files/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/protocol-files.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/protocol_files/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/protocol-files.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/protocol_files/_search/*filters=%7B%7D&aggs=*', {fixture: 'data/protocol-files.json'}).as('noFilter')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -99,8 +99,8 @@ export class ExperimentPage {
   }
 
   verify_pagination() {
-    cy.intercept('GET', '/data/protocol_files/_search/*&from_=25&*', {fixture: 'protocol-files.json'}).as('pagination1')
-    cy.intercept('GET', '/data/protocol_files/_search/*&from_=50&*', {fixture: 'protocol-files.json'}).as('pagination2')
+    cy.intercept('GET', '/data/protocol_files/_search/*&from_=25&*', {fixture: 'data/protocol-files.json'}).as('pagination1')
+    cy.intercept('GET', '/data/protocol_files/_search/*&from_=50&*', {fixture: 'data/protocol-files.json'}).as('pagination2')
 
     // click on pagination
     cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
@@ -111,6 +111,7 @@ export class ExperimentPage {
   }
 
   downloadData(buttonPos, buttonTitle, fileName) {
+    cy.intercept('GET', '/data/protocol_files/_search/*', {fixture: 'data/protocol-files.json'}).as("protocolFilesList")
     cy.contains('Download data').click()
     cy.get('.ngx-spinner-overlay').should('not.exist')
 

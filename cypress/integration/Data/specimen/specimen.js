@@ -6,7 +6,7 @@ export class SpecimenPage {
   }
 
   check_header_sort_asc(classname, colname) {
-    cy.intercept('GET', '/data/specimen/_search/*&sort=*asc*', {fixture: 'specimen.json'}).as('ascendingList')
+    cy.intercept('GET', '/data/specimen/_search/*&sort=*asc*', {fixture: 'data/specimen.json'}).as('ascendingList')
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
 
     cy.get('tbody')
@@ -17,15 +17,12 @@ export class SpecimenPage {
       cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
       expect(response.statusCode).to.eq(200)
       expect(request.url).to.contain(colname + ':asc')
-
-      console.log("request", request.url)
-      console.log("response:", response)
     })
   }
 
 
   check_header_sort_desc(classname, colname) {
-    cy.intercept('GET', '/data/specimen/_search/*&sort=*desc*', {fixture: 'specimen.json'}).as('descendingList')
+    cy.intercept('GET', '/data/specimen/_search/*&sort=*desc*', {fixture: 'data/specimen.json'}).as('descendingList')
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
 
@@ -42,7 +39,7 @@ export class SpecimenPage {
 
 
   check_url_filter(filterAccessor, filterAccessorType, colname) {
-    cy.intercept('GET', '/data/specimen/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'specimen.json'}).as('filteredList')
+    cy.intercept('GET', '/data/specimen/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'data/specimen.json'}).as('filteredList')
     // click on filter
     if (filterAccessorType === 'string') {
       cy.contains(filterAccessor).click()
@@ -63,8 +60,8 @@ export class SpecimenPage {
 
 
   allow_multiple_filters(filterAccessor_1, filterAccessor_2, colname1, colname2, filterArr) {
-    cy.intercept('GET', '/data/specimen/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'specimen.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/specimen/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'specimen.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/specimen/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/specimen.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/specimen/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/specimen.json'}).as('filteredList2')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -86,9 +83,9 @@ export class SpecimenPage {
   }
 
   removeFilters(filterAccessor_1, filterAccessor_2, colname1, colname2) {
-    cy.intercept('GET', '/data/specimen/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'specimen.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/specimen/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'specimen.json'}).as('filteredList2')
-    cy.intercept('GET', '/data/specimen/_search/*filters=%7B%7D&aggs=*', {fixture: 'specimen.json'}).as('noFilter')
+    cy.intercept('GET', '/data/specimen/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/specimen.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/specimen/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/specimen.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/specimen/_search/*filters=%7B%7D&aggs=*', {fixture: 'data/specimen.json'}).as('noFilter')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -105,8 +102,8 @@ export class SpecimenPage {
   }
 
   verify_pagination() {
-    cy.intercept('GET', '/data/specimen/_search/*&from_=25&*', {fixture: 'specimen.json'}).as('pagination1')
-    cy.intercept('GET', '/data/specimen/_search/*&from_=50&*', {fixture: 'specimen.json'}).as('pagination2')
+    cy.intercept('GET', '/data/specimen/_search/*&from_=25&*', {fixture: 'data/specimen.json'}).as('pagination1')
+    cy.intercept('GET', '/data/specimen/_search/*&from_=50&*', {fixture: 'data/specimen.json'}).as('pagination2')
 
     // click on pagination
     cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()

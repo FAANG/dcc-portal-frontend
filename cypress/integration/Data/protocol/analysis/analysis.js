@@ -6,7 +6,7 @@ export class AnalysisPage {
   }
 
   check_header_sort_asc(classname, colname) {
-    cy.intercept('GET', `/data/protocol_analysis/_search/*&sort=*${colname}:asc*`, {fixture: 'protocol-analyses.json'}).as('ascendingList')
+    cy.intercept('GET', `/data/protocol_analysis/_search/*&sort=*${colname}:asc*`, {fixture: 'data/protocol-analyses.json'}).as('ascendingList')
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
 
@@ -22,7 +22,7 @@ export class AnalysisPage {
   }
 
   check_header_sort_desc(classname, colname) {
-    cy.intercept('GET', `/data/protocol_analysis/_search/*&sort=*${colname}:desc*`, {fixture: 'protocol-analyses.json'}).as('descendingList')
+    cy.intercept('GET', `/data/protocol_analysis/_search/*&sort=*${colname}:desc*`, {fixture: 'data/protocol-analyses.json'}).as('descendingList')
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
@@ -36,7 +36,7 @@ export class AnalysisPage {
   }
 
   check_url_filter(filterAccessor, filterAccessorType, colname) {
-    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'protocol-analyses.json'}).as('filteredList')
+    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'data/protocol-analyses.json'}).as('filteredList')
     // click on filter
     if (filterAccessorType === 'string') {
       cy.contains(filterAccessor).click()
@@ -53,8 +53,8 @@ export class AnalysisPage {
   }
 
   allow_multiple_filters(filterAccessor_1, filterAccessor_2, colname1, colname2, filterArr) {
-    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'protocol-analyses.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'protocol-analyses.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/protocol-analyses.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/protocol-analyses.json'}).as('filteredList2')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -74,9 +74,9 @@ export class AnalysisPage {
   }
 
   removeFilters(filterAccessor_1, filterAccessor_2, colname1, colname2) {
-    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'protocol-analyses.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'protocol-analyses.json'}).as('filteredList2')
-    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=%7B%7D&aggs=*', {fixture: 'protocol-analyses.json'}).as('noFilter')
+    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/protocol-analyses.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/protocol-analyses.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=%7B%7D&aggs=*', {fixture: 'data/protocol-analyses.json'}).as('noFilter')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -93,8 +93,8 @@ export class AnalysisPage {
   }
 
   verify_pagination() {
-    cy.intercept('GET', '/data/protocol_analysis/_search/*&from_=25&*', {fixture: 'protocol-analyses.json'}).as('pagination1')
-    cy.intercept('GET', '/data/protocol_analysis/_search/*&from_=50&*', {fixture: 'protocol-analyses.json'}).as('pagination2')
+    cy.intercept('GET', '/data/protocol_analysis/_search/*&from_=25&*', {fixture: 'data/protocol-analyses.json'}).as('pagination1')
+    cy.intercept('GET', '/data/protocol_analysis/_search/*&from_=50&*', {fixture: 'data/protocol-analyses.json'}).as('pagination2')
 
 
     cy.get('tbody').then((body) => {

@@ -6,9 +6,9 @@ export class DatasetPage {
 
   check_header_sort_asc(classname, colname) {
     if (['experiment','specimen','file'].includes(colname)){
-      cy.intercept('GET', `/data/dataset/_search/*&sort_by_count=*${colname}:asc*`, {fixture: 'dataset.json'}).as('ascendingList')
+      cy.intercept('GET', `/data/dataset/_search/*&sort_by_count=*${colname}:asc*`, {fixture: 'data/dataset.json'}).as('ascendingList')
     } else{
-      cy.intercept('GET', `/data/dataset/_search/*&sort=*${colname}:asc*`, {fixture: 'dataset.json'}).as('ascendingList')
+      cy.intercept('GET', `/data/dataset/_search/*&sort=*${colname}:asc*`, {fixture: 'data/dataset.json'}).as('ascendingList')
     }
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
@@ -29,9 +29,9 @@ export class DatasetPage {
 
   check_header_sort_desc(classname, colname) {
     if (['experiment','specimen','file'].includes(colname)){
-      cy.intercept('GET', `/data/dataset/_search/*&sort_by_count=*${colname}:desc*`, {fixture: 'dataset.json'}).as('descendingList')
+      cy.intercept('GET', `/data/dataset/_search/*&sort_by_count=*${colname}:desc*`, {fixture: 'data/dataset.json'}).as('descendingList')
     } else{
-      cy.intercept('GET', `/data/dataset/_search/*&sort=*${colname}:desc*`, {fixture: 'dataset.json'}).as('descendingList')
+      cy.intercept('GET', `/data/dataset/_search/*&sort=*${colname}:desc*`, {fixture: 'data/dataset.json'}).as('descendingList')
     }
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
@@ -46,7 +46,7 @@ export class DatasetPage {
   }
 
   check_url_filter(filterAccessor, filterAccessorType, colname) {
-    cy.intercept('GET', '/data/dataset/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'dataset.json'}).as('filteredList')
+    cy.intercept('GET', '/data/dataset/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'data/dataset.json'}).as('filteredList')
     // click on filter
     if (filterAccessorType === 'string') {
       cy.contains(filterAccessor).click()
@@ -63,8 +63,8 @@ export class DatasetPage {
   }
 
   allow_multiple_filters(filterAccessor_1, filterAccessor_2, colname1, colname2, filterArr) {
-    cy.intercept('GET', '/data/dataset/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'dataset.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/dataset/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'dataset.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/dataset/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/dataset.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/dataset/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/dataset.json'}).as('filteredList2')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -86,9 +86,9 @@ export class DatasetPage {
   }
 
   removeFilters(filterAccessor_1, filterAccessor_2, colname1, colname2) {
-    cy.intercept('GET', '/data/dataset/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'dataset.json'}).as('filteredList1')
-    cy.intercept('GET', '/data/dataset/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'dataset.json'}).as('filteredList2')
-    cy.intercept('GET', '/data/dataset/_search/*filters=%7B%7D&aggs=*', {fixture: 'dataset.json'}).as('noFilter')
+    cy.intercept('GET', '/data/dataset/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/dataset.json'}).as('filteredList1')
+    cy.intercept('GET', '/data/dataset/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/dataset.json'}).as('filteredList2')
+    cy.intercept('GET', '/data/dataset/_search/*filters=%7B%7D&aggs=*', {fixture: 'data/dataset.json'}).as('noFilter')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -105,8 +105,8 @@ export class DatasetPage {
   }
 
   verify_pagination() {
-    cy.intercept('GET', '/data/dataset/_search/*&from_=25&*', {fixture: 'dataset.json'}).as('pagination1')
-    cy.intercept('GET', '/data/dataset/_search/*&from_=50&*', {fixture: 'dataset.json'}).as('pagination2')
+    cy.intercept('GET', '/data/dataset/_search/*&from_=25&*', {fixture: 'data/dataset.json'}).as('pagination1')
+    cy.intercept('GET', '/data/dataset/_search/*&from_=50&*', {fixture: 'data/dataset.json'}).as('pagination2')
 
     // click on pagination
     cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
@@ -117,6 +117,7 @@ export class DatasetPage {
   }
 
   downloadData(buttonPos, buttonTitle, fileName) {
+    cy.intercept('GET', '/data/dataset/_search/*', {fixture: 'data/dataset.json'}).as("datasetList")
     cy.get('.mat-raised-button > .mat-button-wrapper')
       .should('contain', 'Download data')
       .click()

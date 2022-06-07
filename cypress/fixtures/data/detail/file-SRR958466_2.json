@@ -1,0 +1,73 @@
+{
+  "took": 5,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "SRR958466_2",
+        "_score": 1,
+        "_source": {
+          "specimen": "SAMN02333833",
+          "species": {
+            "text": "Gallus gallus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9031"
+          },
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/SRR958/SRR958466/SRR958466_2.fastq.gz",
+          "name": "SRR958466_2.fastq.gz",
+          "type": "fastq.gz",
+          "size": "7084985168",
+          "readableSize": "6.6GB",
+          "checksumMethod": "md5",
+          "checksum": "ecd34474fce2a168a787162f34ba15c8",
+          "archive": "ENA",
+          "baseCount": "17064031406",
+          "readCount": "84475403",
+          "releaseDate": "2014-04-30",
+          "updateDate": "2019-11-18",
+          "submission": "SRA098920",
+          "experiment": {
+            "accession": "SRX339479",
+            "assayType": "whole genome sequencing assay",
+            "target": "input DNA",
+            "standardMet": "Legacy"
+          },
+          "run": {
+            "accession": "SRR958466",
+            "alias": "ChickenFemaleSequences",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2000"
+          },
+          "study": {
+            "accession": "PRJNA216983",
+            "alias": "PRJNA216983",
+            "title": "Male and Female resequencing of 7 Mammals and Chicken",
+            "type": "WGS",
+            "secondaryAccession": "SRP029216"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Nature",
+              "year": "2014",
+              "articleId": "24759410",
+              "title": "Origins and functional evolution of Y chromosomes across mammals."
+            }
+          ],
+          "paperPublished": "true"
+        }
+      }
+    ]
+  }
+}

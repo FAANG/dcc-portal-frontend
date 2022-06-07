@@ -9,11 +9,11 @@ describe('Ruleset Samples Page', () => {
 
   it('should display correct contents', () => {
     validationPage.check_page_contents()
-  });
+  })
 
-  it.only('should upload file', () => {
+  it('should upload file', () => {
     validationPage.uploadFile('sample')
-  });
+  })
 
 
 

@@ -13,19 +13,19 @@ describe('Ruleset Samples Page', () => {
 
   it('should display correct contents', () => {
     samplesPage.check_page_contents()
-  });
+  })
 
   it('should have at least 11 rulesets in left side menu', () => {
     samplesPage.check_ruleset_list()
-  });
+  })
 
   it('should check ruleset table for Samples - Standard', () => {
     samplesPage.check_ruleset_table()
-  });
+  })
 
   it('should ruleset links', () => {
     samplesPage.check_ruleset_links()
-  });
+  })
 
 
 })
