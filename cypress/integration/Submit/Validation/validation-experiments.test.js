@@ -11,7 +11,7 @@ describe('Experiment Submission Page', () => {
     validationPage.check_page_contents()
   })
 
-  it.only('should upload file', () => {
+  it('should upload file', () => {
     validationPage.uploadFile('experiment')
   })
 

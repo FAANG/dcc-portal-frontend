@@ -2,7 +2,7 @@ import {ExperimentPage} from "./experiment"
 
 describe('Protocol Experiment Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/data/protocol_files/_search/*&sort=name:asc&*', {fixture: 'data/protocol-files.json'}).as("protocolFilesList")
+    cy.intercept('GET', '/data/protocol_files/_search/*&sort=name:asc*', {fixture: 'data/protocol-files.json'}).as("protocolFilesList")
     cy.visit('/protocol/experiments');
   })
 

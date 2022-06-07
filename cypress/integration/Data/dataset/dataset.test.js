@@ -2,7 +2,7 @@ import {DatasetPage} from "./dataset"
 
 describe('Dataset Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/data/dataset/_search/*&sort=accession:desc&*', {fixture: 'data/dataset.json'}).as("datasetList")
+    cy.intercept('GET', '/data/dataset/_search/*&sort=accession:desc*', {fixture: 'data/dataset.json'}).as("datasetList")
     cy.visit('/dataset');
   })
 

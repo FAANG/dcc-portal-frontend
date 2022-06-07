@@ -7,7 +7,6 @@ export class OntologyImproverPage {
 
 
   compare_value(classname) {
-
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`tbody > :nth-child(1) > ${classname}`)
       .invoke('text')
@@ -29,7 +28,6 @@ export class OntologyImproverPage {
   }
 
   compare_filter_value(filterAccessor, queryParam) {
-
     cy.get('.ngx-spinner-overlay').should('not.exist')
     cy.get('[title="Project"] > .mat-card > :nth-child(2) > :nth-child(1)').should('exist')
 
@@ -56,7 +54,6 @@ export class OntologyImproverPage {
 
 
   allow_multiple_filters(filterAccessor_1, filterAccessor_2, filterArr) {
-
     cy.get('[title="Project"] > .mat-card > :nth-child(2) > :nth-child(1)').should('exist')
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -73,10 +70,6 @@ export class OntologyImproverPage {
 
 
   removeFilters(filterAccessor_1, filterAccessor_2) {
-    cy.intercept('GET', '/ontology_improver/search/*', {fixture: 'ontology-improver/ontology-improver.json'})
-    cy.intercept('GET', '/ontology_improver/search/', {fixture: 'ontology-improver/ontology-improver.json'})
-    cy.intercept('GET', '/ontology_improver/summary*', {fixture: 'ontology-improver/ontology-summary.json'})
-
     cy.get('[title="Project"] > .mat-card > :nth-child(2) > :nth-child(1)').should('exist')
 
     // click on filters

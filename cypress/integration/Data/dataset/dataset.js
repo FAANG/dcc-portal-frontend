@@ -48,11 +48,7 @@ export class DatasetPage {
   check_url_filter(filterAccessor, filterAccessorType, colname) {
     cy.intercept('GET', '/data/dataset/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'data/dataset.json'}).as('filteredList')
     // click on filter
-    if (filterAccessorType === 'string') {
-      cy.contains(filterAccessor).click()
-    } else {
-      cy.get(filterAccessor).click({force: true})
-    }
+    cy.get(filterAccessor).click({force: true})
 
      cy.wait('@filteredList').then(({request, response}) => {
        cy.get('tbody').find('tr').should("have.length", 25)
