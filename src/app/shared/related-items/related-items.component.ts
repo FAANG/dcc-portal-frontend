@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ApiDataService} from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
@@ -21,6 +21,7 @@ export class RelatedItemsComponent implements OnInit {
   @Input() download_key: string; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
   @Input() isEuroFaangProj = false; // specifies if datasets table is for EuroFAANG - display project title next to table header
   @Input() data: Array<any>; // Array data to be populated in the table
+  @Output() fetchedRecords = new EventEmitter<any>();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   dataSource: MatTableDataSource<any>;
@@ -95,6 +96,30 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
+        }
+      );
+    } else if (relationship_type === 'project-protocolsamples') {
+      this.dataService.getAllProtocolSamplesForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
+          this.fetchedRecords.emit(['protocol_samples', this.totalHits]);
+        }
+      );
+    } else if (relationship_type === 'project-protocolfiles') {
+      this.dataService.getAllProtocolFilesForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
+          this.fetchedRecords.emit(['protocol_files', this.totalHits]);
+        }
+      );
+    } else if (relationship_type === 'project-protocolanalysis') {
+      this.dataService.getAllProtocolAnalysisForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+        (res: any) => {
+          this.dataSource.data = this.getDataSource(res['data']);
+          this.totalHits = res['totalHits'];
+          this.fetchedRecords.emit(['protocol_analysis', this.totalHits]);
         }
       );
     } else if (relationship_type === 'project-publication') {
@@ -205,6 +230,9 @@ export class RelatedItemsComponent implements OnInit {
     const defaults = {
       'organism' : 'BioSamples ID',
       'specimen' : 'BioSamples ID',
+      'protocolsamples' : 'Protocol Name',
+      'protocolfiles' : 'Protocol Type',
+      'protocolanalysis' : 'Protocol Name',
       'publication': 'Title',
       'file' : 'File name',
       'dataset': 'Study name',
@@ -275,7 +303,7 @@ export class RelatedItemsComponent implements OnInit {
             observe: 'events',
         }).subscribe(result => {
         if (result.type === HttpEventType.DownloadProgress) {
-          this.progress[ftp_url] = Math.round(100 * result.loaded / result.total);;
+          this.progress[ftp_url] = Math.round(100 * result.loaded / result.total);
         }
         if (result.type === HttpEventType.Response) {
           FileSaver.saveAs(result.body);
@@ -355,8 +383,7 @@ export class RelatedItemsComponent implements OnInit {
         clearTimeout(this.timer);
       }
       this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
-    } 
-    else {
+    } else {
       this.applySearchFilter(searchFilterValue);
     }
   }
@@ -368,6 +395,20 @@ export class RelatedItemsComponent implements OnInit {
       this.fetchData();
     } else {
       this.dataSource.filter = value;
+    }
+  }
+
+  displayTitle(targetType: string) {
+    const titles = {
+      'analysis' : 'Analyses',
+      'protocolsamples' : 'Protocol Samples',
+      'protocolfiles' : 'Protocol Experiments',
+      'protocolanalysis' : 'Protocol Analysis'
+    };
+    if (titles.hasOwnProperty(targetType)) {
+      return titles[targetType];
+    } else {
+      return this.capitalizeFirstLetter(targetType) + 's';
     }
   }
 }
