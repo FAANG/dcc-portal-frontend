@@ -1,6 +1,6 @@
 import {OntologyImproverPage} from "./ontology-improver";
 
-describe('Ontology Improver Page', () => {
+describe.skip('Ontology Improver Page', () => {
   beforeEach(() => {
     cy.intercept('GET', '/ontology_improver/summary*', {fixture: 'ontology-improver/ontology-summary.json'}).as("summaryList")
     cy.intercept('GET', '/ontology_improver/search*', {fixture: 'ontology-improver/ontology-improver.json'}).as("ontologyList")
@@ -9,7 +9,7 @@ describe('Ontology Improver Page', () => {
 
   let ontologyPage = new OntologyImproverPage()
 
-  it.only('should display welcome message', () => {
+  it('should display welcome message', () => {
     cy.get('h2').should("contain", 'Livestock Ontologies');
   })
 
