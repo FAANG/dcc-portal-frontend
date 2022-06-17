@@ -111,6 +111,13 @@ export interface ProtocolSample {
   protocol_type: string;
 }
 
+export interface ProtocolAnalysis {
+  key: string;
+  protocol_name: string;
+  university_name: string;
+  protocol_date: string;
+}
+
 export interface ArticleTable {
   id: string;
   title: string;

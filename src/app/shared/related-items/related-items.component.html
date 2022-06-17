@@ -1,17 +1,16 @@
-<div [hidden]="display_fields.length == 0 || !dataSource.data || dataSource.data.length == 0">
-  <hr>
+<div [hidden]="!initialDisplay">
+  <ng-container *ngIf="!['protocolsamples','protocolfiles','protocolanalysis'].includes(target_type)"><hr></ng-container>
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center"
     style="margin: 20px 0 20px 0;">
-    <h3>Related
-      <ng-container *ngIf="target_type == 'analysis'">Analyses</ng-container>
-      <ng-container *ngIf="target_type != 'analysis'">{{capitalizeFirstLetter(target_type)}}s
-        <span *ngIf="isEuroFaangProj"> for 
+
+    <h3>Related {{displayTitle(target_type)}}
+      <span *ngIf="isEuroFaangProj"> for
           <span class="childproj-title">
             {{record_id}}
           </span>
-        </span>
-      </ng-container>
+      </span>
     </h3>
+
     <div fxLayout="row" fxLayout.lt-md="column">
       <button mat-raised-button color="accent" (click)="downloadAllFiles()" [disabled]="urls.length === 0"
               *ngIf="download_key.length > 0">Download all files ({{urls.length}})
@@ -19,10 +18,10 @@
       <button mat-raised-button color="primary" (click)=select.open()>Column Selection
         <mat-icon>arrow_drop_down</mat-icon>
         <mat-select [(ngModel)]="display_fields" multiple #select style="width:0">
-          <mat-option *ngFor="let col of get_all_fields(); let i = index" 
+          <mat-option *ngFor="let col of get_all_fields(); let i = index"
             [value]="col" [disabled]="i==0"> {{col}}
           </mat-option>
-          <mat-option *ngIf="download_key.length > 0" 
+          <mat-option *ngIf="download_key.length > 0"
             value="Download" disabled="true"> Download
           </mat-option>
         </mat-select>
@@ -33,54 +32,58 @@
   <div class="table-responsive">
     <mat-form-field style="width: 98%;">
       <mat-label>Search</mat-label>
-      <input (keyup)="searchChanged($event)" matInput 
+      <input (keyup)="searchChanged($event)" matInput
           placeholder="Search">
     </mat-form-field>
-    <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
-      <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
-        <ng-container *ngIf="col == 'Download'">
-          <th mat-header-cell class="table-header" *matHeaderCellDef>
-            <input id="mainBox" type="checkbox" [checked]="mainCheckboxChecked() == 2"
-              [indeterminate]="mainCheckboxChecked() == 1" (click)="mainCheckboxClicked()">
-              {{display_fields[i]}} 
-          </th>
-          <td mat-cell class="table-cell-data" *matCellDef="let item">
-            <input type="checkbox" (click)="onCheckboxClick(item['Download'])"
-              [checked]="CheckboxChecked(item['Download'])">
+
+    <div [hidden]="display_fields.length == 0 || !dataSource.data || dataSource.data.length == 0">
+      <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
+        <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
+          <ng-container *ngIf="col == 'Download'">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>
+              <input id="mainBox" type="checkbox" [checked]="mainCheckboxChecked() == 2"
+                     [indeterminate]="mainCheckboxChecked() == 1" (click)="mainCheckboxClicked()">
+              {{display_fields[i]}}
+            </th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item">
+              <input type="checkbox" (click)="onCheckboxClick(item['Download'])"
+                     [checked]="CheckboxChecked(item['Download'])">
               <mat-progress-bar *ngIf="progress[item['Download']] >= 0" mode="determinate" [value]="progress[item['Download']]">
               </mat-progress-bar>
-          </td>
-        </ng-container>
-        <ng-container *ngIf="col != 'Download'">
-          <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode == 'private'"> {{display_fields[i]}} </th>
-          <td mat-cell class="table-cell-data" *matCellDef="let item"> 
-            <ng-container *ngIf="get_field_values_for_links(col)">
+            </td>
+          </ng-container>
+          <ng-container *ngIf="col != 'Download'">
+            <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode == 'private'"> {{display_fields[i]}} </th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item">
+              <ng-container *ngIf="get_field_values_for_links(col)">
                 <ng-container *ngIf="!isRecordPrivate(item)">
                   <app-robust-link [prefix]="get_field_values_for_links(col)['prefix']"
-                    [link]="item[get_field_values_for_links(col)['url']]"
-                    [text]="item[col]">
+                                   [link]="item[get_field_values_for_links(col)['url']]"
+                                   [text]="item[col]">
                   </app-robust-link>
                 </ng-container>
                 <ng-container *ngIf="isRecordPrivate(item)">
                   <a [routerLink]="['/' + target_type, item[get_field_values_for_links(col)['url']]]">{{item[col]}}</a>
                   <i class="material-icons lock">lock</i>
                 </ng-container>
-            </ng-container>
-            <ng-container *ngIf="!get_field_values_for_links(col)">
+              </ng-container>
+              <ng-container *ngIf="!get_field_values_for_links(col)">
                 <ng-container *ngIf="displayPlatformLogo(item, col)">
                   <img src="assets/logos/nf-core-logo.png" class="img-fluid pipeline-platform-logo" alt="nf-core">
                 </ng-container>
                 <ng-container *ngIf="!displayPlatformLogo(item, col)">
                   {{item[col]}}
                 </ng-container>
-            </ng-container>
-          </td>
+              </ng-container>
+            </td>
+          </ng-container>
         </ng-container>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
-      <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
-    </table>
-    <mat-paginator pageSize="10" [length]="totalHits"></mat-paginator>
-  
+        <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
+        <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
+      </table>
+      <mat-paginator pageSize="10" [length]="totalHits"></mat-paginator>
+    </div>
+
+
   </div>
 </div>

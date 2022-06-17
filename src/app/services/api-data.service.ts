@@ -5,7 +5,7 @@ import {throwError, EMPTY} from 'rxjs';
 import {catchError, retry, map} from 'rxjs/operators';
 import {
   ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
-  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable, PipelineTable
+  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable, PipelineTable, ProtocolAnalysis
 } from '../shared/interfaces';
 import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
 import {UserService} from './user.service';
@@ -442,6 +442,76 @@ export class ApiDataService {
         catchError(this.handleError),
       );
     }
+  }
+
+  getAllProtocolSamplesForProject(project: string, mode: string, sort: string, offset: number, search: string) {
+    const res = {};
+    const project_filter = JSON.stringify({
+      secondaryProject: [project]
+    });
+    const url = `${this.hostSetting.host}data/protocol_samples/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits.map(entry => ({
+            key: entry['_source']['key'],
+            protocol_name: entry['_source']['protocolName'],
+            university_name: entry['_source']['universityName'],
+            protocol_date: entry['_source']['protocolDate']
+          } as ProtocolSample)
+        );
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllProtocolFilesForProject(project: string, mode: string, sort: string, offset: number, search: string) {
+    const res = {};
+    const project_filter = JSON.stringify({
+      secondaryProject: [project]
+    });
+    const url = `${this.hostSetting.host}data/protocol_files/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits.map(entry => ({
+            key: entry['_source']['key'],
+            protocol_type: protocolNames[entry['_source']['name']],
+            experiment_target: entry['_source']['experimentTarget'],
+            assay_type: entry['_source']['assayType']
+          } as ProtocolFile)
+        );
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllProtocolAnalysisForProject(project: string, mode: string, sort: string, offset: number, search: string) {
+    const res = {};
+    const project_filter = JSON.stringify({
+      secondaryProject: [project]
+    });
+    const url = `${this.hostSetting.host}data/protocol_analysis/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits.map(entry => ({
+            key: entry['_source']['key'],
+            protocol_name: entry['_source']['protocolName'],
+            university_name: entry['_source']['universityName'],
+            protocol_date: entry['_source']['protocolDate']
+          } as ProtocolAnalysis)
+        );
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
   }
 
   getAllSpecimens(query: any, size: number) {
