@@ -23,6 +23,8 @@ export class SpecimenPage {
 
   check_header_sort_desc(classname, colname) {
     cy.intercept('GET', '/data/specimen/_search/*&sort=*desc*', {fixture: 'data/specimen.json'}).as('descendingList')
+    cy.intercept('GET', '/data/specimen/_search/*&sort=*asc*', {fixture: 'data/specimen.json'}).as('ascendingList')
+
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
 

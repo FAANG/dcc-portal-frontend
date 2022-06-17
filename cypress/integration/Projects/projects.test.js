@@ -2,6 +2,7 @@ import {ProjectsPage} from "./projects"
 
 describe('Projects Page', () => {
   beforeEach(() => {
+    cy.intercept('GET', '/query/columns', {fixture: 'projects/gene-switch/columns.json'}).as("columnList")
     cy.visit('/projects')
   })
 

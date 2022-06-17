@@ -56,6 +56,7 @@ export class ProjectsPage{
     cy.intercept('GET', '/data/specimen/_search/*&filters=*secondaryProject*BovReg*', {fixture: 'projects/bovreg/specimen.json'}).as("specimenList")
     cy.intercept('GET', '/data/article/_search/*&filters=*secondaryProject*BovReg*', {fixture: 'projects/bovreg/article.json'}).as("articleList")
 
+
     cy.wait(8000)
     cy.contains("The BovReg consortium will provide a comprehensive map of functionally active genomic features in cattle and how their (epi)genetic variation in beef and dairy breeds translates into phenotypes.");
     cy.get('#twitter-widget-0').should('be.visible')
@@ -93,6 +94,7 @@ export class ProjectsPage{
     cy.intercept('GET', '/data/organism/_search/*&filters=*secondaryProject*GENE-SWitCH*', {fixture: 'projects/gene-switch/organism.json'}).as("organismList")
     cy.intercept('GET', '/data/specimen/_search/*&filters=*secondaryProject*GENE-SWitCH*', {fixture: 'projects/gene-switch/specimen.json'}).as("specimenList")
     cy.intercept('GET', '/data/article/_search/*&filters=*secondaryProject*GENE-SWitCH*', {fixture: 'projects/gene-switch/article.json'}).as("articleList")
+    cy.intercept('GET', '/join_search?index1=file&index2=specimen*', {fixture: 'projects/gene-switch/file-specimen.json'}).as("fileSpecimenList")
 
     cy.wait(8000)
 

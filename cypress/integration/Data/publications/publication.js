@@ -22,6 +22,7 @@ export class PublicationPage {
 
   check_header_sort_desc(classname, colname) {
     cy.intercept('GET', `/data/article/_search/*&sort=*${colname}:desc*`, {fixture: 'data/publication.json'}).as('descendingList')
+    cy.intercept('GET', `/data/article/_search/*&sort=*${colname}:asc*`, {fixture: 'data/publication.json'}).as('ascendingList')
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`.mat-header-row > ${classname}`).click({force: true})

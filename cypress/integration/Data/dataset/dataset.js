@@ -30,8 +30,10 @@ export class DatasetPage {
   check_header_sort_desc(classname, colname) {
     if (['experiment','specimen','file'].includes(colname)){
       cy.intercept('GET', `/data/dataset/_search/*&sort_by_count=*${colname}:desc*`, {fixture: 'data/dataset.json'}).as('descendingList')
+      cy.intercept('GET', `/data/dataset/_search/*&sort_by_count=*${colname}:asc*`, {fixture: 'data/dataset.json'}).as('ascendingList')
     } else{
       cy.intercept('GET', `/data/dataset/_search/*&sort=*${colname}:desc*`, {fixture: 'data/dataset.json'}).as('descendingList')
+      cy.intercept('GET', `/data/dataset/_search/*&sort=*${colname}:asc*`, {fixture: 'data/dataset.json'}).as('ascendingList')
     }
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})

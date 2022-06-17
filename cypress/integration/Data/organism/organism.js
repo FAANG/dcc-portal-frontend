@@ -22,6 +22,8 @@ export class OrganismPage {
 
   check_header_sort_desc(classname, colname) {
     cy.intercept('GET', '/data/organism/_search/*&sort=*desc*', {fixture: 'data/organism.json'}).as('descendingList')
+    cy.intercept('GET', '/data/organism/_search/*&sort=*asc*', {fixture: 'data/organism.json'}).as('ascendingList')
+
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
 
@@ -38,6 +40,8 @@ export class OrganismPage {
 
   check_url_filter(filterAccessor, filterAccessorType, colname) {
     cy.intercept('GET', '/data/organism/_search/*filters=%7B%22' + colname + '%22:*', {fixture: 'data/organism.json'}).as('filteredList')
+
+
     // click on filter
     if (filterAccessorType === 'string') {
       cy.contains(filterAccessor).click()

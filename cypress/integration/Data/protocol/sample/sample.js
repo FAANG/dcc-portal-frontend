@@ -26,6 +26,7 @@ export class SamplePage {
 
   check_header_sort_desc(classname, colname) {
     cy.intercept('GET', `/data/protocol_samples/_search/*&sort=*${colname}:desc*`, {fixture: 'data/protocol-samples.json'}).as('descendingList')
+    cy.intercept('GET', `/data/protocol_samples/_search/*&sort=*${colname}:asc*`, {fixture: 'data/protocol-samples.json'}).as('ascendingList')
 
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`.mat-header-row > ${classname}`).click({force: true})

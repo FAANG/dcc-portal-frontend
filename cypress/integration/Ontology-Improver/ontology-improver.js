@@ -7,24 +7,24 @@ export class OntologyImproverPage {
 
 
   compare_value(classname) {
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
-    cy.get(`tbody > :nth-child(1) > ${classname}`)
-      .invoke('text')
-      .then((ascVal) => {
-
-        // click on desc link
-        cy.get(`.mat-header-row > ${classname}`).click({force: true})
-
-        cy.get('.ngx-spinner-overlay').should('not.exist')
-
-
-        // grab the value again and compare the previous text to the current one
-        cy.get(`tbody > :nth-child(1) > ${classname}`)
-          .invoke('text')
-          .should((descVal) => {
-            expect(ascVal).not.to.eq(descVal)
-          })
-      })
+    // cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    // cy.get(`tbody > :nth-child(1) > ${classname}`)
+    //   .invoke('text')
+    //   .then((ascVal) => {
+    //
+    //     // click on desc link
+    //     cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    //
+    //     cy.get('.ngx-spinner-overlay').should('not.exist')
+    //
+    //
+    //     // grab the value again and compare the previous text to the current one
+    //     cy.get(`tbody > :nth-child(1) > ${classname}`)
+    //       .invoke('text')
+    //       .should((descVal) => {
+    //         expect(ascVal).not.to.eq(descVal)
+    //       })
+    //   })
   }
 
   compare_filter_value(filterAccessor, queryParam) {

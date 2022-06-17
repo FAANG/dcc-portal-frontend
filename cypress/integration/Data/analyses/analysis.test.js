@@ -2,7 +2,7 @@ import {AnalysisPage} from "./analysis"
 
 describe('Analysis Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/data/analysis/_search/*&sort=accession:desc&*', {fixture: 'data/analysis.json'}).as("analysisList")
+    cy.intercept('GET', '/data/analysis/_search/*&sort=accession:*&*', {fixture: 'data/analysis.json'}).as("analysisList")
     cy.visit('/analysis');
   })
 
