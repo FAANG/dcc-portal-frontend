@@ -18,6 +18,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   error: any;
   right_logo_url: {};
   project_links: {};
+  disable_tabs: {};
 
   constructor(private route: ActivatedRoute,
               private title: Title,
@@ -29,6 +30,12 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // display tabs for 'Related Protocols' section
+    this.disable_tabs = {
+      'protocol_samples': false,
+      'protocol_files': false,
+      'protocol_analysis': false
+    };
     this.spinner.show();
     this.right_logo_url = {
       bovine: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/funding-logo-1.png',
@@ -109,4 +116,18 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
     this.twitter.unsubscribe();
   }
 
+
+// disable tab if records count == 0
+  public disableTab(emittedVal: any): void {
+    if (emittedVal[1] === 0) {
+      this.disable_tabs[emittedVal[0]] = true;
+    }
+  }
+
+  hideProtocolTable() {
+    const disableTable = Object.values(this.disable_tabs).every(
+      value => value === true
+    );
+    return disableTable;
+  }
 }
