@@ -10,10 +10,7 @@ describe('Ontology Improver Page', () => {
   let ontologyPage = new OntologyImproverPage()
 
   it('should display welcome message', () => {
-    cy.wait('@ontologyList').then(({response}) => {
-      expect(response.statusCode).to.eq(200)
-      cy.get('h2').should("contain", 'Livestock Ontologies')
-    })
+    cy.get('h2').should("contain", 'Livestock Ontologies')
   })
 
 

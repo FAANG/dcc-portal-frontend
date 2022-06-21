@@ -96,7 +96,7 @@ export class ProjectsPage{
     cy.intercept('GET', '/data/article/_search/*&filters=*secondaryProject*GENE-SWitCH*', {fixture: 'projects/gene-switch/article.json'}).as("articleList")
     cy.intercept('GET', '/join_search?index1=file&index2=specimen*', {fixture: 'projects/gene-switch/file-specimen.json'}).as("fileSpecimenList")
 
-    cy.wait(8000)
+    cy.wait(10000)
 
     cy.contains("GENE-SWitCH aims to deliver new underpinning knowledge on the functional genomes of two main monogastric farm species (pig and chicken) and to enable immediate translation to the pig and poultry sectors.");
     cy.get('#twitter-widget-0').should('be.visible')
