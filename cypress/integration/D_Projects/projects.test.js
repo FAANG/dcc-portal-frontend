@@ -32,37 +32,30 @@ describe('Projects Page', () => {
   })
 
   it('should verify AQUA-FAANG project', () => {
-    cy.get('.aquaa-project-logo').click()
     projectsPage.check_aqua_faang_page()
   })
 
   it('should verify BovReg project', () => {
-    cy.visit('/projects/BovReg')
     projectsPage.check_bovreg_page()
   })
 
   it('should verify Gene-Switch project', () => {
-    cy.visit('/projects/GENE-SWitCH')
     projectsPage.check_geneswitch_page()
   })
 
   it('should verify Geronimo project', () => {
-    cy.visit('/projects/GEroNIMO')
     projectsPage.check_geronimo_page()
   })
 
   it('should verify Rumigen project', () => {
-    cy.visit('/projects/RUMIGEN')
     projectsPage.check_rumigen_page()
   })
 
   it('should verify FAANG project', () => {
-    cy.visit('/projects/FAANG')
     projectsPage.check_faang_page()
   })
 
   it('should verify Bovine project', () => {
-    cy.visit('/projects/Bovine')
     projectsPage.check_bovine_page()
   })
 

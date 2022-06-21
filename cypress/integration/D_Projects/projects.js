@@ -26,6 +26,8 @@ export class ProjectsPage{
     cy.intercept('GET', '/data/specimen/_search/*&filters=*secondaryProject*AQUA-FAANG*', {fixture: 'projects/aqua-faang/specimen.json'}).as("specimenList")
     cy.intercept('GET', '/data/article/_search/*&filters=*secondaryProject*AQUA-FAANG*', {fixture: 'projects/aqua-faang/article.json'}).as("articleList")
 
+    cy.visit('/projects/AQUA-FAANG')
+
     cy.contains("AQUA-FAANG aims to generate genome-wide functional annotation maps for the six commercially most important fish species within European aquaculture and exploit their contribution to variation in traits of commercial relevance, focusing on improved resistance to disease.");
     cy.get('#twitter-widget-0').should('be.visible')
 
@@ -55,9 +57,8 @@ export class ProjectsPage{
     cy.intercept('GET', '/data/organism/_search/*&filters=*secondaryProject*BovReg*', {fixture: 'projects/bovreg/organism.json'}).as("organismList")
     cy.intercept('GET', '/data/specimen/_search/*&filters=*secondaryProject*BovReg*', {fixture: 'projects/bovreg/specimen.json'}).as("specimenList")
     cy.intercept('GET', '/data/article/_search/*&filters=*secondaryProject*BovReg*', {fixture: 'projects/bovreg/article.json'}).as("articleList")
+    cy.visit('/projects/BovReg')
 
-
-    cy.wait(8000)
     cy.contains("The BovReg consortium will provide a comprehensive map of functionally active genomic features in cattle and how their (epi)genetic variation in beef and dairy breeds translates into phenotypes.");
     cy.get('#twitter-widget-0').should('be.visible')
 
@@ -95,8 +96,7 @@ export class ProjectsPage{
     cy.intercept('GET', '/data/specimen/_search/*&filters=*secondaryProject*GENE-SWitCH*', {fixture: 'projects/gene-switch/specimen.json'}).as("specimenList")
     cy.intercept('GET', '/data/article/_search/*&filters=*secondaryProject*GENE-SWitCH*', {fixture: 'projects/gene-switch/article.json'}).as("articleList")
     cy.intercept('GET', '/join_search?index1=file&index2=specimen*', {fixture: 'projects/gene-switch/file-specimen.json'}).as("fileSpecimenList")
-
-    cy.wait(10000)
+    cy.visit('/projects/GENE-SWitCH')
 
     cy.contains("GENE-SWitCH aims to deliver new underpinning knowledge on the functional genomes of two main monogastric farm species (pig and chicken) and to enable immediate translation to the pig and poultry sectors.");
     cy.get('#twitter-widget-0').should('be.visible')
@@ -126,21 +126,25 @@ export class ProjectsPage{
   }
 
   check_geronimo_page(){
+    cy.visit('/projects/GEroNIMO')
     cy.contains("GEroNIMO will work on chicken and pig, the most used sources of animal protein worldwide, to provide breeders with new knowledge and tools to promote innovative genome and epigenome enabled selection methods for traits related to production (quantity and quality), efficiency, productive longevity, fertility, resilience and welfare.");
     cy.get('#twitter-widget-0').should('be.visible')
   }
 
   check_rumigen_page(){
+    cy.visit('/projects/RUMIGEN')
     cy.contains("RUMIGEN is a multi-actor project aiming to improve genetic tools in bovine breeds through the addition of new traits such as heat tolerance, and epigenetic information.");
     cy.get('#twitter-widget-0').should('be.visible')
   }
 
   check_faang_page(){
+    cy.visit('/projects/FAANG')
     cy.contains("FAANG is the Functional Annotation of ANimal Genomes project. We are working to understand the genotype to phenotype link in domesticated animals.");
     cy.get('#twitter-widget-0').should('be.visible')
   }
 
   check_bovine_page(){
+    cy.visit('/projects/Bovine')
     cy.contains("The cattle industry is the largest of the agricultural commodities in the United. Although the sequence of the bovine reference genome has been publicly available since 2009");
   }
 
