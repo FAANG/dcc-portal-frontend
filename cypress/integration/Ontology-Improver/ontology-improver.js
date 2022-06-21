@@ -54,10 +54,11 @@ export class OntologyImproverPage {
 
 
   allow_multiple_filters(filterAccessor_1, filterAccessor_2, filterArr) {
-    cy.get('[title="Project"] > .mat-card > :nth-child(2) > :nth-child(1)').should('exist')
+    cy.get(filterAccessor_1).should('exist')
+    cy.get(filterAccessor_2).should('exist')
     // click on filters
-    cy.get(filterAccessor_1).click()
-    cy.get(filterAccessor_2).click()
+    cy.get(filterAccessor_1).click({force: true})
+    cy.get(filterAccessor_2).click({force: true})
 
     cy.get('app-active-filter.ng-star-inserted').children()
       .should('have.length', 2)
