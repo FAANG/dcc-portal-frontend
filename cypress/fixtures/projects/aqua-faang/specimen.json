@@ -1,0 +1,2139 @@
+{
+  "took": 37,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1135,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289532",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "8.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Blastula stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000108"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_LB1_RNA",
+          "biosampleId": "SAMEA10289532",
+          "etag": "\"0b0366864f6735f74decec001acd3b207\"",
+          "id_number": "10289532",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "0.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Late Blastula, embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_LB1_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "8.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289532"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289533",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "8.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Blastula stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000108"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_LB2_RNA",
+          "biosampleId": "SAMEA10289533",
+          "etag": "\"05f62039fff86d1c84517d78c169ed780\"",
+          "id_number": "10289533",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "0.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Late Blastula, embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_LB2_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "8.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289533"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289534",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "8.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Blastula stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000108"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_LB3_RNA",
+          "biosampleId": "SAMEA10289534",
+          "etag": "\"04dc57a86a3545bef2541cc5b47740b64\"",
+          "id_number": "10289534",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "0.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Late Blastula, embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_LB3_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "8.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289534"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289535",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "12.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Gastrula stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000109"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_GA1_RNA",
+          "biosampleId": "SAMEA10289535",
+          "etag": "\"07df54a82db9f9caad83d77508e8558c3\"",
+          "id_number": "10289535",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "0.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Gastrula (embryonic shield), embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_GA1_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "12.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289535"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289536",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "12.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Gastrula stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000109"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_GA2_RNA",
+          "biosampleId": "SAMEA10289536",
+          "etag": "\"08b5a2e009640d683eab36aa807f60c0c\"",
+          "id_number": "10289536",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "0.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Gastrula (embryonic shield), embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_GA2_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "12.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289536"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289537",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "12.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Gastrula stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000109"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_GA3_RNA",
+          "biosampleId": "SAMEA10289537",
+          "etag": "\"052dfb25e534b5bae0ae9397af2d58329\"",
+          "id_number": "10289537",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "0.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Gastrula (embryonic shield), embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_GA3_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "12.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289537"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289538",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "20.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Late embryonic stage (Early segmentation)",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0007220"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_ES1_RNA",
+          "biosampleId": "SAMEA10289538",
+          "etag": "\"07453f80bc832bb56c400149392b5e7ea\"",
+          "id_number": "10289538",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "5.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Early segmentation, embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_ES1_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "20.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289538"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289539",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "20.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Late embryonic stage (Early segmentation)",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0007220"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_ES2_RNA",
+          "biosampleId": "SAMEA10289539",
+          "etag": "\"0307e1a4726891566092ba57c7f5e1245\"",
+          "id_number": "10289539",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "5.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Early segmentation, embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_ES2_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "20.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289539"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289540",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "26.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Late embryonic sage (Late segmenation)",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0007220"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_LS1_RNA",
+          "biosampleId": "SAMEA10289540",
+          "etag": "\"077ef3a8e23c45a2c16bcd066a728bcb7\"",
+          "id_number": "10289540",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "90.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Late segmentation, embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_LS1_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "26.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289540"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10289541",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10289531",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-02",
+              "unit": "YYYY-MM"
+            },
+            "animalAgeAtCollection": {
+              "text": "26.0",
+              "unit": "hours"
+            },
+            "developmentalStage": {
+              "text": "Late embryonic sage (Late segmenation)",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0007220"
+            },
+            "organismPart": {
+              "text": "embryo",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf",
+              "filename": "UOB_SOP_Carp_embryo_collection_RNAseq_20210917.pdf"
+            },
+            "fastedStatus": null,
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "UOB_CC_LS2_RNA",
+          "biosampleId": "SAMEA10289541",
+          "etag": "\"0dea27d8b2695b5157f38bfa41fd3ede7\"",
+          "id_number": "10289541",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "average water salinity",
+              "value": "0.625",
+              "unit": "parts per thousand"
+            },
+            {
+              "name": "degree days",
+              "value": "5.0",
+              "unit": "Thermal time"
+            },
+            {
+              "name": "derived from",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "generations from wild",
+              "value": "not provided",
+              "unit": "generations from wild"
+            },
+            {
+              "name": "growth media",
+              "value": "Growing medium"
+            },
+            {
+              "name": "hatching",
+              "value": "pre"
+            },
+            {
+              "name": "medium replacement frequency",
+              "value": "1.0",
+              "unit": "days"
+            },
+            {
+              "name": "origin",
+              "value": "Domesticated Double-haploid"
+            },
+            {
+              "name": "percentage total somite number",
+              "value": "90.0",
+              "unit": "%"
+            },
+            {
+              "name": "photoperiod",
+              "value": "12D:12L"
+            },
+            {
+              "name": "post-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "pre-hatching water temperature average",
+              "value": "24.0",
+              "unit": "Degrees celsius"
+            },
+            {
+              "name": "reproductive strategy",
+              "value": "gonochoric"
+            },
+            {
+              "name": "sample description",
+              "value": "Late segmentation, embryonic material; pool; RNAseq material"
+            },
+            {
+              "name": "sample name",
+              "value": "UOB_CC_LS2_RNA"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            },
+            {
+              "name": "time post fertilisation",
+              "value": "26.0",
+              "unit": "hours"
+            }
+          ],
+          "cellType": {
+            "text": "embryo",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000922"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10289531",
+            "organism": {
+              "text": "Cyprinus carpio carpio",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+            },
+            "sex": {
+              "text": "restricted access",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+            },
+            "breed": {
+              "text": "not applicable",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289541"
+        ]
+      }
+    ]
+  }
+}

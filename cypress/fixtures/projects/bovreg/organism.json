@@ -1,0 +1,1149 @@
+{
+  "took": 19,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 50,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031867",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2005-07-18",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_B014",
+          "biosampleId": "SAMEA6031867",
+          "etag": "\"0e0ab5b9255172379844f3bf227732cf1\"",
+          "id_number": "6031867",
+          "description": "adult male, 18 month of age",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925109"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031867"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031868",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2007-09-06",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_K017",
+          "biosampleId": "SAMEA6031868",
+          "etag": "\"04c1302267c67b79625b710a02dc5e672\"",
+          "id_number": "6031868",
+          "description": "adult lactating female, 3.5 years old",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925112"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031868"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031878",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2008-03-11",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_K020",
+          "biosampleId": "SAMEA6031878",
+          "etag": "\"0f400126dbcf955a5fcf11a8d5c8e1348\"",
+          "id_number": "6031878",
+          "description": "adult lactating female, 3.5 years old",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925132"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031878"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031886",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2008-02-14",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_K019",
+          "biosampleId": "SAMEA6031886",
+          "etag": "\"0c11adb247adf4a2be4fbdd19e6d0063b\"",
+          "id_number": "6031886",
+          "description": "adult lactating female, 3.5 years old",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925117"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031886"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031890",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2007-09-25",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_K018",
+          "biosampleId": "SAMEA6031890",
+          "etag": "\"0bdb147caaa8f359d0af45b89ec37cbec\"",
+          "id_number": "6031890",
+          "description": "adult lactating female, 3.5 years old",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925101"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031890"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031893",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2009-07-24",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_B026",
+          "biosampleId": "SAMEA6031893",
+          "etag": "\"02e6b87dd7d0cc9ceb2afa125e7d2768a\"",
+          "id_number": "6031893",
+          "description": "adult male, 18 month of age",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925098"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031893"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031919",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2001-05-27",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_B011",
+          "biosampleId": "SAMEA6031919",
+          "etag": "\"0795e6d9e192bae725be0f6a65ada8a38\"",
+          "id_number": "6031919",
+          "description": "adult male, 18 month of age",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925128"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031919"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031921",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2004-10-07",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_K004",
+          "biosampleId": "SAMEA6031921",
+          "etag": "\"04aeeb5880dfb1a68648e617fbbb59cf9\"",
+          "id_number": "6031921",
+          "description": "adult lactating female, 3.5 years old",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925114"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031921"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031928",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2008-08-28",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_K022",
+          "biosampleId": "SAMEA6031928",
+          "etag": "\"0ad3c8fc8fa0c205731df7cb636abea53\"",
+          "id_number": "6031928",
+          "description": "adult lactating female, 3.5 years old",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925106"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031928"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA6031931",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2003-11-28",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "Cattle crossbreed",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+          },
+          "birthLocation": "Dummerstorf, Germany",
+          "birthLocationLongitude": {
+            "text": "12.2333",
+            "unit": "decimal degree"
+          },
+          "birthLocationLatitude": {
+            "text": "54.0167",
+            "unit": "decimal degree"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "BTA_FBN_K001",
+          "biosampleId": "SAMEA6031931",
+          "etag": "\"02c9b0ee45702b131b27ef93a2e41b2d0\"",
+          "id_number": "6031931",
+          "description": "adult lactating female, 3.5 years old",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS3925136"
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "Legacy",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in Bos taurus Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031931"
+        ]
+      }
+    ]
+  }
+}
