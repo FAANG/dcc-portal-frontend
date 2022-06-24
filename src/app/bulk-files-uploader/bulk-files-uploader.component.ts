@@ -49,14 +49,14 @@ export class BulkFilesUploaderComponent implements OnInit {
       console.log('WebSockets connection created.');
     };
     this.socket.onmessage = (event) => {
-      this.errors[filename] = null;
+      this.errors[filename] = [];
       this.submission_message[filename] = null;
       const data = JSON.parse(event.data)['response'];
       if (data['submission_message']) {
         this.submission_message[filename] = data['submission_message'];
       }
       if (data['errors']) {
-        this.errors[filename] = data['errors'];
+        this.errors[filename].push(data['errors']);
       }
       if (data['validation_results']) {
         this.messageUpdate.emit(data['validation_results']);
