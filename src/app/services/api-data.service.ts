@@ -1004,6 +1004,7 @@ export class ApiDataService {
     const aggs = {
       'university_name': 'universityName',
       'protocol_date': 'protocolDate',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'key': 'key',
@@ -1058,6 +1059,7 @@ export class ApiDataService {
       'protocol_type': 'name',
       'experiment_target': 'experimentTarget',
       'assay_type': 'assayType',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'key': 'key',
