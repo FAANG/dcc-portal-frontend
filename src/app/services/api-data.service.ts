@@ -31,7 +31,8 @@ export class ApiDataService {
       'instrument': 'run.instrument',
       'assayType': 'experiment.assayType',
       'standard': 'experiment.standardMet',
-      'paper_published': 'paperPublished'
+      'paper_published': 'paperPublished',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'fileName': 'name',
@@ -268,7 +269,8 @@ export class ApiDataService {
       'organism': 'organism.text',
       'breed': 'breed.text',
       'standard': 'standardMet',
-      'paper_published': 'paperPublished'
+      'paper_published': 'paperPublished',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'bioSampleId': 'biosampleId',
@@ -523,7 +525,8 @@ export class ApiDataService {
       'material': 'material.text',
       'organismpart_celltype': 'cellType.text',
       'breed': 'organism.breed.text',
-      'paper_published': 'paperPublished'
+      'paper_published': 'paperPublished',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'bioSampleId': 'biosampleId',
@@ -638,7 +641,8 @@ export class ApiDataService {
       'species': 'species.text',
       'assay_type': 'assayType',
       'standard': 'standardMet',
-      'paper_published': 'paperPublished'
+      'paper_published': 'paperPublished',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'datasetAccession': 'accession',
@@ -725,7 +729,8 @@ export class ApiDataService {
       'species': 'organism.text',
       'assay_type': 'assayType',
       'analysis_type': 'analysisType',
-      'standard': 'standardMet'
+      'standard': 'standardMet',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'accession': 'accession',
@@ -893,6 +898,7 @@ export class ApiDataService {
       'year': 'year',
       'journal': 'journal',
       'datasetSource': 'datasetSource',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'title': 'title',
@@ -944,6 +950,7 @@ export class ApiDataService {
     const aggs = {
       'university_name': 'universityName',
       'protocol_date': 'protocolDate',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'key': 'key',
@@ -997,6 +1004,7 @@ export class ApiDataService {
     const aggs = {
       'university_name': 'universityName',
       'protocol_date': 'protocolDate',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'key': 'key',
@@ -1051,6 +1059,7 @@ export class ApiDataService {
       'protocol_type': 'name',
       'experiment_target': 'experimentTarget',
       'assay_type': 'assayType',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'key': 'key',

@@ -13,6 +13,7 @@
         <app-filter title="Organism part/Cell type" [filterSize]=3></app-filter>
         <app-filter title="Breed" [filterSize]=3></app-filter>
         <app-filter title="Paper published" [filterSize]=2></app-filter>
+        <app-filter title="Project" [filterSize]=4></app-filter>
     </div>
 
     <div fxFlex="83" class="table-responsive">
@@ -30,10 +31,10 @@
       <button (click)="downloadFile('txt')" mat-raised-button *ngIf="downloadData">
         Export as Tabular file
       </button>
-      <mat-spinner *ngIf="downloading" [diameter]="30" 
+      <mat-spinner *ngIf="downloading" [diameter]="30"
         style="display: inline; margin-left: 10px;">
       </mat-spinner>
-      <app-table-server-side  [display_fields]="displayFields" 
+      <app-table-server-side  [display_fields]="displayFields"
             [column_names]="columnNames"
             [templates]="templates"
             [filter_values]="filter_field"
