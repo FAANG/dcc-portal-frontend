@@ -1,29 +1,23 @@
 <div class="container">
   <app-header></app-header>
-  <div class="container" style="margin: 10px;">
+  <div class="container-fluid" style="padding-top: 10px">
     <h2>Nextflow Submission</h2>
     <hr>
-    <div class="row">
-      <div class="col-md-12">
-
-        <div class="upload-section">
-          <span class="section-title">Upload NextFlow Configuration File:</span>
-          <app-bulk-files-uploader
-            style="margin: 20px 0;"
-            [uploadUrl]="nfConfigUploadUrl"
-            [mode]="'single'">
-          </app-bulk-files-uploader>
-        </div>
-
-        <div class="upload-section">
-          <span class="section-title">Upload Spreadsheet File:</span>
-          <app-bulk-files-uploader
-            style="margin: 20px 0;"
-            [uploadUrl]="nfspreadsheetUploadUrl"
-            [mode]="'single'">
-          </app-bulk-files-uploader>
-        </div>
-      </div>
+    <div fxLayout="column">
+      <h4>Upload NextFlow Configuration File</h4>
+      <app-bulk-files-uploader
+        style="margin: 20px 0;"
+        [uploadUrl]="nfConfigUploadUrl"
+        [mode]="'single'">
+      </app-bulk-files-uploader>
+  
+      <h4>Upload Spreadsheet File</h4>
+      <app-bulk-files-uploader
+        style="margin: 20px 0;"
+        [uploadUrl]="nfspreadsheetUploadUrl"
+        [mode]="'single'">
+      </app-bulk-files-uploader>
     </div>
   </div>
+  
 </div>
