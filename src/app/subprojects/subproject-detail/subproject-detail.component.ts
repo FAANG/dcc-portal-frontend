@@ -19,6 +19,9 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   right_logo_url: {};
   project_links: {};
 
+  // Local variable for pagination
+  p = 1;
+
   constructor(private route: ActivatedRoute,
               private title: Title,
               private spinner: NgxSpinnerService,

@@ -76,4 +76,8 @@ export class SpecimenDetailComponent implements OnInit {
   generateProtocolLink(url: string) {
     return getProtocolLink(url);
   }
+
+  buildLink(data: any) {
+    return `http://www.ensembl.org/Trackhub?url=${data['trackhubUrl']}`;
+  }
 }

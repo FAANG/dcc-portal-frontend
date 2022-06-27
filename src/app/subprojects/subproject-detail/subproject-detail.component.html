@@ -68,22 +68,762 @@
 
       <div *ngIf="project === 'GENE-SWitCH'">
         <h3>Ensembl Rapid Release</h3>
-        <ul class="list-group">
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-md-2"><span class="badge badge-success badge-pill">Sus scrofa</span></div>
-              <div class="col-md-10"><a href="https://rapid.ensembl.org/Sus_scrofa_GCA_000003025.6/Info/Index"
-                                        target="_blank" class="btn btn-primary btn-sm">View data</a></div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-md-2"><span class="badge badge-success badge-pill">Gallus gallus</span></div>
-              <div class="col-md-10"><a href="https://rapid.ensembl.org/Gallus_gallus_GCA_000002315.5/Info/Index"
-                                        target="_blank" class="btn btn-primary btn-sm">View data</a></div>
-            </div>
-          </li>
-        </ul>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-borderless table-sm">
+            <thead>
+            <tr>
+              <th>Species</th>
+              <th>Accession</th>
+              <th>Assembly submitted by</th>
+              <th>Annotation</th>
+              <th>Proteins</th>
+              <th>Transcripts</th>
+              <th>Softmasked genome</th>
+              <th>Repeat library</th>
+              <th>Other data</th>
+              <th>View in browser</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                Sus scrofa (pig - e102)
+              </td>
+              <td>
+                GCA_000003025.6
+              </td>
+              <td>
+                The Swine Genome Sequencing Consortium (SGSC)
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa/Sus_scrofa.Sscrofa11.1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa/Sus_scrofa.Sscrofa11.1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa/pep/Sus_scrofa.Sscrofa11.1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa/cdna/Sus_scrofa.Sscrofa11.1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa/dna/Sus_scrofa.Sscrofa11.1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                <a href="http://ftp.ebi.ac.uk/pub/databases/ensembl/repeats/unfiltered_repeatmodeler/species/sus_scrofa/GCA_000003025.6.repeatmodeler.fa">Repeatmodeler</a>
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (pig - e107)
+              </td>
+              <td>
+                GCA_000003025.6
+              </td>
+              <td>
+                The Swine Genome Sequencing Consortium (SGSC)
+              </td>
+              <td>
+                <span><a href="https://ftp.ensembl.org/pub/rapid-release/species/Sus_scrofa/GCA_000003025.6/geneset/2022_02/Sus_scrofa-GCA_000003025.6-2022_02-genes.gtf.gz">GTF</a></span>,
+                <span><a href="https://ftp.ensembl.org/pub/rapid-release/species/Sus_scrofa/GCA_000003025.6/geneset/2022_02/Sus_scrofa-GCA_000003025.6-2022_02-genes.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Sus_scrofa/GCA_000003025.6/geneset/2022_02/Sus_scrofa-GCA_000003025.6-2022_02-pep.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Sus_scrofa/GCA_000003025.6/geneset/2022_02/Sus_scrofa-GCA_000003025.6-2022_02-cdna.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Sus_scrofa/GCA_000003025.6/genome/Sus_scrofa-GCA_000003025.6-softmasked.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                <a href="http://ftp.ebi.ac.uk/pub/databases/ensembl/repeats/unfiltered_repeatmodeler/species/sus_scrofa/GCA_000003025.6.repeatmodeler.fa">Repeatmodeler</a>
+
+              </td>
+              <td>
+
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Sus_scrofa/GCA_000003025.6/" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://rapid.ensembl.org/Sus_scrofa_GCA_000003025.6/Info/Index" class="external-link">rapid.ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Gallus gallus (jungle fowl - e102)
+              </td>
+              <td>
+                GCA_000002315.5
+              </td>
+              <td>
+                Genome Reference Consortium
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/gallus_gallus/Gallus_gallus.GRCg6a.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/gallus_gallus/Gallus_gallus.GRCg6a.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/gallus_gallus/pep/Gallus_gallus.GRCg6a.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/gallus_gallus/cdna/Gallus_gallus.GRCg6a.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/gallus_gallus/dna/Gallus_gallus.GRCg6a.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                <a href="http://ftp.ebi.ac.uk/pub/databases/ensembl/repeats/unfiltered_repeatmodeler/species/gallus_gallus/GCA_000002315.5.repeatmodeler.fa">Repeatmodeler</a>
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Gallus_gallus/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Gallus gallus (jungle fowl - e107)
+              </td>
+              <td>
+                GCA_000002315.5
+              </td>
+              <td>
+                Genome Reference Consortium
+              </td>
+              <td>
+                <span><a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_000002315.5/geneset/2022_01/Gallus_gallus-GCA_000002315.5-2022_01-genes.gtf.gz">GTF</a></span>,
+                <span><a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_000002315.5/geneset/2022_01/Gallus_gallus-GCA_000002315.5-2022_01-genes.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_000002315.5/geneset/2022_01/Gallus_gallus-GCA_000002315.5-2022_01-pep.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_000002315.5/geneset/2022_01/Gallus_gallus-GCA_000002315.5-2022_01-cdna.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_000002315.5/genome/Gallus_gallus-GCA_000002315.5-softmasked.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                <a href="http://ftp.ebi.ac.uk/pub/databases/ensembl/repeats/unfiltered_repeatmodeler/species/gallus_gallus/GCA_000002315.5.repeatmodeler.fa">Repeatmodeler</a>
+
+              </td>
+              <td>
+
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_000002315.5/" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://rapid.ensembl.org/Gallus_gallus_GCA_000002315.5/Info/Index" class="external-link">rapid.ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Gallus gallus (broiler - e107)
+              </td>
+              <td>
+                GCA_016699485.1
+              </td>
+              <td>
+                Vertebrate Genomes Project
+              </td>
+              <td>
+                <span><a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016699485.1/geneset/2022_01/Gallus_gallus-GCA_016699485.1-2022_01-genes.gtf.gz">GTF</a></span>,
+                <span><a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016699485.1/geneset/2022_01/Gallus_gallus-GCA_016699485.1-2022_01-genes.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016699485.1/geneset/2022_01/Gallus_gallus-GCA_016699485.1-2022_01-pep.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016699485.1/geneset/2022_01/Gallus_gallus-GCA_016699485.1-2022_01-cdna.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016699485.1/genome/Gallus_gallus-GCA_016699485.1-softmasked.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                <a href="http://ftp.ebi.ac.uk/pub/databases/ensembl/repeats/unfiltered_repeatmodeler/species/gallus_gallus/GCA_016699485.1.repeatmodeler.fa">Repeatmodeler</a>
+
+              </td>
+              <td>
+
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016699485.1/" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://rapid.ensembl.org/Gallus_gallus_GCA_016699485.1/Info/Index" class="external-link">rapid.ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Gallus gallus (layer - e107)
+              </td>
+              <td>
+                GCA_016700215.2
+              </td>
+              <td>
+                Vertebrate Genomes Project
+              </td>
+              <td>
+                <span><a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016700215.2/geneset/2022_01/Gallus_gallus-GCA_016700215.2-2022_01-genes.gtf.gz">GTF</a></span>,
+                <span><a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016700215.2/geneset/2022_01/Gallus_gallus-GCA_016700215.2-2022_01-genes.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016700215.2/geneset/2022_01/Gallus_gallus-GCA_016700215.2-2022_01-pep.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016700215.2/geneset/2022_01/Gallus_gallus-GCA_016700215.2-2022_01-cdna.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016700215.2/genome/Gallus_gallus-GCA_016700215.2-softmasked.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="https://ftp.ensembl.org/pub/rapid-release/species/Gallus_gallus/GCA_016700215.2/" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://rapid.ensembl.org/Gallus_gallus_GCA_016700215.2/Info/Index" class="external-link">rapid.ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (bamei - e102)
+              </td>
+              <td>
+                GCA_001700235.1
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_bamei/Sus_scrofa_bamei.Bamei_pig_v1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_bamei/Sus_scrofa_bamei.Bamei_pig_v1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_bamei/pep/Sus_scrofa_bamei.Bamei_pig_v1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_bamei/cdna/Sus_scrofa_bamei.Bamei_pig_v1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_bamei/dna/Sus_scrofa_bamei.Bamei_pig_v1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (berkshire - e102)
+              </td>
+              <td>
+                GCA_001700575.1
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_berkshire/Sus_scrofa_berkshire.Berkshire_pig_v1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_berkshire/Sus_scrofa_berkshire.Berkshire_pig_v1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_berkshire/pep/Sus_scrofa_berkshire.Berkshire_pig_v1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_berkshire/cdna/Sus_scrofa_berkshire.Berkshire_pig_v1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_berkshire/dna/Sus_scrofa_berkshire.Berkshire_pig_v1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (hampshire - e102)
+              </td>
+              <td>
+                GCA_001700165.1
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_hampshire/Sus_scrofa_hampshire.Hampshire_pig_v1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_hampshire/Sus_scrofa_hampshire.Hampshire_pig_v1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_hampshire/pep/Sus_scrofa_hampshire.Hampshire_pig_v1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_hampshire/cdna/Sus_scrofa_hampshire.Hampshire_pig_v1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_hampshire/dna/Sus_scrofa_hampshire.Hampshire_pig_v1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (jinhua - e102)
+              </td>
+              <td>
+                GCA_001700295.1
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_jinhua/Sus_scrofa_jinhua.Jinhua_pig_v1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_jinhua/Sus_scrofa_jinhua.Jinhua_pig_v1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_jinhua/pep/Sus_scrofa_jinhua.Jinhua_pig_v1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_jinhua/cdna/Sus_scrofa_jinhua.Jinhua_pig_v1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_jinhua/dna/Sus_scrofa_jinhua.Jinhua_pig_v1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (landrace - e102)
+              </td>
+              <td>
+                GCA_001700215.1
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_landrace/Sus_scrofa_landrace.Landrace_pig_v1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_landrace/Sus_scrofa_landrace.Landrace_pig_v1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_landrace/pep/Sus_scrofa_landrace.Landrace_pig_v1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_landrace/cdna/Sus_scrofa_landrace.Landrace_pig_v1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_landrace/dna/Sus_scrofa_landrace.Landrace_pig_v1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (largewhite - e102)
+              </td>
+              <td>
+                GCA_001700135.1
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_largewhite/Sus_scrofa_largewhite.Large_White_v1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_largewhite/Sus_scrofa_largewhite.Large_White_v1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_largewhite/pep/Sus_scrofa_largewhite.Large_White_v1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_largewhite/cdna/Sus_scrofa_largewhite.Large_White_v1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_largewhite/dna/Sus_scrofa_largewhite.Large_White_v1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (meishan - e102)
+              </td>
+              <td>
+                GCA_001700195.1
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_meishan/Sus_scrofa_meishan.Meishan_pig_v1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_meishan/Sus_scrofa_meishan.Meishan_pig_v1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_meishan/pep/Sus_scrofa_meishan.Meishan_pig_v1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_meishan/cdna/Sus_scrofa_meishan.Meishan_pig_v1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_meishan/dna/Sus_scrofa_meishan.Meishan_pig_v1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (pietrain - e102)
+              </td>
+              <td>
+                GCA_001700255.1
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_pietrain/Sus_scrofa_pietrain.Pietrain_pig_v1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_pietrain/Sus_scrofa_pietrain.Pietrain_pig_v1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_pietrain/pep/Sus_scrofa_pietrain.Pietrain_pig_v1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_pietrain/cdna/Sus_scrofa_pietrain.Pietrain_pig_v1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_pietrain/dna/Sus_scrofa_pietrain.Pietrain_pig_v1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (rongchang - e102)
+              </td>
+              <td>
+                GCA_001700155.1
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_rongchang/Sus_scrofa_rongchang.Rongchang_pig_v1.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_rongchang/Sus_scrofa_rongchang.Rongchang_pig_v1.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_rongchang/pep/Sus_scrofa_rongchang.Rongchang_pig_v1.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_rongchang/cdna/Sus_scrofa_rongchang.Rongchang_pig_v1.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_rongchang/dna/Sus_scrofa_rongchang.Rongchang_pig_v1.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (tibetan - e102)
+              </td>
+              <td>
+                GCA_000472085.2
+              </td>
+              <td>
+                Novogene
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_tibetan/Sus_scrofa_tibetan.Tibetan_Pig_v2.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_tibetan/Sus_scrofa_tibetan.Tibetan_Pig_v2.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_tibetan/pep/Sus_scrofa_tibetan.Tibetan_Pig_v2.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_tibetan/cdna/Sus_scrofa_tibetan.Tibetan_Pig_v2.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_tibetan/dna/Sus_scrofa_tibetan.Tibetan_Pig_v2.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (usmarc - e102)
+              </td>
+              <td>
+                GCA_002844635.1
+              </td>
+              <td>
+                USDA ARS
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_usmarc/Sus_scrofa_usmarc.USMARCv1.0.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_usmarc/Sus_scrofa_usmarc.USMARCv1.0.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_usmarc/pep/Sus_scrofa_usmarc.USMARCv1.0.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_usmarc/cdna/Sus_scrofa_usmarc.USMARCv1.0.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_usmarc/dna/Sus_scrofa_usmarc.USMARCv1.0.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Sus scrofa (wuzhishan - e102)
+              </td>
+              <td>
+                GCA_000325925.2
+              </td>
+              <td>
+                BGI-shenzhen
+              </td>
+              <td>
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gtf/sus_scrofa_wuzhishan/Sus_scrofa_wuzhishan.minipig_v1.0.102.gtf.gz">GTF</a></span>,
+                <span><a href="http://ftp.ensembl.org/pub/release-102/gff3/sus_scrofa_wuzhishan/Sus_scrofa_wuzhishan.minipig_v1.0.102.gff3.gz">GFF3</a></span>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_wuzhishan/pep/Sus_scrofa_wuzhishan.minipig_v1.0.pep.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_wuzhishan/cdna/Sus_scrofa_wuzhishan.minipig_v1.0.cdna.all.fa.gz">FASTA</a>
+              </td>
+              <td>
+                <a href="http://ftp.ensembl.org/pub/release-102/fasta/sus_scrofa_wuzhishan/dna/Sus_scrofa_wuzhishan.minipig_v1.0.dna_sm.toplevel.fa.gz">FASTA</a>
+              </td>
+              <td>
+
+                –
+
+              </td>
+              <td>
+
+                <a href="http://ftp.ensembl.org/pub/release-102" class="external-link">FTP dumps</a>
+
+              </td>
+              <td>
+
+                <a href="https://e102.ensembl.org/Sus_scrofa/Info/Index" class="external-link">ensembl.org</a>
+
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+<!--        <ul class="list-group">-->
+<!--          <li class="list-group-item">-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-2"><span class="badge badge-success badge-pill">Sus scrofa</span></div>-->
+<!--              <div class="col-md-10"><a href="https://rapid.ensembl.org/Sus_scrofa_GCA_000003025.6/Info/Index"-->
+<!--                                        target="_blank" class="btn btn-primary btn-sm">View data</a></div>-->
+<!--            </div>-->
+<!--          </li>-->
+<!--          <li class="list-group-item">-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-2"><span class="badge badge-success badge-pill">Gallus gallus</span></div>-->
+<!--              <div class="col-md-10"><a href="https://rapid.ensembl.org/Gallus_gallus_GCA_000002315.5/Info/Index"-->
+<!--                                        target="_blank" class="btn btn-primary btn-sm">View data</a></div>-->
+<!--            </div>-->
+<!--          </li>-->
+<!--        </ul>-->
       </div>
 
       <app-related-items source_type="project" target_type="publication" download_key=""

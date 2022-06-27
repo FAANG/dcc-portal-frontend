@@ -17,9 +17,12 @@
     <dl class="row">
 
       <dt class="col-sm-3">Study name:</dt>
-      <dd class="col-sm-9">
+      <dd class="col-sm-9" *ngIf="!_userService.token">
         <app-robust-link [prefix]="ena_prefix" [link]="dataset?.accession"
                          [text]="dataset?.accession"></app-robust-link>
+      </dd>
+      <dd class="col-sm-9" *ngIf="_userService.token">
+        {{dataset?.accession}}
       </dd>
 
       <dt class="col-sm-3">Title:</dt>
@@ -42,10 +45,11 @@
 
       <ng-container *ngIf="dataset?.secondaryAccession">
         <dt class="col-sm-3">Secondary accession:</dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-9" *ngIf="!_userService.token">
           <app-robust-link [prefix]="ena_prefix" [link]="dataset?.secondaryAccession"
                            [text]="dataset?.secondaryAccession"></app-robust-link>
         </dd>
+        <dd class="col-sm-9" *ngIf="_userService.token">{{dataset?.secondaryAccession}}</dd>
       </ng-container>
 
       <dt class="col-sm-3">Species</dt>
@@ -61,8 +65,13 @@
         <dt class="col-sm-3">Experiment accessions:</dt>
         <dd class="col-sm-9">
           <ng-container *ngFor="let experiment of dataset?.experiment">
-            <app-robust-link [prefix]="ena_prefix" [link]="experiment.accession"
-                             [text]="experiment.accession"></app-robust-link>
+            <ng-container *ngIf="!_userService.token">
+              <app-robust-link [prefix]="ena_prefix" [link]="experiment.accession"
+                               [text]="experiment.accession"></app-robust-link>
+            </ng-container>
+            <ng-container *ngIf="_userService.token">
+              {{experiment.accession}}
+            </ng-container>
             &nbsp;
           </ng-container>
         </dd>
@@ -91,6 +100,18 @@
       </ng-container>
 
     </dl>
+
+    <div class="row" *ngIf="dataset?.secondaryProject.toString() === 'GENE-SWitCH'">
+      <div class="col-md-12">
+        <mat-spinner *ngIf="queryService.downloading" [diameter]="30"
+                     style="display: inline; float: right;">
+        </mat-spinner>
+        <button *ngIf="!queryService.downloading" class="btn btn-primary" (click)="downloadTSV()" style="float: right;">
+          Download metadata for analysis
+        </button>
+      </div>
+    </div>
+
 
     <app-related-items source_type="dataset" target_type="paper"
                        download_key="" [record_id]="dataset.accession"></app-related-items>

@@ -67,6 +67,20 @@
                   </a>
                   <i class="material-icons lock">lock</i>
                 </ng-container>
+                <ng-container *ngIf="source_type === 'dataset' && target_type === 'specimen' && isRecordPrivate(record)">
+                  <a [routerLink]="['/specimen', getValue(record, get_attr(attr))]">
+                    {{getValue(record, get_attr(attr))}}
+                  </a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
+                <ng-container *ngIf="source_type === 'dataset' && target_type === 'file' && isRecordPrivate(record)">
+                  <a [routerLink]="['/file', record['fileId']]">{{record['name']}}</a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
+                <ng-container *ngIf="source_type === 'dataset' && target_type === 'analysis' && isRecordPrivate(record)">
+                  {{record['_source']['accession']}}
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
                 <ng-container *ngIf="source_type === 'project' && target_type === 'file' && isRecordPrivate(record)">
                   <a [routerLink]="['/file', record['fileId']]">{{record['name']}}</a>
                   <i class="material-icons lock">lock</i>

@@ -24,13 +24,15 @@
         <dd class="col-sm-9">{{file?.secondaryProject}}</dd>
       </ng-container>
 
-      <dt class="col-sm-3">Release date:</dt>
-      <dd class="col-sm-9">{{file?.releaseDate}}</dd>
+      <ng-container *ngIf="file?.releaseDate">
+        <dt class="col-sm-3">Release date:</dt>
+        <dd class="col-sm-9">{{file?.releaseDate}}</dd>
+      </ng-container>
 
       <dt class="col-sm-3">Update date:</dt>
       <dd class="col-sm-9">{{file?.updateDate}}</dd>
 
-      <dt class="col-sm-3">Organism:</dt>
+      <dt class="col-sm-3">Organism name:</dt>
       <dd class="col-sm-9">
         <app-robust-link [prefix]="ols_prefix" [link]="file?.species?.ontologyTerms"
                          [text]="file?.species?.text"></app-robust-link>
@@ -38,13 +40,17 @@
 
       <dt class="col-sm-3">Specimen:</dt>
       <dd class="col-sm-9">
-        <app-robust-link [prefix]="specimen_prefix" [link]="file?.specimen" [text]="file?.specimen"></app-robust-link>
+        <app-robust-link [prefix]="specimen_prefix" [link]="file?.specimen" [text]="file?.specimen"
+                         *ngIf="!_userService.token"></app-robust-link>
+        <a [routerLink]="['/specimen', file?.specimen]" *ngIf="_userService.token">{{file?.specimen}}</a>
       </dd>
 
       <ng-container *ngIf="file?.organism">
-        <dt class="col-sm-3">BioSample ID:</dt>
+        <dt class="col-sm-3">Organism:</dt>
         <dd class="col-sm-9">
-          <app-robust-link [prefix]="organism_prefix" [link]="file?.organism" [text]="file?.organism"></app-robust-link>
+          <app-robust-link [prefix]="organism_prefix" [link]="file?.organism" [text]="file?.organism"
+                           *ngIf="!_userService.token"></app-robust-link>
+          <a [routerLink]="['/organism', file?.organism]" *ngIf="_userService.token">{{file?.organism}}</a>
         </dd>
       </ng-container>
 
@@ -66,15 +72,18 @@
 
       <ng-container *ngIf="file?.submission">
         <dt class="col-sm-3">Submission:</dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-9" *ngIf="!_userService.token">
           <app-robust-link [prefix]="ena_prefix" [link]="file?.submission"
                            [text]="file?.submission"></app-robust-link>
+        </dd>
+        <dd class="col-sm-9" *ngIf="_userService.token">
+          {{file?.submission}}
         </dd>
       </ng-container>
 
       <ng-container *ngIf="file?.experiment?.accession">
         <dt class="col-sm-3">Experiment:</dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-9" *ngIf="!_userService.token">
           <app-robust-link [prefix]="ena_prefix" [link]="file?.experiment?.accession"
                            [text]="file?.experiment?.accession"></app-robust-link>
           <button class="btn btn-info btn-sm" id="exp_dropdown" (click)="toggleExperiment()">Experiment details</button>
@@ -111,13 +120,15 @@
             <hr>
           </ng-container>
         </dd>
+        <dd class="col-sm-9" *ngIf="_userService.token">{{file?.experiment?.accession}}</dd>
       </ng-container>
 
       <ng-container *ngIf="file?.study?.accession">
         <dt class="col-sm-3">Study:</dt>
         <dd class="col-sm-9">
           <app-robust-link [prefix]="dataset_prefix" [link]="file?.study?.accession"
-                           [text]="file?.study?.accession"></app-robust-link>
+                           [text]="file?.study?.accession" *ngIf="!_userService.token"></app-robust-link>
+          <a [routerLink]="['/dataset', file?.study?.accession]" *ngIf="_userService.token">{{file?.study?.accession}}</a>
         </dd>
       </ng-container>
 
@@ -128,10 +139,11 @@
 
       <ng-container *ngIf="file?.run?.accession">
         <dt class="col-sm-3">Run:</dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-9" *ngIf="!_userService.token">
           <app-robust-link [prefix]="ena_prefix" [link]="file?.run?.accession"
                            [text]="file?.run?.accession"></app-robust-link>
         </dd>
+        <dd class="col-sm-9" *ngIf="_userService.token">{{file?.run?.accession}}</dd>
       </ng-container>
 
       <ng-container *ngIf="file?.run?.platform">
