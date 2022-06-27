@@ -22,4 +22,3 @@ export class NextflowSubmissionComponent implements OnInit {
     this.nfspreadsheetUploadUrl = `${validation_service_url}/nextflow_upload/upload/nextflow_spreadsheet`;
   }
 }
-

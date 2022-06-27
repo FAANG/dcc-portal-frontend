@@ -5,7 +5,7 @@
       <label class="btn btn-default p-0">
         <input *ngIf="mode == 'bulk'" type="file" multiple (change)="selectFiles($event)" />
       </label>
-      <button class="btn btn-success"
+      <button mat-raised-button color="primary"
         [disabled]="!selectedFiles" (click)="uploadFiles()"
         style="float: right;">
         Upload
@@ -22,9 +22,21 @@
         <div [ngClass]="getAlertClass(submission_message[file])" role="alert"
               style="margin-top: 5px; padding: 5px; text-align: center;" >
           {{ submission_message[file] }}
-          <p *ngFor="let error of errors[file]">
-            {{ error }}
-          </p>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let error of errors[file]">
+              <ng-container *ngIf="error.indexOf('Your organization') !== -1">
+                <p>{{error}}</p>
+                <p>
+                  Please contact <a href="mailto:faang-dcc@ebi.ac.uk">faang-dcc@ebi.ac.uk</a> to add your organization to
+                  list of <a href="https://dcc-documentation.readthedocs.io/en/latest/organization_group_abbreviations/">
+                  FAANG organizations</a>
+                </p>
+              </ng-container>
+              <ng-container *ngIf="error.indexOf('Your organization') === -1">
+                {{error}}
+              </ng-container>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -39,7 +51,7 @@
       <label class="btn btn-default p-0">
         <input *ngIf="mode == 'single'" type="file" (change)="selectFiles($event)" />
       </label>
-      <button class="btn btn-success"
+      <button mat-raised-button color="primary"
         [disabled]="!selectedFiles" (click)="uploadFiles()"
         style="float: right;">
         Upload
@@ -49,9 +61,11 @@
       <div [ngClass]="getAlertClass(submission_message[fileNamesList[0]])" role="alert"
             style="padding: 5px; text-align: center;" >
         {{ submission_message[fileNamesList[0]] }}
-        <p *ngFor="let error of errors[fileNamesList[0]]">
-          {{ error }}
-        </p>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let error of errors[fileNamesList[0]]">
+            {{error}}
+          </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -1,74 +1,36 @@
 <div class="container">
   <app-header></app-header>
-
-  <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-primary" role="alert">
-          Please name your files using this convention INSTITUTE_SOP_PROTOCOLNAME_YYYYMMDD.pdf e.g
-          INRA_SOP_sorting_swine_CD_cells_20160504.pdf. This is a protocol for Sorting Swine CD cells, the protocol
-          comes from the French National Institute for Agricultural Research and the protocol was written on the
-          4th May 2016. Read more in <a href="https://dcc-documentation.readthedocs.io/en/latest/">documentation</a>
-        </div>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="submission_message">
-    <div class="col-md-12">
-      <div [ngClass]="getAlertClass()" role="alert">
-        {{submission_message}}
+  <div class="container-fluid" style="padding-top: 10px">
+    <h2>Upload Protocols</h2>
+    <hr>
+    <div fxLayout="column">
+      <div class="alert alert-primary" role="alert">
+        Please name your files using this convention INSTITUTE_SOP_PROTOCOLNAME_YYYYMMDD.pdf e.g
+        INRA_SOP_sorting_swine_CD_cells_20160504.pdf. This is a protocol for Sorting Swine CD cells, the protocol
+        comes from the French National Institute for Agricultural Research and the protocol was written on the
+        4th May 2016. Read more in <a href="https://dcc-documentation.readthedocs.io/en/latest/">documentation</a>
       </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
-      <h3>Upload protocols:</h3>
-      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-      <div class="form-check">
+  
+      <div class="form-check" style="margin: 10px 0;">
         <input class="form-check-input" type="radio" name="exampleRadios" id="samples" value="samples" checked
                (click)="chooseProtocolType('samples')">
         <label for="samples">Samples protocol</label> <br>
-
+  
         <input class="form-check-input" type="radio" name="exampleRadios" id="experiments" value="experiments"
                (click)="chooseProtocolType('experiments')">
         <label for="experiments">Experiments protocol</label> <br>
-
+  
         <input class="form-check-input" type="radio" name="exampleRadios" id="analyses" value="analyses"
                (click)="chooseProtocolType('analyses')">
         <label for="analyses">Analyses protocol</label>
       </div>
-      <button type="button" class="btn btn-success btn-sm"
-              (click)="uploader.uploadAll()"
-              [disabled]="!uploader.getNotUploadedItems().length" >
-        Upload a File
-      </button>
+  
+      <app-bulk-files-uploader
+        style="margin: 10px 0;"
+        [uploadUrl]="UploadURL"
+        [mode]="'bulk'">
+      </app-bulk-files-uploader>
+      
     </div>
-    <div class="col-md-6" *ngIf="submission_results">
-      <h3>Results:</h3>
-      <div class="alert alert-success div-results">
-        <a href="{{submission_results}}">{{submission_results}}</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="errors">
-    <div class="col-md-12">
-      <h3>Errors:</h3>
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-danger" *ngFor="let error of errors">
-          <ng-container *ngIf="error.indexOf('Your organization') !== -1">
-            <p>{{error}}</p>
-            <p>
-              Please contact <a href="mailto:faang-dcc@ebi.ac.uk">faang-dcc@ebi.ac.uk</a> to add your organization to
-              list of <a href="https://dcc-documentation.readthedocs.io/en/latest/organization_group_abbreviations/">
-              FAANG organizations</a>
-            </p>
-          </ng-container>
-          <ng-container *ngIf="error.indexOf('Your organization') === -1">
-            {{error}}
-          </ng-container>
-        </li>
-      </ul>
-    </div>
-  </div>
+  </div>  
 </div>
