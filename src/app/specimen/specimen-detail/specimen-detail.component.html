@@ -21,7 +21,11 @@
       </ng-container>
       <ng-container *ngIf="specimen && specimen.hasOwnProperty('biosampleId')">
         <dt class="col-sm-3">BioSample ID:</dt>
-        <dd class="col-sm-9"><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a>
+        <dd class="col-sm-9" *ngIf="!_userService.token">
+          <a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a>
+        </dd>
+        <dd class="col-sm-9" *ngIf="_userService.token">
+          {{specimen?.biosampleId}}
         </dd>
       </ng-container>
       <ng-container *ngIf="specimen && specimen.hasOwnProperty('alternativeId') && specimen.alternativeId.length !== 0">
@@ -36,6 +40,14 @@
         <dt class="col-sm-3">Update date:</dt>
         <dd class="col-sm-9">{{specimen?.updateDate}}</dd>
       </ng-container>
+<!--      <ng-container *ngIf="specimen && specimen.hasOwnProperty('trackhubUrl')">-->
+<!--        <dt class="col-sm-3">Submitted tracks:</dt>-->
+<!--        <dd class="col-sm-9">-->
+<!--          <button class="btn btn-info btn-sm" >-->
+<!--            <a href="{{buildLink(specimen)}}">Launch in Genome Browser</a>-->
+<!--          </button>-->
+<!--        </dd>-->
+<!--      </ng-container>-->
       <ng-container
         *ngIf="(specimen?.material?.text !== 'pool of specimens' && specimen?.material?.text !=='cell line')">
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('sex')">
@@ -49,9 +61,12 @@
 
         <ng-container *ngIf="specimen && specimen?.organism?.hasOwnProperty('biosampleId')">
           <dt class="col-sm-3">Organism BioSample Id:</dt>
-          <dd class="col-sm-9">
+          <dd class="col-sm-9" *ngIf="!_userService.token">
             <app-robust-link [prefix]="organism_prefix" [link]="specimen?.organism?.biosampleId"
                              [text]="specimen?.organism?.biosampleId"></app-robust-link>
+          </dd>
+          <dd class="col-sm-9" *ngIf="_userService.token">
+            <a [routerLink]="['/organism', specimen?.organism?.biosampleId]">{{specimen?.organism?.biosampleId}}</a>
           </dd>
         </ng-container>
 
@@ -134,7 +149,7 @@
 
       <ng-container *ngIf="specimen?.derivedFrom">
         <dt class="col-sm-3">Derived from:</dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-9" *ngIf="!_userService.token">
           <ng-container [ngSwitch]="specimen?.material?.text">
             <ng-template ngSwitchCase="pool of specimens">
               <ng-container *ngFor="let derived of specimen?.derivedFrom; let i = index">
@@ -156,6 +171,9 @@
                                [text]="specimen?.derivedFrom"></app-robust-link>
             </ng-template>
           </ng-container>
+        </dd>
+        <dd class="col-sm-9" *ngIf="_userService.token">
+          <a [routerLink]="['/organism', specimen?.derivedFrom]">{{specimen?.derivedFrom}}</a>
         </dd>
       </ng-container>
 

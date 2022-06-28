@@ -12,6 +12,7 @@ import {
   internal_dataset,
   internal_specimen
 } from '../../shared/constants';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-analysis-detail',
@@ -29,14 +30,17 @@ export class AnalysisDetailComponent implements OnInit {
   readonly biosample_prefix = external_biosample_prefix;
   readonly specimen_prefix = internal_specimen;
   readonly dataset_prefix = internal_dataset;
+  mode: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private dataService: ApiDataService,
               private spinner: NgxSpinnerService,
-              private titleService: Title) { }
+              private titleService: Title,
+              public _userService: UserService) { }
 
   ngOnInit() {
+    this._userService.token ? this.mode = 'private' : this.mode = 'public';
     this.convertArrayToStr = convertArrayToStr;
     this.getProtocolLink = getProtocolLink;
     this.spinner.show();
@@ -44,7 +48,7 @@ export class AnalysisDetailComponent implements OnInit {
       this.accession = params['id'];
       this.titleService.setTitle(`${this.accession} | FAANG analysis`);
     });
-    this.dataService.getAnalysis(this.accession).subscribe(
+    this.dataService.getAnalysis(this.accession, this.mode).subscribe(
       (data: any) => {
         if (data['hits']['hits'].length === 0) {
           this.spinner.hide();

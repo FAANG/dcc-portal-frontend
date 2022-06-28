@@ -442,16 +442,30 @@ export class ApiDataService {
     );
   }
 
-  getAnalysesByDataset(accession: any) {
-    const url = this.hostSetting.host + 'analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc&size=10000';
+  getAnalysesByDataset(accession: any, mode: string) {
+    let url = this.hostSetting.host + 'analysis/_search/?q=datasetAccession:' + accession + '&sort=accession:asc&size=10000';
+    if (mode === 'private') {
+      url = `https://api.faang.org/private_portal/analysis/?q=datasetAccession:${accession}&sort=accession:asc&size=10000`;
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
     );
   }
 
-  getAnalysis(accession: string) {
-    const url = this.hostSetting.host + 'analysis/' + accession;
+  getAnalysis(accession: string, mode: string) {
+    let url = this.hostSetting.host + 'analysis/' + accession;
+    if (mode === 'private') {
+      url = `https://api.faang.org/private_portal/analysis/${accession}`;
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),

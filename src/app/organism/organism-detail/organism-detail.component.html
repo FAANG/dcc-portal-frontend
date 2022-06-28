@@ -23,9 +23,10 @@
 
       <ng-container *ngIf="organism && organism.hasOwnProperty('biosampleId')">
         <dt class="col-sm-3">BioSample ID:</dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-9" *ngIf="!_userService.token">
           <a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a>
         </dd>
+        <dd class="col-sm-9" *ngIf="_userService.token">{{organism?.biosampleId}}</dd>
       </ng-container>
 
       <ng-container *ngIf="organism && organism.hasOwnProperty('alternativeId') && organism.alternativeId.length !== 0">
