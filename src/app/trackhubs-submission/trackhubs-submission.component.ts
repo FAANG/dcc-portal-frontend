@@ -44,11 +44,7 @@ export class TrackhubsSubmissionComponent implements OnInit {
     this.fileUploaderComponent.messageUpdate.subscribe((results) => {
       this.validation_results = results;
       if (!this.hasError()) {
-        this.registrationData = {
-          'hub_dir': this.validation_results['Hub Data'][0]['Name'],
-          'genome_name': this.validation_results['Genome Data'][0]['Assembly Name'],
-          'genome_id': this.validation_results['Genome Data'][0]['Assembly Accession']
-        }
+        this.registrationData = results;
       }
     });
   }
