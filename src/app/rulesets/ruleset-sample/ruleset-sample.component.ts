@@ -71,7 +71,7 @@ export class RulesetSampleComponent implements OnInit {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 0;
-    this.dataSource = new MatTableDataSource([]); 
+    this.dataSource = new MatTableDataSource([]);
     this.rule_groups = ['Standard', 'Organism', 'Organoid', 'Specimen standard rules', 'Specimen Teleostei embryo',
       'Specimen Teleostei post-hatching', 'Single cell specimen', 'Pool of specimens', 'Purified cells', 'Cell culture', 'Cell line'];
     this.convertToSnakeCase = convertToSnakeCase;
@@ -110,7 +110,7 @@ export class RulesetSampleComponent implements OnInit {
     } else if (this.active_rule === 'Pool of specimens' && rule === 'self') {
       return 'pool of specimens';
     } else if (this.active_rule === 'Pool of specimens' && rule === 'derived_from') {
-      return 'Must meet condition: Material is specimen from organism';
+      return 'Must meet condition: Material is specimen from organism, teleostei embryo, teleostei post-hatching or cell specimen';
     } else if (this.active_rule === 'Purified cells' && rule === 'self') {
       return 'cell specimen';
     } else if (this.active_rule === 'Purified cells' && rule === 'derived_from') {
