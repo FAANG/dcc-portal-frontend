@@ -86,6 +86,10 @@
         </ul>
       </div>
 
+
+      <app-ensembl-annotation [project_name]="project"></app-ensembl-annotation>
+
+      <!-- Related Tables -->
       <app-related-items source_type="project" target_type="publication" download_key=""
                          [record_id]="project"></app-related-items>
       <app-related-items source_type="project" target_type="pipeline" download_key=""
