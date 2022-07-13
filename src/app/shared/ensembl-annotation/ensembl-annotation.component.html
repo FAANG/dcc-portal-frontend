@@ -1,87 +1,24 @@
 <!-- Ensembl Rapid Release table-->
 <div [hidden]="!dataSource.data || dataSource.data.length == 0">
   <table mat-table matSort matSortDisableClear [dataSource]="dataSource" style="width: 100%; margin-top: 15px;">
-    <ng-container matColumnDef="species">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header"> Species</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data"> {{element.species}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="accession">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header"> Accession</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data"> {{element.accession}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="assembly_submitter">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header"> Assembly submitted by</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data"> {{element.assembly_submitter}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="annotation">
-      <th mat-header-cell *matHeaderCellDef class="table-header"> Annotation</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data">
-        <ng-container *ngFor="let i of element.annotation; last as isLast">
-          <a [href]="i.fileUrl">{{i.annotation}}</a><span *ngIf="!isLast">, </span>
-        </ng-container>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="proteins">
-      <th mat-header-cell *matHeaderCellDef class="table-header"> Proteins</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data">
-        <ng-container *ngFor="let i of element.proteins; last as isLast">
-          <a [href]="i.fileUrl">{{i.fileType}}</a><span *ngIf="!isLast">, </span>
-        </ng-container>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="transcripts">
-      <th mat-header-cell *matHeaderCellDef class="table-header"> Transcripts</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data">
-        <ng-container *ngFor="let i of element.transcripts; last as isLast">
-          <a [href]="i.fileUrl">{{i.fileType}}</a><span *ngIf="!isLast">, </span>
-        </ng-container>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="softmasked_genome">
-      <th mat-header-cell *matHeaderCellDef class="table-header"> Softmasked genome</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data">
-        <ng-container *ngFor="let i of element.softmasked_genome; last as isLast">
-          <a [href]="i.fileUrl">{{i.fileType}}</a><span *ngIf="!isLast">, </span>
-        </ng-container>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="repeat_library">
-      <th mat-header-cell *matHeaderCellDef class="table-header"> Repeat library</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data">
-        <ng-container *ngFor="let i of element.repeat_library; last as isLast">
-          <a [href]="i.fileUrl">{{i.library}}</a><span *ngIf="!isLast">, </span>
-        </ng-container>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="other_data">
-      <th mat-header-cell *matHeaderCellDef class="table-header"> Other data</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data">
-        <ng-container *ngFor="let i of element.other_data; last as isLast">
-          <a [href]="i.fileUrl">{{i.otherData}}</a><span *ngIf="!isLast">, </span>
-        </ng-container>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="browser_view">
-      <th mat-header-cell *matHeaderCellDef class="table-header"> View in browser</th>
-      <td mat-cell *matCellDef="let element" class="table-cell-data">
-        <ng-container *ngFor="let i of element.browser_view; last as isLast">
-          <a [href]="i.fileUrl">{{i.browserView}}</a><span *ngIf="!isLast">, </span>
-        </ng-container>
-      </td>
+    <ng-container [matColumnDef]="tableDef['columnDefinition']" *ngFor="let tableDef of tableDefinitions">
+      <ng-container *ngIf="tableDef.hasOwnProperty('span'); else noSpan">
+        <th mat-header-cell *matHeaderCellDef class="table-header"> {{tableDef['columnTitle']}} </th>
+        <td mat-cell *matCellDef="let element" class="table-cell-data">
+          <ng-container *ngFor="let i of element[tableDef['cellVar']]; last as isLast">
+            <a [href]="i[tableDef['span']['href']]">{{i[tableDef['span']['linkText']]}}</a>
+            <span *ngIf="!isLast">, </span>
+          </ng-container>
+        </td>
+      </ng-container>
+      <ng-template #noSpan>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header"> {{tableDef['columnTitle']}} </th>
+        <td mat-cell *matCellDef="let element" class="table-cell-data"> {{element[tableDef['cellVar']]}} </td>
+      </ng-template>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
   <mat-paginator pageSize="10" [length]="totalHits"></mat-paginator>
 </div>
