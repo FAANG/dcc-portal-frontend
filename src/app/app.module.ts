@@ -97,6 +97,7 @@ import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-subm
 import { NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { cookieConfig } from './app.component';
 import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
+import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -166,7 +167,8 @@ export function removeToken(): void {
     CustomTableBuilderComponent,
     TableServerSideComponent,
     NextflowSubmissionComponent,
-    ProtocolAnalysisDetailsComponent
+    ProtocolAnalysisDetailsComponent,
+    EnsemblAnnotationComponent
   ],
   imports: [
     BrowserModule,

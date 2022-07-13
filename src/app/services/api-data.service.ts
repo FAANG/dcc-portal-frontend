@@ -84,6 +84,24 @@ export class ApiDataService {
     );
   }
 
+  getEnsemblAnnotationData(project: string, sort: string, offset: number) {
+    const res = {};
+    const project_filter = JSON.stringify({
+      'project.keyword': [project]
+    });
+    const url = `${this.hostSetting.host}data/ensembl_annotation/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}`;
+
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        res['data'] = data['hits']['hits'].map(ele => ele['_source']);
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   downloadRecords(index: string, mapping: any, query: any) {
     const url = `${this.hostSetting.host}data/${index}/download/`;
     const filters = query['filters'];
