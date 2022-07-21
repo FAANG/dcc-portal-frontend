@@ -7,7 +7,7 @@ describe('Track Hub Submission', () => {
   it('should display correct contents', () => {
     cy.get('.ngx-spinner-overlay').should('not.exist')
     cy.get('h2').should("contain", 'Track Hubs Submission')
-    cy.get('button:contains("Proceed to upload files")')
+    cy.get('button:contains("Login to start submission")')
       .should('exist')
   })
 

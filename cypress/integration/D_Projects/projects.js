@@ -41,11 +41,15 @@ export class ProjectsPage{
 
     cy.get('[target_type="organism"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive > .mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID').should('contain', 'SAMEA10289531')
+    cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive')
+      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .should('contain', 'SAMEA')
 
     cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive > .mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID').should('contain', 'SAMEA10289532')
+    cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
+      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .should('contain', 'SAMEA')
 
     cy.get('Related Publications').should('not.exist')
   }
@@ -80,12 +84,15 @@ export class ProjectsPage{
 
     cy.get('[target_type="organism"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive > .mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID').should('contain', 'SAMEA6031867')
+    cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive')
+      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .should('contain', 'SAMEA')
 
     cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive > .mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID').should('contain', 'SAMEA6031866')
-
+    cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
+      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .should('contain', 'SAMEA')
   }
 
 
@@ -114,11 +121,15 @@ export class ProjectsPage{
 
     cy.get('[target_type="organism"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive > .mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID').should('contain', 'SAMEA10256251')
+    cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive')
+      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .should('contain', 'SAMEA')
 
     cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive > .mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID').should('contain', 'SAMEA10256411')
+    cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
+      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .should('contain', 'SAMEA')
 
     cy.contains("Custom Queries")
     cy.contains('Ensembl Rapid Release')
