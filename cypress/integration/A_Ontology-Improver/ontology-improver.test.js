@@ -3,7 +3,7 @@ import {OntologyImproverPage} from "./ontology-improver";
 describe('Ontology Improver Page', () => {
   beforeEach(() => {
     cy.intercept('GET', '/ontology_improver/summary*', {fixture: 'ontology-improver/ontology-summary.json'}).as("summaryList")
-    cy.intercept('GET', '/ontology_improver/search*', {fixture: 'ontology-improver/ontology-improver.json'}).as("ontologyList")
+    cy.intercept('GET', '/ontology_improver/search/*', {fixture: 'ontology-improver/ontology-improver.json'}).as("ontologyList")
     cy.visit('/ontology')
   })
 

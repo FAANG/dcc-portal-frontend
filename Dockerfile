@@ -3,6 +3,7 @@
 FROM yroochun/faang-node-base as build-stage
 WORKDIR /app
 COPY package*.json /app/
+RUN npm cache clean --force
 RUN npm install
 COPY ./ /app/
 ARG configuration=production
