@@ -5,7 +5,7 @@ import {throwError, EMPTY} from 'rxjs';
 import {catchError, retry, map} from 'rxjs/operators';
 import {
   ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
-  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable, PipelineTable
+  ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable, PipelineTable, ProtocolAnalysis
 } from '../shared/interfaces';
 import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
 import {UserService} from './user.service';
@@ -31,7 +31,8 @@ export class ApiDataService {
       'instrument': 'run.instrument',
       'assayType': 'experiment.assayType',
       'standard': 'experiment.standardMet',
-      'paper_published': 'paperPublished'
+      'paper_published': 'paperPublished',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'fileName': 'name',
@@ -76,6 +77,24 @@ export class ApiDataService {
         );
         res['totalHits'] = data.hits.total.value;
         res['aggregations'] = data.aggregations;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getEnsemblAnnotationData(project: string, sort: string, offset: number) {
+    const res = {};
+    const project_filter = JSON.stringify({
+      'project.keyword': [project]
+    });
+    const url = `${this.hostSetting.host}data/ensembl_annotation/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}`;
+
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        res['data'] = data['hits']['hits'].map(ele => ele['_source']);
+        res['totalHits'] = data.hits.total.value;
         return res;
       }),
       retry(3),
@@ -268,7 +287,8 @@ export class ApiDataService {
       'organism': 'organism.text',
       'breed': 'breed.text',
       'standard': 'standardMet',
-      'paper_published': 'paperPublished'
+      'paper_published': 'paperPublished',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'bioSampleId': 'biosampleId',
@@ -444,6 +464,76 @@ export class ApiDataService {
     }
   }
 
+  getAllProtocolSamplesForProject(project: string, mode: string, sort: string, offset: number, search: string) {
+    const res = {};
+    const project_filter = JSON.stringify({
+      secondaryProject: [project]
+    });
+    const url = `${this.hostSetting.host}data/protocol_samples/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits.map(entry => ({
+            key: entry['_source']['key'],
+            protocol_name: entry['_source']['protocolName'],
+            university_name: entry['_source']['universityName'],
+            protocol_date: entry['_source']['protocolDate']
+          } as ProtocolSample)
+        );
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllProtocolFilesForProject(project: string, mode: string, sort: string, offset: number, search: string) {
+    const res = {};
+    const project_filter = JSON.stringify({
+      secondaryProject: [project]
+    });
+    const url = `${this.hostSetting.host}data/protocol_files/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits.map(entry => ({
+            key: entry['_source']['key'],
+            protocol_type: protocolNames[entry['_source']['name']],
+            experiment_target: entry['_source']['experimentTarget'],
+            assay_type: entry['_source']['assayType']
+          } as ProtocolFile)
+        );
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllProtocolAnalysisForProject(project: string, mode: string, sort: string, offset: number, search: string) {
+    const res = {};
+    const project_filter = JSON.stringify({
+      secondaryProject: [project]
+    });
+    const url = `${this.hostSetting.host}data/protocol_analysis/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits.map(entry => ({
+            key: entry['_source']['key'],
+            protocol_name: entry['_source']['protocolName'],
+            university_name: entry['_source']['universityName'],
+            protocol_date: entry['_source']['protocolDate']
+          } as ProtocolAnalysis)
+        );
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getAllSpecimens(query: any, size: number) {
     const url = `${this.hostSetting.host}data/specimen/_search/?size=${size}`;
     const aggs = {
@@ -453,7 +543,8 @@ export class ApiDataService {
       'material': 'material.text',
       'organismpart_celltype': 'cellType.text',
       'breed': 'organism.breed.text',
-      'paper_published': 'paperPublished'
+      'paper_published': 'paperPublished',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'bioSampleId': 'biosampleId',
@@ -568,7 +659,8 @@ export class ApiDataService {
       'species': 'species.text',
       'assay_type': 'assayType',
       'standard': 'standardMet',
-      'paper_published': 'paperPublished'
+      'paper_published': 'paperPublished',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'datasetAccession': 'accession',
@@ -655,7 +747,8 @@ export class ApiDataService {
       'species': 'organism.text',
       'assay_type': 'assayType',
       'analysis_type': 'analysisType',
-      'standard': 'standardMet'
+      'standard': 'standardMet',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'accession': 'accession',
@@ -823,6 +916,7 @@ export class ApiDataService {
       'year': 'year',
       'journal': 'journal',
       'datasetSource': 'datasetSource',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'title': 'title',
@@ -874,6 +968,7 @@ export class ApiDataService {
     const aggs = {
       'university_name': 'universityName',
       'protocol_date': 'protocolDate',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'key': 'key',
@@ -927,6 +1022,7 @@ export class ApiDataService {
     const aggs = {
       'university_name': 'universityName',
       'protocol_date': 'protocolDate',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'key': 'key',
@@ -981,6 +1077,7 @@ export class ApiDataService {
       'protocol_type': 'name',
       'experiment_target': 'experimentTarget',
       'assay_type': 'assayType',
+      'project': 'secondaryProject'
     };
     const mapping = {
       'key': 'key',

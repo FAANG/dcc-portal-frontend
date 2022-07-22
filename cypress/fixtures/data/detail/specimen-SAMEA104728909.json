@@ -1,0 +1,164 @@
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA104728909",
+        "_score": 1,
+        "_source": {
+          "derivedFrom": "SAMEA104728862",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2016-07-28",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "5.6",
+              "unit": "year"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "esophagus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001043"
+            },
+            "specimenCollectionProtocol": {
+              "url": "ftp://ftp.faang.ebi.ac.uk/ftp/protocols/samples/UCD_SOP_Equine_whole_animal_collection_20180105.pdf",
+              "filename": "UCD_SOP_Equine_whole_animal_collection_20180105.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "12",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "ECA_UCD_S63",
+          "biosampleId": "SAMEA104728909",
+          "etag": "\"01892d18239e315eeb57ce2eb42ba50cf\"",
+          "id_number": "104728909",
+          "description": "Esophagus",
+          "releaseDate": "2018-01-10",
+          "updateDate": "2018-06-06",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "availability": "mailto:cjfinno@ucdavis.edu",
+          "organization": [
+            {
+              "name": "Functional Annotation of Animal Genomes",
+              "role": "curator ",
+              "URL": "www.faang.org/desc"
+            },
+            {
+              "name": "Greyson-Jockey Club Research Foundation",
+              "role": "funder ",
+              "URL": "www.grayson-jockeyclub.org/"
+            },
+            {
+              "name": "United States Department of Agriculture",
+              "role": "funder ",
+              "URL": "www.usda.gov/"
+            },
+            {
+              "name": "University of California Davis",
+              "role": "institution ",
+              "URL": "www.vetmed.ucdavis.edu/index.cfm"
+            },
+            {
+              "name": "University of California Davis Center For Equine Health",
+              "role": "funder ",
+              "URL": "www.vetmed.ucdavis.edu/ceh/index.cfm"
+            },
+            {
+              "name": "University of Nebraska - Lincoln",
+              "role": "institution ",
+              "URL": "www.unl.edu"
+            }
+          ],
+          "customField": [
+            {
+              "name": "Submission description",
+              "value": "two normal adult thoroughbred mares between the ages of 4 and 5 years old"
+            },
+            {
+              "name": "Submission identifier",
+              "value": "GSB-9985"
+            },
+            {
+              "name": "Submission title",
+              "value": "UCD-FAANG-BURNS-Horse-170501"
+            }
+          ],
+          "cellType": {
+            "text": "esophagus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001043"
+          },
+          "organism": {
+            "biosampleId": "SAMEA104728862",
+            "organism": {
+              "text": "Equus caballus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+            },
+            "sex": {
+              "text": "female",
+              "ontologyTerms": "PATO_0000383"
+            },
+            "breed": {
+              "text": "Thoroughbred",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0000910"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        }
+      }
+    ]
+  }
+}

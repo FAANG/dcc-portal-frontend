@@ -1,0 +1,1325 @@
+{
+  "took": 9,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 239,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10289531",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Cyprinus carpio carpio",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_630221"
+          },
+          "sex": {
+            "text": "restricted access",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/restricted access"
+          },
+          "birthDate": {
+            "text": "2020-02-05",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": null,
+          "birthLocationLongitude": {
+            "text": null,
+            "unit": null
+          },
+          "birthLocationLatitude": {
+            "text": null,
+            "unit": null
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "carp_embryos",
+          "biosampleId": "SAMEA10289531",
+          "etag": "\"0b3f97243aaf3ac6d09f0fe7d1f6a9e09\"",
+          "id_number": "10289531",
+          "description": null,
+          "releaseDate": "2021-10-07",
+          "updateDate": "2021-10-07",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "University of Birmingham",
+              "role": "consortium member",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "experiment performer",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "institution",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "University of Birmingham",
+              "role": "submitter",
+              "URL": "https://www.birmingham.ac.uk/"
+            },
+            {
+              "name": "Wageningen University and Research",
+              "role": "biomaterial provider",
+              "URL": "https://www.wur.nl/"
+            }
+          ],
+          "customField": [
+            {
+              "name": "sample description",
+              "value": "Carp embryos"
+            },
+            {
+              "name": "sample name",
+              "value": "carp_embryos"
+            },
+            {
+              "name": "submission description",
+              "value": "Sample information for carp embryo sample in AQUA-FAANG (WP1)"
+            },
+            {
+              "name": "submission title",
+              "value": "UOB-FAANG-JIMENEZ-CYPRINUS-CARPIO-210917"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10289531"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA11421113",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Dicentrarchus labrax",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_13489"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2018-09",
+            "unit": "YYYY-MM"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": "Valle Cà Zuliani-Sea bass Hatchery (Pila di Porto Tolle, Rovigo, Italy)",
+          "birthLocationLongitude": {
+            "text": "11.8624",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "44.5331",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "DLA_UNIPD_Dl01",
+          "biosampleId": "SAMEA11421113",
+          "etag": "\"070d03b4cd40432facb189fe89863e192\"",
+          "id_number": "11421113",
+          "description": null,
+          "releaseDate": "2021-12-06",
+          "updateDate": "2021-12-06",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "UNIPD",
+              "role": "consortium member",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "data analyst",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "institution",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "investigator",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "submitter",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "VCZ",
+              "role": "biomaterial provider",
+              "URL": "not provided"
+            },
+            {
+              "name": "VCZ",
+              "role": "consortium member",
+              "URL": "not provided"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Prostart Biomar/Biomar Inicio Plus 0.5- 0.8/Protec MP M, L, T/Skretting Optibass 1P/Veronesi Vita20"
+            },
+            {
+              "name": "sample description",
+              "value": "Dicentrarchus labrax, Immature female (Dl01)"
+            },
+            {
+              "name": "sample name",
+              "value": "DLA_UNIPD_Dl01"
+            },
+            {
+              "name": "submission description",
+              "value": "European seabass (Dicentrarchus labrax) samples for FAANG, AQUA-FAANG, ImmunoMap (WP3)"
+            },
+            {
+              "name": "submission title",
+              "value": "UNIPD-FAANG-BARGELLONI-DICENTRARCHUS-LABRAX-210527"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA11421113"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA11421114",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Dicentrarchus labrax",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_13489"
+          },
+          "sex": {
+            "text": "male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2018-09",
+            "unit": "YYYY-MM"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": "Valle Cà Zuliani-Sea bass Hatchery (Pila di Porto Tolle, Rovigo, Italy)",
+          "birthLocationLongitude": {
+            "text": "11.8624",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "44.5331",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "DLA_UNIPD_Dl03",
+          "biosampleId": "SAMEA11421114",
+          "etag": "\"07ca72ec24605666a59d4c8492562f122\"",
+          "id_number": "11421114",
+          "description": null,
+          "releaseDate": "2021-12-06",
+          "updateDate": "2021-12-06",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "UNIPD",
+              "role": "consortium member",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "data analyst",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "institution",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "investigator",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "submitter",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "VCZ",
+              "role": "biomaterial provider",
+              "URL": "not provided"
+            },
+            {
+              "name": "VCZ",
+              "role": "consortium member",
+              "URL": "not provided"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Prostart Biomar/Biomar Inicio Plus 0.5- 0.8/Protec MP M, L, T/Skretting Optibass 1P/Veronesi Vita20"
+            },
+            {
+              "name": "sample description",
+              "value": "Dicentrarchus labrax, Immature male (Dl03)"
+            },
+            {
+              "name": "sample name",
+              "value": "DLA_UNIPD_Dl03"
+            },
+            {
+              "name": "submission description",
+              "value": "European seabass (Dicentrarchus labrax) samples for FAANG, AQUA-FAANG, ImmunoMap (WP3)"
+            },
+            {
+              "name": "submission title",
+              "value": "UNIPD-FAANG-BARGELLONI-DICENTRARCHUS-LABRAX-210527"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA11421114"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA11421115",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Dicentrarchus labrax",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_13489"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2018-09",
+            "unit": "YYYY-MM"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": "Valle Cà Zuliani-Sea bass Hatchery (Pila di Porto Tolle, Rovigo, Italy)",
+          "birthLocationLongitude": {
+            "text": "11.8624",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "44.5331",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "DLA_UNIPD_Dl04",
+          "biosampleId": "SAMEA11421115",
+          "etag": "\"0bd2572678e587f0b97ed717ef79d5c89\"",
+          "id_number": "11421115",
+          "description": null,
+          "releaseDate": "2021-12-06",
+          "updateDate": "2021-12-06",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "UNIPD",
+              "role": "consortium member",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "data analyst",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "institution",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "investigator",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "submitter",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "VCZ",
+              "role": "biomaterial provider",
+              "URL": "not provided"
+            },
+            {
+              "name": "VCZ",
+              "role": "consortium member",
+              "URL": "not provided"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Prostart Biomar/Biomar Inicio Plus 0.5- 0.8/Protec MP M, L, T/Skretting Optibass 1P/Veronesi Vita20"
+            },
+            {
+              "name": "sample description",
+              "value": "Dicentrarchus labrax, Immature female (Dl04)"
+            },
+            {
+              "name": "sample name",
+              "value": "DLA_UNIPD_Dl04"
+            },
+            {
+              "name": "submission description",
+              "value": "European seabass (Dicentrarchus labrax) samples for FAANG, AQUA-FAANG, ImmunoMap (WP3)"
+            },
+            {
+              "name": "submission title",
+              "value": "UNIPD-FAANG-BARGELLONI-DICENTRARCHUS-LABRAX-210527"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA11421115"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA11421116",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Dicentrarchus labrax",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_13489"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2018-09",
+            "unit": "YYYY-MM"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": "Valle Cà Zuliani-Sea bass Hatchery (Pila di Porto Tolle, Rovigo, Italy)",
+          "birthLocationLongitude": {
+            "text": "11.8624",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "44.5331",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "DLA_UNIPD_Dl05",
+          "biosampleId": "SAMEA11421116",
+          "etag": "\"094df2893d1d8a9cc85e6114304b02b71\"",
+          "id_number": "11421116",
+          "description": null,
+          "releaseDate": "2021-12-06",
+          "updateDate": "2021-12-06",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "UNIPD",
+              "role": "consortium member",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "data analyst",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "institution",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "investigator",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "submitter",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "VCZ",
+              "role": "biomaterial provider",
+              "URL": "not provided"
+            },
+            {
+              "name": "VCZ",
+              "role": "consortium member",
+              "URL": "not provided"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Prostart Biomar/Biomar Inicio Plus 0.5- 0.8/Protec MP M, L, T/Skretting Optibass 1P/Veronesi Vita20"
+            },
+            {
+              "name": "sample description",
+              "value": "Dicentrarchus labrax, Immature female (Dl05)"
+            },
+            {
+              "name": "sample name",
+              "value": "DLA_UNIPD_Dl05"
+            },
+            {
+              "name": "submission description",
+              "value": "European seabass (Dicentrarchus labrax) samples for FAANG, AQUA-FAANG, ImmunoMap (WP3)"
+            },
+            {
+              "name": "submission title",
+              "value": "UNIPD-FAANG-BARGELLONI-DICENTRARCHUS-LABRAX-210527"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA11421116"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA11421117",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Dicentrarchus labrax",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_13489"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2018-09",
+            "unit": "YYYY-MM"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": "Valle Cà Zuliani-Sea bass Hatchery (Pila di Porto Tolle, Rovigo, Italy)",
+          "birthLocationLongitude": {
+            "text": "11.8624",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "44.5331",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "DLA_UNIPD_Dl06",
+          "biosampleId": "SAMEA11421117",
+          "etag": "\"04131be62d0e120b3f5136b01bab5288e\"",
+          "id_number": "11421117",
+          "description": null,
+          "releaseDate": "2021-12-06",
+          "updateDate": "2021-12-06",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "UNIPD",
+              "role": "consortium member",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "data analyst",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "institution",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "investigator",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "submitter",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "VCZ",
+              "role": "biomaterial provider",
+              "URL": "not provided"
+            },
+            {
+              "name": "VCZ",
+              "role": "consortium member",
+              "URL": "not provided"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Prostart Biomar/Biomar Inicio Plus 0.5- 0.8/Protec MP M, L, T/Skretting Optibass 1P/Veronesi Vita20"
+            },
+            {
+              "name": "sample description",
+              "value": "Dicentrarchus labrax, Immature female (Dl06)"
+            },
+            {
+              "name": "sample name",
+              "value": "DLA_UNIPD_Dl06"
+            },
+            {
+              "name": "submission description",
+              "value": "European seabass (Dicentrarchus labrax) samples for FAANG, AQUA-FAANG, ImmunoMap (WP3)"
+            },
+            {
+              "name": "submission title",
+              "value": "UNIPD-FAANG-BARGELLONI-DICENTRARCHUS-LABRAX-210527"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA11421117"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA11421118",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Dicentrarchus labrax",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_13489"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2018-09",
+            "unit": "YYYY-MM"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": "Valle Cà Zuliani-Sea bass Hatchery (Pila di Porto Tolle, Rovigo, Italy)",
+          "birthLocationLongitude": {
+            "text": "11.8624",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "44.5331",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "DLA_UNIPD_Dl07",
+          "biosampleId": "SAMEA11421118",
+          "etag": "\"02bbfa5467e0286e134018d84d36a9f02\"",
+          "id_number": "11421118",
+          "description": null,
+          "releaseDate": "2021-12-06",
+          "updateDate": "2021-12-06",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "UNIPD",
+              "role": "consortium member",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "data analyst",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "institution",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "investigator",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "submitter",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "VCZ",
+              "role": "biomaterial provider",
+              "URL": "not provided"
+            },
+            {
+              "name": "VCZ",
+              "role": "consortium member",
+              "URL": "not provided"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Prostart Biomar/Biomar Inicio Plus 0.5- 0.8/Protec MP M, L, T/Skretting Optibass 1P/Veronesi Vita20"
+            },
+            {
+              "name": "sample description",
+              "value": "Dicentrarchus labrax, Immature female (Dl07)"
+            },
+            {
+              "name": "sample name",
+              "value": "DLA_UNIPD_Dl07"
+            },
+            {
+              "name": "submission description",
+              "value": "European seabass (Dicentrarchus labrax) samples for FAANG, AQUA-FAANG, ImmunoMap (WP3)"
+            },
+            {
+              "name": "submission title",
+              "value": "UNIPD-FAANG-BARGELLONI-DICENTRARCHUS-LABRAX-210527"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA11421118"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA11421119",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Dicentrarchus labrax",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_13489"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2018-09",
+            "unit": "YYYY-MM"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": "Valle Cà Zuliani-Sea bass Hatchery (Pila di Porto Tolle, Rovigo, Italy)",
+          "birthLocationLongitude": {
+            "text": "11.8624",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "44.5331",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "DLA_UNIPD_Dl29",
+          "biosampleId": "SAMEA11421119",
+          "etag": "\"0dd790bf0cd262e4a226be6cf8cda220e\"",
+          "id_number": "11421119",
+          "description": null,
+          "releaseDate": "2021-12-06",
+          "updateDate": "2021-12-06",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "UNIPD",
+              "role": "consortium member",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "data analyst",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "institution",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "investigator",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "submitter",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "VCZ",
+              "role": "biomaterial provider",
+              "URL": "not provided"
+            },
+            {
+              "name": "VCZ",
+              "role": "consortium member",
+              "URL": "not provided"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Prostart Biomar/Biomar Inicio Plus 0.5- 0.8/Protec MP M, L, T/Skretting Optibass 1P/Veronesi Vita20"
+            },
+            {
+              "name": "sample description",
+              "value": "Dicentrarchus labrax, Immature female (Dl29)_PBS stimulated"
+            },
+            {
+              "name": "sample name",
+              "value": "DLA_UNIPD_Dl29"
+            },
+            {
+              "name": "submission description",
+              "value": "European seabass (Dicentrarchus labrax) samples for FAANG, AQUA-FAANG, ImmunoMap (WP3)"
+            },
+            {
+              "name": "submission title",
+              "value": "UNIPD-FAANG-BARGELLONI-DICENTRARCHUS-LABRAX-210527"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA11421119"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA11421120",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Dicentrarchus labrax",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_13489"
+          },
+          "sex": {
+            "text": "female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2018-09",
+            "unit": "YYYY-MM"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": "Valle Cà Zuliani-Sea bass Hatchery (Pila di Porto Tolle, Rovigo, Italy)",
+          "birthLocationLongitude": {
+            "text": "11.8624",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "44.5331",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "DLA_UNIPD_Dl30",
+          "biosampleId": "SAMEA11421120",
+          "etag": "\"074923ab0027d2ea74ce1242c4e626fe8\"",
+          "id_number": "11421120",
+          "description": null,
+          "releaseDate": "2021-12-06",
+          "updateDate": "2021-12-06",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "UNIPD",
+              "role": "consortium member",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "data analyst",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "institution",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "investigator",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "submitter",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "VCZ",
+              "role": "biomaterial provider",
+              "URL": "not provided"
+            },
+            {
+              "name": "VCZ",
+              "role": "consortium member",
+              "URL": "not provided"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Prostart Biomar/Biomar Inicio Plus 0.5- 0.8/Protec MP M, L, T/Skretting Optibass 1P/Veronesi Vita20"
+            },
+            {
+              "name": "sample description",
+              "value": "Dicentrarchus labrax, Immature female (Dl30)_PBS stimulated"
+            },
+            {
+              "name": "sample name",
+              "value": "DLA_UNIPD_Dl30"
+            },
+            {
+              "name": "submission description",
+              "value": "European seabass (Dicentrarchus labrax) samples for FAANG, AQUA-FAANG, ImmunoMap (WP3)"
+            },
+            {
+              "name": "submission title",
+              "value": "UNIPD-FAANG-BARGELLONI-DICENTRARCHUS-LABRAX-210527"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA11421120"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA11421121",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Dicentrarchus labrax",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_13489"
+          },
+          "sex": {
+            "text": "male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2018-09",
+            "unit": "YYYY-MM"
+          },
+          "breed": {
+            "text": "not applicable",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/not applicable"
+          },
+          "birthLocation": "Valle Cà Zuliani-Sea bass Hatchery (Pila di Porto Tolle, Rovigo, Italy)",
+          "birthLocationLongitude": {
+            "text": "11.8624",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "44.5331",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": null,
+            "unit": null
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": null,
+            "unit": null
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "DLA_UNIPD_Dl31",
+          "biosampleId": "SAMEA11421121",
+          "etag": "\"0f38e98d80089164a152d1a10757f05d9\"",
+          "id_number": "11421121",
+          "description": null,
+          "releaseDate": "2021-12-06",
+          "updateDate": "2021-12-06",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "AQUA-FAANG",
+          "availability": null,
+          "organization": [
+            {
+              "name": "UNIPD",
+              "role": "consortium member",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "data analyst",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "institution",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "investigator",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "UNIPD",
+              "role": "submitter",
+              "URL": "https://www.unipd.it/en/"
+            },
+            {
+              "name": "VCZ",
+              "role": "biomaterial provider",
+              "URL": "not provided"
+            },
+            {
+              "name": "VCZ",
+              "role": "consortium member",
+              "URL": "not provided"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Prostart Biomar/Biomar Inicio Plus 0.5- 0.8/Protec MP M, L, T/Skretting Optibass 1P/Veronesi Vita20"
+            },
+            {
+              "name": "sample description",
+              "value": "Dicentrarchus labrax, Immature male (Dl31)_PBS stimulated"
+            },
+            {
+              "name": "sample name",
+              "value": "DLA_UNIPD_Dl31"
+            },
+            {
+              "name": "submission description",
+              "value": "European seabass (Dicentrarchus labrax) samples for FAANG, AQUA-FAANG, ImmunoMap (WP3)"
+            },
+            {
+              "name": "submission title",
+              "value": "UNIPD-FAANG-BARGELLONI-DICENTRARCHUS-LABRAX-210527"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA11421121"
+        ]
+      }
+    ]
+  }
+}

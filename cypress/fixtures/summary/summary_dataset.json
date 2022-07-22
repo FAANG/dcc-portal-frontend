@@ -1,0 +1,267 @@
+{
+  "took": 7,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "summary_dataset",
+        "_type": "_doc",
+        "_id": "summary_dataset",
+        "_score": 1,
+        "_source": {
+          "standardSummary": [
+            {
+              "name": "FAANG",
+              "value": 72
+            },
+            {
+              "name": "Legacy",
+              "value": 2800
+            }
+          ],
+          "paperPublishedSummary": [
+            {
+              "name": "yes",
+              "value": 1745
+            },
+            {
+              "name": "no",
+              "value": 1127
+            }
+          ],
+          "specieSummary": [
+            {
+              "name": "Bos taurus",
+              "value": 746
+            },
+            {
+              "name": "Capra hircus",
+              "value": 204
+            },
+            {
+              "name": "Gallus gallus",
+              "value": 758
+            },
+            {
+              "name": "Ovis aries",
+              "value": 292
+            },
+            {
+              "name": "Sus scrofa",
+              "value": 740
+            },
+            {
+              "name": "Equus caballus",
+              "value": 209
+            },
+            {
+              "name": "Scophthalmus maximus",
+              "value": 2
+            },
+            {
+              "name": "Bos indicus",
+              "value": 5
+            },
+            {
+              "name": "Salmo salar",
+              "value": 2
+            },
+            {
+              "name": "Bubalus bubalis",
+              "value": 1
+            }
+          ],
+          "assayTypeSummary": [
+            {
+              "name": "RNA-seq of non coding RNA",
+              "value": 1
+            },
+            {
+              "name": "microRNA profiling by high throughput sequencing",
+              "value": 336
+            },
+            {
+              "name": "whole genome sequencing assay",
+              "value": 527
+            },
+            {
+              "name": "Hi-C",
+              "value": 12
+            },
+            {
+              "name": "transcription profiling by high throughput sequencing",
+              "value": 1848
+            },
+            {
+              "name": "ChIP-seq",
+              "value": 105
+            },
+            {
+              "name": "ATAC-seq",
+              "value": 31
+            },
+            {
+              "name": "methylation profiling by high throughput sequencing",
+              "value": 100
+            },
+            {
+              "name": "RNA-seq of total RNA",
+              "value": 8
+            },
+            {
+              "name": "RNA-seq of coding RNA",
+              "value": 7
+            },
+            {
+              "name": "",
+              "value": 8
+            },
+            {
+              "name": "ISO-Seq",
+              "value": 2
+            },
+            {
+              "name": "ChIP-Seq",
+              "value": 1
+            },
+            {
+              "name": "CAGE-seq",
+              "value": 3
+            },
+            {
+              "name": "DNase-Hypersensitivity seq",
+              "value": 1
+            }
+          ],
+          "standardSummaryFAANGOnly": [
+            {
+              "name": "FAANG",
+              "value": 72
+            }
+          ],
+          "paperPublishedSummaryFAANGOnly": [
+            {
+              "name": "yes",
+              "value": 36
+            },
+            {
+              "name": "no",
+              "value": 36
+            }
+          ],
+          "specieSummaryFAANGOnly": [
+            {
+              "name": "Bos taurus",
+              "value": 14
+            },
+            {
+              "name": "Sus scrofa",
+              "value": 26
+            },
+            {
+              "name": "Scophthalmus maximus",
+              "value": 2
+            },
+            {
+              "name": "Gallus gallus",
+              "value": 15
+            },
+            {
+              "name": "Equus caballus",
+              "value": 8
+            },
+            {
+              "name": "Bos indicus",
+              "value": 5
+            },
+            {
+              "name": "Ovis aries",
+              "value": 6
+            },
+            {
+              "name": "Capra hircus",
+              "value": 5
+            },
+            {
+              "name": "Salmo salar",
+              "value": 2
+            },
+            {
+              "name": "Bubalus bubalis",
+              "value": 1
+            }
+          ],
+          "assayTypeSummaryFAANGOnly": [
+            {
+              "name": "RNA-seq of non coding RNA",
+              "value": 1
+            },
+            {
+              "name": "microRNA profiling by high throughput sequencing",
+              "value": 3
+            },
+            {
+              "name": "ChIP-seq",
+              "value": 9
+            },
+            {
+              "name": "RNA-seq of coding RNA",
+              "value": 7
+            },
+            {
+              "name": "RNA-seq of total RNA",
+              "value": 8
+            },
+            {
+              "name": "methylation profiling by high throughput sequencing",
+              "value": 9
+            },
+            {
+              "name": "",
+              "value": 8
+            },
+            {
+              "name": "transcription profiling by high throughput sequencing",
+              "value": 13
+            },
+            {
+              "name": "Hi-C",
+              "value": 3
+            },
+            {
+              "name": "ISO-Seq",
+              "value": 2
+            },
+            {
+              "name": "ATAC-seq",
+              "value": 6
+            },
+            {
+              "name": "ChIP-Seq",
+              "value": 1
+            },
+            {
+              "name": "CAGE-seq",
+              "value": 3
+            },
+            {
+              "name": "whole genome sequencing assay",
+              "value": 3
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

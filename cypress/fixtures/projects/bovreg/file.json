@@ -1,0 +1,719 @@
+{
+  "took": 19,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 569,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555852",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6031980",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/002/ERR3555852/ERR3555852.fastq.gz",
+          "name": "ERR3555852.fastq.gz",
+          "type": "fastq",
+          "size": "208483788",
+          "readableSize": "198.83MB",
+          "checksumMethod": "md5",
+          "checksum": "13dd4f16becd4e73360ff1766f9add66",
+          "archive": "ENA",
+          "baseCount": "9145305573",
+          "readCount": "49595952",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558546",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555852",
+            "alias": "FBN_totalRNA_RNAseq_run_2018-01_B001_S1",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2018-01",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555852.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555852_1",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6031980",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/002/ERR3555852/ERR3555852_1.fastq.gz",
+          "name": "ERR3555852_1.fastq.gz",
+          "type": "fastq",
+          "size": "1181778066",
+          "readableSize": "1.1GB",
+          "checksumMethod": "md5",
+          "checksum": "fe2a4ea76f67e96e5bbe42af5a26966d",
+          "archive": "ENA",
+          "baseCount": "9145305573",
+          "readCount": "49595952",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558546",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555852",
+            "alias": "FBN_totalRNA_RNAseq_run_2018-01_B001_S1",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2018-01",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555852_1.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555852_2",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6031980",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/002/ERR3555852/ERR3555852_2.fastq.gz",
+          "name": "ERR3555852_2.fastq.gz",
+          "type": "fastq",
+          "size": "1209470193",
+          "readableSize": "1.13GB",
+          "checksumMethod": "md5",
+          "checksum": "1ab179d32140e7e00f0032210f6fac99",
+          "archive": "ENA",
+          "baseCount": "9145305573",
+          "readCount": "49595952",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558546",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555852",
+            "alias": "FBN_totalRNA_RNAseq_run_2018-01_B001_S1",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2018-01",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555852_2.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555853",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6032067",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/003/ERR3555853/ERR3555853.fastq.gz",
+          "name": "ERR3555853.fastq.gz",
+          "type": "fastq",
+          "size": "292889300",
+          "readableSize": "279.32MB",
+          "checksumMethod": "md5",
+          "checksum": "66c66f5bd5ea0cef823ee5e38b9e14ac",
+          "archive": "ENA",
+          "baseCount": "9681095715",
+          "readCount": "53480092",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558547",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555853",
+            "alias": "FBN_totalRNA_RNAseq_run_2017-12_B001_S2",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2017-12",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555853.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555853_1",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6032067",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/003/ERR3555853/ERR3555853_1.fastq.gz",
+          "name": "ERR3555853_1.fastq.gz",
+          "type": "fastq",
+          "size": "1416105256",
+          "readableSize": "1.32GB",
+          "checksumMethod": "md5",
+          "checksum": "c0babc177f4fbada4e72ec2e743edfbf",
+          "archive": "ENA",
+          "baseCount": "9681095715",
+          "readCount": "53480092",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558547",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555853",
+            "alias": "FBN_totalRNA_RNAseq_run_2017-12_B001_S2",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2017-12",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555853_1.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555853_2",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6032067",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/003/ERR3555853/ERR3555853_2.fastq.gz",
+          "name": "ERR3555853_2.fastq.gz",
+          "type": "fastq",
+          "size": "1464283252",
+          "readableSize": "1.36GB",
+          "checksumMethod": "md5",
+          "checksum": "af2fa4c186f3d765c0da49b4e65b04b4",
+          "archive": "ENA",
+          "baseCount": "9681095715",
+          "readCount": "53480092",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558547",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555853",
+            "alias": "FBN_totalRNA_RNAseq_run_2017-12_B001_S2",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2017-12",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555853_2.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555854",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6032068",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/004/ERR3555854/ERR3555854.fastq.gz",
+          "name": "ERR3555854.fastq.gz",
+          "type": "fastq",
+          "size": "300307682",
+          "readableSize": "286.4MB",
+          "checksumMethod": "md5",
+          "checksum": "a46f30b4f036b2f7e9e049ae3b01802c",
+          "archive": "ENA",
+          "baseCount": "9107941885",
+          "readCount": "50824415",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558548",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555854",
+            "alias": "FBN_totalRNA_RNAseq_run_2018-04_B001_S3",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2018-04",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555854.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555854_1",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6032068",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/004/ERR3555854/ERR3555854_1.fastq.gz",
+          "name": "ERR3555854_1.fastq.gz",
+          "type": "fastq",
+          "size": "1269406862",
+          "readableSize": "1.18GB",
+          "checksumMethod": "md5",
+          "checksum": "c4a3daa749a04fc3bd58ff6e9436eb58",
+          "archive": "ENA",
+          "baseCount": "9107941885",
+          "readCount": "50824415",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558548",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555854",
+            "alias": "FBN_totalRNA_RNAseq_run_2018-04_B001_S3",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2018-04",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555854_1.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555854_2",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6032068",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/004/ERR3555854/ERR3555854_2.fastq.gz",
+          "name": "ERR3555854_2.fastq.gz",
+          "type": "fastq",
+          "size": "1335889029",
+          "readableSize": "1.24GB",
+          "checksumMethod": "md5",
+          "checksum": "d0a479b6af53ada7180eb904c06cebdb",
+          "archive": "ENA",
+          "baseCount": "9107941885",
+          "readCount": "50824415",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558548",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555854",
+            "alias": "FBN_totalRNA_RNAseq_run_2018-04_B001_S3",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2018-04",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555854_2.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR3555855",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA6032091",
+          "organism": "SAMEA6032000",
+          "species": {
+            "text": "Bos taurus",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+          },
+          "secondaryProject": "BovReg",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR355/005/ERR3555855/ERR3555855.fastq.gz",
+          "name": "ERR3555855.fastq.gz",
+          "type": "fastq",
+          "size": "283947590",
+          "readableSize": "270.79MB",
+          "checksumMethod": "md5",
+          "checksum": "cd9ddb58ca3c71c6689948c7c96e7941",
+          "archive": "ENA",
+          "baseCount": "9692772718",
+          "readCount": "53526891",
+          "releaseDate": "2019-10-15",
+          "updateDate": "2019-09-25",
+          "submission": "ERA2143741",
+          "experiment": {
+            "accession": "ERX3558549",
+            "assayType": "RNA-seq of total RNA",
+            "target": "total RNA",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR3555855",
+            "alias": "FBN_totalRNA_RNAseq_run_2018-06_B001_S4",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina HiSeq 2500",
+            "centerName": "Leibniz Institute for Farm Animal Biology (FBN)",
+            "sequencingDate": "2018-06",
+            "sequencingLocation": "Dummerstorf, Germany",
+            "sequencingLatitude": "54.0167",
+            "sequencingLongitude": "12.2333"
+          },
+          "study": {
+            "accession": "PRJEB34570",
+            "alias": "lncRNA_cattle_FAANG",
+            "title": "Biological network approach for the identification of regulatory long non-coding RNAs associated with metabolic efficiency in cattle",
+            "type": null,
+            "secondaryAccession": "ERP117494"
+          },
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "ERR3555855.fastq.gz"
+        ]
+      }
+    ]
+  }
+}

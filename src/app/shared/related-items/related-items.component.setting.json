@@ -665,6 +665,99 @@
         }
       }
     },
+    "protocolsamples": {
+      "display": [
+        "Protocol Name",
+        "University Name",
+        "Protocol Year"
+      ],
+      "all": [
+        "Key",
+        "Protocol Name",
+        "University Name",
+        "Protocol Year"
+      ],
+      "fields": {
+        "Key": {
+          "value": "key",
+          "source": "key"
+        },
+        "Protocol Name": {
+          "value": "protocol_name",
+          "source": "protocolName"
+        },
+        "University Name": {
+          "value": "university_name",
+          "source": "universityName"
+        },
+        "Protocol Year": {
+          "value": "protocol_date",
+          "source": "protocolDate"
+        }
+      }
+    },
+    "protocolfiles": {
+      "display": [
+        "Protocol Type",
+        "Experiment Target",
+        "Assay Type"
+      ],
+      "all": [
+        "Key",
+        "Protocol Type",
+        "Experiment Target",
+        "Assay Type"
+      ],
+      "fields": {
+        "Key": {
+          "value": "key",
+          "source": "key"
+        },
+        "Protocol Type": {
+          "value": "protocol_type",
+          "source": "name"
+        },
+        "Experiment Target": {
+          "value": "experiment_target",
+          "source": "experimentTarget"
+        },
+        "Assay Type": {
+          "value": "assay_type",
+          "source": "assayType"
+        }
+      }
+    },
+    "protocolanalysis": {
+      "display": [
+        "Protocol Name",
+        "University Name",
+        "Protocol Year"
+      ],
+      "all": [
+        "Key",
+        "Protocol Name",
+        "University Name",
+        "Protocol Year"
+      ],
+      "fields": {
+        "Key": {
+          "value": "key",
+          "source": "key"
+        },
+        "Protocol Name": {
+          "value": "protocol_name",
+          "source": "protocolName"
+        },
+        "University Name": {
+          "value": "university_name",
+          "source": "universityName"
+        },
+        "Protocol Year": {
+          "value": "protocol_date",
+          "source": "protocolDate"
+        }
+      }
+    },
     "file": {
       "display": [
         "File name",

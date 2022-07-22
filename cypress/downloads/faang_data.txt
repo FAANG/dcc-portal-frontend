@@ -1,0 +1,88 @@
+Protocol name                                                                    | Organisation                                                                            | Year of protocol
+50 TissueCollection                                                              | University of California, Davis (USA)                                                   | 2016            
+ATAC Seq DNA Isolation and Tagmentation Frozen Muscle Tissue                     | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+ATAC-Seq DNA Isolation and Tagmentation Cryopreserved Muscle Nuclei Preparations | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+ATAC-Seq Library Preparation and Size Selection                                  | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+ATAC-seq AG v1                                                                   | French National Institute for Agricultural Research (France)                            | 2016            
+Blood Leukocyte Isolation                                                        | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Bovine FAANG fetal tissue collection                                             | University of Idaho (USA)                                                               | 2018            
+Cattle Mammary Gland Sample Collection Protocol                                  | Texas A&M University (USA)                                                              | 2018            
+ChIP swine immune cells                                                          | Iowa State University (USA)                                                             | 2019            
+Collection And Transport Tissue Cattle Sampling                                  | University of Alberta (Canada)                                                          | 2021            
+Collection of Blood or Nasal Swabs or Ear Tissue for Animal Genotyping           | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals         | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals         | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+CryofreezingTissue                                                               | Department of Economic Development, Jobs, Transport and Resources (Bundoora, Australia) | 2016            
+CryofreezingTissue                                                               | University of Queensland (Australia)                                                    | 20161021        
+CryofreezingTissueSsamples                                                       | FBNGenomePhysiology                                                                     | 2016            
+Cryopreservation of Nuclei for ATACSeq using GentleMACS                          | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+Cryopreservation of Nuclei for ATACSeq using GentleMACS                          | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+Culturing macrophages from bone marrow PBMCs and bronchoalveolar lavage          | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Dissection of Brain Tissue from Large Animals                                    | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Dissection of Cardiovascular Tissues from Large Animals                          | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Dissection of Embryonic and Female Reproductive Tissues from Large Animals       | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Equine whole animal collection                                                   | University of California, Davis (USA)                                                   | 2018            
+FRAGENCODE mRNA-seq library preparation                                          | French National Institute for Agricultural Research (France)                            | 2021            
+GENESWITCH D30 FETUS POOLING                                                     | French National Institute for Agricultural Research (France)                            | 2020            
+GENESWITCH D30 FETUS SAMPLING                                                    | French National Institute for Agricultural Research (France)                            | 2020            
+GENESWITCH D70 FETUS SAMPLING                                                    | French National Institute for Agricultural Research (France)                            | 2020            
+GENESWITCH E15 EMBRYO SAMPLING                                                   | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+GENESWITCH E8 EMBRYO POOLING                                                     | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+GENESWITCH E8 EMBRYO SAMPLING                                                    | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+GENESWITCH HATCHED CHICK SAMPLING                                                | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+GENESWITCH PIGLET SAMPLING                                                       | French National Institute for Agricultural Research (France)                            | 2020            
+GENESWITCH WP1 RRBS library preparation                                          | Wageningen University (Netherlands)                                                     | 2020            
+GENESWITCH WP1 TeloPrime cDNA amplification                                      | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+Harvest of Large Animal Tissues                                                  | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Isolation of Macrophages from Lungs Blood and Bone Marrow of Large Animals       | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Isolation of Monocyte-derived Macrophages from Blood of Norwegian Red Cattle     | Norwegian University of Life Sciences (Norway)                                          | 2017            
+Isolation of Ovine Embryonic Fibroblasts                                         | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Isolation of RNA from RNAlater preserved tissue                                  | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Isolation of RNA from frozen tissue                                              | Roslin Institute (Edinburgh, UK)                                                        | 2016            
+Milk Sampling & Milk Cell Isolation                                              | Leibniz Institute for Farm Animal Biology (Dummerstorf, Germany)                        | 2020            
+Nasal Swabs Large Animals                                                        | Roslin Institute (Edinburgh, UK)                                                        | 2014            
+Ovine Benz2616 Cell Isolation                                                    | Utah State University (USA)                                                             | 2016            
+Ovine Benz2616 Tissue Collection                                                 | Utah State University (USA)                                                             | 2016            
+PBMC purification cattle caprine                                                 | French National Institute for Agricultural Research (France)                            | 2016            
+PBMC seperation swine blood                                                      | French National Institute for Agricultural Research (France)                            | 2016            
+Pilot sheep tissue collection-Ovine FAANG Project                                | Washington State University(USA)                                                        | 2020            
+Pool creation protocol                                                           | Konkuk University (Seoul, Korea)                                                        | 2017            
+Preperation of Genomic DNA from Small Samples                                    | Konkuk University (Seoul, Korea)                                                        | 2017            
+RNA Isolation of total RNA from frozen tissue samples                            | Roslin Institute (Edinburgh, UK)                                                        | 2020            
+RNAPreparation                                                                   | FBNGenomePhysiology                                                                     | 2019            
+SOP CryofreezingTissueSsamples                                                   | Leibniz Institute for Farm Animal Biology (Dummerstorf, Germany)                        | 2016            
+Sample collection RNAseq                                                         | Agroscope (Switzerland)                                                                 | 2019            
+SamplingMilkForRNA                                                               | Department of Economic Development, Jobs, Transport and Resources (Bundoora, Australia) | 2016            
+Targeted Control Pool Creation Protocol                                          | University of Illinois at Urbana–Champaign (USA)                                        | 2017            
+Tissue Collection Protocol                                                       | University of Illinois at Chicago (USA)                                                 | 2017            
+alveolar macrophages mammals sampling                                            | French National Institute for Agricultural Research (France)                            | 2016            
+alveolar-macrophages mammals sampling                                            | French National Institute for Agricultural Research (France)                            | 2016            
+animal sampling                                                                  | WUR                                                                                     | 2016            
+cartilage-sampling                                                               | French National Institute for Agricultural Research (France)                            | 2017            
+cattlebrain sampling                                                             | French National Institute for Agricultural Research (France)                            | 2017            
+chicken splenocytes sampling                                                     | French National Institute for Agricultural Research (France)                            | 2016            
+freezinggallussemen                                                              | National Research Institute for Agriculture, Food and Environment (France）              | 20200401        
+freezinggallussemen                                                              | French National Institute for Agricultural Research (France)                            | 20200401        
+liver spleen mammarygland forHiC sampling                                        | French National Institute for Agricultural Research (France)                            | 2016            
+mammarygland sampling                                                            | French National Institute for Agricultural Research (France)                            | 2017            
+oocytes granulosa mammals sampling                                               | French National Institute for Agricultural Research (France)                            | 2016            
+oocytes-granulosa mammals sampling                                               | French National Institute for Agricultural Research (France)                            | 2016            
+pbMEC Isolation                                                                  | Leibniz Institute for Farm Animal Biology (Dummerstorf, Germany)                        | 2020            
+pig muscle tissue sampling                                                       | National Research Institute for Agriculture, Food and Environment (France）              | 2020            
+sheep encephalon Tissue collection                                               | University of the Basque Country (Spain)                                                | 2019            
+sorting caprine CD cells                                                         | French National Institute for Agricultural Research (France)                            | 2017            
+sorting cattle CD cells                                                          | French National Institute for Agricultural Research (France)                            | 2017            
+sorting chicken CD cells                                                         | French National Institute for Agricultural Research (France)                            | 2018            
+sorting fake                                                                     | University of Queensland (Australia)                                                    | 20160504        
+sorting fake fake                                                                | University of Queensland (Australia)                                                    | 20160504        
+sorting fake fake fake                                                           | University of Queensland (Australia)                                                    | 20160504        
+sorting fake fake fake fake                                                      | University of Queensland (Australia)                                                    | 20160504        
+sorting fake1                                                                    | University of Queensland (Australia)                                                    | 20160504        
+sorting swine CD cells                                                           | French National Institute for Agricultural Research (France)                            | 2016            
+sorting swine immune cells                                                       | Iowa State University (USA)                                                             | 2021            
+test                                                                             | AgResearch (New Zealand)                                                                | 20210215        
+testis forHiC sampling                                                           | French National Institute for Agricultural Research (France)                            | 2016            
+tissue aliquots sampling 1b                                                      | French National Institute for Agricultural Research (France)                            | 2016            
+tissue sampling 1a                                                               | French National Institute for Agricultural Research (France)                            | 2016            
+tissue sampling protocol 6                                                       | French National Institute for Agricultural Research (France)                            | 2018            
+tracheal epithelium mammals sampling                                             | French National Institute for Agricultural Research (France)                            | 2016            

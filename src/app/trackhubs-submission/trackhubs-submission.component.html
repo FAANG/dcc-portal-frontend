@@ -2,88 +2,140 @@
 <div class="container-fluid">
     <h2>Track Hubs Submission</h2  >
     <hr>
-    <div fxLayout="row">
-        <div fxFlex="48" fxLayout="column">
-            <div *ngIf="stage == 'form' || stage == 'upload'">
-                <mat-form-field style="width: 100%;">
-                    <mat-label>Provide a name for Track Hub directory</mat-label>
-                    <input matInput [(ngModel)]="trackhub.dir">
-                </mat-form-field>
-                <br>
-                <mat-form-field style="width: 100%;">
-                    <mat-label>Enter genome name, e.g Oar_rambouillet_v1.0</mat-label>
-                    <input matInput [(ngModel)]="trackhub.genome">
-                </mat-form-field>
-                <br>
-                <mat-form-field style="width: 100%;">
-                    <mat-label>Enter Subdirectory Name</mat-label>
-                    <input matInput [(ngModel)]="trackhub.subdir">
-                </mat-form-field>
-            </div>
-            <button mat-raised-button color="primary" *ngIf="stage == 'form'"
-                style="margin-bottom: 15px;"
-                (click)="startUploads(trackhub.dir, trackhub.genome, trackhub.subdir)">
-                Proceed to upload files
+    <div fxLayout="row" fxLayout.lt-md="column" style="margin-bottom: 30px;">
+        <div fxFlex>
+            <button mat-raised-button color="primary">
+              <a href="{{trackhubs_template_with_examples}}">Download example template</a>
             </button>
-            <button mat-raised-button color="primary" *ngIf="stage == 'upload'"
-                style="margin-bottom: 15px;"
-                (click)="startUploads(trackhub.dir, trackhub.genome, trackhub.subdir)">
-                Update subdirectory name
+        
+            <button mat-raised-button color="primary">
+              <a href="{{trackhubs_template_without_examples}}">Download empty template</a>
+            </button>
+    
+            <button mat-raised-button color="accent">
+              <a href="https://dcc-documentation.readthedocs.io/en/latest/trackhubs/trackhubs_submission/" target="_blank"
+                style="color: black;">Submission guidelines</a>
             </button>
         </div>
+
+        <button *ngIf="token" mat-raised-button color="warn" fxFlex="150px" fxFlexAlign="end" (click)="logout()">Logout</button>
     </div>
-    <hr>
-    <div fxLayout="column" *ngIf="stage == 'upload'">
-        <h3>Upload Tracks</h3>
+    <button *ngIf="!token" mat-raised-button color="primary" (click)="openLoginModal()">Login to start submission</button>
+    <div fxLayout="column" [hidden]="!token">
+        <h3>Upload template</h3>
         <hr>
         <app-bulk-files-uploader
-            style="margin-bottom: 10px;"
-            [uploadUrl]="tracksUploadUrl"
-            [mode]="'bulk'">
+            [uploadUrl]="uploadUrl"
+            [mode]="'single'"
+            [user]="user">
         </app-bulk-files-uploader>
-        <h3>Upload Other Files</h3>
-        <hr>
-        <h5>genomes.txt</h5>
-        <app-bulk-files-uploader
-            style="margin-bottom: 10px;"
-            [uploadUrl]="hubFileUploadUrl"
-            [mode]="'single'">
-        </app-bulk-files-uploader>
-        <h5>hub.txt</h5>
-        <app-bulk-files-uploader
-            style="margin-bottom: 10px;"
-            [uploadUrl]="hubFileUploadUrl"
-            [mode]="'single'">
-        </app-bulk-files-uploader>
-        <h5>trackDB.txt</h5>
-        <app-bulk-files-uploader
-            style="margin-bottom: 10px;"
-            [uploadUrl]="trackDbUploadUrl"
-            [mode]="'single'">
-        </app-bulk-files-uploader>
-        <h5>Other files</h5>
-        <app-bulk-files-uploader
-            style="margin-bottom: 10px;"
-            [uploadUrl]="hubFileUploadUrl"
-            [mode]="'bulk'">
-        </app-bulk-files-uploader>
-    </div>
-    <div fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%" *ngIf="stage == 'upload'">
-        <div fxFlex="48">
-            <button mat-raised-button color="primary"
-                style="margin-bottom: 20px;"
-                (click)="submitTrackHub(trackhub.dir)">
-                Submit Track Hub
-            </button>
-        </div>
-        <div fxFlex="47">
-            <div *ngIf="registration_success_msg" class="alert alert-success">
-                {{ registration_success_msg }}
+        <div *ngIf="validation_results">
+            <hr>
+            <h3 style="margin: 20px 0;">Validation Results</h3>
+            <ul *ngIf="tabHasError('Hub Data') || tabHasError('Genome Data') || tabHasError('Tracks Data')"
+                class="alert alert-danger" style="list-style-type:none;">
+                <li *ngIf="tabHasError('Hub Data')">
+                    Fix errors in "Hub Data" sheet
+                </li>
+                <li *ngIf="tabHasError('Genome Data')">
+                    Fix errors in "Genome Data" sheet
+                </li>
+                <li *ngIf="tabHasError('Tracks Data')">
+                    Fix errors in "Tracks Data" sheet
+                </li>
+            </ul>
+            <mat-tab-group style="margin: 20px 0;">
+                <mat-tab *ngFor="let tab of tabs" [label]="tab">
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="validation_results[tab]" table-striped style="width: 100%; margin-top: 15px;">
+                            <ng-container *ngFor="let col of columns[tab]" [matColumnDef]="col">
+                                <th mat-header-cell class="table-header" *matHeaderCellDef> {{col}} </th>
+                                <td mat-cell class="table-cell-data" *matCellDef="let item; let i = index"
+                                    [ngClass]="getCellClass(tab, i, col)" [ngStyle]="{'cursor': getCellStyle(tab, i, col)}"
+                                    (click)="showError(tab, i, col)">
+                                    {{item[col]}} 
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="columns[tab]"></tr>
+                            <tr mat-row *matRowDef="let row; columns: columns[tab]"></tr>
+                        </table>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <div *ngIf="validation_results.hasOwnProperty('HubCheck Results')" style="margin: 30px 0;">
+                <h5>HubCheck Results</h5>
+                <ul *ngIf="validation_results['HubCheck Results']['errors'].length" 
+                    class="alert alert-danger" style="margin: 20px 0; list-style-type:none;">
+                    <li *ngFor="let err of validation_results['HubCheck Results']['errors']">
+                        {{err}}
+                    </li>
+                </ul>
+                <ul *ngIf="validation_results['HubCheck Results']['warnings'].length" 
+                    class="alert alert-warning" style="margin: 20px 0; list-style-type:none;">
+                    <li *ngFor="let err of validation_results['HubCheck Results']['warnings']">
+                        {{err}}
+                    </li>
+                </ul>
+                <hr>
             </div>
-            <div *ngIf="registration_failed_msg" class="alert alert-danger">
-                {{ registration_failed_msg }}
+            <h3 style="display: inline; margin: 20px 0;">Submission</h3>
+            <mat-icon style="margin-left: 10px;" matTooltipPosition="right"
+                matTooltip="Register your track hub with the Track Hub registry and associate the track hub with related specimen records">
+                help_outline
+            </mat-icon>
+            <div style="margin: 20px 0;" fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%">
+                <div fxFlex="48">
+                    <button mat-raised-button color="primary"
+                        style="margin-bottom: 20px;" [disabled]="hasError()"
+                        (click)="submitTrackHub()">
+                        Submit Track Hub
+                    </button>
+                </div>
+                <div fxFlex="47">
+                    <div *ngIf="registration_success_msg" class="alert alert-info">
+                        {{ registration_success_msg }}
+                    </div>
+                    <div *ngIf="registration_failed_msg" class="alert alert-danger">
+                        {{ registration_failed_msg }}
+                    </div>
+                </div>
             </div>
-            <mat-spinner *ngIf="loading"></mat-spinner>
         </div>
     </div>
 </div>
+
+<ng-template #errorModalTemplate let-data>
+    <div mat-dialog-content>
+        {{data['error']}}
+    </div>
+</ng-template>
+
+<!-- Template: Login Modal Dialog Box -->
+<ng-template #loginModalTemplate let-data>
+    <!-- User Login -->
+    <div *ngIf="!registerUser" mat-dialog-content>
+        <h3><p>Login</p></h3>
+        <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Enter your username</mat-label>
+            <input matInput [(ngModel)]="username">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <p *ngIf="error" class="alert alert-danger">{{error}}</p>
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;">
+            <button mat-raised-button color="primary" (click)="login()">
+                Submit
+            </button>
+            <p> If you do not have a Webin account, click 
+                <a href="https://www.ebi.ac.uk/ena/submit/webin/accountInfo" target="_blank">here</a>
+                to register
+            </p>
+        </div>
+    </div>
+</ng-template>

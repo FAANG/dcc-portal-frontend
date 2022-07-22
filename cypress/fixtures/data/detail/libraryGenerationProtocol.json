@@ -1,0 +1,1400 @@
+{
+  "took": 10,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "protocol_files",
+        "_type": "_doc",
+        "_id": "libraryGenerationProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA",
+        "_score": 1,
+        "_source": {
+          "name": "libraryGenerationProtocol",
+          "experimentTarget": "total RNA",
+          "assayType": "transcription profiling by high throughput sequencing",
+          "key": "libraryGenerationProtocol-transcriptionprofilingbyhighthroughputsequencing-totalRNA",
+          "url": "http://support.illumina.com/content/dam/illumina-support/documents/documentation/chemistry_documentation/samplepreps_truseq/truseqstrandedtotalrna/truseq-stranded-total-rna-sample-prep-guide-15031048-e.pdf",
+          "filename": "truseq-stranded-total-rna-sample-prep-guide-15031048-e.pdf",
+          "experiments": [
+            {
+              "accession": "ERX1886666",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886670",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886673",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886676",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886682",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886686",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886687",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886689",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886690",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886713",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886714",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886715",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886719",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886725",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886700",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886703",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133451",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133457",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133466",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403551",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403566",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403522",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403500",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403516",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285746",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285755",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285759",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2403494",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285733",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285738",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2133468",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133474",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133475",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133478",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133495",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133496",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133498",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133507",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133508",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403692",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403699",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403705",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403660",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403673",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403675",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403682",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403601",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403618",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403620",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403637",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403642",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212545",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212528",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212530",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212536",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212542",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886712",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886724",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886667",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886671",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886698",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886702",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886706",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886709",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886683",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886684",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886685",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886694",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133497",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133499",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133503",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133504",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133506",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133511",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133471",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133484",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133486",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133488",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133443",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133444",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133460",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133467",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285745",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285749",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285751",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285752",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285761",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2403594",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403595",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285729",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285730",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2403537",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403558",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403561",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403512",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403515",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285741",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2403641",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403644",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212529",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212539",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212544",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212547",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212550",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886677",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886679",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886688",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886695",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886696",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886701",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886705",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886716",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886718",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886720",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886721",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX2133445",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133447",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133449",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133452",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133455",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133458",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133459",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133470",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133472",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133479",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133483",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285727",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2403518",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403535",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403538",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403555",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403559",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403560",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403562",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285744",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285757",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2350706",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403496",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133489",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133494",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133502",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133510",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133513",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285731",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285736",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285740",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2403696",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403703",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403654",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403672",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403674",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403598",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403599",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403602",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403621",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403630",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212532",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212537",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886669",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886674",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886675",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886691",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886692",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886693",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886697",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886708",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886678",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886680",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886681",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886722",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886723",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX2133492",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133500",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133501",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133505",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133509",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133512",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133514",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133515",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2234763",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2234764",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2234766",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133448",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133453",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133454",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133461",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133462",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133463",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285735",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285737",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285742",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2133480",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285747",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285750",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285753",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285754",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285758",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285762",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2350703",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2350707",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403691",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403704",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403708",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403633",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403671",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403546",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403547",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403529",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212531",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212533",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212535",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212546",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886668",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886672",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886699",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886704",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886707",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX1886710",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886711",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX1886717",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation in liquid nitrogen (dead tissue)"
+            },
+            {
+              "accession": "ERX2285728",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2133490",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133491",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133493",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2234762",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2234765",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2234767",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133469",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133473",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133476",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133477",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133481",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133482",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133485",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133487",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133446",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133450",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133456",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133464",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2133465",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2285732",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285734",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285739",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285743",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285748",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285756",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2285760",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation of live cells in liquid nitrogen"
+            },
+            {
+              "accession": "ERX2350704",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2350705",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2350708",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403693",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403495",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403511",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403517",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403663",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403678",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403574",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403582",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403629",
+              "sampleStorage": "TRIzol, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403640",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403643",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403519",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403600",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403611",
+              "sampleStorage": "RNAlater, frozen",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX2403616",
+              "sampleStorage": "frozen, -150 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212548",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212549",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212527",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212534",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212538",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212540",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212541",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            },
+            {
+              "accession": "ERX3212543",
+              "sampleStorage": "frozen, -70 freezer",
+              "sampleStorageProcessing": "cryopreservation, other"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "article",
+        "_type": "_doc",
+        "_id": "PMC6950892",
+        "_score": 1,
+        "_source": {
+          "pmcId": "PMC6950892",
+          "pubmedId": "31914939",
+          "doi": "10.1186/s12864-020-6446-y",
+          "title": "Assessing genomic diversity and signatures of selection in Original Braunvieh cattle using whole-genome sequencing data.",
+          "authorString": "Bhati M, Kadri NK, Crysnanto D, Pausch H.",
+          "journal": "BMC Genomics",
+          "issue": "1",
+          "volume": "21",
+          "year": "2020",
+          "pages": "27",
+          "isOpenAccess": "Y",
+          "relatedDatasets": [
+            {
+              "accession": "PRJEB28191",
+              "standardMet": "Legacy",
+              "species": [
+                "Bos taurus"
+              ]
+            }
+          ],
+          "datasetSource": "All",
+          "secondaryProject": []
+        }
+      }
+    ]
+  }
+}

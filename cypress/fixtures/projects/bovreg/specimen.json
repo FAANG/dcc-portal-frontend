@@ -1,0 +1,1621 @@
+{
+  "took": 21,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 196,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031866",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6031945",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2005-05-31",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "18",
+              "unit": "month"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "jejunal mucosa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000399"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_B009_S2",
+          "biosampleId": "SAMEA6031866",
+          "etag": "\"057072dc17d7d6c648f2b72feb33f6f28\"",
+          "id_number": "6031866",
+          "description": "jejunum",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177788"
+            },
+            {
+              "name": "environmental conditions",
+              "value": "milk production rearing system",
+              "ontologyTerms": [
+                "owlEOL_0001712"
+              ]
+            },
+            {
+              "name": "physiological condition",
+              "value": "feed efficiency for meat production",
+              "ontologyTerms": [
+                "owlATOL_0001729"
+              ]
+            },
+            {
+              "name": "physiological conditions",
+              "value": "milk yield",
+              "ontologyTerms": [
+                "http://opendata.inra.fr/ATOL/ATOL_0001518"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "jejunal mucosa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000399"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6031945",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031866"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031869",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6031978",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2003-04-20",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "18",
+              "unit": "month"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "jejunal mucosa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000399"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_B007_S2",
+          "biosampleId": "SAMEA6031869",
+          "etag": "\"0be2ca0cabbcbec24ca4ccd671eb05b47\"",
+          "id_number": "6031869",
+          "description": "jejunum",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177780"
+            },
+            {
+              "name": "environmental conditions",
+              "value": "milk production rearing system",
+              "ontologyTerms": [
+                "owlEOL_0001712"
+              ]
+            },
+            {
+              "name": "physiological condition",
+              "value": "feed efficiency for meat production",
+              "ontologyTerms": [
+                "owlATOL_0001729"
+              ]
+            },
+            {
+              "name": "physiological conditions",
+              "value": "milk yield",
+              "ontologyTerms": [
+                "http://opendata.inra.fr/ATOL/ATOL_0001518"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "jejunal mucosa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000399"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6031978",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031869"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031870",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6031997",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2009-11-24",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "18",
+              "unit": "month"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "jejunal mucosa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000399"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_B028_S2",
+          "biosampleId": "SAMEA6031870",
+          "etag": "\"03bcb5c3840f0ed4255a1e0ddb88ef7a6\"",
+          "id_number": "6031870",
+          "description": "jejunum",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177765"
+            },
+            {
+              "name": "physiological condition",
+              "value": "feed efficiency for meat production",
+              "ontologyTerms": [
+                "owlATOL_0001729"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "jejunal mucosa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000399"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6031997",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031870"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031871",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6031997",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2009-11-24",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "18",
+              "unit": "month"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_B028_S1",
+          "biosampleId": "SAMEA6031871",
+          "etag": "\"05c934ab8c8076e33b5d26253affc870d\"",
+          "id_number": "6031871",
+          "description": "liver",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177767"
+            },
+            {
+              "name": "physiological condition",
+              "value": "feed efficiency for meat production",
+              "ontologyTerms": [
+                "owlATOL_0001729"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6031997",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031871"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031872",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6031999",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2008-05-07",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "3.5",
+              "unit": "year"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_K006_S1",
+          "biosampleId": "SAMEA6031872",
+          "etag": "\"0ffe57daa800c8fe421e049e38271c757\"",
+          "id_number": "6031872",
+          "description": "liver",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177676"
+            },
+            {
+              "name": "physiological condition",
+              "value": "milk yield",
+              "ontologyTerms": [
+                "http://opendata.inra.fr/ATOL/ATOL_0001518"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6031999",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "female",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031872"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031873",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6032026",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2006-05-03",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "18",
+              "unit": "month"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "rumen",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0007365"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_B008_S4",
+          "biosampleId": "SAMEA6031873",
+          "etag": "\"04032ff4c13743b4101f8a6bac665b039\"",
+          "id_number": "6031873",
+          "description": "rumen",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177677"
+            },
+            {
+              "name": "environmental conditions",
+              "value": "milk production rearing system",
+              "ontologyTerms": [
+                "owlEOL_0001712"
+              ]
+            },
+            {
+              "name": "physiological condition",
+              "value": "feed efficiency for meat production",
+              "ontologyTerms": [
+                "owlATOL_0001729"
+              ]
+            },
+            {
+              "name": "physiological conditions",
+              "value": "milk yield",
+              "ontologyTerms": [
+                "http://opendata.inra.fr/ATOL/ATOL_0001518"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "rumen",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0007365"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6032026",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031873"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031874",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6031993",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2010-11-09",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "3.5",
+              "unit": "year"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "skeletal muscle tissue",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001134"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_K012_S3",
+          "biosampleId": "SAMEA6031874",
+          "etag": "\"0e1ab3c1a09bf8f0e63966a5a9716bde7\"",
+          "id_number": "6031874",
+          "description": "skeletal muscle",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177673"
+            },
+            {
+              "name": "physiological condition",
+              "value": "milk yield",
+              "ontologyTerms": [
+                "http://opendata.inra.fr/ATOL/ATOL_0001518"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "skeletal muscle tissue",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001134"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6031993",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "female",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031874"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031875",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6032106",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2011-01-25",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "3.5",
+              "unit": "year"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "skeletal muscle tissue",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001134"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_K014_S3",
+          "biosampleId": "SAMEA6031875",
+          "etag": "\"0775de4d29455a7c1b64336bd5bd7216d\"",
+          "id_number": "6031875",
+          "description": "skeletal muscle",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177674"
+            },
+            {
+              "name": "physiological condition",
+              "value": "milk yield",
+              "ontologyTerms": [
+                "http://opendata.inra.fr/ATOL/ATOL_0001518"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "skeletal muscle tissue",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001134"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6032106",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "female",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031875"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031876",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6031928",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2012-10-08",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "3.5",
+              "unit": "year"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_K022_S1",
+          "biosampleId": "SAMEA6031876",
+          "etag": "\"096778a90a8ab4622b4642ae062ce1c6f\"",
+          "id_number": "6031876",
+          "description": "liver",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177668"
+            },
+            {
+              "name": "physiological condition",
+              "value": "milk yield",
+              "ontologyTerms": [
+                "http://opendata.inra.fr/ATOL/ATOL_0001518"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6031928",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "female",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031876"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA6031877",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA6032090",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2007-07-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "3.5",
+              "unit": "year"
+            },
+            "developmentalStage": {
+              "text": "adult",
+              "ontologyTerms": "http://www.ebi.ac.uk/efo/EFO_0001272"
+            },
+            "organismPart": {
+              "text": "rumen",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0007365"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://www.fbn-dummerstorf.de/fileadmin/media/I3.0/FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+              "filename": "FBN_GenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": null,
+              "unit": null
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "BTA_FBN_K002_S4",
+          "biosampleId": "SAMEA6031877",
+          "etag": "\"04cf4f2254962c889ee061a486d8d3214\"",
+          "id_number": "6031877",
+          "description": "rumen",
+          "releaseDate": "2019-08-18",
+          "updateDate": "2020-05-20",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "BovReg",
+          "availability": null,
+          "organization": [
+            {
+              "name": "Leibniz Institute for Farm Animal Biology (FBN)",
+              "role": "institution",
+              "URL": "www.fbn-dummerstorf.de"
+            }
+          ],
+          "customField": [
+            {
+              "name": "SRA accession",
+              "value": "ERS4177669"
+            },
+            {
+              "name": "physiological condition",
+              "value": "milk yield",
+              "ontologyTerms": [
+                "http://opendata.inra.fr/ATOL/ATOL_0001518"
+              ]
+            },
+            {
+              "name": "submission description",
+              "value": "FAANG contributing bovine samples"
+            },
+            {
+              "name": "submission identifier",
+              "value": "GSB-1277"
+            },
+            {
+              "name": "submission title",
+              "value": "FBN_cattle_lncRNA_SEGFAM"
+            }
+          ],
+          "cellType": {
+            "text": "rumen",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0007365"
+          },
+          "organism": {
+            "biosampleId": "SAMEA6032090",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "female",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+            },
+            "breed": {
+              "text": "Cattle crossbreed",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001036"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG",
+          "publishedArticles": [
+            {
+              "journal": "Front Genet",
+              "year": "2019",
+              "articleId": "PMC6883949",
+              "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+            },
+            {
+              "journal": "Int J Mol Sci",
+              "year": "2020",
+              "articleId": "PMC7247587",
+              "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+            },
+            {
+              "journal": "Front Genet",
+              "year": "2021",
+              "articleId": "PMC8141914",
+              "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+            }
+          ],
+          "paperPublished": "true"
+        },
+        "sort": [
+          "SAMEA6031877"
+        ]
+      }
+    ]
+  }
+}

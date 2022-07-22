@@ -1,0 +1,783 @@
+{
+  "took": 3,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "summary_organism",
+        "_type": "_doc",
+        "_id": "summary_organism",
+        "_score": 1,
+        "_source": {
+          "sexSummary": [
+            {
+              "name": "male",
+              "value": 823
+            },
+            {
+              "name": "female",
+              "value": 562
+            },
+            {
+              "name": "not determined",
+              "value": 106
+            }
+          ],
+          "paperPublishedSummary": [
+            {
+              "name": "yes",
+              "value": 173
+            },
+            {
+              "name": "no",
+              "value": 1318
+            }
+          ],
+          "standardSummary": [
+            {
+              "name": "FAANG",
+              "value": 1443
+            },
+            {
+              "name": "Legacy",
+              "value": 48
+            }
+          ],
+          "organismSummary": [
+            {
+              "name": "Sus scrofa",
+              "value": 520
+            },
+            {
+              "name": "Bos taurus",
+              "value": 226
+            },
+            {
+              "name": "Gallus gallus",
+              "value": 298
+            },
+            {
+              "name": "Bos indicus",
+              "value": 67
+            },
+            {
+              "name": "Ovis aries",
+              "value": 92
+            },
+            {
+              "name": "Bubalus bubalis",
+              "value": 13
+            },
+            {
+              "name": "Capra hircus",
+              "value": 11
+            },
+            {
+              "name": "Scophthalmus maximus",
+              "value": 38
+            },
+            {
+              "name": "gallus gallus",
+              "value": 16
+            },
+            {
+              "name": "Salmo salar",
+              "value": 50
+            },
+            {
+              "name": "Cyprinus carpio carpio",
+              "value": 50
+            },
+            {
+              "name": "Oncorhynchus mykiss",
+              "value": 62
+            },
+            {
+              "name": "Equus caballus",
+              "value": 9
+            },
+            {
+              "name": "Dicentrarchus labrax",
+              "value": 39
+            }
+          ],
+          "breedSummary": [
+            {
+              "speciesName": "Sus scrofa",
+              "speciesValue": [
+                {
+                  "breedsName": "German Landrace",
+                  "breedsValue": 16
+                },
+                {
+                  "breedsName": "Pietrain",
+                  "breedsValue": 17
+                },
+                {
+                  "breedsName": "White Composite sire x Meishan dam",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "Large White",
+                  "breedsValue": 133
+                },
+                {
+                  "breedsName": "Pig crossbreed",
+                  "breedsValue": 24
+                },
+                {
+                  "breedsName": "Large white sire x Landrace dam",
+                  "breedsValue": 64
+                },
+                {
+                  "breedsName": "Yorkshire",
+                  "breedsValue": 2
+                },
+                {
+                  "breedsName": "Large white",
+                  "breedsValue": 48
+                },
+                {
+                  "breedsName": "Duroc",
+                  "breedsValue": 9
+                },
+                {
+                  "breedsName": "Meishan",
+                  "breedsValue": 25
+                },
+                {
+                  "breedsName": "TN60",
+                  "breedsValue": 50
+                },
+                {
+                  "breedsName": "TN70",
+                  "breedsValue": 110
+                },
+                {
+                  "breedsName": "pig breed",
+                  "breedsValue": 1
+                },
+                {
+                  "breedsName": "Landrace,Large White",
+                  "breedsValue": 3
+                },
+                {
+                  "breedsName": "Yorkshire sire x Landrace dam",
+                  "breedsValue": 3
+                },
+                {
+                  "breedsName": "Meishan sire x White Composite dam",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "White Composite",
+                  "breedsValue": 3
+                }
+              ]
+            },
+            {
+              "speciesName": "Bos taurus",
+              "speciesValue": [
+                {
+                  "breedsName": "Cattle crossbreed",
+                  "breedsValue": 54
+                },
+                {
+                  "breedsName": "Holstein",
+                  "breedsValue": 32
+                },
+                {
+                  "breedsName": "Angus",
+                  "breedsValue": 116
+                },
+                {
+                  "breedsName": "Norwegian Red",
+                  "breedsValue": 12
+                },
+                {
+                  "breedsName": "Hereford (Line 1)",
+                  "breedsValue": 4
+                },
+                {
+                  "breedsName": "Hereford",
+                  "breedsValue": 8
+                }
+              ]
+            },
+            {
+              "speciesName": "Gallus gallus",
+              "speciesValue": [
+                {
+                  "breedsName": "White Leghorn line 6x White Leghorn line 7",
+                  "breedsValue": 4
+                },
+                {
+                  "breedsName": "chicken breed",
+                  "breedsValue": 230
+                },
+                {
+                  "breedsName": "Chicken crossbreed",
+                  "breedsValue": 44
+                },
+                {
+                  "breedsName": "White Leghorn",
+                  "breedsValue": 12
+                },
+                {
+                  "breedsName": "Fayoumi",
+                  "breedsValue": 8
+                }
+              ]
+            },
+            {
+              "speciesName": "Bos indicus",
+              "speciesValue": [
+                {
+                  "breedsName": "Brahman",
+                  "breedsValue": 41
+                },
+                {
+                  "breedsName": "Nellore",
+                  "breedsValue": 26
+                }
+              ]
+            },
+            {
+              "speciesName": "Ovis aries",
+              "speciesValue": [
+                {
+                  "breedsName": "Spanish Assaf",
+                  "breedsValue": 4
+                },
+                {
+                  "breedsName": "Spanish Churra",
+                  "breedsValue": 16
+                },
+                {
+                  "breedsName": "Texel sire x Scottish Blackface dam",
+                  "breedsValue": 35
+                },
+                {
+                  "breedsName": "Scottish Blackface",
+                  "breedsValue": 15
+                },
+                {
+                  "breedsName": "Targhee x Polypay",
+                  "breedsValue": 1
+                },
+                {
+                  "breedsName": "Texel",
+                  "breedsValue": 7
+                },
+                {
+                  "breedsName": "Texel sire x (Texel sire x Scottish Blackface dam) dam",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "Rambouillet",
+                  "breedsValue": 1
+                },
+                {
+                  "breedsName": "sheep crossbreed",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "Suffolk",
+                  "breedsValue": 1
+                }
+              ]
+            },
+            {
+              "speciesName": "Bubalus bubalis",
+              "speciesValue": [
+                {
+                  "breedsName": "Mediterranean",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "Jafarabadi",
+                  "breedsValue": 1
+                },
+                {
+                  "breedsName": "Pandharpuri",
+                  "breedsValue": 5
+                },
+                {
+                  "breedsName": "Bhadawari",
+                  "breedsValue": 1
+                }
+              ]
+            },
+            {
+              "speciesName": "Capra hircus",
+              "speciesValue": [
+                {
+                  "breedsName": "Goat crossbreed",
+                  "breedsValue": 7
+                },
+                {
+                  "breedsName": "Alpine",
+                  "breedsValue": 4
+                }
+              ]
+            },
+            {
+              "speciesName": "Scophthalmus maximus",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 38
+                }
+              ]
+            },
+            {
+              "speciesName": "gallus gallus",
+              "speciesValue": [
+                {
+                  "breedsName": "Chicken crossbreed",
+                  "breedsValue": 16
+                }
+              ]
+            },
+            {
+              "speciesName": "Salmo salar",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 50
+                }
+              ]
+            },
+            {
+              "speciesName": "Cyprinus carpio carpio",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 50
+                }
+              ]
+            },
+            {
+              "speciesName": "Oncorhynchus mykiss",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 38
+                },
+                {
+                  "breedsName": "INRA Synthetic Stock",
+                  "breedsValue": 24
+                }
+              ]
+            },
+            {
+              "speciesName": "Equus caballus",
+              "speciesValue": [
+                {
+                  "breedsName": "Thoroughbred",
+                  "breedsValue": 9
+                }
+              ]
+            },
+            {
+              "speciesName": "Dicentrarchus labrax",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 39
+                }
+              ]
+            }
+          ],
+          "sexSummaryFAANGOnly": [
+            {
+              "name": "male",
+              "value": 799
+            },
+            {
+              "name": "female",
+              "value": 538
+            },
+            {
+              "name": "not determined",
+              "value": 106
+            }
+          ],
+          "paperPublishedSummaryFAANGOnly": [
+            {
+              "name": "yes",
+              "value": 125
+            },
+            {
+              "name": "no",
+              "value": 1318
+            }
+          ],
+          "standardSummaryFAANGOnly": [
+            {
+              "name": "FAANG",
+              "value": 1443
+            }
+          ],
+          "organismSummaryFAANGOnly": [
+            {
+              "name": "Sus scrofa",
+              "value": 520
+            },
+            {
+              "name": "Bos taurus",
+              "value": 178
+            },
+            {
+              "name": "Gallus gallus",
+              "value": 298
+            },
+            {
+              "name": "Bos indicus",
+              "value": 67
+            },
+            {
+              "name": "Ovis aries",
+              "value": 92
+            },
+            {
+              "name": "Bubalus bubalis",
+              "value": 13
+            },
+            {
+              "name": "Capra hircus",
+              "value": 11
+            },
+            {
+              "name": "Scophthalmus maximus",
+              "value": 38
+            },
+            {
+              "name": "gallus gallus",
+              "value": 16
+            },
+            {
+              "name": "Salmo salar",
+              "value": 50
+            },
+            {
+              "name": "Cyprinus carpio carpio",
+              "value": 50
+            },
+            {
+              "name": "Oncorhynchus mykiss",
+              "value": 62
+            },
+            {
+              "name": "Equus caballus",
+              "value": 9
+            },
+            {
+              "name": "Dicentrarchus labrax",
+              "value": 39
+            }
+          ],
+          "breedSummaryFAANGOnly": [
+            {
+              "speciesName": "Sus scrofa",
+              "speciesValue": [
+                {
+                  "breedsName": "German Landrace",
+                  "breedsValue": 16
+                },
+                {
+                  "breedsName": "Pietrain",
+                  "breedsValue": 17
+                },
+                {
+                  "breedsName": "White Composite sire x Meishan dam",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "Large White",
+                  "breedsValue": 133
+                },
+                {
+                  "breedsName": "Pig crossbreed",
+                  "breedsValue": 24
+                },
+                {
+                  "breedsName": "Large white sire x Landrace dam",
+                  "breedsValue": 64
+                },
+                {
+                  "breedsName": "Yorkshire",
+                  "breedsValue": 2
+                },
+                {
+                  "breedsName": "Large white",
+                  "breedsValue": 48
+                },
+                {
+                  "breedsName": "Duroc",
+                  "breedsValue": 9
+                },
+                {
+                  "breedsName": "Meishan",
+                  "breedsValue": 25
+                },
+                {
+                  "breedsName": "TN60",
+                  "breedsValue": 50
+                },
+                {
+                  "breedsName": "TN70",
+                  "breedsValue": 110
+                },
+                {
+                  "breedsName": "pig breed",
+                  "breedsValue": 1
+                },
+                {
+                  "breedsName": "Landrace,Large White",
+                  "breedsValue": 3
+                },
+                {
+                  "breedsName": "Yorkshire sire x Landrace dam",
+                  "breedsValue": 3
+                },
+                {
+                  "breedsName": "Meishan sire x White Composite dam",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "White Composite",
+                  "breedsValue": 3
+                }
+              ]
+            },
+            {
+              "speciesName": "Bos taurus",
+              "speciesValue": [
+                {
+                  "breedsName": "Cattle crossbreed",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "Holstein",
+                  "breedsValue": 32
+                },
+                {
+                  "breedsName": "Angus",
+                  "breedsValue": 116
+                },
+                {
+                  "breedsName": "Norwegian Red",
+                  "breedsValue": 12
+                },
+                {
+                  "breedsName": "Hereford (Line 1)",
+                  "breedsValue": 4
+                },
+                {
+                  "breedsName": "Hereford",
+                  "breedsValue": 8
+                }
+              ]
+            },
+            {
+              "speciesName": "Gallus gallus",
+              "speciesValue": [
+                {
+                  "breedsName": "White Leghorn line 6x White Leghorn line 7",
+                  "breedsValue": 4
+                },
+                {
+                  "breedsName": "chicken breed",
+                  "breedsValue": 230
+                },
+                {
+                  "breedsName": "Chicken crossbreed",
+                  "breedsValue": 44
+                },
+                {
+                  "breedsName": "White Leghorn",
+                  "breedsValue": 12
+                },
+                {
+                  "breedsName": "Fayoumi",
+                  "breedsValue": 8
+                }
+              ]
+            },
+            {
+              "speciesName": "Bos indicus",
+              "speciesValue": [
+                {
+                  "breedsName": "Brahman",
+                  "breedsValue": 41
+                },
+                {
+                  "breedsName": "Nellore",
+                  "breedsValue": 26
+                }
+              ]
+            },
+            {
+              "speciesName": "Ovis aries",
+              "speciesValue": [
+                {
+                  "breedsName": "Spanish Assaf",
+                  "breedsValue": 4
+                },
+                {
+                  "breedsName": "Spanish Churra",
+                  "breedsValue": 16
+                },
+                {
+                  "breedsName": "Texel sire x Scottish Blackface dam",
+                  "breedsValue": 35
+                },
+                {
+                  "breedsName": "Scottish Blackface",
+                  "breedsValue": 15
+                },
+                {
+                  "breedsName": "Targhee x Polypay",
+                  "breedsValue": 1
+                },
+                {
+                  "breedsName": "Texel",
+                  "breedsValue": 7
+                },
+                {
+                  "breedsName": "Texel sire x (Texel sire x Scottish Blackface dam) dam",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "Rambouillet",
+                  "breedsValue": 1
+                },
+                {
+                  "breedsName": "sheep crossbreed",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "Suffolk",
+                  "breedsValue": 1
+                }
+              ]
+            },
+            {
+              "speciesName": "Bubalus bubalis",
+              "speciesValue": [
+                {
+                  "breedsName": "Mediterranean",
+                  "breedsValue": 6
+                },
+                {
+                  "breedsName": "Jafarabadi",
+                  "breedsValue": 1
+                },
+                {
+                  "breedsName": "Pandharpuri",
+                  "breedsValue": 5
+                },
+                {
+                  "breedsName": "Bhadawari",
+                  "breedsValue": 1
+                }
+              ]
+            },
+            {
+              "speciesName": "Capra hircus",
+              "speciesValue": [
+                {
+                  "breedsName": "Goat crossbreed",
+                  "breedsValue": 7
+                },
+                {
+                  "breedsName": "Alpine",
+                  "breedsValue": 4
+                }
+              ]
+            },
+            {
+              "speciesName": "Scophthalmus maximus",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 38
+                }
+              ]
+            },
+            {
+              "speciesName": "gallus gallus",
+              "speciesValue": [
+                {
+                  "breedsName": "Chicken crossbreed",
+                  "breedsValue": 16
+                }
+              ]
+            },
+            {
+              "speciesName": "Salmo salar",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 50
+                }
+              ]
+            },
+            {
+              "speciesName": "Cyprinus carpio carpio",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 50
+                }
+              ]
+            },
+            {
+              "speciesName": "Oncorhynchus mykiss",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 38
+                },
+                {
+                  "breedsName": "INRA Synthetic Stock",
+                  "breedsValue": 24
+                }
+              ]
+            },
+            {
+              "speciesName": "Equus caballus",
+              "speciesValue": [
+                {
+                  "breedsName": "Thoroughbred",
+                  "breedsValue": 9
+                }
+              ]
+            },
+            {
+              "speciesName": "Dicentrarchus labrax",
+              "speciesValue": [
+                {
+                  "breedsName": "not applicable",
+                  "breedsValue": 39
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,2698 @@
+{
+  "took": 10,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "dataset",
+        "_type": "_doc",
+        "_id": "PRJEB28219",
+        "_score": 1,
+        "_source": {
+          "accession": "PRJEB28219",
+          "alias": "BBM1_smRNAseq",
+          "title": "Bovine small and micro RNA expression atlas",
+          "secondaryAccession": "ERP110396",
+          "standardMet": "FAANG",
+          "specimen": [
+            {
+              "biosampleId": "SAMEA4675134",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "skin of body",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002097"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675135",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "adrenal tissue",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0018303"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675137",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "lung",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002048"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675138",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "thymus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002370"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675139",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "tongue",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001723"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675140",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "ovary",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000992"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675141",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "brain",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000955"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675142",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "kidney",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002113"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675143",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "liver",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675144",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "lymph node",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000029"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675145",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "spleen",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002106"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675146",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "semimembranosus muscle",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001381"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675148",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "thyroid gland",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002046"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675150",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "mammary gland",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001911"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675151",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "heart",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000948"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675152",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "skin of body",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002097"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            },
+            {
+              "biosampleId": "SAMEA4675153",
+              "material": {
+                "text": "specimen from organism",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+              },
+              "cellType": {
+                "text": "cerebellum",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002037"
+              },
+              "organism": {
+                "text": "Bos taurus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+              },
+              "sex": {
+                "text": "female",
+                "ontologyTerms": "PATO_0000383"
+              },
+              "breed": {
+                "text": "Holstein",
+                "ontologyTerms": "LBO_0000132"
+              }
+            }
+          ],
+          "species": [
+            {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            }
+          ],
+          "file": [
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736729/ERR2736729_1.fastq.gz",
+              "name": "ERR2736729_1.fastq.gz",
+              "fileId": "ERR2736729_1",
+              "experiment": "ERX2749814",
+              "type": "fastq",
+              "size": "728210081",
+              "readableSize": "694.48MB",
+              "archive": "ENA",
+              "baseCount": "4649377600",
+              "readCount": "23246888",
+              "checksum": "f311b6e5655c20115b5c2e7483ebf0f6",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736729/ERR2736729_2.fastq.gz",
+              "name": "ERR2736729_2.fastq.gz",
+              "fileId": "ERR2736729_2",
+              "experiment": "ERX2749814",
+              "type": "fastq",
+              "size": "824027154",
+              "readableSize": "785.85MB",
+              "archive": "ENA",
+              "baseCount": "4649377600",
+              "readCount": "23246888",
+              "checksum": "3efc70ca5d1088c07f3ab0d0150d2753",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736730/ERR2736730_1.fastq.gz",
+              "name": "ERR2736730_1.fastq.gz",
+              "fileId": "ERR2736730_1",
+              "experiment": "ERX2749815",
+              "type": "fastq",
+              "size": "455295847",
+              "readableSize": "434.2MB",
+              "archive": "ENA",
+              "baseCount": "2439753600",
+              "readCount": "12198768",
+              "checksum": "ee386e3494e8b0de66491b48b401b56a",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736730/ERR2736730_2.fastq.gz",
+              "name": "ERR2736730_2.fastq.gz",
+              "fileId": "ERR2736730_2",
+              "experiment": "ERX2749815",
+              "type": "fastq",
+              "size": "431800923",
+              "readableSize": "411.8MB",
+              "archive": "ENA",
+              "baseCount": "2439753600",
+              "readCount": "12198768",
+              "checksum": "e46ff3b1c598bfacf19b6419c409f421",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736731/ERR2736731_1.fastq.gz",
+              "name": "ERR2736731_1.fastq.gz",
+              "fileId": "ERR2736731_1",
+              "experiment": "ERX2749836",
+              "type": "fastq",
+              "size": "684925024",
+              "readableSize": "653.2MB",
+              "archive": "ENA",
+              "baseCount": "4312781600",
+              "readCount": "21563908",
+              "checksum": "8e5d3a20fcffe21101f64265c00675e3",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736731/ERR2736731_2.fastq.gz",
+              "name": "ERR2736731_2.fastq.gz",
+              "fileId": "ERR2736731_2",
+              "experiment": "ERX2749836",
+              "type": "fastq",
+              "size": "777305929",
+              "readableSize": "741.3MB",
+              "archive": "ENA",
+              "baseCount": "4312781600",
+              "readCount": "21563908",
+              "checksum": "b1680ad78a407732b065661f0aa854c1",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736732/ERR2736732_1.fastq.gz",
+              "name": "ERR2736732_1.fastq.gz",
+              "fileId": "ERR2736732_1",
+              "experiment": "ERX2749837",
+              "type": "fastq",
+              "size": "418077471",
+              "readableSize": "398.71MB",
+              "archive": "ENA",
+              "baseCount": "2602528200",
+              "readCount": "13012641",
+              "checksum": "d2dcd7a35ad5985edf7d7bdad144eebc",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736732/ERR2736732_2.fastq.gz",
+              "name": "ERR2736732_2.fastq.gz",
+              "fileId": "ERR2736732_2",
+              "experiment": "ERX2749837",
+              "type": "fastq",
+              "size": "476398158",
+              "readableSize": "454.33MB",
+              "archive": "ENA",
+              "baseCount": "2602528200",
+              "readCount": "13012641",
+              "checksum": "6af41efbc1720b0e7d6941fb7e4bffa0",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736733/ERR2736733_1.fastq.gz",
+              "name": "ERR2736733_1.fastq.gz",
+              "fileId": "ERR2736733_1",
+              "experiment": "ERX2749828",
+              "type": "fastq",
+              "size": "380261709",
+              "readableSize": "362.65MB",
+              "archive": "ENA",
+              "baseCount": "2448049600",
+              "readCount": "12240248",
+              "checksum": "78c902afce994a576d56c90b78645bc9",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736733/ERR2736733_2.fastq.gz",
+              "name": "ERR2736733_2.fastq.gz",
+              "fileId": "ERR2736733_2",
+              "experiment": "ERX2749828",
+              "type": "fastq",
+              "size": "451674771",
+              "readableSize": "430.75MB",
+              "archive": "ENA",
+              "baseCount": "2448049600",
+              "readCount": "12240248",
+              "checksum": "213082a65afc41a211ef3c5c1688ecb0",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736734/ERR2736734_1.fastq.gz",
+              "name": "ERR2736734_1.fastq.gz",
+              "fileId": "ERR2736734_1",
+              "experiment": "ERX2749829",
+              "type": "fastq",
+              "size": "262728534",
+              "readableSize": "250.56MB",
+              "archive": "ENA",
+              "baseCount": "1841829000",
+              "readCount": "9209145",
+              "checksum": "5b6908fa4d38deeb1ef6a284873b2000",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736734/ERR2736734_2.fastq.gz",
+              "name": "ERR2736734_2.fastq.gz",
+              "fileId": "ERR2736734_2",
+              "experiment": "ERX2749829",
+              "type": "fastq",
+              "size": "307246509",
+              "readableSize": "293.01MB",
+              "archive": "ENA",
+              "baseCount": "1841829000",
+              "readCount": "9209145",
+              "checksum": "bf5f06fb56083b8276dbce0ee03a0308",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736735/ERR2736735_1.fastq.gz",
+              "name": "ERR2736735_1.fastq.gz",
+              "fileId": "ERR2736735_1",
+              "experiment": "ERX2749816",
+              "type": "fastq",
+              "size": "340654542",
+              "readableSize": "324.87MB",
+              "archive": "ENA",
+              "baseCount": "2273195800",
+              "readCount": "11365979",
+              "checksum": "5c31e31b69d2e51a891afb1166c838f3",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736735/ERR2736735_2.fastq.gz",
+              "name": "ERR2736735_2.fastq.gz",
+              "fileId": "ERR2736735_2",
+              "experiment": "ERX2749816",
+              "type": "fastq",
+              "size": "387638151",
+              "readableSize": "369.68MB",
+              "archive": "ENA",
+              "baseCount": "2273195800",
+              "readCount": "11365979",
+              "checksum": "45083ec06c445b22d2bc453b78273f37",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736736/ERR2736736_1.fastq.gz",
+              "name": "ERR2736736_1.fastq.gz",
+              "fileId": "ERR2736736_1",
+              "experiment": "ERX2749817",
+              "type": "fastq",
+              "size": "298062550",
+              "readableSize": "284.25MB",
+              "archive": "ENA",
+              "baseCount": "2110018800",
+              "readCount": "10550094",
+              "checksum": "02f1aa1d693095d18a40950980387cf0",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736736/ERR2736736_2.fastq.gz",
+              "name": "ERR2736736_2.fastq.gz",
+              "fileId": "ERR2736736_2",
+              "experiment": "ERX2749817",
+              "type": "fastq",
+              "size": "360277822",
+              "readableSize": "343.59MB",
+              "archive": "ENA",
+              "baseCount": "2110018800",
+              "readCount": "10550094",
+              "checksum": "2b0441e5655ceebb4e39e293b6c29fe2",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736737/ERR2736737_1.fastq.gz",
+              "name": "ERR2736737_1.fastq.gz",
+              "fileId": "ERR2736737_1",
+              "experiment": "ERX2749818",
+              "type": "fastq",
+              "size": "623076469",
+              "readableSize": "594.21MB",
+              "archive": "ENA",
+              "baseCount": "3870830400",
+              "readCount": "19354152",
+              "checksum": "84e9cee343c885c6683c13e09e0322e1",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736737/ERR2736737_2.fastq.gz",
+              "name": "ERR2736737_2.fastq.gz",
+              "fileId": "ERR2736737_2",
+              "experiment": "ERX2749818",
+              "type": "fastq",
+              "size": "714973608",
+              "readableSize": "681.85MB",
+              "archive": "ENA",
+              "baseCount": "3870830400",
+              "readCount": "19354152",
+              "checksum": "067ac8b2dce81cd4215c8e66b78f1356",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736738/ERR2736738_1.fastq.gz",
+              "name": "ERR2736738_1.fastq.gz",
+              "fileId": "ERR2736738_1",
+              "experiment": "ERX2749819",
+              "type": "fastq",
+              "size": "292496141",
+              "readableSize": "278.95MB",
+              "archive": "ENA",
+              "baseCount": "1946755600",
+              "readCount": "9733778",
+              "checksum": "80a3077d59153c55954ce8516cfcef8b",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736738/ERR2736738_2.fastq.gz",
+              "name": "ERR2736738_2.fastq.gz",
+              "fileId": "ERR2736738_2",
+              "experiment": "ERX2749819",
+              "type": "fastq",
+              "size": "334126744",
+              "readableSize": "318.65MB",
+              "archive": "ENA",
+              "baseCount": "1946755600",
+              "readCount": "9733778",
+              "checksum": "e0f388e0c2f7c8608b575f72b8924087",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736739/ERR2736739_1.fastq.gz",
+              "name": "ERR2736739_1.fastq.gz",
+              "fileId": "ERR2736739_1",
+              "experiment": "ERX2749820",
+              "type": "fastq",
+              "size": "395644172",
+              "readableSize": "377.32MB",
+              "archive": "ENA",
+              "baseCount": "2535634600",
+              "readCount": "12678173",
+              "checksum": "645ae593155f5f3b6a2049541afd163a",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736739/ERR2736739_2.fastq.gz",
+              "name": "ERR2736739_2.fastq.gz",
+              "fileId": "ERR2736739_2",
+              "experiment": "ERX2749820",
+              "type": "fastq",
+              "size": "472704469",
+              "readableSize": "450.81MB",
+              "archive": "ENA",
+              "baseCount": "2535634600",
+              "readCount": "12678173",
+              "checksum": "7b49bb61771e5c386967c12ccff012cc",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736740/ERR2736740_1.fastq.gz",
+              "name": "ERR2736740_1.fastq.gz",
+              "fileId": "ERR2736740_1",
+              "experiment": "ERX2749821",
+              "type": "fastq",
+              "size": "410717971",
+              "readableSize": "391.69MB",
+              "archive": "ENA",
+              "baseCount": "2796617400",
+              "readCount": "13983087",
+              "checksum": "977b250ffb32ad2c1cacf30e1192a920",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736740/ERR2736740_2.fastq.gz",
+              "name": "ERR2736740_2.fastq.gz",
+              "fileId": "ERR2736740_2",
+              "experiment": "ERX2749821",
+              "type": "fastq",
+              "size": "498837712",
+              "readableSize": "475.73MB",
+              "archive": "ENA",
+              "baseCount": "2796617400",
+              "readCount": "13983087",
+              "checksum": "0cc151ed9c98dbfb05048b3fac23a0cd",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736741/ERR2736741_1.fastq.gz",
+              "name": "ERR2736741_1.fastq.gz",
+              "fileId": "ERR2736741_1",
+              "experiment": "ERX2749822",
+              "type": "fastq",
+              "size": "213163673",
+              "readableSize": "203.29MB",
+              "archive": "ENA",
+              "baseCount": "1316271600",
+              "readCount": "6581358",
+              "checksum": "dfe1d8ec62518d64396ffe29e5847ef8",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736741/ERR2736741_2.fastq.gz",
+              "name": "ERR2736741_2.fastq.gz",
+              "fileId": "ERR2736741_2",
+              "experiment": "ERX2749822",
+              "type": "fastq",
+              "size": "255308664",
+              "readableSize": "243.48MB",
+              "archive": "ENA",
+              "baseCount": "1316271600",
+              "readCount": "6581358",
+              "checksum": "321a20e8517d49b4ce81fa035607a972",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736742/ERR2736742_1.fastq.gz",
+              "name": "ERR2736742_1.fastq.gz",
+              "fileId": "ERR2736742_1",
+              "experiment": "ERX2749823",
+              "type": "fastq",
+              "size": "293418795",
+              "readableSize": "279.83MB",
+              "archive": "ENA",
+              "baseCount": "1458345000",
+              "readCount": "7291725",
+              "checksum": "101c4865c9fbcb403221faccff7a93eb",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736742/ERR2736742_2.fastq.gz",
+              "name": "ERR2736742_2.fastq.gz",
+              "fileId": "ERR2736742_2",
+              "experiment": "ERX2749823",
+              "type": "fastq",
+              "size": "278706559",
+              "readableSize": "265.8MB",
+              "archive": "ENA",
+              "baseCount": "1458345000",
+              "readCount": "7291725",
+              "checksum": "0234c73d7f294002d38d9af9d62633f8",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736743/ERR2736743_1.fastq.gz",
+              "name": "ERR2736743_1.fastq.gz",
+              "fileId": "ERR2736743_1",
+              "experiment": "ERX2749824",
+              "type": "fastq",
+              "size": "413158037",
+              "readableSize": "394.02MB",
+              "archive": "ENA",
+              "baseCount": "2708280600",
+              "readCount": "13541403",
+              "checksum": "692aae4669e122093984ac34a9fa4611",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736743/ERR2736743_2.fastq.gz",
+              "name": "ERR2736743_2.fastq.gz",
+              "fileId": "ERR2736743_2",
+              "experiment": "ERX2749824",
+              "type": "fastq",
+              "size": "476327446",
+              "readableSize": "454.26MB",
+              "archive": "ENA",
+              "baseCount": "2708280600",
+              "readCount": "13541403",
+              "checksum": "f985bfd2ba56d9b4f65f1c947c75d21f",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736744/ERR2736744_1.fastq.gz",
+              "name": "ERR2736744_1.fastq.gz",
+              "fileId": "ERR2736744_1",
+              "experiment": "ERX2749825",
+              "type": "fastq",
+              "size": "296762575",
+              "readableSize": "283.01MB",
+              "archive": "ENA",
+              "baseCount": "1966185600",
+              "readCount": "9830928",
+              "checksum": "8afbb542793a7d02e2531228bac67a1a",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736744/ERR2736744_2.fastq.gz",
+              "name": "ERR2736744_2.fastq.gz",
+              "fileId": "ERR2736744_2",
+              "experiment": "ERX2749825",
+              "type": "fastq",
+              "size": "350470860",
+              "readableSize": "334.24MB",
+              "archive": "ENA",
+              "baseCount": "1966185600",
+              "readCount": "9830928",
+              "checksum": "6e4fb86345f7bdf77e4e656612c0560b",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736745/ERR2736745_1.fastq.gz",
+              "name": "ERR2736745_1.fastq.gz",
+              "fileId": "ERR2736745_1",
+              "experiment": "ERX2749830",
+              "type": "fastq",
+              "size": "261456529",
+              "readableSize": "249.34MB",
+              "archive": "ENA",
+              "baseCount": "1677575600",
+              "readCount": "8387878",
+              "checksum": "b8e3906c0d4a0179dc7ea8465aae019a",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736745/ERR2736745_2.fastq.gz",
+              "name": "ERR2736745_2.fastq.gz",
+              "fileId": "ERR2736745_2",
+              "experiment": "ERX2749830",
+              "type": "fastq",
+              "size": "298000491",
+              "readableSize": "284.2MB",
+              "archive": "ENA",
+              "baseCount": "1677575600",
+              "readCount": "8387878",
+              "checksum": "f30bd9a065540aa1ed54f5d409e448e5",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736746/ERR2736746_1.fastq.gz",
+              "name": "ERR2736746_1.fastq.gz",
+              "fileId": "ERR2736746_1",
+              "experiment": "ERX2749831",
+              "type": "fastq",
+              "size": "263483040",
+              "readableSize": "251.28MB",
+              "archive": "ENA",
+              "baseCount": "1736125600",
+              "readCount": "8680628",
+              "checksum": "94e7b41a5d9eeda16d6b8064b2332491",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736746/ERR2736746_2.fastq.gz",
+              "name": "ERR2736746_2.fastq.gz",
+              "fileId": "ERR2736746_2",
+              "experiment": "ERX2749831",
+              "type": "fastq",
+              "size": "318516626",
+              "readableSize": "303.76MB",
+              "archive": "ENA",
+              "baseCount": "1736125600",
+              "readCount": "8680628",
+              "checksum": "c0fce8c5622396aed745478eeb624aa3",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736747/ERR2736747_1.fastq.gz",
+              "name": "ERR2736747_1.fastq.gz",
+              "fileId": "ERR2736747_1",
+              "experiment": "ERX2749826",
+              "type": "fastq",
+              "size": "535448282",
+              "readableSize": "510.64MB",
+              "archive": "ENA",
+              "baseCount": "3375826800",
+              "readCount": "16879134",
+              "checksum": "9605b702ebe800c16cd6a6ff51deadf3",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736747/ERR2736747_2.fastq.gz",
+              "name": "ERR2736747_2.fastq.gz",
+              "fileId": "ERR2736747_2",
+              "experiment": "ERX2749826",
+              "type": "fastq",
+              "size": "611790262",
+              "readableSize": "583.45MB",
+              "archive": "ENA",
+              "baseCount": "3375826800",
+              "readCount": "16879134",
+              "checksum": "fa08a4e3a09111cc6c2bbf3a76e0ca17",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736748/ERR2736748_1.fastq.gz",
+              "name": "ERR2736748_1.fastq.gz",
+              "fileId": "ERR2736748_1",
+              "experiment": "ERX2749827",
+              "type": "fastq",
+              "size": "341612470",
+              "readableSize": "325.79MB",
+              "archive": "ENA",
+              "baseCount": "2424552600",
+              "readCount": "12122763",
+              "checksum": "9d245bfe4213f0ab80e6d19e386a0d4d",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736748/ERR2736748_2.fastq.gz",
+              "name": "ERR2736748_2.fastq.gz",
+              "fileId": "ERR2736748_2",
+              "experiment": "ERX2749827",
+              "type": "fastq",
+              "size": "415377072",
+              "readableSize": "396.13MB",
+              "archive": "ENA",
+              "baseCount": "2424552600",
+              "readCount": "12122763",
+              "checksum": "3d88ab56067008f8596faaf36e99de09",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736749/ERR2736749_1.fastq.gz",
+              "name": "ERR2736749_1.fastq.gz",
+              "fileId": "ERR2736749_1",
+              "experiment": "ERX2749832",
+              "type": "fastq",
+              "size": "270293683",
+              "readableSize": "257.77MB",
+              "archive": "ENA",
+              "baseCount": "1629924400",
+              "readCount": "8149622",
+              "checksum": "ed3247b0381f2a76bb9f0973c35c43fb",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736749/ERR2736749_2.fastq.gz",
+              "name": "ERR2736749_2.fastq.gz",
+              "fileId": "ERR2736749_2",
+              "experiment": "ERX2749832",
+              "type": "fastq",
+              "size": "280883610",
+              "readableSize": "267.87MB",
+              "archive": "ENA",
+              "baseCount": "1629924400",
+              "readCount": "8149622",
+              "checksum": "5b0378904715877bf3af4ce0ef74db0f",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736750/ERR2736750_1.fastq.gz",
+              "name": "ERR2736750_1.fastq.gz",
+              "fileId": "ERR2736750_1",
+              "experiment": "ERX2749833",
+              "type": "fastq",
+              "size": "425397712",
+              "readableSize": "405.69MB",
+              "archive": "ENA",
+              "baseCount": "2928886400",
+              "readCount": "14644432",
+              "checksum": "bfb05153b29a84d1ce6ab3a7e7468364",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736750/ERR2736750_2.fastq.gz",
+              "name": "ERR2736750_2.fastq.gz",
+              "fileId": "ERR2736750_2",
+              "experiment": "ERX2749833",
+              "type": "fastq",
+              "size": "497341048",
+              "readableSize": "474.3MB",
+              "archive": "ENA",
+              "baseCount": "2928886400",
+              "readCount": "14644432",
+              "checksum": "25935ce45c667eb63b4d46e4d90303dd",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736751/ERR2736751_1.fastq.gz",
+              "name": "ERR2736751_1.fastq.gz",
+              "fileId": "ERR2736751_1",
+              "experiment": "ERX2749834",
+              "type": "fastq",
+              "size": "361938803",
+              "readableSize": "345.17MB",
+              "archive": "ENA",
+              "baseCount": "2450576800",
+              "readCount": "12252884",
+              "checksum": "b3af08b99a72682de28764ba81d3af2b",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736751/ERR2736751_2.fastq.gz",
+              "name": "ERR2736751_2.fastq.gz",
+              "fileId": "ERR2736751_2",
+              "experiment": "ERX2749834",
+              "type": "fastq",
+              "size": "440770580",
+              "readableSize": "420.35MB",
+              "archive": "ENA",
+              "baseCount": "2450576800",
+              "readCount": "12252884",
+              "checksum": "94466819fa3dc30b9216b1103d5190a4",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736752/ERR2736752_1.fastq.gz",
+              "name": "ERR2736752_1.fastq.gz",
+              "fileId": "ERR2736752_1",
+              "experiment": "ERX2749835",
+              "type": "fastq",
+              "size": "413273429",
+              "readableSize": "394.13MB",
+              "archive": "ENA",
+              "baseCount": "2609087400",
+              "readCount": "13045437",
+              "checksum": "e4b45bd2bf806da87514b59c3f3fa113",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736752/ERR2736752_2.fastq.gz",
+              "name": "ERR2736752_2.fastq.gz",
+              "fileId": "ERR2736752_2",
+              "experiment": "ERX2749835",
+              "type": "fastq",
+              "size": "469590446",
+              "readableSize": "447.84MB",
+              "archive": "ENA",
+              "baseCount": "2609087400",
+              "readCount": "13045437",
+              "checksum": "dc619cf710729f059e7beb3bca9444cc",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736753/ERR2736753_1.fastq.gz",
+              "name": "ERR2736753_1.fastq.gz",
+              "fileId": "ERR2736753_1",
+              "experiment": "ERX2749838",
+              "type": "fastq",
+              "size": "226634011",
+              "readableSize": "216.14MB",
+              "archive": "ENA",
+              "baseCount": "1483726600",
+              "readCount": "7418633",
+              "checksum": "1feb883967a6f92506d9e7400943e9e7",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736753/ERR2736753_2.fastq.gz",
+              "name": "ERR2736753_2.fastq.gz",
+              "fileId": "ERR2736753_2",
+              "experiment": "ERX2749838",
+              "type": "fastq",
+              "size": "271668105",
+              "readableSize": "259.08MB",
+              "archive": "ENA",
+              "baseCount": "1483726600",
+              "readCount": "7418633",
+              "checksum": "922301296690bcb95b907d50586031dc",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736754/ERR2736754_1.fastq.gz",
+              "name": "ERR2736754_1.fastq.gz",
+              "fileId": "ERR2736754_1",
+              "experiment": "ERX2749839",
+              "type": "fastq",
+              "size": "326717122",
+              "readableSize": "311.58MB",
+              "archive": "ENA",
+              "baseCount": "2081346200",
+              "readCount": "10406731",
+              "checksum": "24d7e391b00c865676b1e9b497174ee4",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736754/ERR2736754_2.fastq.gz",
+              "name": "ERR2736754_2.fastq.gz",
+              "fileId": "ERR2736754_2",
+              "experiment": "ERX2749839",
+              "type": "fastq",
+              "size": "388176488",
+              "readableSize": "370.19MB",
+              "archive": "ENA",
+              "baseCount": "2081346200",
+              "readCount": "10406731",
+              "checksum": "ee2383910519b0318b47999e43a5552f",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736755/ERR2736755_1.fastq.gz",
+              "name": "ERR2736755_1.fastq.gz",
+              "fileId": "ERR2736755_1",
+              "experiment": "ERX2749842",
+              "type": "fastq",
+              "size": "319311869",
+              "readableSize": "304.52MB",
+              "archive": "ENA",
+              "baseCount": "2002305000",
+              "readCount": "10011525",
+              "checksum": "7578d0d42bb6320f50b76dfc660f208f",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736755/ERR2736755_2.fastq.gz",
+              "name": "ERR2736755_2.fastq.gz",
+              "fileId": "ERR2736755_2",
+              "experiment": "ERX2749842",
+              "type": "fastq",
+              "size": "376713022",
+              "readableSize": "359.26MB",
+              "archive": "ENA",
+              "baseCount": "2002305000",
+              "readCount": "10011525",
+              "checksum": "155ca094f6be59e068a2f7b92b37bb54",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736756/ERR2736756_1.fastq.gz",
+              "name": "ERR2736756_1.fastq.gz",
+              "fileId": "ERR2736756_1",
+              "experiment": "ERX2749843",
+              "type": "fastq",
+              "size": "376360737",
+              "readableSize": "358.93MB",
+              "archive": "ENA",
+              "baseCount": "2784916800",
+              "readCount": "13924584",
+              "checksum": "ccba2be98ba3c170087c606ed3d12977",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736756/ERR2736756_2.fastq.gz",
+              "name": "ERR2736756_2.fastq.gz",
+              "fileId": "ERR2736756_2",
+              "experiment": "ERX2749843",
+              "type": "fastq",
+              "size": "456049241",
+              "readableSize": "434.92MB",
+              "archive": "ENA",
+              "baseCount": "2784916800",
+              "readCount": "13924584",
+              "checksum": "560b47f7cb22d4a0d99ac2bad1880880",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736757/ERR2736757_1.fastq.gz",
+              "name": "ERR2736757_1.fastq.gz",
+              "fileId": "ERR2736757_1",
+              "experiment": "ERX2749844",
+              "type": "fastq",
+              "size": "623843686",
+              "readableSize": "594.94MB",
+              "archive": "ENA",
+              "baseCount": "4000779600",
+              "readCount": "20003898",
+              "checksum": "d223f209380ce4432a74ab560cdda0df",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736757/ERR2736757_2.fastq.gz",
+              "name": "ERR2736757_2.fastq.gz",
+              "fileId": "ERR2736757_2",
+              "experiment": "ERX2749844",
+              "type": "fastq",
+              "size": "738853710",
+              "readableSize": "704.63MB",
+              "archive": "ENA",
+              "baseCount": "4000779600",
+              "readCount": "20003898",
+              "checksum": "f2aa5a0f629511c7abeb5e2ca93de749",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736758/ERR2736758_1.fastq.gz",
+              "name": "ERR2736758_1.fastq.gz",
+              "fileId": "ERR2736758_1",
+              "experiment": "ERX2749845",
+              "type": "fastq",
+              "size": "360458683",
+              "readableSize": "343.76MB",
+              "archive": "ENA",
+              "baseCount": "2378072400",
+              "readCount": "11890362",
+              "checksum": "6eda7231b257af04a26d693816acae3d",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736758/ERR2736758_2.fastq.gz",
+              "name": "ERR2736758_2.fastq.gz",
+              "fileId": "ERR2736758_2",
+              "experiment": "ERX2749845",
+              "type": "fastq",
+              "size": "420110933",
+              "readableSize": "400.65MB",
+              "archive": "ENA",
+              "baseCount": "2378072400",
+              "readCount": "11890362",
+              "checksum": "842a8fe3c841d679699d58b730f01edf",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736759/ERR2736759_1.fastq.gz",
+              "name": "ERR2736759_1.fastq.gz",
+              "fileId": "ERR2736759_1",
+              "experiment": "ERX2749846",
+              "type": "fastq",
+              "size": "284290735",
+              "readableSize": "271.12MB",
+              "archive": "ENA",
+              "baseCount": "1941558200",
+              "readCount": "9707791",
+              "checksum": "703f64fd7a6fa97541a1874cbf13cc4d",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736759/ERR2736759_2.fastq.gz",
+              "name": "ERR2736759_2.fastq.gz",
+              "fileId": "ERR2736759_2",
+              "experiment": "ERX2749846",
+              "type": "fastq",
+              "size": "337321356",
+              "readableSize": "321.69MB",
+              "archive": "ENA",
+              "baseCount": "1941558200",
+              "readCount": "9707791",
+              "checksum": "6e1a7203cdc7063f4d800db513bb9819",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736760/ERR2736760_1.fastq.gz",
+              "name": "ERR2736760_1.fastq.gz",
+              "fileId": "ERR2736760_1",
+              "experiment": "ERX2749847",
+              "type": "fastq",
+              "size": "198643735",
+              "readableSize": "189.44MB",
+              "archive": "ENA",
+              "baseCount": "1302892000",
+              "readCount": "6514460",
+              "checksum": "e574fcacb3ebc5ec1768d1e332dfec71",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736760/ERR2736760_2.fastq.gz",
+              "name": "ERR2736760_2.fastq.gz",
+              "fileId": "ERR2736760_2",
+              "experiment": "ERX2749847",
+              "type": "fastq",
+              "size": "227999816",
+              "readableSize": "217.44MB",
+              "archive": "ENA",
+              "baseCount": "1302892000",
+              "readCount": "6514460",
+              "checksum": "727e21b6a6b24e5bf0d8437cf638ebc9",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736761/ERR2736761_1.fastq.gz",
+              "name": "ERR2736761_1.fastq.gz",
+              "fileId": "ERR2736761_1",
+              "experiment": "ERX2749840",
+              "type": "fastq",
+              "size": "226289943",
+              "readableSize": "215.81MB",
+              "archive": "ENA",
+              "baseCount": "1338096000",
+              "readCount": "6690480",
+              "checksum": "d6cb8fdf33f42d515b45087aa756d058",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736761/ERR2736761_2.fastq.gz",
+              "name": "ERR2736761_2.fastq.gz",
+              "fileId": "ERR2736761_2",
+              "experiment": "ERX2749840",
+              "type": "fastq",
+              "size": "263596339",
+              "readableSize": "251.39MB",
+              "archive": "ENA",
+              "baseCount": "1338096000",
+              "readCount": "6690480",
+              "checksum": "4c2a4b148d9f00a90dd760dc7fe0ff35",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736762/ERR2736762_1.fastq.gz",
+              "name": "ERR2736762_1.fastq.gz",
+              "fileId": "ERR2736762_1",
+              "experiment": "ERX2749841",
+              "type": "fastq",
+              "size": "251139512",
+              "readableSize": "239.51MB",
+              "archive": "ENA",
+              "baseCount": "1447475600",
+              "readCount": "7237378",
+              "checksum": "1b2ae5056744137a9cb3dc01d02ffbf8",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736762/ERR2736762_2.fastq.gz",
+              "name": "ERR2736762_2.fastq.gz",
+              "fileId": "ERR2736762_2",
+              "experiment": "ERX2749841",
+              "type": "fastq",
+              "size": "288924209",
+              "readableSize": "275.54MB",
+              "archive": "ENA",
+              "baseCount": "1447475600",
+              "readCount": "7237378",
+              "checksum": "1b1e5f48f78b5bbca1532f5843fbc037",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736763/ERR2736763_1.fastq.gz",
+              "name": "ERR2736763_1.fastq.gz",
+              "fileId": "ERR2736763_1",
+              "experiment": "ERX2749848",
+              "type": "fastq",
+              "size": "353273148",
+              "readableSize": "336.91MB",
+              "archive": "ENA",
+              "baseCount": "1728195100",
+              "readCount": "17281951",
+              "checksum": "7eb292d94b852614d0a5f816b9f2864f",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736763/ERR2736763_2.fastq.gz",
+              "name": "ERR2736763_2.fastq.gz",
+              "fileId": "ERR2736763_2",
+              "experiment": "ERX2749848",
+              "type": "fastq",
+              "size": "378837609",
+              "readableSize": "361.29MB",
+              "archive": "ENA",
+              "baseCount": "1728195100",
+              "readCount": "17281951",
+              "checksum": "9e3411a47c02e8a5b14ca081bc048e49",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736764/ERR2736764_1.fastq.gz",
+              "name": "ERR2736764_1.fastq.gz",
+              "fileId": "ERR2736764_1",
+              "experiment": "ERX2749849",
+              "type": "fastq",
+              "size": "230026222",
+              "readableSize": "219.37MB",
+              "archive": "ENA",
+              "baseCount": "1027993900",
+              "readCount": "10279939",
+              "checksum": "e364d454d48c3cc290d2b2dea04b434b",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736764/ERR2736764_2.fastq.gz",
+              "name": "ERR2736764_2.fastq.gz",
+              "fileId": "ERR2736764_2",
+              "experiment": "ERX2749849",
+              "type": "fastq",
+              "size": "231358252",
+              "readableSize": "220.64MB",
+              "archive": "ENA",
+              "baseCount": "1027993900",
+              "readCount": "10279939",
+              "checksum": "d3c91312fab0c802efa7bbe83032d971",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736765/ERR2736765_1.fastq.gz",
+              "name": "ERR2736765_1.fastq.gz",
+              "fileId": "ERR2736765_1",
+              "experiment": "ERX2749870",
+              "type": "fastq",
+              "size": "282649939",
+              "readableSize": "269.56MB",
+              "archive": "ENA",
+              "baseCount": "1333262200",
+              "readCount": "13332622",
+              "checksum": "4247298faf98e3c60eeaf6ad048b1551",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736765/ERR2736765_2.fastq.gz",
+              "name": "ERR2736765_2.fastq.gz",
+              "fileId": "ERR2736765_2",
+              "experiment": "ERX2749870",
+              "type": "fastq",
+              "size": "302691148",
+              "readableSize": "288.67MB",
+              "archive": "ENA",
+              "baseCount": "1333262200",
+              "readCount": "13332622",
+              "checksum": "2e36526234ba3927d94ba658eb4589b5",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736766/ERR2736766_1.fastq.gz",
+              "name": "ERR2736766_1.fastq.gz",
+              "fileId": "ERR2736766_1",
+              "experiment": "ERX2749871",
+              "type": "fastq",
+              "size": "171848027",
+              "readableSize": "163.89MB",
+              "archive": "ENA",
+              "baseCount": "783058300",
+              "readCount": "7830583",
+              "checksum": "650c2e247a523aa067c0fa60c7f3fb06",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736766/ERR2736766_2.fastq.gz",
+              "name": "ERR2736766_2.fastq.gz",
+              "fileId": "ERR2736766_2",
+              "experiment": "ERX2749871",
+              "type": "fastq",
+              "size": "185047683",
+              "readableSize": "176.48MB",
+              "archive": "ENA",
+              "baseCount": "783058300",
+              "readCount": "7830583",
+              "checksum": "84690dee2b01be9ab994bd3d83b05dd7",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736767/ERR2736767_1.fastq.gz",
+              "name": "ERR2736767_1.fastq.gz",
+              "fileId": "ERR2736767_1",
+              "experiment": "ERX2749862",
+              "type": "fastq",
+              "size": "204171216",
+              "readableSize": "194.71MB",
+              "archive": "ENA",
+              "baseCount": "994990100",
+              "readCount": "9949901",
+              "checksum": "00bec7bc3f12ce16524a8802f4880d63",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736767/ERR2736767_2.fastq.gz",
+              "name": "ERR2736767_2.fastq.gz",
+              "fileId": "ERR2736767_2",
+              "experiment": "ERX2749862",
+              "type": "fastq",
+              "size": "224460273",
+              "readableSize": "214.06MB",
+              "archive": "ENA",
+              "baseCount": "994990100",
+              "readCount": "9949901",
+              "checksum": "8abea4d20cb1e521bfc1dab4a0eee522",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736768/ERR2736768_1.fastq.gz",
+              "name": "ERR2736768_1.fastq.gz",
+              "fileId": "ERR2736768_1",
+              "experiment": "ERX2749863",
+              "type": "fastq",
+              "size": "115099724",
+              "readableSize": "109.77MB",
+              "archive": "ENA",
+              "baseCount": "585735000",
+              "readCount": "5857350",
+              "checksum": "077e2147e71ea07fee77155156bf24c4",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736768/ERR2736768_2.fastq.gz",
+              "name": "ERR2736768_2.fastq.gz",
+              "fileId": "ERR2736768_2",
+              "experiment": "ERX2749863",
+              "type": "fastq",
+              "size": "125623539",
+              "readableSize": "119.8MB",
+              "archive": "ENA",
+              "baseCount": "585735000",
+              "readCount": "5857350",
+              "checksum": "791df861c78ef695cfd528faeac86a8a",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736769/ERR2736769_1.fastq.gz",
+              "name": "ERR2736769_1.fastq.gz",
+              "fileId": "ERR2736769_1",
+              "experiment": "ERX2749850",
+              "type": "fastq",
+              "size": "289718199",
+              "readableSize": "276.3MB",
+              "archive": "ENA",
+              "baseCount": "1519264000",
+              "readCount": "15192640",
+              "checksum": "6874af41a49c237032e0195f8fa9cf2c",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736769/ERR2736769_2.fastq.gz",
+              "name": "ERR2736769_2.fastq.gz",
+              "fileId": "ERR2736769_2",
+              "experiment": "ERX2749850",
+              "type": "fastq",
+              "size": "308716355",
+              "readableSize": "294.41MB",
+              "archive": "ENA",
+              "baseCount": "1519264000",
+              "readCount": "15192640",
+              "checksum": "ebde880cc5cc085b0a50b22546b5ab4e",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736770/ERR2736770_1.fastq.gz",
+              "name": "ERR2736770_1.fastq.gz",
+              "fileId": "ERR2736770_1",
+              "experiment": "ERX2749851",
+              "type": "fastq",
+              "size": "151858353",
+              "readableSize": "144.82MB",
+              "archive": "ENA",
+              "baseCount": "815228900",
+              "readCount": "8152289",
+              "checksum": "948aecb8d670e9b45440744d2a8bed4d",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736770/ERR2736770_2.fastq.gz",
+              "name": "ERR2736770_2.fastq.gz",
+              "fileId": "ERR2736770_2",
+              "experiment": "ERX2749851",
+              "type": "fastq",
+              "size": "167391471",
+              "readableSize": "159.64MB",
+              "archive": "ENA",
+              "baseCount": "815228900",
+              "readCount": "8152289",
+              "checksum": "7e94d17f93d7a84d1fd220b8716a95f4",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736771/ERR2736771_1.fastq.gz",
+              "name": "ERR2736771_1.fastq.gz",
+              "fileId": "ERR2736771_1",
+              "experiment": "ERX2749852",
+              "type": "fastq",
+              "size": "354598565",
+              "readableSize": "338.17MB",
+              "archive": "ENA",
+              "baseCount": "1781580400",
+              "readCount": "17815804",
+              "checksum": "cdfac30ec48ffda2e902d9eff7f61d40",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736771/ERR2736771_2.fastq.gz",
+              "name": "ERR2736771_2.fastq.gz",
+              "fileId": "ERR2736771_2",
+              "experiment": "ERX2749852",
+              "type": "fastq",
+              "size": "391043075",
+              "readableSize": "372.93MB",
+              "archive": "ENA",
+              "baseCount": "1781580400",
+              "readCount": "17815804",
+              "checksum": "27bea6eb851619d91970bfacf70b27b9",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736772/ERR2736772_1.fastq.gz",
+              "name": "ERR2736772_1.fastq.gz",
+              "fileId": "ERR2736772_1",
+              "experiment": "ERX2749853",
+              "type": "fastq",
+              "size": "222891053",
+              "readableSize": "212.57MB",
+              "archive": "ENA",
+              "baseCount": "1216466300",
+              "readCount": "12164663",
+              "checksum": "9fd12c8eabe861b11e9cc8834c041d2d",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736772/ERR2736772_2.fastq.gz",
+              "name": "ERR2736772_2.fastq.gz",
+              "fileId": "ERR2736772_2",
+              "experiment": "ERX2749853",
+              "type": "fastq",
+              "size": "245547068",
+              "readableSize": "234.17MB",
+              "archive": "ENA",
+              "baseCount": "1216466300",
+              "readCount": "12164663",
+              "checksum": "6edb547f429c524000157835e863cc23",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736773/ERR2736773_1.fastq.gz",
+              "name": "ERR2736773_1.fastq.gz",
+              "fileId": "ERR2736773_1",
+              "experiment": "ERX2749854",
+              "type": "fastq",
+              "size": "325415535",
+              "readableSize": "310.34MB",
+              "archive": "ENA",
+              "baseCount": "1609212400",
+              "readCount": "16092124",
+              "checksum": "fccc7531544408a06e7d89c103bb7386",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736773/ERR2736773_2.fastq.gz",
+              "name": "ERR2736773_2.fastq.gz",
+              "fileId": "ERR2736773_2",
+              "experiment": "ERX2749854",
+              "type": "fastq",
+              "size": "367532776",
+              "readableSize": "350.51MB",
+              "archive": "ENA",
+              "baseCount": "1609212400",
+              "readCount": "16092124",
+              "checksum": "904601887cd2d6165440423a6f22b25f",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736774/ERR2736774_1.fastq.gz",
+              "name": "ERR2736774_1.fastq.gz",
+              "fileId": "ERR2736774_1",
+              "experiment": "ERX2749855",
+              "type": "fastq",
+              "size": "228013315",
+              "readableSize": "217.45MB",
+              "archive": "ENA",
+              "baseCount": "1178092200",
+              "readCount": "11780922",
+              "checksum": "87af593271c9bab8e6ed7269070d894c",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736774/ERR2736774_2.fastq.gz",
+              "name": "ERR2736774_2.fastq.gz",
+              "fileId": "ERR2736774_2",
+              "experiment": "ERX2749855",
+              "type": "fastq",
+              "size": "260152062",
+              "readableSize": "248.1MB",
+              "archive": "ENA",
+              "baseCount": "1178092200",
+              "readCount": "11780922",
+              "checksum": "3f5a9cc8d6e07dc0b57c4a317d3a16ec",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736775/ERR2736775_1.fastq.gz",
+              "name": "ERR2736775_1.fastq.gz",
+              "fileId": "ERR2736775_1",
+              "experiment": "ERX2749856",
+              "type": "fastq",
+              "size": "115659181",
+              "readableSize": "110.3MB",
+              "archive": "ENA",
+              "baseCount": "631892200",
+              "readCount": "6318922",
+              "checksum": "628cbc65501f9fd5556abbdfe2e10425",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736775/ERR2736775_2.fastq.gz",
+              "name": "ERR2736775_2.fastq.gz",
+              "fileId": "ERR2736775_2",
+              "experiment": "ERX2749856",
+              "type": "fastq",
+              "size": "137687249",
+              "readableSize": "131.31MB",
+              "archive": "ENA",
+              "baseCount": "631892200",
+              "readCount": "6318922",
+              "checksum": "dfd629018c1ab1798d6833e4f0f4128d",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736776/ERR2736776_1.fastq.gz",
+              "name": "ERR2736776_1.fastq.gz",
+              "fileId": "ERR2736776_1",
+              "experiment": "ERX2749857",
+              "type": "fastq",
+              "size": "160888241",
+              "readableSize": "153.43MB",
+              "archive": "ENA",
+              "baseCount": "732174400",
+              "readCount": "7321744",
+              "checksum": "1cbaba2343c5259dcb2c119bb765bbd2",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736776/ERR2736776_2.fastq.gz",
+              "name": "ERR2736776_2.fastq.gz",
+              "fileId": "ERR2736776_2",
+              "experiment": "ERX2749857",
+              "type": "fastq",
+              "size": "157708032",
+              "readableSize": "150.4MB",
+              "archive": "ENA",
+              "baseCount": "732174400",
+              "readCount": "7321744",
+              "checksum": "2a9b4dfa1e21f76e699e8c1a8cc43e97",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736777/ERR2736777_1.fastq.gz",
+              "name": "ERR2736777_1.fastq.gz",
+              "fileId": "ERR2736777_1",
+              "experiment": "ERX2749858",
+              "type": "fastq",
+              "size": "319611280",
+              "readableSize": "304.81MB",
+              "archive": "ENA",
+              "baseCount": "1645131100",
+              "readCount": "16451311",
+              "checksum": "9fa0c3bef76bbadb41ddd14851dd8a2b",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736777/ERR2736777_2.fastq.gz",
+              "name": "ERR2736777_2.fastq.gz",
+              "fileId": "ERR2736777_2",
+              "experiment": "ERX2749858",
+              "type": "fastq",
+              "size": "355232748",
+              "readableSize": "338.78MB",
+              "archive": "ENA",
+              "baseCount": "1645131100",
+              "readCount": "16451311",
+              "checksum": "551b36f90fe2e05ebf547fe40e454229",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736778/ERR2736778_1.fastq.gz",
+              "name": "ERR2736778_1.fastq.gz",
+              "fileId": "ERR2736778_1",
+              "experiment": "ERX2749859",
+              "type": "fastq",
+              "size": "272078811",
+              "readableSize": "259.47MB",
+              "archive": "ENA",
+              "baseCount": "1481510700",
+              "readCount": "14815107",
+              "checksum": "b6b2859da0260da124a50440e65cf368",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736778/ERR2736778_2.fastq.gz",
+              "name": "ERR2736778_2.fastq.gz",
+              "fileId": "ERR2736778_2",
+              "experiment": "ERX2749859",
+              "type": "fastq",
+              "size": "310531069",
+              "readableSize": "296.15MB",
+              "archive": "ENA",
+              "baseCount": "1481510700",
+              "readCount": "14815107",
+              "checksum": "777084c1acb6fda6117c8312bd9dde98",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736779/ERR2736779_1.fastq.gz",
+              "name": "ERR2736779_1.fastq.gz",
+              "fileId": "ERR2736779_1",
+              "experiment": "ERX2749864",
+              "type": "fastq",
+              "size": "250166582",
+              "readableSize": "238.58MB",
+              "archive": "ENA",
+              "baseCount": "1231443300",
+              "readCount": "12314433",
+              "checksum": "20b50c722f5e3f8bf76525c8c9aca228",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736779/ERR2736779_2.fastq.gz",
+              "name": "ERR2736779_2.fastq.gz",
+              "fileId": "ERR2736779_2",
+              "experiment": "ERX2749864",
+              "type": "fastq",
+              "size": "270359455",
+              "readableSize": "257.83MB",
+              "archive": "ENA",
+              "baseCount": "1231443300",
+              "readCount": "12314433",
+              "checksum": "b52fb0e354db24138a4cc9a65d9d5c8f",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736780/ERR2736780_1.fastq.gz",
+              "name": "ERR2736780_1.fastq.gz",
+              "fileId": "ERR2736780_1",
+              "experiment": "ERX2749865",
+              "type": "fastq",
+              "size": "238983683",
+              "readableSize": "227.91MB",
+              "archive": "ENA",
+              "baseCount": "1248233400",
+              "readCount": "12482334",
+              "checksum": "13604521a4f69196f61fd830120e88c2",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736780/ERR2736780_2.fastq.gz",
+              "name": "ERR2736780_2.fastq.gz",
+              "fileId": "ERR2736780_2",
+              "experiment": "ERX2749865",
+              "type": "fastq",
+              "size": "269468302",
+              "readableSize": "256.98MB",
+              "archive": "ENA",
+              "baseCount": "1248233400",
+              "readCount": "12482334",
+              "checksum": "dface70d0b91e09ebcddc425d5701149",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736781/ERR2736781_1.fastq.gz",
+              "name": "ERR2736781_1.fastq.gz",
+              "fileId": "ERR2736781_1",
+              "experiment": "ERX2749860",
+              "type": "fastq",
+              "size": "371866068",
+              "readableSize": "354.64MB",
+              "archive": "ENA",
+              "baseCount": "1762222200",
+              "readCount": "17622222",
+              "checksum": "0ff7d447e74218915f4e2ebc54b9e55d",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736781/ERR2736781_2.fastq.gz",
+              "name": "ERR2736781_2.fastq.gz",
+              "fileId": "ERR2736781_2",
+              "experiment": "ERX2749860",
+              "type": "fastq",
+              "size": "405104898",
+              "readableSize": "386.34MB",
+              "archive": "ENA",
+              "baseCount": "1762222200",
+              "readCount": "17622222",
+              "checksum": "701cb014d45d4682d82551e539c01d91",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736782/ERR2736782_1.fastq.gz",
+              "name": "ERR2736782_1.fastq.gz",
+              "fileId": "ERR2736782_1",
+              "experiment": "ERX2749861",
+              "type": "fastq",
+              "size": "220363936",
+              "readableSize": "210.16MB",
+              "archive": "ENA",
+              "baseCount": "1105691200",
+              "readCount": "11056912",
+              "checksum": "74f8bed7f4e915e80c88158003b5ce00",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736782/ERR2736782_2.fastq.gz",
+              "name": "ERR2736782_2.fastq.gz",
+              "fileId": "ERR2736782_2",
+              "experiment": "ERX2749861",
+              "type": "fastq",
+              "size": "244984979",
+              "readableSize": "233.64MB",
+              "archive": "ENA",
+              "baseCount": "1105691200",
+              "readCount": "11056912",
+              "checksum": "6851e62175fdbc512ac68d5b2031210a",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736783/ERR2736783_1.fastq.gz",
+              "name": "ERR2736783_1.fastq.gz",
+              "fileId": "ERR2736783_1",
+              "experiment": "ERX2749866",
+              "type": "fastq",
+              "size": "129355251",
+              "readableSize": "123.36MB",
+              "archive": "ENA",
+              "baseCount": "643956600",
+              "readCount": "6439566",
+              "checksum": "0f8b951421f936cdcebb36f09d443396",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736783/ERR2736783_2.fastq.gz",
+              "name": "ERR2736783_2.fastq.gz",
+              "fileId": "ERR2736783_2",
+              "experiment": "ERX2749866",
+              "type": "fastq",
+              "size": "140550080",
+              "readableSize": "134.04MB",
+              "archive": "ENA",
+              "baseCount": "643956600",
+              "readCount": "6439566",
+              "checksum": "3b956405f6d4406be11d2148e4fb0964",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736784/ERR2736784_1.fastq.gz",
+              "name": "ERR2736784_1.fastq.gz",
+              "fileId": "ERR2736784_1",
+              "experiment": "ERX2749867",
+              "type": "fastq",
+              "size": "276395659",
+              "readableSize": "263.59MB",
+              "archive": "ENA",
+              "baseCount": "1375401800",
+              "readCount": "13754018",
+              "checksum": "5f90a4685275c13b6df5a0ec685c2d51",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736784/ERR2736784_2.fastq.gz",
+              "name": "ERR2736784_2.fastq.gz",
+              "fileId": "ERR2736784_2",
+              "experiment": "ERX2749867",
+              "type": "fastq",
+              "size": "309837644",
+              "readableSize": "295.48MB",
+              "archive": "ENA",
+              "baseCount": "1375401800",
+              "readCount": "13754018",
+              "checksum": "33609b8c0ec9efca53cba11b422dcdd1",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736785/ERR2736785_1.fastq.gz",
+              "name": "ERR2736785_1.fastq.gz",
+              "fileId": "ERR2736785_1",
+              "experiment": "ERX2749868",
+              "type": "fastq",
+              "size": "251959965",
+              "readableSize": "240.29MB",
+              "archive": "ENA",
+              "baseCount": "1326700000",
+              "readCount": "13267000",
+              "checksum": "8dadc722c9ecf72cc0f95452110f5bd4",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736785/ERR2736785_2.fastq.gz",
+              "name": "ERR2736785_2.fastq.gz",
+              "fileId": "ERR2736785_2",
+              "experiment": "ERX2749868",
+              "type": "fastq",
+              "size": "285254799",
+              "readableSize": "272.04MB",
+              "archive": "ENA",
+              "baseCount": "1326700000",
+              "readCount": "13267000",
+              "checksum": "60d64db8032e58d5375ad8695ddb008f",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736786/ERR2736786_1.fastq.gz",
+              "name": "ERR2736786_1.fastq.gz",
+              "fileId": "ERR2736786_1",
+              "experiment": "ERX2749869",
+              "type": "fastq",
+              "size": "342602561",
+              "readableSize": "326.73MB",
+              "archive": "ENA",
+              "baseCount": "1661295400",
+              "readCount": "16612954",
+              "checksum": "d38382d162f6593a10dc6a74795963f7",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736786/ERR2736786_2.fastq.gz",
+              "name": "ERR2736786_2.fastq.gz",
+              "fileId": "ERR2736786_2",
+              "experiment": "ERX2749869",
+              "type": "fastq",
+              "size": "372903119",
+              "readableSize": "355.63MB",
+              "archive": "ENA",
+              "baseCount": "1661295400",
+              "readCount": "16612954",
+              "checksum": "8578fbf331b515bebdb19609d9d10965",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736787/ERR2736787_1.fastq.gz",
+              "name": "ERR2736787_1.fastq.gz",
+              "fileId": "ERR2736787_1",
+              "experiment": "ERX2749872",
+              "type": "fastq",
+              "size": "191947635",
+              "readableSize": "183.06MB",
+              "archive": "ENA",
+              "baseCount": "1004629100",
+              "readCount": "10046291",
+              "checksum": "5dc621a98dbf05a6d27a784c8e2795d1",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/007/ERR2736787/ERR2736787_2.fastq.gz",
+              "name": "ERR2736787_2.fastq.gz",
+              "fileId": "ERR2736787_2",
+              "experiment": "ERX2749872",
+              "type": "fastq",
+              "size": "216811110",
+              "readableSize": "206.77MB",
+              "archive": "ENA",
+              "baseCount": "1004629100",
+              "readCount": "10046291",
+              "checksum": "29a74cc248cf94a05f8cd7dbd125248c",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736788/ERR2736788_1.fastq.gz",
+              "name": "ERR2736788_1.fastq.gz",
+              "fileId": "ERR2736788_1",
+              "experiment": "ERX2749873",
+              "type": "fastq",
+              "size": "244248400",
+              "readableSize": "232.93MB",
+              "archive": "ENA",
+              "baseCount": "1250399200",
+              "readCount": "12503992",
+              "checksum": "f3a58c3ef19024827ae2705993af1718",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/008/ERR2736788/ERR2736788_2.fastq.gz",
+              "name": "ERR2736788_2.fastq.gz",
+              "fileId": "ERR2736788_2",
+              "experiment": "ERX2749873",
+              "type": "fastq",
+              "size": "275105769",
+              "readableSize": "262.36MB",
+              "archive": "ENA",
+              "baseCount": "1250399200",
+              "readCount": "12503992",
+              "checksum": "2470fe3d80c47fd952833be2a3d47c3a",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736789/ERR2736789_1.fastq.gz",
+              "name": "ERR2736789_1.fastq.gz",
+              "fileId": "ERR2736789_1",
+              "experiment": "ERX2749876",
+              "type": "fastq",
+              "size": "317926875",
+              "readableSize": "303.2MB",
+              "archive": "ENA",
+              "baseCount": "1536850800",
+              "readCount": "15368508",
+              "checksum": "c09e91698f78ce49a10bc6350c753609",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/009/ERR2736789/ERR2736789_2.fastq.gz",
+              "name": "ERR2736789_2.fastq.gz",
+              "fileId": "ERR2736789_2",
+              "experiment": "ERX2749876",
+              "type": "fastq",
+              "size": "359575755",
+              "readableSize": "342.92MB",
+              "archive": "ENA",
+              "baseCount": "1536850800",
+              "readCount": "15368508",
+              "checksum": "226312adc7625020f04eb5f5c8b32dd8",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736790/ERR2736790_1.fastq.gz",
+              "name": "ERR2736790_1.fastq.gz",
+              "fileId": "ERR2736790_1",
+              "experiment": "ERX2749877",
+              "type": "fastq",
+              "size": "202304358",
+              "readableSize": "192.93MB",
+              "archive": "ENA",
+              "baseCount": "1045940300",
+              "readCount": "10459403",
+              "checksum": "877d94c332e7dff4a1dc224cbda1be75",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/000/ERR2736790/ERR2736790_2.fastq.gz",
+              "name": "ERR2736790_2.fastq.gz",
+              "fileId": "ERR2736790_2",
+              "experiment": "ERX2749877",
+              "type": "fastq",
+              "size": "224005041",
+              "readableSize": "213.63MB",
+              "archive": "ENA",
+              "baseCount": "1045940300",
+              "readCount": "10459403",
+              "checksum": "3e7a848b72064fd650f230a93dbf12be",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736791/ERR2736791_1.fastq.gz",
+              "name": "ERR2736791_1.fastq.gz",
+              "fileId": "ERR2736791_1",
+              "experiment": "ERX2749878",
+              "type": "fastq",
+              "size": "325370356",
+              "readableSize": "310.3MB",
+              "archive": "ENA",
+              "baseCount": "1548508900",
+              "readCount": "15485089",
+              "checksum": "4b97680c997716ab8dccf7af595de78a",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/001/ERR2736791/ERR2736791_2.fastq.gz",
+              "name": "ERR2736791_2.fastq.gz",
+              "fileId": "ERR2736791_2",
+              "experiment": "ERX2749878",
+              "type": "fastq",
+              "size": "367213448",
+              "readableSize": "350.2MB",
+              "archive": "ENA",
+              "baseCount": "1548508900",
+              "readCount": "15485089",
+              "checksum": "b84fcb528d99eb3c6e8ec07a66a70610",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736792/ERR2736792_1.fastq.gz",
+              "name": "ERR2736792_1.fastq.gz",
+              "fileId": "ERR2736792_1",
+              "experiment": "ERX2749879",
+              "type": "fastq",
+              "size": "207401231",
+              "readableSize": "197.79MB",
+              "archive": "ENA",
+              "baseCount": "1048853000",
+              "readCount": "10488530",
+              "checksum": "e21e777bacc3d7ea2a4c07356db7b080",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/002/ERR2736792/ERR2736792_2.fastq.gz",
+              "name": "ERR2736792_2.fastq.gz",
+              "fileId": "ERR2736792_2",
+              "experiment": "ERX2749879",
+              "type": "fastq",
+              "size": "229641944",
+              "readableSize": "219.0MB",
+              "archive": "ENA",
+              "baseCount": "1048853000",
+              "readCount": "10488530",
+              "checksum": "ad8ba8d35098f999be3b7bba2aa40909",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736793/ERR2736793_1.fastq.gz",
+              "name": "ERR2736793_1.fastq.gz",
+              "fileId": "ERR2736793_1",
+              "experiment": "ERX2749880",
+              "type": "fastq",
+              "size": "168996929",
+              "readableSize": "161.17MB",
+              "archive": "ENA",
+              "baseCount": "1020895700",
+              "readCount": "10208957",
+              "checksum": "07a48400342f77641fec324fd337f3ad",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/003/ERR2736793/ERR2736793_2.fastq.gz",
+              "name": "ERR2736793_2.fastq.gz",
+              "fileId": "ERR2736793_2",
+              "experiment": "ERX2749880",
+              "type": "fastq",
+              "size": "191994409",
+              "readableSize": "183.1MB",
+              "archive": "ENA",
+              "baseCount": "1020895700",
+              "readCount": "10208957",
+              "checksum": "edcfcc1f6c82a9442f787e12e1244128",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736794/ERR2736794_1.fastq.gz",
+              "name": "ERR2736794_1.fastq.gz",
+              "fileId": "ERR2736794_1",
+              "experiment": "ERX2749881",
+              "type": "fastq",
+              "size": "131970444",
+              "readableSize": "125.86MB",
+              "archive": "ENA",
+              "baseCount": "728978000",
+              "readCount": "7289780",
+              "checksum": "eb9e067e973988320159e3c1440ea536",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/004/ERR2736794/ERR2736794_2.fastq.gz",
+              "name": "ERR2736794_2.fastq.gz",
+              "fileId": "ERR2736794_2",
+              "experiment": "ERX2749881",
+              "type": "fastq",
+              "size": "145973232",
+              "readableSize": "139.21MB",
+              "archive": "ENA",
+              "baseCount": "728978000",
+              "readCount": "7289780",
+              "checksum": "28dc4aead2cde8d1dfbe70bb1fe3410d",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736795/ERR2736795_1.fastq.gz",
+              "name": "ERR2736795_1.fastq.gz",
+              "fileId": "ERR2736795_1",
+              "experiment": "ERX2749874",
+              "type": "fastq",
+              "size": "200971090",
+              "readableSize": "191.66MB",
+              "archive": "ENA",
+              "baseCount": "940066100",
+              "readCount": "9400661",
+              "checksum": "db2fa05be3187344d7fc720792d82d12",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/005/ERR2736795/ERR2736795_2.fastq.gz",
+              "name": "ERR2736795_2.fastq.gz",
+              "fileId": "ERR2736795_2",
+              "experiment": "ERX2749874",
+              "type": "fastq",
+              "size": "227202396",
+              "readableSize": "216.68MB",
+              "archive": "ENA",
+              "baseCount": "940066100",
+              "readCount": "9400661",
+              "checksum": "162eb8ff13fdd3f143b3f159b94036d0",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736796/ERR2736796_1.fastq.gz",
+              "name": "ERR2736796_1.fastq.gz",
+              "fileId": "ERR2736796_1",
+              "experiment": "ERX2749875",
+              "type": "fastq",
+              "size": "244938475",
+              "readableSize": "233.59MB",
+              "archive": "ENA",
+              "baseCount": "1136129800",
+              "readCount": "11361298",
+              "checksum": "3e35686835da3027be2354c8990206fa",
+              "checksumMethod": "md5"
+            },
+            {
+              "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR273/006/ERR2736796/ERR2736796_2.fastq.gz",
+              "name": "ERR2736796_2.fastq.gz",
+              "fileId": "ERR2736796_2",
+              "experiment": "ERX2749875",
+              "type": "fastq",
+              "size": "279236376",
+              "readableSize": "266.3MB",
+              "archive": "ENA",
+              "baseCount": "1136129800",
+              "readCount": "11361298",
+              "checksum": "b3fc6ea2648fc71c9283b5d24c85ab6b",
+              "checksumMethod": "md5"
+            }
+          ],
+          "experiment": [
+            {
+              "accession": "ERX2749814",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749815",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749836",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749837",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749828",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749829",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749816",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749817",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749818",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749819",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749820",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749821",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749822",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749823",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749824",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749825",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749830",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749831",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749826",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749827",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749832",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749833",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749834",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749835",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749838",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749839",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749842",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749843",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749844",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749845",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749846",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749847",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749840",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749841",
+              "assayType": "RNA-seq of non coding RNA",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749848",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749849",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749870",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749871",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749862",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749863",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749850",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749851",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749852",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749853",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749854",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749855",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749856",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749857",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749858",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749859",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749864",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749865",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749860",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749861",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749866",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749867",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749868",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749869",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749872",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749873",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749876",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749877",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749878",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749879",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749880",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749881",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749874",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            },
+            {
+              "accession": "ERX2749875",
+              "assayType": "microRNA profiling by high throughput sequencing",
+              "target": "RNA"
+            }
+          ],
+          "assayType": [
+            "RNA-seq of non coding RNA",
+            "microRNA profiling by high throughput sequencing"
+          ],
+          "tech": [
+            "RNA-seq"
+          ],
+          "instrument": [
+            "Illumina HiSeq 3000"
+          ],
+          "centerName": [
+            "DEPARTMENT OF ECONOMIC DEVELOPMENT, JOBS, TRANSPORT AND RESOURCES"
+          ],
+          "secondaryProject": [
+            ""
+          ],
+          "archive": [
+            "ENA"
+          ]
+        }
+      }
+    ]
+  }
+}

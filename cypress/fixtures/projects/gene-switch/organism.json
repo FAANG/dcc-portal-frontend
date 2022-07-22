@@ -1,0 +1,1399 @@
+{
+  "took": 5,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 249,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256251",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2020-06-28",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "1700.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "117.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4792",
+          "biosampleId": "SAMEA10256251",
+          "etag": "\"070f483ed5284c8db6c7166eab848e625\"",
+          "id_number": "10256251",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "High fibre"
+            },
+            {
+              "name": "father",
+              "value": "E5649"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-03",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "173.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "223.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4792"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256251"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256252",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2020-06-28",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "1180.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "117.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4803",
+          "biosampleId": "SAMEA10256252",
+          "etag": "\"0a48ee34557d04d66dc21939a42a4efdd\"",
+          "id_number": "10256252",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "High fibre"
+            },
+            {
+              "name": "father",
+              "value": "E5649"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-03",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "173.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "223.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4803"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256252"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256253",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2020-06-28",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "1570.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "117.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4802",
+          "biosampleId": "SAMEA10256253",
+          "etag": "\"0e2b93943932579a527386ab8cab4d2d4\"",
+          "id_number": "10256253",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "High fibre"
+            },
+            {
+              "name": "father",
+              "value": "E5649"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-03",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "173.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "223.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4802"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256253"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256254",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2020-06-28",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "1440.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "117.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4796",
+          "biosampleId": "SAMEA10256254",
+          "etag": "\"0264c672fe37516e689d8d3e673ba5ce0\"",
+          "id_number": "10256254",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "High fibre"
+            },
+            {
+              "name": "father",
+              "value": "E5649"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-03",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "173.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "223.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4796"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256254"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256255",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2020-06-27",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "1600.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "117.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4709",
+          "biosampleId": "SAMEA10256255",
+          "etag": "\"047ad249f9398ad6f20e7056316bc5570\"",
+          "id_number": "10256255",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Control"
+            },
+            {
+              "name": "father",
+              "value": "E5771"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-02",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "178.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "221.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4709"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256255"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256256",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2020-06-27",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "2250.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "117.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4707",
+          "biosampleId": "SAMEA10256256",
+          "etag": "\"076ea4c6706db7820fcfb9397452c2783\"",
+          "id_number": "10256256",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Control"
+            },
+            {
+              "name": "father",
+              "value": "E5771"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-02",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "178.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "221.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4707"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256256"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256257",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2020-06-27",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "2210.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "117.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4708",
+          "biosampleId": "SAMEA10256257",
+          "etag": "\"01255a7d0b2c1efbe3e656bb15c68a526\"",
+          "id_number": "10256257",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Control"
+            },
+            {
+              "name": "father",
+              "value": "E5771"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-02",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "178.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "221.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4708"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256257"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256258",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Female",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+          },
+          "birthDate": {
+            "text": "2020-06-27",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "1980.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "117.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4712",
+          "biosampleId": "SAMEA10256258",
+          "etag": "\"0f4880d58727c7d7ee3fa3160f82e8945\"",
+          "id_number": "10256258",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Control"
+            },
+            {
+              "name": "father",
+              "value": "E5771"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-02",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "178.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "221.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4712"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256258"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256259",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2020-06-24",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "1180.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "114.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4554",
+          "biosampleId": "SAMEA10256259",
+          "etag": "\"03f4b7012d6f2c4d899a6fd44880c40a3\"",
+          "id_number": "10256259",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Control"
+            },
+            {
+              "name": "father",
+              "value": "E5817"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-02",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "175.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "210.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4554"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256259"
+        ]
+      },
+      {
+        "_index": "organism",
+        "_type": "_doc",
+        "_id": "SAMEA10256260",
+        "_score": null,
+        "_source": {
+          "organism": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "sex": {
+            "text": "Male",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+          },
+          "birthDate": {
+            "text": "2020-06-24",
+            "unit": "YYYY-MM-DD"
+          },
+          "breed": {
+            "text": "TN60",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+          },
+          "birthLocation": "Lelystad",
+          "birthLocationLongitude": {
+            "text": "5.46161355799116",
+            "unit": "decimal degrees"
+          },
+          "birthLocationLatitude": {
+            "text": "52.4491179072976",
+            "unit": "decimal degrees"
+          },
+          "birthWeight": {
+            "text": "1800.0",
+            "unit": "grams"
+          },
+          "placentalWeight": {
+            "text": null,
+            "unit": null
+          },
+          "pregnancyLength": {
+            "text": "114.0",
+            "unit": "days"
+          },
+          "deliveryTiming": null,
+          "deliveryEase": null,
+          "pedigree": null,
+          "name": "SSC_WU_WP5_Piglet_4557",
+          "biosampleId": "SAMEA10256260",
+          "etag": "\"0ba62c53069e6c343c091737f759a368f\"",
+          "id_number": "10256260",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "diet",
+              "value": "Control"
+            },
+            {
+              "name": "father",
+              "value": "E5817"
+            },
+            {
+              "name": "insemination date",
+              "value": "2020-03-02",
+              "unit": "YYYY/MM/DD"
+            },
+            {
+              "name": "mother",
+              "value": "175.0"
+            },
+            {
+              "name": "mother parity",
+              "value": "4.0"
+            },
+            {
+              "name": "mother weight",
+              "value": "210.0",
+              "unit": "kilograms"
+            },
+            {
+              "name": "position in uterus",
+              "value": "not applicable"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4557"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "healthStatus": [
+            {
+              "text": "normal",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+            }
+          ],
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256260"
+        ]
+      }
+    ]
+  }
+}

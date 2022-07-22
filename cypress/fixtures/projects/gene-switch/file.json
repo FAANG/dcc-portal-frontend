@@ -1,0 +1,579 @@
+{
+  "took": 16,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2516,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970637",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629266",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/007/ERR4970637/ERR4970637.fastq.gz",
+          "name": "ERR4970637.fastq.gz",
+          "type": "fastq",
+          "size": "3234797873",
+          "readableSize": "3.01GB",
+          "checksumMethod": "md5",
+          "checksum": "ee716f566bea96a349c049475039487b",
+          "archive": "ENA",
+          "baseCount": "6899513848",
+          "readCount": "64400818",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789303",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970637",
+            "alias": "SSR_WU_RRBS_GS_WP1_Liver_FT_30dpf_POOL_2",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970637.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970638",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629273",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/008/ERR4970638/ERR4970638.fastq.gz",
+          "name": "ERR4970638.fastq.gz",
+          "type": "fastq",
+          "size": "3358642551",
+          "readableSize": "3.13GB",
+          "checksumMethod": "md5",
+          "checksum": "ba51dd03fa1cd28011d208eb2860973d",
+          "archive": "ENA",
+          "baseCount": "7197017983",
+          "readCount": "63626014",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789304",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970638",
+            "alias": "SSR_WU_RRBS_GS_WP1_Liver_FT_30dpf_POOL_3",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970638.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970640",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629260",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/000/ERR4970640/ERR4970640.fastq.gz",
+          "name": "ERR4970640.fastq.gz",
+          "type": "fastq",
+          "size": "1943430274",
+          "readableSize": "1.81GB",
+          "checksumMethod": "md5",
+          "checksum": "7889402abe2cd0b1f3baa7e222be4755",
+          "archive": "ENA",
+          "baseCount": "3967133165",
+          "readCount": "49687818",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789306",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970640",
+            "alias": "SSR_WU_RRBS_GS_WP1_Small_Intestine_FT_30dpf_POOL_1",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970640.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970641",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629274",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/001/ERR4970641/ERR4970641.fastq.gz",
+          "name": "ERR4970641.fastq.gz",
+          "type": "fastq",
+          "size": "3186756814",
+          "readableSize": "2.97GB",
+          "checksumMethod": "md5",
+          "checksum": "0be866c87584de124eaf70161535ecdd",
+          "archive": "ENA",
+          "baseCount": "6807997819",
+          "readCount": "59999494",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789307",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970641",
+            "alias": "SSR_WU_RRBS_GS_WP1_Small_Intestine_FT_30dpf_POOL_3",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970641.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970642",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629281",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/002/ERR4970642/ERR4970642.fastq.gz",
+          "name": "ERR4970642.fastq.gz",
+          "type": "fastq",
+          "size": "2755422321",
+          "readableSize": "2.57GB",
+          "checksumMethod": "md5",
+          "checksum": "db74e0e836a4b20c8e6856f652b01856",
+          "archive": "ENA",
+          "baseCount": "5785831995",
+          "readCount": "52893607",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789308",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970642",
+            "alias": "SSR_WU_RRBS_GS_WP1_Small_Intestine_FT_30dpf_POOL_6",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970642.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970643",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629268",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/003/ERR4970643/ERR4970643.fastq.gz",
+          "name": "ERR4970643.fastq.gz",
+          "type": "fastq",
+          "size": "2929955528",
+          "readableSize": "2.73GB",
+          "checksumMethod": "md5",
+          "checksum": "ad273b7d6201c1050dee4230784fe51b",
+          "archive": "ENA",
+          "baseCount": "6197341389",
+          "readCount": "60090492",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789309",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970643",
+            "alias": "SSR_WU_RRBS_GS_WP1_Lung_FT_30dpf_POOL_2",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970643.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970644",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629275",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/004/ERR4970644/ERR4970644.fastq.gz",
+          "name": "ERR4970644.fastq.gz",
+          "type": "fastq",
+          "size": "3241617711",
+          "readableSize": "3.02GB",
+          "checksumMethod": "md5",
+          "checksum": "eb32b1c444524bd46245e13ece267ac8",
+          "archive": "ENA",
+          "baseCount": "6936848177",
+          "readCount": "60134610",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789310",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970644",
+            "alias": "SSR_WU_RRBS_GS_WP1_Lung_FT_30dpf_POOL_3",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970644.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970645",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629282",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/005/ERR4970645/ERR4970645.fastq.gz",
+          "name": "ERR4970645.fastq.gz",
+          "type": "fastq",
+          "size": "3177977223",
+          "readableSize": "2.96GB",
+          "checksumMethod": "md5",
+          "checksum": "ea0cfbf5e0bf3de6b1411ef39b3d8472",
+          "archive": "ENA",
+          "baseCount": "6706422419",
+          "readCount": "59328413",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789311",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970645",
+            "alias": "SSR_WU_RRBS_GS_WP1_Lung_FT_30dpf_POOL_6",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970645.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970646",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629263",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/006/ERR4970646/ERR4970646.fastq.gz",
+          "name": "ERR4970646.fastq.gz",
+          "type": "fastq",
+          "size": "2886590734",
+          "readableSize": "2.69GB",
+          "checksumMethod": "md5",
+          "checksum": "c94b80f6678753dd993c5887df844e0a",
+          "archive": "ENA",
+          "baseCount": "6061315854",
+          "readCount": "60497417",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789312",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970646",
+            "alias": "SSR_WU_RRBS_GS_WP1_Kidney_FT_30dpf_POOL_1",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970646.fastq.gz"
+        ]
+      },
+      {
+        "_index": "file",
+        "_type": "_doc",
+        "_id": "ERR4970647",
+        "_score": null,
+        "_source": {
+          "specimen": "SAMEA7629277",
+          "organism": null,
+          "species": {
+            "text": "Sus scrofa",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+          },
+          "secondaryProject": "GENE-SWitCH",
+          "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR497/007/ERR4970647/ERR4970647.fastq.gz",
+          "name": "ERR4970647.fastq.gz",
+          "type": "fastq",
+          "size": "3520467817",
+          "readableSize": "3.28GB",
+          "checksumMethod": "md5",
+          "checksum": "1787ba169fe7a34faca2932b7982acd4",
+          "archive": "ENA",
+          "baseCount": "7510453186",
+          "readCount": "66220107",
+          "releaseDate": "2020-12-10",
+          "updateDate": "2020-12-09",
+          "submission": "ERA3192114",
+          "experiment": {
+            "accession": "ERX4789313",
+            "assayType": "methylation profiling by high throughput sequencing",
+            "target": "DNA methylation",
+            "standardMet": "FAANG"
+          },
+          "run": {
+            "accession": "ERR4970647",
+            "alias": "SSR_WU_RRBS_GS_WP1_Kidney_FT_30dpf_POOL_3",
+            "platform": "ILLUMINA",
+            "instrument": "Illumina NovaSeq 6000",
+            "centerName": "Animal Breeding and Genomics Centre",
+            "sequencingDate": "2020-11-21",
+            "sequencingLocation": "Roy J. Carver Biotechnology Center, University of Illinois at Urbana-Champaign, US",
+            "sequencingLatitude": "40.110558",
+            "sequencingLongitude": "-88.243385"
+          },
+          "study": {
+            "accession": "PRJEB41822",
+            "alias": "SSR_WU_GS_WP1_RRBS",
+            "title": "GENE-SWITCH Pig DNA methylation with Reduced representation bisulfite sequencing (RRBS)",
+            "type": null,
+            "secondaryAccession": "ERP125658"
+          },
+          "submitterEmail": "ole.madsen@wur.nl, richard.crooijmans@wur.nl, faang-dcc@ebi.ac.uk, faang@iastate.edu"
+        },
+        "sort": [
+          "ERR4970647.fastq.gz"
+        ]
+      }
+    ]
+  }
+}

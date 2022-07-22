@@ -1,0 +1,187 @@
+{
+  "took": 5,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 4,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "article",
+        "_type": "_doc",
+        "_id": "PMC6883949",
+        "_score": null,
+        "_source": {
+          "pmcId": "PMC6883949",
+          "pubmedId": "31824560",
+          "doi": "10.3389/fgene.2019.01130",
+          "title": "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle.",
+          "authorString": "Nolte W, Weikard R, Brunner RM, Albrecht E, Hammon HM, Reverter A, Kühn C.",
+          "journal": "Front Genet",
+          "volume": "10",
+          "year": "2019",
+          "pages": "1130",
+          "isOpenAccess": "Y",
+          "relatedDatasets": [
+            {
+              "accession": "PRJEB34570",
+              "standardMet": "FAANG",
+              "species": [
+                "Bos taurus"
+              ]
+            }
+          ],
+          "datasetSource": "FAANG only",
+          "secondaryProject": [
+            "BovReg"
+          ]
+        },
+        "sort": [
+          "Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle."
+        ]
+      },
+      {
+        "_index": "article",
+        "_type": "_doc",
+        "_id": "PMC8141914",
+        "_score": null,
+        "_source": {
+          "pmcId": "PMC8141914",
+          "pubmedId": "34040640",
+          "doi": "10.3389/fgene.2021.665153",
+          "title": "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species.",
+          "authorString": "Robic A, Cerutti C, Kühn C, Faraut T.",
+          "journal": "Front Genet",
+          "volume": "12",
+          "year": "2021",
+          "pages": "665153",
+          "isOpenAccess": "Y",
+          "relatedDatasets": [
+            {
+              "accession": "PRJEB19199",
+              "standardMet": "FAANG",
+              "species": [
+                "Ovis aries"
+              ]
+            },
+            {
+              "accession": "PRJEB34570",
+              "standardMet": "FAANG",
+              "species": [
+                "Bos taurus"
+              ]
+            },
+            {
+              "accession": "PRJEB33381",
+              "standardMet": "Legacy",
+              "species": [
+                "Equus caballus",
+                "Sus scrofa"
+              ]
+            },
+            {
+              "accession": "PRJNA506525",
+              "standardMet": "Legacy",
+              "species": [
+                "Sus scrofa"
+              ]
+            },
+            {
+              "accession": "PRJEB13074",
+              "standardMet": "Legacy",
+              "species": [
+                "Sus scrofa",
+                "Bos taurus"
+              ]
+            }
+          ],
+          "datasetSource": "All",
+          "secondaryProject": [
+            "",
+            "BovReg"
+          ]
+        },
+        "sort": [
+          "Comparative Analysis of the Circular Transcriptome in Muscle, Liver, and Testis in Three Livestock Species."
+        ]
+      },
+      {
+        "_index": "article",
+        "_type": "_doc",
+        "_id": "PMC7247587",
+        "_score": null,
+        "_source": {
+          "pmcId": "PMC7247587",
+          "pubmedId": "32384694",
+          "doi": "10.3390/ijms21093292",
+          "title": "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls.",
+          "authorString": "Nolte W, Weikard R, Brunner RM, Albrecht E, Hammon HM, Reverter A, Küehn C.",
+          "journal": "Int J Mol Sci",
+          "issue": "9",
+          "volume": "21",
+          "year": "2020",
+          "isOpenAccess": "Y",
+          "relatedDatasets": [
+            {
+              "accession": "PRJEB34570",
+              "standardMet": "FAANG",
+              "species": [
+                "Bos taurus"
+              ]
+            }
+          ],
+          "datasetSource": "FAANG only",
+          "secondaryProject": [
+            "BovReg"
+          ]
+        },
+        "sort": [
+          "Identification and Annotation of Potential Function of Regulatory Antisense Long Non-Coding RNAs Related to Feed Efficiency in <i>Bos taurus</i> Bulls."
+        ]
+      },
+      {
+        "_index": "article",
+        "_type": "_doc",
+        "_id": "PMC8282601",
+        "_score": null,
+        "_source": {
+          "pmcId": "PMC8282601",
+          "pubmedId": "34267220",
+          "doi": "10.1038/s41597-021-00972-1",
+          "title": "Single-cell RNA sequencing of freshly isolated bovine milk cells and cultured primary mammary epithelial cells.",
+          "authorString": "Becker D, Weikard R, Hadlich F, Kühn C.",
+          "journal": "Sci Data",
+          "issue": "1",
+          "volume": "8",
+          "year": "2021",
+          "pages": "177",
+          "isOpenAccess": "Y",
+          "relatedDatasets": [
+            {
+              "accession": "PRJEB41576",
+              "standardMet": "FAANG",
+              "species": [
+                "Bos taurus"
+              ]
+            }
+          ],
+          "datasetSource": "FAANG only",
+          "secondaryProject": [
+            "BovReg"
+          ]
+        },
+        "sort": [
+          "Single-cell RNA sequencing of freshly isolated bovine milk cells and cultured primary mammary epithelial cells."
+        ]
+      }
+    ]
+  }
+}

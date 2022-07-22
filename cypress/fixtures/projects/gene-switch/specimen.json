@@ -1,0 +1,1439 @@
+{
+  "took": 15,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2480,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256411",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256251",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "66.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4792_liver",
+          "biosampleId": "SAMEA10256411",
+          "etag": "\"000a2c6da40f7997cbe1f864ece7ad03c\"",
+          "id_number": "10256411",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4792"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4792_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256251",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256411"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256412",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256252",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "66.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4803_liver",
+          "biosampleId": "SAMEA10256412",
+          "etag": "\"0ebd4619a3d7aa47b0182d317d1719889\"",
+          "id_number": "10256412",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4803"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4803_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256252",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Female",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256412"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256413",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256253",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "66.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4802_liver",
+          "biosampleId": "SAMEA10256413",
+          "etag": "\"01a177ff040f6412ed048f1f830a0b904\"",
+          "id_number": "10256413",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4802"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4802_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256253",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256413"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256414",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256254",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "66.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4796_liver",
+          "biosampleId": "SAMEA10256414",
+          "etag": "\"03d5e100fac55b0a9cb8c45119b63cea8\"",
+          "id_number": "10256414",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4796"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4796_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256254",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Female",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256414"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256415",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256255",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "67.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4709_liver",
+          "biosampleId": "SAMEA10256415",
+          "etag": "\"01b4232fa527d63ef684f86c24738da71\"",
+          "id_number": "10256415",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4709"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4709_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256255",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256415"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256416",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256256",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "67.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4707_liver",
+          "biosampleId": "SAMEA10256416",
+          "etag": "\"05cc69de7bc5477edeab44b32a0136798\"",
+          "id_number": "10256416",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4707"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4707_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256256",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256416"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256417",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256257",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "67.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4708_liver",
+          "biosampleId": "SAMEA10256417",
+          "etag": "\"09c0826ba133e0ff265da5f75b7102489\"",
+          "id_number": "10256417",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4708"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4708_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256257",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256417"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256418",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256258",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "67.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4712_liver",
+          "biosampleId": "SAMEA10256418",
+          "etag": "\"012c51c9c17a8d39ef94689e1293dba22\"",
+          "id_number": "10256418",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4712"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4712_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256258",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Female",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256418"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256419",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256259",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "70.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4554_liver",
+          "biosampleId": "SAMEA10256419",
+          "etag": "\"020fa3f1a5b3e4e64dbd04f14b56d4c76\"",
+          "id_number": "10256419",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4554"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4554_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256259",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256419"
+        ]
+      },
+      {
+        "_index": "specimen",
+        "_type": "_doc",
+        "_id": "SAMEA10256420",
+        "_score": null,
+        "_source": {
+          "derivedFrom": "SAMEA10256260",
+          "specimenFromOrganism": {
+            "specimenCollectionDate": {
+              "text": "2020-09-02",
+              "unit": "YYYY-MM-DD"
+            },
+            "animalAgeAtCollection": {
+              "text": "70.0",
+              "unit": "days"
+            },
+            "developmentalStage": {
+              "text": "juvenile stage",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0034919"
+            },
+            "organismPart": {
+              "text": "liver",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+            },
+            "specimenCollectionProtocol": {
+              "url": "https://data.faang.org/api/fire_api/samples/WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf",
+              "filename": "WU_SOP_GENESWITCH_PIGLET_AND_FETUS_D70_SAMPLING_20210907.pdf"
+            },
+            "fastedStatus": "fed",
+            "numberOfPieces": {
+              "text": "6.0",
+              "unit": "count"
+            },
+            "specimenVolume": {
+              "text": null,
+              "unit": null
+            },
+            "specimenSize": {
+              "text": null,
+              "unit": null
+            },
+            "specimenWeight": {
+              "text": null,
+              "unit": null
+            },
+            "gestationalAgeAtSampleCollection": {
+              "text": null,
+              "unit": null
+            },
+            "specimenPictureUrl": [],
+            "healthStatusAtCollection": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "name": "SSC_WU_WP5_Piglet_4557_liver",
+          "biosampleId": "SAMEA10256420",
+          "etag": "\"02c2cce944e51111dffa75e804cc38545\"",
+          "id_number": "10256420",
+          "description": null,
+          "releaseDate": "2021-10-04",
+          "updateDate": "2021-10-04",
+          "material": {
+            "text": "specimen from organism",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+          },
+          "project": "FAANG",
+          "secondaryProject": "GENE-SWitCH",
+          "availability": null,
+          "organization": [
+            {
+              "name": "INRAE",
+              "role": "institution",
+              "URL": "www.inrae.fr"
+            },
+            {
+              "name": "WU",
+              "role": "experiment performer",
+              "URL": "www.wur.nl"
+            },
+            {
+              "name": "WU",
+              "role": "institution",
+              "URL": "www.wur.nl"
+            }
+          ],
+          "customField": [
+            {
+              "name": "derived from",
+              "value": "SSC_WU_WP5_Piglet_4557"
+            },
+            {
+              "name": "sample description",
+              "value": "piglet_liver"
+            },
+            {
+              "name": "sample name",
+              "value": "SSC_WU_WP5_Piglet_4557_liver"
+            },
+            {
+              "name": "submission description",
+              "value": "Pig samples from piglets and D70 fetuses as offspring of sows on dietary intervention"
+            },
+            {
+              "name": "submission title",
+              "value": "WU-FAANG-LOONEN-PIG-20210907"
+            }
+          ],
+          "cellType": {
+            "text": "liver",
+            "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002107"
+          },
+          "organism": {
+            "biosampleId": "SAMEA10256260",
+            "organism": {
+              "text": "Sus scrofa",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+            },
+            "sex": {
+              "text": "Male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "breed": {
+              "text": "TN60",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0001040"
+            },
+            "healthStatus": [
+              {
+                "text": "normal",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000461"
+              }
+            ]
+          },
+          "alternativeId": [],
+          "standardMet": "FAANG"
+        },
+        "sort": [
+          "SAMEA10256420"
+        ]
+      }
+    ]
+  }
+}

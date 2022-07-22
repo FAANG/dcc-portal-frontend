@@ -1,0 +1,32 @@
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.pdf",
+        "_score": 1,
+        "_source": {
+          "key": "ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.pdf",
+          "url": "https://data.faang.org/api/fire_api/analyses/ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.pdf",
+          "universityName": "Roslin Institute (Edinburgh, UK)",
+          "protocolName": "ATAC-Seq analysis pipeline",
+          "protocolDate": "2020"
+        }
+      }
+    ]
+  }
+}

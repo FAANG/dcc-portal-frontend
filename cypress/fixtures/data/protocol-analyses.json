@@ -1,0 +1,389 @@
+{
+  "took": 12,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 20,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "Roslin Institute (Edinburgh, UK)",
+          "protocolName": "ATAC-Seq analysis pipeline",
+          "protocolDate": "2020",
+          "key": "ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.pdf"
+        },
+        "sort": [
+          "ATAC-Seq analysis pipeline"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "Roslin_SOP_Alignment-based RNA-Seq-Processing_20170917.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "Roslin Institute (Edinburgh, UK)",
+          "protocolName": "Alignment-based%20RNA-Seq-Processing",
+          "protocolDate": "2017",
+          "key": "Roslin_SOP_Alignment-based%20RNA-Seq-Processing_20170917.pdf"
+        },
+        "sort": [
+          "Alignment-based%20RNA-Seq-Processing"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "ROSLIN_SOP_CAGE_analysis_pipeline_20191029.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "Roslin Institute (Edinburgh, UK)",
+          "protocolName": "CAGE analysis pipeline",
+          "protocolDate": "2019",
+          "key": "ROSLIN_SOP_CAGE_analysis_pipeline_20191029.pdf"
+        },
+        "sort": [
+          "CAGE analysis pipeline"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "WSU_SOP_ChIP-seq_Bioinformatic_Analysis_Protocol_2020.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "Washington State University(USA)",
+          "protocolName": "ChIP-seq Bioinformatic Analysis Protocol",
+          "protocolDate": "2020",
+          "key": "WSU_SOP_ChIP-seq_Bioinformatic_Analysis_Protocol_2020.pdf"
+        },
+        "sort": [
+          "ChIP-seq Bioinformatic Analysis Protocol"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "WU_SOP_GENE_SWitCH_RRBS_analysis_20211130.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "WU",
+          "protocolName": "GENE SWitCH RRBS analysis",
+          "protocolDate": "2021",
+          "key": "WU_SOP_GENE_SWitCH_RRBS_analysis_20211130.pdf"
+        },
+        "sort": [
+          "GENE SWitCH RRBS analysis"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "WU_SOP_GENE_SWitCH_WGBS_analysis_20220127.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "WU",
+          "protocolName": "GENE SWitCH WGBS analysis",
+          "protocolDate": "2022",
+          "key": "WU_SOP_GENE_SWitCH_WGBS_analysis_20220127.pdf"
+        },
+        "sort": [
+          "GENE SWitCH WGBS analysis"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "ROSLIN_SOP_GENESWITCH_WP2_isoseq_gene_annotation_20211216.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "Roslin Institute (Edinburgh, UK)",
+          "protocolName": "GENESWITCH WP2 isoseq gene annotation",
+          "protocolDate": "2021",
+          "key": "ROSLIN_SOP_GENESWITCH_WP2_isoseq_gene_annotation_20211216.pdf"
+        },
+        "sort": [
+          "GENESWITCH WP2 isoseq gene annotation"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "ROSLIN_SOP_GENESWITCH_WP2_isoseq_gene_annotation_20211208.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "Roslin Institute (Edinburgh, UK)",
+          "protocolName": "GENESWITCH WP2 isoseq gene annotation",
+          "protocolDate": "2021",
+          "key": "ROSLIN_SOP_GENESWITCH_WP2_isoseq_gene_annotation_20211208.pdf"
+        },
+        "sort": [
+          "GENESWITCH WP2 isoseq gene annotation"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "ROSLIN_SOP_GENESWITCH_WP2_isoseq_gene_annotation_V2_20220325.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "Roslin Institute (Edinburgh, UK)",
+          "protocolName": "GENESWITCH WP2 isoseq gene annotation V2",
+          "protocolDate": "2022",
+          "key": "ROSLIN_SOP_GENESWITCH_WP2_isoseq_gene_annotation_V2_20220325.pdf"
+        },
+        "sort": [
+          "GENESWITCH WP2 isoseq gene annotation V2"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "ULE_SOP_RNA-Seq_Analysis_20170504.txt",
+        "_score": null,
+        "_source": {
+          "universityName": "University of León (León, Spain)",
+          "protocolName": "RNA-Seq Analysis",
+          "protocolDate": "2017",
+          "key": "ULE_SOP_RNA-Seq_Analysis_20170504.txt"
+        },
+        "sort": [
+          "RNA-Seq Analysis"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "ROSLIN_SOP_RNA-Seq_analysis_pipeline_20200610.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "Roslin Institute (Edinburgh, UK)",
+          "protocolName": "RNA-Seq analysis pipeline",
+          "protocolDate": "2020",
+          "key": "ROSLIN_SOP_RNA-Seq_analysis_pipeline_20200610.pdf"
+        },
+        "sort": [
+          "RNA-Seq analysis pipeline"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "ROSLIN_SOP_RNA-Seq_analysis_pipeline_20201113.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "Roslin Institute (Edinburgh, UK)",
+          "protocolName": "RNA-Seq analysis pipeline",
+          "protocolDate": "2020",
+          "key": "ROSLIN_SOP_RNA-Seq_analysis_pipeline_20201113.pdf"
+        },
+        "sort": [
+          "RNA-Seq analysis pipeline"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "FBNGenomePhysiology_SOP_RNAseqDataProcessing_20190918.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "FBNGENOMEPHYSIOLOGY",
+          "protocolName": "RNAseqDataProcessing",
+          "protocolDate": "2019",
+          "key": "FBNGenomePhysiology_SOP_RNAseqDataProcessing_20190918.pdf"
+        },
+        "sort": [
+          "RNAseqDataProcessing"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "AGR_SOP_WGBS_AgR_data_analysis_20200610.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "AgResearch (New Zealand)",
+          "protocolName": "WGBS AgR data analysis",
+          "protocolDate": "2020",
+          "key": "AGR_SOP_WGBS_AgR_data_analysis_20200610.pdf"
+        },
+        "sort": [
+          "WGBS AgR data analysis"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "INRAE_SOP_nfcore_atacseq_chicken_20220325.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "National Research Institute for Agriculture, Food and Environment (France）",
+          "protocolName": "nfcore atacseq chicken",
+          "protocolDate": "2022",
+          "key": "INRAE_SOP_nfcore_atacseq_chicken_20220325.pdf"
+        },
+        "sort": [
+          "nfcore atacseq chicken"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "INRAE_SOP_nfcore_atacseq_pig_20220325.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "National Research Institute for Agriculture, Food and Environment (France）",
+          "protocolName": "nfcore atacseq pig",
+          "protocolDate": "2022",
+          "key": "INRAE_SOP_nfcore_atacseq_pig_20220325.pdf"
+        },
+        "sort": [
+          "nfcore atacseq pig"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "UCD_SOP_processing_and_analyzing_equine_ChIP_data_20191030.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "University of California, Davis (USA)",
+          "protocolName": "processing and analyzing equine ChIP data",
+          "protocolDate": "2019",
+          "key": "UCD_SOP_processing_and_analyzing_equine_ChIP_data_20191030.pdf"
+        },
+        "sort": [
+          "processing and analyzing equine ChIP data"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "UCD_SOP_processing_and_analyzing_equine_PE_ChIP_data_20191030.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "University of California, Davis (USA)",
+          "protocolName": "processing and analyzing equine PE ChIP data",
+          "protocolDate": "2019",
+          "key": "UCD_SOP_processing_and_analyzing_equine_PE_ChIP_data_20191030.pdf"
+        },
+        "sort": [
+          "processing and analyzing equine PE ChIP data"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "UCD_SOP_processing_and_analyzing_equine_PE_ChIP_data_20201230.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "University of California, Davis (USA)",
+          "protocolName": "processing and analyzing equine PE ChIP data",
+          "protocolDate": "2020",
+          "key": "UCD_SOP_processing_and_analyzing_equine_PE_ChIP_data_20201230.pdf"
+        },
+        "sort": [
+          "processing and analyzing equine PE ChIP data"
+        ]
+      },
+      {
+        "_index": "protocol_analysis",
+        "_type": "_doc",
+        "_id": "INSERM-INRAE_SOP_srnaseq-processing_20211129.pdf",
+        "_score": null,
+        "_source": {
+          "universityName": "INSERM-INRAE",
+          "protocolName": "srnaseq-processing",
+          "protocolDate": "2021",
+          "key": "INSERM-INRAE_SOP_srnaseq-processing_20211129.pdf"
+        },
+        "sort": [
+          "srnaseq-processing"
+        ]
+      }
+    ]
+  },
+  "aggregations": {
+    "university_name": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "Roslin Institute (Edinburgh, UK)",
+          "doc_count": 8
+        },
+        {
+          "key": "University of California, Davis (USA)",
+          "doc_count": 3
+        },
+        {
+          "key": "National Research Institute for Agriculture, Food and Environment (France）",
+          "doc_count": 2
+        },
+        {
+          "key": "WU",
+          "doc_count": 2
+        },
+        {
+          "key": "AgResearch (New Zealand)",
+          "doc_count": 1
+        },
+        {
+          "key": "FBNGENOMEPHYSIOLOGY",
+          "doc_count": 1
+        },
+        {
+          "key": "INSERM-INRAE",
+          "doc_count": 1
+        },
+        {
+          "key": "University of León (León, Spain)",
+          "doc_count": 1
+        },
+        {
+          "key": "Washington State University(USA)",
+          "doc_count": 1
+        }
+      ]
+    },
+    "protocol_date": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "2020",
+          "doc_count": 6
+        },
+        {
+          "key": "2019",
+          "doc_count": 4
+        },
+        {
+          "key": "2021",
+          "doc_count": 4
+        },
+        {
+          "key": "2022",
+          "doc_count": 4
+        },
+        {
+          "key": "2017",
+          "doc_count": 2
+        }
+      ]
+    }
+  }
+}
