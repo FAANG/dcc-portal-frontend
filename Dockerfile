@@ -1,4 +1,5 @@
 # Stage 0, "build-stage", based on Node.js, to build and compile the frontend
+#FROM node:14.17.6 as build-stage
 FROM yroochun/faang-node-base as build-stage
 WORKDIR /app
 COPY package*.json /app/

@@ -73,7 +73,6 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "lite-server": "^2.5.4",
     "protractor": "~7.0.0",
-    "puppeteer": "^14.1.0",
     "ts-node": "~5.0.1",
     "tslint": "~6.1.0",
     "typescript": "~4.6.3"
