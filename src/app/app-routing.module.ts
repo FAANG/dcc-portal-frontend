@@ -42,6 +42,7 @@ import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { QueryLanguageComponent } from './query-language/query-language.component';
 import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
+import { GraphqlApiUiComponent } from './graphql-api-ui/graphql-api-ui.component';
 
 
 const routes: Routes = [
@@ -88,8 +89,10 @@ const routes: Routes = [
   {path: 'query', component: QueryLanguageComponent},
   {path: 'trackhubs', component: TrackhubsSubmissionComponent},
   {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
+  {path: 'graphql_api_ui', component: GraphqlApiUiComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
+  
 ];
 
 @NgModule({

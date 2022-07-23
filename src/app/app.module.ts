@@ -98,6 +98,7 @@ import { NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { cookieConfig } from './app.component';
 import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
+import { GraphqlApiUiComponent } from './graphql-api-ui/graphql-api-ui.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -168,7 +169,8 @@ export function removeToken(): void {
     TableServerSideComponent,
     NextflowSubmissionComponent,
     ProtocolAnalysisDetailsComponent,
-    EnsemblAnnotationComponent
+    EnsemblAnnotationComponent,
+    GraphqlApiUiComponent
   ],
   imports: [
     BrowserModule,
