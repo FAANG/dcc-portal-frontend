@@ -74,13 +74,13 @@ export class OntologyImproverPage {
     cy.get('[title="Project"] > .mat-card > :nth-child(2) > :nth-child(1)').should('exist')
 
     // click on filters
-    cy.get(filterAccessor_1).click()
-    cy.get(filterAccessor_2).click()
+    cy.get(filterAccessor_1).click({force: true})
+    cy.get(filterAccessor_2).click({force: true})
 
 
     cy.get('app-active-filter.ng-star-inserted').children().should('have.length', 2)
 
-    cy.contains('Remove all filters').click()
+    cy.contains('Remove all filters').click({force: true})
      cy.get('app-active-filter.ng-star-inserted').should('not.exist')
   }
 

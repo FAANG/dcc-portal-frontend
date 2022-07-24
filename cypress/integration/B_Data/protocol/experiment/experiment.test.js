@@ -71,11 +71,11 @@ describe('Protocol Experiment Page', () => {
     experimentPage.verify_pagination()
   })
 
-  it('should export data as CSV', () => {
+  it.skip('should export data as CSV', () => {
     experimentPage.downloadData(2, 'Export as CSV file', 'faang_data.csv')
   })
 
-  it('should export data as txt', () => {
+  it.skip('should export data as txt', () => {
     experimentPage.downloadData(3, 'Export as Tabular file', 'faang_data.txt')
   })
 

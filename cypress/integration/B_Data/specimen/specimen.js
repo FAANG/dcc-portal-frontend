@@ -90,15 +90,15 @@ export class SpecimenPage {
     cy.intercept('GET', '/data/specimen/_search/*filters=%7B%7D&aggs=*', {fixture: 'data/specimen.json'}).as('noFilter')
 
     // click on filters
-    cy.get(filterAccessor_1).click()
+    cy.get(filterAccessor_1).click({force: true})
     cy.wait("@filteredList1").its("request.url").should("contain", colname1 + '%22:')
 
-    cy.get(filterAccessor_2).click()
+    cy.get(filterAccessor_2).click({force: true})
     cy.wait("@filteredList2").its("request.url").should("contain", colname2 + '%22:')
 
     cy.get('app-active-filter.ng-star-inserted').children().should('have.length', 2)
 
-    cy.contains('Remove all filters').click()
+    cy.contains('Remove all filters').click({force: true})
     cy.wait("@noFilter").its("request.url").should("contain", 'filters=%7B%7D&aggs')
     cy.get('app-active-filter.ng-star-inserted').should('not.exist')
   }

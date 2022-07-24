@@ -1,0 +1,17 @@
+version: "3"
+services:
+  faang-frontend:
+    image: "${GCR_HOSTNAME}/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${COMMIT_SHA}"
+
+  cypress:
+    image: faang-cypress-tests
+    build:
+      context: .
+      dockerfile: faang-cypress.dockerfile
+    depends_on:
+      - faang-frontend
+
+networks:
+  default:
+    external:
+      name: cloudbuild
