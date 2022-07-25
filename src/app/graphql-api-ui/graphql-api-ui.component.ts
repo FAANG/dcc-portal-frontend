@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { indexDetails } from './constants';
 @Component({
   selector: 'app-graphql-api-ui',
   templateUrl: './graphql-api-ui.component.html',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GraphqlApiUiComponent implements OnInit {
 
+  indexNames = Object.keys(indexDetails);
+  // indexDetails = ['analysis'];
   constructor() { }
 
   ngOnInit(): void {

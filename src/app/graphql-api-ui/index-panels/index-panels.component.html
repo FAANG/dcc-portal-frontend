@@ -1,0 +1,19 @@
+<mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{indexName}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Customize the data to fetch
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    
+    <div *ngIf="indexPath.length < 3">
+        <mat-slide-toggle [value]="enableJoin" (click)="onSlideToggleClick()">Perform Join</mat-slide-toggle>
+        <div *ngIf="enableJoin">
+            <div *ngFor="let rightIndexName of possibleRightIndicesForJoin">
+                <app-index-panels [indexName]="rightIndexName" [indexPath]="indexPath"></app-index-panels>
+            </div>
+        </div>
+    </div>
+</mat-expansion-panel>

@@ -2,56 +2,8 @@
 <div class="container-fluid">
   <h2>FAANG GraphQL API UI</h2>
   <hr>
-
-  <!-- <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
-    <div fxFlex="17">
-      <app-filter title="Standard" [filterSize]=6></app-filter>
-      <app-filter title="Sex" [filterSize]=2></app-filter>
-      <app-filter title="Organism" [filterSize]=3></app-filter>
-      <app-filter title="Breed" [filterSize]=3></app-filter>
-      <app-filter title="Paper published" [filterSize]=2></app-filter>
-      <app-filter title="Project" [filterSize]=4></app-filter>
+    <div *ngFor="let indexName of indexNames">
+      <app-index-panels [indexName]="indexName" [indexPath]="[]"></app-index-panels>
+      
     </div>
-
-    <div fxFlex="83" class="table-responsive">
-      <div *ngIf="hasActiveFilters()">
-        <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
-        <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
-        <hr>
-      </div>
-      <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
-        Download data
-      </button>
-      <button (click)="downloadFile('csv')" mat-raised-button *ngIf="downloadData">
-        Export as CSV file
-      </button>
-      <button (click)="downloadFile('txt')" mat-raised-button *ngIf="downloadData">
-        Export as Tabular file
-      </button>
-      <mat-spinner *ngIf="downloading" [diameter]="30"
-        style="display: inline; margin-left: 10px;">
-      </mat-spinner>
-      <app-table-server-side  [display_fields]="displayFields"
-            [column_names]="columnNames"
-            [templates]="templates"
-            [filter_values]="filter_field"
-            [apiFunction]="loadTableDataFunction"
-            [query]="query"
-            [defaultSort]="defaultSort">
-      </app-table-server-side>
-    </div>
-  </div>
 </div>
-
-<ng-template #bioSampleIdTemplate let-item>
-  <a style="cursor: pointer" target="_blank" [routerLink]="item['bioSampleId']">{{item['bioSampleId']}}</a>
-</ng-template>
-
-<ng-template #paperPublishedTemplate let-item>
-  <td *ngIf="wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
-    <i class="material-icons">check_circle</i>
-  </td>
-  <td *ngIf="!wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
-    <i class="material-icons">highlight_off</i>
-  </td>
-</ng-template> -->
