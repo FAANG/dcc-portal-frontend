@@ -12,7 +12,7 @@
         <mat-slide-toggle [value]="enableJoin" (click)="onSlideToggleClick()">Perform Join</mat-slide-toggle>
         <div *ngIf="enableJoin">
             <div *ngFor="let rightIndexName of possibleRightIndicesForJoin">
-                <app-index-panels [indexName]="rightIndexName" [indexPath]="indexPath"></app-index-panels>
+                <app-index-panels [indexName]="rightIndexName" [indexPath]="indexPath" [indexPanelContainerService]="indexPanelContainerService"></app-index-panels>
             </div>
         </div>
     </div>

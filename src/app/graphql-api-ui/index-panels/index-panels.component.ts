@@ -1,16 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { indexDetails } from '../constants';
+import { IndexPanelContainerService } from '../index-panel-container/index-panel-container.service';
 
 @Component({
   selector: 'app-index-panels',
   templateUrl: './index-panels.component.html',
-  styleUrls: ['./index-panels.component.css']
+  styleUrls: ['./index-panels.component.css'],
 })
 export class IndexPanelsComponent implements OnInit {
 
   @Input() indexName = '';
   @Input() indexPath = [];
-
+  @Input() indexPanelContainerService: any;
   primaryKeys = [];
   queryMultipleDocumentsResolverName = {};
   possibleRightIndicesForJoin = [];
