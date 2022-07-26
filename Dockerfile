@@ -1,5 +1,4 @@
 # Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-#FROM node:14.17.6 as build-stage
 FROM yroochun/new-faang-base as build-stage
 WORKDIR /app
 
@@ -17,14 +16,11 @@ COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 
 
-
+#------------------------------------------------------------------------------------------------
 ## ORIGINAL Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-##FROM node:14.17.6 as build-stage
-#FROM yroochun/faang-node-base as build-stage
+#FROM node:14.17.6 as build-stage
 #WORKDIR /app
 #COPY package*.json /app/
-#
-#RUN npm cache clean --force
 #RUN npm install
 #
 #COPY ./ /app/

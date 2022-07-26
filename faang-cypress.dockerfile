@@ -1,5 +1,5 @@
 # base image
-FROM koosum123/node14.17.6-chrome100-ff98
+FROM cypress/browsers:node14.17.6-chrome100-ff98
 
 # set working directory
 RUN mkdir /app
