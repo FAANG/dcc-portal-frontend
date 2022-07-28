@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IndexPanelContainerService } from './index-panel-container.service';
 
 // class CustomService extends IndexPanelContainerService{}
@@ -13,12 +13,29 @@ import { IndexPanelContainerService } from './index-panel-container.service';
 export class IndexPanelContainerComponent implements OnInit {
 
   @Input() indexName = '';
+  // fieldQueryData = this.indexPanelContainerService.fieldsQueryData;
+  @Output() queryDataChanged = new EventEmitter<{
+    indexName:string;
+    updatedQueryData:Record<string,any>;
+  }>();
+
+  @Output() fieldsQueryDataInit = new EventEmitter<{
+    indexName:string;
+    serviceReference: any;
+  }>();
 
   constructor(
     public indexPanelContainerService : IndexPanelContainerService
     ) { }
 
+
   ngOnInit(): void {
+    this.fieldsQueryDataInit.emit({indexName:this.indexName,serviceReference:this.indexPanelContainerService.fieldsQueryData});
   }
+
+  // ngOnChanges(changes:SimpleChanges){
+  //   console.log(changes)
+  //   this.queryDataChanged.emit({indexName:this.indexName,updatedQueryData:{...this.indexPanelContainerService.fieldsQueryData}})
+  // }
 
 }

@@ -3,7 +3,20 @@
   <h2>FAANG GraphQL API UI</h2>
   <hr>
     <div *ngFor="let indexName of indexNames">
-      <app-index-panel-container [indexName]="indexName"></app-index-panel-container>
+      <app-index-panel-container [indexName]="indexName" (fieldsQueryDataChanged)="onFieldsQueryDataInit($event)" (fieldsQueryDataInit)="onFieldsQueryDataInit($event)"></app-index-panel-container>
       
     </div>
+
+    <mat-expansion-panel hideToggle (mousein)="buildQuery()" (mouseout)="buildQuery()">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Show Query
+        </mat-panel-title>
+        <mat-panel-description>
+          Shows GraphQL Query
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      {{query}}
+  </mat-expansion-panel>
+    
 </div>

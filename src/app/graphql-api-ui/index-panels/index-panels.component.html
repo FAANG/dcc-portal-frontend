@@ -8,6 +8,9 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     
+    <hr/>
+    <app-select-fields [indexName]="indexName" [indexPath]="indexPath" [indexPanelContainerService]="indexPanelContainerService"></app-select-fields>
+    <hr/>
     <div *ngIf="indexPath.length < 3">
         <mat-slide-toggle [value]="enableJoin" (click)="onSlideToggleClick()">Perform Join</mat-slide-toggle>
         <div *ngIf="enableJoin">

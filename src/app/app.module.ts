@@ -99,7 +99,11 @@ import { cookieConfig } from './app.component';
 import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
 import { GraphqlApiUiComponent } from './graphql-api-ui/graphql-api-ui.component';
-
+import { IndexPanelsComponent } from './graphql-api-ui/index-panels/index-panels.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { IndexPanelContainerComponent } from './graphql-api-ui/index-panel-container/index-panel-container.component';
+import { SelectFieldsComponent } from './graphql-api-ui/index-panels/select-fields/select-fields.component'
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
 }
@@ -170,7 +174,10 @@ export function removeToken(): void {
     NextflowSubmissionComponent,
     ProtocolAnalysisDetailsComponent,
     EnsemblAnnotationComponent,
-    GraphqlApiUiComponent
+    GraphqlApiUiComponent,
+    IndexPanelsComponent,
+    IndexPanelContainerComponent,
+    SelectFieldsComponent
   ],
   imports: [
     BrowserModule,
@@ -204,6 +211,8 @@ export function removeToken(): void {
     MatProgressBarModule,
     MatToolbarModule,
     MatBadgeModule,
+    MatSlideToggleModule,
+    MatCheckboxModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,

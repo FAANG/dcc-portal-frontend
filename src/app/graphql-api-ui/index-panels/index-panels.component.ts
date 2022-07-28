@@ -6,6 +6,7 @@ import { IndexPanelContainerService } from '../index-panel-container/index-panel
   selector: 'app-index-panels',
   templateUrl: './index-panels.component.html',
   styleUrls: ['./index-panels.component.css'],
+  providers:[IndexPanelContainerService]
 })
 export class IndexPanelsComponent implements OnInit {
 
@@ -28,6 +29,7 @@ export class IndexPanelsComponent implements OnInit {
     
     console.log(this.indexPath)
   }
+  
 
   onSlideToggleClick(){
     this.enableJoin = !this.enableJoin;

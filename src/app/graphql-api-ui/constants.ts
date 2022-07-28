@@ -2,7 +2,8 @@ export const indexDetails = {
     'analysis' : {
         primaryKeys : ['accession'],
         queryMultipleDocumentsResolverName : 'allAnalysis',
-        possibleRightIndicesForJoin : ['experiment','specimen']
+        possibleRightIndicesForJoin : ['experiment','specimen'],
+        fields : ['accession','project']
     },
     'article' : {
         primaryKeys : ['pmcId','pubmedId'],

@@ -1,0 +1,9 @@
+<div>
+    <p>Select Fields</p>
+    <form formGroup="basicFiltersForm">
+        <span *ngFor="let field of fields">
+            <mat-checkbox (click)="onFieldToggle(field)" [checked]="basicFiltersForm.get(field)">{{field}}</mat-checkbox>
+        </span>
+        
+    </form>
+</div>
