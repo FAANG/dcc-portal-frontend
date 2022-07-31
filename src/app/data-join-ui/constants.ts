@@ -1,42 +1,42 @@
 export const indexData = {
     'analysis':{
         primaryKeys : ['accession'],
-        possibleRightJoinIndices : ['experiment','specimen'],
+        possibleRightJoinIndices : ['article','dataset','experiment','specimen'],
     },
     'article':{
         primaryKeys : ['pmcId','pubmedId'],
-        possibleRightJoinIndices : ['experiment','specimen'],
+        possibleRightJoinIndices : ['analysis','dataset','file','specimen'],
     },
     'dataset':{
         primaryKeys : ['accession'],
-        possibleRightJoinIndices : ['experiment','specimen'],
+        possibleRightJoinIndices : ['analysis','article','experiment','file','organism','specimen'],
     },
     'experiment':{
         primaryKeys : ['accession'],
-        possibleRightJoinIndices : ['analysis','specimen'],
+        possibleRightJoinIndices : ['analysis','dataset','file'],    
     },
     'file':{
         primaryKeys : ['_id'],
-        possibleRightJoinIndices : ['experiment','specimen'],
+        possibleRightJoinIndices : ['article','dataset','experiment','organism','specimen','protocol_files','protocol_samples'],
     },
     'organism':{
         primaryKeys : ['biosampleId'],
-        possibleRightJoinIndices : ['experiment','specimen'],
+        possibleRightJoinIndices : ['file','specimen','protocol_samples'],
     },
     'specimen':{
         primaryKeys : ['biosampleId'],
-        possibleRightJoinIndices : ['experiment','specimen'],
+        possibleRightJoinIndices : ['analysis', 'article', 'dataset', 'file', 'protocol_samples', 'derived_from_organism', 'derived_from_specimen', 'derives_specimen_sample'],
     },
     'protocol_analysis':{
         primaryKeys : ['key'],
-        possibleRightJoinIndices : ['experiment','specimen'],
+        possibleRightJoinIndices : ['analysis'],
     },
     'protocol_files':{
         primaryKeys : ['key'],
-        possibleRightJoinIndices : ['experiment','specimen'],
+        possibleRightJoinIndices : ['file'],
     },
     'protocol_samples':{
         primaryKeys : ['key'],
-        possibleRightJoinIndices : ['experiment','specimen'],
+        possibleRightJoinIndices : ['file','organism','specimen'],
     },
 }
