@@ -42,6 +42,7 @@ import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { QueryLanguageComponent } from './query-language/query-language.component';
 import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
+import { DataJoinUiComponent } from './data-join-ui/data-join-ui.component';
 
 
 const routes: Routes = [
@@ -88,6 +89,7 @@ const routes: Routes = [
   {path: 'query', component: QueryLanguageComponent},
   {path: 'trackhubs', component: TrackhubsSubmissionComponent},
   {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
+  {path: 'data-join', component: DataJoinUiComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];
