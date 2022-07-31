@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { indexData } from './constants';
 
 @Component({
   selector: 'app-data-join-ui',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DataJoinUiComponent implements OnInit {
 
+  firstIndexName = new FormControl('');
+  firstIndices = Object.keys(indexData);
+  
+  secondIndexName = new FormControl('');
+  secondIndices = [];
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onSelectionChange(e, indexName){
+
+    if(indexName === 'firstIndex'){
+      this.secondIndices = indexData[this.firstIndexName.value]['possibleRightJoinIndices'];
+    }
+
+  }
 }

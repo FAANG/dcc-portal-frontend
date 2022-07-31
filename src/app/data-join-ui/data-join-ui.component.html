@@ -1,1 +1,20 @@
-<p>data-join-ui works!</p>
+<app-header></app-header>
+<div class="container-fluid">
+  <h2>FAANG Data Join</h2>
+  <hr>
+  <div>
+    <mat-form-field appearance="fill">
+        <mat-label>First Index</mat-label>
+        <mat-select [formControl]="firstIndexName" (selectionChange)="onSelectionChange($event,'firstIndex')">
+          <mat-option *ngFor="let firstIndex of firstIndices" [value]="firstIndex" >{{firstIndex}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+    <mat-label>Second Index</mat-label>
+    <mat-select [formControl]="secondIndexName" (selectionChange)="onSelectionChange($event,'secondIndex')">
+        <mat-option *ngFor="let secondIndex of secondIndices" [value]="secondIndex" >{{secondIndex}}</mat-option>
+    </mat-select>
+    </mat-form-field>
+  </div>
+</div>
