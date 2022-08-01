@@ -15,20 +15,16 @@
         <mat-tab [label]="firstIndexName.value">
             <form [formGroup]="firstIndexFieldsAndFilters">
                 <div formArrayName="formFields">
-                    <div *ngFor="let fieldDetails of firstIndexFieldsAndFilters.get('formFields')?.value;  let i = index;trackBy:trackFn" [formGroupName]="i" >
-                        <mat-checkbox formControlName="isSelected" [checked]="fieldDetails.isSelected" (mousedown)="handleFieldChekboxClick('firstIndex',i)">{{fieldDetails.fieldName.value}}</mat-checkbox>
-                        <!-- <input type="checkbox" formControlName="isSelected" [checked]="fieldDetails.isSelected" (click)="handleFieldChekboxClick('firstIndex',i)"/> -->
-                        <textarea  formControlName="filter" (keyup)="handleFocusOut($event)"></textarea>
-                        <!-- <mat-form-field appearance="fill">
+                    <div *ngFor="let fieldDetails of firstIndexFieldsAndFilters.get('formFields')?.value;  let i = index;trackBy:trackByFn" [formGroupName]="i" >
+                        <mat-checkbox type="checkbox" formControlName="isSelected">{{fieldDetails.fieldName.value}}</mat-checkbox>
+                        <mat-form-field appearance="fill">
                             <input matInput 
                                 formControlName="filter"
                                 placeholder="Add more tags"
                                 (click)="handleFilterValueChange($event,'firstIndex',i)"
-                            
                                 [value]="fieldDetails.filter"
-                            />
-                                
-                        </mat-form-field> -->
+                            />  
+                        </mat-form-field>
                     </div>
                 </div>
             </form>

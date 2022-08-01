@@ -23,25 +23,23 @@ export class SelectFieldsAndFiltersComponent implements OnInit {
     console.log(changes)
   }
 
-  trackByFn(index) {
-    return index;  
+  trackByFn(index,item) {
+    return this.firstIndexName?.value + item.fieldName;  
   }
 
   handleFieldChekboxClick(index,fieldIndex){
     const formControlToUpdate = (<FormArray>this.firstIndexFieldsAndFilters.get("formFields")).at(fieldIndex);
     let currentVal = !formControlToUpdate.value.isSelected;
-    formControlToUpdate.get('isSelected').patchValue(currentVal)
+    console.log(currentVal)
+    formControlToUpdate.get('isSelected').patchValue(false)
   }
 
-  handleFilterValueChange(){
-    console.log("e.target.value")
-    // const formControlToUpdate = (<FormArray>this.firstIndexFieldsAndFilters.get("formFields")).at(fieldIndex).get('filter');
-    // let currentVal = e.target.value;
-    // formControlToUpdate.patchValue(currentVal);
+  handleFilterValueChange(e,index,fieldIndex){
+    // console.log("e.target.value")
+    const formControlToUpdate = (<FormArray>this.firstIndexFieldsAndFilters.get("formFields")).at(fieldIndex).get('filter');
+    let currentVal = e.target.value;
+    formControlToUpdate.patchValue(currentVal);
     
   }
 
-  handleFocusOut(e){
-    console.log('focusout')
-  }
 }
