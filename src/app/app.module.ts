@@ -92,6 +92,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { NgcCookieConsentModule } from 'ngx-cookieconsent';
@@ -99,6 +100,8 @@ import { cookieConfig } from './app.component';
 import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
 import { DataJoinUiComponent } from './data-join-ui/data-join-ui.component';
+import { SelectIndicesComponent } from './data-join-ui/select-indices/select-indices.component';
+import { SelectFieldsAndFiltersComponent } from './data-join-ui/select-fields-and-filters/select-fields-and-filters.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -170,7 +173,9 @@ export function removeToken(): void {
     NextflowSubmissionComponent,
     ProtocolAnalysisDetailsComponent,
     EnsemblAnnotationComponent,
-    DataJoinUiComponent
+    DataJoinUiComponent,
+    SelectIndicesComponent,
+    SelectFieldsAndFiltersComponent
   ],
   imports: [
     BrowserModule,
@@ -200,6 +205,7 @@ export function removeToken(): void {
     ReactiveFormsModule,
     MatMenuModule,
     MatCardModule,
+    MatCheckboxModule,
     FlexLayoutModule,
     MatProgressBarModule,
     MatToolbarModule,
