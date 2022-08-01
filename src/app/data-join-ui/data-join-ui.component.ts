@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { indexData } from './constants';
 
 @Component({
@@ -11,20 +11,35 @@ export class DataJoinUiComponent implements OnInit {
 
   firstIndexName = new FormControl('');
   firstIndices = Object.keys(indexData);
-  
-  secondIndexName = new FormControl('');
+  firstIndexFieldsAndFilters = new FormGroup({});
+
+  secondIndexName = new FormControl();
   secondIndices = [];
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
-  onSelectionChange(e, indexName){
-
-    if(indexName === 'firstIndex'){
-      this.secondIndices = indexData[this.firstIndexName.value]['possibleRightJoinIndices'];
+  updateFirstIndexFieldsAndFilters(){
+    if(this.firstIndexName.value){
+      console.log(this.firstIndexFieldsAndFilters.value)
+    
+      this.firstIndexFieldsAndFilters = new FormGroup({
+        formFields: new FormArray(indexData[this.firstIndexName.value]['fields'].map(
+          (formFieldName:string)=>new FormGroup({
+            fieldName : new FormControl({value: formFieldName}),
+            isSelected : new FormControl(true),
+            filter: new FormControl(''),
+          })
+        ))
+      });
+      console.log(this.firstIndexFieldsAndFilters.value)
+    
+    
     }
-
   }
+
+  ngOnInit(): void {
+    this.updateFirstIndexFieldsAndFilters();
+  }
+
+  
 }
