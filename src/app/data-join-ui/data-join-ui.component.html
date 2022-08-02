@@ -8,13 +8,17 @@
     (firstIndexChange)="updateIndexFieldsAndFilters('firstIndex')"
     (secondIndexChange)="updateIndexFieldsAndFilters('secondIndex')"
   ></app-select-indices>
-  <app-select-fields-and-filters 
-    [firstIndexName]="firstIndexName"
-    [firstIndexFieldsAndFilters]="firstIndexFieldsAndFilters"
-    [secondIndexName]="secondIndexName"
-    [secondIndexFieldsAndFilters]="secondIndexFieldsAndFilters"
+  <div *ngIf="firstIndexName.value && secondIndexName.value" (mouseover)="updateGraphQLQuery()">
+    <app-select-fields-and-filters 
+        [firstIndexName]="firstIndexName"
+        [firstIndexFieldsAndFilters]="firstIndexFieldsAndFilters"
+        [secondIndexName]="secondIndexName"
+        [secondIndexFieldsAndFilters]="secondIndexFieldsAndFilters"
+        (graphQLQueryChange)="updateGraphQLQuery()"
     >
-  </app-select-fields-and-filters>
-
-
+    </app-select-fields-and-filters>
+    <app-graphql-query 
+      [graphQLQuery]="graphQLQuery" 
+    ></app-graphql-query>
+  </div>
 </div>

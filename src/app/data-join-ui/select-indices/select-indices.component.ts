@@ -33,7 +33,6 @@ export class SelectIndicesComponent implements OnInit {
     else if(indexName === 'secondIndex'){
       this.secondIndexChange.emit();
     }
-
   }
 
 }

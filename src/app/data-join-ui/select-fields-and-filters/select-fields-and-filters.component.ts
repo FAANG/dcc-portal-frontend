@@ -14,6 +14,8 @@ export class SelectFieldsAndFiltersComponent implements OnInit {
   @Input() secondIndexName;
   @Input() secondIndexFieldsAndFilters;
 
+  @Output() graphQLQueryChange = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -23,6 +25,11 @@ export class SelectFieldsAndFiltersComponent implements OnInit {
     return this.firstIndexName?.value + item.fieldName;  
   }
 
+  emitGraphQLQueryChangeEvent(){
+    this.graphQLQueryChange.emit();
+  }
+
+
   handleFilterValueChange(e,index='firstIndex',fieldIndex){
     
     const indexToUpdate = index === 'firstIndex' ? this.firstIndexFieldsAndFilters : this.secondIndexFieldsAndFilters;
@@ -30,7 +37,6 @@ export class SelectFieldsAndFiltersComponent implements OnInit {
     const formControlToUpdate = (<FormArray>indexToUpdate.get("formFields")).at(fieldIndex).get('filter');
     let currentVal = e.target.value;
     formControlToUpdate.patchValue(currentVal);
-    
   }
 
 }

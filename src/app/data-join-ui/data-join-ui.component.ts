@@ -17,8 +17,12 @@ export class DataJoinUiComponent implements OnInit {
   secondIndices = [];
   secondIndexFieldsAndFilters = new FormGroup({});
 
-  constructor() { }
+  graphQLQuery = '';
 
+  constructor() {}
+
+  
+  
   updateIndexFieldsAndFilters(index = 'firstIndex'){
 
     const indexToUpdate = index === 'firstIndex' ? this.firstIndexName : this.secondIndexName;
@@ -40,13 +44,16 @@ export class DataJoinUiComponent implements OnInit {
       }else{
         this.secondIndexFieldsAndFilters = updatedIndexFieldsAndFilters;
       }
-    
+      
     }
+  }
+
+  updateGraphQLQuery(){
+    this.graphQLQuery = JSON.stringify(this.firstIndexFieldsAndFilters.value) + JSON.stringify(this.secondIndexFieldsAndFilters.value);
   }
 
   ngOnInit(): void {
     this.updateIndexFieldsAndFilters();
   }
-
   
 }

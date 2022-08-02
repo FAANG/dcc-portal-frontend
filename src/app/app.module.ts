@@ -102,6 +102,7 @@ import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-
 import { DataJoinUiComponent } from './data-join-ui/data-join-ui.component';
 import { SelectIndicesComponent } from './data-join-ui/select-indices/select-indices.component';
 import { SelectFieldsAndFiltersComponent } from './data-join-ui/select-fields-and-filters/select-fields-and-filters.component';
+import { GraphqlQueryComponent } from './data-join-ui/graphql-query/graphql-query.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -175,7 +176,8 @@ export function removeToken(): void {
     EnsemblAnnotationComponent,
     DataJoinUiComponent,
     SelectIndicesComponent,
-    SelectFieldsAndFiltersComponent
+    SelectFieldsAndFiltersComponent,
+    GraphqlQueryComponent
   ],
   imports: [
     BrowserModule,
