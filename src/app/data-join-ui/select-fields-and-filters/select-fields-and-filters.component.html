@@ -30,7 +30,24 @@
             </form>
 
         </mat-tab>
-        <mat-tab [label]="secondIndexName.value"> Content 2 </mat-tab>
+        <mat-tab [label]="secondIndexName.value">
+            <form [formGroup]="secondIndexFieldsAndFilters">
+                <div formArrayName="formFields">
+                    <div *ngFor="let fieldDetails of secondIndexFieldsAndFilters.get('formFields')?.value;  let i = index;trackBy:trackByFn" [formGroupName]="i" >
+                        <mat-checkbox type="checkbox" formControlName="isSelected">{{fieldDetails.fieldName.value}}</mat-checkbox>
+                        <mat-form-field appearance="fill">
+                            <input matInput 
+                                formControlName="filter"
+                                placeholder="Add more tags"
+                                (click)="handleFilterValueChange($event,'secondIndex',i)"
+                                [value]="fieldDetails.filter"
+                            />  
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+
+        </mat-tab>
     </mat-tab-group>
   </mat-expansion-panel>
     

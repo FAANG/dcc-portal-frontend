@@ -12,7 +12,7 @@ export class SelectIndicesComponent implements OnInit {
   @Input() secondIndexName;
 
   @Output() firstIndexChange = new EventEmitter();
-  
+  @Output() secondIndexChange = new EventEmitter();
 
   firstIndices = Object.keys(indexData);
   secondIndices = [];
@@ -29,6 +29,9 @@ export class SelectIndicesComponent implements OnInit {
       if(!this.secondIndices.includes(this.secondIndexName))
         this.secondIndexName.setValue('');
       this.firstIndexChange.emit();
+    }
+    else if(indexName === 'secondIndex'){
+      this.secondIndexChange.emit();
     }
 
   }

@@ -15,15 +15,18 @@ export class DataJoinUiComponent implements OnInit {
 
   secondIndexName = new FormControl();
   secondIndices = [];
+  secondIndexFieldsAndFilters = new FormGroup({});
 
   constructor() { }
 
-  updateFirstIndexFieldsAndFilters(){
-    if(this.firstIndexName.value){
-      console.log(this.firstIndexFieldsAndFilters.value)
+  updateIndexFieldsAndFilters(index = 'firstIndex'){
+
+    const indexToUpdate = index === 'firstIndex' ? this.firstIndexName : this.secondIndexName;
     
-      this.firstIndexFieldsAndFilters = new FormGroup({
-        formFields: new FormArray(indexData[this.firstIndexName.value]['fields'].map(
+    if(indexToUpdate.value){
+      
+      const updatedIndexFieldsAndFilters = new FormGroup({
+        formFields: new FormArray(indexData[indexToUpdate.value]['fields'].map(
           (formFieldName:string)=>new FormGroup({
             fieldName : new FormControl({value: formFieldName}),
             isSelected : new FormControl(true),
@@ -31,14 +34,18 @@ export class DataJoinUiComponent implements OnInit {
           })
         ))
       });
-      console.log(this.firstIndexFieldsAndFilters.value)
-    
+
+      if(index === 'firstIndex'){
+        this.firstIndexFieldsAndFilters = updatedIndexFieldsAndFilters;
+      }else{
+        this.secondIndexFieldsAndFilters = updatedIndexFieldsAndFilters;
+      }
     
     }
   }
 
   ngOnInit(): void {
-    this.updateFirstIndexFieldsAndFilters();
+    this.updateIndexFieldsAndFilters();
   }
 
   

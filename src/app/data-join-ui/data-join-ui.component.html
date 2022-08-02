@@ -5,12 +5,14 @@
   <app-select-indices 
     [firstIndexName]="firstIndexName" 
     [secondIndexName]="secondIndexName"
-    (firstIndexChange)="updateFirstIndexFieldsAndFilters()"
+    (firstIndexChange)="updateIndexFieldsAndFilters('firstIndex')"
+    (secondIndexChange)="updateIndexFieldsAndFilters('secondIndex')"
   ></app-select-indices>
   <app-select-fields-and-filters 
     [firstIndexName]="firstIndexName"
     [firstIndexFieldsAndFilters]="firstIndexFieldsAndFilters"
     [secondIndexName]="secondIndexName"
+    [secondIndexFieldsAndFilters]="secondIndexFieldsAndFilters"
     >
   </app-select-fields-and-filters>
 
