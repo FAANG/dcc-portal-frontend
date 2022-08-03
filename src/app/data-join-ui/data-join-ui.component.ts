@@ -118,7 +118,7 @@ export class DataJoinUiComponent implements OnInit {
 
     }
 
-    set(fieldObj,'__args.filter',{...filterObj});
+    set(fieldObj,[this.indexDetailsArray[0].indexName,'__args','filter'].join('.'),{...filterObj});
     const query = cleanObject({query:{...fieldObj}});
     
     this.ensureJoinInQueryFilterArgument(query,filterObj);

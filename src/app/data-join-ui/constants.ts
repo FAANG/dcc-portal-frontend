@@ -27,7 +27,7 @@ export const indexData = {
     'organism':{
         primaryKeys : ['biosampleId'],
         possibleRightJoinIndices : ['file','specimen','protocol_samples'],
-        fields : ['accession', 'alias', 'project','organism.text','organism.unit'],
+        fields : ['accession', 'alias', 'project','organism.some.text','organism.some.unit'],
     },
     'specimen':{
         primaryKeys : ['biosampleId'],
