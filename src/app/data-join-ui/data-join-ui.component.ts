@@ -22,6 +22,8 @@ export class DataJoinUiComponent implements OnInit {
 
   graphQLQuery = '';
 
+  indexDetailsArray = [];
+
   constructor() {}
 
   
@@ -51,15 +53,82 @@ export class DataJoinUiComponent implements OnInit {
     }
   }
 
-  updateGraphQLQuery(){
-    this.graphQLQuery = JSON.stringify(this.firstIndexFieldsAndFilters.value) + JSON.stringify(this.secondIndexFieldsAndFilters.value);
-    const obj = {};
-    const formFields = this.firstIndexFieldsAndFilters.get('formFields').value;
-    for(let {fieldName,isSelected,filter} of formFields){
-      merge(obj,set({},fieldName,filter));
+  ensureJoinInQueryFilterArgument(query, filterObj){
+    let currentObj = query['query'][this.firstIndexName.value];
+
+    if(!currentObj['__args']?.['filter']?.['join']){
+      set(currentObj,'__args.filter.join',{});
     }
 
-    console.log(obj,jsonToGraphQLQuery(cleanObject(obj)));
+    currentObj = currentObj['__args']['filter']['join'];
+    let filterReference = filterObj['join'];
+
+    for(let i = 1 ;i < this.indexDetailsArray.length; i++){
+     
+        currentObj[this.indexDetailsArray[i].indexName] = {...filterReference[this.indexDetailsArray[i].indexName]};
+        if(i < this.indexDetailsArray.length - 1){
+          currentObj[this.indexDetailsArray[i].indexName]['join'] = {...filterReference[this.indexDetailsArray[i].indexName]['join']};
+          currentObj = currentObj[this.indexDetailsArray[i].indexName]['join'];
+          filterReference = filterObj[this.indexDetailsArray[i].indexName]['join'];
+        }
+    }
+
+
+  }
+
+  getObjWithFieldsAndFiltersForGraphQLQuery(indexFormArrayIndex:number,objType = 'fields'){
+    const obj = {};
+    for(let {fieldName,isSelected,filter} of this.indexDetailsArray[indexFormArrayIndex]['indexForm'].get('formFields').value){
+      merge(obj,set({},fieldName,objType === 'fields' ? isSelected : filter.split(',')));
+    }
+    return obj;
+  }
+
+  buildQuery(){
+    let fieldObj = {};
+    let filterObj = {};
+    this.indexDetailsArray = [{indexName:this.firstIndexName.value,indexForm:this.firstIndexFieldsAndFilters},{indexName:this.secondIndexName.value,indexForm:this.secondIndexFieldsAndFilters}];
+    let currentFieldObj = {};
+    let currentFilterObj = {};
+
+    for(let i = 0; i< this.indexDetailsArray.length; i++){
+
+      // For selecting fields
+      set(currentFieldObj,[this.indexDetailsArray[i].indexName,'edges','node'].join('.'),this.getObjWithFieldsAndFiltersForGraphQLQuery(i,'fields'));
+      set(currentFieldObj,[this.indexDetailsArray[i].indexName,'edges','node','join'].join('.'),{});
+      
+      if(i === 0){
+        fieldObj = {...currentFieldObj};
+        currentFieldObj = fieldObj[this.indexDetailsArray[i].indexName]['edges']['node']['join'];
+      }else{
+        currentFieldObj = currentFieldObj[this.indexDetailsArray[i].indexName]['edges']['node']['join'];
+      }
+
+      // For selecting filters
+      if(i === 0){
+        set(currentFilterObj,'basic',this.getObjWithFieldsAndFiltersForGraphQLQuery(i,'filters'));
+        set(currentFilterObj,'join',{});
+        filterObj = {...currentFilterObj};
+      }else{
+        set(currentFilterObj,[this.indexDetailsArray[i].indexName,'basic'].join('.'),this.getObjWithFieldsAndFiltersForGraphQLQuery(i,'filters'));
+        set(currentFilterObj,[this.indexDetailsArray[i].indexName,'join'].join('.'),{});
+      }
+
+      currentFilterObj = filterObj['join'];
+
+    }
+
+    set(fieldObj,'__args.filter',{...filterObj});
+    const query = cleanObject({query:{...fieldObj}});
+    
+    this.ensureJoinInQueryFilterArgument(query,filterObj);
+    
+    return jsonToGraphQLQuery(query,{pretty:true});
+  }
+
+  updateGraphQLQuery(){
+    this.graphQLQuery = this.buildQuery();
+    console.log(this.graphQLQuery);
   }
 
   ngOnInit(): void {
