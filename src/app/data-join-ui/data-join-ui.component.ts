@@ -126,7 +126,7 @@ export class DataJoinUiComponent implements OnInit {
     
     this.ensureJoinInQueryFilterArgument(query,filterObj);
     
-    return jsonToGraphQLQuery(query,{pretty:true});
+    return JSON.stringify(jsonToGraphQLQuery(query,{pretty:true}),null,2).replace(/\\r/g, '\r').replace(/\\n/g, '\n').replace(/\\"/g, "\"").split('\"').slice(1, -1).join('\"');
   }
 
   updateGraphQLQuery(){
