@@ -16,7 +16,7 @@
             <form [formGroup]="firstIndexFieldsAndFilters">
                 <div formArrayName="formFields">
                     <div *ngFor="let fieldDetails of firstIndexFieldsAndFilters.get('formFields')?.value;  let i = index;trackBy:trackByFn" [formGroupName]="i" >
-                        <mat-checkbox type="checkbox" formControlName="isSelected">{{fieldDetails.fieldName.value}}</mat-checkbox>
+                        <mat-checkbox type="checkbox" formControlName="isSelected">{{fieldDetails.fieldName}}</mat-checkbox>
                         <mat-form-field appearance="fill">
                             <input matInput 
                                 formControlName="filter"
@@ -35,7 +35,7 @@
             <form [formGroup]="secondIndexFieldsAndFilters">
                 <div formArrayName="formFields">
                     <div *ngFor="let fieldDetails of secondIndexFieldsAndFilters.get('formFields')?.value;  let i = index;trackBy:trackByFn" [formGroupName]="i" >
-                        <mat-checkbox type="checkbox" formControlName="isSelected" (mouseup)="emitGraphQLQueryChangeEvent()">{{fieldDetails.fieldName.value}}</mat-checkbox>
+                        <mat-checkbox type="checkbox" formControlName="isSelected" (mouseup)="emitGraphQLQueryChangeEvent()">{{fieldDetails.fieldName}}</mat-checkbox>
                         <mat-form-field appearance="fill">
                             <input matInput 
                                 formControlName="filter"

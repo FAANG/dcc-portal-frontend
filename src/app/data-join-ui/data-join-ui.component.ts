@@ -33,7 +33,7 @@ export class DataJoinUiComponent implements OnInit {
       const updatedIndexFieldsAndFilters = new FormGroup({
         formFields: new FormArray(indexData[indexToUpdate.value]['fields'].map(
           (formFieldName:string)=>new FormGroup({
-            fieldName : new FormControl({value: formFieldName}),
+            fieldName : new FormControl(formFieldName),
             isSelected : new FormControl(true),
             filter: new FormControl(''),
           })
