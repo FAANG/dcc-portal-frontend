@@ -27,7 +27,7 @@ export const indexData = {
     'organism':{
         primaryKeys : ['biosampleId'],
         possibleRightJoinIndices : ['file','specimen','protocol_samples'],
-        fields : ['accession', 'alias', 'project'],
+        fields : ['accession', 'alias', 'project','organism.text','organism.unit'],
     },
     'specimen':{
         primaryKeys : ['biosampleId'],
@@ -73,4 +73,28 @@ export const makeNestedObjectFromStringPath = (path:string,value:any)=>{
     }
 
     return value;
+}
+
+export const cleanObject=(object) =>{
+    Object
+        .entries(object)
+        .forEach(([k, v]:[any,any]) => {
+            if (v && typeof v === 'object')
+                cleanObject(v);
+            if (
+                v && 
+                typeof v === 'object' && 
+                !Object.keys(v).length || 
+                v === null || 
+                v === undefined ||
+                v === false ||
+                v.length === 0
+            ) {
+                if (Array.isArray(object))
+                    object.splice(Number(k), 1);
+                else if (!(v instanceof Date))
+                    delete object[k];
+            }
+        });
+    return object;
 }

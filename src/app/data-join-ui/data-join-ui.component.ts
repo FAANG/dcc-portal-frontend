@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { indexData } from './constants';
+import { merge, set } from 'lodash';
+import {jsonToGraphQLQuery} from 'json-to-graphql-query';
+import { indexData, cleanObject } from './constants';
 
 
 @Component({
@@ -51,6 +53,13 @@ export class DataJoinUiComponent implements OnInit {
 
   updateGraphQLQuery(){
     this.graphQLQuery = JSON.stringify(this.firstIndexFieldsAndFilters.value) + JSON.stringify(this.secondIndexFieldsAndFilters.value);
+    const obj = {};
+    const formFields = this.firstIndexFieldsAndFilters.get('formFields').value;
+    for(let {fieldName,isSelected,filter} of formFields){
+      merge(obj,set({},fieldName,filter));
+    }
+
+    console.log(obj,jsonToGraphQLQuery(cleanObject(obj)));
   }
 
   ngOnInit(): void {
