@@ -14,7 +14,7 @@ export class SelectIndicesComponent implements OnInit {
   @Output() firstIndexChange = new EventEmitter();
   @Output() secondIndexChange = new EventEmitter();
 
-  firstIndices = Object.keys(indexData);
+  firstIndices = Object.keys(indexData).filter((index:string)=> !['derives_specimen_sample','derived_from_specimen','derived_from_organism'].includes(index));
   secondIndices = [];
 
   constructor() { }
