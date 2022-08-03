@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { indexData } from './constants';
 
+
 @Component({
   selector: 'app-data-join-ui',
   templateUrl: './data-join-ui.component.html',
