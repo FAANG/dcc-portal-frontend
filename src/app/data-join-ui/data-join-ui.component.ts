@@ -54,7 +54,7 @@ export class DataJoinUiComponent implements OnInit {
   }
 
   ensureJoinInQueryFilterArgument(query, filterObj){
-    let currentObj = query['query'][this.firstIndexName.value];
+    let currentObj = query['query'][indexData[this.indexDetailsArray[0].indexName].multipleRecordsResolverFieldName];
 
     if(!currentObj['__args']?.['filter']?.['join']){
       set(currentObj,'__args.filter.join',{});
@@ -94,13 +94,16 @@ export class DataJoinUiComponent implements OnInit {
     for(let i = 0; i< this.indexDetailsArray.length; i++){
 
       // For selecting fields
-      set(currentFieldObj,[this.indexDetailsArray[i].indexName,'edges','node'].join('.'),this.getObjWithFieldsAndFiltersForGraphQLQuery(i,'fields'));
-      set(currentFieldObj,[this.indexDetailsArray[i].indexName,'edges','node','join'].join('.'),{});
       
       if(i === 0){
+        set(currentFieldObj,[indexData[this.indexDetailsArray[i].indexName].multipleRecordsResolverFieldName,'edges','node'].join('.'),this.getObjWithFieldsAndFiltersForGraphQLQuery(i,'fields'));
+        set(currentFieldObj,[indexData[this.indexDetailsArray[i].indexName].multipleRecordsResolverFieldName,'edges','node','join'].join('.'),{});
+      
         fieldObj = {...currentFieldObj};
-        currentFieldObj = fieldObj[this.indexDetailsArray[i].indexName]['edges']['node']['join'];
+        currentFieldObj = fieldObj[indexData[this.indexDetailsArray[i].indexName].multipleRecordsResolverFieldName]['edges']['node']['join'];
       }else{
+        set(currentFieldObj,[this.indexDetailsArray[i].indexName,'edges','node'].join('.'),this.getObjWithFieldsAndFiltersForGraphQLQuery(i,'fields'));
+        set(currentFieldObj,[this.indexDetailsArray[i].indexName,'edges','node','join'].join('.'),{});
         currentFieldObj = currentFieldObj[this.indexDetailsArray[i].indexName]['edges']['node']['join'];
       }
 
@@ -118,7 +121,7 @@ export class DataJoinUiComponent implements OnInit {
 
     }
 
-    set(fieldObj,[this.indexDetailsArray[0].indexName,'__args','filter'].join('.'),{...filterObj});
+    set(fieldObj,[indexData[this.indexDetailsArray[0].indexName].multipleRecordsResolverFieldName,'__args','filter'].join('.'),{...filterObj});
     const query = cleanObject({query:{...fieldObj}});
     
     this.ensureJoinInQueryFilterArgument(query,filterObj);
