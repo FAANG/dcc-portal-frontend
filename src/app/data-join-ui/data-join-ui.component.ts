@@ -131,7 +131,6 @@ export class DataJoinUiComponent implements OnInit {
 
   updateGraphQLQuery(){
     this.graphQLQuery = this.buildQuery();
-    console.log(this.graphQLQuery);
   }
 
   ngOnInit(): void {

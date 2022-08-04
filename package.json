@@ -30,6 +30,7 @@
     "@ng-bootstrap/ng-bootstrap": "^12.0.1",
     "@popperjs/core": "^2.11.5",
     "angular-popper": "^2.0.1",
+    "apollo-angular": "^3.0.1",
     "bootstrap": "^4.4.1",
     "browserslist": "^4.8.3",
     "caniuse-lite": "^1.0.30001019",
@@ -52,7 +53,9 @@
     "rxjs": "^6.5.4",
     "swagger-ui-dist": "^3.51.1",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "@apollo/client": "^3.0.0",
+    "graphql": "^16"
   },
   "devDependencies": {
     "@angular/cli": "^13.3.2",

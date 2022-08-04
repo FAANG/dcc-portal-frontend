@@ -104,6 +104,7 @@ import { SelectIndicesComponent } from './data-join-ui/select-indices/select-ind
 import { SelectFieldsAndFiltersComponent } from './data-join-ui/select-fields-and-filters/select-fields-and-filters.component';
 import { GraphqlQueryComponent } from './data-join-ui/graphql-query/graphql-query.component';
 import { GraphqlFetchedDataComponent } from './data-join-ui/graphql-fetched-data/graphql-fetched-data.component';
+import { GraphQLModule } from './graphql.module';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -225,7 +226,8 @@ export function removeToken(): void {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
     NgbModule,
-    NgcCookieConsentModule.forRoot(cookieConfig)
+    NgcCookieConsentModule.forRoot(cookieConfig),
+    GraphQLModule
   ],
   providers: [ApiDataService, AggregationService, SlicePipe, UserService],
   bootstrap: [AppComponent]
