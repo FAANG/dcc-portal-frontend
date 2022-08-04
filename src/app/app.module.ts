@@ -103,6 +103,7 @@ import { DataJoinUiComponent } from './data-join-ui/data-join-ui.component';
 import { SelectIndicesComponent } from './data-join-ui/select-indices/select-indices.component';
 import { SelectFieldsAndFiltersComponent } from './data-join-ui/select-fields-and-filters/select-fields-and-filters.component';
 import { GraphqlQueryComponent } from './data-join-ui/graphql-query/graphql-query.component';
+import { GraphqlFetchedDataComponent } from './data-join-ui/graphql-fetched-data/graphql-fetched-data.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -177,7 +178,8 @@ export function removeToken(): void {
     DataJoinUiComponent,
     SelectIndicesComponent,
     SelectFieldsAndFiltersComponent,
-    GraphqlQueryComponent
+    GraphqlQueryComponent,
+    GraphqlFetchedDataComponent
   ],
   imports: [
     BrowserModule,
