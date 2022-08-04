@@ -1,0 +1,13 @@
+.select-fields-and-filters-form-container{
+    margin-bottom: 4vw;
+}
+
+.select-fields-and-filters-controls-row{
+    display:flex;
+}
+
+.select-fields-and-filters-controls-row-item{
+    align-self:center;
+    flex-basis: 0;
+    flex-grow: 1;
+}
