@@ -14,8 +14,8 @@ export const ruleset_prefix_new = 'https://raw.githubusercontent.com/FAANG/dcc-m
 export const validation_service_url_download = 'https://api.faang.org';
 // export const validation_ws_url = 'wss://data.faang.org/validation_ws/ws/submission/';
 
-export const validation_service_url = 'https://api.faang.org:8000';
-export const validation_ws_url = 'wss://api.faang.org:8000/ws/submission/';
+export const validation_service_url = 'https://api.faang.org';
+export const validation_ws_url = 'wss://api.faang.org/ws/submission/';
 
 export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';
