@@ -155,7 +155,7 @@ export class TrackhubsSubmissionComponent implements OnInit {
   }
 
   submitTrackHub() {
-    const url = validation_ws_url + 'test_hub' + '/';
+    const url = validation_ws_url + this.validation_results['Hub Data'][0]['Name'] + '/';
     this.socket = new WebSocket(url);
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
