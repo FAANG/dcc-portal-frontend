@@ -34,7 +34,7 @@
 
         </mat-tab>
         <mat-tab [label]="secondIndexName.value">
-            <form [formGroup]="secondIndexFieldsAndFilters">
+            <form [formGroup]="secondIndexFieldsAndFilters" class="select-fields-and-filters-tab-group">
                 <div formArrayName="formFields">
                     <div *ngFor="let fieldDetails of secondIndexFieldsAndFilters.get('formFields')?.value;  let i = index;trackBy:trackByFn" [formGroupName]="i" class="select-fields-and-filters-controls-row">
                         <p class="select-fields-and-filters-controls-row-item">{{fieldDetails.fieldName}}</p>
