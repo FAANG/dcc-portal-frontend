@@ -41,3 +41,4 @@ export const validation_service_url_download = 'http://127.0.0.1:8000';
 export const validation_service_url = 'http://127.0.0.1:8000';
 
 export const validation_ws_url = 'ws://127.0.0.1:8000/ws/submission/';
+export const graphql_task_status_ws_url = 'ws://127.0.0.1:8000/ws/graphqltaskstatus/';
