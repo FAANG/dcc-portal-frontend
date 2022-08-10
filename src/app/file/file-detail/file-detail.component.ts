@@ -61,7 +61,9 @@ export class FileDetailComponent implements OnInit {
             if (this.file.hasOwnProperty('experiment')) {
               this.dataService.getExperimentByAccession(this.file['experiment']['accession']).subscribe(
                 (experiment_data: any) => {
-                  this.experiment = this.expandObject(experiment_data['hits']['hits'][0]['_source'], this.experiment);
+                  if (Array.isArray(experiment_data['hits']['hits']) && experiment_data['hits']['hits'].length > 0) {
+                    this.experiment = this.expandObject(experiment_data['hits']['hits'][0]['_source'], this.experiment);
+                  }
                 },
                 error => {
                   this.error = error;
