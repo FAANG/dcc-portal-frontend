@@ -38,7 +38,6 @@ export class RelatedItemsComponent implements OnInit {
   timer: any;
   delaySearch: boolean = true;
   search = '';
-  initialDisplay: boolean;
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -54,7 +53,6 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initialDisplay = false;
     this.dataSource = new MatTableDataSource([]);
     // Read in the initial column display settings
     // set those selected to be displayed
@@ -91,7 +89,6 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.initialTableDisplay();
         }
       );
     } else if (relationship_type === 'project-specimen') {
@@ -99,7 +96,6 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.initialTableDisplay();
         }
       );
     } else if (relationship_type === 'project-protocolsamples') {
@@ -107,7 +103,6 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.initialTableDisplay();
           this.fetchedRecords.emit(['protocol_samples', this.totalHits]);
         }
       );
@@ -116,7 +111,6 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.initialTableDisplay();
           this.fetchedRecords.emit(['protocol_files', this.totalHits]);
         }
       );
@@ -125,7 +119,6 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.initialTableDisplay();
           this.fetchedRecords.emit(['protocol_analysis', this.totalHits]);
         }
       );
@@ -134,7 +127,6 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.initialTableDisplay();
         }
       );
     } else if (relationship_type === 'project-pipeline') {
@@ -144,7 +136,6 @@ export class RelatedItemsComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           this.totalHits = this.dataSource.data.length;
-          this.initialTableDisplay();
         }
       );
     } else if (relationship_type === 'project-file') {
@@ -152,7 +143,6 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.initialTableDisplay();
         }
       );
     } else if (relationship_type === 'project-dataset') {
@@ -160,7 +150,6 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.initialTableDisplay();
         }
       );
     } else if (relationship_type === 'publication-dataset') {
@@ -420,12 +409,6 @@ export class RelatedItemsComponent implements OnInit {
       return titles[targetType];
     } else {
       return this.capitalizeFirstLetter(targetType) + 's';
-    }
-  }
-
-  initialTableDisplay() {
-    if (this.totalHits > 0) {
-      this.initialDisplay = true;
     }
   }
 }
