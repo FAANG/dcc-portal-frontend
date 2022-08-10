@@ -838,7 +838,7 @@
       "fields": {
         "Study name": {
           "value": "datasetAccession",
-          "source": "accession.keyword",
+          "source": "accession",
           "link": {
             "prefix": "../dataset/",
             "url": "Study name"
