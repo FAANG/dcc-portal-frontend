@@ -18,8 +18,9 @@
       <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Study name:</dt>
         <dd fxFlex="75">
-          <app-robust-link [prefix]="ena_prefix" [link]="dataset?.accession"
+          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="dataset?.accession"
                            [text]="dataset?.accession"></app-robust-link>
+          <div *ngIf="_userService.token">{{dataset?.accession}}</div>
         </dd>
       </div>
 
@@ -46,8 +47,9 @@
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="dataset?.secondaryAccession">
         <dt fxFlex="25">Secondary accession:</dt>
         <dd fxFlex="75">
-          <app-robust-link [prefix]="ena_prefix" [link]="dataset?.secondaryAccession"
+          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="dataset?.secondaryAccession"
                            [text]="dataset?.secondaryAccession"></app-robust-link>
+          <div *ngIf="_userService.token">{{dataset?.secondaryAccession}}</div>
         </dd>
       </div>
 
@@ -68,8 +70,9 @@
         <dd fxFlex="75">
           <div fxLayout="row wrap" fxLayout.lt-md="column">
             <div *ngFor="let experiment of dataset?.experiment" fxFlex="15" fxLayoutGap="16px">
-                <app-robust-link [prefix]="ena_prefix" [link]="experiment.accession"
+                <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="experiment.accession"
                                  [text]="experiment.accession"></app-robust-link>
+                <div *ngIf="_userService.token">{{experiment.accession}}</div>
             </div>
           </div>
         </dd>

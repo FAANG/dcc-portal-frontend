@@ -22,8 +22,11 @@
 
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="organism && organism.hasOwnProperty('biosampleId')">
         <dt fxFlex="25">BioSample ID:</dt>
-        <dd fxFlex="75">
+        <dd fxFlex="75" *ngIf="!_userService.token">
           <a href="http://www.ebi.ac.uk/biosamples/samples/{{organism?.biosampleId}}">{{organism?.biosampleId}}</a>
+        </dd>
+        <dd fxFlex="75" *ngIf="_userService.token">
+          {{organism?.biosampleId}}
         </dd>
       </div>
 
@@ -167,7 +170,8 @@
         <dt fxFlex="25">Child of:</dt>
         <dd fxFlex="75">
           <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let child of organism?.childOf;">
-            <app-robust-link [prefix]="organism_prefix" [link]="child" [text]="child"></app-robust-link>
+            <app-robust-link *ngIf="!_userService.token" [prefix]="organism_prefix" [link]="child" [text]="child"></app-robust-link>
+            <a *ngIf="_userService.token" [routerLink]="['/organism/' + child ]">{{child}}</a>
           </div>
         </dd>
       </div>

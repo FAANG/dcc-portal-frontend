@@ -19,8 +19,9 @@
       <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Analysis accession:</dt>
         <dd fxFlex="75">
-          <app-robust-link [prefix]="ena_prefix" [link]="analysis?.accession"
+          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="analysis?.accession"
                            [text]="analysis?.accession"></app-robust-link>
+          <div *ngIf="_userService.token">{{analysis?.accession}}</div>
         </dd>
       </div>
 
@@ -43,12 +44,14 @@
         <dt fxFlex="25">Dataset accession:</dt>
         <dd fxFlex="75">
           <div *ngIf="analysis?.datasetInPortal">
-            <app-robust-link [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
+            <app-robust-link *ngIf="!_userService.token" [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
                            [text]="analysis?.datasetAccession"></app-robust-link>
+            <a *ngIf="_userService.token" [routerLink]="['/dataset/' + analysis?.datasetAccession ]">{{analysis?.datasetAccession}}</a>
           </div>
           <div *ngIf="!analysis?.datasetInPortal">
-            <app-robust-link [prefix]="ena_prefix" [link]="analysis?.datasetAccession"
+            <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="analysis?.datasetAccession"
                            [text]="analysis?.datasetAccession"></app-robust-link>
+            <div *ngIf="_userService.token">{{analysis?.datasetAccession}}</div>
           </div>
         </dd>
       </div>
@@ -99,10 +102,12 @@
           <div fxLayout="row wrap" fxLayout.lt-md="column">
             <div *ngFor="let accession of analysis?.sampleAccessions" fxFlex="15" fxLayoutGap="16px">
               <div *ngIf="sampleInES(accession)">
-                <app-robust-link [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
+                <app-robust-link *ngIf="!_userService.token" [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
+                <a *ngIf="_userService.token" [routerLink]="['/specimen/' + accession ]">{{accession}}</a>
               </div>
               <div *ngIf="!sampleInES(accession)">
                 <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
+                <div *ngIf="_userService.token">{{accession}}</div>
               </div>
             </div>
           </div>
@@ -114,7 +119,8 @@
         <dd fxFlex="75">
           <div fxLayout="row wrap" fxLayout.lt-md="column">
             <div *ngFor="let exp of analysis?.experimentAccessions" fxFlex="15" fxLayoutGap="16px">
-              <app-robust-link [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
+              <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
+              <div *ngIf="_userService.token">{{exp}}</div>
             </div>
           </div>
         </dd>
@@ -125,7 +131,8 @@
         <dd fxFlex="75">
           <div fxLayout="row wrap" fxLayout.lt-md="column">
             <div *ngFor="let run of analysis?.runAccessions" fxFlex="15" fxLayoutGap="16px">
-              <app-robust-link [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
+              <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
+              <div *ngIf="_userService.token">{{run}}</div>
             </div>
           </div>
         </dd>
@@ -143,10 +150,10 @@
 
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.analysisProtocol">
         <dt fxFlex="25">Analysis Protocol:</dt>
-        <dd fxFlex="75"><app-robust-link prefix="" [link]="getProtocolLink(analysis.analysisProtocol.url)"
-                              [text]="analysis.analysisProtocol.filename"></app-robust-link></dd>
-
-
+        <dd fxFlex="75">
+          <app-robust-link prefix="" [link]="getProtocolLink(analysis.analysisProtocol.url)"
+                              [text]="analysis.analysisProtocol.filename"></app-robust-link>
+        </dd>
       </div>
     </div>
 

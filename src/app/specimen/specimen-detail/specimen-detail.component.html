@@ -20,7 +20,11 @@
       </div>
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.hasOwnProperty('biosampleId')">
         <dt fxFlex="25">BioSample ID:</dt>
-        <dd fxFlex="75"><a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a>
+        <dd fxFlex="75" *ngIf="!_userService.token">
+          <a href="http://www.ebi.ac.uk/biosamples/samples/{{specimen?.biosampleId}}">{{specimen?.biosampleId}}</a>
+        </dd>
+        <dd fxFlex="75" *ngIf="_userService.token">
+          {{specimen?.biosampleId}}
         </dd>
       </div>
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen.hasOwnProperty('alternativeId') && specimen.alternativeId.length !== 0">
@@ -49,8 +53,9 @@
         <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen && specimen?.organism?.hasOwnProperty('biosampleId')">
           <dt fxFlex="25">Organism BioSample Id:</dt>
           <dd fxFlex="75">
-            <app-robust-link [prefix]="organism_prefix" [link]="specimen?.organism?.biosampleId"
+            <app-robust-link *ngIf="!_userService.token" [prefix]="organism_prefix" [link]="specimen?.organism?.biosampleId"
                              [text]="specimen?.organism?.biosampleId"></app-robust-link>
+            <a *ngIf="_userService.token" [routerLink]="['/organism/' + specimen?.organism?.biosampleId]">{{specimen?.organism?.biosampleId}}</a>
           </dd>
         </div>
 
@@ -139,20 +144,24 @@
               <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let derived of specimen?.derivedFrom; let i = index">
                 <!--            <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>-->
                 <div fxLayout="row" fxLayout.lt-md="column" *ngIf="i > 0">,</div>
-                <app-robust-link [prefix]="specimen_prefix" [link]="derived" [text]="derived"></app-robust-link>
+                <app-robust-link *ngIf="!_userService.token" [prefix]="specimen_prefix" [link]="derived" [text]="derived"></app-robust-link>
+                <a *ngIf="_userService.token" [routerLink]="['/specimen/' + derived ]">{{derived}}</a>
               </div>
             </ng-template>
             <ng-template ngSwitchCase="cell specimen"> <!--ruleset constrain: specimen from organism-->
-              <app-robust-link [prefix]="specimen_prefix" [link]="specimen?.derivedFrom"
+              <app-robust-link *ngIf="!_userService.token" [prefix]="specimen_prefix" [link]="specimen?.derivedFrom"
                                [text]="specimen?.derivedFrom"></app-robust-link>
+              <a *ngIf="_userService.token" [routerLink]="['/specimen/' + specimen?.derivedFrom ]">{{specimen?.derivedFrom}}</a>
             </ng-template>
             <ng-template ngSwitchCase="cell culture"> <!--ruleset constrain: specimen from organism or cell specimen-->
-              <app-robust-link [prefix]="specimen_prefix" [link]="specimen?.derivedFrom"
+              <app-robust-link *ngIf="!_userService.token" [prefix]="specimen_prefix" [link]="specimen?.derivedFrom"
                                [text]="specimen?.derivedFrom"></app-robust-link>
+              <a *ngIf="_userService.token" [routerLink]="['/specimen/' + specimen?.derivedFrom ]">{{specimen?.derivedFrom}}</a>
             </ng-template>
             <ng-template ngSwitchDefault>
-              <app-robust-link [prefix]="organism_prefix" [link]="specimen?.derivedFrom"
+              <app-robust-link *ngIf="!_userService.token" [prefix]="organism_prefix" [link]="specimen?.derivedFrom"
                                [text]="specimen?.derivedFrom"></app-robust-link>
+              <a *ngIf="_userService.token" [routerLink]="['/organism/' + specimen?.derivedFrom ]">{{specimen?.derivedFrom}}</a>
             </ng-template>
           </div>
         </dd>

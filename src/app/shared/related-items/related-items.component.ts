@@ -279,6 +279,15 @@ export class RelatedItemsComponent implements OnInit {
     if (this.source_type === 'organism' && this.target_type === 'specimen' && this.mode === 'private') {
       return true;
     }
+    if (this.source_type === 'dataset' && this.target_type === 'specimen' && this.mode === 'private') {
+      return true;
+    }
+    if (this.source_type === 'dataset' && this.target_type === 'file' && this.mode === 'private') {
+      return true;
+    }
+    if (this.source_type === 'dataset' && this.target_type === 'analysis' && this.mode === 'private') {
+      return true;
+    }
     return record.private;
   }
 

@@ -45,14 +45,16 @@
       <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Specimen:</dt>
         <dd fxFlex="75">
-          <app-robust-link [prefix]="specimen_prefix" [link]="file?.specimen" [text]="file?.specimen"></app-robust-link>
+          <app-robust-link *ngIf="!_userService.token" [prefix]="specimen_prefix" [link]="file?.specimen" [text]="file?.specimen"></app-robust-link>
+          <a *ngIf="_userService.token" [routerLink]="['/specimen/' + file?.specimen ]">{{file?.specimen}}</a>
         </dd>
       </div>
 
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.organism">
         <dt fxFlex="25">BioSample ID:</dt>
         <dd fxFlex="75">
-          <app-robust-link [prefix]="organism_prefix" [link]="file?.organism" [text]="file?.organism"></app-robust-link>
+          <app-robust-link *ngIf="!_userService.token" [prefix]="organism_prefix" [link]="file?.organism" [text]="file?.organism"></app-robust-link>
+          <a *ngIf="_userService.token" [routerLink]="['/organism/' + file?.organism ]">{{file?.organism}}</a>
         </dd>
       </div>
 
@@ -79,16 +81,18 @@
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.submission">
         <dt fxFlex="25">Submission:</dt>
         <dd fxFlex="75">
-          <app-robust-link [prefix]="ena_prefix" [link]="file?.submission"
+          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="file?.submission"
                            [text]="file?.submission"></app-robust-link>
+          <div *ngIf="_userService.token">{{file?.submission}}</div>
         </dd>
       </div>
 
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.experiment?.accession">
         <dt fxFlex="25">Experiment:</dt>
         <dd fxFlex="75">
-          <app-robust-link [prefix]="ena_prefix" [link]="file?.experiment?.accession"
+          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="file?.experiment?.accession"
                            [text]="file?.experiment?.accession"></app-robust-link>
+          <div *ngIf="_userService.token">{{file?.experiment?.accession}}</div>
           <button class="btn btn-info btn-sm" id="exp_dropdown" (click)="toggleExperiment()">Experiment details</button>
           <div *ngIf="showExperimentDetail">
             <hr>
@@ -128,8 +132,9 @@
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.study?.accession">
         <dt fxFlex="25">Study:</dt>
         <dd fxFlex="75">
-          <app-robust-link [prefix]="dataset_prefix" [link]="file?.study?.accession"
+          <app-robust-link *ngIf="!_userService.token" [prefix]="dataset_prefix" [link]="file?.study?.accession"
                            [text]="file?.study?.accession"></app-robust-link>
+          <a *ngIf="_userService.token" [routerLink]="['/dataset/' + file?.study?.accession ]">{{file?.study?.accession}}</a>
         </dd>
       </div>
 
@@ -141,8 +146,9 @@
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.accession">
         <dt fxFlex="25">Run:</dt>
         <dd fxFlex="75">
-          <app-robust-link [prefix]="ena_prefix" [link]="file?.run?.accession"
+          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="file?.run?.accession"
                            [text]="file?.run?.accession"></app-robust-link>
+          <div *ngIf="_userService.token">{{file?.run?.accession}}</div>
         </dd>
       </div>
 
