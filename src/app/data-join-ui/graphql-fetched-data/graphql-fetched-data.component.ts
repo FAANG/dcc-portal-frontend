@@ -13,14 +13,15 @@ export class GraphqlFetchedDataComponent implements OnInit {
   @Input() graphQLQuery = '';
 
   fetchedData = '';
-  
-  private socket;
+  showSpinner = false;
+  socket;
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit(): void {}
 
   fetchData(){
+    this.showSpinner = true;
     const gqlObject = gql(this.graphQLQuery);
     console.log(gqlObject);
     const result = this.apollo
@@ -37,7 +38,7 @@ export class GraphqlFetchedDataComponent implements OnInit {
       .subscribe(
         ({ data, loading }:any) => {
           console.log(data,loading);
-          this.setSocket(data['hello']['id'] || '');
+          this.setSocket(data?.['hello']?.['id'] || 'abcd');
         }
       );
       // .pipe(map(response => response.data));
@@ -50,13 +51,22 @@ export class GraphqlFetchedDataComponent implements OnInit {
 
     this.socket = new WebSocket(url);
     this.socket.onopen = () => {
+      
       console.log('WebSockets connection created.');
+      // this.socket.send('I am message');
+    
     };
+
     this.socket.onmessage = (event) => {
+      this.showSpinner = false;
+    
+      console.log('event received',event);
       const data = JSON.parse(event.data)['response'];
       if (data['errors']) {
         console.log(data['errors']);
       }
+
+      this.socket.close();
     };
   }
 
