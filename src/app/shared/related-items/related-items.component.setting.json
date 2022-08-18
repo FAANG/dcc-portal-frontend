@@ -684,7 +684,11 @@
         },
         "Protocol Name": {
           "value": "protocol_name",
-          "source": "protocolName"
+          "source": "protocolName",
+          "link": {
+            "prefix": "../protocol/samples/",
+            "url": "Key"
+          }
         },
         "University Name": {
           "value": "university_name",
@@ -715,7 +719,11 @@
         },
         "Protocol Type": {
           "value": "protocol_type",
-          "source": "name"
+          "source": "name",
+          "link": {
+            "prefix": "../protocol/experiments/",
+            "url": "Key"
+          }
         },
         "Experiment Target": {
           "value": "experiment_target",
@@ -746,7 +754,11 @@
         },
         "Protocol Name": {
           "value": "protocol_name",
-          "source": "protocolName"
+          "source": "protocolName",
+          "link": {
+            "prefix": "../protocol/analysis/",
+            "url": "Key"
+          }
         },
         "University Name": {
           "value": "university_name",
