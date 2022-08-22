@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Input} from '@angular/core';
+import {Component, OnDestroy, OnInit, Input, ChangeDetectorRef} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AggregationService} from '../../services/aggregation.service';
 import {reverseProtocolNames} from '../protocolnames';
@@ -17,7 +17,9 @@ export class FilterComponent implements OnInit, OnDestroy {
   itemLimit: number;
   current_active_filters = this.aggregationService.current_active_filters;
 
-  constructor(private aggregationService: AggregationService) { }
+  constructor(
+    private aggregationService: AggregationService,
+    private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.itemLimit = this.filterSize;
@@ -81,6 +83,7 @@ export class FilterComponent implements OnInit, OnDestroy {
         } else if (this.title === 'Project') {
           this.aggregation = data['project'];
         }
+        this.cdRef.detectChanges(); 
       }
     );
   }

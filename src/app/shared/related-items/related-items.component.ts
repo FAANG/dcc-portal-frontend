@@ -249,28 +249,30 @@ export class RelatedItemsComponent implements OnInit {
   getDataSource(records) {
     const tableData = [];
     const fields = setting[this.source_type][this.target_type]['fields'];
-    for (const index of Object.keys(records)) {
-      const rowObj = {};
-      for (const field of Object.keys(fields)) {
-        const prop = fields[field]['value'].split('.');
-        rowObj[field] = records[index];
-        while (prop.length && rowObj[field] && rowObj[field].hasOwnProperty(prop[0])) {
-          rowObj[field] = rowObj[field][prop[0]];
-          prop.shift();
-        }
-        if (this.download_key.length > 0) {
-          const dKey = this.download_key.split('.');
-          rowObj['Download'] = records[index];
-          while (dKey.length) {
-            rowObj['Download'] = rowObj['Download'][dKey[0]];
-            dKey.shift();
+    if (records) {
+      for (const index of Object.keys(records)) {
+        const rowObj = {};
+        for (const field of Object.keys(fields)) {
+          const prop = fields[field]['value'].split('.');
+          rowObj[field] = records[index];
+          while (prop.length && rowObj[field] && rowObj[field].hasOwnProperty(prop[0])) {
+            rowObj[field] = rowObj[field][prop[0]];
+            prop.shift();
+          }
+          if (this.download_key.length > 0) {
+            const dKey = this.download_key.split('.');
+            rowObj['Download'] = records[index];
+            while (dKey.length) {
+              rowObj['Download'] = rowObj['Download'][dKey[0]];
+              dKey.shift();
+            }
+          }
+          if (records[index]['private']) {
+            rowObj['private'] = records[index]['private'];
           }
         }
-        if (records[index]['private']) {
-          rowObj['private'] = records[index]['private'];
-        }
+        tableData.push(rowObj);
       }
-      tableData.push(rowObj);
     }
     return tableData;
   }

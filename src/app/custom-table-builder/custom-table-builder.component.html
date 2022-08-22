@@ -4,7 +4,7 @@
     <mat-spinner *ngIf="queryService.downloading" [diameter]="30"
       style="display: inline; float: right; margin-left: 10px; margin-bottom: 20px;">
     </mat-spinner>
-    <button *ngIf="tableData && !queryService.downloading" mat-raised-button color="accent" (click)="downloadCSV()"
+    <button *ngIf="totalHits == 0 && !queryService.downloading" mat-raised-button color="accent" (click)="downloadCSV()"
       style="float: right; margin-bottom: 20px;">
       Download as CSV
     </button>
@@ -30,8 +30,8 @@
       </div>
     </div>
     <br>
-    <div [ngStyle]="{'display': tableData ? 'block' : 'none'}" style="width: 100%; overflow-x: scroll;">
-        <table mat-table matSort matSortDisableClear [dataSource]="tableData" table-striped style="width: 100%">
+    <div [hidden]="totalHits == 0" style="width: 100%; overflow-x: scroll;">
+        <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
           <ng-container [matColumnDef]=col *ngFor="let col of columnNames; let i = index">
               <ng-container *ngIf="templates[col+'-header']">
                   <th mat-header-cell class="table-header" *matHeaderCellDef="let header" mat-sort-header>

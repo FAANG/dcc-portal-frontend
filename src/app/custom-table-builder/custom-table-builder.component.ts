@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, TemplateRef, ViewChild, Input } from '@angular/core';
+import { Component, AfterViewInit, TemplateRef, ViewChild, Input, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,7 +23,6 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   @Input() project: string;
   columnNames: string[];
   fields: string[];
-  tableData: any[];
   templates: Object;
   filter_field: {};
   indices = new FormControl();
@@ -37,7 +36,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   col_width;
   pageSize = 10;
   from = 0;
-  totalHits: Observable<any>;
+  totalHits = 0;
   sortFields = '';
   defaultSort: MatSortable = {
     id: '',
@@ -47,11 +46,12 @@ export class CustomTableBuilderComponent implements AfterViewInit {
 
   constructor(
     public queryService: QueryService,
-    public snackbar: MatSnackBar
+    public snackbar: MatSnackBar,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   ngAfterViewInit() {
-    this.dataSource = new MatTableDataSource<any>(this.tableData);
+    this.dataSource = new MatTableDataSource<any>([]);
     this.templates = {};
     this.columnsByIndex = {};
     this.loading = false;
@@ -70,6 +70,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
       'file.filename': this.fileIdTemplate,
       'specimen.biosampleId': this.specimenIdTemplate,
     };
+    this.cdRef.detectChanges(); 
   }
 
   fetchRecords() {
@@ -112,8 +113,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
           return observableOf([]);
         })
       ).subscribe((res: any) => {
-          this.tableData = res.data;
-          this.dataSource.data = this.tableData;
+          this.dataSource.data = res.data;
           this.totalHits = res.count; // set length of paginator
           this.loading = false;
         });
