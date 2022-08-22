@@ -41,4 +41,7 @@ export const validation_service_url_download = 'http://127.0.0.1:8000';
 export const validation_service_url = 'http://127.0.0.1:8000';
 
 export const validation_ws_url = 'ws://127.0.0.1:8000/ws/submission/';
-export const graphql_task_status_ws_url = 'ws://127.0.0.1:8000/ws/graphqltaskstatus/';
+export const graphql_task_status_ws_url = 'ws://45.88.81.159:8000/ws/graphqltaskstatus/';
+export const graphql_task_status_ws_url_local = 'ws://127.0.0.1:8000/ws/graphqltaskstatus/';
+export const graphql_server_endpoint = 'http://45.88.81.159:8000/subscriptions/';
+export const graphql_server_endpoint_local = 'http://localhost:8000/subscriptions/';

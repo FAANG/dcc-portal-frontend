@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { gql, Apollo } from 'apollo-angular';
-import { graphql_task_status_ws_url } from 'src/app/shared/constants';
+import { graphql_task_status_ws_url, graphql_task_status_ws_url_local } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-graphql-fetched-data',
@@ -15,30 +15,87 @@ export class GraphqlFetchedDataComponent implements OnInit {
   fetchedData = '';
   showSpinner = false;
   socket;
+  taskId = '';
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit(): void {}
 
-  fetchData(){
+  addTask(){
     this.showSpinner = true;
     const gqlObject = gql(this.graphQLQuery);
     console.log(gqlObject);
     const result = this.apollo
       .query({
-        query: gql(`
-          query{
-            hello{
-              id
-              status
+        query: 
+        // gqlObject
+        gql(`
+        query{
+          allOrganismsAsTask(
+            filter:{
+              basic:{
+
+              }
+              join:{
+                specimen:{}
+              }
             }
+          ){
+            id
+            status
           }
+        }
         `),
       })
       .subscribe(
         ({ data, loading }:any) => {
           console.log(data,loading);
-          this.setSocket(data?.['hello']?.['id'] || 'abcd');
+          this.taskId = data?.['allOrganismsAsTask']?.['id'];
+          this.setSocket(this.taskId);
+        }
+      );
+      // .pipe(map(response => response.data));
+      console.log(result);
+  }
+
+  fetchTaskResult(){
+    const gqlObject = gql(this.graphQLQuery);
+    console.log(gqlObject);
+    const result = this.apollo
+      .query({
+        query: 
+        // gqlObject
+        gql(`
+        query{
+          allOrganismsTaskResult(taskId:"${this.taskId}"){
+            edges{
+              node{
+                biosampleId
+                name
+                organism{
+                  text
+                }
+                join{
+                  specimen{
+                    edges{
+                      node{
+                        biosampleId
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        `),
+      })
+      .subscribe(
+        ({ data, loading }:any) => {
+          console.log(data);
+          this.showSpinner = false;
+    
         }
       );
       // .pipe(map(response => response.data));
@@ -58,15 +115,23 @@ export class GraphqlFetchedDataComponent implements OnInit {
     };
 
     this.socket.onmessage = (event) => {
-      this.showSpinner = false;
-    
+      
       console.log('event received',event);
-      const data = JSON.parse(event.data)['response'];
+      const data = JSON.parse(event.data)['response']['data'];
       if (data['errors']) {
         console.log(data['errors']);
       }
 
-      this.socket.close();
+      if(data === 'task finished'){
+        this.fetchTaskResult();
+        
+      }
+
+
+
+      
+
+      // this.socket.close();
     };
   }
 
