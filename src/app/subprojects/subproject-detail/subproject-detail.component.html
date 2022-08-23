@@ -58,36 +58,11 @@
         {{project}} </a>
       </div>
 
-      <div *ngIf="project === 'GENE-SWitCH'" class="spacer">
-        <h3 style="margin-bottom: 20px;">Ensembl Rapid Release</h3>
-        <ul class="list-group">
-          <li class="list-group-item">
-            <div fxLayout="row" fxLayout.lt-sm="column">
-              <div fxFlex="20"><span class="badge badge-success badge-pill">Sus scrofa</span></div>
-              <div fxFlex="20">
-                <button mat-raised-button color="accent">
-                  <a href="https://rapid.ensembl.org/Sus_scrofa_GCA_000003025.6/Info/Index"
-                  target="_blank" style="color: black">View data</a>
-                </button>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div fxLayout="row" fxLayout.lt-sm="column">
-              <div fxFlex="20"><span class="badge badge-success badge-pill">Gallus gallus</span></div>
-              <div fxFlex="20">
-                <button mat-raised-button color="accent">
-                  <a href="https://rapid.ensembl.org/Gallus_gallus_GCA_000002315.5/Info/Index"
-                                          target="_blank" style="color: black">View data</a>
-                </button>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-
+      <h3 style="margin-bottom: 20px;">Ensembl Rapid Release</h3>
       <app-ensembl-annotation [project_name]="project"></app-ensembl-annotation>
+
+
+
 
       <!-- Related Tables -->
       <app-related-items source_type="project" target_type="publication" download_key=""
