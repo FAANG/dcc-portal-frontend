@@ -13,6 +13,7 @@ import { validation_ws_url } from '../shared/constants';
 export class BulkFilesUploaderComponent implements OnInit {
   @Input() uploadUrl: string; // upload endpoint url
   @Input() mode: string; // upload mode: single or bulk
+  @Input() user: string; // user data
   @Output() messageUpdate = new EventEmitter<any>();
   selectedFiles?: FileList;
   fileNamesList: string[] = [];
@@ -71,6 +72,10 @@ export class BulkFilesUploaderComponent implements OnInit {
       this.setSocket(fileid, files[i].name);
       formData.append(fileid, files[i]);
       this.fileNamesList.push(files[i].name);
+    }
+    if (this.user) {
+      formData.append('user', this.user['user']);
+      formData.append('pwd', this.user['pwd']);
     }
     const req = new HttpRequest('POST', this.uploadUrl, formData, {
       reportProgress: true,

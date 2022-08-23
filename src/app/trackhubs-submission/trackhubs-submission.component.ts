@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { validation_service_url } from '../shared/constants';
 import { Title } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { validation_ws_url, 
   trackhubs_template_with_examples, 
   trackhubs_template_without_examples 
 } from '../shared/constants';
 import { BulkFilesUploaderComponent }  from '../bulk-files-uploader/bulk-files-uploader.component';
 import { MatDialog } from '@angular/material/dialog';
+import { throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-trackhubs-submission',
@@ -17,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class TrackhubsSubmissionComponent implements OnInit { 
   @ViewChild(BulkFilesUploaderComponent, { static: true }) fileUploaderComponent: BulkFilesUploaderComponent;
   @ViewChild('errorModalTemplate', { static: true }) public errorModalTemplate: TemplateRef<any>;
+  @ViewChild('loginModalTemplate', { static: true }) public loginModalTemplate: TemplateRef<any>;
   uploadUrl;
   registration_success_msg;
   registration_failed_msg;
@@ -26,6 +29,12 @@ export class TrackhubsSubmissionComponent implements OnInit {
   validation_results;
   registrationData;
   dialogRef;
+  token;
+  hide = true;
+  username: string;
+  password: string;
+  error: string;
+  user;
   tabs = ['Hub Data' ,'Genome Data', 'Tracks Data']
   columns = {
     'Hub Data': ['Name', 'Short Label', 'Long Label', 'Email', 'Description File Path'],
@@ -101,8 +110,52 @@ export class TrackhubsSubmissionComponent implements OnInit {
     }
   }
 
+  openLoginModal() {
+    this.dialogRef = this.dialog.open(this.loginModalTemplate, {
+      width: '40%',
+      data: {}
+    });
+  }
+
+  login() {
+    const url = validation_service_url + '/trackhub/login/';
+    let payload = {
+      'username': this.username,
+      'password': btoa(this.password)
+    }
+    return this.http.post(url, payload).pipe(
+      map((res: any) => {
+        return res;
+      }),
+      catchError(this.handleRegError),
+    ).subscribe(
+      (data) => {
+        this.token = data['token'];
+        this.user = {
+          'user': this.username,
+          'pwd': btoa(this.password)
+        }
+        this.dialogRef.close();
+      },
+      (error) => {
+        this.error = error;
+      }
+    );
+  }
+
+  private handleRegError(error: HttpErrorResponse) {
+    return throwError(error.error.reason);
+  }
+
+  logout() {
+    this.token = null;
+    this.username = null;
+    this.password = null;
+    this.error = null;
+  }
+
   submitTrackHub() {
-    const url = validation_ws_url + 'test_hub' + '/';
+    const url = validation_ws_url + this.validation_results['Hub Data'][0]['Name'] + '/';
     this.socket = new WebSocket(url);
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
