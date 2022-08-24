@@ -60,6 +60,7 @@ export class BulkFilesUploaderComponent implements OnInit {
         this.errors[filename].push(data['errors']);
       }
       if (data['validation_results']) {
+        data['validation_results']['fileid'] = fileid;
         this.messageUpdate.emit(data['validation_results']);
       }
     };
