@@ -544,6 +544,8 @@ export const indexData = {
             "publishedArticles.journal"
         ],
         multipleRecordsResolverFieldName : 'allOrganisms',
+        assignAsTaskFieldName: 'allOrganismsAsTask',
+        fetchFromTaskFieldName: 'allOrganismsTaskResult'
     },
     'specimen':{
         primaryKeys : ['biosampleId'],

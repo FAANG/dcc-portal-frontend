@@ -21,7 +21,8 @@ export class DataJoinUiComponent implements OnInit {
   secondIndexFieldsAndFilters = new FormGroup({});
 
   graphQLQuery = '';
-
+  assignTaskWithFiltersQuery = '';
+  fetchFromTaskWithSelectedFieldsQuery = '';
   indexDetailsArray = [];
 
   constructor() {}
@@ -38,7 +39,7 @@ export class DataJoinUiComponent implements OnInit {
         formFields: new FormArray(indexData[indexToUpdate.value]['fields'].map(
           (formFieldName:string)=>new FormGroup({
             fieldName : new FormControl(formFieldName),
-            isSelected : new FormControl(true),
+            isSelected : new FormControl(false),
             filter: new FormControl(''),
           })
         ))
@@ -54,7 +55,7 @@ export class DataJoinUiComponent implements OnInit {
   }
 
   ensureJoinInQueryFilterArgument(query, filterObj){
-    let currentObj = query['query'][indexData[this.indexDetailsArray[0].indexName].multipleRecordsResolverFieldName];
+    let currentObj = query['query'][indexData[this.indexDetailsArray[0].indexName].assignAsTaskFieldName];
 
     if(!currentObj['__args']?.['filter']?.['join']){
       set(currentObj,'__args.filter.join',{});
@@ -96,11 +97,11 @@ export class DataJoinUiComponent implements OnInit {
       // For selecting fields
       
       if(i === 0){
-        set(currentFieldObj,[indexData[this.indexDetailsArray[i].indexName].multipleRecordsResolverFieldName,'edges','node'].join('.'),this.getObjWithFieldsAndFiltersForGraphQLQuery(i,'fields'));
-        set(currentFieldObj,[indexData[this.indexDetailsArray[i].indexName].multipleRecordsResolverFieldName,'edges','node','join'].join('.'),{});
+        set(currentFieldObj,[indexData[this.indexDetailsArray[i].indexName].fetchFromTaskFieldName,'edges','node'].join('.'),this.getObjWithFieldsAndFiltersForGraphQLQuery(i,'fields'));
+        set(currentFieldObj,[indexData[this.indexDetailsArray[i].indexName].fetchFromTaskFieldName,'edges','node','join'].join('.'),{});
       
         fieldObj = {...currentFieldObj};
-        currentFieldObj = fieldObj[indexData[this.indexDetailsArray[i].indexName].multipleRecordsResolverFieldName]['edges']['node']['join'];
+        currentFieldObj = fieldObj[indexData[this.indexDetailsArray[i].indexName].fetchFromTaskFieldName]['edges']['node']['join'];
       }else{
         set(currentFieldObj,[this.indexDetailsArray[i].indexName,'edges','node'].join('.'),this.getObjWithFieldsAndFiltersForGraphQLQuery(i,'fields'));
         set(currentFieldObj,[this.indexDetailsArray[i].indexName,'edges','node','join'].join('.'),{});
@@ -121,16 +122,27 @@ export class DataJoinUiComponent implements OnInit {
 
     }
 
-    set(fieldObj,[indexData[this.indexDetailsArray[0].indexName].multipleRecordsResolverFieldName,'__args','filter'].join('.'),{...filterObj});
-    const query = cleanObject({query:{...fieldObj}});
+    // assigning task and specifying filters
+    const assignTaskWithFiltersObj = {}
+    set(assignTaskWithFiltersObj,[indexData[this.indexDetailsArray[0].indexName].assignAsTaskFieldName],{ id: true, status: true });
+    set(assignTaskWithFiltersObj,[indexData[this.indexDetailsArray[0].indexName].assignAsTaskFieldName,'__args','filter'].join('.'),{...filterObj});
+    const assignTaskWithFiltersQueryObj = cleanObject({query: {...assignTaskWithFiltersObj}}); 
+    this.ensureJoinInQueryFilterArgument(assignTaskWithFiltersQueryObj,filterObj);
+
+    const assignTaskWithFiltersQuery = JSON.stringify(jsonToGraphQLQuery(assignTaskWithFiltersQueryObj,{pretty:true}),null,2).replace(/\\r/g, '\r').replace(/\\n/g, '\n').replace(/\\"/g, "\"").split('\"').slice(1, -1).join('\"');
     
-    this.ensureJoinInQueryFilterArgument(query,filterObj);
+    // fetching the data with selected fields by specifying task id
+    set(fieldObj,[indexData[this.indexDetailsArray[0].indexName].fetchFromTaskFieldName,'__args'].join('.'),{taskId : "<%TASK_ID%>"});
+    const fetchFromTaskWithSelectedFieldsQueryObj = cleanObject({query: {...fieldObj}}); 
+    const fetchFromTaskWithSelectedFieldsQuery = JSON.stringify(jsonToGraphQLQuery(fetchFromTaskWithSelectedFieldsQueryObj,{pretty:true}),null,2).replace(/\\r/g, '\r').replace(/\\n/g, '\n').replace(/\\"/g, "\"").split('\"').slice(1, -1).join('\"');
     
-    return JSON.stringify(jsonToGraphQLQuery(query,{pretty:true}),null,2).replace(/\\r/g, '\r').replace(/\\n/g, '\n').replace(/\\"/g, "\"").split('\"').slice(1, -1).join('\"');
+    return [assignTaskWithFiltersQuery, fetchFromTaskWithSelectedFieldsQuery];
   }
 
   updateGraphQLQuery(){
-    this.graphQLQuery = this.buildQuery();
+    const [assignTaskWithFiltersQuery, fetchFromTaskWithSelectedFieldsQuery] = this.buildQuery();
+    this.assignTaskWithFiltersQuery = assignTaskWithFiltersQuery;
+    this.fetchFromTaskWithSelectedFieldsQuery = fetchFromTaskWithSelectedFieldsQuery;
   }
 
   ngOnInit(): void {

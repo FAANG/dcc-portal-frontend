@@ -11,41 +11,43 @@ export class GraphqlFetchedDataComponent implements OnInit {
 
 
   @Input() graphQLQuery = '';
-
+  @Input() assignTaskWithFiltersQuery = '';
+  @Input() fetchFromTaskWithSelectedFieldsQuery = '';
   fetchedData = '';
   showSpinner = false;
-  socket;
+  socket = null;
   taskId = '';
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit(): void {}
 
-  addTask(){
+  assignTaskWithFilters(){
     this.showSpinner = true;
-    const gqlObject = gql(this.graphQLQuery);
+    console.log(this.assignTaskWithFiltersQuery);
+    const gqlObject = gql(this.assignTaskWithFiltersQuery);
     console.log(gqlObject);
     const result = this.apollo
       .query({
         query: 
-        // gqlObject
-        gql(`
-        query{
-          allOrganismsAsTask(
-            filter:{
-              basic:{
-
-              }
-              join:{
-                specimen:{}
-              }
-            }
-          ){
-            id
-            status
-          }
-        }
-        `),
+        gqlObject
+        // gql(`
+        // query{
+        //   allOrganismsAsTask(
+        //     filter:{
+        //       basic:{
+        //         biosampleId: ["SAMEA4451615","SAMEA4451620"]
+        //       }
+        //       join:{
+        //         specimen:{}
+        //       }
+        //     }
+        //   ){
+        //     id
+        //     status
+        //   }
+        // }
+        // `),
       })
       .subscribe(
         ({ data, loading }:any) => {
@@ -58,38 +60,42 @@ export class GraphqlFetchedDataComponent implements OnInit {
       console.log(result);
   }
 
-  fetchTaskResult(){
-    const gqlObject = gql(this.graphQLQuery);
-    console.log(gqlObject);
+  fetchFromTaskWithSelectedFields(){
+
+    const graphQLQueryWithTaskId = this.fetchFromTaskWithSelectedFieldsQuery.replace("<%TASK_ID%>",this.taskId)
+    const gqlObject = gql(graphQLQueryWithTaskId);
+    
     const result = this.apollo
       .query({
         query: 
-        // gqlObject
-        gql(`
-        query{
-          allOrganismsTaskResult(taskId:"${this.taskId}"){
-            edges{
-              node{
-                biosampleId
-                name
-                organism{
-                  text
-                }
-                join{
-                  specimen{
-                    edges{
-                      node{
-                        biosampleId
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        `),
+        gqlObject
+        // gql(fetchFromTaskWithSelectedFieldsQuery
+        //   `
+        // query{
+        //   allOrganismsTaskResult(taskId:"${this.taskId}"){
+        //     edges{
+        //       node{
+        //         biosampleId
+        //         name
+        //         organism{
+        //           text
+        //         }
+        //         join{
+        //           specimen{
+        //             edges{
+        //               node{
+        //                 biosampleId
+        //                 name
+        //               }
+        //             }
+        //           }
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+        // `
+        // ),
       })
       .subscribe(
         ({ data, loading }:any) => {
@@ -123,15 +129,16 @@ export class GraphqlFetchedDataComponent implements OnInit {
       }
 
       if(data === 'task finished'){
-        this.fetchTaskResult();
-        
+        this.fetchFromTaskWithSelectedFields();
+        this.socket.close();
+        this.socket = null;
       }
 
 
 
       
 
-      // this.socket.close();
+      
     };
   }
 

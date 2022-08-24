@@ -17,9 +17,10 @@
         (graphQLQueryChange)="updateGraphQLQuery()"
     >
     </app-select-fields-and-filters>
-    <!-- <app-graphql-query 
-      [graphQLQuery]="graphQLQuery" 
-    ></app-graphql-query> -->
-    <app-graphql-fetched-data [graphQLQuery]="graphQLQuery"></app-graphql-fetched-data>
+    <app-graphql-fetched-data 
+      [graphQLQuery]="graphQLQuery"
+      [assignTaskWithFiltersQuery]="assignTaskWithFiltersQuery"
+      [fetchFromTaskWithSelectedFieldsQuery]="fetchFromTaskWithSelectedFieldsQuery"
+    ></app-graphql-fetched-data>
   </div>
 </div>
