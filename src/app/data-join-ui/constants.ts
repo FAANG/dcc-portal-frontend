@@ -43,6 +43,8 @@ export const indexData = {
             "imputation"
         ],
         multipleRecordsResolverFieldName : 'allAnalysis',
+        assignAsTaskFieldName: 'allAnalysisAsTask',
+        fetchFromTaskFieldName: 'allAnalysisTaskResult'
     },
     'article':{
         primaryKeys : ['pmcId','pubmedId'],
@@ -68,6 +70,8 @@ export const indexData = {
         
         ],
         multipleRecordsResolverFieldName : 'allArticles',
+        assignAsTaskFieldName: 'allArticlesAsTask',
+        fetchFromTaskFieldName: 'allArticlesTaskResult'
     },
     'dataset':{
         primaryKeys : ['accession'],
@@ -124,6 +128,8 @@ export const indexData = {
         
         ],
         multipleRecordsResolverFieldName : 'allDatasets',
+        assignAsTaskFieldName: 'allDatasetsAsTask',
+        fetchFromTaskFieldName: 'allDatasetsTaskResult'
     },
     'experiment':{
         primaryKeys : ['accession'],
@@ -434,6 +440,8 @@ export const indexData = {
         
         ],
         multipleRecordsResolverFieldName : 'allExperiments', 
+        assignAsTaskFieldName: 'allExperimentsAsTask',
+        fetchFromTaskFieldName: 'allExperimentsTaskResult'
     },
     'file':{
         primaryKeys : ['_id'],
@@ -485,6 +493,8 @@ export const indexData = {
             "submitterEmail"
         ],
         multipleRecordsResolverFieldName : 'allFiles',
+        assignAsTaskFieldName: 'allFilesAsTask',
+        fetchFromTaskFieldName: 'allFilesTaskResult'
     },
     'organism':{
         primaryKeys : ['biosampleId'],
@@ -1008,6 +1018,8 @@ export const indexData = {
               "trackhubUrl"
         ],
         multipleRecordsResolverFieldName : 'allSpecimens',
+        assignAsTaskFieldName: 'allSpecimensAsTask',
+        fetchFromTaskFieldName: 'allSpecimensTaskResult'
     },
     'protocol_analysis':{
         primaryKeys : ['key'],
@@ -1026,6 +1038,9 @@ export const indexData = {
             "analyses.analysisType"
         ],
         multipleRecordsResolverFieldName : 'allProtocolAnalysis',
+        assignAsTaskFieldName: 'allProtocolAnalysisAsTask',
+        fetchFromTaskFieldName: 'allProtocolAnalysisTaskResult'
+
     },
     'protocol_files':{
         primaryKeys : ['key'],
@@ -1043,6 +1058,8 @@ export const indexData = {
             "experiments.sampleStorageProcessing"
         ],
         multipleRecordsResolverFieldName : 'allProtocolFiles',
+        assignAsTaskFieldName: 'allProtocolFilesAsTask',
+        fetchFromTaskFieldName: 'allProtocolFilesTaskResult'
     },
     'protocol_samples':{
         primaryKeys : ['key'],
@@ -1061,6 +1078,8 @@ export const indexData = {
             "specimens.derivedFrom"
         ],
         multipleRecordsResolverFieldName : 'allProtocolSamples',
+        assignAsTaskFieldName: 'allProtocolSamplesAsTask',
+        fetchFromTaskFieldName: 'allProtocolSamplesTaskResult'
     },
 }
 

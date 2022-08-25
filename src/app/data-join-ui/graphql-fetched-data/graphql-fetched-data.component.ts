@@ -10,7 +10,6 @@ import { graphql_task_status_ws_url, graphql_task_status_ws_url_local } from 'sr
 export class GraphqlFetchedDataComponent implements OnInit {
 
 
-  @Input() graphQLQuery = '';
   @Input() assignTaskWithFiltersQuery = '';
   @Input() fetchFromTaskWithSelectedFieldsQuery = '';
   fetchedData = '';

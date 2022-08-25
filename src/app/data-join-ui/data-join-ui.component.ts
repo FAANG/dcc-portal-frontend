@@ -20,7 +20,6 @@ export class DataJoinUiComponent implements OnInit {
   secondIndices = [];
   secondIndexFieldsAndFilters = new FormGroup({});
 
-  graphQLQuery = '';
   assignTaskWithFiltersQuery = '';
   fetchFromTaskWithSelectedFieldsQuery = '';
   indexDetailsArray = [];
