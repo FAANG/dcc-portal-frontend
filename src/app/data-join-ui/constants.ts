@@ -75,7 +75,7 @@ export const indexData = {
     },
     'dataset':{
         primaryKeys : ['accession'],
-        possibleRightJoinIndices : ['analysis','article','experiment','file','organism','specimen'],
+        possibleRightJoinIndices : ['analysis','article','experiment','file','specimen'],
         fields : [
             'accession', 'alias', 'project',
             "accession",
@@ -559,7 +559,7 @@ export const indexData = {
     },
     'specimen':{
         primaryKeys : ['biosampleId'],
-        possibleRightJoinIndices : ['analysis', 'article', 'dataset', 'file', 'protocol_samples', 'derived_from_organism', 'derived_from_specimen', 'derives_specimen_sample'],
+        possibleRightJoinIndices : ['analysis', 'article', 'dataset', 'file', 'protocolSamples', 'derivedFromOrganism', 'derivedFromSpecimen', 'derivesSpecimenSample'],
         fields : [
             "biosampleId",
               "id_number",
@@ -1021,7 +1021,7 @@ export const indexData = {
         assignAsTaskFieldName: 'allSpecimensAsTask',
         fetchFromTaskFieldName: 'allSpecimensTaskResult'
     },
-    'protocol_analysis':{
+    'protocolAnalysis':{
         primaryKeys : ['key'],
         possibleRightJoinIndices : ['analysis'],
         fields : [
@@ -1042,7 +1042,7 @@ export const indexData = {
         fetchFromTaskFieldName: 'allProtocolAnalysisTaskResult'
 
     },
-    'protocol_files':{
+    'protocolFiles':{
         primaryKeys : ['key'],
         possibleRightJoinIndices : ['file'],
         fields : [
@@ -1061,7 +1061,7 @@ export const indexData = {
         assignAsTaskFieldName: 'allProtocolFilesAsTask',
         fetchFromTaskFieldName: 'allProtocolFilesTaskResult'
     },
-    'protocol_samples':{
+    'protocolSamples':{
         primaryKeys : ['key'],
         possibleRightJoinIndices : ['file','organism','specimen'],
         fields : [
@@ -1083,9 +1083,9 @@ export const indexData = {
     },
 }
 
-indexData['derives_specimen_sample'] = {...indexData['specimen']};
-indexData['derived_from_specimen'] = {...indexData['specimen']};
-indexData['derived_from_organism'] = {...indexData['organism']};
+indexData['derivesSpecimenSample'] = {...indexData['specimen']};
+indexData['derivedFromSpecimen'] = {...indexData['specimen']};
+indexData['derivedFromOrganism'] = {...indexData['organism']};
 
 
 export const getObjectValueFromPath = (obj:Record<any,any>,path:string[])=>{
@@ -1133,4 +1133,11 @@ export const cleanObject=(object) =>{
             }
         });
     return object;
+}
+
+export const snakeCaseToCamelCase = (snakeCaseString)=>{
+    return snakeCaseString.toLowerCase().replace(/([_][a-z])/g, group =>
+    group
+      .toUpperCase()
+      .replace('_', ''))
 }

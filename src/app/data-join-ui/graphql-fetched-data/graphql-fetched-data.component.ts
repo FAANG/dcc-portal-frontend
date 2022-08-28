@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { gql, Apollo } from 'apollo-angular';
 import { graphql_task_status_ws_url, graphql_task_status_ws_url_local } from 'src/app/shared/constants';
+import { indexData } from '../constants';
 
 @Component({
   selector: 'app-graphql-fetched-data',
@@ -12,6 +13,8 @@ export class GraphqlFetchedDataComponent implements OnInit {
 
   @Input() assignTaskWithFiltersQuery = '';
   @Input() fetchFromTaskWithSelectedFieldsQuery = '';
+  @Input() firstIndexName;
+
   fetchedData = '';
   showSpinner = false;
   socket = null;
@@ -24,6 +27,7 @@ export class GraphqlFetchedDataComponent implements OnInit {
   assignTaskWithFilters(){
     this.showSpinner = true;
     console.log(this.assignTaskWithFiltersQuery);
+    console.log(this.fetchFromTaskWithSelectedFieldsQuery)
     const gqlObject = gql(this.assignTaskWithFiltersQuery);
     console.log(gqlObject);
     const result = this.apollo
@@ -51,19 +55,20 @@ export class GraphqlFetchedDataComponent implements OnInit {
       .subscribe(
         ({ data, loading }:any) => {
           console.log(data,loading);
-          this.taskId = data?.['allOrganismsAsTask']?.['id'];
+          console.log(this.firstIndexName)
+          this.taskId = data?.[indexData[this.firstIndexName.value].assignAsTaskFieldName]?.['id'];
           this.setSocket(this.taskId);
         }
       );
       // .pipe(map(response => response.data));
-      console.log(result);
   }
 
   fetchFromTaskWithSelectedFields(){
 
     const graphQLQueryWithTaskId = this.fetchFromTaskWithSelectedFieldsQuery.replace("<%TASK_ID%>",this.taskId)
     const gqlObject = gql(graphQLQueryWithTaskId);
-    
+    console.log(graphQLQueryWithTaskId);
+
     const result = this.apollo
       .query({
         query: 
@@ -104,7 +109,6 @@ export class GraphqlFetchedDataComponent implements OnInit {
         }
       );
       // .pipe(map(response => response.data));
-      console.log(result);
   }
 
 

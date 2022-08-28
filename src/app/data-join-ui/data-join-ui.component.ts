@@ -16,7 +16,7 @@ export class DataJoinUiComponent implements OnInit {
   firstIndices = Object.keys(indexData);
   firstIndexFieldsAndFilters = new FormGroup({});
 
-  secondIndexName = new FormControl();
+  secondIndexName = new FormControl('');
   secondIndices = [];
   secondIndexFieldsAndFilters = new FormGroup({});
 
@@ -26,8 +26,6 @@ export class DataJoinUiComponent implements OnInit {
 
   constructor() {}
 
-  
-  
   updateIndexFieldsAndFilters(index = 'firstIndex'){
 
     const indexToUpdate = index === 'firstIndex' ? this.firstIndexName : this.secondIndexName;
