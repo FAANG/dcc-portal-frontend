@@ -21,6 +21,7 @@ export class GraphqlFetchedDataComponent implements OnInit {
   socket = null;
   taskId = '';
   tableRecordsList = [];
+  tableColumnsSet = new Set();
 
   constructor(private apollo: Apollo) {}
 
@@ -34,6 +35,8 @@ export class GraphqlFetchedDataComponent implements OnInit {
         if(typeof dataObject[key] === 'object'){
           this.flattenTableRecordsObject(dataObject[key], propName, resObj);
         }else{
+          if(!this.tableColumnsSet.has(propName))
+            this.tableColumnsSet.add(propName);
           resObj[propName] = dataObject[key];
         }
       }
@@ -103,6 +106,7 @@ export class GraphqlFetchedDataComponent implements OnInit {
           console.log(data);
           this.updateTableRecordsList(data);
           console.log(this.tableRecordsList);
+          console.log(this.tableColumnsSet);
           this.showSpinner = false;
         }
       );

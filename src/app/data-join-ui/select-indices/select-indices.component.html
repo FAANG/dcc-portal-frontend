@@ -6,10 +6,12 @@
         </mat-select>
     </mat-form-field>
     
-    <mat-form-field appearance="fill" class="select-index-control">
-    <mat-label>Second Index</mat-label>
-    <mat-select [formControl]="secondIndexName" (selectionChange)="onSelectionChange('secondIndex')">
-        <mat-option *ngFor="let secondIndex of secondIndices" [value]="secondIndex" >{{secondIndex}}</mat-option>
-    </mat-select>
-    </mat-form-field>
+    <span *ngIf="firstIndexName.value">
+      <mat-form-field appearance="fill" class="select-index-control">
+      <mat-label>Second Index</mat-label>
+      <mat-select [formControl]="secondIndexName" (selectionChange)="onSelectionChange('secondIndex')">
+          <mat-option *ngFor="let secondIndex of secondIndices" [value]="secondIndex" >{{secondIndex}}</mat-option>
+      </mat-select>
+      </mat-form-field>
+    </span>
   </div>
