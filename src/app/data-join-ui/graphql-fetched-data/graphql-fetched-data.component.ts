@@ -14,15 +14,56 @@ export class GraphqlFetchedDataComponent implements OnInit {
   @Input() assignTaskWithFiltersQuery = '';
   @Input() fetchFromTaskWithSelectedFieldsQuery = '';
   @Input() firstIndexName;
+  @Input() indexDetailsArray;
 
   fetchedData = '';
   showSpinner = false;
   socket = null;
   taskId = '';
+  tableRecordsList = [];
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit(): void {}
+
+  flattenTableRecordsObject(dataObject, prefix, resObj){
+    if(dataObject)
+    for( const key of Object.keys(dataObject)){
+      if( key !== 'join'){
+        const propName = prefix ? prefix + '.' + key : key;
+        if(typeof dataObject[key] === 'object'){
+          this.flattenTableRecordsObject(dataObject[key], propName, resObj);
+        }else{
+          resObj[propName] = dataObject[key];
+        }
+      }
+    }
+    return resObj;
+  }
+
+  convertResponseDataToTableRecordObject(recordsList, currentESIndexIdx, resObj = {}){
+    const currentESIndexName = this.indexDetailsArray[currentESIndexIdx].indexName;
+    
+    recordsList.forEach(({node})=>{
+      const tableRecordObject = {...resObj, ...this.flattenTableRecordsObject(node, currentESIndexName, resObj)};
+      const nextESIndexIdx = currentESIndexIdx + 1;
+      const nextESIndexName = this.indexDetailsArray[nextESIndexIdx]?.indexName;
+      if(node?.['join']?.[nextESIndexName]?.['edges']?.length){
+        this.convertResponseDataToTableRecordObject(node['join'][nextESIndexName]['edges'], nextESIndexIdx, tableRecordObject);  
+      }else{
+        this.tableRecordsList.push(tableRecordObject);
+      }
+    })
+    
+  }
+
+  updateTableRecordsList(data){
+    if(this.indexDetailsArray.length){
+      const currentESIndexIdx = 0;
+      const recordsList = data[indexData[this.indexDetailsArray[currentESIndexIdx].indexName].fetchFromTaskFieldName]['edges'];
+      this.convertResponseDataToTableRecordObject(recordsList,currentESIndexIdx);
+    }
+  }
 
   assignTaskWithFilters(){
     this.showSpinner = true;
@@ -34,23 +75,6 @@ export class GraphqlFetchedDataComponent implements OnInit {
       .query({
         query: 
         gqlObject
-        // gql(`
-        // query{
-        //   allOrganismsAsTask(
-        //     filter:{
-        //       basic:{
-        //         biosampleId: ["SAMEA4451615","SAMEA4451620"]
-        //       }
-        //       join:{
-        //         specimen:{}
-        //       }
-        //     }
-        //   ){
-        //     id
-        //     status
-        //   }
-        // }
-        // `),
       })
       .subscribe(
         ({ data, loading }:any) => {
@@ -60,7 +84,6 @@ export class GraphqlFetchedDataComponent implements OnInit {
           this.setSocket(this.taskId);
         }
       );
-      // .pipe(map(response => response.data));
   }
 
   fetchFromTaskWithSelectedFields(){
@@ -73,42 +96,16 @@ export class GraphqlFetchedDataComponent implements OnInit {
       .query({
         query: 
         gqlObject
-        // gql(fetchFromTaskWithSelectedFieldsQuery
-        //   `
-        // query{
-        //   allOrganismsTaskResult(taskId:"${this.taskId}"){
-        //     edges{
-        //       node{
-        //         biosampleId
-        //         name
-        //         organism{
-        //           text
-        //         }
-        //         join{
-        //           specimen{
-        //             edges{
-        //               node{
-        //                 biosampleId
-        //                 name
-        //               }
-        //             }
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
-        // `
-        // ),
+        
       })
       .subscribe(
         ({ data, loading }:any) => {
           console.log(data);
+          this.updateTableRecordsList(data);
+          console.log(this.tableRecordsList);
           this.showSpinner = false;
-    
         }
       );
-      // .pipe(map(response => response.data));
   }
 
 
