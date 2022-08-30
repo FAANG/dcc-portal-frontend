@@ -105,6 +105,7 @@ import { SelectFieldsAndFiltersComponent } from './data-join-ui/select-fields-an
 import { GraphqlQueryComponent } from './data-join-ui/graphql-query/graphql-query.component';
 import { GraphqlFetchedDataComponent } from './data-join-ui/graphql-fetched-data/graphql-fetched-data.component';
 import { GraphQLModule } from './graphql.module';
+import { GraphqlDisplayFetchedDataComponent } from './data-join-ui/graphql-display-fetched-data/graphql-display-fetched-data.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -180,7 +181,9 @@ export function removeToken(): void {
     SelectIndicesComponent,
     SelectFieldsAndFiltersComponent,
     GraphqlQueryComponent,
-    GraphqlFetchedDataComponent
+    GraphqlFetchedDataComponent,
+    GraphqlDisplayFetchedDataComponent,
+    
   ],
   imports: [
     BrowserModule,

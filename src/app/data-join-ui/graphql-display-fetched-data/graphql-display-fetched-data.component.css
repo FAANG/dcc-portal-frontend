@@ -1,0 +1,15 @@
+.fetched-data-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.fetched-dataa-table-container{
+    overflow: scroll;
+    max-height: 80vh;
+}
+
+.fetched-data-table-cell{
+    width:20vw;
+    word-break: break-all;
+    padding: 1vw;
+}

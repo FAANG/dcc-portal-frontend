@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { gql, Apollo } from 'apollo-angular';
 import { graphql_task_status_ws_url, graphql_task_status_ws_url_local } from 'src/app/shared/constants';
 import { indexData } from '../constants';
@@ -15,28 +15,30 @@ export class GraphqlFetchedDataComponent implements OnInit {
   @Input() fetchFromTaskWithSelectedFieldsQuery = '';
   @Input() firstIndexName;
   @Input() indexDetailsArray;
+  @Input() tableRecordsList;
+  @Input() tableColumns;
+
+  @Output() fetchedDataChange = new EventEmitter();
 
   fetchedData = '';
   showSpinner = false;
   socket = null;
   taskId = '';
-  tableRecordsList = [];
-  tableColumnsSet = new Set();
-
+  
   constructor(private apollo: Apollo) {}
 
   ngOnInit(): void {}
 
-  flattenTableRecordsObject(dataObject, prefix, resObj){
+  flattenTableRecordsObject(newTableColumns,dataObject, prefix, resObj){
     if(dataObject)
     for( const key of Object.keys(dataObject)){
       if( key !== 'join'){
         const propName = prefix ? prefix + '.' + key : key;
         if(typeof dataObject[key] === 'object'){
-          this.flattenTableRecordsObject(dataObject[key], propName, resObj);
+          this.flattenTableRecordsObject(newTableColumns,dataObject[key], propName, resObj);
         }else{
-          if(!this.tableColumnsSet.has(propName))
-            this.tableColumnsSet.add(propName);
+          if(!newTableColumns.includes(propName))
+          newTableColumns.push(propName);
           resObj[propName] = dataObject[key];
         }
       }
@@ -44,28 +46,34 @@ export class GraphqlFetchedDataComponent implements OnInit {
     return resObj;
   }
 
-  convertResponseDataToTableRecordObject(recordsList, currentESIndexIdx, resObj = {}){
+  convertResponseDataToTableRecordObject(newTableRecordsList,newTableColumns,recordsList, currentESIndexIdx, resObj = {}){
     const currentESIndexName = this.indexDetailsArray[currentESIndexIdx].indexName;
     
     recordsList.forEach(({node})=>{
-      const tableRecordObject = {...resObj, ...this.flattenTableRecordsObject(node, currentESIndexName, resObj)};
+      const tableRecordObject = {...resObj, ...this.flattenTableRecordsObject(newTableColumns,node, currentESIndexName, resObj)};
       const nextESIndexIdx = currentESIndexIdx + 1;
       const nextESIndexName = this.indexDetailsArray[nextESIndexIdx]?.indexName;
       if(node?.['join']?.[nextESIndexName]?.['edges']?.length){
-        this.convertResponseDataToTableRecordObject(node['join'][nextESIndexName]['edges'], nextESIndexIdx, tableRecordObject);  
+        this.convertResponseDataToTableRecordObject(newTableRecordsList,newTableColumns,node['join'][nextESIndexName]['edges'], nextESIndexIdx, tableRecordObject);  
       }else{
-        this.tableRecordsList.push(tableRecordObject);
+        newTableRecordsList.push(tableRecordObject);
       }
     })
     
   }
 
   updateTableRecordsList(data){
+
+    const newTableRecordsList = [];
+    const newTableColumns = [];
+
     if(this.indexDetailsArray.length){
       const currentESIndexIdx = 0;
       const recordsList = data[indexData[this.indexDetailsArray[currentESIndexIdx].indexName].fetchFromTaskFieldName]['edges'];
-      this.convertResponseDataToTableRecordObject(recordsList,currentESIndexIdx);
+      this.convertResponseDataToTableRecordObject(newTableRecordsList,newTableColumns,recordsList,currentESIndexIdx);
     }
+
+    this.fetchedDataChange.emit({newTableRecordsList,newTableColumns});
   }
 
   assignTaskWithFilters(){
@@ -106,7 +114,7 @@ export class GraphqlFetchedDataComponent implements OnInit {
           console.log(data);
           this.updateTableRecordsList(data);
           console.log(this.tableRecordsList);
-          console.log(this.tableColumnsSet);
+          console.log(this.tableColumns);
           this.showSpinner = false;
         }
       );

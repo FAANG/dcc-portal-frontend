@@ -22,6 +22,14 @@
       [fetchFromTaskWithSelectedFieldsQuery]="fetchFromTaskWithSelectedFieldsQuery"
       [firstIndexName]="firstIndexName" 
       [indexDetailsArray]="indexDetailsArray"
+      [tableRecordsList]="tableRecordsList"
+      [tableColumns]="tableRecordsList"
+      (fetchedDataChange)="updateFetchedDataTableDetails($event)"
     ></app-graphql-fetched-data>
+    <app-graphql-display-fetched-data
+      [tableRecordsList]="tableRecordsList"
+      [tableColumns]="tableColumns"
+      [tableDataSource]="tableDataSource"
+    ></app-graphql-display-fetched-data>
   </div>
 </div>

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { merge, set } from 'lodash';
 import {jsonToGraphQLQuery} from 'json-to-graphql-query';
 import { indexData, cleanObject } from './constants';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -23,6 +25,11 @@ export class DataJoinUiComponent implements OnInit {
   assignTaskWithFiltersQuery = '';
   fetchFromTaskWithSelectedFieldsQuery = '';
   indexDetailsArray = [];
+
+  tableRecordsList = [];
+  tableColumns = [];
+  tableDataSource: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor() {}
 
@@ -140,6 +147,16 @@ export class DataJoinUiComponent implements OnInit {
     const [assignTaskWithFiltersQuery, fetchFromTaskWithSelectedFieldsQuery] = this.buildQuery();
     this.assignTaskWithFiltersQuery = assignTaskWithFiltersQuery;
     this.fetchFromTaskWithSelectedFieldsQuery = fetchFromTaskWithSelectedFieldsQuery;
+  }
+
+  updateFetchedDataTableDetails({newTableRecordsList,newTableColumns}){
+
+    console.log(newTableRecordsList)
+    this.tableRecordsList = newTableRecordsList;
+    this.tableColumns = newTableColumns;
+    this.tableDataSource = new MatTableDataSource(newTableRecordsList);
+    this.tableDataSource.paginator = this.paginator;
+  
   }
 
   ngOnInit(): void {
