@@ -1096,7 +1096,7 @@ export const getObjectValueFromPath = (obj:Record<any,any>,path:string[])=>{
     return value;
 }
 
-export const makeNestedObjectFromStringPath = (path:string,value:any)=>{
+export const makeNestedObjectFromStringPath = (path='',value:any)=>{
     const obj = {};
     let prevKey = '';
     for(let key of path.split('.').reverse()){

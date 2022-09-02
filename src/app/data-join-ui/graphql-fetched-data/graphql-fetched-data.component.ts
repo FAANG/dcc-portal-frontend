@@ -121,8 +121,8 @@ export class GraphqlFetchedDataComponent implements OnInit {
   }
 
 
-  setSocket(task_id) {
-    const url = graphql_task_status_ws_url + task_id.split('-').join('_') + '/';
+  setSocket(task_id = '') {
+    const url = graphql_task_status_ws_url + task_id?.split('-')?.join('_') + '/';
 
     this.socket = new WebSocket(url);
     this.socket.onopen = () => {

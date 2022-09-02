@@ -1,9 +1,9 @@
 # Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-FROM node:10.9.0 as build-stage
+FROM yroochun/new-faang-base as build-stage
 WORKDIR /app
-COPY package*.json /app/
-RUN npm install
+
 COPY ./ /app/
+RUN npm install
 ARG configuration=production
 RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
