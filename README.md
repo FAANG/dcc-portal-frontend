@@ -47,7 +47,7 @@ sort.pipe.ts and filter.pipe.ts for sorting and filtering respectively.
 
 ### Frontend
 
-This section is only for **Data Join UI** under route '/data-join' (that you can find inside app-routing.module.ts).
+This section is only for **Data Join UI** under route '/data-join' (that you can find inside app-routing.module.ts). You can read about the entire GSOC work done **[here](https://gist.github.com/sunnytarawade/342f7c99949bbe1077da48529117bb0e)**.
 ### Installation
 
 1. Clone the repo (ssh) : 
