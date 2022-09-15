@@ -1,0 +1,60 @@
+<div *ngIf="firstIndexName.value && secondIndexName.value" class="select-fields-and-filters-form-container">
+      
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h5>Fields and Filters</h5>
+      </mat-panel-title>
+      <mat-panel-description>
+        Select the fields of the indices you want along with the filters
+      </mat-panel-description>
+        
+    </mat-expansion-panel-header>
+    <mat-tab-group>
+        <mat-tab [label]="firstIndexName.value">
+            <form [formGroup]="firstIndexFieldsAndFilters" class="select-fields-and-filters-tab-group">
+                <div formArrayName="formFields">
+                    <div *ngFor="let fieldDetails of firstIndexFieldsAndFilters.get('formFields')?.value;  let i = index;trackBy:trackByFn" [formGroupName]="i" class="select-fields-and-filters-controls-row" >
+                        <p class="select-fields-and-filters-controls-row-item">{{fieldDetails.fieldName}}</p>
+                        <mat-checkbox class="select-fields-and-filters-controls-row-item" type="checkbox" formControlName="isSelected"></mat-checkbox>
+                        <mat-form-field class="select-fields-and-filters-controls-row-item" appearance="fill">
+                            <input 
+                                matInput 
+                                formControlName="filter"
+                                placeholder="Add more tags"
+                                (click)="handleFilterValueChange($event,'firstIndex',i)"
+                                [value]="fieldDetails.filter"
+                                (input)="emitGraphQLQueryChangeEvent()"
+                            />  
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+
+        </mat-tab>
+        <mat-tab [label]="secondIndexName.value">
+            <form [formGroup]="secondIndexFieldsAndFilters" class="select-fields-and-filters-tab-group">
+                <div formArrayName="formFields">
+                    <div *ngFor="let fieldDetails of secondIndexFieldsAndFilters.get('formFields')?.value;  let i = index;trackBy:trackByFn" [formGroupName]="i" class="select-fields-and-filters-controls-row">
+                        <p class="select-fields-and-filters-controls-row-item">{{fieldDetails.fieldName}}</p>
+                        <mat-checkbox class="select-fields-and-filters-controls-row-item" type="checkbox" formControlName="isSelected" (mouseup)="emitGraphQLQueryChangeEvent()"></mat-checkbox>
+                        <mat-form-field class="select-fields-and-filters-controls-row-item" appearance="fill">
+                            <input matInput 
+                                formControlName="filter"
+                                placeholder="Add more tags"
+                                (click)="handleFilterValueChange($event,'secondIndex',i)"
+                                [value]="fieldDetails.filter"
+                                (input)="emitGraphQLQueryChangeEvent()"
+                            
+                            />  
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+
+        </mat-tab>
+    </mat-tab-group>
+  </mat-expansion-panel>
+    
+</div>

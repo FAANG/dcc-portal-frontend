@@ -1,0 +1,10 @@
+<div>
+    <button *ngIf="!showSpinner ;else progressSpinner" mat-raised-button color="primary" (click)="assignTaskWithFilters()">Fetch Joined Data</button>
+    <pre>
+        {{fetchedData}}
+    </pre>
+</div>
+
+<ng-template #progressSpinner>
+    <mat-spinner></mat-spinner>
+</ng-template>

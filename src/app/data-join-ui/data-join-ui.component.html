@@ -1,0 +1,35 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <h2>FAANG Data Join</h2>
+  <hr>
+  <app-select-indices 
+    [firstIndexName]="firstIndexName" 
+    [secondIndexName]="secondIndexName"
+    (firstIndexChange)="updateIndexFieldsAndFilters('firstIndex')"
+    (secondIndexChange)="updateIndexFieldsAndFilters('secondIndex')"
+  ></app-select-indices>
+  <div *ngIf="firstIndexName.value && secondIndexName.value" (mouseover)="updateGraphQLQuery()">
+    <app-select-fields-and-filters 
+        [firstIndexName]="firstIndexName"
+        [firstIndexFieldsAndFilters]="firstIndexFieldsAndFilters"
+        [secondIndexName]="secondIndexName"
+        [secondIndexFieldsAndFilters]="secondIndexFieldsAndFilters"
+        (graphQLQueryChange)="updateGraphQLQuery()"
+    >
+    </app-select-fields-and-filters>
+    <app-graphql-fetched-data 
+      [assignTaskWithFiltersQuery]="assignTaskWithFiltersQuery"
+      [fetchFromTaskWithSelectedFieldsQuery]="fetchFromTaskWithSelectedFieldsQuery"
+      [firstIndexName]="firstIndexName" 
+      [indexDetailsArray]="indexDetailsArray"
+      [tableRecordsList]="tableRecordsList"
+      [tableColumns]="tableRecordsList"
+      (fetchedDataChange)="updateFetchedDataTableDetails($event)"
+    ></app-graphql-fetched-data>
+    <app-graphql-display-fetched-data
+      [tableRecordsList]="tableRecordsList"
+      [tableColumns]="tableColumns"
+      [tableDataSource]="tableDataSource"
+    ></app-graphql-display-fetched-data>
+  </div>
+</div>

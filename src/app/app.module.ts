@@ -92,12 +92,20 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { cookieConfig } from './app.component';
 import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
+import { DataJoinUiComponent } from './data-join-ui/data-join-ui.component';
+import { SelectIndicesComponent } from './data-join-ui/select-indices/select-indices.component';
+import { SelectFieldsAndFiltersComponent } from './data-join-ui/select-fields-and-filters/select-fields-and-filters.component';
+import { GraphqlQueryComponent } from './data-join-ui/graphql-query/graphql-query.component';
+import { GraphqlFetchedDataComponent } from './data-join-ui/graphql-fetched-data/graphql-fetched-data.component';
+import { GraphQLModule } from './graphql.module';
+import { GraphqlDisplayFetchedDataComponent } from './data-join-ui/graphql-display-fetched-data/graphql-display-fetched-data.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -168,7 +176,14 @@ export function removeToken(): void {
     TableServerSideComponent,
     NextflowSubmissionComponent,
     ProtocolAnalysisDetailsComponent,
-    EnsemblAnnotationComponent
+    EnsemblAnnotationComponent,
+    DataJoinUiComponent,
+    SelectIndicesComponent,
+    SelectFieldsAndFiltersComponent,
+    GraphqlQueryComponent,
+    GraphqlFetchedDataComponent,
+    GraphqlDisplayFetchedDataComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -198,6 +213,7 @@ export function removeToken(): void {
     ReactiveFormsModule,
     MatMenuModule,
     MatCardModule,
+    MatCheckboxModule,
     FlexLayoutModule,
     MatProgressBarModule,
     MatToolbarModule,
@@ -213,7 +229,8 @@ export function removeToken(): void {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
     NgbModule,
-    NgcCookieConsentModule.forRoot(cookieConfig)
+    NgcCookieConsentModule.forRoot(cookieConfig),
+    GraphQLModule
   ],
   providers: [ApiDataService, AggregationService, SlicePipe, UserService],
   bootstrap: [AppComponent]
