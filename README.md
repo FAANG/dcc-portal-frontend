@@ -42,6 +42,45 @@ Also project contains pipes, services and shared folders for pipes, services and
 Each component fetches data from the server only upon creation and then all basic functionality (sorting, filtering, etc...) goes on using pipes
 sort.pipe.ts and filter.pipe.ts for sorting and filtering respectively.
 
+# GSOC 2022 
+## New FAANG Backend with Elasticsearch and GraphQL
+
+### Frontend
+
+This section is only for **Data Join UI** under route '/data-join' (that you can find inside app-routing.module.ts).
+### Installation
+
+1. Clone the repo (ssh) : 
+```git clone git@github.com:FAANG/dcc-portal-frontend.git```
+2. Change to the branch 'st/data-join-ui'
+```git checkout -b st/data-join-ui```
+3. Take a pull from origin
+```git pull origin st/data-join-ui```
+4. Install npm dependencies (will take a while)
+```npm install```
+5. Start the server. Try the commands below if the first one does not work.
+```ng serve --open```
+OR
+```npm start```
+OR
+```nvm exec npm start``` (If using nvm)
+
+### Tutorial
+
+Please read the following blog to understand how to use the Data Join UI here: https://medium.com/@sunnytarawade000/sunnys-gsoc-adventure-ec09863992b6
+
+### Documentation
+
+Please Read the following blogs to understand more about the code implementation in the following order:
+
+1. [Filtering Data](https://medium.com/@sunnytarawade000/sunnys-gsoc-adventure-299947f6cd01)
+2. [Joins](https://medium.com/@sunnytarawade000/sunnys-gsoc-adventure-102d6ac164e0)
+3. [Exploring Frontend](https://medium.com/@sunnytarawade000/sunnys-gsoc-adventure-b8dfb29e22b5)
+3. [Working with Celery Tasks + GraphQL](https://medium.com/@sunnytarawade000/sunnys-gsoc-adventure-db0550723fb9)
+4. [Building GraphQL Query and Last Steps](https://medium.com/@sunnytarawade000/sunnys-gsoc-adventure-57e59c512813)
+5. [Deployment](https://medium.com/@sunnytarawade000/sunnys-gsoc-adventure-63853c7e4b54)
+
+
 ## Future plans
 1. ~~Add comprehensive test suite~~
 2. Pre-render application on the fly from the server using Angular Universal
