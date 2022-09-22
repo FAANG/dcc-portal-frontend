@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable, merge, of as observableOf } from 'rxjs';
 import { map, startWith, switchMap, catchError } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {female_values, male_values} from '../constants';
+import {female_values, male_values, published_article_source} from '../constants';
 
 @Component({
   selector: 'app-table-server-side',
@@ -114,6 +114,24 @@ export class TableServerSideComponent implements AfterViewInit {
             });
             this.query['filters'][col] = sex_val;
           }
+
+          // process article source (Article Type) filter
+          if (col === 'source') {
+            let source_val = [];
+            this.query['filters'][col].forEach((val, i) => {
+              if (val === 'preprint') {
+                source_val = source_val.concat('PPR');
+              } else if (val === 'published') {
+                source_val = source_val.concat(published_article_source);
+              }
+              else {
+                source_val.push(val);
+              }
+            });
+           this.query['filters'][col] = source_val;
+          }
+
+
         }
         this.apiFunction(this.query, 25).subscribe((res: any) => {
           this.dataSource.data = res.data; // set table data
@@ -131,7 +149,7 @@ export class TableServerSideComponent implements AfterViewInit {
           clearTimeout(this.timer);
         }
         this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
-      } 
+      }
       else {
         this.applySearchFilter(searchFilterValue);
       }

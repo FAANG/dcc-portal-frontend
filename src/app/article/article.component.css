@@ -39,3 +39,8 @@ table {
 h3 {
   color: #477AAF;
 }
+
+.preprint{
+  font-style: italic;
+  color: #6f6f71;
+}

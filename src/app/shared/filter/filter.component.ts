@@ -71,6 +71,8 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['paper_published'];
         } else if (this.title === 'Journal') {
           this.aggregation = data['journal'];
+        } else if (this.title === 'Article Type') {
+          this.aggregation = data['source'];
         } else if (this.title === 'Year') {
           // this.aggregation = data['publication_year'];
           this.aggregation = data['year'];
@@ -83,7 +85,7 @@ export class FilterComponent implements OnInit, OnDestroy {
         } else if (this.title === 'Project') {
           this.aggregation = data['project'];
         }
-        this.cdRef.detectChanges(); 
+        this.cdRef.detectChanges();
       }
     );
   }
@@ -177,6 +179,10 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Journal': {
         data_key = 'journal';
+        break;
+      }
+      case 'Article Type': {
+        data_key = 'source';
         break;
       }
       case 'Year': {

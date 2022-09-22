@@ -916,13 +916,15 @@ export class ApiDataService {
       'year': 'year',
       'journal': 'journal',
       'datasetSource': 'datasetSource',
-      'project': 'secondaryProject'
+      'project': 'secondaryProject',
+      'source': 'source'
     };
     const mapping = {
       'title': 'title',
       'year': 'year',
       'journal': 'journal',
       'datasetSource': 'datasetSource',
+      'source': 'source'
     };
     const filters = query['filters'];
     for (const prop of Object.keys(filters)) {
@@ -943,7 +945,8 @@ export class ApiDataService {
           title: entry['_source']['title'],
           year: entry['_source']['year'],
           journal: entry['_source']['journal'],
-          datasetSource: entry['_source']['datasetSource']
+          datasetSource: entry['_source']['datasetSource'],
+          source: entry['_source']['source']
           } as ArticleTable)
         );
         res['totalHits'] = data.hits.total.value;
