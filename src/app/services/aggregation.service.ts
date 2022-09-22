@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
 
-import {female_values, male_values} from '../shared/constants';
+import {female_values, male_values, published_article_source} from '../shared/constants';
 import {protocolNames} from '../shared/protocolnames';
 import {replaceUnderscoreWithSpace} from '../shared/common_functions';
 
@@ -34,6 +34,7 @@ export class AggregationService {
     paper_published: [],
     year: [],
     journal: [],
+    source: [],
     datasetSource: [],
     ontology_type: [],
     ontology_status: [],
@@ -59,7 +60,7 @@ export class AggregationService {
   }
 
   getAggregations(recordList: any, type: string) {
-    if (type === 'file' || type === 'organism' || type === 'specimen' || type == 'dataset' || 
+    if (type === 'file' || type === 'organism' || type === 'specimen' || type === 'dataset' ||
         type === 'analysis' || type === 'protocol' || type === 'protocol_experiments' || type === 'article') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
@@ -105,8 +106,8 @@ export class AggregationService {
         if (key == 'sex') {
           let sex_values = {'male': 0, 'female': 0};
           for (const val in all_data['sex']) {
-            male_values.indexOf(val) > -1 ? sex_values['male'] += all_data['sex'][val] 
-            : female_values.indexOf(val) > -1 ? sex_values['female'] += all_data['sex'][val] 
+            male_values.indexOf(val) > -1 ? sex_values['male'] += all_data['sex'][val]
+            : female_values.indexOf(val) > -1 ? sex_values['female'] += all_data['sex'][val]
             : sex_values[val] = all_data['sex'][val];
           }
           for (const val in sex_values) {
@@ -116,6 +117,29 @@ export class AggregationService {
           }
           all_data['sex'] = sex_values;
         }
+
+        // process article source
+        if (key === 'source') {
+          const source_values = {'published': 0, 'preprint': 0};
+          for (const prop in all_data['source']) {
+            if (prop.toUpperCase() === 'PPR') {
+              source_values['preprint'] += all_data['source'][prop];
+            } else if (published_article_source.indexOf(prop.toUpperCase()) > -1) {
+                source_values['published'] += all_data['source'][prop];
+              } else {
+              source_values[prop] = all_data['source'][prop];
+            }
+          }
+          for (const prop in source_values) {
+            if (source_values[prop] === 0) {
+              delete source_values[prop];
+            }
+          }
+          all_data['source'] = source_values;
+        }
+
+
+
         // process Analysis Type and Experiment Target
         if (key == 'analysis_type' || key == 'experiment_target') {
           for (const val in all_data[key]) {

@@ -17,6 +17,7 @@
       <app-filter title="Year" [filterSize]=6></app-filter>
       <app-filter title="Journal" [filterSize]=6></app-filter>
       <app-filter title="Project" [filterSize]=4></app-filter>
+      <app-filter title="Article Type" [filterSize]=2></app-filter>
     </div>
 
     <div fxFlex="83" class="table-responsive">
@@ -46,4 +47,8 @@
 
 <ng-template #titleTemplate let-item>
   <a style="cursor: pointer" target="_blank" [routerLink]="item['id']">{{item['title']}}</a>
+</ng-template>
+
+<ng-template #articleSourceTemplate let-item>
+  <span [ngClass]="isPublished(item['source'])"> {{isPublished(item['source'])}} </span>
 </ng-template>

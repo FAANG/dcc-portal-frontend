@@ -5,7 +5,7 @@ import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import {ArticleTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 
 @Component({
   selector: 'app-article',
@@ -14,10 +14,11 @@ import {TableServerSideComponent}  from '../shared/table-server-side/table-serve
 })
 export class ArticleComponent implements OnInit, OnDestroy {
   @ViewChild('titleTemplate', { static: true }) titleTemplate: TemplateRef<any>;
+  @ViewChild('articleSourceTemplate', { static: true }) articleSourceTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
-  columnNames: string[] = ['Title', 'Journal', 'Year', 'Dataset source'];
-  displayFields: string[] = ['title', 'journal', 'year', 'datasetSource'];
+  columnNames: string[] = ['Title', 'Journal', 'Year', 'Dataset source', 'Type'];
+  displayFields: string[] = ['title', 'journal', 'year', 'datasetSource', 'source'];
   filter_field: {};
   templates: Object;
   aggrSubscription: Subscription;
@@ -31,23 +32,25 @@ export class ArticleComponent implements OnInit, OnDestroy {
       'title',
       'journal',
       'year',
-      'datasetSource'],
+      'datasetSource',
+      'source'],
     'search': ''
   };
 
   downloadQuery = {
-    'sort': ['title','asc'],
+    'sort': ['title', 'asc'],
     '_source': [
       '_source.title',
       '_source.journal',
       '_source.year',
-      '_source.datasetSource'],
+      '_source.datasetSource',
+      '_source.source'],
     'columns': this.columnNames,
     'filters': {},
     'file_format': 'csv',
   };
 
-  defaultSort = ['pmcId','asc'];
+  defaultSort = ['pmcId', 'asc'];
   error: string;
 
   constructor(private dataService: ApiDataService,
@@ -57,7 +60,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.templates = {'title': this.titleTemplate};
+    this.templates = {'title': this.titleTemplate,
+                      'source': this.articleSourceTemplate};
+
     this.loadTableDataFunction = this.dataService.getAllArticles.bind(this.dataService);
     this.titleService.setTitle('FAANG Articles');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -132,12 +137,13 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
-    let mapping = {
+    const mapping = {
       'title': 'title',
       'year': 'year',
       'journal': 'journal',
       'datasetSource': 'datasetSource',
-    }
+      'source': 'source',
+    };
     this.dataService.downloadRecords('article', mapping, this.downloadQuery).subscribe(
       (res:Blob)=>{
         var a = document.createElement("a");
@@ -150,6 +156,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.downloading = false;
       }
     );
+  }
+
+  isPublished(source: any) {
+    return source.toUpperCase() !== 'PPR' ? 'published' : 'preprint' ;
   }
 
   ngOnDestroy() {
