@@ -77,6 +77,9 @@ export class BulkFilesUploaderComponent implements OnInit {
     if (this.user) {
       formData.append('user', this.user['user']);
       formData.append('pwd', this.user['pwd']);
+      if (this.user['modify']) {
+        formData.append('modify', this.user['modify']);
+      }
     }
     const req = new HttpRequest('POST', this.uploadUrl, formData, {
       reportProgress: true,

@@ -29,6 +29,10 @@
             [mode]="'single'"
             [user]="user">
         </app-bulk-files-uploader>
+        <mat-radio-group [(ngModel)]="user['modify']" fxLayout="row" style="margin-bottom: 20px;">
+            <mat-radio-button value="false" style="margin-right: 20px;">Submit new trackhub</mat-radio-button>
+            <mat-radio-button value="true">Update existing trackhub</mat-radio-button>
+        </mat-radio-group>
         <div *ngIf="validation_results">
             <hr>
             <h3 style="margin: 20px 0;">Validation Results</h3>

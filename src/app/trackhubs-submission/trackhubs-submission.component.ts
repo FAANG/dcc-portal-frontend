@@ -34,7 +34,7 @@ export class TrackhubsSubmissionComponent implements OnInit {
   username: string;
   password: string;
   error: string;
-  user;
+  user = {'modify': 'false'};
   tabs = ['Hub Data' ,'Genome Data', 'Tracks Data']
   columns = {
     'Hub Data': ['Name', 'Short Label', 'Long Label', 'Email', 'Description File Path'],
@@ -131,10 +131,8 @@ export class TrackhubsSubmissionComponent implements OnInit {
     ).subscribe(
       (data) => {
         this.token = data['token'];
-        this.user = {
-          'user': this.username,
-          'pwd': btoa(this.password)
-        }
+        this.user['user'] = this.username;
+        this.user['pwd'] = btoa(this.password);
         this.dialogRef.close();
       },
       (error) => {
