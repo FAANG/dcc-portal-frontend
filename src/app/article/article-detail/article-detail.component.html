@@ -65,6 +65,12 @@
         <dt fxFlex="25">Dataset source:</dt>
         <dd fxFlex="75">{{article?.datasetSource}}</dd>
       </div>
+
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="article?.source">
+        <dt fxFlex="25">Article Type:</dt>
+        <dd fxFlex="75">{{article.source.toUpperCase() !== 'PPR' ? 'published' : 'preprint'}}</dd>
+      </div>
+
     </dl>
 
     <app-related-items source_type="publication" target_type="dataset" [data]="relatedDatasets"
