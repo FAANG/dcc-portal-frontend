@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, Output, OnInit, ViewChild, EventEmitter} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,6 +17,7 @@ export class TableClientSideComponent implements OnInit {
   @Input() page_size: number; // number of records in a page
   @Input() filter_values: Observable<Object>; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ... }
   @Input() col_width: Array<any>; // list of column widths
+  @Output() dataUpdate = new EventEmitter<any>();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -47,6 +48,9 @@ export class TableClientSideComponent implements OnInit {
     if (this.dataSource) {
       this.dataSource.data = this.data;
       this.dataSource.filter = JSON.stringify(this.filter_values);
+      if (this.filter_values) {
+        this.dataUpdate.emit(this.dataSource.filteredData); // emit data update event
+      }
     }
   }
 

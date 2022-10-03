@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {OntologyService} from '../services/ontology.service';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
   templateUrl: './ontology-improver.component.html',
   styleUrls: ['./ontology-improver.component.css']
 })
-export class OntologyImproverComponent implements OnInit, AfterViewInit {
+export class OntologyImproverComponent implements OnInit {
   @ViewChild('loginModalTemplate', { static: true }) public loginModalTemplate: TemplateRef<any>;
   @ViewChild('editModalTemplate', { static: true }) public editModalTemplate: TemplateRef<any>;
   @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
@@ -24,8 +24,7 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
   @ViewChild('ontologyStatusTemplate', { static: true }) ontologyStatusTemplate: TemplateRef<any>;
   @ViewChild('typeCountTemplate', { static: true }) typeCountTemplate: TemplateRef<any>;
   @ViewChild('statusCountTemplate', { static: true }) statusCountTemplate: TemplateRef<any>;
-  @ViewChildren("tableComp") tableComponents: QueryList<TableClientSideComponent>;
-  private tableClientComponent: TableClientSideComponent;
+  @ViewChild('tableComp', { static: true }) tableComponent: TableClientSideComponent;
   summaryTableData: Observable<any[]>;
   hide: boolean;
   username: string;
@@ -140,13 +139,9 @@ export class OntologyImproverComponent implements OnInit, AfterViewInit {
     this.ontologyService.getUsageStatistics().subscribe((data) =>{
       this.usageStats = data;
     });
-  }
-
-  ngAfterViewInit() {
-    this.tableComponents.changes.subscribe((comps: QueryList <TableClientSideComponent>) => {
-        this.tableClientComponent = comps.first;
-        this.aggregationService.getAggregations(this.tableClientComponent.dataSource.filteredData, 'ontology');
-    });
+    this.tableComponent.dataUpdate.subscribe(data => {
+      this.aggregationService.getAggregations(data, 'ontology');
+    })
   }
 
   hasActiveFilters() {
