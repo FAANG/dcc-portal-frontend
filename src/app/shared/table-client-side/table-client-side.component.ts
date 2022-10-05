@@ -68,7 +68,7 @@ export class TableClientSideComponent implements OnInit {
       }
       if (isFilterSet) {
         for (const col in searchTerms) {
-          // handling search filter (should behave similar to angular mmaterial default filter)
+          // handling search filter (should behave similar to angular material default filter)
           if (col === 'search') {
             if (!searchTerms['search'][0]) {
               return true;
@@ -82,15 +82,29 @@ export class TableClientSideComponent implements OnInit {
             return false;
           }
           else {
-            if (!data[col] || searchTerms[col].indexOf(data[col]) == -1) {
-              return false;
+            // process filters for comma-separated ontology_type and project values
+            if (col == 'ontology_type' || col == 'project') {
+              let ontology_type_values = data[col].split(', ');
+              let found = false;
+              ontology_type_values.forEach((val, i) => {
+                if (searchTerms[col].indexOf(val) >= 0) {
+                  found = true;
+                }
+              });
+              if (!found) {
+                return false;
+              }
+            }
+            else {
+              if (!data[col] || searchTerms[col].indexOf(data[col]) == -1) {
+                return false;
+              }
             }
           }
         }
         return true;
-      } else {
-        return true;
-      }
+      } 
+      return true;
     }
     return filterFunction;
   }

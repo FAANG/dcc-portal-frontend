@@ -59,6 +59,14 @@ export class AggregationService {
     return aggs;
   }
 
+  updateAggregationCommaSeparated(aggs: {}, value: string): {} {
+    let values = value.split(', ');
+    values.forEach(val => {
+      aggs.hasOwnProperty(val) ? aggs[val] += 1 : aggs[val] = 1;
+    })
+    return aggs;
+  }
+
   getAggregations(recordList: any, type: string) {
     if (type === 'file' || type === 'organism' || type === 'specimen' || type === 'dataset' ||
         type === 'analysis' || type === 'protocol' || type === 'protocol_experiments' || type === 'article') {
@@ -164,9 +172,9 @@ export class AggregationService {
       let ontology_status = {};
       let project = {};
       for (const item of recordList) {
-        ontology_type = this.updateAggregation(ontology_type, item['ontology_type']);
+        ontology_type = this.updateAggregationCommaSeparated(ontology_type, item['ontology_type']);
         ontology_status = this.updateAggregation(ontology_status, item['ontology_status']);
-        project = this.updateAggregation(project, item['project']);
+        project = this.updateAggregationCommaSeparated(project, item['project']);
       }
       let all_data = {
         ontology_type: Object.entries(ontology_type).sort(function (a: any, b: any) {
