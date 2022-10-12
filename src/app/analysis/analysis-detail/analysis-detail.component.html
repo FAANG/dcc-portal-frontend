@@ -18,7 +18,10 @@
       <dt class="col-sm-3">Analysis accession:</dt>
       <dd class="col-sm-9">
         <app-robust-link [prefix]="ena_prefix" [link]="analysis?.accession"
-                         [text]="analysis?.accession"></app-robust-link>
+                         [text]="analysis?.accession" *ngIf="!_userService.token"></app-robust-link>
+        <ng-container *ngIf="_userService.token">
+          {{analysis?.accession}}
+        </ng-container>
       </dd>
 
       <dt class="col-sm-3">Title:</dt>
@@ -36,13 +39,16 @@
 
       <dt class="col-sm-3">Dataset accession:</dt>
       <dd class="col-sm-9">
-        <ng-container *ngIf="analysis?.datasetInPortal">
+        <ng-container *ngIf="analysis?.datasetInPortal && !_userService.token">
           <app-robust-link [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
                          [text]="analysis?.datasetAccession"></app-robust-link>
         </ng-container>
-        <ng-container *ngIf="!analysis?.datasetInPortal">
+        <ng-container *ngIf="!analysis?.datasetInPortal && !_userService.token">
           <app-robust-link [prefix]="ena_prefix" [link]="analysis?.datasetAccession"
                          [text]="analysis?.datasetAccession"></app-robust-link>
+        </ng-container>
+        <ng-container *ngIf="_userService.token">
+          <a [routerLink]="['/dataset', analysis?.datasetAccession]">{{analysis?.datasetAccession}}</a>
         </ng-container>
       </dd>
 
@@ -88,12 +94,15 @@
         <dt class="col-sm-3">Related Samples:</dt>
         <dd class="col-sm-9">
           <ng-container *ngFor="let accession of analysis?.sampleAccessions">
-            <ng-container *ngIf="sampleInES(accession)">
+            <ng-container *ngIf="sampleInES(accession) && !_userService.token">
               <app-robust-link [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
             </ng-container>
-            <ng-container *ngIf="!sampleInES(accession)">
+            <ng-container *ngIf="!sampleInES(accession) && !_userService.token">
               <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
             </ng-container>&nbsp;
+            <ng-container *ngIf="_userService.token">
+              <a [routerLink]="['/specimen', accession]">{{accession}}</a>
+            </ng-container>
           </ng-container>
         </dd>
       </ng-container>
@@ -128,7 +137,7 @@
         <dd class="col-sm-9">{{convertArrayToStr(analysis.platform, '')}}</dd>
       </ng-container>
 
-      <ng-container *ngIf="analysis?.analysisProtocol">
+      <ng-container *ngIf="analysis?.analysisProtocol?.url">
         <dt class="col-sm-3">Analysis Protocol:</dt>
         <dd class="col-sm-9"><app-robust-link prefix="" [link]="getProtocolLink(analysis.analysisProtocol.url)"
                               [text]="analysis.analysisProtocol.filename"></app-robust-link></dd>

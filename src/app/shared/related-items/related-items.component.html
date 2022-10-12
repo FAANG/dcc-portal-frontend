@@ -78,7 +78,7 @@
                   <i class="material-icons lock">lock</i>
                 </ng-container>
                 <ng-container *ngIf="source_type === 'dataset' && target_type === 'analysis' && isRecordPrivate(record)">
-                  {{record['_source']['accession']}}
+                  <a [routerLink]="['/analysis', record['_source']['accession']]">{{record['_source']['accession']}}</a>
                   <i class="material-icons lock">lock</i>
                 </ng-container>
                 <ng-container *ngIf="source_type === 'project' && target_type === 'file' && isRecordPrivate(record)">
