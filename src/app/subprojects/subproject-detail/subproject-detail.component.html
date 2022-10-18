@@ -66,6 +66,10 @@
         {{project}} </a>
       </div>
 
+      <div class="project-link" *ngIf="project === 'BovReg' && _userService.token">
+        BovReg FAANG submission routes guidance <a href="../../../assets/BovReg_FAANG_submission_routes_guidance_documentation_221018.pdf" target='_blank'>documentation</a>
+      </div>
+
       <div *ngIf="project === 'GENE-SWitCH'">
         <h3>Ensembl Rapid Release</h3>
         <div class="table-responsive">
