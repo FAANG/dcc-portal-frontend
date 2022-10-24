@@ -148,7 +148,7 @@
         <dd fxFlex="75">{{convertArrayToStr(analysis.platform, '')}}</dd>
       </div>
 
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.analysisProtocol">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.analysisProtocol?.url">
         <dt fxFlex="25">Analysis Protocol:</dt>
         <dd fxFlex="75">
           <app-robust-link prefix="" [link]="getProtocolLink(analysis.analysisProtocol.url)"

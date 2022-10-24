@@ -813,7 +813,7 @@ export class ApiDataService {
   getAnalysesByDataset(accession: any, sort: string, offset: number, mode: string, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/analysis/_search/?q=datasetAccession:${accession}&size=10&from_=${offset}&search=${search}`;
+      let url = `${this.hostSetting.host}private_portal/analysis/?q=datasetAccession:${accession}&size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits;
