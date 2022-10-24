@@ -305,8 +305,11 @@ export class RelatedItemsComponent implements OnInit {
 
   downloadAllFiles() {
     this.urls.forEach(url => {
-      const ftp_url = url.split('://')[1];
-      this.progress[ftp_url] = 0;
+      let file_url = url.split('://')[1];
+      if (this.mode == 'private') {
+        url = 'ftp://' + url.split('://')[1];
+      }
+      this.progress[file_url] = 0;
       this.http.get(url,
         {
             responseType: 'blob',
@@ -314,13 +317,13 @@ export class RelatedItemsComponent implements OnInit {
             observe: 'events',
         }).subscribe(result => {
         if (result.type === HttpEventType.DownloadProgress) {
-          this.progress[ftp_url] = Math.round(100 * result.loaded / result.total);
+          this.progress[file_url] = Math.round(100 * result.loaded / result.total);
         }
         if (result.type === HttpEventType.Response) {
           FileSaver.saveAs(result.body);
         }
       });
-      this.progress[ftp_url] = 0;
+      this.progress[file_url] = 0;
     });
   }
 
