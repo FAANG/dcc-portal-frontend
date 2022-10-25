@@ -37,7 +37,11 @@ export class RelatedItemsComponent implements OnInit {
     this.paginate_id = `${this.record_id}-${this.target_type}`;
     // Read in the initial column display settings
     // set those selected to be displayed
-    this._userService.token ? this.mode = 'private' : this.mode = 'public';
+    if (this._userService.token && this.record_id !== 'GENE-SWitCH' && this.record_id !== 'AQUA-FAANG') {
+      this.mode = 'private';
+    } else {
+      this.mode = 'public';
+    }
     for (const column of setting[this.source_type][this.target_type]['all']) {
       this.selected.set(column, false);
     }
@@ -109,6 +113,7 @@ export class RelatedItemsComponent implements OnInit {
     } else if (relationship_type === 'dataset-specimen') {
       this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
+          console.log(this.mode);
           this.records = data['hits']['hits'][0]['_source']['specimen'];
         });
     } else if (relationship_type === 'dataset-file') {
@@ -119,6 +124,7 @@ export class RelatedItemsComponent implements OnInit {
     } else if (relationship_type === 'dataset-paper') {
       this.dataService.getDataset(this.record_id, this.mode).subscribe(
         (data: any) => {
+          console.log(this.mode);
           this.records = data['hits']['hits'][0]['_source']['publishedArticles'];
         });
     } else if (relationship_type === 'dataset-analysis') {
