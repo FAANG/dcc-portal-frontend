@@ -58,8 +58,16 @@ a {
   overflow-wrap: break-word;
 }
 
-td.mat-cell:first-of-type, 
-td.mat-footer-cell:first-of-type, 
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type,
 th.mat-header-cell:first-of-type {
   padding-left: 10px;
+}
+
+/deep/ .yellow-tooltip {
+  background-color: rgb(255,250,230);
+  font-size: 14px;
+  color: #212529 !important;
+  max-width: unset !important;
+  white-space: pre-line;
 }

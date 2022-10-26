@@ -65,6 +65,9 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   bovreg_submission = false;
   private_submission = false;
   col_index = [];
+  action: 'update'|'submission' = 'submission';
+  tooltipUpdate: string;
+  tooltipSubmission: string;
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
@@ -78,14 +81,14 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 1;
-    this.dataSource = new MatTableDataSource([]); 
+    this.dataSource = new MatTableDataSource([]);
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Experiments');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onBeforeUploadItem = (file) => {
       this.conversion_status = 'Waiting';
-    }
+    };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
       if (this.conversion_status == 'Success') {
@@ -98,6 +101,12 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       this.private_submission = true;
       this.submission_message = 'Choose submission server';
     }
+    this.tooltipUpdate = '• This action will update the experiment details with the provided metadata. \n' +
+      '• Please ensure that the submitted spreadsheet contains the original alias used during initial submission. \n' +
+      '• Runs cannot be updated to point to different data files';
+
+    this.tooltipSubmission = '• This action will make a new experiment submission to ENA. \n' +
+      '• The alias used for the submitted object should be unique for the object\'s type within the submission account.';
   }
 
   setValidationResults() {
@@ -359,16 +368,16 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
-    let data = [];
+    const data = [];
     this.records_to_show.forEach(record => {
-      let rowObj = {};
-      for (let index in this.column_names) {
+      const rowObj = {};
+      for (const index in this.column_names) {
         rowObj[index] = record[index];
       }
       data.push(rowObj);
     });
     this.dataSource.data = data;
-    this.col_index = Array.from(this.column_names.keys()).map(col => col.toString());  
+    this.col_index = Array.from(this.column_names.keys()).map(col => col.toString());
   }
 
   openModal(i: number, j: number) {
@@ -404,7 +413,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.conversion_task_id, this.fileid, 'experiments').subscribe(response => {
+    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'experiments').subscribe(response => {
         this.validation_task_id = response['id'];
       },
       error => {
@@ -460,7 +469,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.disableAuthForm = true;
-    this.apiDataService.submitRecords(this.model.username, this.model.password, this.model.mode, '', this.fileid,
+    this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, '', this.fileid,
       this.conversion_task_id, 'experiments', this.private_submission).subscribe( response => {
       this.submission_task_id = response['id'];
     }, error => {
@@ -490,11 +499,9 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   tabClick(tab) {
     if (tab.index == 0) {
       this.router.navigate(['validation/samples']);
-    }
-    else if (tab.index == 1) {
+    } else if (tab.index == 1) {
       this.router.navigate(['validation/experiments']);
-    }
-    else if (tab.index == 2) {
+    } else if (tab.index == 2) {
       this.router.navigate(['validation/analyses']);
     }
   }
