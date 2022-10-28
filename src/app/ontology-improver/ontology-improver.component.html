@@ -279,17 +279,27 @@
 <!-- Template: Dialog Box - Edit existing Ontologies -->
 <ng-template #editModalTemplate let-data>
     <div mat-dialog-content>
-        <mat-form-field appearance="fill" style="width: 40%; margin-right: 5%">
-            <mat-label>Ontology Type</mat-label>
-            <input matInput [(ngModel)]="data.ontology_type">
-        </mat-form-field>
-        <mat-form-field appearance="fill" style="width: 55%;">
+        <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Ontology Text</mat-label>
             <input matInput [(ngModel)]="data.ontology_term">
         </mat-form-field>
+        Ontology Type: 
+        <br>
+        <ng-container *ngFor="let type of data.ontology_type.split(', '); let i = index">
+            <button *ngIf="type.length" mat-button class="tags" (click)="removeTag(i, 'ontology_type')">
+                <mat-icon>close</mat-icon>
+                {{type}}
+            </button>
+        </ng-container>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <input matInput 
+                [(ngModel)]="newTag['ontology_type']" 
+                (keyup.enter)="addNewTag(newTag['ontology_type'], 'ontology_type')"
+                placeholder="Add another ontology type">
+        </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Ontology ID</mat-label>
-            <mat-select [(ngModel)]="data.ontology_id">
+            <mat-select [(ngModel)]="data.ontology_id" multiple>
                 <mat-option *ngFor="let id of ontologyIdOptions" [value]="id">
                     {{id}}
                 </mat-option>
@@ -297,7 +307,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Project</mat-label>
-            <mat-select [(ngModel)]="data.project">
+            <mat-select [(ngModel)]="data.project" multiple>
                 <mat-option value="AQUA-FAANG">AQUA-FAANG</mat-option>
                 <mat-option value="BovReg">BovReg</mat-option>
                 <mat-option value="GENE-SWitCH">GENE-SWitCH</mat-option>
@@ -305,7 +315,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Species</mat-label>
-            <mat-select [(ngModel)]="data.species">
+            <mat-select [(ngModel)]="data.species" multiple>
                 <mat-option *ngFor="let spc of species" [value]="spc">
                     {{spc}}
                 </mat-option>
@@ -314,15 +324,15 @@
         Tags: 
         <br>
         <ng-container *ngFor="let tag of data.tags.split(', '); let i = index">
-            <button *ngIf="tag.length" mat-button class="tags" (click)="removeTag(i)">
+            <button *ngIf="tag.length" mat-button class="tags" (click)="removeTag(i, 'tags')">
                 <mat-icon>close</mat-icon>
                 {{tag}}
             </button>
         </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
             <input matInput 
-                [(ngModel)]="newTag" 
-                (keyup.enter)="addNewTag(newTag)"
+                [(ngModel)]="newTag['tags']" 
+                (keyup.enter)="addNewTag(newTag['tags'], 'tags')"
                 placeholder="Add more tags">
         </mat-form-field>
     </div>
@@ -340,19 +350,30 @@
 <!-- Template: Dialog Box - Ontology Validation -->
 <ng-template #modalTemplate let-data>
     <div mat-dialog-content>
-        <!-- Let user edit/provide ontology type for non-FAANG ontologies -->
-        <mat-form-field *ngIf="data.source != 'https://www.ebi.ac.uk/vg/faang'" appearance="fill" style="width: 100%;">
-            <mat-label>Proposed Ontology Type</mat-label>
-            <input matInput [(ngModel)]="data.term_type">
-        </mat-form-field>
+        Proposed Ontology Type(s): 
+        <br>
+        <div>
+            <ng-container *ngFor="let type of data.term_type?.split(', '); let i = index">
+                <button *ngIf="type.length" mat-button class="tags" (click)="removeTagToolsTab(data, i, 'term_type')">
+                    <mat-icon>close</mat-icon>
+                    {{type}}
+                </button>
+            </ng-container>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <input matInput 
+                    [(ngModel)]="newTag['term_type']" 
+                    (keyup.enter)="addTagToolTab(data, newTag['term_type'], 'term_type')"
+                    placeholder="Add another ontology type">
+            </mat-form-field>
+        </div>
         <!-- User should verify ontology or flag as needing improvement 
              Only when selecting from available ontology matches -->
         <mat-radio-group *ngIf="data.ontology_status != 'Not yet supported'" [(ngModel)]="data.ontology_status">
-            <mat-radio-button value="Verified">
+            <mat-radio-button [value]="'Verified'">
                 Ontology is suitable for Livestock
             </mat-radio-button>
             <br>
-            <mat-radio-button value="Needs Improvement" style="margin-bottom: 10px;">
+            <mat-radio-button [value]="'Needs Improvement'" style="margin-bottom: 10px;">
                 Ontology needs improvement
             </mat-radio-button>
         </mat-radio-group>
@@ -361,7 +382,7 @@
             <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>Proposed Ontology ID</mat-label>
                 <input *ngIf="ontologyIdOptions.length == 0" matInput [(ngModel)]="data.ontology_id">
-                <mat-select *ngIf="ontologyIdOptions.length" [(ngModel)]="data.ontology_id">
+                <mat-select *ngIf="ontologyIdOptions.length" [(ngModel)]="data.ontology_id" multiple>
                     <mat-option *ngFor="let id of ontologyIdOptions" [value]="id">
                         {{id}}
                     </mat-option>
@@ -374,7 +395,7 @@
         </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Project</mat-label>
-            <mat-select [(ngModel)]="data.project">
+            <mat-select [(ngModel)]="data.project" multiple>
                 <mat-option value="AQUA-FAANG">AQUA-FAANG</mat-option>
                 <mat-option value="BovReg">BovReg</mat-option>
                 <mat-option value="GENE-SWitCH">GENE-SWitCH</mat-option>
@@ -382,7 +403,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Species</mat-label>
-            <mat-select [(ngModel)]="data.species">
+            <mat-select [(ngModel)]="data.species" multiple>
                 <mat-option *ngFor="let spc of species" [value]="spc">
                     {{spc}}
                 </mat-option>
@@ -391,15 +412,15 @@
         Tags: 
         <br>
         <ng-container *ngFor="let tag of data.tags?.split(', '); let i = index">
-            <button *ngIf="tag.length" mat-button class="tags" (click)="removeTagToolsTab(data, i)">
+            <button *ngIf="tag.length" mat-button class="tags" (click)="removeTagToolsTab(data, i, 'tags')">
                 <mat-icon>close</mat-icon>
                 {{tag}}
             </button>
         </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
             <input matInput 
-                [(ngModel)]="newTag" 
-                (keyup.enter)="addTagToolTab(data, newTag)"
+                [(ngModel)]="newTag['tags']" 
+                (keyup.enter)="addTagToolTab(data, newTag['tags'], 'tags')"
                 placeholder="Add more tags">
         </mat-form-field>
     </div>

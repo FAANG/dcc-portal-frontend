@@ -38,7 +38,7 @@ export class OntologyImproverComponent implements OnInit {
   ontologyIdOptions;
   selectedTerm;
   selectedOntologyData;
-  newTag: string;
+  newTag = {'ontology_type': null, 'tags': null, 'term_type': null};
   error: string;
   success: string;
   dialogRef;
@@ -256,7 +256,7 @@ export class OntologyImproverComponent implements OnInit {
   getSpecies(records) {
     // get species ontology terms
     let species = records.map((record) => {
-      if (record.ontology_type == 'species') {
+      if (record.ontology_type.split(', ').includes('species')) {
         return record.ontology_term;
       }
     });
@@ -277,14 +277,20 @@ export class OntologyImproverComponent implements OnInit {
 
   editOntology(data) {
     // get possible ontology ID options from ZOOMA
-    this.ontologyIdOptions = [data['ontology_id']]; // initially has only currrent id
+    this.ontologyIdOptions = data['ontology_id'].split(', '); // initially has only currrent id
     this.ontologyService.fetchZoomaMatches([data['ontology_term']]).subscribe(
       res => {
-        this.ontologyIdOptions = res[data['ontology_term']].map(match => match['ontology_id']);
+        let ontologyMatches = res[data['ontology_term']].map(match => match['ontology_id']);
+        this.ontologyIdOptions = this.ontologyIdOptions.concat(ontologyMatches);
+        this.ontologyIdOptions = Array.from(new Set(this.ontologyIdOptions));
+        this.ontologyIdOptions = this.ontologyIdOptions.filter(n => n);
       }
     );
-    // get current ontology ID
+    // get current ontology data
     this.selectedOntologyData = JSON.parse(JSON.stringify(data));
+    this.selectedOntologyData.project = this.selectedOntologyData.project.split(', ');
+    this.selectedOntologyData.ontology_id = this.selectedOntologyData.ontology_id.split(', ');
+    this.selectedOntologyData.species = this.selectedOntologyData.species.split(', ');
     this.dialogRef = this.dialog.open(this.editModalTemplate, {
       width: '50%',
       data: this.selectedOntologyData
@@ -293,48 +299,52 @@ export class OntologyImproverComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe(result => {
       this.selectedOntologyData = null;
       this.ontologyIdOptions = null;
-      this.newTag = null;
+      this.newTag = {'ontology_type': null, 'tags': null, 'term_type': null};
     });
   }
 
-  addNewTag(tag) {
+  addNewTag(tag, prop) {
     if (tag.length) {
-      let tagsList = this.selectedOntologyData.tags.split(', ');
+      let tagsList = this.selectedOntologyData[prop].split(', ');
       tagsList = tagsList.filter(n => n);
       tagsList.push(tag);
-      this.selectedOntologyData.tags = tagsList.join(', ');
-      this.newTag = null;
+      this.selectedOntologyData[prop] = tagsList.join(', ');
+      this.newTag[prop] = null;
     }
   }
 
-  removeTag(tagIndex) {
-    let tagsList = this.selectedOntologyData.tags.split(', ');
+  removeTag(tagIndex, prop) {
+    let tagsList = this.selectedOntologyData[prop].split(', ');
     tagsList.splice(tagIndex, 1);
-    this.selectedOntologyData.tags = tagsList.join(', ');
+    this.selectedOntologyData[prop] = tagsList.join(', ');
   }
 
-  addTagToolTab(data, tag) {
+  addTagToolTab(data, tag, prop) {
     if (tag.length) {
-      if (data.tags) {
-        let tagsList = data.tags.split(', ');
+      if (data[prop]) {
+        let tagsList = data[prop].split(', ');
         tagsList = tagsList.filter(n => n);
         tagsList.push(tag);
-        data.tags = tagsList.join(', ');
+        data[prop] = tagsList.join(', ');
       } else {
-        data.tags = tag;
+        data[prop] = tag;
       }
-      this.newTag = null;
+      this.newTag[prop] = null;
     }
   }
 
-  removeTagToolsTab(data, tagIndex) {
-    let tagsList = data.tags.split(', ');
+  removeTagToolsTab(data, tagIndex, prop) {
+    let tagsList = data[prop].split(', ');
     tagsList.splice(tagIndex, 1);
-    data.tags = tagsList.join(', ');
+    data[prop] = tagsList.join(', ');
   }
 
-  submitEditedOntology(data) {
+  submitEditedOntology(editedData) {
+    let data = JSON.parse(JSON.stringify(editedData));
     data['ontology_status'] = 'Awaiting Assessment';
+    data['project'] = data['project'].join(', ');
+    data['ontology_id'] = data['ontology_id'].join(', ');
+    data['species'] = data['species'].join(', ');
     const request = {};
     request['user'] = this.username;
     request['ontologies'] = [data];
@@ -454,11 +464,14 @@ export class OntologyImproverComponent implements OnInit {
       this.selectedTerm.index = 0;
       this.ontologyIdOptions = [];
     } else {
-      data = this.ontologyMatches[key][index];
+      data = JSON.parse(JSON.stringify(this.ontologyMatches[key][index]));
       this.selectedTerm.index = index;
       // set ontology id options
-      this.ontologyIdOptions = data.ontology_id.split(',');
+      this.ontologyIdOptions = data.ontology_id.split(', ');
     }
+    data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', '): [];
+    data.project = data['project'] ? data['project'].split(', '): [];
+    data.species = data['species'] ? data['species'].split(', '): [];
     // mark current ontology as selected
     data['selected'] = true;
     let l = this.ontologyMatches[key].length;
@@ -475,13 +488,16 @@ export class OntologyImproverComponent implements OnInit {
   }
 
   editValidation(key: string, index: number) {
-    var data = this.ontologyMatches[key][index];
+    var data = JSON.parse(JSON.stringify(this.ontologyMatches[key][index]));
     this.selectedTerm.key = key;
     this.selectedTerm.index = index;
     // set ontology id options and open modal for edit
     if (data.ontology_id) {
-      this.ontologyIdOptions = data.ontology_id.split(',');
+      this.ontologyIdOptions = data.ontology_id.split(', ');
     }
+    data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', '): [];
+    data.project = data['project'] ? data['project'].split(', '): [];
+    data.species = data['species'] ? data['species'].split(', '): [];
     this.openModal(data);
   }
 
@@ -536,6 +552,9 @@ export class OntologyImproverComponent implements OnInit {
          data.ontology_id !== ontologyOld.ontology_id ||
           data.ontology_label !== ontologyOld.ontology_label) {
         data = JSON.parse(JSON.stringify(ontologyOld));
+        data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', '): [];
+        data.project = data['project'] ? data['project'].split(', '): [];
+        data.species = data['species'] ? data['species'].split(', '): [];
         data['ontology_status'] = 'Verified';
         data['selected'] = true;
       }
@@ -543,7 +562,11 @@ export class OntologyImproverComponent implements OnInit {
     // save validation on the ontology and refresh accordion
     // copying to another object and re-assigning is necessary to refresh the accordion on save
     let updatedOntologyMatches = JSON.parse(JSON.stringify(this.ontologyMatches));
-    updatedOntologyMatches[this.selectedTerm.key][this.selectedTerm.index] = data;
+    let updatedData = JSON.parse(JSON.stringify(data));
+    updatedData.ontology_id = updatedData['ontology_id'].join(', ');
+    updatedData.project = updatedData['project'].join(', ');
+    updatedData.species = updatedData['species'].join(', ');
+    updatedOntologyMatches[this.selectedTerm.key][this.selectedTerm.index] = updatedData;
     this.ontologyMatches = updatedOntologyMatches;
     // close modal
     this.closeModal();
