@@ -28,6 +28,10 @@
       <a href="{{metadata_template_without_examples}}">Download empty template</a>
     </button>
 
+    <button mat-raised-button color="primary">
+      <a href="{{biosample_update_template}}">Download example template for UPDATE</a>
+    </button>
+
     <button mat-raised-button color="accent">
       <a href="https://dcc-documentation.readthedocs.io/en/latest/sample/biosamples_template/" target="_blank"
         style="color: black;">Submission guideline</a>
@@ -44,6 +48,19 @@
         Upload a File
       </button>
   </div>
+
+  <div fxLayout="row">
+    <mat-radio-group [(ngModel)]="action" fxLayout="row" [style.margin-top]="'20px'">
+      <mat-radio-button value="submission" [matTooltip]="tooltipSubmission"
+                        [matTooltipClass]="{'yellow-tooltip': true}"
+                        [matTooltipShowDelay]=500
+                        style="margin-right: 25px;">Submit new sample</mat-radio-button>
+      <mat-radio-button value="update" [matTooltip]="tooltipUpdate"
+                        [matTooltipClass]="{'yellow-tooltip': true}"
+                        [matTooltipShowDelay]=500>Update existing sample</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
   <hr>
 
   <div fxLayout="row" *ngIf="bovreg_submission && !_userService.token">

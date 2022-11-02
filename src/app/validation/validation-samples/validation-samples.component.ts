@@ -5,7 +5,7 @@ import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
 import {
   issue_type,
-  record_type,
+  record_type, sample_biosample_update_template,
   sample_metadata_template_with_examples, sample_metadata_template_without_examples,
   validation_service_url,
   validation_service_url_download,
@@ -36,6 +36,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   domain = new SubmissionDomain('', '');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
+  submission_type: string;
+
   conversion_status: string;
   validation_status: string;
   submission_status: string;
@@ -60,6 +62,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   submission_task_id: string;
   metadata_template_with_examples: string;
   metadata_template_without_examples: string;
+  biosample_update_template: string;
   errors = [];
   column_names = [];
   table_data = [];
@@ -77,6 +80,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   bovreg_submission = false;
   private_submission = false;
   col_index = [];
+  action: 'update'|'submission' = 'submission';
+  custom_col_name: 'sample_name' | 'biosample_id';
+  tooltipUpdate: string;
+  tooltipSubmission: string;
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
@@ -90,8 +97,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 0;
-    this.dataSource = new MatTableDataSource([]); 
-    this.subResults = new MatTableDataSource([]); 
+    this.dataSource = new MatTableDataSource([]);
+    this.subResults = new MatTableDataSource([]);
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Samples');
     this.setSocket();
@@ -107,10 +114,18 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     };
     this.metadata_template_with_examples = sample_metadata_template_with_examples;
     this.metadata_template_without_examples = sample_metadata_template_without_examples;
+    this.biosample_update_template = sample_biosample_update_template;
     if (this._userService.token) {
       this.private_submission = true;
       this.submission_message = 'Choose submission server';
     }
+    this.tooltipUpdate = '• This action will update the sample details with the provided metadata. \n' +
+      '• Please ensure that each entry in the submitted spreadsheet contains the correct Biosample ID. \n' +
+      '• The relationship columns (e.g \'Derived From\' column) should also contain the Biosample ID of the related sample. \n' +
+      '• Note that in the UPDATE spreadsheet, the column \'Sample Name\' has been replaced with \'Biosample ID\'. See provided example for updates.';
+
+    this.tooltipSubmission = 'This action will make a new sample submission to Biosample.';
+
   }
 
   setValidationResults() {
@@ -145,7 +160,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       let tmp = [];
       let tmp_errors = [];
       let tmp_warnings = [];
-      tmp.push(record['custom']['sample_name']['value']);
+      const custom_col_name = this.action === 'update' ? 'biosample_id' : 'sample_name';
+      tmp.push(record['custom'][custom_col_name]['value']);
       tmp_errors.push('valid');
       tmp_warnings.push('valid');
       if ('samples_core' in record) {
@@ -263,7 +279,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
           this.parseColumnNames(tmp);
         }
       } else {
-        if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name' && name !== 'teleostei_embryo' &&
+        const custom_col_name = this.action === 'update' ? 'biosample_id' : 'sample_name';
+        if (name !== 'samples_core' && name !== 'custom' && name !== custom_col_name && name !== 'teleostei_embryo' &&
           name !== 'teleostei_post-hatching') {
           this.column_names.push(replaceUnderscoreWithSpaceAndCapitalize(name));
           if (data[name].hasOwnProperty('term')) {
@@ -292,7 +309,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
           warnings_to_return = warnings_to_return.concat(array_results['warnings']);
         }
       } else {
-        if (name !== 'samples_core' && name !== 'custom' && name !== 'sample_name' && name !== 'teleostei_embryo' &&
+        const custom_col_name = this.action === 'update' ? 'biosample_id' : 'sample_name';
+        if (name !== 'samples_core' && name !== 'custom' && name !== custom_col_name && name !== 'teleostei_embryo' &&
           name !== 'teleostei_post-hatching') {
           if (data[name].hasOwnProperty('text')) {
             data_to_return.push(data[name]['text']);
@@ -367,7 +385,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       return 'inactive';
     }
   }
-  
+
   onRecordButtonClick(tab) {
     this.active_key = tab['tab']['textLabel'].replace(/[ ]/g, '_');
     this.active_table = this.validation_results[this.active_key];
@@ -431,7 +449,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.conversion_task_id, this.fileid, 'samples').subscribe(response => {
+    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'samples').subscribe(response => {
         this.validation_task_id = response['id'];
       },
       error => {
@@ -492,7 +510,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   onSubmitRecordsClick() {
     this.disableSubmitButton = true;
-    this.apiDataService.submitRecords(this.model.username,
+    this.apiDataService.submitRecords(this.action, this.model.username,
       this.model.password,  this.model.mode, this.domain.name, this.fileid, this.conversion_task_id,
       'samples', this.private_submission).subscribe( response => {
         this.submission_task_id = response['id'];

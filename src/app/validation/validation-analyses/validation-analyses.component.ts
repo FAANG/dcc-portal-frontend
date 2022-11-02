@@ -64,6 +64,9 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   bovreg_submission = false;
   private_submission = false;
   col_index = [];
+  action: 'update'|'submission' = 'submission';
+  tooltipUpdate: string;
+  tooltipSubmission: string;
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
@@ -77,7 +80,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 2;
-    this.dataSource = new MatTableDataSource([]); 
+    this.dataSource = new MatTableDataSource([]);
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Analyses');
     this.setSocket();
@@ -97,6 +100,12 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
       this.private_submission = true;
       this.submission_message = 'Choose submission server';
     }
+    this.tooltipUpdate = '• This action will update the analysis details with the provided metadata. \n' +
+      '• Please ensure that the submitted spreadsheet contains the original alias used during initial submission. \n' +
+      '• Analysis entries cannot be updated to point to different data files';
+
+    this.tooltipSubmission = '• This action will make a new analysis submission to ENA. \n' +
+      '• The alias used for the submitted object should be unique for the object\'s type within the submission account.';
   }
 
   setValidationResults() {
@@ -381,7 +390,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.conversion_task_id, this.fileid, 'analyses').subscribe(response => {
+    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'analyses').subscribe(response => {
         this.validation_task_id = response['id'];
       },
       error => {
@@ -441,7 +450,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.disableAuthForm = true;
-    this.apiDataService.submitRecords(this.model.username, this.model.password, this.model.mode, '', this.fileid,
+    this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, '', this.fileid,
       this.conversion_task_id, 'analyses', this.private_submission).subscribe( response => {
       this.submission_task_id = response['id'];
     }, error => {
