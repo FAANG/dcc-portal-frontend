@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="container-fluid">
+    <ng-container *ngFor="let track of tracks">
+        <div fxLayout="row" style="margin-bottom: 10px;">
+            <div fxFlex>
+                {{track['longLabel']}} 
+            </div>
+            <div fxFlex>
+                <button mat-raised-button color="primary" (click)="addTrackByUrl(track['bigDataUrl'])">Add Track</button>
+            </div>
+        </div>
+    </ng-container>
+    <div #igvdiv style="margin-top: 20px"></div>
+</div>

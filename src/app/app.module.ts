@@ -98,6 +98,7 @@ import { NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { cookieConfig } from './app.component';
 import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
+import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -168,7 +169,8 @@ export function removeToken(): void {
     TableServerSideComponent,
     NextflowSubmissionComponent,
     ProtocolAnalysisDetailsComponent,
-    EnsemblAnnotationComponent
+    EnsemblAnnotationComponent,
+    LocalGenomeBrowserComponent
   ],
   imports: [
     BrowserModule,

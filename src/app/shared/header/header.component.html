@@ -23,6 +23,9 @@
       <button mat-button>
         <a class="nav-link" routerLink="/summary" routerLinkActive="active">Summary</a>
       </button>
+      <button mat-button>
+        <a class="nav-link" routerLink="/genome_browser" routerLinkActive="active">Genome Browser</a>
+      </button>
       <button mat-button [matMenuTriggerFor]="submit">
         <a class="nav-link" [ngClass]="isActive('submit')">Submit
           <mat-icon style="vertical-align: middle;">arrow_drop_down</mat-icon>
@@ -56,6 +59,9 @@
   </button>
   <button mat-menu-item>
     <a class="nav-link" routerLink="/summary" routerLinkActive="active">Summary</a>
+  </button>
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/genome_browser" routerLinkActive="active">Genome Browser</a>
   </button>
   <button mat-menu-item [matMenuTriggerFor]="submit">
     <a class="nav-link" [ngClass]="isActive('submit')">Submit
