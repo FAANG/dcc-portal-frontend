@@ -1,14 +1,17 @@
-# Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-FROM yroochun/new-faang-base as build-stage
-WORKDIR /app
+FROM node:16.14.0 as build
 
-COPY ./ /app/
-ARG configuration=production
-RUN npm run build -- --output-path=./dist/out --configuration $configuration
+WORKDIR /source
 
-# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1.15
-#Copy ci-dashboard-dist
-COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
-#Copy default nginx configuration
-COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+# Copy the package lock file into the container
+COPY package*.json ./
+# Run ci only for the production dependencies
+RUN npm ci
+
+# Copy the rest of the files into the container and build
+COPY . .
+RUN npm run build --prod
+
+FROM nginx:alpine
+COPY --from=build /source/dist/faang-portal-frontend-angular6-second /usr/share/nginx/html
+COPY --from=build /source/nginx.conf /etc/nginx/conf.d/
+EXPOSE 8080
