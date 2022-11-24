@@ -102,6 +102,20 @@ export class ApiDataService {
     );
   }
 
+  getTrackhubsData() {
+    const res = {};
+    const url = `${this.hostSetting.host}data/trackhubs/_search/?size=10`;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        res['data'] = data['hits']['hits'].map(ele => ele['_source']);
+        res['totalHits'] = data.hits.total.value;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   downloadRecords(index: string, mapping: any, query: any) {
     const url = `${this.hostSetting.host}data/${index}/download/`;
     const filters = query['filters'];

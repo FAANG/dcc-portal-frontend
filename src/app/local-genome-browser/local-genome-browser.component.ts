@@ -1,65 +1,69 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import {ApiDataService} from '../services/api-data.service';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { FlatTreeControl } from '@angular/cdk/tree';
 import * as igv from 'igv'
+
+interface dirNode {
+  name: string;
+  data: object;
+  children?: dirNode[];
+}
+interface fileNode {
+  expandable: boolean;
+  data: object;
+  name: string;
+  level: number;
+}
 
 @Component({
   selector: 'app-local-genome-browser',
   templateUrl: './local-genome-browser.component.html',
   styleUrls: ['./local-genome-browser.component.css']
 })
-export class LocalGenomeBrowserComponent implements OnInit, AfterViewInit {
+export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   @ViewChild('igvdiv') igvDiv: ElementRef;
   tracks;
   browser: any;
   options: {};
+  trackhubs;
+  genome = '';
+  disableSelection = false;
+  private _transformer = (node: dirNode, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      data: node.data,
+      level: level
+    };
+  };
 
-  constructor() { }
+  treeControl = new FlatTreeControl<fileNode>(
+    node => node.level,
+    node => node.expandable,
+  );
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children
+  );
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+  constructor(private dataService: ApiDataService) { }
+
+  hasChild = (_: number, node: fileNode) => node.expandable;
 
   ngOnInit(): void {
-    // TO DO: set options and tracks data dynamically
-    // use "reference" option for displaying ensembl genes
-    // "reference" is not required when using default config with refseq genes
-    this.options = {
-        genome: "susScr11",
-        reference: {
-          "id": "susScr11",
-          "fastaURL": "https://s3.amazonaws.com/igv.org.genomes/susScr11/susScr11.fa",
-          "tracks": [
-            // {
-            //   "name": "Ensembl Genes",
-            //   "url": "https://ftp.ensembl.org/pub/release-108/gff3/sus_scrofa/Sus_scrofa.Sscrofa11.1.108.gff3.gz",
-            //   "order": 1000000,
-            //   "indexed": false
-            // },
-            {
-              "name": "RefSeq Genes",
-              "url": "https://s3.amazonaws.com/igv.org.genomes/susScr11/refGene.sorted.txt.gz",
-              "order": 1000000,
-              "indexed": false
-            }
-          ]
-        }
-     };
-    this.tracks = [
-      {
-        'longLabel': 'liver_fetus_control',
-        'bigDataUrl': 'https://api.faang.org/files/trackhubs/GENE-SwitCH_WP5_ATAC-seq/Sscrofa11.1/gs-wp5/liver_fetus_control.mRp.clN.bigWig',
-      },
-      {
-        'longLabel': 'liver_fetus_highfibre',
-        'bigDataUrl': 'https://api.faang.org/files/trackhubs/GENE-SwitCH_WP5_ATAC-seq/Sscrofa11.1/gs-wp5/liver_fetus_highfibre.mRp.clN.bigWig',
-      },
-      {
-        'longLabel': 'liver_fetus_lowfibre',
-        'bigDataUrl': 'https://api.faang.org/files/trackhubs/GENE-SwitCH_WP5_ATAC-seq/Sscrofa11.1/gs-wp5/liver_fetus_lowfibre.mRp.clN.bigWig',
-      },
-      {
-        'longLabel': 'consensus_peak',
-        'bigDataUrl': 'https://api.faang.org/files/trackhubs/GENE-SwitCH_WP5_ATAC-seq/Sscrofa11.1/gs-wp5/consensus_peaks.bb',
-      }
-    ];
+    this.fetchData();
   }
 
-  ngAfterViewInit(): void {
+  configureBrowser() {
+    this.options = {
+      "genome": this.genome
+    };
     this.createBrowser();
   }
 
@@ -70,10 +74,75 @@ export class LocalGenomeBrowserComponent implements OnInit, AfterViewInit {
         console.log(e);
     }
   }
-  addTrackByUrl(trackUrl) {
-    this.browser.loadTrack({
-        url: trackUrl,
-    })
+
+  addTrackByUrl(trackUrl, genome) {
+    if (this.genome == genome) {
+      this.browser.loadTrack({
+          url: trackUrl,
+      });
+    }
+    else {
+      this.genome = genome;
+      igv.removeAllBrowsers();
+      this.configureBrowser();
+      this.disableSelection = true;
+      setTimeout(() => {
+        this.disableSelection = false;
+        this.browser.loadTrack({
+          url: trackUrl,
+        })
+      }, 2500);
+    }
+  }
+
+  fetchData() {
+    this.dataService.getTrackhubsData().subscribe(
+      (res: any) => {
+        this.trackhubs = res['data'];
+        this.generateTrackhubsListing();
+      }
+    );
+  }
+
+  getTracksForTree(tracksList) {
+    let trackResList = [];
+    tracksList.forEach(track => {
+      let trackRes = {
+        'name': track['track'],
+        'url': track['bigDataUrl'],
+        'type': track['type']
+      }
+      trackResList.push(trackRes);
+    });
+    return trackResList;
+  }
+
+  generateTrackhubsListing() {
+    let trackhubsTreeData = [];
+    this.trackhubs.forEach(trackhub => {
+      let nodeData = {};
+      nodeData['name'] = trackhub['name'];
+      if (trackhub.hasOwnProperty('subdirectories')) {
+        nodeData['children'] = [];
+        trackhub['subdirectories'].forEach(subDir => {
+          let subDirData = {};
+          subDirData['name'] = subDir['name'];
+          subDirData['children'] = subDir['tracks'].map(track => {
+            return {
+              'name': track['track'],
+              'data': {
+                'description': track['longLabel'],
+                'url': track['bigDataUrl'],
+                'genome': trackhub['genome']['ucscAssemblyVersion']
+              }
+            };
+          });
+          nodeData['children'].push(subDirData);
+        });
+      }
+      trackhubsTreeData.push(nodeData);
+    });
+    this.dataSource.data = trackhubsTreeData;
   }
 
   ngOnDestroy() {

@@ -99,6 +99,9 @@ import { cookieConfig } from './app.component';
 import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
 import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -204,6 +207,9 @@ export function removeToken(): void {
     MatProgressBarModule,
     MatToolbarModule,
     MatBadgeModule,
+    MatTreeModule,
+    MatDividerModule,
+    MatCheckboxModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
