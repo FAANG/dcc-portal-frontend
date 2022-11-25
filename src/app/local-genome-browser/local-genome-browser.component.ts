@@ -23,7 +23,8 @@ interface fileNode {
 })
 export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   @ViewChild('igvdiv') igvDiv: ElementRef;
-  tracks;
+  currentTracks: {};
+  tracksList = [];
   browser: any;
   options: {};
   trackhubs;
@@ -57,12 +58,15 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: fileNode) => node.expandable;
 
   ngOnInit(): void {
+    this.currentTracks = {};
     this.fetchData();
   }
 
   configureBrowser() {
     this.options = {
-      "genome": this.genome
+      "reference": {
+        "id": this.genome
+      }
     };
     this.createBrowser();
   }
@@ -75,24 +79,50 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
     }
   }
 
-  addTrackByUrl(trackUrl, genome) {
-    if (this.genome == genome) {
-      this.browser.loadTrack({
-          url: trackUrl,
-      });
-    }
+  addTrackByUrl(trackName, trackUrl, trackType, genome) {
+    // deselecting tracks
+    if (this.tracksList.includes(trackUrl)) {
+      this.currentTracks[trackUrl] = false;
+      this.tracksList = this.tracksList.filter(item => item !== trackUrl);
+      this.browser.removeTrackByName(trackName);
+      console.log(this.browser);
+    } 
+    // selecting tracks
     else {
-      this.genome = genome;
-      igv.removeAllBrowsers();
-      this.configureBrowser();
-      this.disableSelection = true;
-      setTimeout(() => {
-        this.disableSelection = false;
+      if (this.genome == genome) {
+        this.currentTracks[trackUrl] = true;
+        this.tracksList.push(trackUrl);
         this.browser.loadTrack({
-          url: trackUrl,
-        })
-      }, 2500);
+            name: trackName,
+            url: trackUrl,
+            type: trackType
+        });
+      }
+      else {
+        this.genome = genome;
+        this.resetTracks();
+        this.currentTracks[trackUrl] = true;
+        this.tracksList.push(trackUrl);
+        this.configureBrowser();
+        this.disableSelection = true;
+        setTimeout(() => {
+          this.disableSelection = false;
+          this.browser.loadTrack({
+            name: trackName,
+            url: trackUrl,
+            type: trackType
+          })
+        }, 2500);
+      }
     }
+  }
+
+  resetTracks() {
+    for (var key of Object.keys(this.currentTracks)) {
+      this.currentTracks[key] = false;
+    }
+    this.tracksList = [];
+    igv.removeAllBrowsers();
   }
 
   fetchData() {
@@ -128,11 +158,13 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
           let subDirData = {};
           subDirData['name'] = subDir['name'];
           subDirData['children'] = subDir['tracks'].map(track => {
+            this.currentTracks[track['bigDataUrl']] = false;
             return {
               'name': track['track'],
               'data': {
                 'description': track['longLabel'],
                 'url': track['bigDataUrl'],
+                'format': track['type'],
                 'genome': trackhub['genome']['ucscAssemblyVersion']
               }
             };
