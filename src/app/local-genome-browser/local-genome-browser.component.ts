@@ -112,7 +112,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
             url: trackUrl,
             type: trackType
           })
-        }, 2500);
+        }, 4000);
       }
     }
   }
