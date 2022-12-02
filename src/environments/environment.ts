@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   cookieDomain: 'localhost',
-  host: 'https://api.faang.org/',
+  host: 'http://45.88.81.195:8000/',
   relatedProjectsHost: 'https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/'
 };
 
