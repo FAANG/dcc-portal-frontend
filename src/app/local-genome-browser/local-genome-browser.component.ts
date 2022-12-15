@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/cor
 import {ApiDataService} from '../services/api-data.service';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
+import { HttpClient } from '@angular/common/http';
 import * as igv from 'igv'
 
 interface dirNode {
@@ -29,6 +30,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   options: {};
   trackhubs;
   genome = '';
+  genomeList;
   disableSelection = false;
   private _transformer = (node: dirNode, level: number) => {
     return {
@@ -53,7 +55,9 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private dataService: ApiDataService) { }
+  constructor(
+    private dataService: ApiDataService,
+    private http: HttpClient) { }
 
   hasChild = (_: number, node: fileNode) => node.expandable;
 
@@ -64,9 +68,8 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
 
   configureBrowser() {
     this.options = {
-      "reference": {
-        "id": this.genome
-      }
+      "genome": this.genome,
+      "genomeList": "https://api.faang.org/files/genomes/genomes.json"
     };
     this.createBrowser();
   }
@@ -85,7 +88,6 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
       this.currentTracks[trackUrl] = false;
       this.tracksList = this.tracksList.filter(item => item !== trackUrl);
       this.browser.removeTrackByName(trackName);
-      console.log(this.browser);
     } 
     // selecting tracks
     else {
@@ -165,7 +167,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
                 'description': track['longLabel'],
                 'url': track['bigDataUrl'],
                 'format': track['type'],
-                'genome': trackhub['genome']['ucscAssemblyVersion']
+                'genome': trackhub['genome']['gcaAccession']
               }
             };
           });
