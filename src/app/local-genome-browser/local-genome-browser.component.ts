@@ -5,12 +5,12 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { HttpClient } from '@angular/common/http';
 import * as igv from 'igv'
 
-interface dirNode {
+interface DirNode {
   name: string;
   data: object;
-  children?: dirNode[];
+  children?: DirNode[];
 }
-interface fileNode {
+interface FileNode {
   expandable: boolean;
   data: object;
   name: string;
@@ -32,7 +32,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   genome = '';
   genomeList;
   disableSelection = false;
-  private _transformer = (node: dirNode, level: number) => {
+  private _transformer = (node: DirNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
@@ -41,7 +41,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
     };
   };
 
-  treeControl = new FlatTreeControl<fileNode>(
+  treeControl = new FlatTreeControl<FileNode>(
     node => node.level,
     node => node.expandable,
   );
@@ -59,7 +59,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
     private dataService: ApiDataService,
     private http: HttpClient) { }
 
-  hasChild = (_: number, node: fileNode) => node.expandable;
+  hasChild = (_: number, node: FileNode) => node.expandable;
 
   ngOnInit(): void {
     this.currentTracks = {};
@@ -120,7 +120,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   }
 
   resetTracks() {
-    for (var key of Object.keys(this.currentTracks)) {
+    for (const key of Object.keys(this.currentTracks)) {
       this.currentTracks[key] = false;
     }
     this.tracksList = [];
@@ -136,23 +136,10 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
     );
   }
 
-  getTracksForTree(tracksList) {
-    let trackResList = [];
-    tracksList.forEach(track => {
-      let trackRes = {
-        'name': track['track'],
-        'url': track['bigDataUrl'],
-        'type': track['type']
-      }
-      trackResList.push(trackRes);
-    });
-    return trackResList;
-  }
-
   generateTrackhubsListing() {
-    let trackhubsTreeData = [];
+    const trackhubsTreeData = [];
     this.trackhubs.forEach(trackhub => {
-      let nodeData = {};
+      const nodeData = {};
       nodeData['name'] = trackhub['name'];
       if (trackhub.hasOwnProperty('subdirectories')) {
         nodeData['children'] = [];
