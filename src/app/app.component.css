@@ -20,3 +20,7 @@ h1, h2, h3{
 button:focus {
   outline: none !important;
 }
+
+.igv-container {
+  z-index: 1;
+}
