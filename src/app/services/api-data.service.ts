@@ -152,8 +152,15 @@ export class ApiDataService {
     );
   }
 
-  getFilesByRun(runId: any) {
-    const url = this.hostSetting.host + 'file/_search/?q=run.accession:' + runId + '&sort=name:asc';
+  getFilesByRun(runId: any, mode: string) {
+    let url = this.hostSetting.host + 'file/_search/?q=run.accession:' + runId + '&sort=name:asc';
+    if (mode === 'private') {
+      url = `https://api.faang.org/private_portal/file/${runId}`;
+      return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
+        retry(3),
+        catchError(this.handleError),
+      );
+    }
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),

@@ -101,8 +101,10 @@ export class RelatedItemsComponent implements OnInit {
           this.records = data['hits']['hits'][0]['_source']['files'];
         });
     } else if (relationship_type === 'file-download') {
-      this.dataService.getFilesByRun(this.record_id).subscribe(
+      this.dataService.getFilesByRun(this.record_id, this.mode).subscribe(
         (data: any) => {
+          console.log(this.record_id);
+          console.log(data);
           this.records = data['hits']['hits'];
         });
     } else if (relationship_type === 'file-paper') {

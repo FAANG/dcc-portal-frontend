@@ -60,7 +60,7 @@ export class FileDetailComponent implements OnInit {
               this.file.publishedArticles = this.file.publishedArticles.sort((a, b) => (a.year > b.year) ? -1 :
                 ((b.year > a.year) ? 1 : 0));
             }
-            if (this.file.hasOwnProperty('experiment')) {
+            if (this.file.hasOwnProperty('experiment') && !this._userService.token) {
               this.dataService.getExperimentByAccession(this.file['experiment']['accession']).subscribe(
                 (experiment_data: any) => {
                   this.experiment = this.expandObject(experiment_data['hits']['hits'][0]['_source'], this.experiment);
