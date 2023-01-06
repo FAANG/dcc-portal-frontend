@@ -103,7 +103,7 @@ export class RulesetSampleComponent implements OnInit {
     } else if (this.active_rule === 'Pool of specimens' && rule === 'self') {
       return 'pool of specimens';
     } else if (this.active_rule === 'Pool of specimens' && rule === 'derived_from') {
-      return 'Must meet condition: Material is specimen from organism';
+      return 'Must meet condition: Material is specimen from organism, cell specimen, single cell specimen';
     } else if (this.active_rule === 'Purified cells' && rule === 'self') {
       return 'cell specimen';
     } else if (this.active_rule === 'Purified cells' && rule === 'derived_from') {
