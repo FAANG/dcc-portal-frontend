@@ -42,6 +42,7 @@ import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { QueryLanguageComponent } from './query-language/query-language.component';
 import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
+import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
 
 
 const routes: Routes = [
@@ -88,6 +89,7 @@ const routes: Routes = [
   {path: 'query', component: QueryLanguageComponent},
   {path: 'trackhubs', component: TrackhubsSubmissionComponent},
   {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
+  {path: 'genome_browser', component: LocalGenomeBrowserComponent},
   {path: '404', component: NonExistingComponent},
   {path: '**', component: NonExistingComponent}
 ];
