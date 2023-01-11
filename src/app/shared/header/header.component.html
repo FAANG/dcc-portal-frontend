@@ -24,7 +24,9 @@
         <a class="nav-link" routerLink="/summary" routerLinkActive="active">Summary</a>
       </button>
       <button mat-button>
-        <a class="nav-link" routerLink="/genome_browser" routerLinkActive="active">Genome Browser</a>
+        <a class="nav-link" routerLink="/genome_browser" routerLinkActive="active">
+          Genome Browser <sup>Beta</sup>
+        </a>
       </button>
       <button mat-button [matMenuTriggerFor]="submit">
         <a class="nav-link" [ngClass]="isActive('submit')">Submit
@@ -61,7 +63,9 @@
     <a class="nav-link" routerLink="/summary" routerLinkActive="active">Summary</a>
   </button>
   <button mat-menu-item>
-    <a class="nav-link" routerLink="/genome_browser" routerLinkActive="active">Genome Browser</a>
+    <a class="nav-link" routerLink="/genome_browser" routerLinkActive="active">
+      Genome Browser <sup>Beta</sup>
+    </a>
   </button>
   <button mat-menu-item [matMenuTriggerFor]="submit">
     <a class="nav-link" [ngClass]="isActive('submit')">Submit
