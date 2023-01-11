@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import {ApiDataService} from '../services/api-data.service';
+import { ApiDataService } from '../services/api-data.service';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as igv from 'igv'
 
 interface DirNode {
@@ -30,6 +30,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   options: {};
   trackhubs;
   genome = '';
+  defaultChr = '';
   genomeList;
   disableSelection = false;
   private _transformer = (node: DirNode, level: number) => {
@@ -99,6 +100,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
             url: trackUrl,
             type: trackType
         });
+        this.browser.search(this.defaultChr);
       }
       else {
         this.genome = genome;
@@ -106,6 +108,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
         this.currentTracks[trackUrl] = true;
         this.tracksList.push(trackUrl);
         this.configureBrowser();
+        this.getDefaultChr(genome);
         this.disableSelection = true;
         setTimeout(() => {
           this.disableSelection = false;
@@ -114,9 +117,23 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
             url: trackUrl,
             type: trackType
           })
+          this.browser.search(this.defaultChr);
         }, 4000);
       }
     }
+  }
+
+  getDefaultChr(genome) {
+    this.http.get('https://api.faang.org/files/genomes/genomes.json').subscribe(data => {
+      for (let index in data) {
+        if (data[index]['id'] == genome) {
+          let headers = new HttpHeaders().set('Range', 'bytes=0-50')
+          this.http.get(data[index]['indexURL'], {headers: headers, responseType: 'text'}).subscribe(txt => {
+            this.defaultChr = txt.split('\n')[0].split('\t')[0];
+          })
+        }
+      }
+    })
   }
 
   resetTracks() {
