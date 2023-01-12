@@ -166,10 +166,15 @@ export class RelatedItemsComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'file-download') {
-      this.dataService.getFilesByRun(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getFilesByRun(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.search, this.mode).subscribe(
         (res: any) => {
-          this.dataSource.data = this.getDataSource(res['data']);
-          this.totalHits = res['totalHits'];
+          if (this.mode === 'private') {
+            this.dataSource.data = this.getDataSource(res['hits']['hits']);
+            this.totalHits = res['hits']['total']['value'];
+          } else {
+            this.dataSource.data = this.getDataSource(res['data']);
+            this.totalHits = res['totalHits'];
+          }
         });
     } else if (relationship_type === 'file-paper') {
         this.dataSource.data = this.getDataSource(this.data);
@@ -328,6 +333,7 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   displayPlatformLogo(record: any, attr: string) {
+    console.log(record['Platform']);
     return (this.target_type === 'pipeline' && attr === 'Platform' && record['Platform'] === 'nf-core');
   }
 

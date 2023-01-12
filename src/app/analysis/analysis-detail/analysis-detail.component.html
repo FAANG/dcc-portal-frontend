@@ -98,7 +98,7 @@
 
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.sampleAccessions">
         <dt fxFlex="25">Related Samples:</dt>
-        <dd fxFlex="75">
+        <dd fxFlex="75" *ngIf="!_userService.token">
           <div fxLayout="row wrap" fxLayout.lt-md="column">
             <div *ngFor="let accession of analysis?.sampleAccessions" fxFlex="15" fxLayoutGap="16px">
               <div *ngIf="sampleInES(accession)">
@@ -107,9 +107,13 @@
               </div>
               <div *ngIf="!sampleInES(accession)">
                 <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
-                <div *ngIf="_userService.token">{{accession}}</div>
               </div>
             </div>
+          </div>
+        </dd>
+        <dd fxFlex="75" *ngIf="_userService.token">
+          <div *ngFor="let accession of analysis?.sampleAccessions" fxFlex="15" fxLayoutGap="16px">
+            <a [routerLink]="['/specimen/' + accession]">{{accession}}</a>
           </div>
         </dd>
       </div>

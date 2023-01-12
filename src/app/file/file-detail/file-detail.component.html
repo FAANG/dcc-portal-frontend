@@ -24,7 +24,7 @@
         <dd fxFlex="75">{{file?.secondaryProject}}</dd>
       </div>
 
-      <div fxLayout="row" fxLayout.lt-md="column">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.releaseDate">
         <dt fxFlex="25">Release date:</dt>
         <dd fxFlex="75">{{file?.releaseDate}}</dd>
       </div>
@@ -89,7 +89,7 @@
 
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.experiment?.accession">
         <dt fxFlex="25">Experiment:</dt>
-        <dd fxFlex="75">
+        <dd fxFlex="75" *ngIf="!_userService.token">
           <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="file?.experiment?.accession"
                            [text]="file?.experiment?.accession"></app-robust-link>
           <div *ngIf="_userService.token">{{file?.experiment?.accession}}</div>
@@ -127,6 +127,7 @@
             <hr>
           </div>
         </dd>
+        <dd fxFlex="75" *ngIf="_userService.token">{{file?.experiment?.accession}}</dd>
       </div>
 
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.study?.accession">
@@ -201,9 +202,18 @@
     <app-related-items source_type="file" target_type="paper" download_key="" [data]="relatedArticles"
                        [record_id]="fileId">
     </app-related-items>
-    <app-related-items source_type="file" target_type="download" download_key="_source.url"
-                       [record_id]="file.run.accession">
-    </app-related-items>
+
+    <ng-container *ngIf="!_userService.token">
+      <app-related-items source_type="file" target_type="download" download_key="_source.url"
+                         [record_id]="file.run.accession">
+      </app-related-items>
+    </ng-container>
+    <ng-container>
+      <app-related-items source_type="file" target_type="download" download_key="_source.url"
+                         [record_id]="fileId">
+      </app-related-items>
+    </ng-container>
+
   </div>
   <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
 </div>
