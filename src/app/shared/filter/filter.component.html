@@ -1,10 +1,10 @@
-<mat-card>
+<mat-card *ngIf="aggregation.length !== 0">
   <h6 class="filter-header item">
     {{title}}
     <i class="material-icons float-right" *ngIf="aggregation?.length > filterSize && isCollapsed" (click)="toggleCollapse()">add</i>
     <i class="material-icons float-right" *ngIf="aggregation?.length > filterSize && !isCollapsed" (click)="toggleCollapse()">remove</i>
   </h6>
-  <div [ngClass]="{'long-list': itemLimit > filterSize}" 
+  <div [ngClass]="{'long-list': itemLimit > filterSize}"
     *ngIf="title !== 'Protocol' && title !== 'Experiment target' && title !== 'Analysis type'">
     <ng-container *ngFor="let aggr of aggregation; let i = index">
       <div class="d-flex justify-content-between align-items-center item"
