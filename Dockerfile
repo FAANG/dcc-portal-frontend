@@ -1,4 +1,3 @@
-
 FROM node:14.17.6
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -11,7 +10,7 @@ COPY package*.json /app/
 RUN npm cache clean --force
 RUN npm install
 
-COPY ./ /app/
+COPY . .
 ARG configuration=production
 RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
