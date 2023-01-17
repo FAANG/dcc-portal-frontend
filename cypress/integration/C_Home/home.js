@@ -11,7 +11,7 @@ export class HomePage{
   }
 
   check_toolbar_menu(){
-    cy.get('a.nav-link').should("have.length", 7);
+    cy.get('a.nav-link').should("have.length", 8);
     cy.get('a.nav-link').then(link => {
       expect(link[0]).to.contain.text('Home')
       expect(link[1]).to.contain.text('Data')

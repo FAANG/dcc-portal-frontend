@@ -76,10 +76,10 @@ describe('Organism Page', () => {
 
   it('should allow multiple filters', () => {
     organismPage.allow_multiple_filters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(2)',
-      '[title="Breed"] > .mat-card > :nth-child(2) > :nth-child(1)',
+      '[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(2)',
       'paperPublished',
-      'breed.text',
-      ['chicken', 'yes'])
+      'sex.text',
+      ['female', 'yes'])
   })
 
   it('should remove filters', () => {
