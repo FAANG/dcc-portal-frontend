@@ -1,544 +1,412 @@
 {
-  "took": 13,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 87,
-      "relation": "eq"
-    },
-    "max_score": null,
-    "hits": [
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "UCD_SOP_50_TissueCollection_20160520.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "University of California, Davis (USA)",
-          "protocolName": "50 TissueCollection",
-          "protocolDate": 2016,
-          "key": "UCD_SOP_50_TissueCollection_20160520.pdf"
-        },
-        "sort": [
-          "50 TissueCollection"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_ATAC_Seq_DNAIsolationandTagmentation_Frozen_Muscle_Tissue_20200720.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "ATAC Seq DNA Isolation and Tagmentation Frozen Muscle Tissue",
-          "protocolDate": "2020",
-          "key": "ROSLIN_SOP_ATAC_Seq_DNAIsolationandTagmentation_Frozen_Muscle_Tissue_20200720.pdf"
-        },
-        "sort": [
-          "ATAC Seq DNA Isolation and Tagmentation Frozen Muscle Tissue"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_ATAC-Seq_DNAIsolationandTagmentation_Cryopreserved_Muscle_Nuclei_Preparations_20200720.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "ATAC-Seq DNA Isolation and Tagmentation Cryopreserved Muscle Nuclei Preparations",
-          "protocolDate": "2020",
-          "key": "ROSLIN_SOP_ATAC-Seq_DNAIsolationandTagmentation_Cryopreserved_Muscle_Nuclei_Preparations_20200720.pdf"
-        },
-        "sort": [
-          "ATAC-Seq DNA Isolation and Tagmentation Cryopreserved Muscle Nuclei Preparations"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_ATAC-Seq_LibraryPreparationandSizeSelection_20200720.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "ATAC-Seq Library Preparation and Size Selection",
-          "protocolDate": "2020",
-          "key": "ROSLIN_SOP_ATAC-Seq_LibraryPreparationandSizeSelection_20200720.pdf"
-        },
-        "sort": [
-          "ATAC-Seq Library Preparation and Size Selection"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "INRA_SOP_ATAC-seq_AG_v1_20160805.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "French National Institute for Agricultural Research (France)",
-          "protocolName": "ATAC-seq AG v1",
-          "protocolDate": 2016,
-          "key": "INRA_SOP_ATAC-seq_AG_v1_20160805.pdf"
-        },
-        "sort": [
-          "ATAC-seq AG v1"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Blood_Leukocyte_Isolation_20160503.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Blood Leukocyte Isolation",
-          "protocolDate": 2016,
-          "key": "ROSLIN_SOP_Blood_Leukocyte_Isolation_20160503.pdf"
-        },
-        "sort": [
-          "Blood Leukocyte Isolation"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "UIDAHO_SOP_Bovine_FAANG_fetal_tissue_collection_20181128.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "University of Idaho (USA)",
-          "protocolName": "Bovine FAANG fetal tissue collection",
-          "protocolDate": "2018",
-          "key": "UIDAHO_SOP_Bovine_FAANG_fetal_tissue_collection_20181128.pdf"
-        },
-        "sort": [
-          "Bovine FAANG fetal tissue collection"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "TAMU_SOP_Cattle_Mammary_Gland_Sample_Collection_Protocol_20180222.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Texas A&M University (USA)",
-          "protocolName": "Cattle Mammary Gland Sample Collection Protocol",
-          "protocolDate": 2018,
-          "key": "TAMU_SOP_Cattle_Mammary_Gland_Sample_Collection_Protocol_20180222.pdf"
-        },
-        "sort": [
-          "Cattle Mammary Gland Sample Collection Protocol"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ISU_SOP_ChIP_swine_immune_cells_20190124.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Iowa State University (USA)",
-          "protocolName": "ChIP swine immune cells",
-          "protocolDate": 2019,
-          "key": "ISU_SOP_ChIP_swine_immune_cells_20190124.pdf"
-        },
-        "sort": [
-          "ChIP swine immune cells"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "UAL_SOP_CollectionAndTransportTissueCattleSampling_20210118.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "University of Alberta (Canada)",
-          "protocolName": "Collection And Transport Tissue Cattle Sampling",
-          "protocolDate": "2021",
-          "key": "UAL_SOP_CollectionAndTransportTissueCattleSampling_20210118.pdf"
-        },
-        "sort": [
-          "Collection And Transport Tissue Cattle Sampling"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Collection_of_Blood_or_Nasal_Swabs_or_Ear_Tissue_for_Animal_Genotyping_20161019.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Collection of Blood or Nasal Swabs or Ear Tissue for Animal Genotyping",
-          "protocolDate": 2016,
-          "key": "ROSLIN_SOP_Collection_of_Blood_or_Nasal_Swabs_or_Ear_Tissue_for_Animal_Genotyping_20161019.pdf"
-        },
-        "sort": [
-          "Collection of Blood or Nasal Swabs or Ear Tissue for Animal Genotyping"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Collection_of_tissue_samples_for_ATAC-Seq_and_RNA-Seq_from_large_animals_18062020.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals",
-          "protocolDate": 2020,
-          "key": "ROSLIN_SOP_Collection_of_tissue_samples_for_ATAC-Seq_and_RNA-Seq_from_large_animals_18062020.pdf"
-        },
-        "sort": [
-          "Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Collection_of_tissue_samples_for_ATAC-Seq_and_RNA-Seq_from_large_animals_20200618.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals",
-          "protocolDate": "2020",
-          "key": "ROSLIN_SOP_Collection_of_tissue_samples_for_ATAC-Seq_and_RNA-Seq_from_large_animals_20200618.pdf"
-        },
-        "sort": [
-          "Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "DEDJTR_SOP_CryofreezingTissue_20160317.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Department of Economic Development, Jobs, Transport and Resources (Bundoora, Australia)",
-          "protocolName": "CryofreezingTissue",
-          "protocolDate": 2016,
-          "key": "DEDJTR_SOP_CryofreezingTissue_20160317.pdf"
-        },
-        "sort": [
-          "CryofreezingTissue"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "QAAFI-UQ_SOP_CryofreezingTissue_20161021.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "University of Queensland (Australia)",
-          "protocolName": "CryofreezingTissue",
-          "protocolDate": "20161021",
-          "key": "QAAFI-UQ_SOP_CryofreezingTissue_20161021.pdf"
-        },
-        "sort": [
-          "CryofreezingTissue"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "FBNGenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "FBNGenomePhysiology",
-          "protocolName": "CryofreezingTissueSsamples",
-          "protocolDate": 2016,
-          "key": "FBNGenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
-        },
-        "sort": [
-          "CryofreezingTissueSsamples"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Cryopreservation_of_Nuclei_for_ATACSeq_using_GentleMACS_18062020.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Cryopreservation of Nuclei for ATACSeq using GentleMACS",
-          "protocolDate": 2020,
-          "key": "ROSLIN_SOP_Cryopreservation_of_Nuclei_for_ATACSeq_using_GentleMACS_18062020.pdf"
-        },
-        "sort": [
-          "Cryopreservation of Nuclei for ATACSeq using GentleMACS"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Cryopreservation_of_Nuclei_for_ATACSeq_using_GentleMACS_20201119.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Cryopreservation of Nuclei for ATACSeq using GentleMACS",
-          "protocolDate": "2020",
-          "key": "ROSLIN_SOP_Cryopreservation_of_Nuclei_for_ATACSeq_using_GentleMACS_20201119.pdf"
-        },
-        "sort": [
-          "Cryopreservation of Nuclei for ATACSeq using GentleMACS"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Culturing_macrophages_from_bone_marrow_PBMCs_and_bronchoalveolar_lavage_20160715.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Culturing macrophages from bone marrow PBMCs and bronchoalveolar lavage",
-          "protocolDate": 2016,
-          "key": "ROSLIN_SOP_Culturing_macrophages_from_bone_marrow_PBMCs_and_bronchoalveolar_lavage_20160715.pdf"
-        },
-        "sort": [
-          "Culturing macrophages from bone marrow PBMCs and bronchoalveolar lavage"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Dissection_of_Brain_Tissue_from_Large_Animals_20160413.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Dissection of Brain Tissue from Large Animals",
-          "protocolDate": 2016,
-          "key": "ROSLIN_SOP_Dissection_of_Brain_Tissue_from_Large_Animals_20160413.pdf"
-        },
-        "sort": [
-          "Dissection of Brain Tissue from Large Animals"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Dissection_of_Cardiovascular_Tissues_from_Large_Animals_20160413.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Dissection of Cardiovascular Tissues from Large Animals",
-          "protocolDate": 2016,
-          "key": "ROSLIN_SOP_Dissection_of_Cardiovascular_Tissues_from_Large_Animals_20160413.pdf"
-        },
-        "sort": [
-          "Dissection of Cardiovascular Tissues from Large Animals"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "ROSLIN_SOP_Dissection_of_Embryonic_and_Female_Reproductive_Tissues_from_Large_Animals_20160417.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "Roslin Institute (Edinburgh, UK)",
-          "protocolName": "Dissection of Embryonic and Female Reproductive Tissues from Large Animals",
-          "protocolDate": 2016,
-          "key": "ROSLIN_SOP_Dissection_of_Embryonic_and_Female_Reproductive_Tissues_from_Large_Animals_20160417.pdf"
-        },
-        "sort": [
-          "Dissection of Embryonic and Female Reproductive Tissues from Large Animals"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "UCD_SOP_Equine_whole_animal_collection_20180105.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "University of California, Davis (USA)",
-          "protocolName": "Equine whole animal collection",
-          "protocolDate": 2018,
-          "key": "UCD_SOP_Equine_whole_animal_collection_20180105.pdf"
-        },
-        "sort": [
-          "Equine whole animal collection"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "INRA_SOP_FRAGENCODE_mRNA-seq_library_preparation_20210111.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "French National Institute for Agricultural Research (France)",
-          "protocolName": "FRAGENCODE mRNA-seq library preparation",
-          "protocolDate": "2021",
-          "key": "INRA_SOP_FRAGENCODE_mRNA-seq_library_preparation_20210111.pdf"
-        },
-        "sort": [
-          "FRAGENCODE mRNA-seq library preparation"
-        ]
-      },
-      {
-        "_index": "protocol_samples",
-        "_type": "_doc",
-        "_id": "INRA_SOP_GENESWITCH_D30_FETUS_POOLING_20200221.pdf",
-        "_score": null,
-        "_source": {
-          "universityName": "French National Institute for Agricultural Research (France)",
-          "protocolName": "GENESWITCH D30 FETUS POOLING",
-          "protocolDate": 2020,
-          "key": "INRA_SOP_GENESWITCH_D30_FETUS_POOLING_20200221.pdf"
-        },
-        "sort": [
-          "GENESWITCH D30 FETUS POOLING"
-        ]
-      }
-    ]
-  },
-  "aggregations": {
-    "university_name": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "French National Institute for Agricultural Research (France)",
-          "doc_count": 27
-        },
-        {
-          "key": "Roslin Institute (Edinburgh, UK)",
-          "doc_count": 25
-        },
-        {
-          "key": "University of Queensland (Australia)",
-          "doc_count": 6
-        },
-        {
-          "key": "Leibniz Institute for Farm Animal Biology (Dummerstorf, Germany)",
-          "doc_count": 3
-        },
-        {
-          "key": "Department of Economic Development, Jobs, Transport and Resources (Bundoora, Australia)",
-          "doc_count": 2
-        },
-        {
-          "key": "FBNGenomePhysiology",
-          "doc_count": 2
-        },
-        {
-          "key": "Iowa State University (USA)",
-          "doc_count": 2
-        },
-        {
-          "key": "Konkuk University (Seoul, Korea)",
-          "doc_count": 2
-        },
-        {
-          "key": "National Research Institute for Agriculture, Food and Environment (France）",
-          "doc_count": 2
-        },
-        {
-          "key": "University of California, Davis (USA)",
-          "doc_count": 2
-        },
-        {
-          "key": "Utah State University (USA)",
-          "doc_count": 2
-        },
-        {
-          "key": "AgResearch (New Zealand)",
-          "doc_count": 1
-        },
-        {
-          "key": "Agroscope (Switzerland)",
-          "doc_count": 1
-        },
-        {
-          "key": "Norwegian University of Life Sciences (Norway)",
-          "doc_count": 1
-        },
-        {
-          "key": "Texas A&M University (USA)",
-          "doc_count": 1
-        },
-        {
-          "key": "University of Alberta (Canada)",
-          "doc_count": 1
-        },
-        {
-          "key": "University of Idaho (USA)",
-          "doc_count": 1
-        },
-        {
-          "key": "University of Illinois at Chicago (USA)",
-          "doc_count": 1
-        },
-        {
-          "key": "University of Illinois at Urbana–Champaign (USA)",
-          "doc_count": 1
-        },
-        {
-          "key": "University of the Basque Country (Spain)",
-          "doc_count": 1
-        },
-        {
-          "key": "WUR",
-          "doc_count": 1
-        },
-        {
-          "key": "Wageningen University (Netherlands)",
-          "doc_count": 1
-        },
-        {
-          "key": "Washington State University(USA)",
-          "doc_count": 1
-        }
-      ]
-    },
-    "protocol_date": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "2016",
-          "doc_count": 33
-        },
-        {
-          "key": "2020",
-          "doc_count": 22
-        },
-        {
-          "key": "2017",
-          "doc_count": 10
-        },
-        {
-          "key": "20160504",
-          "doc_count": 5
-        },
-        {
-          "key": "2018",
-          "doc_count": 5
-        },
-        {
-          "key": "2019",
-          "doc_count": 4
-        },
-        {
-          "key": "2021",
-          "doc_count": 3
-        },
-        {
-          "key": "20200401",
-          "doc_count": 2
-        },
-        {
-          "key": "2014",
-          "doc_count": 1
-        },
-        {
-          "key": "20161021",
-          "doc_count": 1
-        },
-        {
-          "key": "20210215",
-          "doc_count": 1
-        }
-      ]
-    }
-  }
+	"took": 7,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 87,
+			"relation": "eq"
+		},
+		"max_score": null,
+		"hits": [{
+			"_index": "protocol_samples",
+			"_id": "UCD_SOP_50_TissueCollection_20160520.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "University of California, Davis (USA)",
+				"protocolName": "50 TissueCollection",
+				"protocolDate": 2016,
+				"key": "UCD_SOP_50_TissueCollection_20160520.pdf"
+			},
+			"sort": ["50 TissueCollection"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_ATAC_Seq_DNAIsolationandTagmentation_Frozen_Muscle_Tissue_20200720.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "ATAC Seq DNA Isolation and Tagmentation Frozen Muscle Tissue",
+				"protocolDate": "2020",
+				"key": "ROSLIN_SOP_ATAC_Seq_DNAIsolationandTagmentation_Frozen_Muscle_Tissue_20200720.pdf"
+			},
+			"sort": ["ATAC Seq DNA Isolation and Tagmentation Frozen Muscle Tissue"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_ATAC-Seq_DNAIsolationandTagmentation_Cryopreserved_Muscle_Nuclei_Preparations_20200720.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "ATAC-Seq DNA Isolation and Tagmentation Cryopreserved Muscle Nuclei Preparations",
+				"protocolDate": "2020",
+				"key": "ROSLIN_SOP_ATAC-Seq_DNAIsolationandTagmentation_Cryopreserved_Muscle_Nuclei_Preparations_20200720.pdf"
+			},
+			"sort": ["ATAC-Seq DNA Isolation and Tagmentation Cryopreserved Muscle Nuclei Preparations"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_ATAC-Seq_LibraryPreparationandSizeSelection_20200720.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "ATAC-Seq Library Preparation and Size Selection",
+				"protocolDate": "2020",
+				"key": "ROSLIN_SOP_ATAC-Seq_LibraryPreparationandSizeSelection_20200720.pdf"
+			},
+			"sort": ["ATAC-Seq Library Preparation and Size Selection"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "INRA_SOP_ATAC-seq_AG_v1_20160805.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "French National Institute for Agricultural Research (France)",
+				"protocolName": "ATAC-seq AG v1",
+				"protocolDate": 2016,
+				"key": "INRA_SOP_ATAC-seq_AG_v1_20160805.pdf"
+			},
+			"sort": ["ATAC-seq AG v1"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Blood_Leukocyte_Isolation_20160503.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Blood Leukocyte Isolation",
+				"protocolDate": 2016,
+				"key": "ROSLIN_SOP_Blood_Leukocyte_Isolation_20160503.pdf"
+			},
+			"sort": ["Blood Leukocyte Isolation"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "UIDAHO_SOP_Bovine_FAANG_fetal_tissue_collection_20181128.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "University of Idaho (USA)",
+				"protocolName": "Bovine FAANG fetal tissue collection",
+				"protocolDate": "2018",
+				"key": "UIDAHO_SOP_Bovine_FAANG_fetal_tissue_collection_20181128.pdf"
+			},
+			"sort": ["Bovine FAANG fetal tissue collection"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "TAMU_SOP_Cattle_Mammary_Gland_Sample_Collection_Protocol_20180222.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Texas A&M University (USA)",
+				"protocolName": "Cattle Mammary Gland Sample Collection Protocol",
+				"protocolDate": 2018,
+				"key": "TAMU_SOP_Cattle_Mammary_Gland_Sample_Collection_Protocol_20180222.pdf"
+			},
+			"sort": ["Cattle Mammary Gland Sample Collection Protocol"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ISU_SOP_ChIP_swine_immune_cells_20190124.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Iowa State University (USA)",
+				"protocolName": "ChIP swine immune cells",
+				"protocolDate": 2019,
+				"key": "ISU_SOP_ChIP_swine_immune_cells_20190124.pdf"
+			},
+			"sort": ["ChIP swine immune cells"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "UAL_SOP_CollectionAndTransportTissueCattleSampling_20210118.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "University of Alberta (Canada)",
+				"protocolName": "Collection And Transport Tissue Cattle Sampling",
+				"protocolDate": "2021",
+				"key": "UAL_SOP_CollectionAndTransportTissueCattleSampling_20210118.pdf"
+			},
+			"sort": ["Collection And Transport Tissue Cattle Sampling"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Collection_of_Blood_or_Nasal_Swabs_or_Ear_Tissue_for_Animal_Genotyping_20161019.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Collection of Blood or Nasal Swabs or Ear Tissue for Animal Genotyping",
+				"protocolDate": 2016,
+				"key": "ROSLIN_SOP_Collection_of_Blood_or_Nasal_Swabs_or_Ear_Tissue_for_Animal_Genotyping_20161019.pdf"
+			},
+			"sort": ["Collection of Blood or Nasal Swabs or Ear Tissue for Animal Genotyping"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Collection_of_tissue_samples_for_ATAC-Seq_and_RNA-Seq_from_large_animals_18062020.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals",
+				"protocolDate": 2020,
+				"key": "ROSLIN_SOP_Collection_of_tissue_samples_for_ATAC-Seq_and_RNA-Seq_from_large_animals_18062020.pdf"
+			},
+			"sort": ["Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Collection_of_tissue_samples_for_ATAC-Seq_and_RNA-Seq_from_large_animals_20200618.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals",
+				"protocolDate": "2020",
+				"key": "ROSLIN_SOP_Collection_of_tissue_samples_for_ATAC-Seq_and_RNA-Seq_from_large_animals_20200618.pdf"
+			},
+			"sort": ["Collection of tissue samples for ATAC-Seq and RNA-Seq from large animals"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "DEDJTR_SOP_CryofreezingTissue_20160317.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Department of Economic Development, Jobs, Transport and Resources (Bundoora, Australia)",
+				"protocolName": "CryofreezingTissue",
+				"protocolDate": 2016,
+				"key": "DEDJTR_SOP_CryofreezingTissue_20160317.pdf"
+			},
+			"sort": ["CryofreezingTissue"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "QAAFI-UQ_SOP_CryofreezingTissue_20161021.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "University of Queensland (Australia)",
+				"protocolName": "CryofreezingTissue",
+				"protocolDate": "20161021",
+				"key": "QAAFI-UQ_SOP_CryofreezingTissue_20161021.pdf"
+			},
+			"sort": ["CryofreezingTissue"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "FBNGenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "FBNGenomePhysiology",
+				"protocolName": "CryofreezingTissueSsamples",
+				"protocolDate": 2016,
+				"key": "FBNGenomePhysiology_SOP_CryofreezingTissueSsamples_20160331.pdf"
+			},
+			"sort": ["CryofreezingTissueSsamples"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Cryopreservation_of_Nuclei_for_ATACSeq_using_GentleMACS_18062020.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Cryopreservation of Nuclei for ATACSeq using GentleMACS",
+				"protocolDate": 2020,
+				"key": "ROSLIN_SOP_Cryopreservation_of_Nuclei_for_ATACSeq_using_GentleMACS_18062020.pdf"
+			},
+			"sort": ["Cryopreservation of Nuclei for ATACSeq using GentleMACS"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Cryopreservation_of_Nuclei_for_ATACSeq_using_GentleMACS_20201119.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Cryopreservation of Nuclei for ATACSeq using GentleMACS",
+				"protocolDate": "2020",
+				"key": "ROSLIN_SOP_Cryopreservation_of_Nuclei_for_ATACSeq_using_GentleMACS_20201119.pdf"
+			},
+			"sort": ["Cryopreservation of Nuclei for ATACSeq using GentleMACS"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Culturing_macrophages_from_bone_marrow_PBMCs_and_bronchoalveolar_lavage_20160715.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Culturing macrophages from bone marrow PBMCs and bronchoalveolar lavage",
+				"protocolDate": 2016,
+				"key": "ROSLIN_SOP_Culturing_macrophages_from_bone_marrow_PBMCs_and_bronchoalveolar_lavage_20160715.pdf"
+			},
+			"sort": ["Culturing macrophages from bone marrow PBMCs and bronchoalveolar lavage"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Dissection_of_Brain_Tissue_from_Large_Animals_20160413.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Dissection of Brain Tissue from Large Animals",
+				"protocolDate": 2016,
+				"key": "ROSLIN_SOP_Dissection_of_Brain_Tissue_from_Large_Animals_20160413.pdf"
+			},
+			"sort": ["Dissection of Brain Tissue from Large Animals"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Dissection_of_Cardiovascular_Tissues_from_Large_Animals_20160413.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Dissection of Cardiovascular Tissues from Large Animals",
+				"protocolDate": 2016,
+				"key": "ROSLIN_SOP_Dissection_of_Cardiovascular_Tissues_from_Large_Animals_20160413.pdf"
+			},
+			"sort": ["Dissection of Cardiovascular Tissues from Large Animals"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "ROSLIN_SOP_Dissection_of_Embryonic_and_Female_Reproductive_Tissues_from_Large_Animals_20160417.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "Roslin Institute (Edinburgh, UK)",
+				"protocolName": "Dissection of Embryonic and Female Reproductive Tissues from Large Animals",
+				"protocolDate": 2016,
+				"key": "ROSLIN_SOP_Dissection_of_Embryonic_and_Female_Reproductive_Tissues_from_Large_Animals_20160417.pdf"
+			},
+			"sort": ["Dissection of Embryonic and Female Reproductive Tissues from Large Animals"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "UCD_SOP_Equine_whole_animal_collection_20180105.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "University of California, Davis (USA)",
+				"protocolName": "Equine whole animal collection",
+				"protocolDate": 2018,
+				"key": "UCD_SOP_Equine_whole_animal_collection_20180105.pdf"
+			},
+			"sort": ["Equine whole animal collection"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "INRA_SOP_FRAGENCODE_mRNA-seq_library_preparation_20210111.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "French National Institute for Agricultural Research (France)",
+				"protocolName": "FRAGENCODE mRNA-seq library preparation",
+				"protocolDate": "2021",
+				"key": "INRA_SOP_FRAGENCODE_mRNA-seq_library_preparation_20210111.pdf"
+			},
+			"sort": ["FRAGENCODE mRNA-seq library preparation"]
+		}, {
+			"_index": "protocol_samples",
+			"_id": "INRA_SOP_GENESWITCH_D30_FETUS_POOLING_20200221.pdf",
+			"_score": null,
+			"_source": {
+				"universityName": "French National Institute for Agricultural Research (France)",
+				"protocolName": "GENESWITCH D30 FETUS POOLING",
+				"protocolDate": 2020,
+				"key": "INRA_SOP_GENESWITCH_D30_FETUS_POOLING_20200221.pdf"
+			},
+			"sort": ["GENESWITCH D30 FETUS POOLING"]
+		}]
+	},
+	"aggregations": {
+		"project": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": []
+		},
+		"university_name": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "French National Institute for Agricultural Research (France)",
+				"doc_count": 27
+			}, {
+				"key": "Roslin Institute (Edinburgh, UK)",
+				"doc_count": 25
+			}, {
+				"key": "University of Queensland (Australia)",
+				"doc_count": 6
+			}, {
+				"key": "Leibniz Institute for Farm Animal Biology (Dummerstorf, Germany)",
+				"doc_count": 3
+			}, {
+				"key": "Department of Economic Development, Jobs, Transport and Resources (Bundoora, Australia)",
+				"doc_count": 2
+			}, {
+				"key": "FBNGenomePhysiology",
+				"doc_count": 2
+			}, {
+				"key": "Iowa State University (USA)",
+				"doc_count": 2
+			}, {
+				"key": "Konkuk University (Seoul, Korea)",
+				"doc_count": 2
+			}, {
+				"key": "National Research Institute for Agriculture, Food and Environment (France\uff09",
+				"doc_count": 2
+			}, {
+				"key": "University of California, Davis (USA)",
+				"doc_count": 2
+			}, {
+				"key": "Utah State University (USA)",
+				"doc_count": 2
+			}, {
+				"key": "AgResearch (New Zealand)",
+				"doc_count": 1
+			}, {
+				"key": "Agroscope (Switzerland)",
+				"doc_count": 1
+			}, {
+				"key": "Norwegian University of Life Sciences (Norway)",
+				"doc_count": 1
+			}, {
+				"key": "Texas A&M University (USA)",
+				"doc_count": 1
+			}, {
+				"key": "University of Alberta (Canada)",
+				"doc_count": 1
+			}, {
+				"key": "University of Idaho (USA)",
+				"doc_count": 1
+			}, {
+				"key": "University of Illinois at Chicago (USA)",
+				"doc_count": 1
+			}, {
+				"key": "University of Illinois at Urbana\u2013Champaign (USA)",
+				"doc_count": 1
+			}, {
+				"key": "University of the Basque Country (Spain)",
+				"doc_count": 1
+			}, {
+				"key": "WUR",
+				"doc_count": 1
+			}, {
+				"key": "Wageningen University (Netherlands)",
+				"doc_count": 1
+			}, {
+				"key": "Washington State University(USA)",
+				"doc_count": 1
+			}]
+		},
+		"protocol_date": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "2016",
+				"doc_count": 33
+			}, {
+				"key": "2020",
+				"doc_count": 22
+			}, {
+				"key": "2017",
+				"doc_count": 10
+			}, {
+				"key": "20160504",
+				"doc_count": 5
+			}, {
+				"key": "2018",
+				"doc_count": 5
+			}, {
+				"key": "2019",
+				"doc_count": 4
+			}, {
+				"key": "2021",
+				"doc_count": 3
+			}, {
+				"key": "20200401",
+				"doc_count": 2
+			}, {
+				"key": "2014",
+				"doc_count": 1
+			}, {
+				"key": "20161021",
+				"doc_count": 1
+			}, {
+				"key": "20210215",
+				"doc_count": 1
+			}]
+		}
+	}
 }

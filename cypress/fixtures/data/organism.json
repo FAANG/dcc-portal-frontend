@@ -1,858 +1,699 @@
 {
-  "took": 15,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1491,
-      "relation": "eq"
-    },
-    "max_score": null,
-    "hits": [
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104728877999",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104728877",
-          "organism": {
-            "text": "Equus caballus"
-          },
-          "biosampleId": "SAMEA104728877999",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Thoroughbred"
-          }
-        },
-        "sort": [
-          104728877
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104728862",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104728862",
-          "organism": {
-            "text": "Equus caballus"
-          },
-          "biosampleId": "SAMEA104728862",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Thoroughbred"
-          }
-        },
-        "sort": [
-          104728862
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626892",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626892",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626892",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626892
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626885",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626885",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626885",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626885
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626880",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626880",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626880",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626880
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626875",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626875",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626875",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626875
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626872",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626872",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626872",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626872
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626854",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626854",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626854",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626854
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626847",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626847",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626847",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626847
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626841",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626841",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626841",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626841
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626836",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626836",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626836",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626836
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626831",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626831",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626831",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626831
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626820",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626820",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626820",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626820
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104626819",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104626819",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "biosampleId": "SAMEA104626819",
-          "sex": {
-            "text": "female"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Norwegian Red"
-          }
-        },
-        "sort": [
-          104626819
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104619395",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104619395",
-          "organism": {
-            "text": "Equus caballus"
-          },
-          "biosampleId": "SAMEA104619395",
-          "sex": {
-            "text": "male"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Thoroughbred"
-          }
-        },
-        "sort": [
-          104619395
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104619394",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104619394",
-          "organism": {
-            "text": "Equus caballus"
-          },
-          "biosampleId": "SAMEA104619394",
-          "sex": {
-            "text": "male"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Thoroughbred"
-          }
-        },
-        "sort": [
-          104619394
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104619392",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104619392",
-          "organism": {
-            "text": "Equus caballus"
-          },
-          "biosampleId": "SAMEA104619392",
-          "sex": {
-            "text": "male"
-          },
-          "paperPublished": "true",
-          "breed": {
-            "text": "Thoroughbred"
-          }
-        },
-        "sort": [
-          104619392
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104618953",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104618953",
-          "organism": {
-            "text": "Bos indicus"
-          },
-          "biosampleId": "SAMEA104618953",
-          "sex": {
-            "text": "female"
-          },
-          "breed": {
-            "text": "Brahman"
-          }
-        },
-        "sort": [
-          104618953
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104618949",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104618949",
-          "organism": {
-            "text": "Bos indicus"
-          },
-          "biosampleId": "SAMEA104618949",
-          "sex": {
-            "text": "female"
-          },
-          "breed": {
-            "text": "Brahman"
-          }
-        },
-        "sort": [
-          104618949
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104618941",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104618941",
-          "organism": {
-            "text": "Bos indicus"
-          },
-          "biosampleId": "SAMEA104618941",
-          "sex": {
-            "text": "female"
-          },
-          "breed": {
-            "text": "Brahman"
-          }
-        },
-        "sort": [
-          104618941
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104618937",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104618937",
-          "organism": {
-            "text": "Bos indicus"
-          },
-          "biosampleId": "SAMEA104618937",
-          "sex": {
-            "text": "female"
-          },
-          "breed": {
-            "text": "Brahman"
-          }
-        },
-        "sort": [
-          104618937
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104618929",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104618929",
-          "organism": {
-            "text": "Bos indicus"
-          },
-          "biosampleId": "SAMEA104618929",
-          "sex": {
-            "text": "female"
-          },
-          "breed": {
-            "text": "Brahman"
-          }
-        },
-        "sort": [
-          104618929
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104618920",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104618920",
-          "organism": {
-            "text": "Bos indicus"
-          },
-          "biosampleId": "SAMEA104618920",
-          "sex": {
-            "text": "female"
-          },
-          "breed": {
-            "text": "Brahman"
-          }
-        },
-        "sort": [
-          104618920
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104618917",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104618917",
-          "organism": {
-            "text": "Bos indicus"
-          },
-          "biosampleId": "SAMEA104618917",
-          "sex": {
-            "text": "female"
-          },
-          "breed": {
-            "text": "Brahman"
-          }
-        },
-        "sort": [
-          104618917
-        ]
-      },
-      {
-        "_index": "organism",
-        "_type": "_doc",
-        "_id": "SAMEA104618912",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "id_number": "104618912",
-          "organism": {
-            "text": "Bos indicus"
-          },
-          "biosampleId": "SAMEA104618912",
-          "sex": {
-            "text": "female"
-          },
-          "breed": {
-            "text": "Brahman"
-          }
-        },
-        "sort": [
-          104618912
-        ]
-      }
-    ]
-  },
-  "aggregations": {
-    "standard": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "FAANG",
-          "doc_count": 1443
-        },
-        {
-          "key": "Legacy",
-          "doc_count": 48
-        }
-      ]
-    },
-    "paper_published": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "true",
-          "doc_count": 173
-        }
-      ]
-    },
-    "organism": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "Sus scrofa",
-          "doc_count": 520
-        },
-        {
-          "key": "Gallus gallus",
-          "doc_count": 298
-        },
-        {
-          "key": "Bos taurus",
-          "doc_count": 226
-        },
-        {
-          "key": "Ovis aries",
-          "doc_count": 92
-        },
-        {
-          "key": "Bos indicus",
-          "doc_count": 67
-        },
-        {
-          "key": "Oncorhynchus mykiss",
-          "doc_count": 62
-        },
-        {
-          "key": "Cyprinus carpio carpio",
-          "doc_count": 50
-        },
-        {
-          "key": "Salmo salar",
-          "doc_count": 50
-        },
-        {
-          "key": "Dicentrarchus labrax",
-          "doc_count": 39
-        },
-        {
-          "key": "Scophthalmus maximus",
-          "doc_count": 38
-        },
-        {
-          "key": "gallus gallus",
-          "doc_count": 16
-        },
-        {
-          "key": "Bubalus bubalis",
-          "doc_count": 13
-        },
-        {
-          "key": "Capra hircus",
-          "doc_count": 11
-        },
-        {
-          "key": "Equus caballus",
-          "doc_count": 9
-        }
-      ]
-    },
-    "sex": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "male",
-          "doc_count": 684
-        },
-        {
-          "key": "female",
-          "doc_count": 406
-        },
-        {
-          "key": "Female",
-          "doc_count": 144
-        },
-        {
-          "key": "Male",
-          "doc_count": 120
-        },
-        {
-          "key": "restricted access",
-          "doc_count": 75
-        },
-        {
-          "key": "phenotypic sex",
-          "doc_count": 28
-        },
-        {
-          "key": "male genotypic sex",
-          "doc_count": 11
-        },
-        {
-          "key": "female genotypic sex",
-          "doc_count": 8
-        },
-        {
-          "key": "intact male",
-          "doc_count": 8
-        },
-        {
-          "key": "intact female",
-          "doc_count": 4
-        },
-        {
-          "key": "castrated male",
-          "doc_count": 3
-        }
-      ]
-    },
-    "paper_published_missing": {
-      "doc_count": 1318
-    },
-    "breed": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 98,
-      "buckets": [
-        {
-          "key": "chicken breed",
-          "doc_count": 230
-        },
-        {
-          "key": "not applicable",
-          "doc_count": 215
-        },
-        {
-          "key": "Large White",
-          "doc_count": 133
-        },
-        {
-          "key": "Angus",
-          "doc_count": 116
-        },
-        {
-          "key": "TN70",
-          "doc_count": 110
-        },
-        {
-          "key": "Large white sire x Landrace dam",
-          "doc_count": 64
-        },
-        {
-          "key": "Chicken crossbreed",
-          "doc_count": 60
-        },
-        {
-          "key": "Cattle crossbreed",
-          "doc_count": 54
-        },
-        {
-          "key": "TN60",
-          "doc_count": 50
-        },
-        {
-          "key": "Large white",
-          "doc_count": 48
-        },
-        {
-          "key": "Brahman",
-          "doc_count": 41
-        },
-        {
-          "key": "Texel sire x Scottish Blackface dam",
-          "doc_count": 35
-        },
-        {
-          "key": "Holstein",
-          "doc_count": 32
-        },
-        {
-          "key": "Nellore",
-          "doc_count": 26
-        },
-        {
-          "key": "Meishan",
-          "doc_count": 25
-        },
-        {
-          "key": "INRA Synthetic Stock",
-          "doc_count": 24
-        },
-        {
-          "key": "Pig crossbreed",
-          "doc_count": 24
-        },
-        {
-          "key": "Pietrain",
-          "doc_count": 17
-        },
-        {
-          "key": "German Landrace",
-          "doc_count": 16
-        },
-        {
-          "key": "Spanish Churra",
-          "doc_count": 16
-        },
-        {
-          "key": "Scottish Blackface",
-          "doc_count": 15
-        },
-        {
-          "key": "Norwegian Red",
-          "doc_count": 12
-        },
-        {
-          "key": "White Leghorn",
-          "doc_count": 12
-        },
-        {
-          "key": "Duroc",
-          "doc_count": 9
-        },
-        {
-          "key": "Thoroughbred",
-          "doc_count": 9
-        }
-      ]
-    }
-  }
+	"took": 14,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 2966,
+			"relation": "eq"
+		},
+		"max_score": null,
+		"hits": [{
+			"_index": "organism",
+			"_id": "SAMEA112127272",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127272",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127272",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127272]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127271",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127271",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127271",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127271]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127270",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127270",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127270",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127270]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127269",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127269",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127269",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127269]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127268",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127268",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127268",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127268]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127267",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127267",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127267",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127267]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127266",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127266",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127266",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127266]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127265",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127265",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127265",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127265]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127264",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127264",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127264",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127264]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127263",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127263",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127263",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127263]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127262",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127262",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127262",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127262]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127261",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127261",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127261",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127261]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127260",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127260",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127260",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127260]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127259",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127259",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127259",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127259]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127258",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127258",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127258",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127258]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127257",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127257",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127257",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127257]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127256",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127256",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127256",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127256]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127255",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127255",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127255",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127255]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127254",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127254",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127254",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127254]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127253",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127253",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127253",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127253]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127252",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127252",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127252",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127252]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127251",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127251",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127251",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127251]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127250",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127250",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127250",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127250]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127249",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127249",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127249",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127249]
+		}, {
+			"_index": "organism",
+			"_id": "SAMEA112127248",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"id_number": "112127248",
+				"organism": {
+					"text": "Oncorhynchus mykiss"
+				},
+				"biosampleId": "SAMEA112127248",
+				"sex": {
+					"text": "female"
+				},
+				"breed": {
+					"text": null
+				}
+			},
+			"sort": [112127248]
+		}]
+	},
+	"aggregations": {
+		"standard": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "FAANG",
+				"doc_count": 2578
+			}, {
+				"key": "Legacy",
+				"doc_count": 48
+			}]
+		},
+		"paper_published": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "true",
+				"doc_count": 173
+			}]
+		},
+		"organism": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "Sus scrofa",
+				"doc_count": 1732
+			}, {
+				"key": "Gallus gallus",
+				"doc_count": 442
+			}, {
+				"key": "Bos taurus",
+				"doc_count": 227
+			}, {
+				"key": "Oncorhynchus mykiss",
+				"doc_count": 178
+			}, {
+				"key": "Ovis aries",
+				"doc_count": 92
+			}, {
+				"key": "Bos indicus",
+				"doc_count": 67
+			}, {
+				"key": "Cyprinus carpio carpio",
+				"doc_count": 50
+			}, {
+				"key": "Salmo salar",
+				"doc_count": 50
+			}, {
+				"key": "Dicentrarchus labrax",
+				"doc_count": 39
+			}, {
+				"key": "Scophthalmus maximus",
+				"doc_count": 38
+			}, {
+				"key": "gallus gallus",
+				"doc_count": 16
+			}, {
+				"key": "Bubalus bubalis",
+				"doc_count": 13
+			}, {
+				"key": "Capra hircus",
+				"doc_count": 11
+			}, {
+				"key": "Equus caballus",
+				"doc_count": 11
+			}]
+		},
+		"sex": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "male",
+				"doc_count": 974
+			}, {
+				"key": "female",
+				"doc_count": 640
+			}, {
+				"key": "Male",
+				"doc_count": 608
+			}, {
+				"key": "Female",
+				"doc_count": 569
+			}, {
+				"key": "restricted access",
+				"doc_count": 107
+			}, {
+				"key": "phenotypic sex",
+				"doc_count": 34
+			}, {
+				"key": "male genotypic sex",
+				"doc_count": 11
+			}, {
+				"key": "female genotypic sex",
+				"doc_count": 8
+			}, {
+				"key": "intact male",
+				"doc_count": 8
+			}, {
+				"key": "intact female",
+				"doc_count": 4
+			}, {
+				"key": "castrated male",
+				"doc_count": 3
+			}]
+		},
+		"project": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "GENE-SWitCH",
+				"doc_count": 692
+			}, {
+				"key": "AQUA-FAANG",
+				"doc_count": 355
+			}, {
+				"key": "BovReg",
+				"doc_count": 50
+			}, {
+				"key": "EFFICACE",
+				"doc_count": 2
+			}]
+		},
+		"paper_published_missing": {
+			"doc_count": 2793
+		},
+		"breed": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 134,
+			"buckets": [{
+				"key": "Large White",
+				"doc_count": 679
+			}, {
+				"key": "Pig crossbreed",
+				"doc_count": 417
+			}, {
+				"key": "not applicable",
+				"doc_count": 267
+			}, {
+				"key": "chicken breed",
+				"doc_count": 230
+			}, {
+				"key": "Chicken crossbreed",
+				"doc_count": 203
+			}, {
+				"key": "Angus",
+				"doc_count": 116
+			}, {
+				"key": "TN70",
+				"doc_count": 110
+			}, {
+				"key": "Duroc",
+				"doc_count": 109
+			}, {
+				"key": "Landrace",
+				"doc_count": 100
+			}, {
+				"key": "Meishan",
+				"doc_count": 98
+			}, {
+				"key": "Large white sire x Landrace dam",
+				"doc_count": 64
+			}, {
+				"key": "Cattle crossbreed",
+				"doc_count": 54
+			}, {
+				"key": "TN60",
+				"doc_count": 50
+			}, {
+				"key": "Large white",
+				"doc_count": 48
+			}, {
+				"key": "Brahman",
+				"doc_count": 41
+			}, {
+				"key": "Texel sire x Scottish Blackface dam",
+				"doc_count": 35
+			}, {
+				"key": "Holstein",
+				"doc_count": 33
+			}, {
+				"key": "Nellore",
+				"doc_count": 26
+			}, {
+				"key": "INRA Synthetic Stock",
+				"doc_count": 24
+			}, {
+				"key": "Pietrain",
+				"doc_count": 17
+			}, {
+				"key": "German Landrace",
+				"doc_count": 16
+			}, {
+				"key": "INRA Genotype AP2 Stock",
+				"doc_count": 16
+			}, {
+				"key": "INRA Genotype B57 Stock",
+				"doc_count": 16
+			}, {
+				"key": "Spanish Churra",
+				"doc_count": 16
+			}, {
+				"key": "Scottish Blackface",
+				"doc_count": 15
+			}]
+		}
+	}
 }

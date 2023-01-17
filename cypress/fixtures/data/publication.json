@@ -1,586 +1,492 @@
 {
-  "took": 28,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1748,
-      "relation": "eq"
-    },
-    "max_score": null,
-    "hits": [
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC2894071",
-        "_score": null,
-        "_source": {
-          "journal": "PLoS One",
-          "year": "2010",
-          "title": "Understanding PRRSV infection in porcine lung based on genome-wide transcriptome response identified by deep sequencing.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC2894071"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC2900271",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2010",
-          "title": "Characterization of the equine skeletal muscle transcriptome identifies novel functional responses to exercise training.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC2900271"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3019235",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2010",
-          "title": "Comparison of transcriptomic landscapes of bovine embryos using RNA-Seq.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3019235"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3022920",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2010",
-          "title": "New methods for next generation sequencing based microRNA expression profiling.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3022920"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3091693",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2010",
-          "title": "Aberrant host immune response induced by highly virulent PRRSV identified by digital gene expression tag profiling.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3091693"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3107184",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2011",
-          "title": "A systematic analysis of the skeletal muscle miRNA transcriptome of chicken varieties with divergent skeletal muscle growth identifies novel miRNAs and differentially expressed miRNAs.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3107184"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3202287",
-        "_score": null,
-        "_source": {
-          "journal": "Genome Res",
-          "year": "2011",
-          "title": "True single-molecule DNA sequencing of a pleistocene horse bone.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3202287"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3221674",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2011",
-          "title": "Exploring the gonad transcriptome of two extreme male pigs with RNA-seq.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3221674"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3248099",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2011",
-          "title": "Global assessment of genomic variation in cattle by genome resequencing and high-throughput genotyping.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3248099"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3254192",
-        "_score": null,
-        "_source": {
-          "journal": "Virol J",
-          "year": "2011",
-          "title": "Rotavirus nonstructural protein 1 antagonizes innate immune response by interacting with retinoic acid inducible gene I.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3254192"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3264571",
-        "_score": null,
-        "_source": {
-          "journal": "PLoS One",
-          "year": "2012",
-          "title": "Characterization and comparison of the leukocyte transcriptomes of three cattle breeds.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3264571"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3327661",
-        "_score": null,
-        "_source": {
-          "journal": "PLoS One",
-          "year": "2012",
-          "title": "A cross-species analysis of microRNAs in the developing avian face.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3327661"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3411578",
-        "_score": null,
-        "_source": {
-          "journal": "PLoS One",
-          "year": "2012",
-          "title": "Avian resistance to Campylobacter jejuni colonization is associated with an intestinal immunogene expression signature identified by mRNA sequencing.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3411578"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3427246",
-        "_score": null,
-        "_source": {
-          "journal": "PLoS One",
-          "year": "2012",
-          "title": "Lactation-related microRNA expression profiles of porcine breast milk exosomes.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3427246"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3428670",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2012",
-          "title": "Identification of avian W-linked contigs by short-read sequencing.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3428670"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3460181",
-        "_score": null,
-        "_source": {
-          "journal": "Genome Res",
-          "year": "2012",
-          "title": "Random X inactivation in the mule and horse placenta.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3460181"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3465249",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2012",
-          "title": "RNA-seq analysis of differential gene expression in liver from lactating dairy cows divergent in negative energy balance.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3465249"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3468387",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2012",
-          "title": "Improving ancient DNA read mapping against modern reference genomes.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3468387"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3498112",
-        "_score": null,
-        "_source": {
-          "journal": "PLoS One",
-          "year": "2012",
-          "title": "Identification of novel and differentially expressed MicroRNAs of dairy goat mammary gland tissues using solexa sequencing and bioinformatics.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3498112"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3505159",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2012",
-          "title": "Marek's disease virus infection induces widespread differential chromatin marks in inbred chicken lines.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3505159"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3508711",
-        "_score": null,
-        "_source": {
-          "journal": "Nat Commun",
-          "year": "2012",
-          "title": "An atlas of DNA methylomes in porcine adipose and muscle tissues.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3508711"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3511444",
-        "_score": null,
-        "_source": {
-          "journal": "PLoS One",
-          "year": "2012",
-          "title": "A systematic analysis of miRNA transcriptome in Marek's disease virus-induced lymphoma reveals novel and differentially expressed miRNAs.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3511444"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3523687",
-        "_score": null,
-        "_source": {
-          "journal": "Nature",
-          "year": "2012",
-          "title": "Mutations in DMRT3 affect locomotion in horses and spinal circuit function in mice.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3523687"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3530564",
-        "_score": null,
-        "_source": {
-          "journal": "PLoS One",
-          "year": "2012",
-          "title": "Comparative transcriptome profiling of dairy goat microRNAs from dry period and peak lactation mammary gland tissues.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3530564"
-        ]
-      },
-      {
-        "_index": "article",
-        "_type": "_doc",
-        "_id": "PMC3544567",
-        "_score": null,
-        "_source": {
-          "journal": "BMC Genomics",
-          "year": "2012",
-          "title": "Global endometrial transcriptomic profiling: transient immune activation precedes tissue proliferation and repair in healthy beef cows.",
-          "datasetSource": "All"
-        },
-        "sort": [
-          "PMC3544567"
-        ]
-      }
-    ]
-  },
-  "aggregations": {
-    "journal": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 569,
-      "buckets": [
-        {
-          "key": "BMC Genomics",
-          "doc_count": 263
-        },
-        {
-          "key": "PLoS One",
-          "doc_count": 177
-        },
-        {
-          "key": "Sci Rep",
-          "doc_count": 157
-        },
-        {
-          "key": "Front Genet",
-          "doc_count": 122
-        },
-        {
-          "key": "Genes (Basel)",
-          "doc_count": 62
-        },
-        {
-          "key": "Animals (Basel)",
-          "doc_count": 31
-        },
-        {
-          "key": "Int J Mol Sci",
-          "doc_count": 31
-        },
-        {
-          "key": "Nat Commun",
-          "doc_count": 30
-        },
-        {
-          "key": "Genet Sel Evol",
-          "doc_count": 29
-        },
-        {
-          "key": "Front Immunol",
-          "doc_count": 27
-        },
-        {
-          "key": "Anim Genet",
-          "doc_count": 24
-        },
-        {
-          "key": "G3 (Bethesda)",
-          "doc_count": 23
-        },
-        {
-          "key": "BMC Genet",
-          "doc_count": 21
-        },
-        {
-          "key": "Biol Reprod",
-          "doc_count": 20
-        },
-        {
-          "key": "J Anim Sci Biotechnol",
-          "doc_count": 19
-        },
-        {
-          "key": "PeerJ",
-          "doc_count": 19
-        },
-        {
-          "key": "Genome Res",
-          "doc_count": 15
-        },
-        {
-          "key": "Gigascience",
-          "doc_count": 15
-        },
-        {
-          "key": "Front Cell Dev Biol",
-          "doc_count": 14
-        },
-        {
-          "key": "Genome Biol Evol",
-          "doc_count": 14
-        },
-        {
-          "key": "PLoS Genet",
-          "doc_count": 14
-        },
-        {
-          "key": "Proc Natl Acad Sci U S A",
-          "doc_count": 14
-        },
-        {
-          "key": "Front Vet Sci",
-          "doc_count": 13
-        },
-        {
-          "key": "Genome Biol",
-          "doc_count": 13
-        },
-        {
-          "key": "BMC Vet Res",
-          "doc_count": 12
-        }
-      ]
-    },
-    "year": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "2020",
-          "doc_count": 415
-        },
-        {
-          "key": "2019",
-          "doc_count": 329
-        },
-        {
-          "key": "2018",
-          "doc_count": 245
-        },
-        {
-          "key": "2017",
-          "doc_count": 200
-        },
-        {
-          "key": "2021",
-          "doc_count": 177
-        },
-        {
-          "key": "2016",
-          "doc_count": 124
-        },
-        {
-          "key": "2015",
-          "doc_count": 107
-        },
-        {
-          "key": "2014",
-          "doc_count": 72
-        },
-        {
-          "key": "2013",
-          "doc_count": 41
-        },
-        {
-          "key": "2012",
-          "doc_count": 24
-        },
-        {
-          "key": "2010",
-          "doc_count": 5
-        },
-        {
-          "key": "2011",
-          "doc_count": 5
-        },
-        {
-          "key": "1994",
-          "doc_count": 1
-        },
-        {
-          "key": "2003",
-          "doc_count": 1
-        },
-        {
-          "key": "2004",
-          "doc_count": 1
-        },
-        {
-          "key": "2005",
-          "doc_count": 1
-        }
-      ]
-    },
-    "datasetSource": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "All",
-          "doc_count": 1712
-        },
-        {
-          "key": "FAANG only",
-          "doc_count": 36
-        }
-      ]
-    }
-  }
+	"took": 12,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 1912,
+			"relation": "eq"
+		},
+		"max_score": null,
+		"hits": [{
+			"_index": "article",
+			"_id": "PMC2894071",
+			"_score": null,
+			"_source": {
+				"journal": "PLoS One",
+				"year": "2010",
+				"source": "MED",
+				"title": "Understanding PRRSV infection in porcine lung based on genome-wide transcriptome response identified by deep sequencing.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC2894071"]
+		}, {
+			"_index": "article",
+			"_id": "PMC2900271",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2010",
+				"source": "MED",
+				"title": "Characterization of the equine skeletal muscle transcriptome identifies novel functional responses to exercise training.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC2900271"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3019235",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2010",
+				"source": "MED",
+				"title": "Comparison of transcriptomic landscapes of bovine embryos using RNA-Seq.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3019235"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3022920",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2010",
+				"source": "MED",
+				"title": "New methods for next generation sequencing based microRNA expression profiling.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3022920"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3091693",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2010",
+				"source": "MED",
+				"title": "Aberrant host immune response induced by highly virulent PRRSV identified by digital gene expression tag profiling.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3091693"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3107184",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2011",
+				"source": "MED",
+				"title": "A systematic analysis of the skeletal muscle miRNA transcriptome of chicken varieties with divergent skeletal muscle growth identifies novel miRNAs and differentially expressed miRNAs.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3107184"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3202287",
+			"_score": null,
+			"_source": {
+				"journal": "Genome Res",
+				"year": "2011",
+				"source": "MED",
+				"title": "True single-molecule DNA sequencing of a pleistocene horse bone.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3202287"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3221674",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2011",
+				"source": "MED",
+				"title": "Exploring the gonad transcriptome of two extreme male pigs with RNA-seq.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3221674"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3248099",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2011",
+				"source": "MED",
+				"title": "Global assessment of genomic variation in cattle by genome resequencing and high-throughput genotyping.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3248099"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3254192",
+			"_score": null,
+			"_source": {
+				"journal": "Virol J",
+				"year": "2011",
+				"source": "MED",
+				"title": "Rotavirus nonstructural protein 1 antagonizes innate immune response by interacting with retinoic acid inducible gene I.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3254192"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3264571",
+			"_score": null,
+			"_source": {
+				"journal": "PLoS One",
+				"year": "2012",
+				"source": "MED",
+				"title": "Characterization and comparison of the leukocyte transcriptomes of three cattle breeds.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3264571"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3327661",
+			"_score": null,
+			"_source": {
+				"journal": "PLoS One",
+				"year": "2012",
+				"source": "MED",
+				"title": "A cross-species analysis of microRNAs in the developing avian face.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3327661"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3411578",
+			"_score": null,
+			"_source": {
+				"journal": "PLoS One",
+				"year": "2012",
+				"source": "MED",
+				"title": "Avian resistance to Campylobacter jejuni colonization is associated with an intestinal immunogene expression signature identified by mRNA sequencing.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3411578"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3427246",
+			"_score": null,
+			"_source": {
+				"journal": "PLoS One",
+				"year": "2012",
+				"source": "MED",
+				"title": "Lactation-related microRNA expression profiles of porcine breast milk exosomes.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3427246"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3428670",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2012",
+				"source": "MED",
+				"title": "Identification of avian W-linked contigs by short-read sequencing.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3428670"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3460181",
+			"_score": null,
+			"_source": {
+				"journal": "Genome Res",
+				"year": "2012",
+				"source": "MED",
+				"title": "Random X inactivation in the mule and horse placenta.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3460181"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3465249",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2012",
+				"source": "MED",
+				"title": "RNA-seq analysis of differential gene expression in liver from lactating dairy cows divergent in negative energy balance.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3465249"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3468387",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2012",
+				"source": "MED",
+				"title": "Improving ancient DNA read mapping against modern reference genomes.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3468387"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3498112",
+			"_score": null,
+			"_source": {
+				"journal": "PLoS One",
+				"year": "2012",
+				"source": "MED",
+				"title": "Identification of novel and differentially expressed MicroRNAs of dairy goat mammary gland tissues using solexa sequencing and bioinformatics.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3498112"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3505159",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2012",
+				"source": "MED",
+				"title": "Marek's disease virus infection induces widespread differential chromatin marks in inbred chicken lines.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3505159"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3508711",
+			"_score": null,
+			"_source": {
+				"journal": "Nat Commun",
+				"year": "2012",
+				"source": "MED",
+				"title": "An atlas of DNA methylomes in porcine adipose and muscle tissues.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3508711"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3511444",
+			"_score": null,
+			"_source": {
+				"journal": "PLoS One",
+				"year": "2012",
+				"source": "MED",
+				"title": "A systematic analysis of miRNA transcriptome in Marek's disease virus-induced lymphoma reveals novel and differentially expressed miRNAs.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3511444"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3523687",
+			"_score": null,
+			"_source": {
+				"journal": "Nature",
+				"year": "2012",
+				"source": "MED",
+				"title": "Mutations in DMRT3 affect locomotion in horses and spinal circuit function in mice.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3523687"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3530564",
+			"_score": null,
+			"_source": {
+				"journal": "PLoS One",
+				"year": "2012",
+				"source": "MED",
+				"title": "Comparative transcriptome profiling of dairy goat microRNAs from dry period and peak lactation mammary gland tissues.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3530564"]
+		}, {
+			"_index": "article",
+			"_id": "PMC3544567",
+			"_score": null,
+			"_source": {
+				"journal": "BMC Genomics",
+				"year": "2012",
+				"source": "MED",
+				"title": "Global endometrial transcriptomic profiling: transient immune activation precedes tissue proliferation and repair in healthy beef cows.",
+				"datasetSource": "All"
+			},
+			"sort": ["PMC3544567"]
+		}]
+	},
+	"aggregations": {
+		"journal": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 627,
+			"buckets": [{
+				"key": "BMC Genomics",
+				"doc_count": 270
+			}, {
+				"key": "PLoS One",
+				"doc_count": 181
+			}, {
+				"key": "Sci Rep",
+				"doc_count": 165
+			}, {
+				"key": "Front Genet",
+				"doc_count": 141
+			}, {
+				"key": "Genes (Basel)",
+				"doc_count": 70
+			}, {
+				"key": "Animals (Basel)",
+				"doc_count": 40
+			}, {
+				"key": "Int J Mol Sci",
+				"doc_count": 37
+			}, {
+				"key": "Nat Commun",
+				"doc_count": 35
+			}, {
+				"key": "Genet Sel Evol",
+				"doc_count": 31
+			}, {
+				"key": "Front Immunol",
+				"doc_count": 29
+			}, {
+				"key": "Anim Genet",
+				"doc_count": 28
+			}, {
+				"key": "G3 (Bethesda)",
+				"doc_count": 24
+			}, {
+				"key": "BMC Genet",
+				"doc_count": 21
+			}, {
+				"key": "J Anim Sci Biotechnol",
+				"doc_count": 21
+			}, {
+				"key": "Biol Reprod",
+				"doc_count": 20
+			}, {
+				"key": "Front Cell Dev Biol",
+				"doc_count": 20
+			}, {
+				"key": "PeerJ",
+				"doc_count": 20
+			}, {
+				"key": "Proc Natl Acad Sci U S A",
+				"doc_count": 20
+			}, {
+				"key": "Front Vet Sci",
+				"doc_count": 17
+			}, {
+				"key": "Gigascience",
+				"doc_count": 17
+			}, {
+				"key": "PLoS Genet",
+				"doc_count": 17
+			}, {
+				"key": "Genome Biol Evol",
+				"doc_count": 15
+			}, {
+				"key": "Genome Res",
+				"doc_count": 15
+			}, {
+				"key": "Mol Biol Evol",
+				"doc_count": 14
+			}, {
+				"key": "Genome Biol",
+				"doc_count": 13
+			}]
+		},
+		"year": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "2020",
+				"doc_count": 413
+			}, {
+				"key": "2019",
+				"doc_count": 323
+			}, {
+				"key": "2021",
+				"doc_count": 257
+			}, {
+				"key": "2018",
+				"doc_count": 241
+			}, {
+				"key": "2017",
+				"doc_count": 199
+			}, {
+				"key": "2016",
+				"doc_count": 122
+			}, {
+				"key": "2015",
+				"doc_count": 105
+			}, {
+				"key": "2022",
+				"doc_count": 105
+			}, {
+				"key": "2014",
+				"doc_count": 69
+			}, {
+				"key": "2013",
+				"doc_count": 41
+			}, {
+				"key": "2012",
+				"doc_count": 23
+			}, {
+				"key": "2010",
+				"doc_count": 6
+			}, {
+				"key": "2011",
+				"doc_count": 5
+			}, {
+				"key": "2003",
+				"doc_count": 1
+			}, {
+				"key": "2004",
+				"doc_count": 1
+			}, {
+				"key": "2005",
+				"doc_count": 1
+			}]
+		},
+		"project": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "",
+				"doc_count": 63
+			}, {
+				"key": "BovReg",
+				"doc_count": 5
+			}, {
+				"key": "GENE-SWitCH",
+				"doc_count": 1
+			}]
+		},
+		"source": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "MED",
+				"doc_count": 1907
+			}, {
+				"key": "PPR",
+				"doc_count": 4
+			}, {
+				"key": "PMC",
+				"doc_count": 1
+			}]
+		},
+		"datasetSource": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "All",
+				"doc_count": 1873
+			}, {
+				"key": "FAANG only",
+				"doc_count": 39
+			}]
+		}
+	}
 }
