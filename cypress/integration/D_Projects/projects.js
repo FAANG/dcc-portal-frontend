@@ -131,7 +131,6 @@ export class ProjectsPage{
       .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 
-    cy.contains("Custom Queries")
     cy.contains('Ensembl Rapid Release')
 
   }

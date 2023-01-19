@@ -1,738 +1,596 @@
 {
-  "took": 11,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 2090,
-      "relation": "eq"
-    },
-    "max_score": null,
-    "hits": [
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ990151",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Ovis aries"
-          },
-          "accession": "ERZ990151",
-          "title": "Variants of sheep genetics stucture analysis",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB33111"
-        },
-        "sort": [
-          "ERZ990151"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ990081",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "accession": "ERZ990081",
-          "title": "Cattle DNA variation",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB33081"
-        },
-        "sort": [
-          "ERZ990081"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ990077",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "accession": "ERZ990077",
-          "title": "PRM1 gene of chromasome 25 of Bos taurus analysis",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB33073"
-        },
-        "sort": [
-          "ERZ990077"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ989928",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Sus scrofa"
-          },
-          "accession": "ERZ989928",
-          "title": "Direct sequencing",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB33060"
-        },
-        "sort": [
-          "ERZ989928"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ989862",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "accession": "ERZ989862",
-          "title": "Genotyping in three cattle breeds by SnaPshot_Simmental",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB33023"
-        },
-        "sort": [
-          "ERZ989862"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ989861",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "accession": "ERZ989861",
-          "title": "Genotyping in three cattle breeds by SnaPshot_Angus",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB33023"
-        },
-        "sort": [
-          "ERZ989861"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ989860",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Bos taurus"
-          },
-          "accession": "ERZ989860",
-          "title": "Genotyping in three cattle breeds by SnaPshot_Droughtmaster",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB33023"
-        },
-        "sort": [
-          "ERZ989860"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ979030",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Bos indicus x Bos taurus"
-          },
-          "accession": "ERZ979030",
-          "title": "Divesrity and signature selection",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB32975"
-        },
-        "sort": [
-          "ERZ979030"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ939229",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "accession": "ERZ939229",
-          "title": "Sequence analysis of whey protein polymorphisms in Sudanese goat breeds",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB32692"
-        },
-        "sort": [
-          "ERZ939229"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ936110",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Equus caballus"
-          },
-          "accession": "ERZ936110",
-          "title": "Genotyping Japanese Thoroughbred horses",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB32686"
-        },
-        "sort": [
-          "ERZ936110"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ908635",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Ovis aries"
-          },
-          "accession": "ERZ908635",
-          "title": "GWAS Analysis on Florida native sheep",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB32462"
-        },
-        "sort": [
-          "ERZ908635"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ888875",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "accession": "ERZ888875",
-          "title": "GWAS Analysis on goats",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB32312"
-        },
-        "sort": [
-          "ERZ888875"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ888783",
-        "_score": null,
-        "_source": {
-          "standardMet": "Legacy",
-          "organism": {
-            "text": "Ovis aries"
-          },
-          "accession": "ERZ888783",
-          "title": "GWAS Analysis on sheep",
-          "analysisType": "SEQUENCE_VARIATION",
-          "datasetAccession": "PRJEB32310"
-        },
-        "sort": [
-          "ERZ888783"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887818",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887818",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887818"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887817",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887817",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887817"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887816",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887816",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887816"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887815",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887815",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887815"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887814",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887814",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887814"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887813",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887813",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887813"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887812",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887812",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887812"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887811",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887811",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887811"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887810",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887810",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887810"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887809",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887809",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887809"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887808",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887808",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887808"
-        ]
-      },
-      {
-        "_index": "analysis",
-        "_type": "_doc",
-        "_id": "ERZ887807",
-        "_score": null,
-        "_source": {
-          "standardMet": "FAANG",
-          "organism": {
-            "text": "Capra hircus"
-          },
-          "assayType": "RNA-seq of coding RNA",
-          "accession": "ERZ887807",
-          "title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
-          "analysisType": "REFERENCE_ALIGNMENT",
-          "datasetAccession": "PRJEB23196"
-        },
-        "sort": [
-          "ERZ887807"
-        ]
-      }
-    ]
-  },
-  "aggregations": {
-    "standard": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "FAANG",
-          "doc_count": 1849
-        },
-        {
-          "key": "Legacy",
-          "doc_count": 241
-        }
-      ]
-    },
-    "assay_type": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "microRNA profiling by high throughput sequencing",
-          "doc_count": 840
-        },
-        {
-          "key": "RNA-seq of total RNA",
-          "doc_count": 426
-        },
-        {
-          "key": "ChIP-seq",
-          "doc_count": 282
-        },
-        {
-          "key": "",
-          "doc_count": 161
-        },
-        {
-          "key": "methylation profiling by high throughput sequencing",
-          "doc_count": 84
-        },
-        {
-          "key": "RNA-seq of coding RNA",
-          "doc_count": 54
-        },
-        {
-          "key": "ISO-Seq",
-          "doc_count": 2
-        }
-      ]
-    },
-    "species": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "Sus scrofa",
-          "doc_count": 561
-        },
-        {
-          "key": "Ovis aries",
-          "doc_count": 560
-        },
-        {
-          "key": "Gallus gallus",
-          "doc_count": 485
-        },
-        {
-          "key": "Equus caballus",
-          "doc_count": 303
-        },
-        {
-          "key": "Bos taurus",
-          "doc_count": 78
-        },
-        {
-          "key": "Capra hircus",
-          "doc_count": 68
-        },
-        {
-          "key": "",
-          "doc_count": 21
-        },
-        {
-          "key": "Bos indicus x Bos taurus",
-          "doc_count": 5
-        },
-        {
-          "key": "Bos indicus",
-          "doc_count": 3
-        },
-        {
-          "key": "Ovis orientalis",
-          "doc_count": 3
-        },
-        {
-          "key": "Capra aegagrus",
-          "doc_count": 2
-        },
-        {
-          "key": "mixed sample",
-          "doc_count": 1
-        }
-      ]
-    },
-    "analysis_type": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "SEQUENCE_ANNOTATION",
-          "doc_count": 778
-        },
-        {
-          "key": "REFERENCE_ALIGNMENT",
-          "doc_count": 621
-        },
-        {
-          "key": "PROCESSED_READS",
-          "doc_count": 450
-        },
-        {
-          "key": "SEQUENCE_VARIATION",
-          "doc_count": 241
-        }
-      ]
-    },
-    "dataset": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 90,
-      "buckets": [
-        {
-          "key": "PRJEB19199",
-          "doc_count": 426
-        },
-        {
-          "key": "PRJEB42001",
-          "doc_count": 420
-        },
-        {
-          "key": "PRJEB42041",
-          "doc_count": 420
-        },
-        {
-          "key": "PRJEB35307",
-          "doc_count": 200
-        },
-        {
-          "key": "PRJEB41970",
-          "doc_count": 94
-        },
-        {
-          "key": "PRJEB41822",
-          "doc_count": 84
-        },
-        {
-          "key": "PRJEB42315",
-          "doc_count": 82
-        },
-        {
-          "key": "PRJEB34864",
-          "doc_count": 56
-        },
-        {
-          "key": "PRJEB23196",
-          "doc_count": 54
-        },
-        {
-          "key": "PRJEB14684",
-          "doc_count": 28
-        },
-        {
-          "key": "PRJEB14685",
-          "doc_count": 28
-        },
-        {
-          "key": "PRJEB20009",
-          "doc_count": 28
-        },
-        {
-          "key": "PRJEB24763",
-          "doc_count": 24
-        },
-        {
-          "key": "PRJEB42025",
-          "doc_count": 11
-        },
-        {
-          "key": "PRJEB24944",
-          "doc_count": 9
-        },
-        {
-          "key": "PRJEB6057",
-          "doc_count": 9
-        },
-        {
-          "key": "PRJEB6025",
-          "doc_count": 6
-        },
-        {
-          "key": "PRJEB7061",
-          "doc_count": 4
-        },
-        {
-          "key": "PRJEB33023",
-          "doc_count": 3
-        },
-        {
-          "key": "PRJEB33060",
-          "doc_count": 3
-        },
-        {
-          "key": "PRJEB6495",
-          "doc_count": 3
-        },
-        {
-          "key": "PRJEB14878",
-          "doc_count": 2
-        },
-        {
-          "key": "PRJEB14879",
-          "doc_count": 2
-        },
-        {
-          "key": "PRJEB15642",
-          "doc_count": 2
-        },
-        {
-          "key": "PRJEB22189",
-          "doc_count": 2
-        }
-      ]
-    }
-  }
+	"took": 4,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 3201,
+			"relation": "eq"
+		},
+		"max_score": null,
+		"hits": [{
+			"_index": "analysis",
+			"_id": "ERZ990151",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Ovis aries"
+				},
+				"accession": "ERZ990151",
+				"title": "Variants of sheep genetics stucture analysis",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB33111"
+			},
+			"sort": ["ERZ990151"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ990081",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Bos taurus"
+				},
+				"accession": "ERZ990081",
+				"title": "Cattle DNA variation",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB33081"
+			},
+			"sort": ["ERZ990081"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ990077",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Bos taurus"
+				},
+				"accession": "ERZ990077",
+				"title": "PRM1 gene of chromasome 25 of Bos taurus analysis",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB33073"
+			},
+			"sort": ["ERZ990077"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ989928",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Sus scrofa"
+				},
+				"accession": "ERZ989928",
+				"title": "Direct sequencing",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB33060"
+			},
+			"sort": ["ERZ989928"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ989862",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Bos taurus"
+				},
+				"accession": "ERZ989862",
+				"title": "Genotyping in three cattle breeds by SnaPshot_Simmental",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB33023"
+			},
+			"sort": ["ERZ989862"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ989861",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Bos taurus"
+				},
+				"accession": "ERZ989861",
+				"title": "Genotyping in three cattle breeds by SnaPshot_Angus",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB33023"
+			},
+			"sort": ["ERZ989861"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ989860",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Bos taurus"
+				},
+				"accession": "ERZ989860",
+				"title": "Genotyping in three cattle breeds by SnaPshot_Droughtmaster",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB33023"
+			},
+			"sort": ["ERZ989860"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ979030",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Bos indicus x Bos taurus"
+				},
+				"accession": "ERZ979030",
+				"title": "Divesrity and signature selection",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB32975"
+			},
+			"sort": ["ERZ979030"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ939229",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"accession": "ERZ939229",
+				"title": "Sequence analysis of whey protein polymorphisms in Sudanese goat breeds",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB32692"
+			},
+			"sort": ["ERZ939229"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ936110",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Equus caballus"
+				},
+				"accession": "ERZ936110",
+				"title": "Genotyping Japanese Thoroughbred horses",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB32686"
+			},
+			"sort": ["ERZ936110"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ908635",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Ovis aries"
+				},
+				"accession": "ERZ908635",
+				"title": "GWAS Analysis on Florida native sheep",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB32462"
+			},
+			"sort": ["ERZ908635"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ888875",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"accession": "ERZ888875",
+				"title": "GWAS Analysis on goats",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB32312"
+			},
+			"sort": ["ERZ888875"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ888783",
+			"_score": null,
+			"_source": {
+				"standardMet": "Legacy",
+				"organism": {
+					"text": "Ovis aries"
+				},
+				"accession": "ERZ888783",
+				"title": "GWAS Analysis on sheep",
+				"analysisType": "SEQUENCE_VARIATION",
+				"datasetAccession": "PRJEB32310"
+			},
+			"sort": ["ERZ888783"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887818",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887818",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887818"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887817",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887817",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887817"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887816",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887816",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887816"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887815",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887815",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887815"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887814",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887814",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887814"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887813",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887813",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887813"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887812",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887812",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887812"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887811",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887811",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887811"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887810",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887810",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887810"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887809",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887809",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887809"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887808",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887808",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887808"]
+		}, {
+			"_index": "analysis",
+			"_id": "ERZ887807",
+			"_score": null,
+			"_source": {
+				"standardMet": "FAANG",
+				"organism": {
+					"text": "Capra hircus"
+				},
+				"assayType": "RNA-seq of coding RNA",
+				"accession": "ERZ887807",
+				"title": "\"Goat Gene Expression Atlas Mapped Alignments\"",
+				"analysisType": "REFERENCE_ALIGNMENT",
+				"datasetAccession": "PRJEB23196"
+			},
+			"sort": ["ERZ887807"]
+		}]
+	},
+	"aggregations": {
+		"standard": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "FAANG",
+				"doc_count": 2960
+			}, {
+				"key": "Legacy",
+				"doc_count": 241
+			}]
+		},
+		"assay_type": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "microRNA profiling by high throughput sequencing",
+				"doc_count": 840
+			}, {
+				"key": "ATAC-seq",
+				"doc_count": 545
+			}, {
+				"key": "RNA-seq of total RNA",
+				"doc_count": 426
+			}, {
+				"key": "",
+				"doc_count": 328
+			}, {
+				"key": "ChIP-seq",
+				"doc_count": 282
+			}, {
+				"key": "RNA-seq of coding RNA",
+				"doc_count": 232
+			}, {
+				"key": "ISO-Seq",
+				"doc_count": 223
+			}, {
+				"key": "methylation profiling by high throughput sequencing",
+				"doc_count": 84
+			}]
+		},
+		"species": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "Sus scrofa",
+				"doc_count": 1157
+			}, {
+				"key": "Gallus gallus",
+				"doc_count": 1000
+			}, {
+				"key": "Ovis aries",
+				"doc_count": 560
+			}, {
+				"key": "Equus caballus",
+				"doc_count": 303
+			}, {
+				"key": "Bos taurus",
+				"doc_count": 78
+			}, {
+				"key": "Capra hircus",
+				"doc_count": 68
+			}, {
+				"key": "",
+				"doc_count": 21
+			}, {
+				"key": "Bos indicus x Bos taurus",
+				"doc_count": 5
+			}, {
+				"key": "Bos indicus",
+				"doc_count": 3
+			}, {
+				"key": "Ovis orientalis",
+				"doc_count": 3
+			}, {
+				"key": "Capra aegagrus",
+				"doc_count": 2
+			}, {
+				"key": "mixed sample",
+				"doc_count": 1
+			}]
+		},
+		"analysis_type": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "SEQUENCE_ANNOTATION",
+				"doc_count": 1150
+			}, {
+				"key": "PROCESSED_READS",
+				"doc_count": 1106
+			}, {
+				"key": "REFERENCE_ALIGNMENT",
+				"doc_count": 704
+			}, {
+				"key": "SEQUENCE_VARIATION",
+				"doc_count": 241
+			}]
+		},
+		"project": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "GENE-SWitCH",
+				"doc_count": 1870
+			}, {
+				"key": "",
+				"doc_count": 1090
+			}]
+		},
+		"dataset": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 109,
+			"buckets": [{
+				"key": "PRJEB19199",
+				"doc_count": 426
+			}, {
+				"key": "PRJEB42001",
+				"doc_count": 420
+			}, {
+				"key": "PRJEB42041",
+				"doc_count": 420
+			}, {
+				"key": "PRJEB53440",
+				"doc_count": 333
+			}, {
+				"key": "PRJEB35307",
+				"doc_count": 200
+			}, {
+				"key": "PRJEB48060",
+				"doc_count": 197
+			}, {
+				"key": "PRJEB41970",
+				"doc_count": 183
+			}, {
+				"key": "PRJEB42025",
+				"doc_count": 183
+			}, {
+				"key": "PRJEB41822",
+				"doc_count": 106
+			}, {
+				"key": "PRJEB44468",
+				"doc_count": 106
+			}, {
+				"key": "PRJEB45945",
+				"doc_count": 106
+			}, {
+				"key": "PRJEB42315",
+				"doc_count": 82
+			}, {
+				"key": "PRJEB34864",
+				"doc_count": 56
+			}, {
+				"key": "PRJEB23196",
+				"doc_count": 54
+			}, {
+				"key": "PRJEB14684",
+				"doc_count": 28
+			}, {
+				"key": "PRJEB14685",
+				"doc_count": 28
+			}, {
+				"key": "PRJEB20009",
+				"doc_count": 28
+			}, {
+				"key": "PRJEB50963",
+				"doc_count": 26
+			}, {
+				"key": "PRJEB24763",
+				"doc_count": 24
+			}, {
+				"key": "PRJEB41829",
+				"doc_count": 21
+			}, {
+				"key": "PRJEB42775",
+				"doc_count": 21
+			}, {
+				"key": "PRJEB42772",
+				"doc_count": 20
+			}, {
+				"key": "PRJEB24944",
+				"doc_count": 9
+			}, {
+				"key": "PRJEB6057",
+				"doc_count": 9
+			}, {
+				"key": "PRJEB6025",
+				"doc_count": 6
+			}]
+		}
+	}
 }

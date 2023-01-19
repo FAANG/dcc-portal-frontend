@@ -1,1241 +1,1041 @@
 {
-  "took": 27,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 73649,
-      "relation": "eq"
-    },
-    "max_score": null,
-    "hits": [
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728909",
-        "_score": null,
-        "_source": {
-          "id_number": "104728909",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "esophagus"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728909"
-        },
-        "sort": [
-          104728909
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728908",
-        "_score": null,
-        "_source": {
-          "id_number": "104728908",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "sesamoid bone"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728908",
-          "paperPublished": "true"
-        },
-        "sort": [
-          104728908
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728907",
-        "_score": null,
-        "_source": {
-          "id_number": "104728907",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "lower back skin"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728907"
-        },
-        "sort": [
-          104728907
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728906",
-        "_score": null,
-        "_source": {
-          "id_number": "104728906",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "synovial fluid"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728906"
-        },
-        "sort": [
-          104728906
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728905",
-        "_score": null,
-        "_source": {
-          "id_number": "104728905",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "yellow bone marrow"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728905"
-        },
-        "sort": [
-          104728905
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728904",
-        "_score": null,
-        "_source": {
-          "id_number": "104728904",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "suspensory ligament"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728904"
-        },
-        "sort": [
-          104728904
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728903",
-        "_score": null,
-        "_source": {
-          "id_number": "104728903",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "frontal cortex"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728903",
-          "paperPublished": "true"
-        },
-        "sort": [
-          104728903
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728902",
-        "_score": null,
-        "_source": {
-          "id_number": "104728902",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "dorsal plus ventral thalamus"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728902"
-        },
-        "sort": [
-          104728902
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728901",
-        "_score": null,
-        "_source": {
-          "id_number": "104728901",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "left lung"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728901",
-          "paperPublished": "true"
-        },
-        "sort": [
-          104728901
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728900",
-        "_score": null,
-        "_source": {
-          "id_number": "104728900",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "aortic valve"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728900"
-        },
-        "sort": [
-          104728900
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728899",
-        "_score": null,
-        "_source": {
-          "id_number": "104728899",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "dorsal root ganglion"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728899",
-          "paperPublished": "true"
-        },
-        "sort": [
-          104728899
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728898",
-        "_score": null,
-        "_source": {
-          "id_number": "104728898",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "articular cartilage of joint"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728898"
-        },
-        "sort": [
-          104728898
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728897",
-        "_score": null,
-        "_source": {
-          "id_number": "104728897",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "articular cartilage of joint"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728897"
-        },
-        "sort": [
-          104728897
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728896",
-        "_score": null,
-        "_source": {
-          "id_number": "104728896",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "gluteal muscle"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728896",
-          "paperPublished": "true"
-        },
-        "sort": [
-          104728896
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728895",
-        "_score": null,
-        "_source": {
-          "id_number": "104728895",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "cerebellar hemisphere"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728895",
-          "paperPublished": "true"
-        },
-        "sort": [
-          104728895
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728894",
-        "_score": null,
-        "_source": {
-          "id_number": "104728894",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "thyroid gland"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728894"
-        },
-        "sort": [
-          104728894
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728893",
-        "_score": null,
-        "_source": {
-          "id_number": "104728893",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "crico-arytenoid muscle"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728893",
-          "paperPublished": "true"
-        },
-        "sort": [
-          104728893
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728892",
-        "_score": null,
-        "_source": {
-          "id_number": "104728892",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "caecum"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728892"
-        },
-        "sort": [
-          104728892
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728891",
-        "_score": null,
-        "_source": {
-          "id_number": "104728891",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "parietal cortex"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728891",
-          "paperPublished": "true"
-        },
-        "sort": [
-          104728891
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728890",
-        "_score": null,
-        "_source": {
-          "id_number": "104728890",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "left uterine tube"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728890"
-        },
-        "sort": [
-          104728890
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728889",
-        "_score": null,
-        "_source": {
-          "id_number": "104728889",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "pulmonary valve"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728889"
-        },
-        "sort": [
-          104728889
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728888",
-        "_score": null,
-        "_source": {
-          "id_number": "104728888",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "flexor tendon"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728888"
-        },
-        "sort": [
-          104728888
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728887",
-        "_score": null,
-        "_source": {
-          "id_number": "104728887",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "red bone marrow"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728887"
-        },
-        "sort": [
-          104728887
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728886",
-        "_score": null,
-        "_source": {
-          "id_number": "104728886",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "pons"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728886"
-        },
-        "sort": [
-          104728886
-        ]
-      },
-      {
-        "_index": "specimen",
-        "_type": "_doc",
-        "_id": "SAMEA104728885",
-        "_score": null,
-        "_source": {
-          "id_number": "104728885",
-          "standardMet": "FAANG",
-          "cellType": {
-            "text": "synovial fluid"
-          },
-          "organism": {
-            "organism": {
-              "text": "Equus caballus"
-            },
-            "sex": {
-              "text": "female"
-            },
-            "breed": {
-              "text": "Thoroughbred"
-            }
-          },
-          "material": {
-            "text": "specimen from organism"
-          },
-          "biosampleId": "SAMEA104728885"
-        },
-        "sort": [
-          104728885
-        ]
-      }
-    ]
-  },
-  "aggregations": {
-    "standard": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "Legacy (basic)",
-          "doc_count": 59329
-        },
-        {
-          "key": "FAANG",
-          "doc_count": 14247
-        },
-        {
-          "key": "Legacy",
-          "doc_count": 73
-        }
-      ]
-    },
-    "paper_published": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "true",
-          "doc_count": 43206
-        }
-      ]
-    },
-    "material": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "specimen from organism",
-          "doc_count": 72639
-        },
-        {
-          "key": "pool of specimens",
-          "doc_count": 448
-        },
-        {
-          "key": "cell specimen",
-          "doc_count": 405
-        },
-        {
-          "key": "cell culture",
-          "doc_count": 155
-        },
-        {
-          "key": "cell line",
-          "doc_count": 2
-        }
-      ]
-    },
-    "organism": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "Bos taurus",
-          "doc_count": 22007
-        },
-        {
-          "key": "Sus scrofa",
-          "doc_count": 17926
-        },
-        {
-          "key": "Gallus gallus",
-          "doc_count": 14041
-        },
-        {
-          "key": "Ovis aries",
-          "doc_count": 8350
-        },
-        {
-          "key": "Capra hircus",
-          "doc_count": 4903
-        },
-        {
-          "key": "Equus caballus",
-          "doc_count": 3966
-        },
-        {
-          "key": "Bubalus bubalis",
-          "doc_count": 954
-        },
-        {
-          "key": "Bos indicus",
-          "doc_count": 347
-        },
-        {
-          "key": "Salmo salar",
-          "doc_count": 253
-        },
-        {
-          "key": "Scophthalmus maximus",
-          "doc_count": 233
-        },
-        {
-          "key": "Dicentrarchus labrax",
-          "doc_count": 219
-        },
-        {
-          "key": "Cyprinus carpio carpio",
-          "doc_count": 215
-        },
-        {
-          "key": "Oncorhynchus mykiss",
-          "doc_count": 215
-        },
-        {
-          "key": "gallus gallus",
-          "doc_count": 20
-        }
-      ]
-    },
-    "sex": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 65,
-      "buckets": [
-        {
-          "key": "female",
-          "doc_count": 21201
-        },
-        {
-          "key": "male",
-          "doc_count": 17670
-        },
-        {
-          "key": "Female",
-          "doc_count": 1557
-        },
-        {
-          "key": "Male",
-          "doc_count": 1301
-        },
-        {
-          "key": "not determined",
-          "doc_count": 1076
-        },
-        {
-          "key": "F",
-          "doc_count": 429
-        },
-        {
-          "key": "restricted access",
-          "doc_count": 342
-        },
-        {
-          "key": "not collected",
-          "doc_count": 271
-        },
-        {
-          "key": "pooled male and female",
-          "doc_count": 234
-        },
-        {
-          "key": "M",
-          "doc_count": 228
-        },
-        {
-          "key": "missing",
-          "doc_count": 217
-        },
-        {
-          "key": "phenotypic sex",
-          "doc_count": 178
-        },
-        {
-          "key": "neuter",
-          "doc_count": 158
-        },
-        {
-          "key": "not applicable",
-          "doc_count": 136
-        },
-        {
-          "key": "na",
-          "doc_count": 120
-        },
-        {
-          "key": "female genotypic sex",
-          "doc_count": 80
-        },
-        {
-          "key": "not available",
-          "doc_count": 77
-        },
-        {
-          "key": "intact male",
-          "doc_count": 68
-        },
-        {
-          "key": "f",
-          "doc_count": 60
-        },
-        {
-          "key": "mixed",
-          "doc_count": 52
-        },
-        {
-          "key": "male genotypic sex",
-          "doc_count": 49
-        },
-        {
-          "key": "male, female, and mixed",
-          "doc_count": 26
-        },
-        {
-          "key": "intact female",
-          "doc_count": 23
-        },
-        {
-          "key": "male and neuter",
-          "doc_count": 18
-        },
-        {
-          "key": "Missing",
-          "doc_count": 16
-        }
-      ]
-    },
-    "paper_published_missing": {
-      "doc_count": 30443
-    },
-    "organismpart_celltype": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 37202,
-      "buckets": [
-        {
-          "key": "blood",
-          "doc_count": 3241
-        },
-        {
-          "key": "liver",
-          "doc_count": 2467
-        },
-        {
-          "key": "Blood",
-          "doc_count": 1615
-        },
-        {
-          "key": "semen",
-          "doc_count": 1320
-        },
-        {
-          "key": "Liver",
-          "doc_count": 879
-        },
-        {
-          "key": "spleen",
-          "doc_count": 817
-        },
-        {
-          "key": "ear tissue",
-          "doc_count": 797
-        },
-        {
-          "key": "morula",
-          "doc_count": 643
-        },
-        {
-          "key": "muscle",
-          "doc_count": 619
-        },
-        {
-          "key": "Peripheral blood mononuclear cells (PBMCs)",
-          "doc_count": 561
-        },
-        {
-          "key": "Mammary gland",
-          "doc_count": 541
-        },
-        {
-          "key": "ileum",
-          "doc_count": 541
-        },
-        {
-          "key": "ear",
-          "doc_count": 525
-        },
-        {
-          "key": "embryo",
-          "doc_count": 525
-        },
-        {
-          "key": "jejunum",
-          "doc_count": 504
-        },
-        {
-          "key": "lung",
-          "doc_count": 501
-        },
-        {
-          "key": "heart",
-          "doc_count": 475
-        },
-        {
-          "key": "ceca",
-          "doc_count": 466
-        },
-        {
-          "key": "duodenum",
-          "doc_count": 466
-        },
-        {
-          "key": "Ear tissue",
-          "doc_count": 459
-        },
-        {
-          "key": "testis",
-          "doc_count": 457
-        },
-        {
-          "key": "Not Applicable",
-          "doc_count": 448
-        },
-        {
-          "key": "ovary",
-          "doc_count": 426
-        },
-        {
-          "key": "blood from the left jugular vein",
-          "doc_count": 423
-        },
-        {
-          "key": "mammary",
-          "doc_count": 420
-        }
-      ]
-    },
-    "breed": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 24686,
-      "buckets": [
-        {
-          "key": "Holstein",
-          "doc_count": 3722
-        },
-        {
-          "key": "Large White",
-          "doc_count": 2335
-        },
-        {
-          "key": "not applicable",
-          "doc_count": 2217
-        },
-        {
-          "key": "Texel sire x Scottish Blackface dam",
-          "doc_count": 2210
-        },
-        {
-          "key": "White Leghorn",
-          "doc_count": 1214
-        },
-        {
-          "key": "Alpine",
-          "doc_count": 1210
-        },
-        {
-          "key": "Holstein Friesian",
-          "doc_count": 1044
-        },
-        {
-          "key": "TN70",
-          "doc_count": 990
-        },
-        {
-          "key": "Angus",
-          "doc_count": 900
-        },
-        {
-          "key": "Warmblood",
-          "doc_count": 742
-        },
-        {
-          "key": "Holstein-Friesian",
-          "doc_count": 647
-        },
-        {
-          "key": "Large white",
-          "doc_count": 625
-        },
-        {
-          "key": "Friesian",
-          "doc_count": 621
-        },
-        {
-          "key": "Hereford",
-          "doc_count": 568
-        },
-        {
-          "key": "Duroc",
-          "doc_count": 497
-        },
-        {
-          "key": "Friesian,JerseyCross",
-          "doc_count": 471
-        },
-        {
-          "key": "Jersey",
-          "doc_count": 470
-        },
-        {
-          "key": "Kiwicross",
-          "doc_count": 456
-        },
-        {
-          "key": "TN60",
-          "doc_count": 450
-        },
-        {
-          "key": "Chicken crossbreed",
-          "doc_count": 440
-        },
-        {
-          "key": "Thoroughbred",
-          "doc_count": 437
-        },
-        {
-          "key": "Inner Mongolia cashemre goat",
-          "doc_count": 423
-        },
-        {
-          "key": "Mediterranean",
-          "doc_count": 412
-        },
-        {
-          "key": "Yorkshire",
-          "doc_count": 402
-        },
-        {
-          "key": "Pandharpuri",
-          "doc_count": 401
-        }
-      ]
-    }
-  }
+	"took": 42,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 75837,
+			"relation": "eq"
+		},
+		"max_score": null,
+		"hits": [{
+			"_index": "specimen",
+			"_id": "SAMEA112127304",
+			"_score": null,
+			"_source": {
+				"id_number": "112127304",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127304"
+			},
+			"sort": [112127304]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127303",
+			"_score": null,
+			"_source": {
+				"id_number": "112127303",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127303"
+			},
+			"sort": [112127303]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127302",
+			"_score": null,
+			"_source": {
+				"id_number": "112127302",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127302"
+			},
+			"sort": [112127302]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127301",
+			"_score": null,
+			"_source": {
+				"id_number": "112127301",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127301"
+			},
+			"sort": [112127301]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127300",
+			"_score": null,
+			"_source": {
+				"id_number": "112127300",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127300"
+			},
+			"sort": [112127300]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127299",
+			"_score": null,
+			"_source": {
+				"id_number": "112127299",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127299"
+			},
+			"sort": [112127299]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127298",
+			"_score": null,
+			"_source": {
+				"id_number": "112127298",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127298"
+			},
+			"sort": [112127298]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127297",
+			"_score": null,
+			"_source": {
+				"id_number": "112127297",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127297"
+			},
+			"sort": [112127297]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127296",
+			"_score": null,
+			"_source": {
+				"id_number": "112127296",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127296"
+			},
+			"sort": [112127296]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127295",
+			"_score": null,
+			"_source": {
+				"id_number": "112127295",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127295"
+			},
+			"sort": [112127295]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127294",
+			"_score": null,
+			"_source": {
+				"id_number": "112127294",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127294"
+			},
+			"sort": [112127294]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127293",
+			"_score": null,
+			"_source": {
+				"id_number": "112127293",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127293"
+			},
+			"sort": [112127293]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127292",
+			"_score": null,
+			"_source": {
+				"id_number": "112127292",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127292"
+			},
+			"sort": [112127292]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127291",
+			"_score": null,
+			"_source": {
+				"id_number": "112127291",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127291"
+			},
+			"sort": [112127291]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127290",
+			"_score": null,
+			"_source": {
+				"id_number": "112127290",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127290"
+			},
+			"sort": [112127290]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127289",
+			"_score": null,
+			"_source": {
+				"id_number": "112127289",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127289"
+			},
+			"sort": [112127289]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127288",
+			"_score": null,
+			"_source": {
+				"id_number": "112127288",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127288"
+			},
+			"sort": [112127288]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127287",
+			"_score": null,
+			"_source": {
+				"id_number": "112127287",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127287"
+			},
+			"sort": [112127287]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127286",
+			"_score": null,
+			"_source": {
+				"id_number": "112127286",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127286"
+			},
+			"sort": [112127286]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127285",
+			"_score": null,
+			"_source": {
+				"id_number": "112127285",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127285"
+			},
+			"sort": [112127285]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127284",
+			"_score": null,
+			"_source": {
+				"id_number": "112127284",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127284"
+			},
+			"sort": [112127284]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127283",
+			"_score": null,
+			"_source": {
+				"id_number": "112127283",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127283"
+			},
+			"sort": [112127283]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127282",
+			"_score": null,
+			"_source": {
+				"id_number": "112127282",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127282"
+			},
+			"sort": [112127282]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127281",
+			"_score": null,
+			"_source": {
+				"id_number": "112127281",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127281"
+			},
+			"sort": [112127281]
+		}, {
+			"_index": "specimen",
+			"_id": "SAMEA112127280",
+			"_score": null,
+			"_source": {
+				"id_number": "112127280",
+				"standardMet": "FAANG",
+				"cellType": {
+					"text": "head kidney"
+				},
+				"organism": {
+					"organism": {
+						"text": "Oncorhynchus mykiss"
+					},
+					"sex": {
+						"text": "female"
+					},
+					"breed": {
+						"text": null
+					}
+				},
+				"material": {
+					"text": "specimen from organism"
+				},
+				"biosampleId": "SAMEA112127280"
+			},
+			"sort": [112127280]
+		}]
+	},
+	"aggregations": {
+		"standard": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "Legacy (basic)",
+				"doc_count": 59329
+			}, {
+				"key": "FAANG",
+				"doc_count": 16435
+			}, {
+				"key": "Legacy",
+				"doc_count": 73
+			}]
+		},
+		"paper_published": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "true",
+				"doc_count": 43206
+			}]
+		},
+		"material": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "specimen from organism",
+				"doc_count": 74653
+			}, {
+				"key": "pool of specimens",
+				"doc_count": 594
+			}, {
+				"key": "cell specimen",
+				"doc_count": 433
+			}, {
+				"key": "cell culture",
+				"doc_count": 155
+			}, {
+				"key": "cell line",
+				"doc_count": 2
+			}]
+		},
+		"organism": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "Bos taurus",
+				"doc_count": 22008
+			}, {
+				"key": "Sus scrofa",
+				"doc_count": 19585
+			}, {
+				"key": "Gallus gallus",
+				"doc_count": 14364
+			}, {
+				"key": "Ovis aries",
+				"doc_count": 8350
+			}, {
+				"key": "Capra hircus",
+				"doc_count": 4903
+			}, {
+				"key": "Equus caballus",
+				"doc_count": 3971
+			}, {
+				"key": "Bubalus bubalis",
+				"doc_count": 954
+			}, {
+				"key": "Oncorhynchus mykiss",
+				"doc_count": 378
+			}, {
+				"key": "Bos indicus",
+				"doc_count": 347
+			}, {
+				"key": "Salmo salar",
+				"doc_count": 253
+			}, {
+				"key": "Scophthalmus maximus",
+				"doc_count": 250
+			}, {
+				"key": "Cyprinus carpio carpio",
+				"doc_count": 235
+			}, {
+				"key": "Dicentrarchus labrax",
+				"doc_count": 219
+			}, {
+				"key": "gallus gallus",
+				"doc_count": 20
+			}]
+		},
+		"sex": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 65,
+			"buckets": [{
+				"key": "female",
+				"doc_count": 21893
+			}, {
+				"key": "male",
+				"doc_count": 18634
+			}, {
+				"key": "Female",
+				"doc_count": 1895
+			}, {
+				"key": "Male",
+				"doc_count": 1414
+			}, {
+				"key": "not determined",
+				"doc_count": 1076
+			}, {
+				"key": "F",
+				"doc_count": 429
+			}, {
+				"key": "restricted access",
+				"doc_count": 377
+			}, {
+				"key": "not collected",
+				"doc_count": 271
+			}, {
+				"key": "pooled male and female",
+				"doc_count": 234
+			}, {
+				"key": "M",
+				"doc_count": 228
+			}, {
+				"key": "missing",
+				"doc_count": 217
+			}, {
+				"key": "phenotypic sex",
+				"doc_count": 210
+			}, {
+				"key": "neuter",
+				"doc_count": 158
+			}, {
+				"key": "not applicable",
+				"doc_count": 136
+			}, {
+				"key": "na",
+				"doc_count": 120
+			}, {
+				"key": "female genotypic sex",
+				"doc_count": 80
+			}, {
+				"key": "intact male",
+				"doc_count": 78
+			}, {
+				"key": "not available",
+				"doc_count": 77
+			}, {
+				"key": "f",
+				"doc_count": 60
+			}, {
+				"key": "mixed",
+				"doc_count": 52
+			}, {
+				"key": "male genotypic sex",
+				"doc_count": 49
+			}, {
+				"key": "male, female, and mixed",
+				"doc_count": 26
+			}, {
+				"key": "intact female",
+				"doc_count": 23
+			}, {
+				"key": "male and neuter",
+				"doc_count": 18
+			}, {
+				"key": "Missing",
+				"doc_count": 16
+			}]
+		},
+		"project": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "GENE-SWitCH",
+				"doc_count": 3999
+			}, {
+				"key": "AQUA-FAANG",
+				"doc_count": 1335
+			}, {
+				"key": "BovReg",
+				"doc_count": 196
+			}]
+		},
+		"paper_published_missing": {
+			"doc_count": 32631
+		},
+		"organismpart_celltype": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 38554,
+			"buckets": [{
+				"key": "blood",
+				"doc_count": 3245
+			}, {
+				"key": "liver",
+				"doc_count": 2516
+			}, {
+				"key": "Blood",
+				"doc_count": 1815
+			}, {
+				"key": "semen",
+				"doc_count": 1320
+			}, {
+				"key": "Liver",
+				"doc_count": 1279
+			}, {
+				"key": "spleen",
+				"doc_count": 817
+			}, {
+				"key": "ear tissue",
+				"doc_count": 797
+			}, {
+				"key": "morula",
+				"doc_count": 643
+			}, {
+				"key": "muscle",
+				"doc_count": 619
+			}, {
+				"key": "Not Applicable",
+				"doc_count": 594
+			}, {
+				"key": "Peripheral blood mononuclear cells (PBMCs)",
+				"doc_count": 561
+			}, {
+				"key": "Mammary gland",
+				"doc_count": 541
+			}, {
+				"key": "ileum",
+				"doc_count": 541
+			}, {
+				"key": "lung",
+				"doc_count": 532
+			}, {
+				"key": "embryo",
+				"doc_count": 531
+			}, {
+				"key": "ear",
+				"doc_count": 525
+			}, {
+				"key": "jejunum",
+				"doc_count": 504
+			}, {
+				"key": "heart",
+				"doc_count": 475
+			}, {
+				"key": "ceca",
+				"doc_count": 466
+			}, {
+				"key": "duodenum",
+				"doc_count": 466
+			}, {
+				"key": "Ear tissue",
+				"doc_count": 459
+			}, {
+				"key": "testis",
+				"doc_count": 457
+			}, {
+				"key": "ovary",
+				"doc_count": 426
+			}, {
+				"key": "blood from the left jugular vein",
+				"doc_count": 423
+			}, {
+				"key": "mammary",
+				"doc_count": 420
+			}]
+		},
+		"breed": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 25011,
+			"buckets": [{
+				"key": "Holstein",
+				"doc_count": 3723
+			}, {
+				"key": "Large White",
+				"doc_count": 2938
+			}, {
+				"key": "not applicable",
+				"doc_count": 2350
+			}, {
+				"key": "Texel sire x Scottish Blackface dam",
+				"doc_count": 2210
+			}, {
+				"key": "White Leghorn",
+				"doc_count": 1216
+			}, {
+				"key": "Alpine",
+				"doc_count": 1210
+			}, {
+				"key": "Holstein Friesian",
+				"doc_count": 1044
+			}, {
+				"key": "TN70",
+				"doc_count": 990
+			}, {
+				"key": "Angus",
+				"doc_count": 900
+			}, {
+				"key": "Duroc",
+				"doc_count": 897
+			}, {
+				"key": "Landrace",
+				"doc_count": 765
+			}, {
+				"key": "Chicken crossbreed",
+				"doc_count": 758
+			}, {
+				"key": "Warmblood",
+				"doc_count": 742
+			}, {
+				"key": "Holstein-Friesian",
+				"doc_count": 647
+			}, {
+				"key": "Large white",
+				"doc_count": 626
+			}, {
+				"key": "Friesian",
+				"doc_count": 621
+			}, {
+				"key": "Hereford",
+				"doc_count": 568
+			}, {
+				"key": "Friesian,JerseyCross",
+				"doc_count": 471
+			}, {
+				"key": "Jersey",
+				"doc_count": 470
+			}, {
+				"key": "Kiwicross",
+				"doc_count": 456
+			}, {
+				"key": "TN60",
+				"doc_count": 450
+			}, {
+				"key": "Thoroughbred",
+				"doc_count": 442
+			}, {
+				"key": "Inner Mongolia cashemre goat",
+				"doc_count": 423
+			}, {
+				"key": "Mediterranean",
+				"doc_count": 412
+			}, {
+				"key": "Yorkshire",
+				"doc_count": 402
+			}]
+		}
+	}
 }

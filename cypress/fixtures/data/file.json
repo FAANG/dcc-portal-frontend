@@ -1,1126 +1,945 @@
 {
-  "took": 58,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 174950,
-      "relation": "eq"
-    },
-    "max_score": null,
-    "hits": [
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999281_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357350",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361031",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999281_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999281_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357350",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361031",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999281_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999280_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357349",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361031",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999280_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999280_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357349",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361031",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999280_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999279_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357348",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361030",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999279_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999279_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357348",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361030",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999279_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999278_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357347",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361030",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999278_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999278_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357347",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361030",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999278_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999277_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357346",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361029",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999277_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999277_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357346",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361029",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999277_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999276_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357345",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361029",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999276_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR999276_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "SRP030134"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "transcription profiling by high throughput sequencing",
-            "accession": "SRX357345",
-            "target": "Unknown"
-          },
-          "species": {
-            "text": "Bos taurus"
-          },
-          "specimen": "SAMN02361029",
-          "run": {
-            "instrument": "Illumina Genome Analyzer IIx"
-          }
-        },
-        "sort": [
-          "SRR999276_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990336_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729709",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591319",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990336_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990336_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729709",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591319",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990336_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990335_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729710",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591318",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990335_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990335_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729710",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591318",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990335_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990334_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729711",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591313",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990334_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990334_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729711",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591313",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990334_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990333_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729712",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591312",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990333_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990333_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729712",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591312",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990333_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990332_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729713",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591311",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990332_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990332_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729713",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591311",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990332_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990331_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729714",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591310",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990331_2.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990331_1",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729714",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591310",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990331_1.fastq.gz"
-        ]
-      },
-      {
-        "_index": "file",
-        "_type": "_doc",
-        "_id": "SRR9990330_2",
-        "_score": null,
-        "_source": {
-          "study": {
-            "accession": "PRJNA560632"
-          },
-          "experiment": {
-            "standardMet": "Legacy",
-            "assayType": "whole genome sequencing assay",
-            "accession": "SRX6729715",
-            "target": "input DNA"
-          },
-          "species": {
-            "text": "Ovis aries"
-          },
-          "specimen": "SAMN12591317",
-          "run": {
-            "instrument": "Illumina HiSeq 2500"
-          },
-          "paperPublished": "true"
-        },
-        "sort": [
-          "SRR9990330_2.fastq.gz"
-        ]
-      }
-    ]
-  },
-  "aggregations": {
-    "standard": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "Legacy",
-          "doc_count": 147784
-        },
-        {
-          "key": "FAANG",
-          "doc_count": 27166
-        }
-      ]
-    },
-    "assay_type": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "transcription profiling by high throughput sequencing",
-          "doc_count": 92851
-        },
-        {
-          "key": "whole genome sequencing assay",
-          "doc_count": 57283
-        },
-        {
-          "key": "microRNA profiling by high throughput sequencing",
-          "doc_count": 5397
-        },
-        {
-          "key": "RNA-seq of coding RNA",
-          "doc_count": 3961
-        },
-        {
-          "key": "ChIP-seq",
-          "doc_count": 3592
-        },
-        {
-          "key": "methylation profiling by high throughput sequencing",
-          "doc_count": 3399
-        },
-        {
-          "key": "Hi-C",
-          "doc_count": 2627
-        },
-        {
-          "key": "ATAC-seq",
-          "doc_count": 2180
-        },
-        {
-          "key": "",
-          "doc_count": 1834
-        },
-        {
-          "key": "RNA-seq of total RNA",
-          "doc_count": 1485
-        },
-        {
-          "key": "ISO-Seq",
-          "doc_count": 124
-        },
-        {
-          "key": "CAGE-seq",
-          "doc_count": 79
-        },
-        {
-          "key": "RNA-seq of non coding RNA",
-          "doc_count": 68
-        },
-        {
-          "key": "ChIP-Seq",
-          "doc_count": 40
-        },
-        {
-          "key": "DNase-Hypersensitivity seq",
-          "doc_count": 30
-        }
-      ]
-    },
-    "paper_published": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "true",
-          "doc_count": 127780
-        }
-      ]
-    },
-    "species": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "Bos taurus",
-          "doc_count": 58057
-        },
-        {
-          "key": "Gallus gallus",
-          "doc_count": 37186
-        },
-        {
-          "key": "Sus scrofa",
-          "doc_count": 31246
-        },
-        {
-          "key": "Ovis aries",
-          "doc_count": 22838
-        },
-        {
-          "key": "Capra hircus",
-          "doc_count": 9675
-        },
-        {
-          "key": "Equus caballus",
-          "doc_count": 9644
-        },
-        {
-          "key": "Bubalus bubalis",
-          "doc_count": 4905
-        },
-        {
-          "key": "Bos indicus",
-          "doc_count": 577
-        },
-        {
-          "key": "Scophthalmus maximus",
-          "doc_count": 538
-        },
-        {
-          "key": "Salmo salar",
-          "doc_count": 284
-        }
-      ]
-    },
-    "paper_published_missing": {
-      "doc_count": 47170
-    },
-    "assayType": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "transcription profiling by high throughput sequencing",
-          "doc_count": 92851
-        },
-        {
-          "key": "whole genome sequencing assay",
-          "doc_count": 57283
-        },
-        {
-          "key": "microRNA profiling by high throughput sequencing",
-          "doc_count": 5397
-        },
-        {
-          "key": "RNA-seq of coding RNA",
-          "doc_count": 3961
-        },
-        {
-          "key": "ChIP-seq",
-          "doc_count": 3592
-        },
-        {
-          "key": "methylation profiling by high throughput sequencing",
-          "doc_count": 3399
-        },
-        {
-          "key": "Hi-C",
-          "doc_count": 2627
-        },
-        {
-          "key": "ATAC-seq",
-          "doc_count": 2180
-        },
-        {
-          "key": "",
-          "doc_count": 1834
-        },
-        {
-          "key": "RNA-seq of total RNA",
-          "doc_count": 1485
-        },
-        {
-          "key": "ISO-Seq",
-          "doc_count": 124
-        },
-        {
-          "key": "CAGE-seq",
-          "doc_count": 79
-        },
-        {
-          "key": "RNA-seq of non coding RNA",
-          "doc_count": 68
-        },
-        {
-          "key": "ChIP-Seq",
-          "doc_count": 40
-        },
-        {
-          "key": "DNase-Hypersensitivity seq",
-          "doc_count": 30
-        }
-      ]
-    },
-    "instrument": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 701,
-      "buckets": [
-        {
-          "key": "Illumina HiSeq 2000",
-          "doc_count": 48211
-        },
-        {
-          "key": "Illumina HiSeq 2500",
-          "doc_count": 46520
-        },
-        {
-          "key": "Illumina HiSeq 3000",
-          "doc_count": 15724
-        },
-        {
-          "key": "Illumina HiSeq 4000",
-          "doc_count": 11549
-        },
-        {
-          "key": "Illumina NovaSeq 6000",
-          "doc_count": 11539
-        },
-        {
-          "key": "HiSeq X Ten",
-          "doc_count": 11469
-        },
-        {
-          "key": "NextSeq 500",
-          "doc_count": 11133
-        },
-        {
-          "key": "Illumina MiSeq",
-          "doc_count": 3703
-        },
-        {
-          "key": "NextSeq 550",
-          "doc_count": 3281
-        },
-        {
-          "key": "Illumina Genome Analyzer IIx",
-          "doc_count": 1830
-        },
-        {
-          "key": "PacBio RS II",
-          "doc_count": 1808
-        },
-        {
-          "key": "Illumina Genome Analyzer II",
-          "doc_count": 1691
-        },
-        {
-          "key": "Illumina HiSeq 1500",
-          "doc_count": 1334
-        },
-        {
-          "key": "Illumina HiScanSQ",
-          "doc_count": 1037
-        },
-        {
-          "key": "BGISEQ-500",
-          "doc_count": 696
-        },
-        {
-          "key": "Illumina Genome Analyzer",
-          "doc_count": 417
-        },
-        {
-          "key": "AB 310 Genetic Analyzer",
-          "doc_count": 378
-        },
-        {
-          "key": "AB 5500xl Genetic Analyzer",
-          "doc_count": 349
-        },
-        {
-          "key": "AB 5500 Genetic Analyzer",
-          "doc_count": 310
-        },
-        {
-          "key": "Illumina HiSeq 1000",
-          "doc_count": 271
-        },
-        {
-          "key": "454 GS FLX Titanium",
-          "doc_count": 222
-        },
-        {
-          "key": "Ion Torrent Proton",
-          "doc_count": 201
-        },
-        {
-          "key": "PacBio RS",
-          "doc_count": 201
-        },
-        {
-          "key": "PromethION",
-          "doc_count": 192
-        },
-        {
-          "key": "Sequel",
-          "doc_count": 183
-        }
-      ]
-    },
-    "target": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "Unknown",
-          "doc_count": 84914
-        },
-        {
-          "key": "input DNA",
-          "doc_count": 57795
-        },
-        {
-          "key": "polyA RNA",
-          "doc_count": 9193
-        },
-        {
-          "key": "total RNA",
-          "doc_count": 6142
-        },
-        {
-          "key": "RNA",
-          "doc_count": 4952
-        },
-        {
-          "key": "DNA methylation",
-          "doc_count": 3399
-        },
-        {
-          "key": "chromatin",
-          "doc_count": 2627
-        },
-        {
-          "key": "open_chromatin_region",
-          "doc_count": 2210
-        },
-        {
-          "key": "",
-          "doc_count": 1834
-        },
-        {
-          "key": "CTCF",
-          "doc_count": 232
-        },
-        {
-          "key": "polya rna",
-          "doc_count": 212
-        },
-        {
-          "key": "H3K27Ac",
-          "doc_count": 207
-        },
-        {
-          "key": "H3K4Me1",
-          "doc_count": 205
-        },
-        {
-          "key": "H3K4Me3",
-          "doc_count": 195
-        },
-        {
-          "key": "H3K27Me3",
-          "doc_count": 185
-        },
-        {
-          "key": "rna",
-          "doc_count": 156
-        },
-        {
-          "key": "messenger RNA",
-          "doc_count": 137
-        },
-        {
-          "key": "TSS",
-          "doc_count": 79
-        },
-        {
-          "key": "PolyA RNA",
-          "doc_count": 52
-        },
-        {
-          "key": "H3K27me3",
-          "doc_count": 50
-        },
-        {
-          "key": "H3K4me3",
-          "doc_count": 50
-        },
-        {
-          "key": "Input DNA",
-          "doc_count": 40
-        },
-        {
-          "key": "Histone",
-          "doc_count": 32
-        },
-        {
-          "key": "H3K27ac",
-          "doc_count": 26
-        },
-        {
-          "key": "H3K4me1",
-          "doc_count": 26
-        }
-      ]
-    }
-  }
+	"took": 67,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 198789,
+			"relation": "eq"
+		},
+		"max_score": null,
+		"hits": [{
+			"_index": "file",
+			"_id": "SRR999281_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357350",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361031",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999281_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999281_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357350",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361031",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999281_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999280_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357349",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361031",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999280_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999280_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357349",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361031",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999280_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999279_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357348",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361030",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999279_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999279_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357348",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361030",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999279_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999278_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357347",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361030",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999278_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999278_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357347",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361030",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999278_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999277_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357346",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361029",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999277_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999277_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357346",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361029",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999277_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999276_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357345",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361029",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999276_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR999276_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "SRP030134"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "transcription profiling by high throughput sequencing",
+					"accession": "SRX357345",
+					"target": "Unknown"
+				},
+				"species": {
+					"text": "Bos taurus"
+				},
+				"specimen": "SAMN02361029",
+				"run": {
+					"instrument": "Illumina Genome Analyzer IIx"
+				}
+			},
+			"sort": ["SRR999276_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990336_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729709",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591319",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990336_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990336_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729709",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591319",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990336_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990335_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729710",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591318",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990335_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990335_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729710",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591318",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990335_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990334_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729711",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591313",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990334_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990334_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729711",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591313",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990334_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990333_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729712",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591312",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990333_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990333_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729712",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591312",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990333_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990332_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729713",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591311",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990332_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990332_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729713",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591311",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990332_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990331_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729714",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591310",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990331_2.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990331_1",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729714",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591310",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990331_1.fastq.gz"]
+		}, {
+			"_index": "file",
+			"_id": "SRR9990330_2",
+			"_score": null,
+			"_source": {
+				"study": {
+					"accession": "PRJNA560632"
+				},
+				"experiment": {
+					"standardMet": "Legacy",
+					"assayType": "whole genome sequencing assay",
+					"accession": "SRX6729715",
+					"target": "input DNA"
+				},
+				"species": {
+					"text": "Ovis aries"
+				},
+				"specimen": "SAMN12591317",
+				"run": {
+					"instrument": "Illumina HiSeq 2500"
+				},
+				"paperPublished": "true"
+			},
+			"sort": ["SRR9990330_2.fastq.gz"]
+		}]
+	},
+	"aggregations": {
+		"standard": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "Legacy",
+				"doc_count": 147784
+			}, {
+				"key": "FAANG",
+				"doc_count": 51005
+			}]
+		},
+		"assay_type": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "transcription profiling by high throughput sequencing",
+				"doc_count": 92851
+			}, {
+				"key": "whole genome sequencing assay",
+				"doc_count": 57283
+			}, {
+				"key": "",
+				"doc_count": 25437
+			}, {
+				"key": "microRNA profiling by high throughput sequencing",
+				"doc_count": 5397
+			}, {
+				"key": "RNA-seq of coding RNA",
+				"doc_count": 3975
+			}, {
+				"key": "methylation profiling by high throughput sequencing",
+				"doc_count": 3821
+			}, {
+				"key": "ChIP-seq",
+				"doc_count": 3676
+			}, {
+				"key": "Hi-C",
+				"doc_count": 2631
+			}, {
+				"key": "ATAC-seq",
+				"doc_count": 2180
+			}, {
+				"key": "RNA-seq of total RNA",
+				"doc_count": 1321
+			}, {
+				"key": "CAGE-seq",
+				"doc_count": 79
+			}, {
+				"key": "RNA-seq of non coding RNA",
+				"doc_count": 68
+			}, {
+				"key": "ChIP-Seq",
+				"doc_count": 40
+			}, {
+				"key": "DNase-Hypersensitivity seq",
+				"doc_count": 30
+			}]
+		},
+		"paper_published": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "true",
+				"doc_count": 127780
+			}]
+		},
+		"species": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "Bos taurus",
+				"doc_count": 58689
+			}, {
+				"key": "Sus scrofa",
+				"doc_count": 49966
+			}, {
+				"key": "Gallus gallus",
+				"doc_count": 37225
+			}, {
+				"key": "Ovis aries",
+				"doc_count": 23036
+			}, {
+				"key": "Equus caballus",
+				"doc_count": 10044
+			}, {
+				"key": "Capra hircus",
+				"doc_count": 9675
+			}, {
+				"key": "Bubalus bubalis",
+				"doc_count": 4905
+			}, {
+				"key": "Scophthalmus maximus",
+				"doc_count": 1240
+			}, {
+				"key": "Salmo salar",
+				"doc_count": 1106
+			}, {
+				"key": "Oncorhynchus mykiss",
+				"doc_count": 1000
+			}, {
+				"key": "Cyprinus carpio carpio",
+				"doc_count": 780
+			}, {
+				"key": "Bos indicus",
+				"doc_count": 577
+			}, {
+				"key": "Dicentrarchus labrax",
+				"doc_count": 546
+			}]
+		},
+		"project": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "",
+				"doc_count": 40752
+			}, {
+				"key": "GENE-SWitCH",
+				"doc_count": 5012
+			}, {
+				"key": "AQUA-FAANG",
+				"doc_count": 4672
+			}, {
+				"key": "BovReg",
+				"doc_count": 569
+			}]
+		},
+		"paper_published_missing": {
+			"doc_count": 71009
+		},
+		"assayType": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 0,
+			"buckets": [{
+				"key": "transcription profiling by high throughput sequencing",
+				"doc_count": 92851
+			}, {
+				"key": "whole genome sequencing assay",
+				"doc_count": 57283
+			}, {
+				"key": "",
+				"doc_count": 25437
+			}, {
+				"key": "microRNA profiling by high throughput sequencing",
+				"doc_count": 5397
+			}, {
+				"key": "RNA-seq of coding RNA",
+				"doc_count": 3975
+			}, {
+				"key": "methylation profiling by high throughput sequencing",
+				"doc_count": 3821
+			}, {
+				"key": "ChIP-seq",
+				"doc_count": 3676
+			}, {
+				"key": "Hi-C",
+				"doc_count": 2631
+			}, {
+				"key": "ATAC-seq",
+				"doc_count": 2180
+			}, {
+				"key": "RNA-seq of total RNA",
+				"doc_count": 1321
+			}, {
+				"key": "CAGE-seq",
+				"doc_count": 79
+			}, {
+				"key": "RNA-seq of non coding RNA",
+				"doc_count": 68
+			}, {
+				"key": "ChIP-Seq",
+				"doc_count": 40
+			}, {
+				"key": "DNase-Hypersensitivity seq",
+				"doc_count": 30
+			}]
+		},
+		"instrument": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 660,
+			"buckets": [{
+				"key": "Illumina HiSeq 2000",
+				"doc_count": 48211
+			}, {
+				"key": "Illumina HiSeq 2500",
+				"doc_count": 46522
+			}, {
+				"key": "Illumina NovaSeq 6000",
+				"doc_count": 34023
+			}, {
+				"key": "Illumina HiSeq 3000",
+				"doc_count": 15932
+			}, {
+				"key": "Illumina HiSeq 4000",
+				"doc_count": 12084
+			}, {
+				"key": "NextSeq 500",
+				"doc_count": 11821
+			}, {
+				"key": "HiSeq X Ten",
+				"doc_count": 11469
+			}, {
+				"key": "Illumina MiSeq",
+				"doc_count": 3703
+			}, {
+				"key": "NextSeq 550",
+				"doc_count": 3281
+			}, {
+				"key": "Illumina Genome Analyzer IIx",
+				"doc_count": 1830
+			}, {
+				"key": "PacBio RS II",
+				"doc_count": 1808
+			}, {
+				"key": "Illumina Genome Analyzer II",
+				"doc_count": 1691
+			}, {
+				"key": "Illumina HiSeq 1500",
+				"doc_count": 1334
+			}, {
+				"key": "Illumina HiScanSQ",
+				"doc_count": 1037
+			}, {
+				"key": "BGISEQ-500",
+				"doc_count": 696
+			}, {
+				"key": "Illumina Genome Analyzer",
+				"doc_count": 417
+			}, {
+				"key": "AB 310 Genetic Analyzer",
+				"doc_count": 378
+			}, {
+				"key": "AB 5500xl Genetic Analyzer",
+				"doc_count": 349
+			}, {
+				"key": "AB 5500 Genetic Analyzer",
+				"doc_count": 310
+			}, {
+				"key": "Illumina HiSeq 1000",
+				"doc_count": 271
+			}, {
+				"key": "454 GS FLX Titanium",
+				"doc_count": 222
+			}, {
+				"key": "Ion Torrent Proton",
+				"doc_count": 201
+			}, {
+				"key": "PacBio RS",
+				"doc_count": 201
+			}, {
+				"key": "PromethION",
+				"doc_count": 192
+			}, {
+				"key": "AB SOLiD 4 System",
+				"doc_count": 146
+			}]
+		},
+		"target": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 52,
+			"buckets": [{
+				"key": "Unknown",
+				"doc_count": 84914
+			}, {
+				"key": "input DNA",
+				"doc_count": 57807
+			}, {
+				"key": "",
+				"doc_count": 25437
+			}, {
+				"key": "polyA RNA",
+				"doc_count": 9207
+			}, {
+				"key": "total RNA",
+				"doc_count": 6142
+			}, {
+				"key": "RNA",
+				"doc_count": 4788
+			}, {
+				"key": "DNA methylation",
+				"doc_count": 3821
+			}, {
+				"key": "chromatin",
+				"doc_count": 2631
+			}, {
+				"key": "open_chromatin_region",
+				"doc_count": 2210
+			}, {
+				"key": "CTCF",
+				"doc_count": 232
+			}, {
+				"key": "polya rna",
+				"doc_count": 212
+			}, {
+				"key": "H3K27Ac",
+				"doc_count": 207
+			}, {
+				"key": "H3K4Me1",
+				"doc_count": 205
+			}, {
+				"key": "H3K4Me3",
+				"doc_count": 195
+			}, {
+				"key": "H3K27Me3",
+				"doc_count": 185
+			}, {
+				"key": "messenger RNA",
+				"doc_count": 137
+			}, {
+				"key": "TSS",
+				"doc_count": 79
+			}, {
+				"key": "PolyA RNA",
+				"doc_count": 52
+			}, {
+				"key": "H3K27me3",
+				"doc_count": 50
+			}, {
+				"key": "H3K4me3",
+				"doc_count": 50
+			}, {
+				"key": "Input DNA",
+				"doc_count": 40
+			}, {
+				"key": "Histone H3 Acetyl Lys27",
+				"doc_count": 36
+			}, {
+				"key": "Histone H3 Trimethyl Lys27",
+				"doc_count": 36
+			}, {
+				"key": "Histone",
+				"doc_count": 32
+			}, {
+				"key": "rna",
+				"doc_count": 32
+			}]
+		}
+	}
 }
