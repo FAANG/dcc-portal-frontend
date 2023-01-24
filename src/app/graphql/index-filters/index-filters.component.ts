@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormArray, FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+import {UntypedFormArray, UntypedFormGroup, UntypedFormControl, Validators, UntypedFormBuilder} from '@angular/forms';
 
 
 @Component({
@@ -11,9 +11,9 @@ export class IndexFiltersComponent implements OnInit {
   @Input() firstIndex;
   @Input() secondIndex;
   @Input() indexFilters;
-  public filterForm: FormGroup;
+  public filterForm: UntypedFormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: UntypedFormBuilder) {
   }
 
   ngOnInit(): void {
@@ -30,12 +30,12 @@ export class IndexFiltersComponent implements OnInit {
   }
 
   public addFilterFormGroup() {
-    const filters = this.filterForm.get('filterFields') as FormArray;
+    const filters = this.filterForm.get('filterFields') as UntypedFormArray;
     filters.push(this.createFilterFormGroup());
   }
 
   public removeFilter(i: number) {
-    const filters = this.filterForm.get('filterFields') as FormArray;
+    const filters = this.filterForm.get('filterFields') as UntypedFormArray;
     if (filters.length > 1) {
       filters.removeAt(i);
     } else {
@@ -43,10 +43,10 @@ export class IndexFiltersComponent implements OnInit {
     }
   }
 
-  private createFilterFormGroup(): FormGroup {
-    return new FormGroup({
-      filterName: new FormControl('', Validators.required),
-      filterValue: new FormControl('', Validators.required)
+  private createFilterFormGroup(): UntypedFormGroup {
+    return new UntypedFormGroup({
+      filterName: new UntypedFormControl('', Validators.required),
+      filterValue: new UntypedFormControl('', Validators.required)
     });
   }
 

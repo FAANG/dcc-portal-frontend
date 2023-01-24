@@ -103,10 +103,10 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { GraphQLModule } from './graphql.module';
-// import { GraphqlComponent } from './graphql/graphql.component';
-// import { DisplayDataComponent } from './graphql/display-data/display-data.component';
-// import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
-// import {ShortenTitlePipe} from './graphql/display-data/shortenTitle.pipe';
+import { GraphqlComponent } from './graphql/graphql.component';
+import { DisplayDataComponent } from './graphql/display-data/display-data.component';
+import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
+import {ShortenTitlePipe} from './graphql/display-data/shortenTitle.pipe';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -179,10 +179,10 @@ export function removeToken(): void {
     ProtocolAnalysisDetailsComponent,
     EnsemblAnnotationComponent,
     LocalGenomeBrowserComponent,
-    // GraphqlComponent,
-    // DisplayDataComponent,
-    // IndexFiltersComponent,
-    // ShortenTitlePipe
+    GraphqlComponent,
+    DisplayDataComponent,
+    IndexFiltersComponent,
+    ShortenTitlePipe
   ],
   imports: [
     BrowserModule,
