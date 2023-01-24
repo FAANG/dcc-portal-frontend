@@ -38,3 +38,6 @@ export const trackhubs_template_without_examples = '../../assets/empty/trackhubs
 
 export const missing_values = ['not applicable', 'not collected', 'not provided', 'restricted access'];
 export const special_sheets = ['describedBy', 'schema_version', 'samples_core', 'experiments_core', 'input_dna', 'dna-binding_proteins'];
+
+export const graphql_ws_url = 'ws://127.0.0.1:8000/ws/graphqltaskstatus/';
+export const graphql_server_endpoint = 'http://localhost:8000/subscriptions/';

@@ -1,0 +1,104 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <mat-toolbar color="primary">
+    <span>Tables & Columns Selection</span>
+  </mat-toolbar>
+  <div class="user-info">
+    * Select tables to join and columns to display
+  </div>
+  <div class="section" fxLayout="row" fxLayoutGap="3%">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>First Index</mat-label>
+        <mat-select [formControl]="firstIndexName" (selectionChange)="onIndexChange('firstIndex', $event)">
+          <mat-option *ngFor="let firstIndex of firstIndices" [value]="firstIndex">{{firstIndex}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Second Index</mat-label>
+        <mat-select [formControl]="secondIndexName" (selectionChange)="onIndexChange('secondIndex', $event)">
+          <mat-option *ngFor="let secondIndex of secondIndices" [value]="secondIndex">{{secondIndex}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div *ngIf="indicesSelected" fxLayout="row" fxLayoutGap="3%">
+    <div *ngFor="let indexName of selectedIndicesArray">
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Select {{indexName|titlecase}} columns</mat-label>
+        <!--        <mat-select [(value)]="selectedColumns[indexName]"-->
+        <!--                    (selectionChange)="taskId ? fetchFilteredResult() : fetchJoinedResult(false)" multiple>-->
+        <mat-select [(value)]="selectedColumns[indexName]" multiple>
+          <mat-option *ngFor="let col of indexData[indexName]['fields']" [value]="col">
+            {{col}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="section" *ngIf="indicesSelected">
+    <app-index-filters
+      [firstIndex]="selectedIndicesArray[0]"
+      [secondIndex]="selectedIndicesArray[1]"
+      [indexFilters]="indexData[selectedIndicesArray[0]]['fields']"
+    >
+    </app-index-filters>
+    <div class="button-div">
+      <button mat-raised-button color="primary" (click)="fetchJoinedResult(true)">Fetch Joined Data</button>
+    </div>
+  </div>
+
+  <div *ngIf="showProgressBar" class="progress-bar">
+    <mat-progress-bar mode="query"></mat-progress-bar>
+  </div>
+
+  <div *ngIf="indicesSelected && searchSuccess">
+    <div *ngIf="dataTable?.length > 0; else noData">
+      <app-display-data
+        [dataTable]="dataTable"
+        [displayedColumns]="displayedColumns"
+        [colLinks]="indexData[selectedIndicesArray[0]]['links']"
+        [primaryField]="indexData[selectedIndicesArray[0]]['primary']"
+        [firstIndex]="this.selectedIndicesArray[0]"
+      ></app-display-data>
+    </div>
+    <ng-template #noData>
+      <p>No records have been found matching your filters.</p>
+    </ng-template>
+  </div>
+  <div *ngIf="errors.length>0 && !searchSuccess">
+    <p>We have encountered the following errors. Please contact faang-dcc@ebi.ac.uk for help.</p>
+    <p *ngFor="let err of errors">
+      {{err}}
+    </p>
+  </div>
+
+  <ng-template #filtersDialog>
+    <h2 matDialogTitle>Adding Filters</h2>
+    <div matDialogContent>
+      <p>Please fill in the filter fields before continuing.</p>
+      <p>To access the entire result set of the joined indices, download the results in CSV format by clicking
+        on the 'Download' button </p>
+    </div>
+    <mat-dialog-actions>
+      <button mat-button matDialogClose>Dismiss</button>
+    </mat-dialog-actions>
+  </ng-template>
+
+  <ng-template #columnsDialog>
+    <h2 matDialogTitle>Columns Selection</h2>
+    <div matDialogContent>
+      <p>Select fields to display from drop down menus.</p>
+      <p>You should select at least one field from the {{selectedIndicesArray[0]|titlecase}} index</p>
+    </div>
+    <mat-dialog-actions>
+      <button mat-button matDialogClose>Dismiss</button>
+    </mat-dialog-actions>
+  </ng-template>
+
+</div>
+
