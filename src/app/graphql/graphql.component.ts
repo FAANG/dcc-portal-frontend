@@ -36,7 +36,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   errors = [];
   columnValuesCount = 0;
   cursor: string;
-  private querySubscription: Subscription;
+  private querySubscription: Subscription = Subscription.EMPTY;
 
   constructor(
     private apollo: Apollo,
@@ -338,7 +338,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
       this.socket.send(JSON.stringify({
-        'message': task_id
+        'task_id': task_id
       }));
     };
     this.socket.onmessage = (event) => {
@@ -422,8 +422,10 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
 
   ngOnDestroy() {
     this.querySubscription.unsubscribe();
-    this.socket.close();
-    this.socket = null;
+    if (this.socket) {
+      this.socket.close();
+      this.socket = null;
+    }
   }
 
 }
