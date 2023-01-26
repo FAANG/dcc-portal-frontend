@@ -205,7 +205,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     const leftIndex = this.selectedIndicesArray[0];
     const queryName = this.indexData[leftIndex].resultQueryName;
     const recordsList = data[queryName]['edges'];
-    const completeResulset = [];
+    const completeResultset = [];
     let joinRecords = [];
     let joinIndex = '';
     recordsList.forEach(record => {
@@ -228,9 +228,9 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
         this.setColumnValue(leftIndex, leftIndexObj, container);
         dataTable.push(container);
       }
-      completeResulset.push(...dataTable);
+      completeResultset.push(...dataTable);
     });
-    this.dataTable = completeResulset;
+    this.dataTable = completeResultset;
 
   }
 
