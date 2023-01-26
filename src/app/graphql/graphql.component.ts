@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {graphql_ws_url} from '../shared/constants';
 import {IndexFiltersComponent} from './index-filters/index-filters.component';
 import {MatDialog} from '@angular/material/dialog';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-graphql',
@@ -40,10 +41,12 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
 
   constructor(
     private apollo: Apollo,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private titleService: Title) {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('GraphQL Search');
     this.displayedColumns = [];
     this.selectedIndicesArray = [];
     this.indexData = indexFieldsData;
