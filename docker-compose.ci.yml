@@ -3,8 +3,7 @@ services:
   faang-frontend:
     image: "${GCR_HOSTNAME}/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${TAG}"
     ports:
-      - '8080:80'
-
+      - '80:8080'
   cypress:
     image: faang-cypress-tests
     build:
