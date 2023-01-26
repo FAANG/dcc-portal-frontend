@@ -19,6 +19,6 @@ FROM nginx:1.15
 #Copy ci-dashboard-dist
 COPY --from=build /app/dist/out/ /usr/share/nginx/html
 #Copy default nginx configuration
-COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080
