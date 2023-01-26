@@ -3,6 +3,7 @@ import { ApiDataService } from '../services/api-data.service';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Title} from '@angular/platform-browser';
 import * as igv from 'igv'
 
 interface DirNode {
@@ -58,11 +59,13 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataService: ApiDataService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private titleService: Title) { }
 
   hasChild = (_: number, node: FileNode) => node.expandable;
 
   ngOnInit(): void {
+    this.titleService.setTitle('FAANG Genome Browser');
     this.currentTracks = {};
     this.fetchData();
   }
