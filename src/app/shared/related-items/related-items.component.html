@@ -3,7 +3,10 @@
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center"
     style="margin: 20px 0 20px 0;">
 
-    <h3>Related {{displayTitle(target_type)}}
+    <h3>
+      <span *ngIf="target_type != 'protocolsamples' && target_type != 'protocolfiles' && target_type != 'protocolanalysis'">
+        Related {{displayTitle(target_type)}}
+      </span>
       <span *ngIf="isEuroFaangProj"> for
           <span class="childproj-title">
             {{record_id}}

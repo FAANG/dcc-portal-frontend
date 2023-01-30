@@ -79,25 +79,26 @@
                          [record_id]="project"></app-related-items>
 
       <!-- Related Protocols -->
+      <h3 *ngIf="!disable_tabs['protocol_samples'] || !disable_tabs['protocol_files'] || !disable_tabs['protocol_analysis']"
+        style="margin-bottom: 20px;">
+        Related Protocols
+      </h3>
       <mat-tab-group animationDuration="0ms" [hidden]="hideProtocolTable()">
-        <mat-tab label="Samples" [disabled]="disable_tabs['protocol_samples']">
-          <ng-container *ngIf="disable_tabs['protocol_samples'] else displayProtocolSamples">No Protocol Samples found for {{project}} </ng-container>
+        <mat-tab *ngIf="!disable_tabs['protocol_samples']" label="Samples">
           <ng-template matTabContent #displayProtocolSamples>
             <app-related-items source_type="project" target_type="protocolsamples" download_key=""
                                [record_id]="project" (fetchedRecords)="disableTab($event)"></app-related-items>
           </ng-template>
         </mat-tab>
 
-        <mat-tab label="Experiments" [disabled]="disable_tabs['protocol_files']">
-          <ng-container *ngIf="disable_tabs['protocol_files'] else displayProtocolFiles">No Protocol Files found for {{project}} </ng-container>
+        <mat-tab *ngIf="!disable_tabs['protocol_files']" label="Experiments">
           <ng-template matTabContent #displayProtocolFiles>
             <app-related-items source_type="project" target_type="protocolfiles" download_key=""
                                [record_id]="project" (fetchedRecords)="disableTab($event)"></app-related-items>
           </ng-template>
         </mat-tab>
 
-        <mat-tab label="Analyses" [disabled]="disable_tabs['protocol_analysis']">
-          <ng-container *ngIf="disable_tabs['protocol_analysis'] else displayProtocolAnalysis">No Protocol Analyses found for {{project}} </ng-container>
+        <mat-tab *ngIf="!disable_tabs['protocol_analysis']" label="Analyses">
           <ng-template matTabContent #displayProtocolAnalysis>
             <app-related-items source_type="project" target_type="protocolanalysis" download_key=""
                                [record_id]="project" (fetchedRecords)="disableTab($event)"></app-related-items>
