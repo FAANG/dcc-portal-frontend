@@ -2,5 +2,6 @@
   "baseUrl": "http://127.0.0.1:4200",
   "video": false,
   "defaultCommandTimeout": 60000,
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "retries": 2
 }
