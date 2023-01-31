@@ -38,8 +38,6 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   errors = [];
   columnValuesCount = 0;
   cursor: string;
-  downloadData = false;
-  downloading = false;
   private querySubscription: Subscription = Subscription.EMPTY;
 
   constructor(
@@ -421,11 +419,10 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     return `{${props}}`;
   }
 
-  downloadFile(format: string) {
-    this.downloadData = true;
-    this.downloading = true;
+  downloadFile() {
+    this.showProgressBar = true;
     const filtersObj = this.filtersComponent.getFormValues();
-    const graphqlFiltersObj = this.generateGraphqlFilters(filtersObj);
+    const graphqlFiltersObj = (filtersObj && filtersObj !== 'null') ? this.generateGraphqlFilters(filtersObj) : {};
 
     // get selected fields
     const leftIndexFields = Array.from(new Set(this.selectedColumns[this.selectedIndicesArray[0]]));
@@ -439,7 +436,6 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
       this.displayedColumns.push(...joinIndexColumns);
 
       const queryString = this.buildGraphqlDownloadQuery(leftIndexFields, joinIndexFields, graphqlFiltersObj);
-      console.log('DOWNLOAD STRING: ', queryString);
 
       this.dataService.downloadGraphqlRecords(this.selectedIndicesArray, this.displayedColumns, queryString,
         this.indexData[this.selectedIndicesArray[0]].queryName).subscribe((res: Blob) => {
@@ -447,7 +443,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
         a.href = URL.createObjectURL(res);
         a.download = 'faang-join-data.csv';
         a.click();
-        this.downloading = false;
+        this.showProgressBar = false;
       });
     } else {
       this.dialog.open(this.columnsDialog);
@@ -466,7 +462,8 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     if (joinIndexFields && joinIndexFields.length) {
       queryString =
         `query {\
-        ${queryName} (filter: { basic:${graphqlFiltersObj} join: {${secondIndex}: {basic:{}}}}) {\
+        ${queryName} (filter: { basic:${Object.keys(graphqlFiltersObj).length === 0 ? '{}' : graphqlFiltersObj}\
+         join: {${secondIndex}: {basic:{}}}}) {\
           edges {\
             node {\
               ${formattedLeftIndexFields.join()}\

@@ -40,4 +40,4 @@ export const missing_values = ['not applicable', 'not collected', 'not provided'
 export const special_sheets = ['describedBy', 'schema_version', 'samples_core', 'experiments_core', 'input_dna', 'dna-binding_proteins'];
 
 export const graphql_ws_url = 'wss://api.faang.org/ws/graphqltaskstatus/';
-export const graphql_server_endpoint = 'https://api.faang.org/subscriptions/';
+export const graphql_server_endpoint = 'https://api.faang.org/graphql/';
