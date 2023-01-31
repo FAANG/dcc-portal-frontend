@@ -7,7 +7,9 @@ describe('Sample Detail Page', () => {
   it('should display title and other information', () => {
     cy.get('h2.ng-star-inserted').should("contain", 'Harvest of Large Animal Tissues')
     cy.get('app-protocol-sample-details.ng-star-inserted > .container-fluid > div > div').then(menuitems => {
-      expect(menuitems[0]).to.contain.text('ROSLIN_SOP_Harvest_of_Large_Animal_Tissues_20160516.pdf')
+      cy.get('app-robust-link').then(info => {
+        expect(info[0]).to.contain.text('ROSLIN_SOP_Harvest_of_Large_Animal_Tissues_20160516.pdf')
+      })
       expect(menuitems[1]).to.contain.text('Roslin Institute (Edinburgh, UK)')
     })
   })
