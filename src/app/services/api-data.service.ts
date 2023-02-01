@@ -139,8 +139,7 @@ export class ApiDataService {
   }
 
   downloadGraphqlRecords(selectedIndicesArray: any, selectedColumns: any, query: any, queryName: any) {
-    // const url = `${this.hostSetting.host}data/${index}/download/`;
-    const url = 'http://localhost:8000/graphql/download';
+    const url = `${this.hostSetting.host}graphql/download`;
     const params = new HttpParams()
       .set('selected_indices', JSON.stringify(selectedIndicesArray))
       .set('selected_columns', JSON.stringify(selectedColumns))
