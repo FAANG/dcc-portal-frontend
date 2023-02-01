@@ -8,6 +8,7 @@ import {graphql_ws_url} from '../shared/constants';
 import {IndexFiltersComponent} from './index-filters/index-filters.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Title} from '@angular/platform-browser';
+import {ApiDataService} from '../services/api-data.service';
 
 @Component({
   selector: 'app-graphql',
@@ -42,7 +43,8 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   constructor(
     private apollo: Apollo,
     public dialog: MatDialog,
-    private titleService: Title) {
+    private titleService: Title,
+    private dataService: ApiDataService) {
   }
 
   ngOnInit(): void {
@@ -94,14 +96,9 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     // get selected fields
     const leftIndexFields = Array.from(new Set(this.selectedColumns[this.selectedIndicesArray[0]]));
     const joinIndexFields = Array.from(new Set(this.selectedColumns[this.selectedIndicesArray[1]]));
-    const leftIndexColumns = leftIndexFields.map(field => `${this.selectedIndicesArray[0]}.${field}`);
-    const joinIndexColumns = joinIndexFields.map(field => `${this.selectedIndicesArray[0]}.${field}`);
 
-    if (leftIndexColumns.length > 0) {
+    if (leftIndexFields.length > 0) {
       this.showProgressBar = true;
-      this.displayedColumns = [];
-      this.displayedColumns.push(...leftIndexColumns);
-      this.displayedColumns.push(...joinIndexColumns);
       const queryString = this.buildGraphqlJoinQuery(leftIndexFields, joinIndexFields, graphqlFiltersObj);
 
       this.querySubscription = this.apollo.watchQuery<any>({
@@ -201,7 +198,6 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
       }
     }
   }
-
 
   generateDataTable(data) {
     this.dataTable = [];
@@ -421,6 +417,82 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
       .map(key => `${key}:${this.stringifyObject(graphqlObject[key])}`)
       .join(',');
     return `{${props}}`;
+  }
+
+  downloadFile() {
+    this.showProgressBar = true;
+    const filtersObj = this.filtersComponent.getFormValues();
+    const graphqlFiltersObj = (filtersObj && filtersObj !== 'null') ? this.generateGraphqlFilters(filtersObj) : {};
+
+    // get selected fields
+    const leftIndexFields = Array.from(new Set(this.selectedColumns[this.selectedIndicesArray[0]]));
+    const joinIndexFields = Array.from(new Set(this.selectedColumns[this.selectedIndicesArray[1]]));
+    const leftIndexColumns = leftIndexFields.map(field => `${this.selectedIndicesArray[0]}.${field}`);
+    const joinIndexColumns = joinIndexFields.map(field => `${this.selectedIndicesArray[1]}.${field}`);
+
+    if (leftIndexColumns.length > 0) {
+      this.displayedColumns = [];
+      this.displayedColumns.push(...leftIndexColumns);
+      this.displayedColumns.push(...joinIndexColumns);
+
+      const queryString = this.buildGraphqlDownloadQuery(leftIndexFields, joinIndexFields, graphqlFiltersObj);
+
+      this.dataService.downloadGraphqlRecords(this.selectedIndicesArray, this.displayedColumns, queryString,
+        this.indexData[this.selectedIndicesArray[0]].queryName).subscribe((res: Blob) => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(res);
+        a.download = 'faang-join-data.csv';
+        a.click();
+        this.showProgressBar = false;
+      });
+    } else {
+      this.dialog.open(this.columnsDialog);
+      this.showProgressBar = false;
+    }
+  }
+
+  buildGraphqlDownloadQuery(leftIndexFields, joinIndexFields, graphqlFiltersObj) {
+    const firstIndex = this.selectedIndicesArray[0];
+    const secondIndex = this.selectedIndicesArray[1];
+    const formattedLeftIndexFields = this.formatFields(leftIndexFields);
+    const formattedRightIndexFields = this.formatFields(joinIndexFields);
+    const queryName = this.indexData[firstIndex].queryName;
+    let queryString = '';
+
+    if (joinIndexFields && joinIndexFields.length) {
+      queryString =
+        `query {\
+        ${queryName} (filter: { basic:${Object.keys(graphqlFiltersObj).length === 0 ? '{}' : graphqlFiltersObj}\
+         join: {${secondIndex}: {basic:{}}}}) {\
+          edges {\
+            node {\
+              ${formattedLeftIndexFields.join()}\
+              join {\
+                ${secondIndex} {\
+                  edges {\
+                    node {\
+                      ${formattedRightIndexFields.join()}\
+                    }\
+                  }\
+                }\
+              }\
+            }\
+          }\
+        }\
+      }`;
+    } else {
+      queryString =
+        `query {\
+        ${queryName} {\
+          edges {\
+            node {\
+              ${formattedLeftIndexFields.join()}\
+            }\
+          }\
+        }\
+      }`;
+    }
+    return queryString;
   }
 
   ngOnDestroy() {

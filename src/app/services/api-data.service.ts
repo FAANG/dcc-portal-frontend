@@ -138,6 +138,22 @@ export class ApiDataService {
     );
   }
 
+  downloadGraphqlRecords(selectedIndicesArray: any, selectedColumns: any, query: any, queryName: any) {
+    const url = `${this.hostSetting.host}graphql/download`;
+    const params = new HttpParams()
+      .set('selected_indices', JSON.stringify(selectedIndicesArray))
+      .set('selected_columns', JSON.stringify(selectedColumns))
+      .set('query', JSON.stringify(query))
+      .set('query_name', JSON.stringify(queryName));
+    const fullURL = `${url}?${params.toString()}`;
+    return this.http.get(fullURL, {responseType: 'blob' as 'blob'}).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   getAllFilesForProject(project: string, mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
