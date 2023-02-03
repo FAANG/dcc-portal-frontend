@@ -68,7 +68,10 @@ export class DisplayDataComponent implements OnInit, OnChanges {
   }
 
   isOntologyTerm(colName, indexName) {
-    return colName in this.indexData[indexName]['ontologyTermsLink'];
+    if (this.indexData[indexName]['ontologyTermsLink']) {
+      return colName in this.indexData[indexName]['ontologyTermsLink'];
+    }
+    return false;
   }
 
   getOntologyTermsLink(colName, indexName) {
@@ -79,7 +82,7 @@ export class DisplayDataComponent implements OnInit, OnChanges {
     const filteredColumnsArr = [...displayedColumns];
     for (const col of filteredColumnsArr) {
       const indexName = col.split('.')[0];
-      if (col in this.indexData[indexName]['ontologyTermsLink']) {
+      if (this.indexData[indexName]['ontologyTermsLink'] && col in this.indexData[indexName]['ontologyTermsLink']) {
         const index = filteredColumnsArr.indexOf(this.indexData[indexName]['ontologyTermsLink'][col]);
         if (index !== -1) {
           filteredColumnsArr.splice(index, 1);
