@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatSort, Sort} from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
+import {indexFieldsData} from '../graphqlConstants';
 
 @Component({
   selector: 'app-display-data',
@@ -15,6 +16,7 @@ export class DisplayDataComponent implements OnInit, OnChanges {
   @Input() primaryField;
   @Input() firstIndex;
 
+  indexData = {};
   dataSource: MatTableDataSource<any>;
   colPrimaryField;
 
@@ -26,10 +28,12 @@ export class DisplayDataComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.indexData = indexFieldsData;
     this.dataSource = new MatTableDataSource(this.dataTable);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.colPrimaryField = `${this.firstIndex}.${this.primaryField}`;
+    this.displayedColumns = this.updateDisplayedColumnsArr(this.displayedColumns);
   }
 
 
@@ -60,7 +64,29 @@ export class DisplayDataComponent implements OnInit, OnChanges {
   }
 
   getUrlAccession(colValue) {
-    return this.firstIndex === 'file' ? colValue.split('.')[0] : colValue
+    return this.firstIndex === 'file' ? colValue.split('.')[0] : colValue;
+  }
+
+  isOntologyTerm(colName, indexName) {
+    return colName in this.indexData[indexName]['ontologyTermsLink'];
+  }
+
+  getOntologyTermsLink(colName, indexName) {
+    return this.indexData[indexName]['ontologyTermsLink'][colName];
+  }
+
+  updateDisplayedColumnsArr(displayedColumns) {
+    const filteredColumnsArr = [...displayedColumns];
+    for (const col of filteredColumnsArr) {
+      const indexName = col.split('.')[0];
+      if (col in this.indexData[indexName]['ontologyTermsLink']) {
+        const index = filteredColumnsArr.indexOf(this.indexData[indexName]['ontologyTermsLink'][col]);
+        if (index !== -1) {
+          filteredColumnsArr.splice(index, 1);
+        }
+      }
+    }
+    return filteredColumnsArr;
   }
 
 }

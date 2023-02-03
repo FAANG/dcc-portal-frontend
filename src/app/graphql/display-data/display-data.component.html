@@ -6,14 +6,27 @@
       </th>
       <!-- mat-cell contents should be a link -->
       <td mat-cell class="table-cell-data" *matCellDef="let element">
-        <ng-container *ngIf="colLinks[col]; else plainText">
+        <ng-container *ngIf="colLinks[col]; else noColLink">
           <a style="cursor: pointer" target="_blank"
              [routerLink]="'/' + colLinks[col] + '/' + getUrlAccession(element[colPrimaryField])">
             {{removeNumEntries(element[col])}}
           </a>
         </ng-container>
-        <ng-template #plainText>
-          {{removeNumEntries(element[col])}}
+
+        <ng-template #noColLink>
+          <ng-container *ngIf="isOntologyTerm(col, col.split('.')[0]); else plainText">
+            <ng-template
+              *ngTemplateOutlet="ontologyTermsLink; context: { $implicit: {
+              'value': element[col],
+              'row': element,
+              'col': col,
+              'indexName': col.split('.')[0]} }">
+            </ng-template>
+          </ng-container>
+
+          <ng-template #plainText>
+            {{removeNumEntries(element[col])}}
+          </ng-template>
         </ng-template>
 
         <ng-container *ngIf="extractNumEntries(element[col]) > 10">
@@ -25,10 +38,20 @@
           </span>
         </ng-container>
       </td>
+
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <ng-template #ontologyTermsLink let-ele>
+    <span>
+      <a style="cursor: pointer"
+         href="{{removeNumEntries(ele['row'][getOntologyTermsLink(ele.col, ele['indexName'])])}}" target="_blank">
+        {{removeNumEntries(ele.value)}}
+      </a>
+    </span>
+  </ng-template>
 
   <mat-paginator
     [pageSize]=10

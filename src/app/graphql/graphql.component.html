@@ -10,7 +10,8 @@
     <div>
       <mat-form-field appearance="fill">
         <mat-label>First Index</mat-label>
-        <mat-select [formControl]="firstIndexName" (selectionChange)="onIndexChange('firstIndex', $event)">
+        <mat-select [attr.name]="'firstIndex'" [formControl]="firstIndexName"
+                    (selectionChange)="onIndexChange('firstIndex', $event)">
           <mat-option *ngFor="let firstIndex of firstIndices" [value]="firstIndex">{{firstIndex}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -18,7 +19,8 @@
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Second Index</mat-label>
-        <mat-select [formControl]="secondIndexName" (selectionChange)="onIndexChange('secondIndex', $event)">
+        <mat-select [attr.name]="'secondIndex'" [formControl]="secondIndexName"
+                    (selectionChange)="onIndexChange('secondIndex', $event)">
           <mat-option *ngFor="let secondIndex of secondIndices" [value]="secondIndex">{{secondIndex}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -31,9 +33,9 @@
         <mat-label>Select {{indexName|titlecase}} columns</mat-label>
         <!--        <mat-select [(value)]="selectedColumns[indexName]"-->
         <!--                    (selectionChange)="taskId ? fetchFilteredResult() : fetchJoinedResult(false)" multiple>-->
-        <mat-select [(value)]="selectedColumns[indexName]" multiple>
+        <mat-select [attr.name]="indexName" [(value)]="selectedColumns[indexName]" multiple>
           <mat-option *ngFor="let col of indexData[indexName]['fields']" [value]="col">
-            {{col}}
+            {{col.split('.').join(' ')|shortenTitle}}
           </mat-option>
         </mat-select>
       </mat-form-field>
