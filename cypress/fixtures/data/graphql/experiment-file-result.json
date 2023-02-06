@@ -1,0 +1,121 @@
+{
+  "data": {
+    "allExperimentsTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "accession": "ERX9379020",
+            "project": "",
+            "secondaryProject": "GENE-SWitCH",
+            "assayType": "",
+            "experimentTarget": "",
+            "standardMet": "FAANG",
+            "join": {
+              "file": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": "ERR9833322_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB53440"
+                      },
+                      "experiment": {
+                        "accession": "ERX9379020",
+                        "assayType": "",
+                        "target": "",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Sus scrofa",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+                      },
+                      "specimen": "SAMEA10256513",
+                      "run": {
+                        "instrument": "Illumina NovaSeq 6000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR9833323_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB53440"
+                      },
+                      "experiment": {
+                        "accession": "ERX9379020",
+                        "assayType": "",
+                        "target": "",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Sus scrofa",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+                      },
+                      "specimen": "SAMEA10256513",
+                      "run": {
+                        "instrument": "Illumina NovaSeq 6000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR9833322_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB53440"
+                      },
+                      "experiment": {
+                        "accession": "ERX9379020",
+                        "assayType": "",
+                        "target": "",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Sus scrofa",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+                      },
+                      "specimen": "SAMEA10256513",
+                      "run": {
+                        "instrument": "Illumina NovaSeq 6000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR9833323_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB53440"
+                      },
+                      "experiment": {
+                        "accession": "ERX9379020",
+                        "assayType": "",
+                        "target": "",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Sus scrofa",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+                      },
+                      "specimen": "SAMEA10256513",
+                      "run": {
+                        "instrument": "Illumina NovaSeq 6000"
+                      },
+                      "paperPublished": null
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

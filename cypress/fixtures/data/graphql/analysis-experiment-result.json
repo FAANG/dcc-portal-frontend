@@ -1,0 +1,74 @@
+{
+  "data": {
+    "allAnalysisTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjE=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "accession": "ERZ1370206",
+            "project": "",
+            "title": "\"Benz2616 Rambouillet sheep CAGE-Seq dataset\"",
+            "alias": "OAR_RI_BENZ2616_Mus_LD",
+            "standardMet": "FAANG",
+            "organism": {
+              "text": "Ovis aries",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+            },
+            "datasetAccession": "PRJEB34864",
+            "assayType": "",
+            "analysisType": "REFERENCE_ALIGNMENT",
+            "join": {
+              "experiment": {
+                "edges": [
+                  {
+                    "node": {
+                      "accession": "ERX3585391",
+                      "assayType": "CAGE-seq",
+                      "experimentTarget": "TSS",
+                      "standardMet": "FAANG"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+          "node": {
+            "accession": "ERZ1370212",
+            "project": "",
+            "title": "\"Benz2616 Rambouillet sheep CAGE-Seq dataset\"",
+            "alias": "OAR_RI_BENZ2616_Pns",
+            "standardMet": "FAANG",
+            "organism": {
+              "text": "Ovis aries",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+            },
+            "datasetAccession": "PRJEB34864",
+            "assayType": "",
+            "analysisType": "REFERENCE_ALIGNMENT",
+            "join": {
+              "experiment": {
+                "edges": [
+                  {
+                    "node": {
+                      "accession": "ERX3585430",
+                      "assayType": "CAGE-seq",
+                      "experimentTarget": "TSS",
+                      "standardMet": "FAANG"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

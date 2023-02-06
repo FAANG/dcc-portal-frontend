@@ -1,0 +1,57 @@
+{
+  "data": {
+    "allExperimentsTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "accession": "ERX9379020",
+            "project": "",
+            "secondaryProject": "GENE-SWitCH",
+            "assayType": "",
+            "experimentTarget": "",
+            "standardMet": "FAANG",
+            "join": {
+              "analysis": {
+                "edges": [
+                  {
+                    "node": {
+                      "accession": "ERZ12291102",
+                      "datasetAccession": "PRJEB53440",
+                      "title": "GENE-SWitCH Pig chromatin accessibility profiling by ATAC-seq",
+                      "organism": {
+                        "text": "Sus scrofa",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+                      },
+                      "assayType": "ATAC-seq",
+                      "analysisType": "SEQUENCE_ANNOTATION",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERZ12290819",
+                      "datasetAccession": "PRJEB53440",
+                      "title": "GENE-SWitCH Pig chromatin accessibility profiling by ATAC-seq",
+                      "organism": {
+                        "text": "Sus scrofa",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9823"
+                      },
+                      "assayType": "ATAC-seq",
+                      "analysisType": "PROCESSED_READS",
+                      "standardMet": "FAANG"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

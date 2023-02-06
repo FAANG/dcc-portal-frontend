@@ -1,0 +1,683 @@
+{
+  "data": {
+    "allDatasetsTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "accession": "PRJEB35307",
+            "standardMet": "FAANG",
+            "secondaryProject": [
+              ""
+            ],
+            "title": "Functionally annotating regulatory elements in the equine genome using histone mark ChIP-Seq",
+            "alias": "ECA_HIS_ChIP_UCD_ST1",
+            "assayType": [
+              "ChIP-seq"
+            ],
+            "archive": [
+              "ENA"
+            ],
+            "species": [
+              {
+                "text": "Equus caballus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+              }
+            ],
+            "paperPublished": "true",
+            "join": {
+              "experiment": {
+                "edges": [
+                  {
+                    "node": {
+                      "accession": "ERX3645345",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645371",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645349",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645370",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645373",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645380",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645381",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645412",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645341",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645384",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645395",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645401",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645391",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645406",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645385",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645369",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645386",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645407",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645363",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645378",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645365",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645393",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645409",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645415",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645356",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645399",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645397",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645372",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645410",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645366",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645405",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645352",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645348",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645360",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645417",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645340",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645346",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645383",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645355",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645382",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645374",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645411",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645413",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645377",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645351",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645367",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645379",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645375",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645359",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645394",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645343",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645344",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645338",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645376",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645408",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645368",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645353",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645364",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645354",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645400",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645416",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645388",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645362",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645387",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645396",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645350",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645358",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645414",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645389",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645403",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645339",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645404",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645398",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645402",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "input DNA",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645361",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645357",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645347",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645342",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645392",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  },
+                  {
+                    "node": {
+                      "accession": "ERX3645390",
+                      "assayType": "ChIP-seq",
+                      "experimentTarget": "histone_modification",
+                      "standardMet": "FAANG"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

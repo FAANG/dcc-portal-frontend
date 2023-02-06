@@ -1,0 +1,43 @@
+{
+  "data": {
+    "allFilesTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "specimen": "SAMN03652982",
+            "organism": null,
+            "species": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "url": "ftp.sra.ebi.ac.uk/vol1/fastq/SRR201/009/SRR2016629/SRR2016629_2.fastq.gz",
+            "name": "SRR2016629_2.fastq.gz",
+            "experiment": {
+              "accession": "SRX1023686",
+              "target": "input DNA",
+              "assayType": "whole genome sequencing assay",
+              "standardMet": "Legacy"
+            },
+            "study": {
+              "accession": "PRJNA283480"
+            },
+            "run": {
+              "instrument": "Illumina Genome Analyzer II"
+            },
+            "paperPublished": "true",
+            "join": {
+              "protocolFiles": {
+                "edges": []
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

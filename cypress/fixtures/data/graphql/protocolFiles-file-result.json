@@ -1,0 +1,1592 @@
+{
+  "data": {
+    "allProtocolFilesTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "name": "rnaPreparation3AdapterLigationProtocol",
+            "experimentTarget": "CHEBI_33697",
+            "assayType": "microRNA profiling by high throughput sequencing",
+            "key": "rnaPreparation3AdapterLigationProtocol-microRNAprofilingbyhighthroughputsequencing-CHEBI_33697",
+            "url": "https://www.neb.com/-/media/catalog/datacards-or-manuals/manuale7300.pdf",
+            "join": {
+              "file": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": "ERR2736772_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749853",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675151",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736772_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749853",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675151",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736779_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749864",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675137",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736779_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749864",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675137",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736793_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749880",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675139",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736793_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749880",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675139",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736775_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749856",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675146",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736775_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749856",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675146",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736777_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749858",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675143",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736777_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749858",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675143",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736795_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749874",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675152",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736795_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749874",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675152",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736786_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749869",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675140",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736786_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749869",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675140",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736796_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749875",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675152",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736796_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749875",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675152",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736765_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749870",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675134",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736765_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749870",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675134",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736791_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749878",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675148",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736791_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749878",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675148",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736769_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749850",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675153",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736769_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749850",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675153",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736770_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749851",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675153",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736770_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749851",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675153",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736784_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749867",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675150",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736784_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749867",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675150",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736794_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749881",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675139",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736794_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749881",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675139",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736782_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749861",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675144",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736782_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749861",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675144",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736787_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749872",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675145",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736787_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749872",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675145",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736764_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749849",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675135",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736764_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749849",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675135",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736763_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749848",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675135",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736763_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749848",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675135",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736766_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749871",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675134",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736766_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749871",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675134",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736783_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749866",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675150",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736783_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749866",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675150",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736785_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749868",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675140",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736785_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749868",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675140",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736788_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749873",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675145",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736788_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749873",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675145",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736768_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749863",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675141",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736768_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749863",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675141",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736792_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749879",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675148",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736792_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749879",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675148",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736773_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749854",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675142",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736773_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749854",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675142",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736771_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749852",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675151",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736771_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749852",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675151",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736781_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749860",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675144",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736781_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749860",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675144",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736774_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749855",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675142",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736774_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749855",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675142",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736776_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749857",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675146",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736776_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749857",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675146",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736780_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749865",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675137",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736780_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749865",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675137",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736767_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749862",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675141",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736767_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749862",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675141",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736789_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749876",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675138",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736789_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749876",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675138",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736778_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749859",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675143",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736778_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749859",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675143",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736790_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749877",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675138",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR2736790_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB28219"
+                      },
+                      "experiment": {
+                        "accession": "ERX2749877",
+                        "assayType": "microRNA profiling by high throughput sequencing",
+                        "target": "RNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "specimen": "SAMEA4675138",
+                      "run": {
+                        "instrument": "Illumina HiSeq 3000"
+                      },
+                      "paperPublished": null
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

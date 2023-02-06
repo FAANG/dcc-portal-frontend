@@ -1,0 +1,90 @@
+{
+  "data": {
+    "allAnalysisTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjE=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "accession": "ERZ1370206",
+            "project": "",
+            "title": "\"koosumtest Benz2616 Rambouillet sheep CAGE-Seq dataset\"",
+            "alias": "OAR_RI_BENZ2616_Mus_LD",
+            "standardMet": "FAANG",
+            "organism": {
+              "text": "Ovis aries",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+            },
+            "datasetAccession": "PRJEB34864",
+            "assayType": "",
+            "analysisType": "REFERENCE_ALIGNMENT",
+            "join": {
+              "article": {
+                "edges": [
+                  {
+                    "node": {
+                      "title": "Global Analysis of Transcription Start Sites in the New Ovine Reference Genome (<i>Oar rambouillet v1.0</i>).",
+                      "year": "2020",
+                      "datasetSource": "All",
+                      "journal": "Front Genet"
+                    }
+                  },
+                  {
+                    "node": {
+                      "title": "A DNA Regulatory Element Haplotype at Zinc Finger Genes Is Associated with Host Resilience to Small Ruminant Lentivirus in Two Sheep Populations.",
+                      "year": "2021",
+                      "datasetSource": "FAANG only",
+                      "journal": "Animals (Basel)"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+          "node": {
+            "accession": "ERZ1370212",
+            "project": "",
+            "title": "\"Benz2616 Rambouillet sheep CAGE-Seq dataset\"",
+            "alias": "OAR_RI_BENZ2616_Pns",
+            "standardMet": "FAANG",
+            "organism": {
+              "text": "Ovis aries",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+            },
+            "datasetAccession": "PRJEB34864",
+            "assayType": "",
+            "analysisType": "REFERENCE_ALIGNMENT",
+            "join": {
+              "article": {
+                "edges": [
+                  {
+                    "node": {
+                      "title": "Global Analysis of Transcription Start Sites in the New Ovine Reference Genome (<i>Oar rambouillet v1.0</i>).",
+                      "year": "2020",
+                      "datasetSource": "All",
+                      "journal": "Front Genet"
+                    }
+                  },
+                  {
+                    "node": {
+                      "title": "A DNA Regulatory Element Haplotype at Zinc Finger Genes Is Associated with Host Resilience to Small Ruminant Lentivirus in Two Sheep Populations.",
+                      "year": "2021",
+                      "datasetSource": "FAANG only",
+                      "journal": "Animals (Basel)"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

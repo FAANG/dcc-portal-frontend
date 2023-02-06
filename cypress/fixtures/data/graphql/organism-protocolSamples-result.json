@@ -1,0 +1,48 @@
+{
+  "data": {
+    "allOrganismsTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "biosampleId": "SAMEA4675147",
+            "idNumber": 4675147,
+            "name": "BTA-DEDJTR-BBM409015438",
+            "standardMet": "FAANG",
+            "organism": {
+              "text": "Bos taurus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+            },
+            "sex": {
+              "text": "female",
+              "ontologyTerms": "PATO_0000383"
+            },
+            "breed": {
+              "text": "Holstein",
+              "ontologyTerms": "LBO_0000132"
+            },
+            "paperPublished": null,
+            "join": {
+              "protocolSamples": {
+                "edges": [
+                  {
+                    "node": {
+                      "protocolName": "CryofreezingTissue",
+                      "key": "DEDJTR_SOP_CryofreezingTissue_20160317.pdf",
+                      "universityName": "Department of Economic Development, Jobs, Transport and Resources (Bundoora, Australia)",
+                      "protocolDate": "2016"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
