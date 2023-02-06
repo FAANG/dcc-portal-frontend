@@ -133,7 +133,7 @@ describe('GraphQl Page', () => {
   })
 
   // --------------------
-  it.only('should verify pagination', () => {
+  it('should verify pagination', () => {
     graphqlPage.check_filters('protocolFiles', 'file', 'allProtocolFilesAsTask', 'allProtocolFilesTaskResult',
       'key', 'rnaPreparation3AdapterLigationProtocol-microRNAprofilingbyhighthroughputsequencing-CHEBI_33697','key', 'url', 'protocolFiles-task.json', 'protocolFiles-file-result.json')
     graphqlPage.verify_pagination()
