@@ -95,11 +95,10 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
 
     // get selected fields
     const leftIndexFields = Array.from(new Set(this.selectedColumns[this.selectedIndicesArray[0]]));
-    const joinIndexFields = Array.from(new Set(this.selectedColumns[this.selectedIndicesArray[1]]));
 
     if (leftIndexFields.length > 0) {
       this.showProgressBar = true;
-      const queryString = this.buildGraphqlJoinQuery(leftIndexFields, joinIndexFields, graphqlFiltersObj);
+      const queryString = this.buildGraphqlJoinQuery(graphqlFiltersObj);
 
       this.querySubscription = this.apollo.watchQuery<any>({
         query: gql`
@@ -118,6 +117,18 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     }
   }
 
+  includeOntologyTermsField(selectedIndexFields, indexName) {
+    for (const col of selectedIndexFields) {
+      const colName = indexName + '.' + col;
+      if (this.indexData[indexName]['ontologyTermsLink'] && colName in this.indexData[indexName]['ontologyTermsLink']) {
+        const regex = new RegExp( `^${indexName}.` );
+        const colNameNoIndex = this.indexData[indexName]['ontologyTermsLink'][colName].replace(regex, '');
+        selectedIndexFields.push(colNameNoIndex);
+      }
+    }
+  }
+
+
   fetchFilteredResult() {
     this.searchSuccess = false;
     this.showProgressBar = true;
@@ -125,6 +136,11 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     // get selected fields
     const leftIndexFields = Array.from(new Set(this.selectedColumns[this.selectedIndicesArray[0]]));
     const joinIndexFields = Array.from(new Set(this.selectedColumns[this.selectedIndicesArray[1]]));
+
+    // add ontologyTerms field to leftIndexFields if column name is found in ontologyTermsLink object
+    this.includeOntologyTermsField(leftIndexFields, this.selectedIndicesArray[0]);
+    this.includeOntologyTermsField(joinIndexFields, this.selectedIndicesArray[1]);
+
     const leftIndexColumns = leftIndexFields.map(field => `${this.selectedIndicesArray[0]}.${field}`);
     const joinIndexColumns = joinIndexFields.map(field => `${this.selectedIndicesArray[1]}.${field}`);
 
@@ -234,7 +250,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  buildGraphqlJoinQuery(leftIndexFields, joinIndexFields, graphqlFiltersObj) {
+  buildGraphqlJoinQuery(graphqlFiltersObj) {
     const firstIndex = this.selectedIndicesArray[0];
     const secondIndex = this.selectedIndicesArray[1];
     const queryName = this.indexData[firstIndex].celeryQueryName;
@@ -373,7 +389,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
         "filterValue": "aliasVal"
       }
     ]
-    should be converted in the format:
+    should be converted to the format below:
     indexName: {fieldName: ["filterValue", "filterValue"]}
 
     Example:

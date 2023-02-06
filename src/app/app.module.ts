@@ -106,7 +106,7 @@ import { GraphQLModule } from './graphql.module';
 import { GraphqlComponent } from './graphql/graphql.component';
 import { DisplayDataComponent } from './graphql/display-data/display-data.component';
 import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
-import {ShortenTitlePipe} from './graphql/display-data/shortenTitle.pipe';
+import {ShortenTitlePipe} from './graphql/display-data/shorten-title.pipe';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';

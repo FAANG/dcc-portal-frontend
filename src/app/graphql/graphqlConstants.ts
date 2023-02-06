@@ -13,7 +13,6 @@ export const indexFieldsData = {
       'releaseDate',
       'updateDate',
       'organism.text',
-      'organism.ontologyTerms',
       'type',
       'datasetAccession',
       'datasetInPortal',
@@ -53,6 +52,9 @@ export const indexFieldsData = {
     primary: 'accession',
     links: {
       'analysis.accession': 'analysis'
+    },
+    ontologyTermsLink: {
+      'analysis.organism.text': 'analysis.organism.ontologyTerms'
     },
     queryName: 'allAnalysis',
     celeryQueryName: 'allAnalysisAsTask',
@@ -106,17 +108,11 @@ export const indexFieldsData = {
       'archive',
       'specimen.biosampleId',
       'specimen.material.text',
-      'specimen.material.ontologyTerms',
       'specimen.cellType.text',
-      'specimen.cellType.ontologyTerms',
       'specimen.organism.text',
-      'specimen.organism.ontologyTerms',
       'specimen.sex.text',
-      'specimen.sex.ontologyTerms',
       'specimen.breed.text',
-      'specimen.breed.ontologyTerms',
       'species.text',
-      'species.ontologyTerms',
       'releaseDate',
       'updateDate',
       'file.url',
@@ -156,6 +152,14 @@ export const indexFieldsData = {
     links: {
       'dataset.accession': 'dataset'
     },
+    ontologyTermsLink: {
+      'dataset.specimen.material.text': 'dataset.specimen.material.ontologyTerms',
+      'dataset.specimen.cellType.text': 'dataset.specimen.cellType.ontologyTerms',
+      'dataset.specimen.organism.text': 'dataset.specimen.organism.ontologyTerms',
+      'dataset.specimen.sex.text': 'dataset.specimen.sex.ontologyTerms',
+      'dataset.specimen.breed.text': 'dataset.specimen.breed.ontologyTerms',
+      'dataset.species.text': 'dataset.species.ontologyTerms'
+    },
     queryName: 'allDatasets',
     celeryQueryName: 'allDatasetsAsTask',
     resultQueryName: 'allDatasetsTaskResult'
@@ -193,10 +197,6 @@ export const indexFieldsData = {
       'sequencingLocationLatitude.unit',
       'sequencingDate.text',
       'sequencingDate.unit',
-      'customField.name',
-      'customField.value',
-      'customField.unit',
-      'customField.ontologyTerms',
       'ATACSeq.transposaseProtocol.url',
       'ATACSeq.transposaseProtocol.filename',
       'BsSeq.librarySelection',
@@ -276,7 +276,6 @@ export const indexFieldsData = {
       'specimen',
       'organism',
       'species.text',
-      'species.ontologyTerms',
       'url',
       'name',
       'secondaryProject',
@@ -334,6 +333,9 @@ export const indexFieldsData = {
     links: {
       'file.name': 'file'
     },
+    ontologyTermsLink: {
+      'file.species.text': 'file.species.ontologyTerms',
+    },
     queryName: 'allFiles',
     celeryQueryName: 'allFilesAsTask',
     resultQueryName: 'allFilesTaskResult'
@@ -356,23 +358,14 @@ export const indexFieldsData = {
       'organization.name',
       'organization.role',
       'organization.URL',
-      'customField.name',
-      'customField.value',
-      'customField.unit',
-      'customField.ontologyTerms',
       'material.text',
-      'material.ontologyTerms',
       'availability',
       'organism.text',
-      'organism.ontologyTerms',
       'sex.text',
-      'sex.ontologyTerms',
       'breed.text',
-      'breed.ontologyTerms',
       'birthDate.text',
       'birthDate.unit',
       'healthStatus.text',
-      'healthStatus.ontologyTerms',
       'birthLocation',
       'birthLocationLongitude.text',
       'birthLocationLongitude.unit',
@@ -406,6 +399,13 @@ export const indexFieldsData = {
     links: {
       'organism.biosampleId': 'organism'
     },
+    ontologyTermsLink: {
+      'organism.material.text': 'organism.material.ontologyTerms',
+      'organism.organism.text': 'organism.organism.ontologyTerms',
+      'organism.sex.text': 'organism.sex.ontologyTerms',
+      'organism.breed.text': 'organism.breed.ontologyTerms',
+      'organism.healthStatus.text': 'organism.healthStatus.ontologyTerms',
+    },
     queryName: 'allOrganisms',
     celeryQueryName: 'allOrganismsAsTask',
     resultQueryName: 'allOrganismsTaskResult'
@@ -428,26 +428,16 @@ export const indexFieldsData = {
       'organization.name',
       'organization.role',
       'organization.URL',
-      'customField.name',
-      'customField.value',
-      'customField.unit',
-      'customField.ontologyTerms',
       'material.text',
-      'material.ontologyTerms',
       'derivedFrom',
       'allDeriveFromSpecimens',
       'availability',
       'cellType.text',
-      'cellType.ontologyTerms',
       'organism.biosampleId',
       'organism.organism.text',
-      'organism.organism.ontologyTerms',
       'organism.sex.text',
-      'organism.sex.ontologyTerms',
       'organism.breed.text',
-      'organism.breed.ontologyTerms',
       'organism.healthStatus.text',
-      'organism.healthStatus.ontologyTerms',
       'trackhubUrl'
     ],
     defaults:
@@ -464,6 +454,15 @@ export const indexFieldsData = {
     primary: 'biosampleId',
     links: {
       'specimen.biosampleId': 'specimen'
+    },
+    ontologyTermsLink: {
+      'specimen.material.text': 'specimen.material.ontologyTerms',
+      'specimen.cellType.text': 'specimen.cellType.ontologyTerms',
+      'specimen.organism.organism.text': 'specimen.organism.organism.ontologyTerms',
+      'specimen.organism.sex.text': 'specimen.organism.sex.ontologyTerms',
+      'specimen.organism.breed.text': 'specimen.organism.breed.ontologyTerms',
+      'specimen.organism.healthStatus.text': 'specimen.organism.healthStatus.ontologyTerms',
+
     },
     queryName: 'allSpecimens',
     celeryQueryName: 'allSpecimensAsTask',
