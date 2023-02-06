@@ -9,7 +9,7 @@
   <div class="section" fxLayout="row" fxLayoutGap="3%">
     <div>
       <mat-form-field appearance="fill">
-        <mat-label>First Index</mat-label>
+        <mat-label>First Table</mat-label>
         <mat-select [attr.name]="'firstIndex'" [formControl]="firstIndexName"
                     (selectionChange)="onIndexChange('firstIndex', $event)">
           <mat-option *ngFor="let firstIndex of firstIndices" [value]="firstIndex">{{firstIndex}}</mat-option>
@@ -18,7 +18,7 @@
     </div>
     <div>
       <mat-form-field appearance="fill">
-        <mat-label>Second Index</mat-label>
+        <mat-label>Second Table</mat-label>
         <mat-select [attr.name]="'secondIndex'" [formControl]="secondIndexName"
                     (selectionChange)="onIndexChange('secondIndex', $event)">
           <mat-option *ngFor="let secondIndex of secondIndices" [value]="secondIndex">{{secondIndex}}</mat-option>
