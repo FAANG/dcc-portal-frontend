@@ -30,17 +30,21 @@ export class GraphqlPage {
     cy.get('div > div.button-div:first').click()
 
 
-    cy.intercept('POST', '/graphql', (req) => {
-      if (req.body.query.includes(queryTaskName)) {
-        req.reply({ fixture: `data/graphql/${fixtureTask}`});
-      }
-    }).as("graphql1");
+    // cy.intercept('POST', '/graphql', (req) => {
+    //   if (req.body.query.includes(queryTaskName)) {
+    //     req.reply({ fixture: `data/graphql/${fixtureTask}`});
+    //   }
+    // }).as("graphql1");
+    //
+    // cy.intercept('POST', '/graphql', (req) => {
+    //   if (req.body.query.includes(queryResultName)) {
+    //     req.reply({ fixture: `data/graphql/${fixtureResult}`});
+    //   }
+    // }).as("graphql2");
+    // cy.wait('@graphql2')
 
-    cy.intercept('POST', '/graphql', (req) => {
-      if (req.body.query.includes(queryResultName)) {
-        req.reply({ fixture: `data/graphql/${fixtureResult}`});
-      }
-    }).as("graphql2");
+    cy.intercept('POST', '/graphql', {fixture: `data/graphql/${fixtureTask}`}).as('graphql1')
+    cy.intercept('POST', '/graphql', {fixture: `data/graphql/${fixtureResult}`}).as('graphql2')
     cy.wait('@graphql2')
   }
 
