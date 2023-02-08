@@ -1,0 +1,122 @@
+{
+  "data": {
+    "allArticlesTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "doi": "10.3390/genes11030251",
+            "title": "Characterization of A Homozygous Deletion of Steroid Hormone Biosynthesis Genes in Horse Chromosome 29 as A Risk Factor for Disorders of Sex Development and Reproduction.",
+            "authorString": "Ghosh S, Davis BW, Rosengren M, Jevit MJ, Castaneda C, Arnold C, Jaxheimer J, Love CC, Varner DD, Lindgren G, Wade CM, Raudsepp T.",
+            "journal": "Genes (Basel)",
+            "year": "2020",
+            "datasetSource": "All",
+            "pmcId": "PMC7140900",
+            "join": {
+              "file": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": "SRR10847560.fastq.gz",
+                      "study": {
+                        "accession": "PRJNA599440"
+                      },
+                      "experiment": {
+                        "accession": "SRX7518171",
+                        "assayType": "whole genome sequencing assay",
+                        "target": "input DNA",
+                        "standardMet": "Legacy"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMN13751676",
+                      "run": {
+                        "instrument": "Illumina HiSeq 2500"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "SRR10847558_2.fastq.gz",
+                      "study": {
+                        "accession": "PRJNA599440"
+                      },
+                      "experiment": {
+                        "accession": "SRX7518173",
+                        "assayType": "whole genome sequencing assay",
+                        "target": "input DNA",
+                        "standardMet": "Legacy"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMN13751678",
+                      "run": {
+                        "instrument": "Illumina HiSeq 2500"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "SRR10847558_1.fastq.gz",
+                      "study": {
+                        "accession": "PRJNA599440"
+                      },
+                      "experiment": {
+                        "accession": "SRX7518173",
+                        "assayType": "whole genome sequencing assay",
+                        "target": "input DNA",
+                        "standardMet": "Legacy"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMN13751678",
+                      "run": {
+                        "instrument": "Illumina HiSeq 2500"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "SRR10847559.fastq.gz",
+                      "study": {
+                        "accession": "PRJNA599440"
+                      },
+                      "experiment": {
+                        "accession": "SRX7518172",
+                        "assayType": "whole genome sequencing assay",
+                        "target": "input DNA",
+                        "standardMet": "Legacy"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMN13751677",
+                      "run": {
+                        "instrument": "Illumina HiSeq 2500"
+                      },
+                      "paperPublished": "true"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

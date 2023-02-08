@@ -1,0 +1,116 @@
+{
+  "data": {
+    "allAnalysisTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjE=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "accession": "ERZ1370206",
+            "project": "",
+            "title": "\"Benz2616 Rambouillet sheep CAGE-Seq dataset\"",
+            "alias": "OAR_RI_BENZ2616_Mus_LD",
+            "standardMet": "FAANG",
+            "organism": {
+              "text": "Ovis aries",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+            },
+            "datasetAccession": "PRJEB34864",
+            "assayType": "",
+            "analysisType": "REFERENCE_ALIGNMENT",
+            "join": {
+              "specimen": {
+                "edges": [
+                  {
+                    "node": {
+                      "biosampleId": "SAMEA104494974",
+                      "material": {
+                        "text": "specimen from organism",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+                      },
+                      "cellType": {
+                        "text": "longissimus dorsi",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0001401"
+                      },
+                      "organism": {
+                        "sex": {
+                          "text": "female",
+                          "ontologyTerms": "PATO_0000383"
+                        },
+                        "organism": {
+                          "text": "Ovis aries",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+                        },
+                        "breed": {
+                          "text": "Rambouillet",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0000591"
+                        }
+                      },
+                      "standardMet": "FAANG",
+                      "paperPublished": "true"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+          "node": {
+            "accession": "ERZ1370212",
+            "project": "",
+            "title": "\"Benz2616 Rambouillet sheep CAGE-Seq dataset\"",
+            "alias": "OAR_RI_BENZ2616_Pns",
+            "standardMet": "FAANG",
+            "organism": {
+              "text": "Ovis aries",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+            },
+            "datasetAccession": "PRJEB34864",
+            "assayType": "",
+            "analysisType": "REFERENCE_ALIGNMENT",
+            "join": {
+              "specimen": {
+                "edges": [
+                  {
+                    "node": {
+                      "biosampleId": "SAMEA104494980",
+                      "material": {
+                        "text": "specimen from organism",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+                      },
+                      "cellType": {
+                        "text": "pons",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000988"
+                      },
+                      "organism": {
+                        "sex": {
+                          "text": "female",
+                          "ontologyTerms": "PATO_0000383"
+                        },
+                        "organism": {
+                          "text": "Ovis aries",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+                        },
+                        "breed": {
+                          "text": "Rambouillet",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0000591"
+                        }
+                      },
+                      "standardMet": "FAANG",
+                      "paperPublished": "true"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

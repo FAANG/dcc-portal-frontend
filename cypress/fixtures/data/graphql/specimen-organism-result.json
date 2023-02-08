@@ -1,0 +1,48 @@
+{
+  "data": {
+    "allSpecimensTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "biosampleId": "SAMN10622342",
+            "idNumber": -10622342,
+            "name": "by_21_t3",
+            "standardMet": "Legacy (basic)",
+            "material": {
+              "text": "specimen from organism",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+            },
+            "cellType": {
+              "text": "spleen",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0002106"
+            },
+            "organism": {
+              "organism": {
+                "text": "Gallus gallus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9031"
+              },
+              "sex": {
+                "text": "male",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+              },
+              "breed": {
+                "text": "BY",
+                "ontologyTerms": null
+              }
+            },
+            "join": {
+              "organism": {
+                "edges": []
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

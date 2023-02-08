@@ -1,0 +1,1883 @@
+{
+  "data": {
+    "allDatasetsTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "accession": "PRJEB35307",
+            "standardMet": "FAANG",
+            "secondaryProject": [
+              ""
+            ],
+            "title": "Functionally annotating regulatory elements in the equine genome using histone mark ChIP-Seq",
+            "alias": "ECA_HIS_ChIP_UCD_ST1",
+            "assayType": [
+              "ChIP-seq"
+            ],
+            "archive": [
+              "ENA"
+            ],
+            "species": [
+              {
+                "text": "Equus caballus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+              }
+            ],
+            "paperPublished": "true",
+            "join": {
+              "file": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": "ERR3653334.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645360",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728717",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653386.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645412",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728774",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653391.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645417",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728810",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653342.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645368",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728876",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653369.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645395",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728891",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653379.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645405",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728770",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653313.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645339",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728771",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653322.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645348",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728774",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653356.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645382",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728726",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653358.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645384",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728876",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653380.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645406",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728881",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653333.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645359",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728901",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653364.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645390",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728881",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653330.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645356",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728837",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653382.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645408",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728717",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653361.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645387",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728771",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653343.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645369",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728810",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653325.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645351",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728801",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653375.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645401",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728810",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653336.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645362",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728874",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653374.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645400",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728876",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653388.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645414",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728726",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653370.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645396",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728774",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653383.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645409",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728793",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653337.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645363",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728891",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653378.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645404",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728837",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653320.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645346",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728874",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653349.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645375",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728901",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653341.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645367",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728801",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653363.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645389",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728770",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653352.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645378",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728874",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653362.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645388",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728837",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653345.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645371",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728771",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653385.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645411",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728891",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653348.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645374",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728881",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653354.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645380",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728774",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653318.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645344",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728717",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653353.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645379",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728891",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653332.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645358",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728881",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653372.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645398",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728726",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653319.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645345",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728793",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653366.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645392",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728717",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653314.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645340",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728837",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653367.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645393",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728793",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653327.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645353",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728810",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653389.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645415",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728801",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653326.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645352",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728876",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653368.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645394",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728874",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653384.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645410",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728874",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653323.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645349",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728823",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653373.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645399",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728801",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653335.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645361",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728793",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653351.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645377",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728793",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653387.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645413",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728823",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653350.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645376",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728717",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653355.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645381",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728823",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653377.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645403",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728771",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653316.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645342",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728881",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653376.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645402",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728736",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653357.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645383",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728801",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653315.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645341",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728770",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653340.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645366",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728726",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653381.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645407",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728901",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653324.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645350",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728726",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653329.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645355",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728771",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653317.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645343",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728901",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653346.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645372",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728837",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653360.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645386",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728736",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653331.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645357",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728770",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653339.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645365",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728823",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653344.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645370",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728736",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653390.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645416",
+                        "assayType": "ChIP-seq",
+                        "target": "input DNA",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728876",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653338.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645364",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728774",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653371.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645397",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728823",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653321.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645347",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728891",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653347.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645373",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728770",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653359.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645385",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27ac",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728810",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653365.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645391",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K27me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728901",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653312.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645338",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me1",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728736",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": "ERR3653328.fastq.gz",
+                      "study": {
+                        "accession": "PRJEB35307"
+                      },
+                      "experiment": {
+                        "accession": "ERX3645354",
+                        "assayType": "ChIP-seq",
+                        "target": "H3K4me3",
+                        "standardMet": "FAANG"
+                      },
+                      "species": {
+                        "text": "Equus caballus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                      },
+                      "specimen": "SAMEA104728736",
+                      "run": {
+                        "instrument": "Illumina HiSeq 4000"
+                      },
+                      "paperPublished": "true"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "data": {
+    "allArticlesTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "doi": "10.3390/genes11030251",
+            "title": "Characterization of A Homozygous Deletion of Steroid Hormone Biosynthesis Genes in Horse Chromosome 29 as A Risk Factor for Disorders of Sex Development and Reproduction.",
+            "authorString": "Ghosh S, Davis BW, Rosengren M, Jevit MJ, Castaneda C, Arnold C, Jaxheimer J, Love CC, Varner DD, Lindgren G, Wade CM, Raudsepp T.",
+            "journal": "Genes (Basel)",
+            "year": "2020",
+            "datasetSource": "All",
+            "pmcId": "PMC7140900",
+            "join": {
+              "specimen": {
+                "edges": [
+                  {
+                    "node": {
+                      "biosampleId": "SAMN13751676",
+                      "material": {
+                        "text": "specimen from organism",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+                      },
+                      "cellType": {
+                        "text": "testis",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000473"
+                      },
+                      "organism": {
+                        "sex": {
+                          "text": "male",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+                        },
+                        "organism": {
+                          "text": "Equus caballus",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                        },
+                        "breed": {
+                          "text": "Pony",
+                          "ontologyTerms": null
+                        }
+                      },
+                      "standardMet": "Legacy (basic)",
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "biosampleId": "SAMN13751678",
+                      "material": {
+                        "text": "specimen from organism",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+                      },
+                      "cellType": {
+                        "text": "blood",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/UBERON_0000178"
+                      },
+                      "organism": {
+                        "sex": {
+                          "text": "female",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000383"
+                        },
+                        "organism": {
+                          "text": "Equus caballus",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                        },
+                        "breed": {
+                          "text": "Warmblood",
+                          "ontologyTerms": null
+                        }
+                      },
+                      "standardMet": "Legacy (basic)",
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "biosampleId": "SAMN13751677",
+                      "material": {
+                        "text": "specimen from organism",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+                      },
+                      "cellType": {
+                        "text": "fibroblast",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/CL_0000057"
+                      },
+                      "organism": {
+                        "sex": {
+                          "text": "male",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+                        },
+                        "organism": {
+                          "text": "Equus caballus",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9796"
+                        },
+                        "breed": {
+                          "text": "Standardbred",
+                          "ontologyTerms": null
+                        }
+                      },
+                      "standardMet": "Legacy (basic)",
+                      "paperPublished": "true"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -59,7 +59,10 @@ export class DisplayDataComponent implements OnInit, OnChanges {
   removeNumEntries(str: any) {
     if (str) {
       const pattern = /^\[numEntries:\s\d*\]/;
-      return str.replace(pattern, '');
+      if (pattern.test(str)) {
+        return str.replace(pattern, '');
+      }
+      return str;
     }
   }
 

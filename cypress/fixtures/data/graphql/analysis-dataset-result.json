@@ -1,0 +1,98 @@
+{
+  "data": {
+    "allAnalysisTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjE=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "accession": "ERZ1370206",
+            "project": "",
+            "title": "\"koosumtest Benz2616 Rambouillet sheep CAGE-Seq dataset\"",
+            "alias": "OAR_RI_BENZ2616_Mus_LD",
+            "standardMet": "FAANG",
+            "organism": {
+              "text": "Ovis aries",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+            },
+            "datasetAccession": "PRJEB34864",
+            "assayType": "",
+            "analysisType": "REFERENCE_ALIGNMENT",
+            "join": {
+              "dataset": {
+                "edges": [
+                  {
+                    "node": {
+                      "accession": "PRJEB34864",
+                      "title": "CAGE-Sequencing of tissues from Benz 2616",
+                      "species": [
+                        {
+                          "text": "Ovis aries",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+                        }
+                      ],
+                      "archive": [
+                        "ENA"
+                      ],
+                      "assayType": [
+                        "CAGE-seq"
+                      ],
+                      "standardMet": "FAANG",
+                      "paperPublished": "true"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+          "node": {
+            "accession": "ERZ1370212",
+            "project": "",
+            "title": "\"Benz2616 Rambouillet sheep CAGE-Seq dataset\"",
+            "alias": "OAR_RI_BENZ2616_Pns",
+            "standardMet": "FAANG",
+            "organism": {
+              "text": "Ovis aries",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+            },
+            "datasetAccession": "PRJEB34864",
+            "assayType": "",
+            "analysisType": "REFERENCE_ALIGNMENT",
+            "join": {
+              "dataset": {
+                "edges": [
+                  {
+                    "node": {
+                      "accession": "PRJEB34864",
+                      "title": "CAGE-Sequencing of tissues from Benz 2616",
+                      "species": [
+                        {
+                          "text": "Ovis aries",
+                          "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
+                        }
+                      ],
+                      "archive": [
+                        "ENA"
+                      ],
+                      "assayType": [
+                        "CAGE-seq"
+                      ],
+                      "standardMet": "FAANG",
+                      "paperPublished": "true"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

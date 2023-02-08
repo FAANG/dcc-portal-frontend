@@ -1,0 +1,392 @@
+{
+  "data": {
+    "allProtocolSamplesTaskResult": {
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+        "hasNextPage": false
+      },
+      "edges": [
+        {
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+          "node": {
+            "universityName": "Department of Economic Development, Jobs, Transport and Resources (Bundoora, Australia)",
+            "protocolDate": "2016",
+            "protocolName": "CryofreezingTissue",
+            "key": "DEDJTR_SOP_CryofreezingTissue_20160317.pdf",
+            "url": "https://data.faang.org/api/fire_api/samples/DEDJTR_SOP_CryofreezingTissue_20160317.pdf",
+            "specimens": [
+              {
+                "id": "SAMEA4447810"
+              },
+              {
+                "id": "SAMEA4447758"
+              },
+              {
+                "id": "SAMEA4447771"
+              },
+              {
+                "id": "SAMEA4447772"
+              },
+              {
+                "id": "SAMEA4447775"
+              },
+              {
+                "id": "SAMEA4447776"
+              },
+              {
+                "id": "SAMEA4447778"
+              },
+              {
+                "id": "SAMEA4447779"
+              },
+              {
+                "id": "SAMEA4447788"
+              },
+              {
+                "id": "SAMEA4447793"
+              },
+              {
+                "id": "SAMEA4447801"
+              },
+              {
+                "id": "SAMEA4447809"
+              },
+              {
+                "id": "SAMEA4675137"
+              },
+              {
+                "id": "SAMEA4675143"
+              },
+              {
+                "id": "SAMEA4675151"
+              },
+              {
+                "id": "SAMEA4447820"
+              },
+              {
+                "id": "SAMEA4447764"
+              },
+              {
+                "id": "SAMEA4447766"
+              },
+              {
+                "id": "SAMEA4447768"
+              },
+              {
+                "id": "SAMEA4447780"
+              },
+              {
+                "id": "SAMEA4447783"
+              },
+              {
+                "id": "SAMEA4447800"
+              },
+              {
+                "id": "SAMEA4447803"
+              },
+              {
+                "id": "SAMEA4675142"
+              },
+              {
+                "id": "SAMEA4675148"
+              },
+              {
+                "id": "SAMEA4675152"
+              },
+              {
+                "id": "SAMEA4447823"
+              },
+              {
+                "id": "SAMEA4447826"
+              },
+              {
+                "id": "SAMEA4447828"
+              },
+              {
+                "id": "SAMEA4447829"
+              },
+              {
+                "id": "SAMEA4447835"
+              },
+              {
+                "id": "SAMEA4447815"
+              },
+              {
+                "id": "SAMEA4447816"
+              },
+              {
+                "id": "SAMEA4447817"
+              },
+              {
+                "id": "SAMEA4447821"
+              },
+              {
+                "id": "SAMEA4447824"
+              },
+              {
+                "id": "SAMEA4447827"
+              },
+              {
+                "id": "SAMEA4447831"
+              },
+              {
+                "id": "SAMEA4447834"
+              },
+              {
+                "id": "SAMEA4447837"
+              },
+              {
+                "id": "SAMEA4447756"
+              },
+              {
+                "id": "SAMEA4447761"
+              },
+              {
+                "id": "SAMEA4447762"
+              },
+              {
+                "id": "SAMEA4447782"
+              },
+              {
+                "id": "SAMEA4447796"
+              },
+              {
+                "id": "SAMEA4447797"
+              },
+              {
+                "id": "SAMEA4447804"
+              },
+              {
+                "id": "SAMEA4447808"
+              },
+              {
+                "id": "SAMEA4447812"
+              },
+              {
+                "id": "SAMEA4675135"
+              },
+              {
+                "id": "SAMEA4675138"
+              },
+              {
+                "id": "SAMEA4675139"
+              },
+              {
+                "id": "SAMEA4675150"
+              },
+              {
+                "id": "SAMEA4447757"
+              },
+              {
+                "id": "SAMEA4447770"
+              },
+              {
+                "id": "SAMEA4447830"
+              },
+              {
+                "id": "SAMEA4447836"
+              },
+              {
+                "id": "SAMEA4447767"
+              },
+              {
+                "id": "SAMEA4447774"
+              },
+              {
+                "id": "SAMEA4447790"
+              },
+              {
+                "id": "SAMEA4447791"
+              },
+              {
+                "id": "SAMEA4447805"
+              },
+              {
+                "id": "SAMEA4447807"
+              },
+              {
+                "id": "SAMEA4447813"
+              },
+              {
+                "id": "SAMEA4447818"
+              },
+              {
+                "id": "SAMEA4447819"
+              },
+              {
+                "id": "SAMEA4447760"
+              },
+              {
+                "id": "SAMEA4447765"
+              },
+              {
+                "id": "SAMEA4675140"
+              },
+              {
+                "id": "SAMEA4675141"
+              },
+              {
+                "id": "SAMEA4675144"
+              },
+              {
+                "id": "SAMEA4675146"
+              },
+              {
+                "id": "SAMEA4675153"
+              },
+              {
+                "id": "SAMEA4675134"
+              },
+              {
+                "id": "SAMEA4447759"
+              },
+              {
+                "id": "SAMEA4447763"
+              },
+              {
+                "id": "SAMEA4447769"
+              },
+              {
+                "id": "SAMEA4447777"
+              },
+              {
+                "id": "SAMEA4447786"
+              },
+              {
+                "id": "SAMEA4447787"
+              },
+              {
+                "id": "SAMEA4447789"
+              },
+              {
+                "id": "SAMEA4447792"
+              },
+              {
+                "id": "SAMEA4447798"
+              },
+              {
+                "id": "SAMEA4447802"
+              },
+              {
+                "id": "SAMEA4447806"
+              },
+              {
+                "id": "SAMEA4447814"
+              },
+              {
+                "id": "SAMEA4447822"
+              },
+              {
+                "id": "SAMEA4447833"
+              },
+              {
+                "id": "SAMEA4675145"
+              }
+            ],
+            "join": {
+              "organism": {
+                "edges": [
+                  {
+                    "node": {
+                      "biosampleId": "SAMEA4675147",
+                      "sex": {
+                        "text": "female",
+                        "ontologyTerms": "PATO_0000383"
+                      },
+                      "organism": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "breed": {
+                        "text": "Holstein",
+                        "ontologyTerms": "LBO_0000132"
+                      },
+                      "standardMet": "FAANG",
+                      "paperPublished": null
+                    }
+                  },
+                  {
+                    "node": {
+                      "biosampleId": "SAMEA4447839",
+                      "sex": {
+                        "text": "male",
+                        "ontologyTerms": "PATO_0000384"
+                      },
+                      "organism": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "breed": {
+                        "text": "Holstein",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0000132"
+                      },
+                      "standardMet": "FAANG",
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "biosampleId": "SAMEA4447799",
+                      "sex": {
+                        "text": "female",
+                        "ontologyTerms": "PATO_0000383"
+                      },
+                      "organism": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "breed": {
+                        "text": "Holstein",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0000132"
+                      },
+                      "standardMet": "FAANG",
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "biosampleId": "SAMEA4447832",
+                      "sex": {
+                        "text": "female",
+                        "ontologyTerms": "PATO_0000383"
+                      },
+                      "organism": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "breed": {
+                        "text": "Holstein",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0000132"
+                      },
+                      "standardMet": "FAANG",
+                      "paperPublished": "true"
+                    }
+                  },
+                  {
+                    "node": {
+                      "biosampleId": "SAMEA4447825",
+                      "sex": {
+                        "text": "female",
+                        "ontologyTerms": "PATO_0000383"
+                      },
+                      "organism": {
+                        "text": "Bos taurus",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9913"
+                      },
+                      "breed": {
+                        "text": "Holstein",
+                        "ontologyTerms": "http://purl.obolibrary.org/obo/LBO_0000132"
+                      },
+                      "standardMet": "FAANG",
+                      "paperPublished": "true"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
