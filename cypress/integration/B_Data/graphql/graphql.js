@@ -1,18 +1,21 @@
 export class GraphqlPage {
 
-  check_title() {
+  check_tables_selection(firstIndex, secondIndex,) {
     cy.get('.mat-toolbar > span').should("contain", 'Tables & Columns Selection')
-  }
-
-  check_tables_selection() {
-    cy.get('mat-select[name=firstIndex]').click().get('mat-option').contains('analysis').click({force: true});
-    cy.get('mat-select[name=secondIndex]').click().get('mat-option').contains('article').click({force: true});
+    cy.wait(1000)
+    cy.get('mat-select[name=firstIndex]').click().get('mat-option').contains(firstIndex).click({force: true});
+    cy.wait(1000)
+    cy.get('mat-select[name=secondIndex]').click().get('mat-option').contains(secondIndex).click({force: true});
     cy.get('app-index-filters > :nth-child(1) > .mat-toolbar').should('exist')
     cy.get('.user-info > :nth-child(1)').should("contain", 'Select columns on which to add filters.')
   }
 
   check_filters(firstIndex, secondIndex, queryTaskName, queryResultName, filterName, filterValue,
                 option1, option2, fixtureTask, fixtureResult) {
+
+    cy.intercept('POST', '/graphql', (req) => {
+    }).as("graphql1");
+
     cy.get('mat-select[name=firstIndex]').click().get('mat-option').contains(firstIndex).click({force: true});
     cy.get('mat-select[name=secondIndex]').click().get('mat-option').contains(secondIndex).click({force: true});
     cy.get('app-index-filters > :nth-child(1) > .mat-toolbar').should('exist')
@@ -30,26 +33,21 @@ export class GraphqlPage {
     cy.get('div > div.button-div:first').click()
 
     cy.intercept('POST', '/graphql', (req) => {
-      if (req.body.query.includes(queryTaskName)) {
-        req.reply({ fixture: `data/graphql/${fixtureTask}`});
-      }
-    }).as("graphql1");
-
-    cy.intercept('POST', '/graphql', (req) => {
       if (req.body.query.includes(queryResultName)) {
         req.reply({ fixture: `data/graphql/${fixtureResult}`});
       }
     }).as("graphql2");
-    cy.wait('@graphql2')
+    cy.wait('@graphql2').its("request.url").should("contain", 'graphql')
+    cy.get('tbody')
+      .find('tr')
+      .should("have.length.least", 1)
   }
 
   check_header_sort_asc(classname, colname) {
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
-
     cy.get('tbody')
       .find('tr')
       .should("have.length.greaterThan", 2)
-
     cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
   }
 
@@ -57,11 +55,9 @@ export class GraphqlPage {
   check_header_sort_desc(classname, colname) {
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
     cy.get(`.mat-header-row > ${classname}`).click({force: true})
-
     cy.get('tbody')
       .find('tr')
       .should("have.length.greaterThan", 2)
-
     cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
   }
 
