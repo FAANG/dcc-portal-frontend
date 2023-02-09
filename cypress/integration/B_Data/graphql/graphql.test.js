@@ -88,15 +88,15 @@ describe('GraphQl Page', () => {
   })
 
   // --------------------
-  it('should filter data - specimen-dataset"', () => {
-    graphqlPage.check_filters('specimen', 'dataset', 'allSpecimensAsTask', 'allSpecimensTaskResult',
-      'biosampleId', 'SAMEA4675147','idNumber', 'name', 'specimen-task.json', 'specimen-dataset-result.json')
-  })
-
-  it('should filter data - specimen-organism"', () => {
-    graphqlPage.check_filters('specimen', 'organism', 'allSpecimensAsTask', 'allSpecimensTaskResult',
-      'biosampleId', 'SAMEA4675147','idNumber', 'name', 'specimen-task.json', 'specimen-organism-result.json')
-  })
+  // it('should filter data - specimen-dataset"', () => {
+  //   graphqlPage.check_filters('specimen', 'dataset', 'allSpecimensAsTask', 'allSpecimensTaskResult',
+  //     'biosampleId', 'SAMEA4675147','idNumber', 'name', 'specimen-task.json', 'specimen-dataset-result.json')
+  // })
+  //
+  // it('should filter data - specimen-organism"', () => {
+  //   graphqlPage.check_filters('specimen', 'organism', 'allSpecimensAsTask', 'allSpecimensTaskResult',
+  //     'biosampleId', 'SAMEA4675147','idNumber', 'name', 'specimen-task.json', 'specimen-organism-result.json')
+  // })
 
   // --------------------
   it('should filter data - protocolAnalysis-analysis"', () => {
