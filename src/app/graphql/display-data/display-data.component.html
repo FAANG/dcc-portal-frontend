@@ -1,4 +1,9 @@
 <div [ngStyle]="{'display': dataTable ? 'block' : 'none'}" style="width: 100%; overflow-x: scroll;">
+  <mat-form-field style="width: 100%; margin-top: 10px;">
+    <mat-label>Search</mat-label>
+    <input (keyup)="searchChanged($event)" matInput 
+        placeholder="Search">
+  </mat-form-field>
   <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
     <ng-container [matColumnDef]=col *ngFor="let col of displayedColumns; let i = index">
       <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header>
