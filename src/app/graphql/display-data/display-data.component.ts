@@ -19,6 +19,8 @@ export class DisplayDataComponent implements OnInit, OnChanges {
   indexData = {};
   dataSource: MatTableDataSource<any>;
   colPrimaryField;
+  timer: any;
+  delaySearch: boolean = true;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -93,6 +95,23 @@ export class DisplayDataComponent implements OnInit, OnChanges {
       }
     }
     return filteredColumnsArr;
+  }
+
+  searchChanged(event: any){
+    const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    if (this.delaySearch){
+      if (this.timer){
+        clearTimeout(this.timer);
+      }
+      this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
+    }
+    else {
+      this.applySearchFilter(searchFilterValue);
+    }
+  }
+
+  applySearchFilter(val) {
+    this.dataSource.filter = val;
   }
 
 }
