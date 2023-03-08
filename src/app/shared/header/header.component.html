@@ -38,6 +38,11 @@
           Ontology Improver <sup>Beta</sup>
         </a>
       </button>
+      <button mat-button>
+        <a class="nav-link" routerLink="/graphql" routerLinkActive="active">
+          Search
+        </a>
+      </button>
       <button mat-button [matMenuTriggerFor]="help">
         <a class="nav-link" [ngClass]="isActive('help')">Help
           <mat-icon style="vertical-align: middle;">arrow_drop_down</mat-icon>
@@ -76,6 +81,11 @@
       Ontology Improver <sup>Beta</sup>
     </a>
   </button>
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/graphql" routerLinkActive="active">
+      Search
+    </a>
+  </button>
   <button mat-menu-item [matMenuTriggerFor]="help">
     <a class="nav-link" [ngClass]="isActive('help')">Help
     </a>
@@ -107,12 +117,6 @@
     </button>
     <button mat-menu-item>
       <a class="nav-link" routerLink="/article" routerLinkActive="active">Publications</a>
-    </button>
-    <div class="dropdown-divider"></div>
-    <button mat-menu-item>
-      <a class="nav-link" routerLink="/graphql" routerLinkActive="active">
-        GraphQL Search <sup>Beta</sup>
-      </a>
     </button>
   </mat-menu>
 
