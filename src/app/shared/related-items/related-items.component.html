@@ -16,7 +16,13 @@
 
     <div fxLayout="row" fxLayout.lt-md="column">
       <button mat-raised-button color="accent" (click)="downloadAllFiles()" [disabled]="urls.length === 0"
-              *ngIf="download_key.length > 0">Download all files ({{urls.length}})
+              *ngIf="download_key.length > 0 && mode == 'public'">Download all files ({{urls.length}})
+      </button>
+      <button mat-raised-button color="accent"
+              *ngIf="download_key.length > 0 && mode == 'private'">
+        <a href="https://github.com/FAANG/dcc-private-data-downloader" target="_blank" style="color: black;">
+          Go to downloader utility
+        </a>
       </button>
       <button mat-raised-button color="primary" (click)=select.open()>Column Selection
         <mat-icon>arrow_drop_down</mat-icon>

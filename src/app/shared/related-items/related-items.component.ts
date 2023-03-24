@@ -60,7 +60,7 @@ export class RelatedItemsComponent implements OnInit {
     for (const column of setting[this.source_type][this.target_type]['display']) {
       this.display_fields.push(column);
     }
-    if (this.download_key.length > 0) {
+    if (this.download_key.length > 0 && this.mode == 'public') {
       this.display_fields.push('Download');
     }
     // random delay for concurrent requests
@@ -311,9 +311,6 @@ export class RelatedItemsComponent implements OnInit {
   downloadAllFiles() {
     this.urls.forEach(url => {
       let file_url = url.split('://')[1];
-      if (this.mode == 'private') {
-        url = 'ftp://' + url.split('://')[1];
-      }
       this.progress[file_url] = 0;
       this.http.get(url,
         {
@@ -333,7 +330,6 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   displayPlatformLogo(record: any, attr: string) {
-    console.log(record['Platform']);
     return (this.target_type === 'pipeline' && attr === 'Platform' && record['Platform'] === 'nf-core');
   }
 
