@@ -15,7 +15,7 @@ describe('Home Page', () => {
     homePage.check_nonexistent_path()
   });
 
-  it('should have 8 horizontal tabs', () => {
+  it('should have 9 horizontal tabs', () => {
     homePage.check_toolbar_menu()
   });
 

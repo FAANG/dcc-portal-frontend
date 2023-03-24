@@ -11,7 +11,7 @@ export class HomePage{
   }
 
   check_toolbar_menu(){
-    cy.get('a.nav-link').should("have.length", 8);
+    cy.get('a.nav-link').should("have.length", 9);
     cy.get('a.nav-link').then(link => {
       expect(link[0]).to.contain.text('Home')
       expect(link[1]).to.contain.text('Data')
@@ -20,7 +20,8 @@ export class HomePage{
       expect(link[4]).to.contain.text('Genome Browser')
       expect(link[5]).to.contain.text('Submit')
       expect(link[6]).to.contain.text('Ontology Improver')
-      expect(link[7]).to.contain.text('Help')
+      expect(link[7]).to.contain.text('Search')
+      expect(link[8]).to.contain.text('Help')
     })
   }
 
