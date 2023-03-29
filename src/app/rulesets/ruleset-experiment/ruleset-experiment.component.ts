@@ -53,7 +53,8 @@ export class RulesetExperimentComponent implements OnInit {
     'Hi-C': '../../../assets/hi-c.xlsx',
     'RNA-seq': '../../../assets/rna-seq.xlsx',
     'WGS': '../../../assets/wgs.xlsx',
-    'CAGE-seq': '../../../assets/cage-seq.xlsx'
+    'CAGE-seq': '../../../assets/cage-seq.xlsx',
+    'scRNA-seq': '../../../assets/scrna-seq.xlsx'
   };
   rule_groups = [];
   rules = [];
@@ -74,7 +75,7 @@ export class RulesetExperimentComponent implements OnInit {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 1;
-    this.dataSource = new MatTableDataSource([]); 
+    this.dataSource = new MatTableDataSource([]);
     this.rule_groups = [
       'Standard',
       'ATAC-seq',

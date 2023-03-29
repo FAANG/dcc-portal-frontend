@@ -113,10 +113,6 @@
 
     <ng-template #eurofaangProject>
       <app-eurofaang-info></app-eurofaang-info>
-      <div *ngFor="let keyproj of eurofaang_keyproj" class="keyproj">
-        <app-related-items source_type="project" target_type="dataset" download_key=""
-                            [record_id]="keyproj" [isEuroFaangProj]="true"></app-related-items>
-      </div>
     </ng-template>
 
   </div>
