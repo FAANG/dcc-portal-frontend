@@ -1034,7 +1034,7 @@ export class ApiDataService {
           key: entry['_source']['key'],
           protocol_name: entry['_source']['protocolName'],
           university_name: entry['_source']['universityName'],
-          protocol_date: entry['_source']['protocolDate'].toString(),
+          protocol_date: entry['_source']['protocolDate'],
           } as ProtocolSample)
         );
         res['totalHits'] = data.hits.total.value;
@@ -1047,7 +1047,7 @@ export class ApiDataService {
   }
 
   getSampleProtocol(id: string) {
-    const url = `${this.hostSetting.host}data/protocol_samples/${id}`;
+    const url = `${this.hostSetting.host}data/protocol_samples/${encodeURIComponent(id)}`;
     return this.http.get(url).pipe(
       map( (data: any) => {
         return data;

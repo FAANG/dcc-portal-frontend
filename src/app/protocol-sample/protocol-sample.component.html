@@ -50,3 +50,13 @@
 <ng-template #nameTemplate let-item>
   <a style="cursor: pointer" target="_blank" [routerLink]="item['key']">{{item['protocol_name']}}</a>
 </ng-template>
+
+<ng-template #uniTemplate let-item>
+  <span *ngIf="item['university_name']">{{item['university_name']}}</span>
+  <span *ngIf="!item['university_name']">-</span>
+</ng-template>
+
+<ng-template #dateTemplate let-item>
+  <span *ngIf="item['protocol_date']">{{item['protocol_date']}}</span>
+  <span *ngIf="!item['protocol_date']">-</span>
+</ng-template>
