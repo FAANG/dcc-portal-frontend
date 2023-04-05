@@ -29,7 +29,7 @@
         <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
           <ng-container *ngIf="col == 'accession'">
             <td mat-cell class="table-cell-data" *matCellDef="let item">
-              <a style="cursor:pointer" (click)="onClick(item[col]); ngxSmartModalService.getModal('myModal').open()">
+              <a href="#" (click)="onClick(item[col]); ngxSmartModalService.getModal('myModal').open()">
                 {{item[col]}}
               </a>
             </td>
