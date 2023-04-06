@@ -15,6 +15,8 @@ import {MatTabGroup} from '@angular/material/tabs';
 export class ProtocolAnalysisComponent implements OnInit {
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   @ViewChild('nameTemplate', { static: true }) nameTemplate: TemplateRef<any>;
+  @ViewChild('uniTemplate', { static: true }) uniTemplate: TemplateRef<any>;
+  @ViewChild('dateTemplate', { static: true }) dateTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
 
@@ -61,7 +63,11 @@ export class ProtocolAnalysisComponent implements OnInit {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 2;
-    this.templates = {'protocol_name': this.nameTemplate};
+    this.templates = {
+      'protocol_name': this.nameTemplate, 
+      'university_name': this.uniTemplate, 
+      'protocol_date': this.dateTemplate
+    };
     this.loadTableDataFunction = this.dataService.getAllAnalysisProtocols.bind(this.dataService);
     this.titleService.setTitle('FAANG protocols');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
