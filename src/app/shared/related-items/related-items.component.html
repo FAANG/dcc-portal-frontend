@@ -16,13 +16,12 @@
 
     <div fxLayout="row" fxLayout.lt-md="column">
       <button mat-raised-button color="accent"
+              (click)="goToDownloader()"
               *ngIf="download_key.length > 0">
-        <a href="https://github.com/FAANG/dcc-bulk-data-downloader" target="_blank" style="color: black;">
-          Go to bulk downloader utility
-        </a>
+        Go to bulk downloader utility
       </button>
       <button mat-raised-button color="accent" (click)="downloadAllFiles()" [disabled]="urls.length === 0"
-              *ngIf="download_key.length > 0 && mode == 'public'">Download all files ({{urls.length}})
+              *ngIf="download_key.length > 0 && mode == 'public'">Download selected files ({{urls.length}})
       </button>
       <button mat-raised-button color="primary" (click)=select.open()>Column Selection
         <mat-icon>arrow_drop_down</mat-icon>

@@ -318,11 +318,12 @@ export class RelatedItemsComponent implements OnInit {
             reportProgress: true,
             observe: 'events',
         }).subscribe(result => {
+        let filename = file_url.split('/').pop();
         if (result.type === HttpEventType.DownloadProgress) {
           this.progress[file_url] = Math.round(100 * result.loaded / result.total);
         }
         if (result.type === HttpEventType.Response) {
-          FileSaver.saveAs(result.body);
+          FileSaver.saveAs(result.body, filename);
         }
       });
       this.progress[file_url] = 0;
@@ -426,5 +427,9 @@ export class RelatedItemsComponent implements OnInit {
     } else {
       return this.capitalizeFirstLetter(targetType) + 's';
     }
+  }
+
+  goToDownloader(){
+    (window as any).open("https://github.com/FAANG/dcc-bulk-data-downloader", "_blank");
   }
 }
