@@ -317,6 +317,36 @@ export class ApiDataService {
     );
   }
 
+  getAllOntologies(query: any, size: number) {
+    const url = `${this.hostSetting.host}data/ontologies/_search/?size=${size}`;
+    const aggs = {
+      'projects': 'projects',
+      'type': 'type'
+    };
+    const filters = query['filters'];
+    for (const prop of Object.keys(filters)) {
+      if (aggs[prop] && (prop !== aggs[prop])) {
+        filters[aggs[prop]] = filters[prop];
+        delete filters[prop];
+      }
+    }
+    const sortParams = query['sort'][0] + ':' + query['sort'][1];
+    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
+      JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
+    const res = {};
+    return this.http.get(url, {params: params}).pipe(
+      map((data: any) => {
+        res['data'] = data.hits.hits.map(entry => entry['_source']
+        );
+        res['totalHits'] = data.hits.total.value;
+        res['aggregations'] = data.aggregations;
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getAllOrganisms(query: any, size: number) {
     const url = `${this.hostSetting.host}data/organism/_search/?size=${size}`;
     const aggs = {

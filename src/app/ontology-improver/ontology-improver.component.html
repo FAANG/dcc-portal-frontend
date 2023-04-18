@@ -15,8 +15,7 @@
             </div>
             <div class="row" fxlayout.lt-md="column" fxLayoutGap="2%" style="padding-top: 10px; padding-bottom: 10px;">
                 <div fxFlex="17" fxFlex.lt-md="100">
-                    <app-filter title="Ontology Status" [filterSize]=4></app-filter>
-                    <app-filter title="Project" [filterSize]=4></app-filter>
+                    <app-filter title="Projects" [filterSize]=4></app-filter>
                     <app-filter title="Ontology Type" [filterSize]=5></app-filter>
                 </div>
                 <div fxFlex="81" fxFlex.lt-md="100">
@@ -25,25 +24,18 @@
                       <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
                       <hr>
                     </div>
-                    <mat-form-field *ngIf="fetchedAllRecords" style="width: 100%;">
-                        <mat-label>Search livestock ontologies</mat-label>
-                        <input (keyup)="applyFilter($event)" matInput 
-                            placeholder="Search livestock ontologies by term, type, ID or status">
-                    </mat-form-field>
-                    <div *ngIf="!fetchedAllRecords || showSpinner" style="padding-bottom: 20px;">
-                        <mat-spinner [diameter]="30"></mat-spinner>
-                    </div>
-                    <div [hidden]="!summaryTableData">
-                        <app-table-client-side #tableComp id="ontology-table"
-                            [display_fields]="displayFields"
-                            [column_names]="columnNames"
-                            [data]="summaryTableData"
-                            [filter_values]="filter_field"
-                            [templates]="templates"
-                            [page_size]=10
-                            [col_width]="column_widths">
-                        </app-table-client-side>
-                    </div>
+                    <mat-spinner *ngIf="showSpinner" [diameter]="30"
+                      style="display: inline; margin-left: 10px; padding-bottom: 20px;">
+                    </mat-spinner>
+                    <app-table-server-side #tableComp id="ontology-table"
+                        [display_fields]="displayFields"
+                        [column_names]="columnNames"
+                        [filter_values]="filter_field"
+                        [templates]="templates"
+                        [apiFunction]="loadTableDataFunction"
+                        [query]="query"
+                        [defaultSort]="defaultSort">
+                    </app-table-server-side>
                 </div>
             </div>
         </mat-tab>
@@ -435,8 +427,38 @@
 <!-- Template: Ontology table term column -->
 <ng-template #ontologyTermTemplate let-item>
     <span>
-        <a style="cursor: pointer" [routerLink]="item.row.id">{{item.row.ontology_term}}</a>
+        <a style="cursor: pointer" [routerLink]="item.id">{{item.term}}</a>
     </span>
+</ng-template>
+
+<!-- Template: Ontology table type column -->
+<ng-template #ontologyTypeTemplate let-item>
+    <span>{{item.type.join(', ')}}</span>
+</ng-template>
+
+<!-- Template: Ontology table project column -->
+<ng-template #ontologyProjectTemplate let-item>
+    <span>{{item.projects.join(', ')}}</span>
+</ng-template>
+
+<!-- Template: Ontology table project column -->
+<ng-template #ontologyTagsTemplate let-item>
+    <span>{{item.tags.join(', ')}}</span>
+</ng-template>
+
+<!-- Template: Ontology table votes count column -->
+<ng-template #ontologyVotesTemplate let-item>
+    <button mat-icon-button>
+        <mat-icon>thumb_up</mat-icon>
+    </button>
+    <span>{{item.upvotes_count}}</span>
+    <button mat-icon-button style="margin-left: 10px;">
+        <mat-icon>thumb_down</mat-icon>
+    </button>
+    <span>{{item.downvotes_count}}</span>
+    <button mat-icon-button style="margin-left: 10px;">
+        <mat-icon>info_outline</mat-icon>
+    </button>
 </ng-template>
 
 <!-- Template: Ontology table status column -->

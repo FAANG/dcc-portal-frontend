@@ -4,11 +4,12 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTabGroup} from '@angular/material/tabs';
 import {Observable, Subscription} from 'rxjs';
-import {TableClientSideComponent}  from '../shared/table-client-side/table-client-side.component';
+import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 import {AggregationService} from '../services/aggregation.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {ApiDataService} from '../services/api-data.service';
 
 @Component({
   selector: 'app-ontology-improver',
@@ -21,10 +22,15 @@ export class OntologyImproverComponent implements OnInit {
   @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   @ViewChild('ontologyTermTemplate', { static: true }) ontologyTermTemplate: TemplateRef<any>;
+  @ViewChild('ontologyTypeTemplate', { static: true }) ontologyTypeTemplate: TemplateRef<any>;
+  @ViewChild('ontologyProjectTemplate', { static: true }) ontologyProjectTemplate: TemplateRef<any>;
+  @ViewChild('ontologyTagsTemplate', { static: true }) ontologyTagsTemplate: TemplateRef<any>;
+  @ViewChild('ontologyVotesTemplate', { static: true }) ontologyVotesTemplate: TemplateRef<any>;
   @ViewChild('ontologyStatusTemplate', { static: true }) ontologyStatusTemplate: TemplateRef<any>;
   @ViewChild('typeCountTemplate', { static: true }) typeCountTemplate: TemplateRef<any>;
   @ViewChild('statusCountTemplate', { static: true }) statusCountTemplate: TemplateRef<any>;
-  @ViewChild('tableComp', { static: true }) tableComponent: TableClientSideComponent;
+  @ViewChild('tableComp', { static: true }) tableServerComponent: TableServerSideComponent;
+  public loadTableDataFunction: Function;
   summaryTableData: Observable<any[]>;
   hide: boolean;
   username: string;
@@ -43,13 +49,12 @@ export class OntologyImproverComponent implements OnInit {
   success: string;
   dialogRef;
   showSpinner: boolean;
-  fetchedAllRecords: boolean;
   registerUser: boolean;
   aggrSubscription: Subscription;
   ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
   columnNames: string[] = ['Term', 'Type', 'Ontology ID', 'Project', 'Tags', 'Status'];
-  displayFields: string[] = ['ontology_term', 'ontology_type', 'ontology_id', 'project', 'tags', 'ontology_status'];
+  displayFields: string[] = ['term', 'type', 'id', 'projects', 'tags', 'upvotes_count'];
   column_widths: string[] = ["15%", "15%", "15%", "15%", "15%", "25%"];
   statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Status Counts']
   statsFields: string[] = ['project', 'species', 'ontology_type_count', 'status_count']
@@ -58,7 +63,29 @@ export class OntologyImproverComponent implements OnInit {
   regForm: FormGroup;
   species: Array<string>;
   usageStats: Observable<any[]>;
+  data = {};
+
+  query = {
+    'sort': ['key', 'asc'],
+    '_source': [
+      'key',
+      'term',
+      'type',
+      'id',
+      'support',
+      'projects',
+      'tags',
+      'species',
+      'upvotes_count',
+      'downvotes_count',
+      'status_activity'
+    ],
+    'search': ''
+  };
+  defaultSort = ['key', 'asc'];
+
   constructor(
+    private dataService: ApiDataService,
     private ontologyService: OntologyService,
     public dialog: MatDialog,
     public snackbar: MatSnackBar,
@@ -71,7 +98,6 @@ export class OntologyImproverComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Ontology Improver');
     this.hide = true;
-    this.fetchedAllRecords = false;
     this.mode = 'input';
     this.registerUser = false;
     this.ontologyTerms = '';
@@ -79,50 +105,45 @@ export class OntologyImproverComponent implements OnInit {
     this.ontologyMatches = {};
     this.filter_field = {};
     this.selectedTerm = {'key': '', 'index': 0};
-    this.templates = {
-      'ontology_term': this.ontologyTermTemplate,
-      'ontology_status': this.ontologyStatusTemplate,
-      'ontology_type_count': this.typeCountTemplate,
-      'status_count': this.statusCountTemplate
-    };
     this.showSpinner = false;
     this.createForm();
+
+    this.templates = {
+      'term': this.ontologyTermTemplate,
+      'type': this.ontologyTypeTemplate,
+      'projects': this.ontologyProjectTemplate,
+      'tags': this.ontologyTagsTemplate,
+      'ontology_status': this.ontologyStatusTemplate,
+      'ontology_type_count': this.typeCountTemplate,
+      'status_count': this.statusCountTemplate,
+      'upvotes_count': this.ontologyVotesTemplate
+    };
+    this.loadTableDataFunction = this.dataService.getAllOntologies.bind(this.dataService);
     // getting filters from url
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.resetFilter();
-      const filters = {};
-      for (const key in params) {
-        if (Array.isArray(params[key])) {
-          filters[key] = params[key];
-          for (const value of params[key]) {
-            this.aggregationService.current_active_filters.push(value);
-            this.aggregationService.active_filters[key].push(value);
-          }
-        } else {
-          filters[key] = [params[key]];
-          this.aggregationService.current_active_filters.push(params[key]);
-          this.aggregationService.active_filters[key].push(params[key]);
+    this.resetFilter();
+    const filters = {};
+    for (const key in params) {
+      if (Array.isArray(params[key])) {
+        filters[key] = params[key];
+        for (const value of params[key]) {
+          this.aggregationService.current_active_filters.push(value);
+          this.aggregationService.active_filters[key].push(value);
         }
+      } else {
+        filters[key] = [params[key]];
+        this.aggregationService.current_active_filters.push(params[key]);
+        this.aggregationService.active_filters[key].push(params[key]);
       }
-      this.aggregationService.field.next(this.aggregationService.active_filters);
-      this.filter_field = filters;
-      this.filter_field = Object.assign({}, this.filter_field);
+    }
+    this.aggregationService.field.next(this.aggregationService.active_filters);
+    this.filter_field = filters;
+    this.query['filters'] = filters;
+    this.filter_field = Object.assign({}, this.filter_field);
     });
-    // fetch page 1 records only
-    this.ontologyService.getOntologies(10).subscribe(
-      data => {
-        this.summaryTableData = data;
-        // fetching all records and aggregations
-        this.ontologyService.getOntologies().subscribe(
-          data => {
-            this.summaryTableData = data;
-            this.aggregationService.getAggregations(data, 'ontology');
-            this.fetchedAllRecords = true;
-            this.species = this.getSpecies(data);
-          }
-        );
-      }
-    );
+    this.tableServerComponent.dataUpdate.subscribe((data) => {
+      this.aggregationService.getAggregations(data.aggregations, 'ontology');
+    });
     // setting urls params based on filters
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -131,17 +152,12 @@ export class OntologyImproverComponent implements OnInit {
           params[key] = data[key];
         }
       }
-      if (Object.keys(params).length > 0) {
-        this.router.navigate(['ontology'], {queryParams: params});
-      }
+      this.router.navigate(['ontology'], {queryParams: params});
     });
     // fetch usage statistics summary
     this.ontologyService.getUsageStatistics().subscribe((data) =>{
       this.usageStats = data;
     });
-    this.tableComponent.dataUpdate.subscribe(data => {
-      this.aggregationService.getAggregations(data, 'ontology');
-    })
   }
 
   hasActiveFilters() {
