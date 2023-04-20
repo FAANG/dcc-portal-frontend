@@ -88,7 +88,8 @@ export class RulesetExperimentComponent implements OnInit {
       'RNA-seq',
       'WGS',
       'CAGE-seq',
-      'scRNA-seq'];
+      'scRNA-seq',
+      'scATAC-seq'];
     this.active_rule = 'Standard';
     this.convertToSnakeCase = convertToSnakeCase;
     this.replaceUnderscoreWithSpace = replaceUnderscoreWithSpace;
@@ -134,6 +135,8 @@ export class RulesetExperimentComponent implements OnInit {
       return 'CAGE-seq';
     } else if (this.active_rule === 'scRNA-seq' && rule === 'self') {
       return 'scRNA-seq';
+    } else if (this.active_rule === 'scATAC-seq' && rule === 'self') {
+      return 'ATAC-seq';
     }
   }
 
@@ -174,6 +177,7 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   getValidValues(data: any) {
+    console.log(data);
     let field;
     if ('properties' in data) {
       field = data['properties'];
