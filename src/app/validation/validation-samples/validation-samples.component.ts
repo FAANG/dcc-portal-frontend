@@ -9,7 +9,8 @@ import {
   sample_metadata_template_with_examples, sample_metadata_template_without_examples,
   validation_service_url,
   validation_service_url_download,
-  validation_ws_url
+  validation_ws_url,
+  gcp_pubsub_subscription_ws_url
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {AAPUser} from '../aap_user';
@@ -43,8 +44,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   submission_status: string;
   annotation_status: string;
   submission_message: string;
+  gcp_subscription_status: string;
   domains = [];
   socket;
+  socketGCPSubscription;
   validation_results;
   record_types = [];
   active_key: string;
@@ -84,6 +87,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   custom_col_name: 'sample_name' | 'biosample_id';
   tooltipUpdate: string;
   tooltipSubmission: string;
+  currentDate: Date;
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
@@ -96,6 +100,11 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.currentDate = new Date;
+    // here we need to call the function checking the pubsub
+    this.getPubSubMessage();
+    this.setSubscriptionSocket();
+
     this.tabGroup.selectedIndex = 0;
     this.dataSource = new MatTableDataSource([]);
     this.subResults = new MatTableDataSource([]);
@@ -201,6 +210,38 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       } else {
         this.records_that_pass.push(tmp);
       }
+    }
+  }
+
+
+
+  getPubSubMessage() {
+    this.apiDataService.get_pubsub_messages().subscribe(response => {
+        console.log("We are now fetching the latest messages the pubsub lite queue")
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  setSubscriptionSocket() {
+    const url = validation_ws_url + 'gcpSubscription/';
+    this.socketGCPSubscription = new WebSocket(url);
+    this.socketGCPSubscription.onopen = () => {
+      console.log('WebSockets for GCP subscription connection created.');
+    };
+    this.socketGCPSubscription.onmessage = (event) => {
+      const data = JSON.parse(event.data)['response'];
+      console.log(data);
+      if (data['gcp_subscription_status']) {
+        this.gcp_subscription_status = data['gcp_subscription_status'];
+      }
+    };
+
+    if (this.socketGCPSubscription.readyState === WebSocket.OPEN) {
+      this.socketGCPSubscription.onopen(null);
     }
   }
 
@@ -473,7 +514,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   isSubmissionDisabled(status) {
-    return status === 'Fix issues' || this.submission_status === 'Preparing data';
+    return status === 'Fix issues' || this.submission_status === 'Preparing data'
+      || this.gcp_subscription_status == 'error';
   }
 
   constructDownloadTemplateLink() {

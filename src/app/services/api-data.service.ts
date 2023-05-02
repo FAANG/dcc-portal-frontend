@@ -1309,6 +1309,11 @@ export class ApiDataService {
     }
   }
 
+  get_pubsub_messages() {
+    const url = `${this.hostSetting.host}submission/get_pub_sub_messages`;
+    return this.http.get(url);
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.
