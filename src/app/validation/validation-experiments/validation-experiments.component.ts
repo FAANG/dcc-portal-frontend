@@ -34,6 +34,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   submission_status: string;
   annotation_status: string;
   submission_message: string;
+  gcp_subscription_status: string;
   socket;
   validation_results;
   record_types = [];
@@ -68,6 +69,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   action: 'update'|'submission' = 'submission';
   tooltipUpdate: string;
   tooltipSubmission: string;
+  currentDate: Date;
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
@@ -80,6 +82,10 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.currentDate = new Date;
+    // check pubsub lite queue on GCP
+    this.getPubSubMessage();
+
     this.tabGroup.selectedIndex = 1;
     this.dataSource = new MatTableDataSource([]);
     this.submission_message = 'Please login';
@@ -182,6 +188,14 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
         this.records_that_pass.push(tmp);
       }
     }
+  }
+
+  getPubSubMessage() {
+    this.apiDataService.get_pubsub_messages().subscribe(data => {
+      this.gcp_subscription_status = data[0]['enaStatus']
+    }, error => {
+      console.log(error);
+    });
   }
 
   setSocket() {
@@ -444,7 +458,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   }
 
   isSubmissionDisabled(status) {
-    return status === 'Fix issues';
+    return status === 'Fix issues' || this.gcp_subscription_status == 'failure';
   }
 
   constructDownloadLink() {

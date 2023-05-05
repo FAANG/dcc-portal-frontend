@@ -12,7 +12,7 @@
   </div>
   <h2>FAANG Validation</h2>
 
-  <div *ngIf="gcp_subscription_status == 'error'">
+  <div *ngIf="gcp_subscription_status === 'failure'">
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -22,7 +22,7 @@
           Submission Tool is currently down
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Although you can still convert and validate your submission file, the Submission Tool is unavailable
+      <p>Although you can still convert and validate your submission file, the BioiSample Submission Tool is unavailable
         at the moment.</p>
       <p>
         Please come back at a later time or if you would like to contact helpdesk, send us an email on
