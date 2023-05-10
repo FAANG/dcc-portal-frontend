@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HostSetting } from './host-setting';
-import { HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { validation_service_url } from '../shared/constants';
@@ -64,10 +64,14 @@ export class OntologyService {
   }
 
   searchTerms(terms: any) {
-    const url = validation_service_url + '/ontology_improver/search/';
-    return this.http.post(url, {'terms': terms}).pipe(
+    const url = `${this.hostSetting.host}data/ontologies/_search/?size=10000`;
+    const filters = {"term":terms};
+    const params = new HttpParams().set('_source', 'term,type,id,projects,tags,species')
+      .set('filters', JSON.stringify(filters)).set('from_', 0);
+    return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        return data;
+        let res = data.hits.hits.map(entry => entry['_source']);
+        return res;
       }),
       catchError(this.handleError),
     );
@@ -88,6 +92,30 @@ export class OntologyService {
     return this.http.post(url, body).pipe(
       map((data: any) => {
         return data;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  createUpdateOntologies(body: any) {
+    const url = validation_service_url + '/ontology_improver/update_ontologies/';
+    return this.http.post(url, body).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  getSpecies() {
+    const url = `${this.hostSetting.host}data/ontologies/_search/?size=10000`;
+    const filters = {"type":["species"]};
+    const params = new HttpParams().set('_source', 'term,type').set('filters', JSON.stringify(filters)).set('from_', 0);
+    return this.http.get(url, {params: params}).pipe(
+      map((data: any) => {
+        let res = data.hits.hits.map(entry => entry['_source']['term']
+        );
+        return res;
       }),
       catchError(this.handleError),
     );

@@ -1,43 +1,69 @@
 <app-header></app-header>
 <div class="container-fluid">
     <div *ngIf="data && data.faang_data">
-        <h2 style="padding-top: 30px;">{{data.faang_data?.ontology_id}}</h2>
+        <h2 style="padding-top: 30px;">{{data.faang_data?.id}}</h2>
         <hr>
         <dl fxLayout="column">
             <!-- ontology_term -->
-            <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('ontology_term')">
+            <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('term')">
                 <dt fxFlex="25">Ontology Term:</dt>
-                <dd fxFlex="75">{{data.faang_data?.ontology_term}}</dd>
+                <dd fxFlex="75">{{data.faang_data?.term}}</dd>
             </div>
             <!-- type -->
-            <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('ontology_type')">
+            <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('type')">
                 <dt fxFlex="25">Ontology Type:</dt>
-                <dd fxFlex="75">{{data.faang_data?.ontology_type}}</dd>
+                <dd fxFlex="75">{{data.faang_data?.type}}</dd>
             </div>
             <!-- status -->
-            <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('ontology_status')">
-                <dt fxFlex="25">Status:</dt>
-                <dd fxFlex="75">
-                    <button mat-flat-button class="table-color-status" 
-                        [style.background-color]="getColour(data.faang_data.ontology_support, data.faang_data.ontology_status, 0.2)"
-                        style="border-width: 2px; cursor: default">
-                        {{data.faang_data.ontology_status}}
-                        <span *ngIf="data.faang_data.ontology_status == 'Verified'">
-                            by {{data.faang_data.verified_count}}
-                            <span *ngIf="data.faang_data.verified_count == 1">
-                                user
-                            </span>
-                            <span *ngIf="data.faang_data.verified_count > 1">
-                                users
-                            </span>
-                        </span>
-                    </button>
-                </dd>
+            <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('status_activity')">
+                <dt fxFlex="25">Status Activity:</dt>
+                <dt fxFlex="50">
+                    <mat-accordion>
+                        <mat-expansion-panel style="margin-bottom: 20px;">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <button mat-icon-button disabled>
+                                        <mat-icon>thumb_up</mat-icon>
+                                    </button>
+                                    <span>{{data.faang_data.upvotes_count}}</span>
+                                    <button mat-icon-button disabled>
+                                        <mat-icon>thumb_down</mat-icon>
+                                    </button>
+                                    <span>{{data.faang_data.downvotes_count}}</span>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <p *ngFor="let action of data.faang_data.status_activity">
+                                <span style="font-size: 14px; color: #5b5858;">
+                                    {{action.timestamp.replace('T', ' ').replace('+', ' +')}}
+                                </span>
+                                <br>
+                                {{action.user}} 
+                                <span *ngIf="action.status == 'Awaiting Assessment'">
+                                    created the ontology
+                                </span>
+                                <span *ngIf="action.status == 'Verified'">
+                                    verified that the ontology is suitable
+                                </span>
+                                <span *ngIf="action.status == 'Needs Improvement'">
+                                    suggested improvements to the ontology
+                                </span>
+                                <span *ngIf="action.project != undefined && action.project.length > 0">
+                                    for project(s) {{action.project.join(', ')}} 
+                                </span>
+                            </p>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </dt>
             </div>
             <!-- project -->
-            <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('project') && data.faang_data.project">
+            <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('projects') && data.faang_data.projects">
                 <dt fxFlex="25">Project:</dt>
-                <dd fxFlex="75">{{data.faang_data?.project}}</dd>
+                <dd fxFlex="75">{{data.faang_data?.projects}}</dd>
+            </div>
+            <!-- species -->
+            <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('species') && data.faang_data.species">
+                <dt fxFlex="25">Species:</dt>
+                <dd fxFlex="75">{{data.faang_data?.species}}</dd>
             </div>
             <!-- tags -->
             <div fxLayout="row" fxLayout.lt-md="column"  *ngIf="data.faang_data.hasOwnProperty('tags') && data.faang_data.tags">
