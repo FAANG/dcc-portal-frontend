@@ -33,7 +33,6 @@ export class OntologyImproverComponent implements OnInit {
   @ViewChild('statusCountTemplate', { static: true }) statusCountTemplate: TemplateRef<any>;
   @ViewChild('tableComp', { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
-  summaryTableData: Observable<any[]>;
   hide: boolean;
   username: string;
   password: string;
@@ -57,7 +56,6 @@ export class OntologyImproverComponent implements OnInit {
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
   columnNames: string[] = ['Term', 'Type', 'Ontology ID', 'Project', 'Tags', 'Status'];
   displayFields: string[] = ['term', 'type', 'id', 'projects', 'tags', 'upvotes_count'];
-  column_widths: string[] = ["15%", "15%", "15%", "15%", "15%", "25%"];
   statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Status Counts']
   statsFields: string[] = ['project', 'species', 'ontology_type_count', 'status_count']
   templates: Object;
@@ -65,7 +63,6 @@ export class OntologyImproverComponent implements OnInit {
   regForm: FormGroup;
   species;
   usageStats: Observable<any[]>;
-  data = {};
 
   query = {
     'sort': ['key', 'asc'],
@@ -325,9 +322,14 @@ export class OntologyImproverComponent implements OnInit {
         this.openSnackbar('Feeback submitted!', 'Dismiss');
         if (this.tabGroup.selectedIndex == 0) {
           // update ontology table
-          this.filter_field = Object.assign({}, this.filter_field);
+          setTimeout(() => {
+            this.filter_field = Object.assign({}, this.filter_field);
+          }, 1000);
         } else {
-          // update table in ontology tool tab
+          // update existing terms table in ontology tool tab
+          setTimeout(() => {
+            this.searchResults.filter = Object.assign({}, this.searchResults.filter);
+          }, 1000);
         }
       },
       error => {
@@ -414,47 +416,6 @@ export class OntologyImproverComponent implements OnInit {
       error => {
         this.showSpinner = false;
         this.openSnackbar('Submission Failed!', 'Dismiss');
-      }
-    );
-  }
-
-  changeOntologyStatus(data, status){
-    // TODO: disable for users who have already verified this ontology
-    this.openSnackbar('Updating Ontology Status...', 'Dismiss');
-    const request = {};
-    request['user'] = this.username
-    request['ontologies'] = [{
-      'id': data['id'],
-      'ontology_status': status
-    }];
-    this.ontologyService.validateTerms(request).subscribe(
-      data => {
-        if (this.tabGroup.selectedIndex == 0) {
-          // update summary table
-          this.ontologyService.getOntologies().subscribe(
-            data => {
-              this.summaryTableData = data;
-              this.filter_field = Object.assign({}, this.filter_field);
-              this.aggregationService.getAggregations(data, 'ontology');
-              this.species = this.ontologyService.getSpecies();
-              // show message
-              this.openSnackbar('Ontology Status Updated', 'Dismiss');
-            }
-          );
-        } else {
-          // update table in ontology tool tab
-          const ontologyInput = this.ontologyTerms.split('\n').filter(n => n);
-          this.ontologyService.searchTerms(ontologyInput).subscribe(
-            data => {
-              this.searchResults = data;
-              // show message
-              this.openSnackbar('Ontology Status Updated', 'Dismiss');
-            }
-          );
-        }
-      },
-      error => {
-        this.openSnackbar('Ontology Status Update Failed!', 'Dismiss');
       }
     );
   }
@@ -596,21 +557,13 @@ export class OntologyImproverComponent implements OnInit {
     this.closeModal();
   }
 
-  getColour(ontology_support: string, ontology_status: string, opacity: number) {
-    if (ontology_status == 'Verified') {
-      if (ontology_support == 'https://www.ebi.ac.uk/vg/faang' || ontology_support == 'FAANG')
-        return 'rgba(0, 255, 0, ' + opacity + ')';
-      else
-        return 'rgba(255, 255, 0, ' + opacity + ')';
+  getColour(ontology_status: string, opacity: number) {
+    if (ontology_status == 'Awaiting Assessment') {
+      return 'rgba(0, 125, 255, 0.2)';
     }
-    else if (ontology_status == 'Awaiting Assessment')
-      return 'rgba(0, 125, 255, ' + opacity + ')';
-    else if (ontology_status == 'Needs Improvement')
-      return 'rgba(255, 255, 0, ' + opacity + ')';
-    else if (ontology_status == 'Not yet supported')
-      return 'rgba(255, 0, 0, ' + opacity + ')';
-    else
-      return 'rgba(255, 255, 255, ' + opacity + ')';
+    else {
+      return 'rgba(0, 255, 0, 0.2)';
+    }
   }
 
   submitTerms() {

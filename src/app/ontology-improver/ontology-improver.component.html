@@ -107,7 +107,7 @@
                                         </ng-container>
                                     </ng-container>
                                     <tr mat-header-row *matHeaderRowDef="ontologyMatchColsToDisplay"></tr>
-                                    <tr mat-row [style.background-color]="getColour(row.source, row.ontology_status, 0.2)" *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
                                 </table>
                             </ng-container>
                             <ng-container *ngIf="item.value?.length == 0">
@@ -551,7 +551,7 @@
     <div *ngFor="let item of item.row.status_count | keyvalue">
         <span [matBadge]="item.value">
             <button mat-flat-button class="table-color-status" 
-                [style.background-color]="getColour('FAANG', item.key, 0.2)">
+                [style.background-color]="getColour(item.key)">
                 {{item.key}}
             </button> 
         </span>
