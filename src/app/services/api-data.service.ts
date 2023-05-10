@@ -1308,7 +1308,7 @@ export class ApiDataService {
       return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
     }
   }
-  
+
   get_pubsub_messages() {
     const url = `${this.hostSetting.host}data/submission_portal_status/_search/?size=1`;
 
@@ -1323,14 +1323,13 @@ export class ApiDataService {
             biosampleStatus: entry['_source']['biosample_status']
           })
         );
-        console.log(data.hits.hits);
         return res;
       }),
       retry(3),
       catchError(this.handleError),
     );
   }
-  
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
