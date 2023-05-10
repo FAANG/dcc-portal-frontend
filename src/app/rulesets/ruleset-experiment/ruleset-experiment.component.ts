@@ -80,6 +80,7 @@ export class RulesetExperimentComponent implements OnInit {
       'Standard',
       'ATAC-seq',
       'BS-seq',
+      'EM-seq',
       'ChIP-seq standard rules',
       'ChIP-seq DNA-binding proteins',
       'ChIP-seq input DNA',
@@ -137,6 +138,8 @@ export class RulesetExperimentComponent implements OnInit {
       return 'scRNA-seq';
     } else if (this.active_rule === 'scATAC-seq' && rule === 'self') {
       return 'ATAC-seq';
+    } else if (this.active_rule === 'EM-seq' && rule === 'self') {
+      return 'methylation profiling by high throughput sequencing';
     }
   }
 
