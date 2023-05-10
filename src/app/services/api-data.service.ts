@@ -1339,6 +1339,28 @@ export class ApiDataService {
     }
   }
 
+  get_pubsub_messages() {
+    const url = `${this.hostSetting.host}data/submission_portal_status/_search/?size=1`;
+
+    const mapping = {
+      'enaStatus': 'ena_status',
+      'biosampleStatus': 'biosample_status'
+    };
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        const res = data.hits.hits.map(entry => ({
+            enaStatus: entry['_source']['ena_status'],
+            biosampleStatus: entry['_source']['biosample_status']
+          })
+        );
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.

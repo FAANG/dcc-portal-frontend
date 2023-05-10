@@ -43,6 +43,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   submission_status: string;
   annotation_status: string;
   submission_message: string;
+  gcp_subscription_status: string;
   domains = [];
   socket;
   validation_results;
@@ -84,6 +85,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   custom_col_name: 'sample_name' | 'biosample_id';
   tooltipUpdate: string;
   tooltipSubmission: string;
+  currentDate: Date;
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
@@ -96,6 +98,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.currentDate = new Date;
+    // check pubsub lite queue on GCP
+    this.getPubSubMessage();
+
     this.tabGroup.selectedIndex = 0;
     this.dataSource = new MatTableDataSource([]);
     this.subResults = new MatTableDataSource([]);
@@ -203,6 +209,18 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+
+
+  getPubSubMessage() {
+    this.apiDataService.get_pubsub_messages().subscribe(data => {
+      this.gcp_subscription_status = data[0]['biosampleStatus']
+    }, error => {
+      console.log(error);
+    });
+  }
+
+
 
   setSocket() {
     const url = validation_ws_url + this.fileid + '/';
@@ -473,7 +491,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   isSubmissionDisabled(status) {
-    return status === 'Fix issues' || this.submission_status === 'Preparing data';
+    return status === 'Fix issues' || this.submission_status === 'Preparing data'
+      || this.gcp_subscription_status === 'failure';
   }
 
   constructDownloadTemplateLink() {

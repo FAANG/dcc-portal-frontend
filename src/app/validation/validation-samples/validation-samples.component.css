@@ -66,3 +66,21 @@ th.mat-header-cell:first-of-type {
   max-width: unset !important;
   white-space: pre-line;
 }
+
+a .emailStyle{
+  color: steelblue;
+}
+
+::ng-deep .mat-expansion-panel {
+  background-color: #FFCCCB;
+  color: #49494A;
+}
+
+mat-expansion-panel-header {
+  font-weight: 900;
+  color: #49494A;
+}
+
+mat-panel-title {
+  color: #49494A;
+}
