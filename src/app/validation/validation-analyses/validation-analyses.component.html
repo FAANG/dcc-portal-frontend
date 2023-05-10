@@ -11,6 +11,28 @@
     </div>
   </div>
   <h2>FAANG Validation</h2>
+
+  <div *ngIf="gcp_subscription_status === 'failure'">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Latest Update {{ currentDate | date: 'dd/MM/yyyy' }}
+        </mat-panel-title>
+        <mat-panel-description>
+          Submission Tool is currently down
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Although you can still convert and validate your submission file, the ENA Submission Tool is unavailable
+        at the moment.</p>
+      <p>
+        Please come back at a later time or if you would like to contact helpdesk, send us an email on
+        <a href="mailto:faang-dcc@ebi.ac.uk?Subject=Submission%20Tool%20Downtime" target="_top">
+          <span class="emailStyle">faang-dcc@ebi.ac.uk</span></a>.
+      </p>
+
+    </mat-expansion-panel>
+  </div>
+
   <hr>
 
   <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
