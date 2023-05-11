@@ -47,6 +47,7 @@ export class RulesetExperimentComponent implements OnInit {
   record_specific_templates = {
     'ATAC-seq': '../../../assets/atac-seq.xlsx',
     'BS-seq': '../../../assets/bs-seq.xlsx',
+    'EM-seq': '../../../assets/em-seq.xlsx',
     'ChIP-seq_DNA-binding_proteins': '../../../assets/dna-binding_proteins.xlsx',
     'ChIP-seq_input_DNA': '../../../assets/input_dna.xlsx',
     'DNase-seq': '../../../assets/dnase-seq.xlsx',
@@ -315,13 +316,13 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   tabClick(tab) {
-    if (tab.index == 0) {
+    if (tab.index === 0) {
       this.router.navigate(['ruleset/samples'], {fragment: 'Standard'});
     }
-    else if (tab.index == 1) {
+    else if (tab.index === 1) {
       this.router.navigate(['ruleset/experiments'], {fragment: 'Standard'});
     }
-    else if (tab.index == 2) {
+    else if (tab.index === 2) {
       this.router.navigate(['ruleset/analyses'], {fragment: 'FAANG'});
     }
   }
