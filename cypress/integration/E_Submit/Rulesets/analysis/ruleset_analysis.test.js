@@ -15,7 +15,7 @@ describe('Ruleset Samples Page', () => {
     analysisPage.check_page_contents()
   })
 
-  it('should have at least 11 rulesets in left side menu', () => {
+  it('should have at least 3 rulesets in left side menu', () => {
     analysisPage.check_ruleset_list()
   })
 
