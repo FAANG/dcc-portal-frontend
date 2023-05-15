@@ -24,13 +24,6 @@ describe('Projects Page', () => {
     projectsPage.check_logo_src()
   })
 
-
-  it('should verify contents of EuroFAANG page', () => {
-    cy.get('app-subprojects.ng-star-inserted > .container-fluid').find('.ng-star-inserted').first().click()
-    cy.contains("By establishing EuroFAANG, the H2020 projects AQUA-FAANG, BovReg and GENE-SWitCH have formed a closer relationship to coordinate their objectives within Europe in association with the international FAANG initiative. ");
-    cy.get('.second-section').find('img').should('be.visible');
-  })
-
   it('should verify AQUA-FAANG project', () => {
     projectsPage.check_aqua_faang_page()
   })

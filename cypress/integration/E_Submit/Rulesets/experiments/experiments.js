@@ -12,7 +12,7 @@ export class ExperimentsPage{
   }
 
   check_ruleset_list(){
-    cy.get('.ng-star-inserted > div:nth-child(1) > ul').find('li').its('length').should('eq', 12)
+    cy.get('.ng-star-inserted > div:nth-child(1) > ul').find('li').its('length').should('eq', 14)
   }
 
   check_ruleset_table(){
@@ -47,7 +47,7 @@ export class ExperimentsPage{
     cy.location('href').should('contain', 'experiments#BS-seq');
 
     cy.get('.left > ul:nth-child(4) > li > a').click()
-    cy.location('href').should('contain', 'experiments#ChIP-seq%20standard%20rules');
+    cy.location('href').should('contain', 'experiments#EM-seq');
 
   }
 
