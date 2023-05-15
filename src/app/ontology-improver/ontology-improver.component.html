@@ -541,18 +541,24 @@
 
 <!-- Template: Usage stats table ontology types count column -->
 <ng-template #typeCountTemplate let-item>
-    <div *ngFor="let item of item.row.ontology_type_count | keyvalue">
-        {{item.key}}: {{item.value}}
+    <div *ngFor="let item of item.row.type_counts">
+        {{item.type}}: {{item.count}}
     </div>
 </ng-template>
 
 <!-- Template: Usage stats table status count column -->
-<ng-template #statusCountTemplate let-item>
-    <div *ngFor="let item of item.row.status_count | keyvalue">
-        <span [matBadge]="item.value">
-            <button mat-flat-button class="table-color-status" 
-                [style.background-color]="getColour(item.key)">
-                {{item.key}}
+<ng-template #activityTemplate let-item>
+    <div>
+        <span [matBadge]="item.row.activity.created_count">
+            <button mat-stroked-button class="table-color-status">
+                Created
+            </button> 
+        </span>
+    </div>
+    <div>
+        <span [matBadge]="item.row.activity.validated_count">
+            <button mat-stroked-button class="table-color-status">
+                Validated
             </button> 
         </span>
     </div>

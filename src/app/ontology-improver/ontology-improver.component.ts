@@ -30,7 +30,7 @@ export class OntologyImproverComponent implements OnInit {
   @ViewChild('ontologyTagsTemplate', { static: true }) ontologyTagsTemplate: TemplateRef<any>;
   @ViewChild('ontologyVotesTemplate', { static: true }) ontologyVotesTemplate: TemplateRef<any>;
   @ViewChild('typeCountTemplate', { static: true }) typeCountTemplate: TemplateRef<any>;
-  @ViewChild('statusCountTemplate', { static: true }) statusCountTemplate: TemplateRef<any>;
+  @ViewChild('activityTemplate', { static: true }) activityTemplate: TemplateRef<any>;
   @ViewChild('tableComp', { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
   hide: boolean;
@@ -56,8 +56,8 @@ export class OntologyImproverComponent implements OnInit {
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
   columnNames: string[] = ['Term', 'Type', 'Ontology ID', 'Project', 'Tags', 'Status'];
   displayFields: string[] = ['term', 'type', 'id', 'projects', 'tags', 'upvotes_count'];
-  statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Status Counts']
-  statsFields: string[] = ['project', 'species', 'ontology_type_count', 'status_count']
+  statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Activity']
+  statsFields: string[] = ['project', 'species', 'type_counts', 'activity']
   templates: Object;
   filter_field: {};
   regForm: FormGroup;
@@ -112,8 +112,8 @@ export class OntologyImproverComponent implements OnInit {
       'type': this.ontologyTypeTemplate,
       'projects': this.ontologyProjectTemplate,
       'tags': this.ontologyTagsTemplate,
-      'ontology_type_count': this.typeCountTemplate,
-      'status_count': this.statusCountTemplate,
+      'type_counts': this.typeCountTemplate,
+      'activity': this.activityTemplate,
       'upvotes_count': this.ontologyVotesTemplate
     };
     this.loadTableDataFunction = this.dataService.getAllOntologies.bind(this.dataService);

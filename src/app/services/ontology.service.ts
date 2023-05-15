@@ -38,21 +38,6 @@ export class OntologyService {
     return throwError(error.error.message);
   }
 
-  getOntologies(size=null) {
-    var url: string;
-    if (size) { 
-      url = validation_service_url + '/ontology_improver/search/?size=' + size.toString();
-    } else { // fetch all records
-      url = validation_service_url + '/ontology_improver/search/';
-    }
-    return this.http.get(url).pipe(
-      map((data: any) => {
-        return data.ontologies;
-      }),
-      catchError(this.handleError),
-    );
-  }
-
   getOntologyById(ontologyId) {
     const url = validation_service_url + '/ontology_improver/ontology_detail/' + ontologyId;
     return this.http.get(url).pipe(
@@ -122,10 +107,11 @@ export class OntologyService {
   }
 
   getUsageStatistics() {
-    const url = validation_service_url + '/ontology_improver/summary/';
+    const url = `${this.hostSetting.host}data/summary_ontologies/_search/?size=10`;
     return this.http.get(url).pipe(
       map((data: any) => {
-        return data;
+        let res = data.hits.hits.map(entry => entry['_source']);
+        return res;
       }),
       catchError(this.handleError),
     );
