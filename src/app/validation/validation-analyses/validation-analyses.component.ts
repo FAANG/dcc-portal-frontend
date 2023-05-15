@@ -104,7 +104,6 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     this.metadata_template_without_examples = analysis_metadata_template_without_examples;
     if (this._userService.token) {
       this.private_submission = true;
-      this.submission_message = 'Choose submission server';
     }
     this.tooltipUpdate = '• This action will update the analysis details with the provided metadata. \n' +
       '• Please ensure that the submitted spreadsheet contains the original alias used during initial submission. \n' +
@@ -447,8 +446,11 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     return validation_service_url_download + '/submission/download_template/' + this.fileid;
   }
 
-  onStartSubmissionClick() {
+  onStartSubmissionClick(privateSubmission) {
     this.submissionStarted = !this.submissionStarted;
+    if (privateSubmission) {
+      this.onSubmit();
+    }
   }
 
   submissionMessageClass() {

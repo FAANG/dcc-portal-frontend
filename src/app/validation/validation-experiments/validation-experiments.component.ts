@@ -105,7 +105,6 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     this.metadata_template_without_examples = experiment_metadata_template_without_examples;
     if (this._userService.token) {
       this.private_submission = true;
-      this.submission_message = 'Choose submission server';
     }
     this.tooltipUpdate = '• This action will update the experiment details with the provided metadata. \n' +
       '• Please ensure that the submitted spreadsheet contains the original alias used during initial submission. \n' +
@@ -491,8 +490,11 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onStartSubmissionClick() {
+  onStartSubmissionClick(privateSubmission) {
     this.submissionStarted = !this.submissionStarted;
+    if (privateSubmission) {
+      this.onSubmit();
+    }
   }
 
   downloadSubmissionResults() {
