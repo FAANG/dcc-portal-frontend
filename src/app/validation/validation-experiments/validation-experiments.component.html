@@ -186,7 +186,7 @@
       </div>
       <button  mat-raised-button color="primary" class="submission_data_button"
               *ngIf="submission_status !== 'Data is ready' && submission_status !== 'Failed to convert data'"
-              (click)="onStartSubmissionClick()"
+              (click)="onStartSubmissionClick(private_submission)"
               [disabled]="isSubmissionDisabled(submission_status)">
         Start submission to ENA
       </button>
@@ -208,10 +208,10 @@
   </div>
 
   <div *ngIf="submissionStarted === true" fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="6%">
-    <div fxFlex="47" [hidden]="disableAuthForm">
+    <div fxFlex="47" [hidden]="disableAuthForm" *ngIf="!_userService.token">
       <h3 style="margin: 10px 0 20px 0;">Submit data to ENA</h3>
       <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
-        <div class="form-group" *ngIf="!_userService.token">
+        <div class="form-group">
           <label for="aapUsername">Username</label>
           <input class="form-control" id="aapUsername"
                  placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
@@ -226,7 +226,7 @@
           </div>
         </div>
 
-        <div class="form-group" *ngIf="!_userService.token">
+        <div class="form-group">
           <label for="aapPassword">Password</label>
           <input type="password" class="form-control" id="aapPassword" placeholder="Password"
                  required [(ngModel)]="model.password" name="password" #password="ngModel">
