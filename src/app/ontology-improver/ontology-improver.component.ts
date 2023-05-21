@@ -571,15 +571,6 @@ export class OntologyImproverComponent implements OnInit {
     this.closeModal();
   }
 
-  getColour(ontology_status: string, opacity: number) {
-    if (ontology_status == 'Awaiting Assessment') {
-      return 'rgba(0, 125, 255, 0.2)';
-    }
-    else {
-      return 'rgba(0, 255, 0, 0.2)';
-    }
-  }
-
   submitTerms() {
     var valid = true; // check if submission is valid
     // get selected ontologies
