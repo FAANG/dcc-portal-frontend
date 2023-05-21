@@ -549,9 +549,9 @@
 <!-- Template: Usage stats table status count column -->
 <ng-template #activityTemplate let-item>
     <div>
-        <span [matBadge]="item.row.activity.created_count">
+        <span [matBadge]="item.row.activity.created_edited_count">
             <button mat-stroked-button class="table-color-status">
-                Created
+                Created/Updated
             </button> 
         </span>
     </div>

@@ -331,6 +331,10 @@ export class OntologyImproverComponent implements OnInit {
             this.searchResults.filter = Object.assign({}, this.searchResults.filter);
           }, 1000);
         }
+        // update summary statistics
+        this.ontologyService.getUsageStatistics().subscribe((data) =>{
+          this.usageStats = data;
+        });
       },
       error => {
         this.showSpinner = false;
@@ -409,9 +413,19 @@ export class OntologyImproverComponent implements OnInit {
         this.closeModal();
         if (this.tabGroup.selectedIndex == 0) {
           // update ontology table
+          setTimeout(() => {
+            this.filter_field = Object.assign({}, this.filter_field);
+          }, 1000);
         } else {
-          // update table in ontology tool tab
+          // update existing terms table in ontology tool tab
+          setTimeout(() => {
+            this.searchResults.filter = Object.assign({}, this.searchResults.filter);
+          }, 1000);
         }
+        // update summary statistics
+        this.ontologyService.getUsageStatistics().subscribe((data) =>{
+          this.usageStats = data;
+        });
       },
       error => {
         this.showSpinner = false;
