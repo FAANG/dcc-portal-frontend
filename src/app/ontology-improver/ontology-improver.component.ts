@@ -4,11 +4,12 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTabGroup} from '@angular/material/tabs';
 import {Observable, Subscription} from 'rxjs';
-import {TableClientSideComponent}  from '../shared/table-client-side/table-client-side.component';
+import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 import {AggregationService} from '../services/aggregation.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {ApiDataService} from '../services/api-data.service';
 
 @Component({
   selector: 'app-ontology-improver',
@@ -18,14 +19,20 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 export class OntologyImproverComponent implements OnInit {
   @ViewChild('loginModalTemplate', { static: true }) public loginModalTemplate: TemplateRef<any>;
   @ViewChild('editModalTemplate', { static: true }) public editModalTemplate: TemplateRef<any>;
+  @ViewChild('selectProjectModalTemplate', { static: true }) public selectProjectModalTemplate: TemplateRef<any>;
+  @ViewChild('validateModalTemplate', { static: true }) public validateModalTemplate: TemplateRef<any>;
+  @ViewChild('activityModalTemplate', { static: true }) public activityModalTemplate: TemplateRef<any>;
   @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   @ViewChild('ontologyTermTemplate', { static: true }) ontologyTermTemplate: TemplateRef<any>;
-  @ViewChild('ontologyStatusTemplate', { static: true }) ontologyStatusTemplate: TemplateRef<any>;
+  @ViewChild('ontologyTypeTemplate', { static: true }) ontologyTypeTemplate: TemplateRef<any>;
+  @ViewChild('ontologyProjectTemplate', { static: true }) ontologyProjectTemplate: TemplateRef<any>;
+  @ViewChild('ontologyTagsTemplate', { static: true }) ontologyTagsTemplate: TemplateRef<any>;
+  @ViewChild('ontologyVotesTemplate', { static: true }) ontologyVotesTemplate: TemplateRef<any>;
   @ViewChild('typeCountTemplate', { static: true }) typeCountTemplate: TemplateRef<any>;
-  @ViewChild('statusCountTemplate', { static: true }) statusCountTemplate: TemplateRef<any>;
-  @ViewChild('tableComp', { static: true }) tableComponent: TableClientSideComponent;
-  summaryTableData: Observable<any[]>;
+  @ViewChild('activityTemplate', { static: true }) activityTemplate: TemplateRef<any>;
+  @ViewChild('tableComp', { static: true }) tableServerComponent: TableServerSideComponent;
+  public loadTableDataFunction: Function;
   hide: boolean;
   username: string;
   password: string;
@@ -38,27 +45,46 @@ export class OntologyImproverComponent implements OnInit {
   ontologyIdOptions;
   selectedTerm;
   selectedOntologyData;
-  newTag = {'ontology_type': null, 'tags': null, 'term_type': null};
+  newTag = {'type': null, 'tags': null};
   error: string;
   success: string;
   dialogRef;
   showSpinner: boolean;
-  fetchedAllRecords: boolean;
   registerUser: boolean;
   aggrSubscription: Subscription;
   ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
   ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
   columnNames: string[] = ['Term', 'Type', 'Ontology ID', 'Project', 'Tags', 'Status'];
-  displayFields: string[] = ['ontology_term', 'ontology_type', 'ontology_id', 'project', 'tags', 'ontology_status'];
-  column_widths: string[] = ["15%", "15%", "15%", "15%", "15%", "25%"];
-  statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Status Counts']
-  statsFields: string[] = ['project', 'species', 'ontology_type_count', 'status_count']
+  displayFields: string[] = ['term', 'type', 'id', 'projects', 'tags', 'upvotes_count'];
+  statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Activity']
+  statsFields: string[] = ['project', 'species', 'type_counts', 'activity']
   templates: Object;
   filter_field: {};
   regForm: FormGroup;
-  species: Array<string>;
+  species;
   usageStats: Observable<any[]>;
+
+  query = {
+    'sort': ['key', 'asc'],
+    '_source': [
+      'key',
+      'term',
+      'type',
+      'id',
+      'support',
+      'projects',
+      'tags',
+      'species',
+      'upvotes_count',
+      'downvotes_count',
+      'status_activity'
+    ],
+    'search': ''
+  };
+  defaultSort = ['key', 'asc'];
+
   constructor(
+    private dataService: ApiDataService,
     private ontologyService: OntologyService,
     public dialog: MatDialog,
     public snackbar: MatSnackBar,
@@ -71,7 +97,6 @@ export class OntologyImproverComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Ontology Improver');
     this.hide = true;
-    this.fetchedAllRecords = false;
     this.mode = 'input';
     this.registerUser = false;
     this.ontologyTerms = '';
@@ -79,50 +104,44 @@ export class OntologyImproverComponent implements OnInit {
     this.ontologyMatches = {};
     this.filter_field = {};
     this.selectedTerm = {'key': '', 'index': 0};
-    this.templates = {
-      'ontology_term': this.ontologyTermTemplate,
-      'ontology_status': this.ontologyStatusTemplate,
-      'ontology_type_count': this.typeCountTemplate,
-      'status_count': this.statusCountTemplate
-    };
     this.showSpinner = false;
     this.createForm();
+
+    this.templates = {
+      'term': this.ontologyTermTemplate,
+      'type': this.ontologyTypeTemplate,
+      'projects': this.ontologyProjectTemplate,
+      'tags': this.ontologyTagsTemplate,
+      'type_counts': this.typeCountTemplate,
+      'activity': this.activityTemplate,
+      'upvotes_count': this.ontologyVotesTemplate
+    };
+    this.loadTableDataFunction = this.dataService.getAllOntologies.bind(this.dataService);
     // getting filters from url
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.resetFilter();
-      const filters = {};
-      for (const key in params) {
-        if (Array.isArray(params[key])) {
-          filters[key] = params[key];
-          for (const value of params[key]) {
-            this.aggregationService.current_active_filters.push(value);
-            this.aggregationService.active_filters[key].push(value);
-          }
-        } else {
-          filters[key] = [params[key]];
-          this.aggregationService.current_active_filters.push(params[key]);
-          this.aggregationService.active_filters[key].push(params[key]);
+    this.resetFilter();
+    const filters = {};
+    for (const key in params) {
+      if (Array.isArray(params[key])) {
+        filters[key] = params[key];
+        for (const value of params[key]) {
+          this.aggregationService.current_active_filters.push(value);
+          this.aggregationService.active_filters[key].push(value);
         }
+      } else {
+        filters[key] = [params[key]];
+        this.aggregationService.current_active_filters.push(params[key]);
+        this.aggregationService.active_filters[key].push(params[key]);
       }
-      this.aggregationService.field.next(this.aggregationService.active_filters);
-      this.filter_field = filters;
-      this.filter_field = Object.assign({}, this.filter_field);
+    }
+    this.aggregationService.field.next(this.aggregationService.active_filters);
+    this.filter_field = filters;
+    this.query['filters'] = filters;
+    this.filter_field = Object.assign({}, this.filter_field);
     });
-    // fetch page 1 records only
-    this.ontologyService.getOntologies(10).subscribe(
-      data => {
-        this.summaryTableData = data;
-        // fetching all records and aggregations
-        this.ontologyService.getOntologies().subscribe(
-          data => {
-            this.summaryTableData = data;
-            this.aggregationService.getAggregations(data, 'ontology');
-            this.fetchedAllRecords = true;
-            this.species = this.getSpecies(data);
-          }
-        );
-      }
-    );
+    this.tableServerComponent.dataUpdate.subscribe((data) => {
+      this.aggregationService.getAggregations(data.aggregations, 'ontology');
+    });
     // setting urls params based on filters
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -131,17 +150,16 @@ export class OntologyImproverComponent implements OnInit {
           params[key] = data[key];
         }
       }
-      if (Object.keys(params).length > 0) {
-        this.router.navigate(['ontology'], {queryParams: params});
-      }
+      this.router.navigate(['ontology'], {queryParams: params});
     });
     // fetch usage statistics summary
     this.ontologyService.getUsageStatistics().subscribe((data) =>{
       this.usageStats = data;
     });
-    this.tableComponent.dataUpdate.subscribe(data => {
-      this.aggregationService.getAggregations(data, 'ontology');
-    })
+    // fetch FAANG species list for selection
+    this.ontologyService.getSpecies().subscribe((res: any) => {
+      this.species = res;
+    });
   }
 
   hasActiveFilters() {
@@ -208,8 +226,6 @@ export class OntologyImproverComponent implements OnInit {
       data => {
         if (data) {
           this.token = data;
-          // readjust table column to show edit and verify icons
-          this.column_widths = ["14%", "14%", "14%", "14%", "14%", "30%"];
           this.closeModal();
         } 
         else {
@@ -253,20 +269,85 @@ export class OntologyImproverComponent implements OnInit {
     this.ngOnInit();
   }
 
-  getSpecies(records) {
-    // get species ontology terms
-    let species = records.map((record) => {
-      if (record.ontology_type.split(', ').includes('species')) {
-        return record.ontology_term;
+  startOntologyValidation(data, status) {
+    this.dialogRef = this.dialog.open(this.selectProjectModalTemplate, {
+      width: '50%',
+      data: {
+        'ontology': data,
+        'project': null,
+        'status': status
       }
     });
-    // remove empty values
-    species = species.filter(n => n);
-    // remove duplicates
-    species = species.filter(function(item, pos, self) {
-      return self.indexOf(item) == pos;
+  }
+
+  validateOntology(data, project, status) {
+    if (status == 'Verified') {
+      this.submitFeedback(data, project, status);
+    } else {
+      this.dialogRef.close();
+      // get possible ontology ID options from ZOOMA
+      this.ontologyIdOptions = [data['id']]; // initially has only currrent id
+      this.ontologyService.fetchZoomaMatches([data['term']]).subscribe(
+        res => {
+          let ontologyMatches = res[data['term']].map(match => match['id']);
+          this.ontologyIdOptions = this.ontologyIdOptions.concat(ontologyMatches);
+          this.ontologyIdOptions = Array.from(new Set(this.ontologyIdOptions));
+          this.ontologyIdOptions = this.ontologyIdOptions.filter(n => n);
+        }
+      );
+      this.dialogRef = this.dialog.open(this.validateModalTemplate, {
+        width: '50%',
+        data: {
+          'ontology': data,
+          'ontologyIdOptions': this.ontologyIdOptions,
+          'project': project,
+          'status': status
+        }
+      });
+    }
+  }
+
+  submitFeedback(data, project, status) {
+    this.dialogRef.close();
+    this.openSnackbar('Saving feedback...', 'Dismiss');
+    const requestBody = {
+      'ontology': data,
+      'user': this.username,
+      'project': project,
+      'status': status
+    }
+    this.ontologyService.validateTerms(requestBody).subscribe(
+      data => {
+        this.showSpinner = false;
+        this.openSnackbar('Feeback submitted!', 'Dismiss');
+        if (this.tabGroup.selectedIndex == 0) {
+          // update ontology table
+          setTimeout(() => {
+            this.filter_field = Object.assign({}, this.filter_field);
+          }, 1000);
+        } else {
+          // update existing terms table in ontology tool tab
+          setTimeout(() => {
+            this.searchResults.filter = Object.assign({}, this.searchResults.filter);
+          }, 1000);
+        }
+        // update summary statistics
+        this.ontologyService.getUsageStatistics().subscribe((data) =>{
+          this.usageStats = data;
+        });
+      },
+      error => {
+        this.showSpinner = false;
+        this.openSnackbar('Submission failed!', 'Dismiss');
+      }
+    );
+  }
+
+  displayStatusActivity(data) {
+    this.dialogRef = this.dialog.open(this.activityModalTemplate, {
+      width: '50%',
+      data: data
     });
-    return species;
   }
 
   applyFilter(event: Event) {
@@ -276,21 +357,8 @@ export class OntologyImproverComponent implements OnInit {
   }
 
   editOntology(data) {
-    // get possible ontology ID options from ZOOMA
-    this.ontologyIdOptions = data['ontology_id'].split(', '); // initially has only currrent id
-    this.ontologyService.fetchZoomaMatches([data['ontology_term']]).subscribe(
-      res => {
-        let ontologyMatches = res[data['ontology_term']].map(match => match['ontology_id']);
-        this.ontologyIdOptions = this.ontologyIdOptions.concat(ontologyMatches);
-        this.ontologyIdOptions = Array.from(new Set(this.ontologyIdOptions));
-        this.ontologyIdOptions = this.ontologyIdOptions.filter(n => n);
-      }
-    );
     // get current ontology data
     this.selectedOntologyData = JSON.parse(JSON.stringify(data));
-    this.selectedOntologyData.project = this.selectedOntologyData.project.split(', ');
-    this.selectedOntologyData.ontology_id = this.selectedOntologyData.ontology_id.split(', ');
-    this.selectedOntologyData.species = this.selectedOntologyData.species.split(', ');
     this.dialogRef = this.dialog.open(this.editModalTemplate, {
       width: '50%',
       data: this.selectedOntologyData
@@ -298,25 +366,18 @@ export class OntologyImproverComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       this.selectedOntologyData = null;
-      this.ontologyIdOptions = null;
-      this.newTag = {'ontology_type': null, 'tags': null, 'term_type': null};
+      this.newTag = {'type': null, 'tags': null};
     });
   }
 
   addNewTag(tag, prop) {
     if (tag.length) {
-      let tagsList = this.selectedOntologyData[prop].split(', ');
+      let tagsList = this.selectedOntologyData[prop];
       tagsList = tagsList.filter(n => n);
       tagsList.push(tag);
-      this.selectedOntologyData[prop] = tagsList.join(', ');
+      this.selectedOntologyData[prop] = tagsList;
       this.newTag[prop] = null;
     }
-  }
-
-  removeTag(tagIndex, prop) {
-    let tagsList = this.selectedOntologyData[prop].split(', ');
-    tagsList.splice(tagIndex, 1);
-    this.selectedOntologyData[prop] = tagsList.join(', ');
   }
 
   addTagToolTab(data, tag, prop) {
@@ -341,82 +402,34 @@ export class OntologyImproverComponent implements OnInit {
 
   submitEditedOntology(editedData) {
     let data = JSON.parse(JSON.stringify(editedData));
-    data['ontology_status'] = 'Awaiting Assessment';
-    data['project'] = data['project'].join(', ');
-    data['ontology_id'] = data['ontology_id'].join(', ');
-    data['species'] = data['species'].join(', ');
     const request = {};
     request['user'] = this.username;
     request['ontologies'] = [data];
     this.showSpinner = true;
-    this.ontologyService.validateTerms(request).subscribe(
+    this.ontologyService.createUpdateOntologies(request).subscribe(
       data => {
+        this.openSnackbar('Ontology updated!', 'Dismiss');
         this.showSpinner = false;
         this.closeModal();
         if (this.tabGroup.selectedIndex == 0) {
-          // update summary table
-          this.ontologyService.getOntologies().subscribe(
-            data => {
-              this.summaryTableData = data;
-              this.filter_field = Object.assign({}, this.filter_field);
-              this.aggregationService.getAggregations(data, 'ontology');
-              this.species = this.getSpecies(data);
-            }
-          );
+          // update ontology table
+          setTimeout(() => {
+            this.filter_field = Object.assign({}, this.filter_field);
+          }, 1000);
         } else {
-          // update table in ontology tool tab
-          const ontologyInput = this.ontologyTerms.split('\n').filter(n => n);
-          this.ontologyService.searchTerms(ontologyInput).subscribe(
-            data => {
-              this.searchResults = data;
-            }
-          );
+          // update existing terms table in ontology tool tab
+          setTimeout(() => {
+            this.searchResults.filter = Object.assign({}, this.searchResults.filter);
+          }, 1000);
         }
+        // update summary statistics
+        this.ontologyService.getUsageStatistics().subscribe((data) =>{
+          this.usageStats = data;
+        });
       },
       error => {
         this.showSpinner = false;
         this.openSnackbar('Submission Failed!', 'Dismiss');
-      }
-    );
-  }
-
-  changeOntologyStatus(data, status){
-    // TODO: disable for users who have already verified this ontology
-    this.openSnackbar('Updating Ontology Status...', 'Dismiss');
-    const request = {};
-    request['user'] = this.username
-    request['ontologies'] = [{
-      'id': data['id'],
-      'ontology_status': status
-    }];
-    this.ontologyService.validateTerms(request).subscribe(
-      data => {
-        if (this.tabGroup.selectedIndex == 0) {
-          // update summary table
-          this.ontologyService.getOntologies().subscribe(
-            data => {
-              this.summaryTableData = data;
-              this.filter_field = Object.assign({}, this.filter_field);
-              this.aggregationService.getAggregations(data, 'ontology');
-              this.species = this.getSpecies(data);
-              // show message
-              this.openSnackbar('Ontology Status Updated', 'Dismiss');
-            }
-          );
-        } else {
-          // update table in ontology tool tab
-          const ontologyInput = this.ontologyTerms.split('\n').filter(n => n);
-          this.ontologyService.searchTerms(ontologyInput).subscribe(
-            data => {
-              this.searchResults = data;
-              // show message
-              this.openSnackbar('Ontology Status Updated', 'Dismiss');
-            }
-          );
-        }
-      },
-      error => {
-        this.openSnackbar('Ontology Status Update Failed!', 'Dismiss');
       }
     );
   }
@@ -426,8 +439,19 @@ export class OntologyImproverComponent implements OnInit {
     if (ontologyInput.length) {
       this.ontologyService.searchTerms(ontologyInput).subscribe(
         data => {
-          this.searchResults = data;
-          this.getOntologyMatches(this.searchResults.not_found);
+          this.searchResults['found'] = data.map(ontology => ontology['term']);
+          this.searchResults['filter'] = {
+            'term': ontologyInput
+          };
+          this.searchResults['query'] = JSON.parse(JSON.stringify(this.query));
+          this.searchResults['query']['filters'] = this.searchResults['filter'];
+          let not_found = [];
+          ontologyInput.forEach(term => {
+            if (!this.searchResults['found'].includes(term)) {
+              not_found.push(term);
+            }
+          });
+          this.getOntologyMatches(not_found);
         },
         error => {
           this.error = error;
@@ -455,12 +479,12 @@ export class OntologyImproverComponent implements OnInit {
     );
   }
 
-  startValidation(key: string, index: number) {
+  addNewOntology(key: string, index: number) {
     var data;
     this.selectedTerm.key = key;
     // check if no matches found
     if (index == -1) {
-      data = {'ontology_label': key, 'ontology_status': 'Not yet supported'};
+      data = {'ontology_label': key};
       this.selectedTerm.index = 0;
       this.ontologyIdOptions = [];
     } else {
@@ -487,7 +511,7 @@ export class OntologyImproverComponent implements OnInit {
     this.openModal(data);
   }
 
-  editValidation(key: string, index: number) {
+  editNewOntology(key: string, index: number) {
     var data = JSON.parse(JSON.stringify(this.ontologyMatches[key][index]));
     this.selectedTerm.key = key;
     this.selectedTerm.index = index;
@@ -534,31 +558,6 @@ export class OntologyImproverComponent implements OnInit {
   }
 
   saveModalData(data) {
-    // if user marked ontology as needing improvement and also suggested changes
-    // set status as awaiting assesment
-    if (data.ontology_status == 'Needs Improvement') {
-      const ontologyOld = this.ontologyMatchesOld[this.selectedTerm.key][this.selectedTerm.index];
-      if (data.term_type !== ontologyOld.term_type || 
-          data.ontology_id !== ontologyOld.ontology_id ||
-          data.ontology_label !== ontologyOld.ontology_label) {
-        data.ontology_status = 'Awaiting Assessment';
-      }
-    }
-    // If user had previously suggested changes to an ontology, but then marks it suitable
-    // revert user changes to original values obtained from db/zooma
-    if (data.ontology_status == 'Verified') {
-      const ontologyOld = this.ontologyMatchesOld[this.selectedTerm.key][this.selectedTerm.index];
-      if (data.term_type !== ontologyOld.term_type || 
-         data.ontology_id !== ontologyOld.ontology_id ||
-          data.ontology_label !== ontologyOld.ontology_label) {
-        data = JSON.parse(JSON.stringify(ontologyOld));
-        data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', '): [];
-        data.project = data['project'] ? data['project'].split(', '): [];
-        data.species = data['species'] ? data['species'].split(', '): [];
-        data['ontology_status'] = 'Verified';
-        data['selected'] = true;
-      }
-    }
     // save validation on the ontology and refresh accordion
     // copying to another object and re-assigning is necessary to refresh the accordion on save
     let updatedOntologyMatches = JSON.parse(JSON.stringify(this.ontologyMatches));
@@ -572,26 +571,9 @@ export class OntologyImproverComponent implements OnInit {
     this.closeModal();
   }
 
-  getColour(ontology_support: string, ontology_status: string, opacity: number) {
-    if (ontology_status == 'Verified') {
-      if (ontology_support == 'https://www.ebi.ac.uk/vg/faang' || ontology_support == 'FAANG')
-        return 'rgba(0, 255, 0, ' + opacity + ')';
-      else
-        return 'rgba(255, 255, 0, ' + opacity + ')';
-    }
-    else if (ontology_status == 'Awaiting Assessment')
-      return 'rgba(0, 125, 255, ' + opacity + ')';
-    else if (ontology_status == 'Needs Improvement')
-      return 'rgba(255, 255, 0, ' + opacity + ')';
-    else if (ontology_status == 'Not yet supported')
-      return 'rgba(255, 0, 0, ' + opacity + ')';
-    else
-      return 'rgba(255, 255, 255, ' + opacity + ')';
-  }
-
   submitTerms() {
     var valid = true; // check if submission is valid
-    // get selected and validated ontologies
+    // get selected ontologies
     const validatedOntologies = [];
     for (const prop in this.ontologyMatches) {
       let l = this.ontologyMatches[prop].length;
@@ -599,27 +581,19 @@ export class OntologyImproverComponent implements OnInit {
         if (this.ontologyMatches[prop][index]['selected'])  {
           let ontology = {};
           let data = this.ontologyMatches[prop][index];
-          // ontology should either be verified/flagged or a ontology being provided,
-          // i.e. ontology status field should not be empty
-          if (!data['ontology_status'] || data['ontology_status'].length == 0) {
-            valid = false;
-            this.openSnackbar('Please validate all ontologies', 'Dismiss');
-            break;
-          }
-          // ontology label and type fields should not be empty
-          else if (data['ontology_label'].length == 0 || !data['term_type'] || data['term_type'].length == 0){
+          if (data['ontology_label'].length == 0 || !data['term_type'] || data['term_type'].length == 0){
             valid = false;
             this.openSnackbar('Ontology labels/types should not be empty', 'Dismiss');
             break;
           }
-          ontology['ontology_term'] = data['ontology_label'];
-          ontology['ontology_type'] = data['term_type'] ? data['term_type'] : '';
-          ontology['ontology_id'] = data['ontology_id'] ? data['ontology_id'] : '';
-          ontology['ontology_support'] = data['source'] ? data['source'] : 'Not yet supported';
-          ontology['ontology_status'] = data['ontology_status'];
-          ontology['project'] = data['project'] ? data['project'] : '';
-          ontology['species'] = data['species'] ? data['species'] : '';
-          ontology['tags'] = data['tags'] ? data['tags'] : '';
+          ontology['term'] = data['ontology_label'];
+          ontology['type'] = data['term_type'] ? data['term_type'].split(', ') : '';
+          ontology['id'] = data['ontology_id'] ? data['ontology_id'] : '';
+          ontology['key'] = ontology['term'] + '-' + ontology['id'];
+          ontology['support'] = data['source'] ? data['source'] : '';
+          ontology['projects'] = data['project'] ? data['project'].split(', ') : [];
+          ontology['species'] = data['species'] ? data['species'].split(', ') : [];
+          ontology['tags'] = data['tags'] ? data['tags'].split(', ') : [];
           validatedOntologies.push(ontology);
           break;
         }
@@ -635,9 +609,9 @@ export class OntologyImproverComponent implements OnInit {
         const request = {};
         request['user'] = this.username;
         request['ontologies'] = validatedOntologies;
-        this.ontologyService.validateTerms(request).subscribe(
+        this.ontologyService.createUpdateOntologies(request).subscribe(
           data => {
-            this.openSnackbar('Ontologies submitted successfully', 'View Summary');
+            this.openSnackbar('Ontologies submitted successfully', 'View ontology table');
           },
           error => {
             this.openSnackbar('Submission Failed!', 'Dismiss');

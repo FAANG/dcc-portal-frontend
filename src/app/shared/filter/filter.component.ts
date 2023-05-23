@@ -79,11 +79,11 @@ export class FilterComponent implements OnInit, OnDestroy {
         } else if (this.title === 'Dataset source') {
           this.aggregation = data['datasetSource'];
         } else if (this.title === 'Ontology Type') {
-          this.aggregation = data['ontology_type'];
-        } else if (this.title === 'Ontology Status') {
-          this.aggregation = data['ontology_status'];
+          this.aggregation = data['type'];
         } else if (this.title === 'Project') {
           this.aggregation = data['project'];
+        } else if (this.title === 'Projects') {
+          this.aggregation = data['projects'];
         }
         this.cdRef.detectChanges();
       }
@@ -194,15 +194,15 @@ export class FilterComponent implements OnInit, OnDestroy {
         break;
       }
       case 'Ontology Type': {
-        data_key = 'ontology_type';
-        break;
-      }
-      case 'Ontology Status': {
-        data_key = 'ontology_status';
+        data_key = 'type';
         break;
       }
       case 'Project': {
         data_key = 'project';
+        break;
+      }
+      case 'Projects': {
+        data_key = 'projects';
         break;
       }
     }

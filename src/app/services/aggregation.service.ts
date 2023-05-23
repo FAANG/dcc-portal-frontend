@@ -36,9 +36,9 @@ export class AggregationService {
     journal: [],
     source: [],
     datasetSource: [],
-    ontology_type: [],
-    ontology_status: [],
     project: [],
+    type: [],
+    projects: [],
   };
 
   protocolNames = protocolNames;
@@ -69,7 +69,8 @@ export class AggregationService {
 
   getAggregations(recordList: any, type: string) {
     if (type === 'file' || type === 'organism' || type === 'specimen' || type === 'dataset' ||
-        type === 'analysis' || type === 'protocol' || type === 'protocol_experiments' || type === 'article') {
+        type === 'analysis' || type === 'protocol' || type === 'protocol_experiments' 
+        || type === 'article' || type === 'ontology') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
@@ -145,9 +146,6 @@ export class AggregationService {
           }
           all_data['source'] = source_values;
         }
-
-
-
         // process Analysis Type and Experiment Target
         if (key == 'analysis_type' || key == 'experiment_target') {
           for (const val in all_data[key]) {
@@ -167,28 +165,7 @@ export class AggregationService {
         })
       }
       this.data.next(all_data);
-    } else if (type === 'ontology') {
-      let ontology_type = {};
-      let ontology_status = {};
-      let project = {};
-      for (const item of recordList) {
-        ontology_type = this.updateAggregationCommaSeparated(ontology_type, item['ontology_type']);
-        ontology_status = this.updateAggregation(ontology_status, item['ontology_status']);
-        project = this.updateAggregationCommaSeparated(project, item['project']);
-      }
-      let all_data = {
-        ontology_type: Object.entries(ontology_type).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        ontology_status: Object.entries(ontology_status).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-        project: Object.entries(project).sort(function (a: any, b: any) {
-          return b[1] - a[1];
-        }),
-      };
-      this.data.next(all_data);
-    }
+    } 
   }
 
   private updatePaperAggregation(paper_published: {}, value: string) {
