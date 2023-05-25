@@ -1,57 +1,109 @@
-[
-  {
-    "id": 1,
-    "project": "AQUA-FAANG",
-    "species": "Salmo salar, Oncorhynchus mykiss, Cyprinus carpio carpio, Scophthalmus maximus",
-    "ontology_type_count": {
-      "sex": 3,
-      "breed": 1,
-      "species": 1,
-      "cellType": 11,
-      "material": 5,
-      "organism": 4,
-      "healthStatus": 1,
-      "maturity state": 3
-    },
-    "status_count": {
-      "Awaiting Assessment": 29
-    }
-  },
-  {
-    "id": 2,
-    "project": "BovReg",
-    "species": "Bos taurus",
-    "ontology_type_count": {
-      "sex": 2,
-      "breed": 2,
-      "species": 1,
-      "cellType": 8,
-      "material": 3,
-      "organism": 1,
-      "healthStatus": 1,
-      "physiological condition": 2,
-      "environmental conditions": 2,
-      "physiological conditions": 2
-    },
-    "status_count": {
-      "Awaiting Assessment": 24
-    }
-  },
-  {
-    "id": 3,
-    "project": "GENE-SWitCH",
-    "species": "Gallus gallus, Sus scrofa",
-    "ontology_type_count": {
-      "sex": 4,
-      "breed": 2,
-      "species": 2,
-      "cellType": 27,
-      "material": 4,
-      "organism": 2,
-      "healthStatus": 1
-    },
-    "status_count": {
-      "Awaiting Assessment": 42
-    }
-  }
-]
+[{
+	"project": "AQUA-FAANG",
+	"species": "Salmo salar, Oncorhynchus mykiss, Cyprinus carpio carpio, Dicentrarchus labrax, Scophthalmus maximus",
+	"type_counts": [{
+		"type": "organismPart",
+		"count": 12
+	}, {
+		"type": "cellType",
+		"count": 12
+	}, {
+		"type": "breed",
+		"count": 1
+	}, {
+		"type": "developmentalStage",
+		"count": 1
+	}, {
+		"type": "sex",
+		"count": 3
+	}, {
+		"type": "species",
+		"count": 5
+	}, {
+		"type": "organism",
+		"count": 5
+	}, {
+		"type": "healthStatus",
+		"count": 1
+	}, {
+		"type": "healthStatusAtCollection",
+		"count": 1
+	}, {
+		"type": "material",
+		"count": 5
+	}],
+	"activity": {
+		"created_edited_count": 26,
+		"validated_count": 0
+	}
+}, {
+	"project": "BovReg",
+	"species": "Bos taurus",
+	"type_counts": [{
+		"type": "sex",
+		"count": 2
+	}, {
+		"type": "species",
+		"count": 1
+	}, {
+		"type": "breed",
+		"count": 3
+	}, {
+		"type": "organism",
+		"count": 1
+	}, {
+		"type": "organismPart",
+		"count": 31
+	}, {
+		"type": "cellType",
+		"count": 33
+	}, {
+		"type": "healthStatus",
+		"count": 1
+	}, {
+		"type": "healthStatusAtCollection",
+		"count": 1
+	}, {
+		"type": "material",
+		"count": 3
+	}],
+	"activity": {
+		"created_edited_count": 42,
+		"validated_count": 0
+	}
+}, {
+	"project": "GENE-SWitCH",
+	"species": "Gallus gallus, Sus scrofa",
+	"type_counts": [{
+		"type": "organismPart",
+		"count": 34
+	}, {
+		"type": "cellType",
+		"count": 36
+	}, {
+		"type": "sex",
+		"count": 4
+	}, {
+		"type": "breed",
+		"count": 9
+	}, {
+		"type": "healthStatus",
+		"count": 1
+	}, {
+		"type": "healthStatusAtCollection",
+		"count": 1
+	}, {
+		"type": "species",
+		"count": 2
+	}, {
+		"type": "organism",
+		"count": 2
+	}, {
+		"type": "material",
+		"count": 4
+	}],
+	"activity": {
+		"created_edited_count": 54,
+		"validated_count": 0
+	}
+}]

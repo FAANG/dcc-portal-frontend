@@ -2,8 +2,8 @@ import {OntologyImproverPage} from "./ontology-improver";
 
 describe('Ontology Improver Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/ontology_improver/summary*', {fixture: 'ontology-improver/ontology-summary.json'}).as("summaryList")
-    cy.intercept('GET', '/ontology_improver/search/*', {fixture: 'ontology-improver/ontology-improver.json'}).as("ontologyList")
+    cy.intercept('GET', '/data/summary_ontologies/_search/?size=10', {fixture: 'ontology-improver/ontology-summary.json'}).as("summaryList")
+    cy.intercept('GET', '/data/ontologies/_search/*&sort=key:asc*', {fixture: 'ontology-improver/ontology-improver.json'}).as("ontologyList")
     cy.visit('/ontology')
   })
 
@@ -17,52 +17,45 @@ describe('Ontology Improver Page', () => {
   it('should sort table on column Term', () => {
     cy.wait('@ontologyList').then(({response}) => {
       expect(response.statusCode).to.eq(200)
-      ontologyPage.compare_value('.cdk-column-ontology_term')
+      ontologyPage.compare_value('.cdk-column-term')
     })
   })
 
   it('should sort table on column Type', () => {
     cy.wait('@ontologyList').then(({response}) => {
       expect(response.statusCode).to.eq(200)
-      ontologyPage.compare_value('.cdk-column-ontology_type')
+      ontologyPage.compare_value('.cdk-column-type')
     })
   })
 
   it('should sort table on column Ontology Id', () => {
     cy.wait('@ontologyList').then(({response}) => {
       expect(response.statusCode).to.eq(200)
-      ontologyPage.compare_value('.cdk-column-ontology_id')
+      ontologyPage.compare_value('.cdk-column-id')
     })
   })
 
 
   it('should filter on Project', () => {
-    cy.wait('@ontologyList').then(({response}) => {
-      expect(response.statusCode).to.eq(200)
-      ontologyPage.compare_filter_value('[title="Project"] > .mat-card > :nth-child(2) > :nth-child(1)', '?project=GENE-SWitCH')
-    })
+    ontologyPage.check_url_filter('[title="Projects"] > .mat-card > :nth-child(2) > :nth-child(2)', 'path',  'projects')
   })
-
 
   it('should filter on Ontology Type', () => {
-    cy.wait('@ontologyList').then(({response}) => {
-      expect(response.statusCode).to.eq(200)
-      ontologyPage.compare_filter_value('[title="Ontology Type"] > .mat-card > :nth-child(2) > :nth-child(1)', '?ontology_type=cellType')
-    })
+    ontologyPage.check_url_filter('[title="Ontology Type"] > .mat-card > :nth-child(2) > :nth-child(2)', 'path',  'type')
   })
 
-
   it('should allow multiple filters', () => {
-    cy.wait('@ontologyList').then(({response}) => {
-      expect(response.statusCode).to.eq(200)
-      ontologyPage.allow_multiple_filters('[title="Ontology Type"] > .mat-card > :nth-child(2) > :nth-child(1)', '[title="Project"] > .mat-card > :nth-child(2) > :nth-child(1)', ['cellType', 'GENE-SWitCH'])
-    })
+    ontologyPage.allow_multiple_filters('[title="Projects"] > .mat-card > :nth-child(2) > :nth-child(2)',
+      '[title="Ontology Type"] > .mat-card > :nth-child(2) > :nth-child(2)',
+      'projects',
+      'type',
+      ['bovreg', 'organism'])
   })
 
   it('should remove filters', () => {
     cy.wait('@ontologyList').then(({response}) => {
       expect(response.statusCode).to.eq(200)
-      ontologyPage.removeFilters('[title="Ontology Type"] > .mat-card > :nth-child(2) > :nth-child(1)', '[title="Project"] > .mat-card > :nth-child(2) > :nth-child(1)')
+      ontologyPage.removeFilters('[title="Ontology Type"] > .mat-card > :nth-child(2) > :nth-child(1)', '[title="Projects"] > .mat-card > :nth-child(2) > :nth-child(1)')
     })
   })
 
