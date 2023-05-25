@@ -54,6 +54,10 @@ export class AggregationService {
     return this.protocolNames[data];
   }
 
+  getHumanReadableValue(data) {
+    return data.split(/(?=[A-Z])/).join(' ').toLowerCase();
+  }
+
   updateAggregation(aggs: {}, value: string): {} {
     aggs.hasOwnProperty(value) ? aggs[value] += 1 : aggs[value] = 1;
     return aggs;
@@ -157,6 +161,13 @@ export class AggregationService {
         if (key == 'protocol_type') {
           for (const val in all_data[key]) {
             all_data['protocol_type'][this.getHumanName(val)] = all_data[key][val];
+            delete all_data[key][val];
+          }
+        }
+        // process ontology type
+        if (key == 'type') {
+          for (const val in all_data[key]) {
+            all_data['type'][this.getHumanReadableValue(val)] = all_data[key][val];
             delete all_data[key][val];
           }
         }
