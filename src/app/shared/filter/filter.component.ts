@@ -195,6 +195,7 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Ontology Type': {
         data_key = 'type';
+        key = this.revertReadableType(key);
         break;
       }
       case 'Project': {
@@ -235,6 +236,16 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   getReverseHumanName(data) {
     return reverseProtocolNames[data];
+  }
+
+  revertReadableType(data) {
+    data = data.split(' ');
+    for(let i=1; i<data.length; i+=1) {
+      data[i] = data[i].charAt(0).toUpperCase() + data[i].slice(1);
+    }
+    data = data.join('');
+    console.log(data);
+    return data;
   }
 
   ngOnDestroy() {
