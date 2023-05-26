@@ -106,6 +106,23 @@ export class OntologyService {
     );
   }
 
+  getTypes() {
+    const url = `${this.hostSetting.host}data/ontologies/_search/?size=10000`;
+    const params = new HttpParams().set('_source', 'type').set('from_', 0);
+    return this.http.get(url, {params: params}).pipe(
+      map((data: any) => {
+        let types = [];
+        data.hits.hits.forEach(record => {
+          types = types.concat(record['_source']['type']);
+          types = Array.from(new Set(types));
+        });
+        console.log(types);
+        return types;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   getUsageStatistics() {
     const url = `${this.hostSetting.host}data/summary_ontologies/_search/?size=10`;
     return this.http.get(url).pipe(

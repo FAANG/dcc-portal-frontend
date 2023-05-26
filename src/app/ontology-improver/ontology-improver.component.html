@@ -332,19 +332,13 @@
 <!-- Template: Dialog Box - Edit existing Ontologies -->
 <ng-template #editModalTemplate let-data>
     <div mat-dialog-content>
-        Ontology Type: 
-        <br>
-        <ng-container *ngFor="let type of data.type; let i = index">
-            <button *ngIf="type.length" mat-button class="tags" (click)="removeTag(i, 'type')">
-                <mat-icon>close</mat-icon>
-                {{type}}
-            </button>
-        </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
-            <input matInput 
-                [(ngModel)]="newTag['type']" 
-                (keyup.enter)="addNewTag(newTag['type'], 'type')"
-                placeholder="Add another ontology type">
+            <mat-label>Ontology Type</mat-label>
+            <mat-select [(ngModel)]="data.type" multiple>
+                <mat-option *ngFor="let type of types" [value]="type">
+                    {{type}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Project</mat-label>
@@ -362,7 +356,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        Tags: 
+        Tags: (Type and press enter to add another tag)
         <br>
         <ng-container *ngFor="let tag of data.tags; let i = index">
             <button *ngIf="tag.length" mat-button class="tags" (click)="data['tags'].splice(index, 1)">
@@ -394,7 +388,7 @@
         <h3>Status Activity History</h3>
         <p *ngFor="let action of data">
             <span style="font-size: 14px; color: #5b5858;">
-                {{action.timestamp.replace('T', ' ').replace('+', ' +')}}
+                {{action.timestamp.replace('T', ' ').replace('+', ' +').split('.')[0]}}
             </span>
             <br>
             {{action.user}} 
@@ -417,23 +411,15 @@
 <!-- Template: Dialog Box - Adding new ontologies from Zooma -->
 <ng-template #modalTemplate let-data>
     <div mat-dialog-content>
-        Proposed Ontology Type(s): 
-        <br>
-        <div>
-            <ng-container *ngFor="let type of data.term_type?.split(', '); let i = index">
-                <button *ngIf="type.length" mat-button class="tags" (click)="removeTagToolsTab(data, i, 'term_type')">
-                    <mat-icon>close</mat-icon>
-                    {{type}}
-                </button>
-            </ng-container>
-            <mat-form-field appearance="fill" style="width: 100%;">
-                <input matInput 
-                    [(ngModel)]="newTag['term_type']" 
-                    (keyup.enter)="addTagToolTab(data, newTag['term_type'], 'term_type')"
-                    placeholder="Add another ontology type">
-            </mat-form-field>
-        </div>
         <ng-container>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Proposed Ontology Type</mat-label>
+                <mat-select [(ngModel)]="data.term_type" multiple>
+                    <mat-option *ngFor="let type of types" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
             <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>Proposed Ontology ID</mat-label>
                 <input *ngIf="ontologyIdOptions.length == 0" matInput [(ngModel)]="data.ontology_id">
@@ -464,7 +450,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        Tags: 
+        Tags:  (Type and press enter to add more tags)
         <br>
         <ng-container *ngFor="let tag of data.tags?.split(', '); let i = index">
             <button *ngIf="tag.length" mat-button class="tags" (click)="removeTagToolsTab(data, i, 'tags')">

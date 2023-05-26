@@ -45,7 +45,7 @@ export class OntologyImproverComponent implements OnInit {
   ontologyIdOptions;
   selectedTerm;
   selectedOntologyData;
-  newTag = {'type': null, 'tags': null};
+  newTag = {'tags': null};
   error: string;
   success: string;
   dialogRef;
@@ -62,6 +62,7 @@ export class OntologyImproverComponent implements OnInit {
   filter_field: {};
   regForm: FormGroup;
   species;
+  types;
   usageStats: Observable<any[]>;
 
   query = {
@@ -159,6 +160,10 @@ export class OntologyImproverComponent implements OnInit {
     // fetch FAANG species list for selection
     this.ontologyService.getSpecies().subscribe((res: any) => {
       this.species = res;
+    });
+    // fetch FAANG ontology types list for selection
+    this.ontologyService.getTypes().subscribe((res: any) => {
+      this.types = res;
     });
   }
 
@@ -366,7 +371,7 @@ export class OntologyImproverComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       this.selectedOntologyData = null;
-      this.newTag = {'type': null, 'tags': null};
+      this.newTag = {'tags': null};
     });
   }
 
