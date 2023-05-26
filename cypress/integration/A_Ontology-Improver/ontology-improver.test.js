@@ -49,7 +49,7 @@ describe('Ontology Improver Page', () => {
       '[title="Ontology Type"] > .mat-card > :nth-child(2) > :nth-child(2)',
       'projects',
       'type',
-      ['bovreg', 'organism'])
+      ['bovreg', 'organismpart'])
   })
 
   it('should remove filters', () => {
