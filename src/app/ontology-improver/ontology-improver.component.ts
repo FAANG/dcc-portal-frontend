@@ -277,6 +277,7 @@ export class OntologyImproverComponent implements OnInit {
   startOntologyValidation(data, status) {
     this.dialogRef = this.dialog.open(this.selectProjectModalTemplate, {
       width: '50%',
+      height: '40%',
       data: {
         'ontology': data,
         'project': null,

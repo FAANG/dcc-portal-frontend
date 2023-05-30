@@ -276,28 +276,31 @@
 
 <!-- Template: Dialog Box - select project for validation -->
 <ng-template #selectProjectModalTemplate let-data>
-    <div mat-dialog-content>
-        <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label>Project</mat-label>
-            <mat-select [(ngModel)]="data.project" multiple>
-                <mat-option value="AQUA-FAANG">AQUA-FAANG</mat-option>
-                <mat-option value="BovReg">BovReg</mat-option>
-                <mat-option value="GENE-SWitCH">GENE-SWitCH</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div *ngIf="!showSpinner">
-        <button mat-raised-button color="warn" (click)="closeModal()" 
-            style="float:right; margin: 10px;">Cancel</button>
-        <button *ngIf="data.status == 'Verified'" mat-raised-button color="primary" 
-            (click)="validateOntology(data.ontology, data.project, data.status)" 
-            style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
-            <button *ngIf="data.status == 'Needs Improvement'" mat-raised-button color="primary" 
-            (click)="validateOntology(data.ontology, data.project, data.status)" 
-                style="float:right; margin: 10px;" cdkFocusInitial>Next</button>
-    </div>
-    <div *ngIf="showSpinner">
-        <mat-spinner [diameter]="30"></mat-spinner>
+    <div mat-dialog-content fxLayout="column" style="height: 100%">
+        <div fxFlex="75">
+            <p>Select project(s) (if any) for which the ontology is being validated</p>
+            <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Project</mat-label>
+                <mat-select [(ngModel)]="data.project" multiple>
+                    <mat-option value="AQUA-FAANG">AQUA-FAANG</mat-option>
+                    <mat-option value="BovReg">BovReg</mat-option>
+                    <mat-option value="GENE-SWitCH">GENE-SWitCH</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div *ngIf="!showSpinner" fxFlex="25">
+            <button mat-raised-button color="warn" (click)="closeModal()" 
+                style="float:right; margin: 10px;">Cancel</button>
+            <button *ngIf="data.status == 'Verified'" mat-raised-button color="primary" 
+                (click)="validateOntology(data.ontology, data.project, data.status)" 
+                style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
+                <button *ngIf="data.status == 'Needs Improvement'" mat-raised-button color="primary" 
+                (click)="validateOntology(data.ontology, data.project, data.status)" 
+                    style="float:right; margin: 10px;" cdkFocusInitial>Next</button>
+        </div>
+        <div *ngIf="showSpinner" fxFlex="30">
+            <mat-spinner [diameter]="30"></mat-spinner>
+        </div>
     </div>
 </ng-template>
 
