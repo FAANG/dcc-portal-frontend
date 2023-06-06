@@ -45,7 +45,7 @@ export class OntologyImproverComponent implements OnInit {
   ontologyIdOptions;
   selectedTerm;
   selectedOntologyData;
-  newTag = {'tags': null};
+  newTag = {'tags': null, 'synonyms': null};
   error: string;
   success: string;
   dialogRef;
@@ -76,6 +76,7 @@ export class OntologyImproverComponent implements OnInit {
       'projects',
       'tags',
       'species',
+      'synonyms',
       'upvotes_count',
       'downvotes_count',
       'status_activity'
@@ -291,21 +292,10 @@ export class OntologyImproverComponent implements OnInit {
       this.submitFeedback(data, project, status);
     } else {
       this.dialogRef.close();
-      // get possible ontology ID options from ZOOMA
-      this.ontologyIdOptions = [data['id']]; // initially has only currrent id
-      this.ontologyService.fetchZoomaMatches([data['term']]).subscribe(
-        res => {
-          let ontologyMatches = res[data['term']].map(match => match['id']);
-          this.ontologyIdOptions = this.ontologyIdOptions.concat(ontologyMatches);
-          this.ontologyIdOptions = Array.from(new Set(this.ontologyIdOptions));
-          this.ontologyIdOptions = this.ontologyIdOptions.filter(n => n);
-        }
-      );
       this.dialogRef = this.dialog.open(this.validateModalTemplate, {
         width: '50%',
         data: {
           'ontology': data,
-          'ontologyIdOptions': this.ontologyIdOptions,
           'project': project,
           'status': status
         }
@@ -372,7 +362,7 @@ export class OntologyImproverComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       this.selectedOntologyData = null;
-      this.newTag = {'tags': null};
+      this.newTag = {'tags': null, 'synonyms': null};
     });
   }
 
@@ -386,24 +376,27 @@ export class OntologyImproverComponent implements OnInit {
     }
   }
 
+  editTag(data, tag, prop) {
+    this.newTag[prop] = tag;
+    data[prop] = data[prop].filter(function(e) { return e !== tag });
+  }
+
+  removeTag(data, tag, prop) {
+    data[prop] = data[prop].filter(function(e) { return e !== tag });
+  }
+
   addTagToolTab(data, tag, prop) {
     if (tag.length) {
       if (data[prop]) {
-        let tagsList = data[prop].split(', ');
+        let tagsList = data[prop];
         tagsList = tagsList.filter(n => n);
         tagsList.push(tag);
-        data[prop] = tagsList.join(', ');
+        data[prop] = tagsList;
       } else {
-        data[prop] = tag;
+        data[prop] = [tag];
       }
       this.newTag[prop] = null;
     }
-  }
-
-  removeTagToolsTab(data, tagIndex, prop) {
-    let tagsList = data[prop].split(', ');
-    tagsList.splice(tagIndex, 1);
-    data[prop] = tagsList.join(', ');
   }
 
   submitEditedOntology(editedData) {
@@ -476,6 +469,11 @@ export class OntologyImproverComponent implements OnInit {
           let l = this.ontologyMatches[prop].length;
           for (let index = 0; index < l; index += 1) {
             this.ontologyMatches[prop][index]['selected'] = false;
+            this.ontologyMatches[prop][index]['term_type'] = this.ontologyMatches[prop][index]['term_type'].split(', ');
+            // fetch ontology synonyms from OLS
+            this.ontologyService.getSynonyms(this.ontologyMatches[prop][index]['ontology_id']).subscribe((res: any) => {
+              this.ontologyMatches[prop][index]['synonyms'] = res;
+            });
           }
         }
       },
@@ -500,8 +498,8 @@ export class OntologyImproverComponent implements OnInit {
       this.ontologyIdOptions = data.ontology_id.split(', ');
     }
     data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', '): [];
-    data.project = data['project'] ? data['project'].split(', '): [];
-    data.species = data['species'] ? data['species'].split(', '): [];
+    data.project = data['project'] ? data['project']: [];
+    data.species = data['species'] ? data['species']: [];
     // mark current ontology as selected
     data['selected'] = true;
     let l = this.ontologyMatches[key].length;
@@ -526,8 +524,8 @@ export class OntologyImproverComponent implements OnInit {
       this.ontologyIdOptions = data.ontology_id.split(', ');
     }
     data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', '): [];
-    data.project = data['project'] ? data['project'].split(', '): [];
-    data.species = data['species'] ? data['species'].split(', '): [];
+    data.project = data['project'] ? data['project']: [];
+    data.species = data['species'] ? data['species']: [];
     this.openModal(data);
   }
 
@@ -569,8 +567,6 @@ export class OntologyImproverComponent implements OnInit {
     let updatedOntologyMatches = JSON.parse(JSON.stringify(this.ontologyMatches));
     let updatedData = JSON.parse(JSON.stringify(data));
     updatedData.ontology_id = updatedData['ontology_id'].join(', ');
-    updatedData.project = updatedData['project'].join(', ');
-    updatedData.species = updatedData['species'].join(', ');
     updatedOntologyMatches[this.selectedTerm.key][this.selectedTerm.index] = updatedData;
     this.ontologyMatches = updatedOntologyMatches;
     // close modal
@@ -593,13 +589,13 @@ export class OntologyImproverComponent implements OnInit {
             break;
           }
           ontology['term'] = data['ontology_label'];
-          ontology['type'] = data['term_type'] ? data['term_type'].split(', ') : '';
+          ontology['type'] = data['term_type'] ? data['term_type'] : [];
           ontology['id'] = data['ontology_id'] ? data['ontology_id'] : '';
           ontology['key'] = ontology['term'] + '-' + ontology['id'];
           ontology['support'] = data['source'] ? data['source'] : '';
-          ontology['projects'] = data['project'] ? data['project'].split(', ') : [];
-          ontology['species'] = data['species'] ? data['species'].split(', ') : [];
-          ontology['tags'] = data['tags'] ? data['tags'].split(', ') : [];
+          ontology['projects'] = data['project'] ? data['project'] : [];
+          ontology['species'] = data['species'] ? data['species'] : [];
+          ontology['tags'] = data['tags'] ? data['tags'] : [];
           validatedOntologies.push(ontology);
           break;
         }

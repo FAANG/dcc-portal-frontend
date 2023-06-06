@@ -116,8 +116,26 @@ export class OntologyService {
           types = types.concat(record['_source']['type']);
           types = Array.from(new Set(types));
         });
-        console.log(types);
         return types;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  getSynonyms(id) {
+    const url = `https://www.ebi.ac.uk/ols4/api/terms?short_form=${id}`;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        if (data['_embedded']) {
+          data = data['_embedded']['terms'][0];
+          if (data['synonyms']) {
+            return data['synonyms'];
+          }
+          if (data['annotation'] && data['annotation']['has_exact_synonym']) {
+            return data['annotation']['has_exact_synonym'];
+          }
+        }
+        return [];
       }),
       catchError(this.handleError),
     );

@@ -312,12 +312,7 @@
             <input matInput [(ngModel)]="data.ontology.term">
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label>Ontology ID</mat-label>
-            <mat-select [(ngModel)]="data.ontology.id" single>
-                <mat-option *ngFor="let id of data.ontologyIdOptions" [value]="id">
-                    {{id}}
-                </mat-option>
-            </mat-select>
+            <input matInput [(ngModel)]="data.ontology.term">
         </mat-form-field>
     </div>
     <div *ngIf="!showSpinner">
@@ -359,16 +354,40 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        Tags: (Type and press enter to add another tag)
+        Synonyms: (Type and press enter to add another synonym)
         <br>
-        <ng-container *ngFor="let tag of data.tags; let i = index">
-            <button *ngIf="tag.length" mat-button class="tags" (click)="data['tags'].splice(index, 1)">
-                <mat-icon>close</mat-icon>
-                {{tag}}
-            </button>
+        <ng-container *ngFor="let synonym of data.synonyms; let i = index">
+            <div>
+                <button *ngIf="synonym.length" mat-button class="tags"
+                    (click)="editTag(data, synonym, 'synonyms')">
+                    {{synonym}}
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <mat-icon (click)="removeTag(data, synonym, 'synonyms')"
+                    style="vertical-align: middle;">close</mat-icon>
+            </div>
         </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
             <input matInput 
+                [(ngModel)]="newTag['synonyms']" 
+                (keyup.enter)="addNewTag(newTag['synonyms'], 'synonyms')"
+                placeholder="Add more synonyms">
+        </mat-form-field>
+        Tags: (Type and press enter to add another tag)
+        <br>
+        <ng-container *ngFor="let tag of data.tags; let i = index">
+            <div>
+                <button *ngIf="tag.length" mat-button class="tags"
+                    (click)="editTag(data, tag, 'tags')">
+                    {{tag}}
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <mat-icon (click)="removeTag(data, tag, 'tags')"
+                    style="vertical-align: middle;">close</mat-icon>
+            </div>
+        </ng-container>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <input matInput
                 [(ngModel)]="newTag['tags']" 
                 (keyup.enter)="addNewTag(newTag['tags'], 'tags')"
                 placeholder="Add more tags">
@@ -453,13 +472,37 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        Tags:  (Type and press enter to add more tags)
+        Synonyms: (Type and press enter to add another synonym)
         <br>
-        <ng-container *ngFor="let tag of data.tags?.split(', '); let i = index">
-            <button *ngIf="tag.length" mat-button class="tags" (click)="removeTagToolsTab(data, i, 'tags')">
-                <mat-icon>close</mat-icon>
-                {{tag}}
-            </button>
+        <ng-container *ngFor="let synonym of data.synonyms; let i = index">
+            <div>
+                <button *ngIf="synonym.length" mat-button class="tags"
+                    (click)="editTag(data, synonym, 'synonyms')">
+                    {{synonym}}
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <mat-icon (click)="removeTag(data, synonym, 'synonyms')"
+                    style="vertical-align: middle;">close</mat-icon>
+            </div>
+        </ng-container>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <input matInput 
+                [(ngModel)]="newTag['synonyms']" 
+                (keyup.enter)="addTagToolTab(data, newTag['synonyms'], 'synonyms')"
+                placeholder="Add more synonyms">
+        </mat-form-field>
+        Tags: (Type and press enter to add another tag)
+        <br>
+        <ng-container *ngFor="let tag of data.tags; let i = index">
+            <div>
+                <button *ngIf="tag.length" mat-button class="tags"
+                    (click)="editTag(data, tag, 'tags')">
+                    {{tag}}
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <mat-icon (click)="removeTag(data, tag, 'tags')"
+                    style="vertical-align: middle;">close</mat-icon>
+            </div>
         </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
             <input matInput 
