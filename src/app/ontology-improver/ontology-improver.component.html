@@ -311,9 +311,6 @@
             <mat-label>Ontology Text</mat-label>
             <input matInput [(ngModel)]="data.ontology.term">
         </mat-form-field>
-        <mat-form-field appearance="fill" style="width: 100%;">
-            <input matInput [(ngModel)]="data.ontology.term">
-        </mat-form-field>
     </div>
     <div *ngIf="!showSpinner">
         <button mat-raised-button color="warn" (click)="closeModal()" 
