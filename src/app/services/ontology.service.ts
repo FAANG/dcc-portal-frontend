@@ -38,16 +38,6 @@ export class OntologyService {
     return throwError(error.error.message);
   }
 
-  getOntologyById(ontologyId) {
-    const url = validation_service_url + '/ontology_improver/ontology_detail/' + ontologyId;
-    return this.http.get(url).pipe(
-      map((data: any) => {
-        return data;
-      }),
-      catchError(this.handleError),
-    );
-  }
-
   searchTerms(terms: any) {
     const url = `${this.hostSetting.host}data/ontologies/_search/?size=10000`;
     const filters = {"term":terms};
@@ -122,20 +112,40 @@ export class OntologyService {
     );
   }
 
-  getSynonyms(id) {
-    const url = `https://www.ebi.ac.uk/ols4/api/terms?short_form=${id}`;
+  getDetailsFromOls(ontology) {
+    const url = `https://www.ebi.ac.uk/ols4/api/terms?short_form=${ontology['ontology_id']}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         if (data['_embedded']) {
           data = data['_embedded']['terms'][0];
-          if (data['synonyms']) {
-            return data['synonyms'];
+          if (data['iri']) {
+            ontology['iri'] = data['iri'];
           }
-          if (data['annotation'] && data['annotation']['has_exact_synonym']) {
-            return data['annotation']['has_exact_synonym'];
+          if (data['description']) {
+            ontology['summary'] = data['description'][0];
+          }
+          if (data['synonyms']) {
+            ontology['synonyms'] = data['synonyms'];
+          }
+          if (data['annotation']) {
+            if (data['annotation']['has_alternative_id']) {
+              ontology['alternative_id'] = data['annotation']['has_alternative_id'];
+            }
+            if (!ontology['summary'] && data['annotation']['summary']) {
+              ontology['summary'] = data['annotation']['summary'];
+            }
+            if (data['annotation']['database_cross_reference']) {
+              ontology['database_cross_reference'] = data['annotation']['database_cross_reference'];
+            }
+            if (data['annotation']['related_synonyms']) {
+              ontology['related_synonyms'] = data['annotation']['related_synonyms'];
+            }
+            if (!ontology['synonyms'] && data['annotation']['has_exact_synonym']) {
+              ontology['synonyms'] = data['annotation']['has_exact_synonym'];
+            }
           }
         }
-        return [];
+        return ontology;
       }),
       catchError(this.handleError),
     );

@@ -347,6 +347,17 @@ export class ApiDataService {
     );
   }
 
+  getOntologyById(ontologyId) {
+    const url = `${this.hostSetting.host}data/ontologies/${ontologyId}`;
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        return data.hits.hits[0]['_source'];
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
   getAllOrganisms(query: any, size: number) {
     const url = `${this.hostSetting.host}data/organism/_search/?size=${size}`;
     const aggs = {

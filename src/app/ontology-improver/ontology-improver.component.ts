@@ -77,6 +77,7 @@ export class OntologyImproverComponent implements OnInit {
       'tags',
       'species',
       'synonyms',
+      'summary',
       'upvotes_count',
       'downvotes_count',
       'status_activity'
@@ -476,9 +477,9 @@ export class OntologyImproverComponent implements OnInit {
           for (let index = 0; index < l; index += 1) {
             this.ontologyMatches[prop][index]['selected'] = false;
             this.ontologyMatches[prop][index]['term_type'] = this.ontologyMatches[prop][index]['term_type'].split(', ');
-            // fetch ontology synonyms from OLS
-            this.ontologyService.getSynonyms(this.ontologyMatches[prop][index]['ontology_id']).subscribe((res: any) => {
-              this.ontologyMatches[prop][index]['synonyms'] = res;
+            // fetch ontology details from OLS
+            this.ontologyService.getDetailsFromOls(this.ontologyMatches[prop][index]).subscribe((res: any) => {
+              this.ontologyMatches[prop][index] = res;
             });
           }
         }
@@ -602,6 +603,13 @@ export class OntologyImproverComponent implements OnInit {
           ontology['projects'] = data['project'] ? data['project'] : [];
           ontology['species'] = data['species'] ? data['species'] : [];
           ontology['tags'] = data['tags'] ? data['tags'] : [];
+          // save ontology details from OLS
+          ontology['iri'] = data['iri'] ? data['iri'] : '';
+          ontology['summary'] = data['summary'] ? data['summary'] : '';
+          ontology['synonyms'] = data['synonyms'] ? data['synonyms'] : [];
+          ontology['alternative_id'] = data['alternative_id'] ? data['alternative_id'] : [];
+          ontology['database_cross_reference'] = data['database_cross_reference'] ? data['database_cross_reference'] : [];
+          ontology['related_synonyms'] = data['related_synonyms'] ? data['related_synonyms'] : [];
           validatedOntologies.push(ontology);
           break;
         }

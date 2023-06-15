@@ -351,6 +351,12 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Summary</mat-label>
+            <textarea matInput [(ngModel)]="data.summary"
+                cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1">
+            </textarea>
+        </mat-form-field>
         Synonyms: (Type and press enter to add another synonym)
         <br>
         <ng-container *ngFor="let synonym of data.synonyms; let i = index">
@@ -468,6 +474,12 @@
                     {{spc}}
                 </mat-option>
             </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Summary</mat-label>
+            <textarea matInput [(ngModel)]="data.summary"
+                cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1">
+            </textarea>
         </mat-form-field>
         Synonyms: (Type and press enter to add another synonym)
         <br>
