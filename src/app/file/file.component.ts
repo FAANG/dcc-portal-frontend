@@ -6,6 +6,9 @@ import {Title} from '@angular/platform-browser';
 import {FileTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
+import {MatDialog} from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/internal/operators/finalize';
 
 @Component({
   selector: 'app-file-table',
@@ -16,17 +19,24 @@ export class FileComponent implements OnInit, OnDestroy {
   @ViewChild('fileNameTemplate', { static: true }) fileNameTemplate: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   public loadTableDataFunction: Function;
   fileListShort: Observable<FileTable[]>;
   fileListLong: Observable<FileTable[]>;
-  displayFields: string[] = ['fileName', 'study', 'experiment', 'species', 'assayType', 'target', 'specimen', 'instrument', 'standard', 'paperPublished'];
-  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard', 'Paper published'];
+  displayFields: string[] = ['fileName', 'study', 'experiment', 'species', 'assayType', 'target', 'specimen', 'instrument', 'standard', 'paperPublished', 'subscribe'];
+  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard', 'Paper published', 'Subscribe'];
   filter_field: {};
   templates: Object;
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
+  subscriptionDialogTitle: string;
+  subscriber = { email: ''};
+  dialogRef: any;
+  dialogInfoRef: any;
+  indexDetails: {};
+  public subscriptionForm: FormGroup;
 
   query = {
     'sort': ['fileName', 'desc'],
@@ -69,11 +79,13 @@ export class FileComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
+              public dialog: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.indexDetails = {index: 'file', indexKey: '_id', apiKey: 'fileName'}
     this.templates = {'fileName': this.fileNameTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllFiles.bind(this.dataService);
@@ -114,6 +126,10 @@ export class FileComponent implements OnInit, OnDestroy {
         }
       }
       this.router.navigate(['file'], {queryParams: params});
+    });
+
+    this.subscriptionForm = new FormGroup({
+      subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
@@ -178,6 +194,43 @@ export class FileComponent implements OnInit, OnDestroy {
 
   isGreen(published: any) {
     return published === 'true' ? 'green' : 'default';
+  }
+
+  openSubscriptionDialog() {
+    this.subscriptionDialogTitle = `Subscribing to filtered File entries`
+    this.dialogRef = this.dialog.open(this.subscriptionTemplate,
+      { data: this.subscriber, height: '300px', width: '400px' });
+  }
+
+  public displayError = (controlName: string, errorName: string) =>{
+    return this.subscriptionForm.controls[controlName].hasError(errorName);
+  }
+
+  onCancelDialog(dialogType) {
+    if (dialogType === 'info'){
+      this.dialogInfoRef.close();
+    }else{
+      this.dialogRef.close();
+    }
+  }
+
+  getEmail(event: Event){
+    this.subscriber.email = (<HTMLInputElement>event.target).value;
+  }
+
+  onRegister(data) {
+    console.log("onRegister: ", data)
+    if (this.subscriptionForm.valid && this.subscriptionForm.touched){
+      this.dataService.subscribeFilteredData('file', '_id', data.email).subscribe(response => {
+          console.log("You have now been subscribed!")
+          this.dialogRef.close();
+        },
+        error => {
+          console.log(error);
+          this.dialogRef.close();
+        }
+      );
+    }
   }
 
   ngOnDestroy() {

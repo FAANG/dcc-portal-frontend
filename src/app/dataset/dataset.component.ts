@@ -6,6 +6,9 @@ import {Title} from '@angular/platform-browser';
 import {DatasetTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {MatDialog} from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/internal/operators/finalize';
 
 @Component({
   selector: 'app-dataset',
@@ -16,19 +19,26 @@ export class DatasetComponent implements OnInit, OnDestroy {
   @ViewChild('datasetAccessionTemplate', { static: true }) datasetAccessionTemplate: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   public loadTableDataFunction: Function;
   datasetListShort: Observable<DatasetTable[]>;
   datasetListLong: Observable<DatasetTable[]>;
   displayFields: string[] = ['datasetAccession', 'title', 'species', 'archive', 'assayType', 'numberOfExperiments',
-    'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished'];
+    'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished', 'subscribe'];
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
-  'Number of Specimens', 'Number of Files', 'Standard', 'Paper published'];
+  'Number of Specimens', 'Number of Files', 'Standard', 'Paper published', 'Subscribe'];
   filter_field: {};
   templates: Object;
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
+  subscriptionDialogTitle: string;
+  subscriber = { email: ''};
+  dialogRef: any;
+  dialogInfoRef: any;
+  indexDetails: {};
+  public subscriptionForm: FormGroup;
 
   query = {
     'sort': ['accession','desc'],
@@ -72,11 +82,13 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
+              public dialog: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.indexDetails = {index: 'dataset', indexKey: 'accession', apiKey: 'datasetAccession'}
     this.templates = {'datasetAccession': this.datasetAccessionTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllDatasets.bind(this.dataService);
@@ -117,6 +129,10 @@ export class DatasetComponent implements OnInit, OnDestroy {
         }
       }
       this.router.navigate(['dataset'], {queryParams: params});
+    });
+
+    this.subscriptionForm = new FormGroup({
+      subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
@@ -186,6 +202,43 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   isGreen(published: any) {
     return published === 'true' ? 'green' : 'default';
+  }
+
+  openSubscriptionDialog() {
+    this.subscriptionDialogTitle = `Subscribing to filtered Dataset entries`
+    this.dialogRef = this.dialog.open(this.subscriptionTemplate,
+      { data: this.subscriber, height: '300px', width: '400px' });
+  }
+
+  public displayError = (controlName: string, errorName: string) =>{
+    return this.subscriptionForm.controls[controlName].hasError(errorName);
+  }
+
+  onCancelDialog(dialogType) {
+    if (dialogType === 'info'){
+      this.dialogInfoRef.close();
+    }else{
+      this.dialogRef.close();
+    }
+  }
+
+  getEmail(event: Event){
+    this.subscriber.email = (<HTMLInputElement>event.target).value;
+  }
+
+  onRegister(data) {
+    console.log("onRegister: ", data)
+    if (this.subscriptionForm.valid && this.subscriptionForm.touched){
+      this.dataService.subscribeFilteredData('dataset', 'accession', data.email).subscribe(response => {
+          console.log("You have now been subscribed!")
+          this.dialogRef.close();
+        },
+        error => {
+          console.log(error);
+          this.dialogRef.close();
+        }
+      );
+    }
   }
 
   ngOnDestroy() {

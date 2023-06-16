@@ -11,6 +11,7 @@ import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '..
 import {UserService} from './user.service';
 import {replaceUnderscoreWithSpace} from '../shared/common_functions';
 import {protocolNames} from '../shared/protocolnames';
+import { ApiFiltersService } from './api-filters.service';
 
 
 @Injectable({
@@ -20,7 +21,10 @@ export class ApiDataService {
   hostSetting = new HostSetting;
 
   constructor(private http: HttpClient,
-              private _userService: UserService) { }
+              private _userService: UserService,
+              private apiFiltersService: ApiFiltersService) { }
+
+
 
   getAllFiles(query: any, size: number) {
     const url = `${this.hostSetting.host}data/file/_search/?size=${size}`;
@@ -54,6 +58,10 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
+
+    // set the service variable current_api_filters with the current filters for global use
+    this.apiFiltersService.set_current_api_filters(filters);
+    
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' +
       query['sort'][1];
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
@@ -348,6 +356,7 @@ export class ApiDataService {
   }
 
   getAllOrganisms(query: any, size: number) {
+    console.log("getAllOrganisms query: ", query)
     const url = `${this.hostSetting.host}data/organism/_search/?size=${size}`;
     const aggs = {
       'sex': 'sex.text',
@@ -367,12 +376,17 @@ export class ApiDataService {
       'paper_published': 'paperPublished',
     };
     const filters = query['filters'];
+
     for (const prop of Object.keys(filters)) {
       if (aggs[prop] && (prop !== aggs[prop])) {
         filters[aggs[prop]] = filters[prop];
         delete filters[prop];
       }
     }
+    console.log("filters: ", filters)
+    // set the service variable current_api_filters with the current filters for global use
+    this.apiFiltersService.set_current_api_filters(filters);
+
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query[
       'sort'][1];
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
@@ -632,6 +646,9 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
+    // set the service variable current_api_filters with the current filters for global use
+    this.apiFiltersService.set_current_api_filters(filters);
+
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query[
       'sort'][1];
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
@@ -748,6 +765,10 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
+
+    // set the service variable current_api_filters with the current filters for global use
+    this.apiFiltersService.set_current_api_filters(filters);
+
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query[
       'sort'][1];
     let params = new HttpParams().set('_source', query['_source'].toString()).set('filters', JSON.stringify(filters)).set('aggs',
@@ -1358,6 +1379,22 @@ export class ApiDataService {
       retry(3),
       catchError(this.handleError),
     );
+  }
+
+  subscribeUser(indexName, indexKey, subscriberEmail, filters) {
+    console.log("ki gogot!")
+    const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
+    const params = new HttpParams().set('filters', JSON.stringify(filters));
+    return this.http.get(url, {params: params})
+  }
+
+  subscribeFilteredData(indexName, indexKey, subscriberEmail) {
+    const filters = this.apiFiltersService.get_current_api_filters();
+    console.log("new filters: ", filters)
+
+    const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
+    const params = new HttpParams().set('filters', JSON.stringify(filters));
+    return this.http.get(url, {params: params})
   }
 
 

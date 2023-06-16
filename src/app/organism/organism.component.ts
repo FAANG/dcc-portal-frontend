@@ -6,6 +6,9 @@ import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {MatDialog} from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/internal/operators/finalize';
 
 @Component({
   selector: 'app-organism',
@@ -16,18 +19,25 @@ export class OrganismComponent implements OnInit, OnDestroy {
   @ViewChild('bioSampleIdTemplate', { static: true }) bioSampleIdTemplate: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   public loadTableDataFunction: Function;
   organismListShort: Observable<OrganismTable[]>;
   organismListLong: Observable<OrganismTable[]>;
 
-  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published'];
-  displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished'];
+  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published', 'Subscribe'];
+  displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished', 'subscribe'];
   templates: Object;
   filter_field: {};
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
+  subscriptionDialogTitle: string;
+  subscriber = { email: ''};
+  dialogRef: any;
+  dialogInfoRef: any;
+  indexDetails: {};
+  public subscriptionForm: FormGroup;
 
   query = {
     'sort': ['id_number', 'desc'],
@@ -64,10 +74,12 @@ export class OrganismComponent implements OnInit, OnDestroy {
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
+              public dialog: MatDialog,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.indexDetails = {index: 'organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'}
     this.templates = {'bioSampleId': this.bioSampleIdTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllOrganisms.bind(this.dataService);
@@ -108,6 +120,10 @@ export class OrganismComponent implements OnInit, OnDestroy {
         }
       }
       this.router.navigate(['organism'], {queryParams: params});
+    });
+
+    this.subscriptionForm = new FormGroup({
+      subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
@@ -175,4 +191,42 @@ export class OrganismComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
   }
+
+  openSubscriptionDialog() {
+    this.subscriptionDialogTitle = `Subscribing to filtered Organism entries`
+    this.dialogRef = this.dialog.open(this.subscriptionTemplate,
+      { data: this.subscriber, height: '300px', width: '400px' });
+  }
+
+  public displayError = (controlName: string, errorName: string) =>{
+    return this.subscriptionForm.controls[controlName].hasError(errorName);
+  }
+
+  onCancelDialog(dialogType) {
+    if (dialogType === 'info'){
+      this.dialogInfoRef.close();
+    }else{
+      this.dialogRef.close();
+    }
+  }
+
+  getEmail(event: Event){
+    this.subscriber.email = (<HTMLInputElement>event.target).value;
+  }
+
+  onRegister(data) {
+    console.log("onRegister: ", data)
+    if (this.subscriptionForm.valid && this.subscriptionForm.touched){
+      this.dataService.subscribeFilteredData('organism', 'biosampleId', data.email).subscribe(response => {
+          console.log("You have now been subscribed!")
+          this.dialogRef.close();
+        },
+        error => {
+          console.log(error);
+          this.dialogRef.close();
+        }
+      );
+    }
+  }
+
 }

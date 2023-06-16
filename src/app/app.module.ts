@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { FileComponent } from './file/file.component';
 import { AppRoutingModule } from './app-routing.module';
 import {ApiDataService} from './services/api-data.service';
+import {ApiFiltersService} from './services/api-filters.service';
 import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -233,7 +234,7 @@ export function removeToken(): void {
     NgcCookieConsentModule.forRoot(cookieConfig),
     GraphQLModule
   ],
-  providers: [ApiDataService, AggregationService, SlicePipe, UserService],
+  providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

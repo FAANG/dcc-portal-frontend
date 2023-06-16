@@ -6,6 +6,9 @@ import {AggregationService} from '../services/aggregation.service';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {MatDialog} from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/internal/operators/finalize';
 
 @Component({
   selector: 'app-specimen',
@@ -16,20 +19,27 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   @ViewChild('biosampleIdTemplate', { static: true }) biosampleIdTemplate: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
   @ViewChild('trackhubUrlTemplate', { static: true }) trackhubUrlTemplate: TemplateRef<any>;
+  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
   specimenListShort: Observable<SpecimenTable[]>;
   specimenListLong: Observable<SpecimenTable[]>;
   columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard',
-    'Paper published', 'Track Hub'];
-    displayFields: string[] = ['bioSampleId', 'material', 'organismpart_celltype', 'sex', 'organism', 'breed', 'standard',
-    'paperPublished', 'trackhubUrl'];
-    filter_field: {};
-    templates: Object;
-    aggrSubscription: Subscription;
-    downloadData = false;
-    downloading = false;
-    data = {};
+    'Paper published', 'Track Hub', 'Subscribe'];
+  displayFields: string[] = ['bioSampleId', 'material', 'organismpart_celltype', 'sex', 'organism', 'breed', 'standard',
+  'paperPublished', 'trackhubUrl', 'subscribe'];
+  filter_field: {};
+  templates: Object;
+  aggrSubscription: Subscription;
+  downloadData = false;
+  downloading = false;
+  data = {};
+  subscriptionDialogTitle: string;
+  subscriber = { email: ''};
+  dialogRef: any;
+  dialogInfoRef: any;
+  indexDetails: {};
+  public subscriptionForm: FormGroup;
 
   query = {
     'sort': ['id_number', 'desc'],
@@ -73,10 +83,12 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
+              public dialog: MatDialog,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.indexDetails = {index: 'specimen', indexKey: 'biosampleId', apiKey: 'bioSampleId'}
     this.templates = {'bioSampleId': this.biosampleIdTemplate,
                       'paperPublished': this.paperPublishedTemplate,
                       'trackhubUrl': this.trackhubUrlTemplate };
@@ -118,6 +130,10 @@ export class SpecimenComponent implements OnInit, OnDestroy {
         }
       }
       this.router.navigate(['specimen'], {queryParams: params});
+    });
+
+    this.subscriptionForm = new FormGroup({
+      subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
@@ -179,6 +195,43 @@ export class SpecimenComponent implements OnInit, OnDestroy {
 
   isGreen(published: any) {
     return published === 'true' ? 'green' : 'default';
+  }
+
+  openSubscriptionDialog() {
+    this.subscriptionDialogTitle = `Subscribing to filtered Specimen entries`
+    this.dialogRef = this.dialog.open(this.subscriptionTemplate,
+      { data: this.subscriber, height: '300px', width: '400px' });
+  }
+
+  public displayError = (controlName: string, errorName: string) =>{
+    return this.subscriptionForm.controls[controlName].hasError(errorName);
+  }
+
+  onCancelDialog(dialogType) {
+    if (dialogType === 'info'){
+      this.dialogInfoRef.close();
+    }else{
+      this.dialogRef.close();
+    }
+  }
+
+  getEmail(event: Event){
+    this.subscriber.email = (<HTMLInputElement>event.target).value;
+  }
+
+  onRegister(data) {
+    console.log("onRegister: ", data)
+    if (this.subscriptionForm.valid && this.subscriptionForm.touched){
+      this.dataService.subscribeFilteredData('specimen', 'biosampleId', data.email).subscribe(response => {
+          console.log("You have now been subscribed!")
+          this.dialogRef.close();
+        },
+        error => {
+          console.log(error);
+          this.dialogRef.close();
+        }
+      );
+    }
   }
 
   ngOnDestroy() {
