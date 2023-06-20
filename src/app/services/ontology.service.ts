@@ -146,8 +146,10 @@ export class OntologyService {
           }
         }
         return ontology;
-      }),
-      catchError(this.handleError),
+      },
+      (err: any) => {
+        return throwError(err);
+      })
     );
   }
 

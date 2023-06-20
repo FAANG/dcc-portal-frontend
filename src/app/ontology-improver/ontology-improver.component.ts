@@ -64,6 +64,7 @@ export class OntologyImproverComponent implements OnInit {
   species;
   types;
   usageStats: Observable<any[]>;
+  disableOntologyCreation: boolean;
 
   query = {
     'sort': ['key', 'asc'],
@@ -102,6 +103,7 @@ export class OntologyImproverComponent implements OnInit {
     this.token = localStorage.getItem("token");
     this.username = localStorage.getItem("user");
     this.hide = true;
+    this.disableOntologyCreation = false;
     this.mode = 'input';
     this.registerUser = false;
     this.ontologyTerms = '';
@@ -478,9 +480,18 @@ export class OntologyImproverComponent implements OnInit {
             this.ontologyMatches[prop][index]['selected'] = false;
             this.ontologyMatches[prop][index]['term_type'] = this.ontologyMatches[prop][index]['term_type'].split(', ');
             // fetch ontology details from OLS
-            this.ontologyService.getDetailsFromOls(this.ontologyMatches[prop][index]).subscribe((res: any) => {
-              this.ontologyMatches[prop][index] = res;
-            });
+            this.ontologyService.getDetailsFromOls(this.ontologyMatches[prop][index]).subscribe(
+              (res: any) => {
+                this.disableOntologyCreation = false;
+                this.ontologyMatches[prop][index] = res;
+              },
+              (err: any) => {
+                // handle OLS downtime here
+                if (err.status == 500) {
+                  this.disableOntologyCreation = true;
+                  this.openSnackbar('The Ontology Lookup Service (OLS) is down. New ontologies cannot be created at the moment. Please try again later.', 'Dismiss');
+                }
+              });
           }
         }
       },
