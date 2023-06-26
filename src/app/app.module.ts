@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { FileComponent } from './file/file.component';
 import { AppRoutingModule } from './app-routing.module';
 import {ApiDataService} from './services/api-data.service';
+import {ApiFiltersService} from './services/api-filters.service';
 import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -107,6 +108,7 @@ import { GraphqlComponent } from './graphql/graphql.component';
 import { DisplayDataComponent } from './graphql/display-data/display-data.component';
 import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
 import {ShortenTitlePipe} from './graphql/display-data/shorten-title.pipe';
+import { SubscriptionDialogComponent } from './shared/subscription-dialog/subscription-dialog.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -182,7 +184,8 @@ export function removeToken(): void {
     GraphqlComponent,
     DisplayDataComponent,
     IndexFiltersComponent,
-    ShortenTitlePipe
+    ShortenTitlePipe,
+    SubscriptionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -233,7 +236,10 @@ export function removeToken(): void {
     NgcCookieConsentModule.forRoot(cookieConfig),
     GraphQLModule
   ],
-  providers: [ApiDataService, AggregationService, SlicePipe, UserService],
+  entryComponents: [
+    SubscriptionDialogComponent,
+  ],
+  providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

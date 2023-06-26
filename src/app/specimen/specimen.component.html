@@ -20,6 +20,11 @@
       <div *ngIf="hasActiveFilters()">
         <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
         <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
+        <button mat-raised-button
+                matTooltip="Subscribe to selected Specimen entries"
+                (click)="openSubscriptionDialog()">
+          <mat-icon class="subscription-icon">email</mat-icon>
+        </button>
         <hr>
       </div>
       <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
@@ -40,6 +45,7 @@
             [filter_values]="filter_field"
             [apiFunction]="loadTableDataFunction"
             [query]="query"
+            [indexDetails]="indexDetails"
             [defaultSort]="defaultSort">
       </app-table-server-side>
     </div>
@@ -71,3 +77,4 @@
     Launch in Genome Browser</a>
   </button>
 </ng-template>
+
