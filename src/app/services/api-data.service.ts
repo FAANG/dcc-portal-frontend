@@ -356,7 +356,6 @@ export class ApiDataService {
   }
 
   getAllOrganisms(query: any, size: number) {
-    console.log("getAllOrganisms query: ", query)
     const url = `${this.hostSetting.host}data/organism/_search/?size=${size}`;
     const aggs = {
       'sex': 'sex.text',
@@ -383,7 +382,6 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
-    console.log("filters: ", filters)
     // set the service variable current_api_filters with the current filters for global use
     this.apiFiltersService.set_current_api_filters(filters);
 
@@ -1409,8 +1407,6 @@ export class ApiDataService {
 
   subscribeFilteredData(indexName, indexKey, subscriberEmail) {
     const filters = this.apiFiltersService.get_current_api_filters();
-    console.log("new filters: ", filters)
-
     const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
     const params = new HttpParams().set('filters', JSON.stringify(filters));
     return this.http.get(url, {params: params})

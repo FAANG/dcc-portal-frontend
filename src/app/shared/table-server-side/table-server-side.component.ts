@@ -221,10 +221,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   }
 
   onRegister(data) {
-    console.log("onRegister: ", data)
     if (this.subscriptionForm.valid && this.subscriptionForm.touched){
       this.dataService.subscribeUser(this.indexDetails['index'], this.indexDetails['indexKey'], data.email, data.filters).subscribe(response => {
-          console.log("You have now been subscribed!", response)
           this.dialogRef.close();
         },
         error => {
@@ -244,7 +242,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     };
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data)['response'];
-      console.log(data)
 
       if (data['submission_message']) {
         if (this.dialogRef) {
