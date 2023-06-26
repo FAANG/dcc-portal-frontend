@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {female_values, male_values, published_article_source} from '../constants';
 import {ApiDataService} from '../../services/api-data.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {subscription_ws_url} from '../constants';
 
 
 @Component({
@@ -199,8 +200,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   openSubscriptionDialog(value: string) {
     this.subscriptionDialogTitle = `Subscribing to record ${value}`
     this.subscriber.filters[this.indexDetails['indexKey']] = [value];
-    // this.subscriber.filters['biosampleId'] = [value];
-    console.log(this.subscriber)
     this.dialogRef = this.dialog.open(this.subscriptionTemplate,
       { data: this.subscriber, height: '260px', width: '400px' });
   }
@@ -237,8 +236,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   }
 
   setSocket() {
-    const url = `ws://127.0.0.1:8000/ws/submission/subscription_${this.indexDetails['index']}/`;
-    // const url = 'wss://api.faang.org/ws/submission/subscription/';
+    const url = `${subscription_ws_url}submission/subscription_${this.indexDetails['index']}/`;
 
     this.socket = new WebSocket(url);
     this.socket.onopen = () => {
@@ -257,10 +255,9 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         }
         this.submission_message = data['submission_message'];
         this.subscription_status = data['subscription_status'];
-        console.log(this.subscription_status)
         if (this.subscription_status){
           this.dialogSubscriptionInfoRef = this.dialog.open(this.subscriptionInfoTemplate,
-            { data: this.subscriber, height: '200px', width: '600px' });
+            { data: this.subscriber, height: '250px', width: '600px' });
         }
       }
     };

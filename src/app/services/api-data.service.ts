@@ -61,7 +61,7 @@ export class ApiDataService {
 
     // set the service variable current_api_filters with the current filters for global use
     this.apiFiltersService.set_current_api_filters(filters);
-    
+
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' +
       query['sort'][1];
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
@@ -854,6 +854,10 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
+
+    // set the service variable current_api_filters with the current filters for global use
+    this.apiFiltersService.set_current_api_filters(filters);
+
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query[
       'sort'][1];
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
@@ -1021,6 +1025,10 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
+
+    // set the service variable current_api_filters with the current filters for global use
+    this.apiFiltersService.set_current_api_filters(filters);
+
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query[
       'sort'][1];
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
@@ -1074,6 +1082,10 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
+
+    // set the service variable current_api_filters with the current filters for global use
+    this.apiFiltersService.set_current_api_filters(filters);
+
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query[
       'sort'][1];
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
@@ -1128,6 +1140,10 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
+
+    // set the service variable current_api_filters with the current filters for global use
+    this.apiFiltersService.set_current_api_filters(filters);
+
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query[
       'sort'][1];
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
@@ -1183,6 +1199,10 @@ export class ApiDataService {
         delete filters[prop];
       }
     }
+
+    // set the service variable current_api_filters with the current filters for global use
+    this.apiFiltersService.set_current_api_filters(filters);
+
     const sortParams = mapping[query['sort'][0]] ? mapping[query['sort'][0]] + ':' + query['sort'][1] : query['sort'][0] + ':' + query[
       'sort'][1];
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
@@ -1382,7 +1402,6 @@ export class ApiDataService {
   }
 
   subscribeUser(indexName, indexKey, subscriberEmail, filters) {
-    console.log("ki gogot!")
     const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
     const params = new HttpParams().set('filters', JSON.stringify(filters));
     return this.http.get(url, {params: params})

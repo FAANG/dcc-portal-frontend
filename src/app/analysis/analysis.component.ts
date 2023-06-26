@@ -6,6 +6,10 @@ import {Title} from '@angular/platform-browser';
 import {AnalysisTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/internal/operators/finalize';
+import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-analysis',
@@ -17,14 +21,19 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   @ViewChild('assayTypeTemplate', { static: true }) assayTypeTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
-  columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard'];
-  displayFields: string[] = ['accession', 'datasetAccession', 'title', 'species', 'assayType', 'analysisType', 'standard'];
+  columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard', 'Subscribe'];
+  displayFields: string[] = ['accession', 'datasetAccession', 'title', 'species', 'assayType', 'analysisType', 'standard', 'subscribe'];
   filter_field: {};
   templates: Object;
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
+  subscriptionDialogTitle: string;
+  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
+  dialogRef: any;
+  dialogInfoRef: any;
+  indexDetails: {};
 
   query = {
     'sort': ['accession', 'desc'],
@@ -56,14 +65,19 @@ export class AnalysisComponent implements OnInit, OnDestroy {
 
   defaultSort = ['accession','desc'];
   error: string;
+  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
+
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
+              private dialogModel: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
+
   ngOnInit() {
+    this.indexDetails = {index: 'analysis', indexKey: 'accession', apiKey: 'accession'}
     this.templates = {'accession': this.accessionTemplate, 'assayType': this.assayTypeTemplate};
     this.loadTableDataFunction = this.dataService.getAllAnalyses.bind(this.dataService);
     this.titleService.setTitle('FAANG analyses');
@@ -160,6 +174,17 @@ export class AnalysisComponent implements OnInit, OnDestroy {
         this.downloading = false;
       }
     );
+  }
+
+  openSubscriptionDialog() {
+    // Opening the dialog component
+    this.subscriber.title = 'Subscribing to filtered Analysis entries'
+    this.subscriber.indexName = this.indexDetails['index'];
+    this.subscriber.indexKey = this.indexDetails['indexKey'];
+    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
+      height: '300px', width: '400px',
+      data: this.subscriber
+    });
   }
 
   ngOnDestroy() {

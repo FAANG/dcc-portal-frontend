@@ -108,6 +108,7 @@ import { GraphqlComponent } from './graphql/graphql.component';
 import { DisplayDataComponent } from './graphql/display-data/display-data.component';
 import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
 import {ShortenTitlePipe} from './graphql/display-data/shorten-title.pipe';
+import { SubscriptionDialogComponent } from './shared/subscription-dialog/subscription-dialog.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -183,7 +184,8 @@ export function removeToken(): void {
     GraphqlComponent,
     DisplayDataComponent,
     IndexFiltersComponent,
-    ShortenTitlePipe
+    ShortenTitlePipe,
+    SubscriptionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -233,6 +235,9 @@ export function removeToken(): void {
     NgbModule,
     NgcCookieConsentModule.forRoot(cookieConfig),
     GraphQLModule
+  ],
+  entryComponents: [
+    SubscriptionDialogComponent,
   ],
   providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService],
   bootstrap: [AppComponent]

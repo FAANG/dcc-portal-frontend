@@ -6,9 +6,10 @@ import {AggregationService} from '../services/aggregation.service';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
-import {MatDialog} from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/internal/operators/finalize';
+import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-specimen',
@@ -35,11 +36,10 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   downloading = false;
   data = {};
   subscriptionDialogTitle: string;
-  subscriber = { email: ''};
+  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   dialogInfoRef: any;
   indexDetails: {};
-  public subscriptionForm: FormGroup;
 
   query = {
     'sort': ['id_number', 'desc'],
@@ -79,11 +79,12 @@ export class SpecimenComponent implements OnInit, OnDestroy {
 
   defaultSort = ['id_number','desc'];
   error: string;
+  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              public dialog: MatDialog,
+              private dialogModel: MatDialog,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
@@ -130,10 +131,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
         }
       }
       this.router.navigate(['specimen'], {queryParams: params});
-    });
-
-    this.subscriptionForm = new FormGroup({
-      subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
@@ -198,40 +195,14 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   }
 
   openSubscriptionDialog() {
-    this.subscriptionDialogTitle = `Subscribing to filtered Specimen entries`
-    this.dialogRef = this.dialog.open(this.subscriptionTemplate,
-      { data: this.subscriber, height: '300px', width: '400px' });
-  }
-
-  public displayError = (controlName: string, errorName: string) =>{
-    return this.subscriptionForm.controls[controlName].hasError(errorName);
-  }
-
-  onCancelDialog(dialogType) {
-    if (dialogType === 'info'){
-      this.dialogInfoRef.close();
-    }else{
-      this.dialogRef.close();
-    }
-  }
-
-  getEmail(event: Event){
-    this.subscriber.email = (<HTMLInputElement>event.target).value;
-  }
-
-  onRegister(data) {
-    console.log("onRegister: ", data)
-    if (this.subscriptionForm.valid && this.subscriptionForm.touched){
-      this.dataService.subscribeFilteredData('specimen', 'biosampleId', data.email).subscribe(response => {
-          console.log("You have now been subscribed!")
-          this.dialogRef.close();
-        },
-        error => {
-          console.log(error);
-          this.dialogRef.close();
-        }
-      );
-    }
+    // Opening the dialog component
+    this.subscriber.title = 'Subscribing to filtered Specimen entries'
+    this.subscriber.indexName = this.indexDetails['index'];
+    this.subscriber.indexKey = this.indexDetails['indexKey'];
+    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
+      height: '300px', width: '400px',
+      data: this.subscriber
+    });
   }
 
   ngOnDestroy() {

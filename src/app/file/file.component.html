@@ -62,27 +62,3 @@
     <i class="material-icons">highlight_off</i>
   </td>
 </ng-template>
-
-<ng-template let-data #subscriptionTemplate>
-  <p class="mat-dialog-title-font">{{subscriptionDialogTitle}}</p>
-  <div mat-dialog-content class="centerContents">
-    <form [formGroup]="subscriptionForm" novalidate>
-      <p>
-        <mat-form-field appearance="fill" [style.width.%]="100">
-          <input matInput (input)="getEmail($event)" placeholder="Enter email" formControlName="subscriberEmail" id="subscriberEmail">
-          <mat-hint align="end">Enter a valid email address.</mat-hint>
-          <mat-error *ngIf="displayError('subscriberEmail', 'required')">
-            Email is required
-          </mat-error>
-          <mat-error *ngIf="displayError('subscriberEmail', 'email')">
-            Please enter a valid email
-          </mat-error>
-        </mat-form-field>
-      </p>
-    </form>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onCancelDialog('form')">Cancel</button>
-    <button mat-button (click)="onRegister(data)" cdkFocusInitial>Register</button>
-  </div>
-</ng-template>
