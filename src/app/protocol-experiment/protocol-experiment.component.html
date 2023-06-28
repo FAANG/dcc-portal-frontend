@@ -51,3 +51,14 @@
 <ng-template #nameTemplate let-item>
   <a style="cursor: pointer" target="_blank" [routerLink]="item['key']">{{item['protocol_type']}}</a>
 </ng-template>
+
+<ng-template #targetTemplate let-item>
+  <span *ngIf="item['experiment_target']">{{item['experiment_target']}}</span>
+  <span *ngIf="!item['experiment_target']">-</span>
+</ng-template>
+
+<ng-template #assayTemplate let-item>
+  <span *ngIf="item['assay_type']">{{item['assay_type']}}</span>
+  <span *ngIf="!item['assay_type']">-</span>
+</ng-template>
+

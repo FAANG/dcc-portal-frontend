@@ -1182,7 +1182,7 @@ export class ApiDataService {
       map((data: any) => {
         res['data'] = data.hits.hits.map( entry => ({
           key: entry['_source']['key'],
-          protocol_type: protocolNames[entry['_source']['name']],
+          protocol_type: protocolNames[entry['_source']['name']] ? protocolNames[entry['_source']['name']] : entry['_source']['name'],
           experiment_target: entry['_source']['experimentTarget'],
           assay_type: entry['_source']['assayType'],
           } as ProtocolFile)

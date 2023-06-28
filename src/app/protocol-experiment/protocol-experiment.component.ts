@@ -15,6 +15,8 @@ import {MatTabGroup} from '@angular/material/tabs';
 export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   @ViewChild('nameTemplate', { static: true }) nameTemplate: TemplateRef<any>;
+  @ViewChild('targetTemplate', { static: true }) targetTemplate: TemplateRef<any>;
+  @ViewChild('assayTemplate', { static: true }) assayTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
   columnNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];
@@ -60,7 +62,11 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 1;
-    this.templates = {'protocol_type': this.nameTemplate};
+    this.templates = {
+      'protocol_type': this.nameTemplate,
+      'experiment_target': this.targetTemplate,
+      'assay_type': this.assayTemplate,
+    };
     this.loadTableDataFunction = this.dataService.getAllExperimentsProtocols.bind(this.dataService);
     this.titleService.setTitle('FAANG protocols');
     this.activatedRoute.queryParams.subscribe((params: Params) => {

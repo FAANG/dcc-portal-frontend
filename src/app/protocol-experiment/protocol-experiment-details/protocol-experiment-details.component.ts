@@ -75,7 +75,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
   }
 
   getHumanName(data) {
-    return protocolNames[data];
+    return protocolNames[data] ? protocolNames[data] : data;
   }
 
   onClick(id: string) {
