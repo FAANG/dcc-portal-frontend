@@ -41,3 +41,5 @@ export const special_sheets = ['describedBy', 'schema_version', 'samples_core', 
 
 export const graphql_ws_url = 'wss://api.faang.org/ws/graphqltaskstatus/';
 export const graphql_server_endpoint = 'https://api.faang.org/graphql/';
+
+export const subscription_ws_url = 'wss://api.faang.org/ws/';

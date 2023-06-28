@@ -6,6 +6,10 @@ import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 import {MatTabGroup} from '@angular/material/tabs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/internal/operators/finalize';
+import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-protocol-sample',
@@ -20,14 +24,19 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
 
-  columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol'];
-  displayFields: string[] = ['protocol_name', 'university_name', 'protocol_date'];
+  columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol', 'Subscribe'];
+  displayFields: string[] = ['protocol_name', 'university_name', 'protocol_date', 'subscribe'];
   templates: Object;
   filter_field: {};
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
+  subscriptionDialogTitle: string;
+  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
+  dialogRef: any;
+  dialogInfoRef: any;
+  indexDetails: {};
 
   query = {
     'sort': ['protocolName', 'asc'],
@@ -54,18 +63,21 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
 
   defaultSort = ['protocolName', 'asc'];
   error: string;
+  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
+              private dialogModel: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.indexDetails = {index: 'protocol_samples', indexKey: 'key', apiKey: 'key'}
     this.tabGroup.selectedIndex = 0;
     this.templates = {
-      'protocol_name': this.nameTemplate, 
-      'university_name': this.uniTemplate, 
+      'protocol_name': this.nameTemplate,
+      'university_name': this.uniTemplate,
       'protocol_date': this.dateTemplate
     };
     this.loadTableDataFunction = this.dataService.getAllSamplesProtocols.bind(this.dataService);
@@ -170,6 +182,17 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     else if (tab.index == 2) {
       this.router.navigate(['protocol/analysis']);
     }
+  }
+
+  openSubscriptionDialog() {
+    // Opening the dialog component
+    this.subscriber.title = 'Subscribing to filtered Protocol Samples entries'
+    this.subscriber.indexName = this.indexDetails['index'];
+    this.subscriber.indexKey = this.indexDetails['indexKey'];
+    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
+      height: '300px', width: '400px',
+      data: this.subscriber
+    });
   }
 
   ngOnDestroy() {

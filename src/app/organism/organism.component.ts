@@ -6,6 +6,10 @@ import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/internal/operators/finalize';
+import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-organism',
@@ -20,14 +24,19 @@ export class OrganismComponent implements OnInit, OnDestroy {
   organismListShort: Observable<OrganismTable[]>;
   organismListLong: Observable<OrganismTable[]>;
 
-  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published'];
-  displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished'];
+  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published', 'Subscribe'];
+  displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished', 'subscribe'];
   templates: Object;
   filter_field: {};
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
+  subscriptionDialogTitle: string;
+  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
+  dialogRef: any;
+  dialogInfoRef: any;
+  indexDetails: {};
 
   query = {
     'sort': ['id_number', 'desc'],
@@ -60,14 +69,18 @@ export class OrganismComponent implements OnInit, OnDestroy {
 
   defaultSort = ['id_number', 'desc'];
   error: string;
+  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
+              public dialog: MatDialog,
+              private dialogModel: MatDialog,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.indexDetails = {index: 'organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'}
     this.templates = {'bioSampleId': this.bioSampleIdTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllOrganisms.bind(this.dataService);
@@ -175,4 +188,16 @@ export class OrganismComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
   }
+
+  openSubscriptionDialog() {
+    // Opening the dialog component
+    this.subscriber.title = 'Subscribing to filtered Organism entries'
+    this.subscriber.indexName = this.indexDetails['index'];
+    this.subscriber.indexKey = this.indexDetails['indexKey'];
+    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
+      height: '300px', width: '400px',
+      data: this.subscriber
+    });
+  }
+
 }

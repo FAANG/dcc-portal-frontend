@@ -6,6 +6,10 @@ import {Title} from '@angular/platform-browser';
 import {FileTable} from '../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/internal/operators/finalize';
+import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-file-table',
@@ -16,17 +20,23 @@ export class FileComponent implements OnInit, OnDestroy {
   @ViewChild('fileNameTemplate', { static: true }) fileNameTemplate: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   public loadTableDataFunction: Function;
   fileListShort: Observable<FileTable[]>;
   fileListLong: Observable<FileTable[]>;
-  displayFields: string[] = ['fileName', 'study', 'experiment', 'species', 'assayType', 'target', 'specimen', 'instrument', 'standard', 'paperPublished'];
-  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard', 'Paper published'];
+  displayFields: string[] = ['fileName', 'study', 'experiment', 'species', 'assayType', 'target', 'specimen', 'instrument', 'standard', 'paperPublished', 'subscribe'];
+  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard', 'Paper published', 'Subscribe'];
   filter_field: {};
   templates: Object;
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
+  subscriptionDialogTitle: string;
+  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
+  dialogRef: any;
+  dialogInfoRef: any;
+  indexDetails: {};
 
   query = {
     'sort': ['fileName', 'desc'],
@@ -66,14 +76,17 @@ export class FileComponent implements OnInit, OnDestroy {
 
   defaultSort = ['fileName','desc'];
   error: string;
+  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
               private activatedRoute: ActivatedRoute,
+              private dialogModel: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
   ngOnInit() {
+    this.indexDetails = {index: 'file', indexKey: '_id', apiKey: 'fileName'}
     this.templates = {'fileName': this.fileNameTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllFiles.bind(this.dataService);
@@ -178,6 +191,17 @@ export class FileComponent implements OnInit, OnDestroy {
 
   isGreen(published: any) {
     return published === 'true' ? 'green' : 'default';
+  }
+
+  openSubscriptionDialog() {
+    // Opening the dialog component
+    this.subscriber.title = 'Subscribing to filtered File entries'
+    this.subscriber.indexName = this.indexDetails['index'];
+    this.subscriber.indexKey = this.indexDetails['indexKey'];
+    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
+      height: '300px', width: '400px',
+      data: this.subscriber
+    });
   }
 
   ngOnDestroy() {

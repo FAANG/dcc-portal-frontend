@@ -7,6 +7,11 @@
     <div fxFlex="80">
       <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
       <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
+      <button mat-raised-button
+              matTooltip="Subscribe to selected Publication entries"
+              (click)="openSubscriptionDialog()">
+        <mat-icon class="subscription-icon">email</mat-icon>
+      </button>
       <hr>
     </div>
   </h3>
@@ -35,6 +40,7 @@
       </mat-spinner>
       <app-table-server-side  [display_fields]="displayFields"
             [column_names]="columnNames"
+            [indexDetails]="indexDetails"
             [templates]="templates"
             [filter_values]="filter_field"
             [apiFunction]="loadTableDataFunction"

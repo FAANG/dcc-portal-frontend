@@ -15,10 +15,58 @@
         </ng-container>
         <ng-container *ngIf="!templates[col]">
             <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
-            <td mat-cell *matCellDef="let item" class="table-cell-data" style="padding-right: 5px; max-width: 150px"> {{item[col]}} </td>
+            <td mat-cell *matCellDef="let item" class="table-cell-data" style="padding-right: 5px; max-width: 150px">
+              <ng-container *ngIf="col === 'subscribe';else defaultDisplay">
+                <div>
+                  <button mat-icon-button (click)="openSubscriptionDialog(item[apiKey])">
+                    <mat-icon class="subscription-icon">email</mat-icon>
+                  </button>
+                </div>
+              </ng-container>
+              <ng-template #defaultDisplay> {{item[col]}} </ng-template>
+            </td>
         </ng-container>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
     <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
 </table>
 <mat-paginator pageSize="25" [length]="totalHits"></mat-paginator>
+
+
+<ng-template let-data #subscriptionTemplate>
+  <p class="mat-dialog-title-font">{{subscriptionDialogTitle}}</p>
+  <div mat-dialog-content class="centerContents">
+    <form [formGroup]="subscriptionForm" novalidate>
+      <p>
+        <mat-form-field appearance="fill" [style.width.%]="100">
+          <input matInput (input)="getEmail($event)" placeholder="Enter email" formControlName="subscriberEmail" id="subscriberEmail">
+          <mat-hint align="end">Enter a valid email address.</mat-hint>
+          <mat-error *ngIf="displayError('subscriberEmail', 'required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="displayError('subscriberEmail', 'email')">
+            Please enter a valid email
+          </mat-error>
+        </mat-form-field>
+      </p>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancelDialog('form')">Cancel</button>
+    <button mat-button (click)="onRegister(data)" cdkFocusInitial>Register</button>
+  </div>
+</ng-template>
+
+
+<ng-template let-data #subscriptionInfoTemplate>
+  <div mat-dialog-content class="centerContents">
+    <div fxLayout="row" [ngClass]="subscription_status == 'success' ? 'alert alert-success' : 'alert alert-warning'">
+      <div fxFlex="100">
+        {{submission_message}}
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancelDialog('info')">Close</button>
+  </div>
+</ng-template>

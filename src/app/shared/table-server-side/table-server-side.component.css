@@ -9,8 +9,20 @@
     padding-right: 12px !important;
 }
 
-td.mat-cell:first-of-type, 
-td.mat-footer-cell:first-of-type, 
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type,
 th.mat-header-cell:first-of-type {
     padding-left: 10px;
+}
+.subscription-icon {
+  color: steelblue;
+}
+
+.mat-dialog-title-font {
+  /*color: steelblue;*/
+}
+
+div.mat-dialog-actions button {
+  margin:0 auto;
+  display:block;
 }
