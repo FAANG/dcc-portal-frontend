@@ -61,7 +61,10 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.apiKey = this.indexDetails['apiKey']
+    if (this.indexDetails){
+      this.apiKey = this.indexDetails['apiKey']
+      this.setSocket();
+    }
     // Reset back to the first page when sort order is changed
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     merge(this.sort.sortChange, this.paginator.page)
@@ -92,7 +95,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
           this.totalHits = res.totalHits; // set length of paginator
           this.spinner.hide();
         });
-    this.setSocket();
   }
 
     // apply filter when component input "filter_values" is changed
