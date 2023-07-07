@@ -1352,8 +1352,8 @@ export class ApiDataService {
     return this.http.get(url);
   }
 
-  getTemplate(task_id, room_id, data_type) {
-    const url = `${validation_service_url}/submission/get_template/${task_id}/${room_id}/${data_type}`;
+  getTemplate(task_id, room_id, data_type, action) {
+    const url = `${validation_service_url}/submission/get_template/${task_id}/${room_id}/${data_type}/${action}`;
     return this.http.get(url);
   }
 

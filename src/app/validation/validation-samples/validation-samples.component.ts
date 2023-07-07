@@ -481,7 +481,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   getTemplateFile() {
-    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'samples').subscribe(response => {
+    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'samples', this.action).subscribe(response => {
       console.log(response);
     },
       error => {
