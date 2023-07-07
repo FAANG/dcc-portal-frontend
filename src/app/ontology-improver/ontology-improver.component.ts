@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {OntologyService} from '../services/ontology.service';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -16,7 +16,7 @@ import {ApiDataService} from '../services/api-data.service';
   templateUrl: './ontology-improver.component.html',
   styleUrls: ['./ontology-improver.component.css']
 })
-export class OntologyImproverComponent implements OnInit {
+export class OntologyImproverComponent implements OnInit, OnDestroy {
   @ViewChild('loginModalTemplate', { static: true }) public loginModalTemplate: TemplateRef<any>;
   @ViewChild('editModalTemplate', { static: true }) public editModalTemplate: TemplateRef<any>;
   @ViewChild('selectProjectModalTemplate', { static: true }) public selectProjectModalTemplate: TemplateRef<any>;
@@ -171,6 +171,13 @@ export class OntologyImproverComponent implements OnInit {
     this.ontologyService.getTypes().subscribe((res: any) => {
       this.types = res;
     });
+  }
+
+  ngOnDestroy() {
+    if (typeof this.filter_field !== 'undefined') {
+      this.resetFilter();
+    }
+    this.aggrSubscription.unsubscribe();
   }
 
   hasActiveFilters() {
