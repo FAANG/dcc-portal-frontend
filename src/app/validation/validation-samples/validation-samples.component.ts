@@ -3,6 +3,7 @@ import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
+import { MatPaginator } from '@angular/material/paginator';
 import {
   issue_type,
   record_type, sample_biosample_update_template,
@@ -28,6 +29,7 @@ const UploadURL = validation_service_url + '/conversion/samples';
 })
 export class ValidationSamplesComponent implements OnInit, OnDestroy {
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   dataSource: MatTableDataSource<any>;
   subResults: MatTableDataSource<any>;
   p = 1;
@@ -431,6 +433,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       data.push(rowObj);
     });
     this.dataSource.data = data;
+    this.dataSource.paginator = this.paginator;
     this.col_index = Array.from(this.column_names.keys()).map(col => col.toString());
   }
 

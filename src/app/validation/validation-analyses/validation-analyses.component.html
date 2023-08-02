@@ -162,7 +162,7 @@
     </button>
   </div>
 
-  <div class="table-responsive" *ngIf="show_table && dataSource.data.length > 0">
+  <div class="table-responsive" [hidden]="!show_table || dataSource.data.length == 0">
     <table mat-table [dataSource]="dataSource" table-striped style="width: 100%; margin-top: 15px;">
       <ng-container [matColumnDef]=col *ngFor="let col of col_index; let j = index">
         <th mat-header-cell class="table-header" *matHeaderCellDef>{{column_names[j]}}</th>
@@ -175,6 +175,7 @@
       <tr mat-header-row *matHeaderRowDef="col_index"></tr>
       <tr mat-row *matRowDef="let row; columns: col_index;"></tr>
     </table>
+    <mat-paginator [pageSize]=10></mat-paginator>
   </div>
 
   <!-- Step 3: Prepare data for submission -->
