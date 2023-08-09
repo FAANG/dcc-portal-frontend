@@ -40,13 +40,13 @@
             </div>
         </mat-tab>
         <!--Page 2 - Ontology Improvment tool (Requires login) -->
-        <mat-tab label="Ontology Improvement Tool">
+        <mat-tab label="Check/Add missing terms">
             <!-- Validate ontologies (Only for Authenticated Users) -->
             <ng-container *ngIf="token">
                 <!--Page 2.1 - Input terms-->
                 <div style="margin-bottom: 40px;" *ngIf="mode == 'input' || mode == 'validate'">
                     <div fxLayout="row"fxLayoutAlign="space-between center" style="margin-top: 30px; margin-bottom: 20px;">
-                        <h2>Ontology Improver Service</h2>
+                        <h2>Check/Add missing terms</h2>
                         <button mat-raised-button color="warn" (click)="logout()">Logout</button>
                     </div>
                     <p>Enter Ontology terms in the text box below. For batch input, enter one term per line.</p>
@@ -79,8 +79,8 @@
                     <p>Select the best match for each your ontology terms</p>
                     <br>
                     <mat-accordion>
-                        <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;" 
-                            [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst" (opened)="panelOpenState = true" (closed)="panelOpenState = false" 
+                        <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;"
+                            [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
                             style="margin-bottom: 20px;">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -92,9 +92,9 @@
                                     <ng-container *ngFor="let col of ontologyMatchColsToDisplay; let i = index">
                                         <ng-container *ngIf="col == 'source'" [matColumnDef]=col>
                                             <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
-                                            <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index"> 
-                                                {{data[col]}} 
-                                                <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']" (click)="addNewOntology(item.key, j)" 
+                                            <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index">
+                                                {{data[col]}}
+                                                <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']" (click)="addNewOntology(item.key, j)"
                                                     style="margin-right: 40px; float: right;" [disabled]="disableOntologyCreation">
                                                 <button *ngIf="data['selected']" mat-raised-button color="primary" (click)="editNewOntology(item.key, j)"
                                                     style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;" [disabled]="disableOntologyCreation"> Edit
@@ -138,10 +138,10 @@
     </mat-tab-group>
 </div>
 
-<!-- 
+<!--
     ********************
-    Dialog box templates 
-    ******************** 
+    Dialog box templates
+    ********************
 -->
 
 <!-- Template: Login Modal Dialog Box -->
@@ -166,7 +166,7 @@
             <button mat-raised-button color="primary" (click)="login()">
                 Submit
             </button>
-            <p> If you do not have an account, click 
+            <p> If you do not have an account, click
                 <a href="" (click)="$event.preventDefault(); registerUser = !registerUser; error = '';">here</a>
                 to register
                 <br>
@@ -292,13 +292,13 @@
             </mat-form-field>
         </div>
         <div *ngIf="!showSpinner" fxFlex="25">
-            <button mat-raised-button color="warn" (click)="closeModal()" 
+            <button mat-raised-button color="warn" (click)="closeModal()"
                 style="float:right; margin: 10px;">Cancel</button>
-            <button *ngIf="data.status == 'Verified'" mat-raised-button color="primary" 
-                (click)="validateOntology(data.ontology, data.project, data.status)" 
+            <button *ngIf="data.status == 'Verified'" mat-raised-button color="primary"
+                (click)="validateOntology(data.ontology, data.project, data.status)"
                 style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
-                <button *ngIf="data.status == 'Needs Improvement'" mat-raised-button color="primary" 
-                (click)="validateOntology(data.ontology, data.project, data.status)" 
+                <button *ngIf="data.status == 'Needs Improvement'" mat-raised-button color="primary"
+                (click)="validateOntology(data.ontology, data.project, data.status)"
                     style="float:right; margin: 10px;" cdkFocusInitial>Next</button>
         </div>
         <div *ngIf="showSpinner" fxFlex="30">
@@ -316,10 +316,10 @@
         </mat-form-field>
     </div>
     <div *ngIf="!showSpinner">
-        <button mat-raised-button color="warn" (click)="closeModal()" 
+        <button mat-raised-button color="warn" (click)="closeModal()"
             style="float:right; margin: 10px;">Cancel</button>
-        <button mat-raised-button color="primary" 
-            (click)="submitFeedback(data.ontology, data.project, data.status)" 
+        <button mat-raised-button color="primary"
+            (click)="submitFeedback(data.ontology, data.project, data.status)"
             style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
     </div>
     <div *ngIf="showSpinner">
@@ -377,8 +377,8 @@
             </div>
         </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
-            <input matInput 
-                [(ngModel)]="newTag['synonyms']" 
+            <input matInput
+                [(ngModel)]="newTag['synonyms']"
                 (keyup.enter)="addNewTag(newTag['synonyms'], 'synonyms')"
                 placeholder="Add more synonyms">
         </mat-form-field>
@@ -397,15 +397,15 @@
         </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
             <input matInput
-                [(ngModel)]="newTag['tags']" 
+                [(ngModel)]="newTag['tags']"
                 (keyup.enter)="addNewTag(newTag['tags'], 'tags')"
                 placeholder="Add more tags">
         </mat-form-field>
     </div>
     <div *ngIf="!showSpinner">
-        <button mat-raised-button color="warn" (click)="closeModal()" 
+        <button mat-raised-button color="warn" (click)="closeModal()"
             style="float:right; margin: 10px;">Cancel</button>
-        <button mat-raised-button color="primary" (click)="submitEditedOntology(data)" 
+        <button mat-raised-button color="primary" (click)="submitEditedOntology(data)"
             style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
     </div>
     <div *ngIf="showSpinner">
@@ -422,7 +422,7 @@
                 {{action.timestamp.replace('T', ' ').replace('+', ' +').split('.')[0]}}
             </span>
             <br>
-            {{action.user}} 
+            {{action.user}}
             <span *ngIf="action.status == 'Awaiting Assessment'">
                 created the ontology
             </span>
@@ -433,7 +433,7 @@
                 suggested improvements to the ontology
             </span>
             <span *ngIf="action.project != undefined && action.project.length > 0">
-                for project(s) {{action.project.join(', ')}} 
+                for project(s) {{action.project.join(', ')}}
             </span>
         </p>
     </div>
@@ -504,8 +504,8 @@
             </div>
         </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
-            <input matInput 
-                [(ngModel)]="newTag['synonyms']" 
+            <input matInput
+                [(ngModel)]="newTag['synonyms']"
                 (keyup.enter)="addTagToolTab(data, newTag['synonyms'], 'synonyms')"
                 placeholder="Add more synonyms">
         </mat-form-field>
@@ -523,24 +523,24 @@
             </div>
         </ng-container>
         <mat-form-field appearance="fill" style="width: 100%;">
-            <input matInput 
-                [(ngModel)]="newTag['tags']" 
+            <input matInput
+                [(ngModel)]="newTag['tags']"
                 (keyup.enter)="addTagToolTab(data, newTag['tags'], 'tags')"
                 placeholder="Add more tags">
         </mat-form-field>
     </div>
     <div>
-        <button mat-flat-button color="warn" (click)="closeModal()" 
+        <button mat-flat-button color="warn" (click)="closeModal()"
             style="float:right; margin: 10px;">Cancel</button>
         <button mat-flat-button color="primary" (click)="saveModalData(data)" [disabled]="disableOntologyCreation"
             style="float:right; margin: 10px;" cdkFocusInitial>Save</button>
     </div>
 </ng-template>
 
-<!-- 
+<!--
     **********************
-    Table column templates 
-    ********************** 
+    Table column templates
+    **********************
 -->
 
 <!-- Template: Ontology table term column -->
@@ -569,12 +569,12 @@
 
 <!-- Template: Ontology table status column -->
 <ng-template #ontologyVotesTemplate let-item>
-    <button mat-icon-button [disabled]="!token" 
+    <button mat-icon-button [disabled]="!token"
         (click)="startOntologyValidation(item, 'Verified')">
         <mat-icon>thumb_up</mat-icon>
     </button>
     <span>{{item.upvotes_count}}</span>
-    <button mat-icon-button [disabled]="!token" 
+    <button mat-icon-button [disabled]="!token"
         (click)="startOntologyValidation(item, 'Needs Improvement')" >
         <mat-icon>thumb_down</mat-icon>
     </button>
@@ -582,7 +582,7 @@
     <button mat-icon-button (click)="displayStatusActivity(item.status_activity)">
         <mat-icon>info_outline</mat-icon>
     </button>
-    <button *ngIf="token" mat-icon-button 
+    <button *ngIf="token" mat-icon-button
         style="margin-left: 15px; color: rgba(0, 0, 128, 0.8);"
         (click)="editOntology(item)">
         <mat-icon>edit_outline</mat-icon>Edit
@@ -602,14 +602,14 @@
         <span [matBadge]="item.row.activity.created_edited_count">
             <button mat-stroked-button class="table-color-status">
                 Created/Updated
-            </button> 
+            </button>
         </span>
     </div>
     <div>
         <span [matBadge]="item.row.activity.validated_count">
             <button mat-stroked-button class="table-color-status">
                 Validated
-            </button> 
+            </button>
         </span>
     </div>
 </ng-template>
