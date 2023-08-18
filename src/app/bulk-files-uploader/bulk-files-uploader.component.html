@@ -6,7 +6,7 @@
         <input *ngIf="mode == 'bulk'" type="file" multiple (change)="selectFiles($event)" />
       </label>
       <button mat-raised-button color="primary"
-        [disabled]="!selectedFiles" (click)="uploadFiles()"
+              [disabled]="buttonDisabled" (click)="uploadFiles()"
         style="float: right;">
         Upload
       </button>
@@ -52,7 +52,7 @@
         <input *ngIf="mode == 'single'" type="file" (change)="selectFiles($event)" />
       </label>
       <button mat-raised-button color="primary"
-        [disabled]="!selectedFiles" (click)="uploadFiles()"
+              [disabled]="buttonDisabled" (click)="uploadFiles()"
         style="float: right;">
         Upload
       </button>

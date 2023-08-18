@@ -4,6 +4,7 @@ import { HttpClient, HttpRequest, HttpEvent,
   HttpEventType, HttpResponse  } from '@angular/common/http';
 import { makeid } from '../shared/common_functions';
 import { validation_ws_url } from '../shared/constants';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bulk-files-uploader',
@@ -22,6 +23,7 @@ export class BulkFilesUploaderComponent implements OnInit {
   socket;
   submission_message = {};
   errors = {};
+  buttonDisabled = false;
 
   constructor(private http: HttpClient) { }
 
@@ -35,11 +37,16 @@ export class BulkFilesUploaderComponent implements OnInit {
   }
 
   uploadFiles(): void {
-    if (this.mode == 'single') {
+    this.buttonDisabled = true;
+    if (this.mode === 'single') {
       this.fileNamesList = [];
     }
     if (this.selectedFiles) {
-      this.uploadService(this.selectedFiles).subscribe();
+      this.uploadService(this.selectedFiles).pipe().toPromise().then(
+        () => {
+          this.buttonDisabled = false;
+        }
+      );
     }
   }
 
