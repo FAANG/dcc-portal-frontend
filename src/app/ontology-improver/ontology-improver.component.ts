@@ -41,7 +41,6 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   ontologyTerms: string;
   searchResults;
   ontologyMatches;
-  ontologyMatchesOld;
   ontologyIdOptions;
   selectedTerm;
   selectedOntologyData;
@@ -65,6 +64,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   types;
   usageStats: Observable<any[]>;
   disableOntologyCreation: boolean;
+  originalOntologyTerm: string;
 
   query = {
     'sort': ['key', 'asc'],
@@ -316,10 +316,16 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           'status': status
         }
       });
+      this.originalOntologyTerm = Object.assign({}, data)
     }
   }
 
   submitFeedback(data, project, status) {
+    if (status == 'Needs Improvement' && this.originalOntologyTerm['term'] == data['term'] ){
+      this.dialogRef.close();
+      this.openSnackbar('Please ensure that the downvoted term has been modified before submitting it', 'Dismiss');
+      return;
+    }
     this.dialogRef.close();
     this.openSnackbar('Saving feedback...', 'Dismiss');
     const requestBody = {
@@ -480,17 +486,16 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     this.ontologyService.fetchZoomaMatches(terms).subscribe(
       data => {
         this.ontologyMatches = data;
-        this.ontologyMatchesOld = JSON.parse(JSON.stringify(data));
-        for (const prop in this.ontologyMatches) {
-          let l = this.ontologyMatches[prop].length;
-          for (let index = 0; index < l; index += 1) {
-            this.ontologyMatches[prop][index]['selected'] = false;
-            this.ontologyMatches[prop][index]['term_type'] = this.ontologyMatches[prop][index]['term_type'].split(', ');
+        for (const term in this.ontologyMatches) {
+          let ontologyMatchesArr = this.ontologyMatches[term].length;
+          for (let index = 0; index < ontologyMatchesArr; index += 1) {
+            this.ontologyMatches[term][index]['selected'] = false;
+            this.ontologyMatches[term][index]['term_type'] = this.ontologyMatches[term][index]['term_type'].split(', ');
             // fetch ontology details from OLS
-            this.ontologyService.getDetailsFromOls(this.ontologyMatches[prop][index]).subscribe(
+            this.ontologyService.getDetailsFromOls(this.ontologyMatches[term][index]).subscribe(
               (res: any) => {
                 this.disableOntologyCreation = false;
-                this.ontologyMatches[prop][index] = res;
+                this.ontologyMatches[term][index] = res;
               },
               (err: any) => {
                 // handle OLS downtime here

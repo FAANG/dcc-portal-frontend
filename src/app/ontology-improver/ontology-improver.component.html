@@ -294,12 +294,14 @@
         <div *ngIf="!showSpinner" fxFlex="25">
             <button mat-raised-button color="warn" (click)="closeModal()"
                 style="float:right; margin: 10px;">Cancel</button>
+
             <button *ngIf="data.status == 'Verified'" mat-raised-button color="primary"
                 (click)="validateOntology(data.ontology, data.project, data.status)"
                 style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
-                <button *ngIf="data.status == 'Needs Improvement'" mat-raised-button color="primary"
-                (click)="validateOntology(data.ontology, data.project, data.status)"
-                    style="float:right; margin: 10px;" cdkFocusInitial>Next</button>
+
+            <button *ngIf="data.status == 'Needs Improvement'" mat-raised-button color="primary"
+            (click)="validateOntology(data.ontology, data.project, data.status)"
+                style="float:right; margin: 10px;" cdkFocusInitial>Next</button>
         </div>
         <div *ngIf="showSpinner" fxFlex="30">
             <mat-spinner [diameter]="30"></mat-spinner>
@@ -347,6 +349,7 @@
                 <mat-option value="HoloRuminent">HoloRuminent</mat-option>
                 <mat-option value="GEroNIMO">GEroNIMO</mat-option>
                 <mat-option value="RUMIGEN">RUMIGEN</mat-option>
+                <mat-option value="EFFICACE">EFFICACE</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
@@ -474,6 +477,7 @@
                 <mat-option value="HoloRuminent">HoloRuminent</mat-option>
                 <mat-option value="GEroNIMO">GEroNIMO</mat-option>
                 <mat-option value="RUMIGEN">RUMIGEN</mat-option>
+                <mat-option value="EFFICACE">EFFICACE</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;">
