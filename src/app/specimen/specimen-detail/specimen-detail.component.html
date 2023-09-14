@@ -145,7 +145,7 @@
         <dd fxFlex="75">{{specimen?.sameAs}}</dd>
       </div>
 
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.derivedFrom">
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="specimen?.derivedFrom && !isOrganoid(biosampleId)">
         <dt fxFlex="25">Derived from:</dt>
         <dd fxFlex="75">
           <div fxLayout="row" fxLayout.lt-md="column" [ngSwitch]="specimen?.material?.text">
