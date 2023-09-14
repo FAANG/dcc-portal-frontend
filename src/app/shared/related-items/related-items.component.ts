@@ -38,6 +38,7 @@ export class RelatedItemsComponent implements OnInit {
   timer: any;
   delaySearch: boolean = true;
   search = '';
+  initialDataExists: boolean = false;
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -280,6 +281,16 @@ export class RelatedItemsComponent implements OnInit {
       }
     }
     return tableData;
+  }
+
+  isEmptyData() {
+    if (this.dataSource.data && this.dataSource.data.length !== 0) {
+      if (this.initialDataExists === false) {
+        this.initialDataExists = true;
+      }
+      return false;
+    }
+    return true;
   }
 
   isRecordPrivate(record: any) {
