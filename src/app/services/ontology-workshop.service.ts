@@ -154,7 +154,7 @@ export class OntologyService {
   }
 
   getUsageStatistics() {
-    const url = `${this.hostSetting.host}data/summary_ontologies/_search/?size=10`;
+    const url = `${this.hostSetting.host}data/summary_ontologies_test/_search/?size=10`;
     return this.http.get(url).pipe(
       map((data: any) => {
         let res = data.hits.hits.map(entry => entry['_source']);
