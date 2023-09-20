@@ -123,7 +123,7 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
       'activity': this.activityTemplate,
       'upvotes_count': this.ontologyVotesTemplate
     };
-    this.loadTableDataFunction = this.dataService.getAllOntologies.bind(this.dataService);
+    this.loadTableDataFunction = this.dataService.getAllOntologiesWorkshop.bind(this.dataService);
     // getting filters from url
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
@@ -157,7 +157,7 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
           params[key] = data[key];
         }
       }
-      this.router.navigate(['ontology'], {queryParams: params});
+      this.router.navigate(['ontology-workshop'], {queryParams: params});
     });
     // fetch usage statistics summary
     this.ontologyService.getUsageStatistics().subscribe((data) =>{
@@ -202,7 +202,7 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
 
   removeFilter() {
     this.resetFilter();
-    this.router.navigate(['ontology'], {queryParams: {}});
+    this.router.navigate(['ontology-workshop'], {queryParams: {}});
   }
 
   passwordValidator(group: FormGroup) {
