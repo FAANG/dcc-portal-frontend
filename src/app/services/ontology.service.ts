@@ -51,7 +51,7 @@ export class OntologyService {
       catchError(this.handleError),
     );
   }
-  
+
   fetchZoomaMatches(terms: any) {
     const url = validation_service_url + '/ontology_improver/get_matches/';
     return this.http.post(url, {'terms': terms}).pipe(
@@ -61,7 +61,7 @@ export class OntologyService {
       catchError(this.handleError),
     );
   }
-  
+
   validateTerms(body: any) {
     const url = validation_service_url + '/ontology_improver/validate/';
     return this.http.post(url, body).pipe(
@@ -82,35 +82,46 @@ export class OntologyService {
     );
   }
 
-  getSpecies() {
-    const url = `${this.hostSetting.host}data/ontologies/_search/?size=10000`;
-    const filters = {"type":["species"]};
-    const params = new HttpParams().set('_source', 'term,type').set('filters', JSON.stringify(filters)).set('from_', 0);
-    return this.http.get(url, {params: params}).pipe(
-      map((data: any) => {
-        let res = data.hits.hits.map(entry => entry['_source']['term']
-        );
-        return res;
-      }),
-      catchError(this.handleError),
-    );
-  }
+  // getSpecies() {
+  //   // const url = `${this.hostSetting.host}data/ontologies/_search/?size=10000`;
+  //   // const filters = {"type":["species"]};
+  //   // const params = new HttpParams().set('_source', 'term,type').set('filters', JSON.stringify(filters)).set('from_', 0);
+  //   // return this.http.get(url, {params: params}).pipe(
+  //   //   map((data: any) => {
+  //   //     let res = data.hits.hits.map(entry => entry['_source']['term']
+  //   //     );
+  //   //     console.log(res);
+  //   //     return res;
+  //   //   }),
+  //   //   catchError(this.handleError),
+  //   // );
+  //   return new Observable(observer => {
+  //     observer.next(['Capra hircus', 'Equus caballus', 'Gallus gallus', 'Ovis aries', 'Salmo salar', 'Scophthalmus maximus', 'Sus scrofa',
+  //       'Bubalus bubalis', 'Bos indicus', 'Dicentrarchus labrax', 'Sparus aurata', 'Oncorhynchus mykiss', 'Cyprinus carpio carpio',
+  //       'Bos taurus']);
+  //   });
+  // }
 
-  getTypes() {
-    const url = `${this.hostSetting.host}data/ontologies/_search/?size=10000`;
-    const params = new HttpParams().set('_source', 'type').set('from_', 0);
-    return this.http.get(url, {params: params}).pipe(
-      map((data: any) => {
-        let types = [];
-        data.hits.hits.forEach(record => {
-          types = types.concat(record['_source']['type']);
-          types = Array.from(new Set(types));
-        });
-        return types;
-      }),
-      catchError(this.handleError),
-    );
-  }
+  // getTypes() {
+  //   // const url = `${this.hostSetting.host}data/ontologies/_search/?size=10000`;
+  //   // const params = new HttpParams().set('_source', 'type').set('from_', 0);
+  //   // return this.http.get(url, {params: params}).pipe(
+  //   //   map((data: any) => {
+  //   //     let types = [];
+  //   //     data.hits.hits.forEach(record => {
+  //   //       types = types.concat(record['_source']['type']);
+  //   //       types = Array.from(new Set(types));
+  //   //     });
+  //   //     console.log(types);
+  //   //     return types;
+  //   //   }),
+  //   //   catchError(this.handleError),
+  //   // );
+  //   return new Observable(observer => {
+  //     observer.next(['cellType', 'organismPart', 'sex', 'developmentalStage', 'cultureType', 'breed', 'healthStatusAtCollection',
+  //       'healthStatus', 'organism', 'species', 'material', 'organismpart', 'celltype']);
+  //   });
+  // }
 
   getDetailsFromOls(ontology) {
     const url = `https://www.ebi.ac.uk/ols4/api/terms?short_form=${ontology['ontology_id']}`;

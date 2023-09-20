@@ -51,12 +51,12 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   showSpinner: boolean;
   registerUser: boolean;
   aggrSubscription: Subscription;
-  ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source']
-  ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source']
+  ontologyMatchTableHeaders = ['Ontology Type', 'Ontology Label', 'Ontology ID', 'Mapping Confidence', 'Source'];
+  ontologyMatchColsToDisplay = ['term_type', 'ontology_label', 'ontology_id', 'mapping_confidence', 'source'];
   columnNames: string[] = ['Term', 'Type', 'Ontology ID', 'Project', 'Tags', 'Status'];
   displayFields: string[] = ['term', 'type', 'id', 'projects', 'tags', 'upvotes_count'];
-  statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Activity']
-  statsFields: string[] = ['project', 'species', 'type_counts', 'activity']
+  statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Activity'];
+  statsFields: string[] = ['project', 'species', 'type_counts', 'activity'];
   templates: Object;
   filter_field: {};
   regForm: FormGroup;
@@ -164,13 +164,18 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       this.usageStats = data;
     });
     // fetch FAANG species list for selection
-    this.ontologyService.getSpecies().subscribe((res: any) => {
-      this.species = res;
-    });
+    // this.ontologyService.getSpecies().subscribe((res: any) => {
+    //   this.species = res;
+    // });
+    this.species = ['Capra hircus', 'Equus caballus', 'Gallus gallus', 'Ovis aries', 'Salmo salar', 'Scophthalmus maximus', 'Sus scrofa',
+            'Bubalus bubalis', 'Bos indicus', 'Dicentrarchus labrax', 'Sparus aurata', 'Oncorhynchus mykiss', 'Cyprinus carpio carpio',
+            'Bos taurus'];
     // fetch FAANG ontology types list for selection
-    this.ontologyService.getTypes().subscribe((res: any) => {
-      this.types = res;
-    });
+    // this.ontologyService.getTypes().subscribe((res: any) => {
+    //   this.types = res;
+    // });
+    this.types = ['cellType', 'organismPart', 'sex', 'developmentalStage', 'cultureType', 'breed', 'healthStatusAtCollection',
+          'healthStatus', 'organism', 'species', 'material', 'organismpart', 'celltype'];
   }
 
   ngOnDestroy() {
@@ -208,7 +213,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   passwordValidator(group: FormGroup) {
     const password = group.get('password').value;
     const confirmPwd = group.get('confirmPwd').value;
-    return password === confirmPwd ? null : { passwordsNotEqual: true }      
+    return password === confirmPwd ? null : { passwordsNotEqual: true }
   }
 
   createForm() {
@@ -221,7 +226,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
        confirmPwd: ['', [Validators.required, this.validateAreEqual.bind(this)]],
        organisation: ['', Validators.required ]
     },{
-      updateOn: 'blur', 
+      updateOn: 'blur',
     });
   }
 
@@ -247,7 +252,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           localStorage.setItem("token", data);
           localStorage.setItem("user", this.username);
           this.closeModal();
-        } 
+        }
         else {
           this.error = "Unable to login. Invalid credentials";
         }
@@ -304,7 +309,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   }
 
   validateOntology(data, project, status) {
-    if (status == 'Verified') {
+    if (status === 'Verified') {
       this.submitFeedback(data, project, status);
     } else {
       this.dialogRef.close();
@@ -316,12 +321,12 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           'status': status
         }
       });
-      this.originalOntologyTerm = Object.assign({}, data)
+      this.originalOntologyTerm = Object.assign({}, data);
     }
   }
 
   submitFeedback(data, project, status) {
-    if (status == 'Needs Improvement' && this.originalOntologyTerm['term'] == data['term'] ){
+    if (status === 'Needs Improvement' && this.originalOntologyTerm['term'] === data['term'] ) {
       this.dialogRef.close();
       this.openSnackbar('Please ensure that the downvoted term has been modified before submitting it', 'Dismiss');
       return;
