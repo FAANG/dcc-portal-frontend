@@ -164,13 +164,18 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
       this.usageStats = data;
     });
     // fetch FAANG species list for selection
-    this.ontologyService.getSpecies().subscribe((res: any) => {
-      this.species = res;
-    });
+    // this.ontologyService.getSpecies().subscribe((res: any) => {
+    //   this.species = res;
+    // });
+    this.species = ['Capra hircus', 'Equus caballus', 'Gallus gallus', 'Ovis aries', 'Salmo salar', 'Scophthalmus maximus', 'Sus scrofa',
+      'Bubalus bubalis', 'Bos indicus', 'Dicentrarchus labrax', 'Sparus aurata', 'Oncorhynchus mykiss', 'Cyprinus carpio carpio',
+      'Bos taurus'];
     // fetch FAANG ontology types list for selection
-    this.ontologyService.getTypes().subscribe((res: any) => {
-      this.types = res;
-    });
+    // this.ontologyService.getTypes().subscribe((res: any) => {
+    //   this.types = res;
+    // });
+    this.types = ['cellType', 'organismPart', 'sex', 'developmentalStage', 'cultureType', 'breed', 'healthStatusAtCollection',
+      'healthStatus', 'organism', 'species', 'material', 'organismpart', 'celltype'];
   }
 
   ngOnDestroy() {
