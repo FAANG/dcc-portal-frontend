@@ -109,6 +109,8 @@ import { DisplayDataComponent } from './graphql/display-data/display-data.compon
 import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
 import {ShortenTitlePipe} from './graphql/display-data/shorten-title.pipe';
 import { SubscriptionDialogComponent } from './shared/subscription-dialog/subscription-dialog.component';
+import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
+import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -185,7 +187,9 @@ export function removeToken(): void {
     DisplayDataComponent,
     IndexFiltersComponent,
     ShortenTitlePipe,
-    SubscriptionDialogComponent
+    SubscriptionDialogComponent,
+    OntologyImproverWorkshopComponent,
+    OntologyDetailWorkshopComponent
   ],
   imports: [
     BrowserModule,
