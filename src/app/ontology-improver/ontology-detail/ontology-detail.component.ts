@@ -12,7 +12,7 @@ import {ApiDataService} from '../../services/api-data.service';
 export class OntologyDetailComponent implements OnInit {
   ontologyDbId: string;
   data;
-  
+
   constructor(
     private dataService: ApiDataService,
     private route: ActivatedRoute,
@@ -25,7 +25,7 @@ export class OntologyDetailComponent implements OnInit {
       this.ontologyDbId = params['id'];
       this.titleService.setTitle('Ontology');
     });
-    this.data = this.dataService.getOntologyById(this.ontologyDbId).subscribe(
+    this.data = this.dataService.getOntologyById(this.ontologyDbId, 'ontologies').subscribe(
       (data: any) => {
         this.data = data;
         this.spinner.hide();

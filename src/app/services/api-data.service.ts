@@ -386,8 +386,8 @@ export class ApiDataService {
     );
   }
 
-  getOntologyById(ontologyId) {
-    const url = `${this.hostSetting.host}data/ontologies/${ontologyId}`;
+  getOntologyById(ontologyId, ontologies_type) {
+    const url = `${this.hostSetting.host}data/${ontologies_type}/${ontologyId}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data.hits.hits[0]['_source'];

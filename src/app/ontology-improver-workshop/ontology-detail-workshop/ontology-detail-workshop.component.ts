@@ -25,7 +25,7 @@ export class OntologyDetailWorkshopComponent implements OnInit {
       this.ontologyDbId = params['id'];
       this.titleService.setTitle('Ontology');
     });
-    this.data = this.dataService.getOntologyById(this.ontologyDbId).subscribe(
+    this.data = this.dataService.getOntologyById(this.ontologyDbId, 'ontologies_test').subscribe(
       (data: any) => {
         this.data = data;
         this.spinner.hide();
