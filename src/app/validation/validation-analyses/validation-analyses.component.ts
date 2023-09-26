@@ -71,6 +71,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   tooltipUpdate: string;
   tooltipSubmission: string;
   currentDate: Date;
+  error: string;
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
@@ -470,12 +471,20 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.disableAuthForm = true;
-    this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, '', this.fileid,
-      this.conversion_task_id, 'analyses', this.private_submission).subscribe( response => {
-      this.submission_task_id = response['id'];
-    }, error => {
-      console.log(error);
-    });
+    if (this.model.username.startsWith('Webin')) {
+      this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, '', this.fileid,
+        this.conversion_task_id, 'analyses', this.private_submission).subscribe(
+        (response) => {
+          this.submission_task_id = response['id'];
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      this.error = 'Incorrect username. Use Webin-prefix username for registration';
+      this.disableAuthForm = false;
+    }
   }
 
   downloadSubmissionResults() {
