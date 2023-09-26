@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {NgcCookieConsentService, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 import {environment} from '../environments/environment';
+import { NavigationStart, Router } from '@angular/router';
+import {ApiDataService} from './services/api-data.service';
+import {ComponentStateService} from './services/component-state.service';
 
 export const cookieConfig:NgcCookieConsentConfig =   {
   "cookie": {
@@ -39,10 +42,38 @@ export const cookieConfig:NgcCookieConsentConfig =   {
 export class AppComponent implements OnInit {
   title = 'faang-portal-frontend-angular6-second';
 
-  constructor(
-    private ccService: NgcCookieConsentService
-  ) {}
+
+  constructor(private router: Router,
+              private dataService: ApiDataService,
+              private componentStateService: ComponentStateService,
+              private ccService: NgcCookieConsentService) {
+    router.events.forEach((event) => {
+      if(event instanceof NavigationStart) {
+        if (event.navigationTrigger === 'popstate') {
+          const prevComponent = this.componentStateService.getComponentHistory().previousComponent
+          const currComponent = this.componentStateService.getComponentHistory().currentComponent
+          if (prevComponent === 'TableServerSideComponent' && currComponent != prevComponent){
+            this.componentStateService.emitResetValue(true);
+          }
+          else{
+            this.componentStateService.emitResetValue(false);
+            this.componentStateService.setFilterState('');
+            this.componentStateService.setPaginationState(0);
+          }
+        } else{
+          this.componentStateService.emitResetValue(false);
+        }
+      }
+    });
+  }
 
   ngOnInit() {
   }
+
+  componentAdded($event) {
+    this.componentStateService.setComponentHistory($event.constructor.name)
+  }
+
+
+
 }
