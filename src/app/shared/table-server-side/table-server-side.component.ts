@@ -50,7 +50,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   submission_message: string;
   subscription_status: string;
   apiKey:string;
-  currentSearchTerm: string = ''
+  currentSearchTerm: string = '';
 
   constructor(private spinner: NgxSpinnerService,
               public dialog: MatDialog,
