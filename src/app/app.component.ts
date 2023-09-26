@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {NgcCookieConsentService, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 import {environment} from '../environments/environment';
 import { NavigationStart, Router } from '@angular/router';
-import {ApiDataService} from './services/api-data.service';
 import {ComponentStateService} from './services/component-state.service';
 
 export const cookieConfig:NgcCookieConsentConfig =   {
@@ -44,7 +43,6 @@ export class AppComponent implements OnInit {
 
 
   constructor(private router: Router,
-              private dataService: ApiDataService,
               private componentStateService: ComponentStateService,
               private ccService: NgcCookieConsentService) {
     router.events.forEach((event) => {
