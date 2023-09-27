@@ -72,6 +72,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   tooltipUpdate: string;
   tooltipSubmission: string;
   currentDate: Date;
+  error: string;
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
@@ -99,7 +100,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
-      if (this.conversion_status == 'Success') {
+      if (this.conversion_status === 'Success') {
         this.startValidation();
       }
     };
@@ -486,11 +487,14 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.disableAuthForm = true;
     this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, '', this.fileid,
-      this.conversion_task_id, 'experiments', this.private_submission).subscribe( response => {
-      this.submission_task_id = response['id'];
-    }, error => {
-      console.log(error);
-    });
+      this.conversion_task_id, 'experiments', this.private_submission).subscribe(
+      (response) => {
+          this.submission_task_id = response['id'];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   onStartSubmissionClick(privateSubmission) {

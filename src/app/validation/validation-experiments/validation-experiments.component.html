@@ -211,19 +211,20 @@
   <div *ngIf="submissionStarted === true" fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="6%">
     <div fxFlex="47" [hidden]="disableAuthForm" *ngIf="!_userService.token">
       <h3 style="margin: 10px 0 20px 0;">Submit data to ENA</h3>
+      <p *ngIf="error" class="alert alert-danger">{{error}}</p>
       <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
         <div class="form-group">
           <label for="aapUsername">Username</label>
           <input class="form-control" id="aapUsername"
                  placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
-                 #username="ngModel">
+                 #username="ngModel" pattern="^[Ww]ebin.*">
           <small class="form-text text-muted">Please use this
             <a href="https://www.ebi.ac.uk/ena/submit/sra/#registration" class="link" target="_blank">service</a>
             to get your credentials
           </small>
           <div [hidden]="username.valid || username.pristine"
                class="alert alert-danger form-danger">
-            Username is required
+            Webin-username is required
           </div>
         </div>
 

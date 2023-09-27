@@ -98,7 +98,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     }
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
-      if (this.conversion_status == 'Success') {
+      if (this.conversion_status === 'Success') {
         this.startValidation();
       }
     };
@@ -471,11 +471,14 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.disableAuthForm = true;
     this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, '', this.fileid,
-      this.conversion_task_id, 'analyses', this.private_submission).subscribe( response => {
-      this.submission_task_id = response['id'];
-    }, error => {
-      console.log(error);
-    });
+      this.conversion_task_id, 'analyses', this.private_submission).subscribe(
+      (response) => {
+        this.submission_task_id = response['id'];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   downloadSubmissionResults() {
