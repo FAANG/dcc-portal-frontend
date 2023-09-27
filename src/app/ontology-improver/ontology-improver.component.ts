@@ -64,7 +64,6 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   types;
   usageStats: Observable<any[]>;
   disableOntologyCreation: boolean;
-  originalOntologyTerm: string;
 
   query = {
     'sort': ['key', 'asc'],
@@ -321,16 +320,10 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           'status': status
         }
       });
-      this.originalOntologyTerm = Object.assign({}, data);
     }
   }
 
   submitFeedback(data, project, status) {
-    if (status === 'Needs Improvement' && this.originalOntologyTerm['term'] === data['term'] ) {
-      this.dialogRef.close();
-      this.openSnackbar('Please ensure that the downvoted term has been modified before submitting it', 'Dismiss');
-      return;
-    }
     this.dialogRef.close();
     this.openSnackbar('Saving feedback...', 'Dismiss');
     const requestBody = {

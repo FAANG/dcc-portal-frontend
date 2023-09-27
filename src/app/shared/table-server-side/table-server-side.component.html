@@ -1,7 +1,7 @@
 
 <mat-form-field style="width: 100%; margin-top: 10px;">
     <mat-label>Search</mat-label>
-    <input (keyup)="searchChanged($event)" matInput name="searchField"
+    <input (keyup)="searchChanged($event)" matInput name="searchField" [(ngModel)]="currentSearchTerm"
         placeholder="Search">
 </mat-form-field>
 <table mat-table matSort [dataSource]="dataSource" table-striped style="width: 100%">
@@ -30,7 +30,7 @@
     <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
     <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
 </table>
-<mat-paginator pageSize="25" [length]="totalHits"></mat-paginator>
+<mat-paginator pageSize="25" [length]="totalHits" (page)="onPageChange($event)"></mat-paginator>
 
 
 <ng-template let-data #subscriptionTemplate>

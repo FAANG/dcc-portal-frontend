@@ -3,11 +3,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, merge, of as observableOf } from 'rxjs';
-import { map, startWith, switchMap, catchError, finalize } from 'rxjs/operators';
+import { map, startWith, switchMap, catchError, finalize, first } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {MatDialog} from '@angular/material/dialog';
 import {female_values, male_values, published_article_source} from '../constants';
 import {ApiDataService} from '../../services/api-data.service';
+import {ComponentStateService} from '../../services/component-state.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {subscription_ws_url} from '../constants';
 
@@ -49,14 +50,27 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   submission_message: string;
   subscription_status: string;
   apiKey:string;
+  currentSearchTerm: string = '';
 
   constructor(private spinner: NgxSpinnerService,
               public dialog: MatDialog,
-              private dataService: ApiDataService) { }
+              private dataService: ApiDataService,
+              private componentStateService: ComponentStateService) {
+  }
+
 
   ngOnInit() {
     this.subscriptionForm = new FormGroup({
       subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
+    });
+
+    // reset page state index based on state
+    this.componentStateService.setComponentHistory(this.constructor.name)
+
+    this.componentStateService.currentMessage.pipe(first()).subscribe(value => {
+      if (value === true){
+        this.resetPageState()
+      }
     });
   }
 
@@ -172,7 +186,11 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
 
     searchChanged(event: any){
+      this.componentStateService.setPaginationState(0);
+
       const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+      this.componentStateService.setFilterState(searchFilterValue) // store filter term value
+
       if (this.delaySearch){
         if (this.timer){
           clearTimeout(this.timer);
@@ -263,6 +281,29 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.onopen(null);
     }
+  }
+
+  resetPageState() {
+    if (this.componentStateService.getFilterState() != '') {
+      this.currentSearchTerm = this.componentStateService.getFilterState()
+      this.applySearchFilter(this.currentSearchTerm);
+    }
+
+    if (this.componentStateService.getPaginationState() != 0){
+      this.paginator.pageIndex = this.componentStateService.getPaginationState();
+      // emit an event so that the table will refresh the data
+      this.paginator.page.next({
+        pageIndex: this.paginator.pageIndex,
+        pageSize: this.paginator.pageSize,
+        length: this.paginator.length
+      });
+    }
+
+
+  }
+
+  onPageChange(event){
+    this.componentStateService.setPaginationState(event.pageIndex); // save event.pageIndex in a service
   }
 
 }
