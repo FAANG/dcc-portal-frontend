@@ -73,6 +73,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   tooltipSubmission: string;
   currentDate: Date;
   error: string;
+  usernameChanged = false;
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 
@@ -100,7 +101,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
-      if (this.conversion_status == 'Success') {
+      if (this.conversion_status === 'Success') {
         this.startValidation();
       }
     };
@@ -484,6 +485,10 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     }
   }
 
+  onUsernameChange() {
+    this.usernameChanged = true;
+  }
+
   onSubmit() {
     this.disableAuthForm = true;
     if (this.model.username.startsWith('Webin')) {
@@ -497,8 +502,9 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
         }
       );
     } else {
-      this.error = 'Incorrect username. Use Webin-prefix username for registration';
+      this.error = 'Incorrect username. Use Webin-prefix username for login';
       this.disableAuthForm = false;
+      this.usernameChanged = false;
     }
   }
 

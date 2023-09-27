@@ -218,7 +218,7 @@
           <label for="aapUsername">Username</label>
           <input class="form-control" id="aapUsername"
                  placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
-                 #username="ngModel">
+                 #username="ngModel" (input)="onUsernameChange()">
           <small class="form-text text-muted">Please use this
             <a href="https://www.ebi.ac.uk/ena/submit/sra/#registration" class="link" target="_blank">service</a>
             to get your credentials
@@ -240,7 +240,7 @@
         </div>
 
         <button mat-raised-button color="primary" class="validation_button"
-                type="submit" [disabled]="!enaForm.form.valid">Submit</button>
+                type="submit" [disabled]="!enaForm.form.valid || (error && error.length != 0 && usernameChanged == false)">Submit</button>
       </form>
     </div>
 
