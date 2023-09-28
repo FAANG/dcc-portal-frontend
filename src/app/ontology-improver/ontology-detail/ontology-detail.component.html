@@ -14,6 +14,11 @@
                 <dt fxFlex="25">Ontology Type:</dt>
                 <dd fxFlex="75">{{data?.type}}</dd>
             </div>
+            <!-- ontology_comment -->
+            <div fxLayout="row" fxLayout.lt-md="column" *ngIf="data.hasOwnProperty('comment')">
+              <dt fxFlex="25">Ontology Comment:</dt>
+              <dd fxFlex="75">{{data?.comment}}</dd>
+            </div>
             <!-- status -->
             <div fxLayout="row" fxLayout.lt-md="column" *ngIf="data.hasOwnProperty('status_activity')">
                 <dt fxFlex="25">Status Activity:</dt>
@@ -37,7 +42,7 @@
                                     {{action.timestamp.replace('T', ' ').replace('+', ' +')}}
                                 </span>
                                 <br>
-                                {{action.user}} 
+                                {{action.user}}
                                 <span *ngIf="action.status == 'Awaiting Assessment'">
                                     created the ontology
                                 </span>
@@ -48,7 +53,7 @@
                                     suggested improvements to the ontology
                                 </span>
                                 <span *ngIf="action.project != undefined && action.project.length > 0">
-                                    for project(s) {{action.project.join(', ')}} 
+                                    for project(s) {{action.project.join(', ')}}
                                 </span>
                             </p>
                         </mat-expansion-panel>
@@ -56,19 +61,19 @@
                 </dt>
             </div>
             <!-- project -->
-            <div fxLayout="row" fxLayout.lt-md="column" 
+            <div fxLayout="row" fxLayout.lt-md="column"
                 *ngIf="data.hasOwnProperty('projects') && data.projects && data.projects.length">
                 <dt fxFlex="25">Project:</dt>
                 <dd fxFlex="75">{{data?.projects}}</dd>
             </div>
             <!-- species -->
-            <div fxLayout="row" fxLayout.lt-md="column" 
+            <div fxLayout="row" fxLayout.lt-md="column"
                 *ngIf="data.hasOwnProperty('species') && data.species && data.species.length">
                 <dt fxFlex="25">Species:</dt>
                 <dd fxFlex="75">{{data?.species}}</dd>
             </div>
             <!-- tags -->
-            <div fxLayout="row" fxLayout.lt-md="column" 
+            <div fxLayout="row" fxLayout.lt-md="column"
                 *ngIf="data.hasOwnProperty('tags') && data.tags && data.tags.length">
                 <dt fxFlex="25">Tags:</dt>
                 <dd fxFlex="75">{{data?.tags}}</dd>
@@ -86,7 +91,7 @@
                 <dd fxFlex="75">{{data?.summary}}</dd>
             </div>
             <!-- synonyms -->
-            <div fxLayout="row" fxLayout.lt-md="column" 
+            <div fxLayout="row" fxLayout.lt-md="column"
                 *ngIf="data.hasOwnProperty('synonyms') && data.synonyms && data.synonyms.length">
                 <dt fxFlex="25">Synonyms:</dt>
                 <dd fxFlex="75">
@@ -96,7 +101,7 @@
                 </dd>
             </div>
             <!-- related_synonyms -->
-            <div fxLayout="row" fxLayout.lt-md="column" 
+            <div fxLayout="row" fxLayout.lt-md="column"
                 *ngIf="data.hasOwnProperty('related_synonyms') && data.related_synonyms && data.related_synonyms.length">
                 <dt fxFlex="25">Related Synonyms:</dt>
                 <dd fxFlex="75">
@@ -106,7 +111,7 @@
                 </dd>
             </div>
             <!-- alternative_id -->
-            <div fxLayout="row" fxLayout.lt-md="column" 
+            <div fxLayout="row" fxLayout.lt-md="column"
                 *ngIf="data.hasOwnProperty('alternative_id') && data.alternative_id && data.alternative_id.length">
                 <dt fxFlex="25">Alternative IDs:</dt>
                 <dd fxFlex="75">
@@ -116,7 +121,7 @@
                 </dd>
             </div>
             <!-- database_cross_reference -->
-            <div fxLayout="row" fxLayout.lt-md="column" 
+            <div fxLayout="row" fxLayout.lt-md="column"
                 *ngIf="data.hasOwnProperty('database_cross_reference') && data.database_cross_reference && data.database_cross_reference.length">
                 <dt fxFlex="25">Database Cross References:</dt>
                 <dd fxFlex="75">

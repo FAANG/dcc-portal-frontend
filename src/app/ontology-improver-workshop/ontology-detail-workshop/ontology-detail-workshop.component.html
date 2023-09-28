@@ -14,6 +14,11 @@
         <dt fxFlex="25">Ontology Type:</dt>
         <dd fxFlex="75">{{data?.type}}</dd>
       </div>
+      <!-- ontology_comment -->
+      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="data.hasOwnProperty('comment')">
+        <dt fxFlex="25">Ontology Comment:</dt>
+        <dd fxFlex="75">{{data?.comment}}</dd>
+      </div>
       <!-- status -->
       <div fxLayout="row" fxLayout.lt-md="column" *ngIf="data.hasOwnProperty('status_activity')">
         <dt fxFlex="25">Status Activity:</dt>

@@ -331,12 +331,12 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       'user': this.username,
       'project': project,
       'status': status
-    }
+    };
     this.ontologyService.validateTerms(requestBody).subscribe(
       data => {
         this.showSpinner = false;
         this.openSnackbar('Feeback submitted!', 'Dismiss');
-        if (this.tabGroup.selectedIndex == 0) {
+        if (this.tabGroup.selectedIndex === 0) {
           // update ontology table
           setTimeout(() => {
             this.filter_field = Object.assign({}, this.filter_field);
@@ -348,7 +348,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           }, 1000);
         }
         // update summary statistics
-        this.ontologyService.getUsageStatistics().subscribe((data) =>{
+        this.ontologyService.getUsageStatistics().subscribe((data) => {
           this.usageStats = data;
         });
       },
