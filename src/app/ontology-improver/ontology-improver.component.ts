@@ -99,8 +99,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.titleService.setTitle('Ontology Improver');
-    this.token = localStorage.getItem("token");
-    this.username = localStorage.getItem("user");
+    this.token = sessionStorage.getItem('token');
+    this.username = sessionStorage.getItem('user');
     this.hide = true;
     this.disableOntologyCreation = false;
     this.mode = 'input';
@@ -248,8 +248,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       data => {
         if (data) {
           this.token = data;
-          localStorage.setItem("token", data);
-          localStorage.setItem("user", this.username);
+          sessionStorage.setItem('token', data);
+          sessionStorage.setItem('user', this.username);
           this.closeModal();
         }
         else {
@@ -287,8 +287,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   logout() {
     this.token = '';
     this.username = null;
-    localStorage.setItem("token", '');
-    localStorage.setItem("user", '');
+    sessionStorage.setItem('token', '');
+    sessionStorage.setItem('user', '');
     this.password = null;
     this.error = null;
     this.tabGroup.selectedIndex = 0;
