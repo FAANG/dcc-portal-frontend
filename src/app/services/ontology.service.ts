@@ -62,8 +62,8 @@ export class OntologyService {
     );
   }
 
-  validateTerms(body: any) {
-    const url = validation_service_url + '/ontology_improver/validate/';
+  validateTerms(body: any, termId) {
+    const url = validation_service_url + '/ontology_improver/validate/' + termId;
     return this.http.post(url, body).pipe(
       map((data: any) => {
         return data;
