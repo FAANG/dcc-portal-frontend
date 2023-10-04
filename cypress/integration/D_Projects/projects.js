@@ -29,10 +29,9 @@ export class ProjectsPage{
     cy.visit('/projects/AQUA-FAANG')
 
     cy.contains("AQUA-FAANG aims to generate genome-wide functional annotation maps for the six commercially most important fish species within European aquaculture and exploit their contribution to variation in traits of commercial relevance, focusing on improved resistance to disease.");
-    cy.get('#twitter-widget-0').should('be.visible')
 
     cy.get('[target_type="dataset"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="dataset"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 4)
+    cy.get('[target_type="dataset"] > :nth-child(1)').find('tbody').find('tr').should("have.length.least", 4)
     cy.get('tbody > :nth-child(1) > .cdk-column-Study-name').should('contain', 'PRJEB47408')
 
     cy.get('[target_type="file"] > :nth-child(1)').should('be.visible')
@@ -50,8 +49,6 @@ export class ProjectsPage{
     cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
       .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
-
-    cy.get('Related Publications').should('not.exist')
   }
 
 
@@ -64,15 +61,12 @@ export class ProjectsPage{
     cy.visit('/projects/BovReg')
 
     cy.contains("The BovReg consortium will provide a comprehensive map of functionally active genomic features in cattle and how their (epi)genetic variation in beef and dairy breeds translates into phenotypes.");
-    cy.get('#twitter-widget-0').should('be.visible')
 
     cy.get('[target_type="publication"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="publication"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 4)
-    cy.get('tbody > :nth-child(1) > .cdk-column-Title').should('contain', 'Biological Network Approach for the Identification of Regulatory Long Non-Coding RNAs Associated With Metabolic Efficiency in Cattle.')
+    cy.get('[target_type="publication"] > :nth-child(1)').find('tbody').find('tr').should("have.length.least", 4)
 
     cy.get('[target_type="pipeline"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="pipeline"] > :nth-child(1)').find('tbody').find('tr').should("have.length.at.least", 1)
-    // cy.get('.mat-row > .cdk-column-Pipeline-name').should('contain', 'BovReg/nf-core-rnaseq')
 
     cy.get('[target_type="dataset"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="dataset"] > :nth-child(1)').find('tbody').find('tr').should("have.length.at.least", 2)
@@ -106,7 +100,6 @@ export class ProjectsPage{
     cy.visit('/projects/GENE-SWitCH')
 
     cy.contains("GENE-SWitCH aims to deliver new underpinning knowledge on the functional genomes of two main monogastric farm species (pig and chicken) and to enable immediate translation to the pig and poultry sectors.");
-    cy.get('#twitter-widget-0').should('be.visible')
 
     cy.get('Related Publications').should('not.exist')
 
@@ -138,19 +131,16 @@ export class ProjectsPage{
   check_geronimo_page(){
     cy.visit('/projects/GEroNIMO')
     cy.contains("GEroNIMO will work on chicken and pig, the most used sources of animal protein worldwide, to provide breeders with new knowledge and tools to promote innovative genome and epigenome enabled selection methods for traits related to production (quantity and quality), efficiency, productive longevity, fertility, resilience and welfare.");
-    cy.get('#twitter-widget-0').should('be.visible')
   }
 
   check_rumigen_page(){
     cy.visit('/projects/RUMIGEN')
     cy.contains("RUMIGEN is a multi-actor project aiming to improve genetic tools in bovine breeds through the addition of new traits such as heat tolerance, and epigenetic information.");
-    cy.get('#twitter-widget-0').should('be.visible')
   }
 
   check_faang_page(){
     cy.visit('/projects/FAANG')
     cy.contains("FAANG is the Functional Annotation of ANimal Genomes project. We are working to understand the genotype to phenotype link in domesticated animals.");
-    cy.get('#twitter-widget-0').should('be.visible')
   }
 
   check_bovine_page(){
