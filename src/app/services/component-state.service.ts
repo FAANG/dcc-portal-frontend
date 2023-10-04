@@ -11,6 +11,8 @@ export class ComponentStateService {
     previousComponent: '',
     currentComponent: ''
   };
+  resetPageBool:boolean = false;
+  
 
   constructor() { }
 
@@ -46,5 +48,12 @@ export class ComponentStateService {
 
   emitResetValue(val: boolean) {
     this.messageSource.next(val)
+  }
+
+  setResetPageBool(val){
+    this.resetPageBool = val;
+  }
+  getResetPageBool(){
+    return this.resetPageBool;
   }
 }

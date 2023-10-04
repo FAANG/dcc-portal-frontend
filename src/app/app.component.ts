@@ -51,15 +51,18 @@ export class AppComponent implements OnInit {
           const prevComponent = this.componentStateService.getComponentHistory().previousComponent
           const currComponent = this.componentStateService.getComponentHistory().currentComponent
           if (prevComponent === 'TableServerSideComponent' && currComponent != prevComponent){
-            this.componentStateService.emitResetValue(true);
+            // this.componentStateService.emitResetValue(true);
+            this.componentStateService.setResetPageBool(true)
           }
           else{
-            this.componentStateService.emitResetValue(false);
+            // this.componentStateService.emitResetValue(false);
+            this.componentStateService.setResetPageBool(false)
             this.componentStateService.setFilterState('');
             this.componentStateService.setPaginationState(0);
           }
         } else{
-          this.componentStateService.emitResetValue(false);
+          this.componentStateService.setResetPageBool(false)
+          // this.componentStateService.emitResetValue(false);
         }
       }
     });
