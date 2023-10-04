@@ -10,6 +10,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {ApiDataService} from '../services/api-data.service';
+import {validation_ws_url} from '../shared/constants';
 
 @Component({
   selector: 'app-ontology-improver-workshop',
@@ -64,6 +65,8 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
   types;
   usageStats: Observable<any[]>;
   disableOntologyCreation: boolean;
+  ontology_update_status: string;
+  socket;
 
   query = {
     'sort': ['key', 'asc'],
@@ -111,6 +114,7 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
     this.filter_field = {};
     this.selectedTerm = {'key': '', 'index': 0};
     this.showSpinner = false;
+    this.setSocket();
     this.createForm();
 
     this.templates = {
@@ -175,13 +179,6 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
     // });
     this.types = ['cellType', 'organismPart', 'sex', 'developmentalStage', 'cultureType', 'breed', 'healthStatusAtCollection',
       'healthStatus', 'organism', 'species', 'material', 'organismpart', 'celltype'];
-  }
-
-  ngOnDestroy() {
-    if (typeof this.filter_field !== 'undefined') {
-      this.resetFilter();
-    }
-    this.aggrSubscription.unsubscribe();
   }
 
   hasActiveFilters() {
@@ -286,7 +283,7 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
 
   logout() {
     this.token = '';
-    this.username = null;
+    this.username = '';
     sessionStorage.setItem('token', '');
     sessionStorage.setItem('user', '');
     this.password = null;
@@ -332,10 +329,11 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
       'project': project,
       'status': status
     }
-    this.ontologyService.validateTerms(requestBody).subscribe(
+    this.ontologyService.validateTerms(requestBody, this.username).subscribe(
       data => {
         this.showSpinner = false;
         this.openSnackbar('Feeback submitted!', 'Dismiss');
+        this.ontology_update_status = '';
         if (this.tabGroup.selectedIndex == 0) {
           // update ontology table
           setTimeout(() => {
@@ -354,7 +352,14 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
       },
       error => {
         this.showSpinner = false;
-        this.openSnackbar('Submission failed!', 'Dismiss');
+        this.error = error;
+        if (error.status == 409) {
+          setTimeout(() => {
+            this.openSnackbar(this.ontology_update_status, 'Dismiss');
+          }, 1000);
+        } else {
+          this.openSnackbar('Submission failed!', 'Dismiss');
+        }
       }
     );
   }
@@ -499,7 +504,9 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
                 // handle OLS downtime here
                 if (err.status == 500) {
                   this.disableOntologyCreation = true;
-                  this.openSnackbar('The Ontology Lookup Service (OLS) is down. New ontologies cannot be created at the moment. Please try again later.', 'Dismiss');
+                  this.openSnackbar('The Ontology Lookup Service (OLS) is down. ' +
+                    'New ontologies cannot be created at the moment. Please try again later.',
+                    'Dismiss');
                 }
               });
           }
@@ -679,6 +686,33 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
     if (tab.index == 1 && !this.token) {
       this.openLoginModal();
     }
+  }
+
+  setSocket() {
+    const url = validation_ws_url + this.username + '/';
+    this.socket = new WebSocket(url);
+    this.socket.onopen = () => {
+      console.log('WebSockets connection created.');
+    };
+    this.socket.onmessage = (event) => {
+      const data = JSON.parse(event.data)['response'];
+      console.log("inside setsovket")
+      if (data['ontology_update_status']) {
+        this.ontology_update_status = data['ontology_update_status'];
+      }
+    };
+
+    if (this.socket.readyState === WebSocket.OPEN) {
+      this.socket.onopen(null);
+    }
+  }
+
+  ngOnDestroy() {
+    if (typeof this.filter_field !== 'undefined') {
+      this.resetFilter();
+    }
+    this.aggrSubscription.unsubscribe();
+    this.socket.close();
   }
 
 }

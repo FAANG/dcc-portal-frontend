@@ -352,8 +352,14 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       },
       error => {
         this.showSpinner = false;
-        this.openSnackbar(this.ontology_update_status ? this.ontology_update_status : 'Submission failed!',
-          'Dismiss');
+        this.error = error;
+        if (error.status == 409) {
+          setTimeout(() => {
+            this.openSnackbar(this.ontology_update_status, 'Dismiss');
+          }, 1000);
+        } else {
+          this.openSnackbar('Submission failed!', 'Dismiss');
+        }
       }
     );
   }
