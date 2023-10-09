@@ -12,7 +12,7 @@ export class ComponentStateService {
     currentComponent: ''
   };
   resetPageBool:boolean = false;
-  
+
 
   constructor() { }
 
@@ -29,7 +29,7 @@ export class ComponentStateService {
   getFilterState(){
     return this.currentFilterTerm;
   }
-  
+
   setComponentHistory(currentComponent){
     if (currentComponent === 'TableServerSideComponent'){
       this.componentsHistory.currentComponent = currentComponent;
@@ -40,14 +40,6 @@ export class ComponentStateService {
   }
   getComponentHistory(){
     return this.componentsHistory;
-  }
-
-  // for emitting boolean value to determine whether to reset page based on state
-  private messageSource = new BehaviorSubject(false);
-  currentMessage = this.messageSource.asObservable();
-
-  emitResetValue(val: boolean) {
-    this.messageSource.next(val)
   }
 
   setResetPageBool(val){
