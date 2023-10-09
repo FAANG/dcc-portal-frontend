@@ -67,11 +67,9 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     // reset page state index based on state
     this.componentStateService.setComponentHistory(this.constructor.name)
 
-    this.componentStateService.currentMessage.pipe(first()).subscribe(value => {
-      if (value === true){
-        this.resetPageState()
-      }
-    });
+    if (this.componentStateService.getResetPageBool() === true) {
+      this.resetPageState()
+    }
   }
 
   ngAfterViewInit() {
