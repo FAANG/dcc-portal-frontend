@@ -62,8 +62,8 @@ export class OntologyService {
     );
   }
 
-  validateTerms(body: any) {
-    const url = validation_service_url + '/ontology_improver_workshop/validate/';
+  validateTerms(body: any, termId) {
+    const url = validation_service_url + '/ontology_improver_workshop/validate/' + termId;
     return this.http.post(url, body).pipe(
       map((data: any) => {
         return data;
@@ -174,6 +174,9 @@ export class OntologyService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
+      if (error.status === 409){
+        return throwError(error);
+      }
     }
     // return an observable with a user-facing errorSubject message
     return throwError(
