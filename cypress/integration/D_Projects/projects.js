@@ -147,6 +147,5 @@ export class ProjectsPage{
     cy.visit('/projects/Bovine')
     cy.contains("The cattle industry is the largest of the agricultural commodities in the United. Although the sequence of the bovine reference genome has been publicly available since 2009");
   }
-
-
+  
 }
