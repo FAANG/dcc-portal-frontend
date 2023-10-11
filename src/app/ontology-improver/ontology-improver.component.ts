@@ -4,12 +4,13 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTabGroup} from '@angular/material/tabs';
 import {Observable, Subscription} from 'rxjs';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import {AggregationService} from '../services/aggregation.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {ApiDataService} from '../services/api-data.service';
+import {validation_ws_url} from '../shared/constants';
 
 @Component({
   selector: 'app-ontology-improver',
@@ -17,21 +18,21 @@ import {ApiDataService} from '../services/api-data.service';
   styleUrls: ['./ontology-improver.component.css']
 })
 export class OntologyImproverComponent implements OnInit, OnDestroy {
-  @ViewChild('loginModalTemplate', { static: true }) public loginModalTemplate: TemplateRef<any>;
-  @ViewChild('editModalTemplate', { static: true }) public editModalTemplate: TemplateRef<any>;
-  @ViewChild('selectProjectModalTemplate', { static: true }) public selectProjectModalTemplate: TemplateRef<any>;
-  @ViewChild('validateModalTemplate', { static: true }) public validateModalTemplate: TemplateRef<any>;
-  @ViewChild('activityModalTemplate', { static: true }) public activityModalTemplate: TemplateRef<any>;
-  @ViewChild('modalTemplate', { static: true }) public modalTemplate: TemplateRef<any>;
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
-  @ViewChild('ontologyTermTemplate', { static: true }) ontologyTermTemplate: TemplateRef<any>;
-  @ViewChild('ontologyTypeTemplate', { static: true }) ontologyTypeTemplate: TemplateRef<any>;
-  @ViewChild('ontologyProjectTemplate', { static: true }) ontologyProjectTemplate: TemplateRef<any>;
-  @ViewChild('ontologyTagsTemplate', { static: true }) ontologyTagsTemplate: TemplateRef<any>;
-  @ViewChild('ontologyVotesTemplate', { static: true }) ontologyVotesTemplate: TemplateRef<any>;
-  @ViewChild('typeCountTemplate', { static: true }) typeCountTemplate: TemplateRef<any>;
-  @ViewChild('activityTemplate', { static: true }) activityTemplate: TemplateRef<any>;
-  @ViewChild('tableComp', { static: true }) tableServerComponent: TableServerSideComponent;
+  @ViewChild('loginModalTemplate', {static: true}) public loginModalTemplate: TemplateRef<any>;
+  @ViewChild('editModalTemplate', {static: true}) public editModalTemplate: TemplateRef<any>;
+  @ViewChild('selectProjectModalTemplate', {static: true}) public selectProjectModalTemplate: TemplateRef<any>;
+  @ViewChild('validateModalTemplate', {static: true}) public validateModalTemplate: TemplateRef<any>;
+  @ViewChild('activityModalTemplate', {static: true}) public activityModalTemplate: TemplateRef<any>;
+  @ViewChild('modalTemplate', {static: true}) public modalTemplate: TemplateRef<any>;
+  @ViewChild('tabs', {static: true}) tabGroup: MatTabGroup;
+  @ViewChild('ontologyTermTemplate', {static: true}) ontologyTermTemplate: TemplateRef<any>;
+  @ViewChild('ontologyTypeTemplate', {static: true}) ontologyTypeTemplate: TemplateRef<any>;
+  @ViewChild('ontologyProjectTemplate', {static: true}) ontologyProjectTemplate: TemplateRef<any>;
+  @ViewChild('ontologyTagsTemplate', {static: true}) ontologyTagsTemplate: TemplateRef<any>;
+  @ViewChild('ontologyVotesTemplate', {static: true}) ontologyVotesTemplate: TemplateRef<any>;
+  @ViewChild('typeCountTemplate', {static: true}) typeCountTemplate: TemplateRef<any>;
+  @ViewChild('activityTemplate', {static: true}) activityTemplate: TemplateRef<any>;
+  @ViewChild('tableComp', {static: true}) tableServerComponent: TableServerSideComponent;
   public loadTableDataFunction: Function;
   hide: boolean;
   username: string;
@@ -64,6 +65,9 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   types;
   usageStats: Observable<any[]>;
   disableOntologyCreation: boolean;
+  ontology_update_status: string;
+  socket;
+  userComments: string;
 
   query = {
     'sort': ['key', 'asc'],
@@ -95,7 +99,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     private router: Router,
     private titleService: Title,
     private aggregationService: AggregationService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) {
+  }
 
   ngOnInit() {
     this.titleService.setTitle('Ontology Improver');
@@ -111,6 +116,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     this.filter_field = {};
     this.selectedTerm = {'key': '', 'index': 0};
     this.showSpinner = false;
+    this.userComments = '';
+    this.setSocket();
     this.createForm();
 
     this.templates = {
@@ -125,25 +132,25 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     this.loadTableDataFunction = this.dataService.getAllOntologies.bind(this.dataService);
     // getting filters from url
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-    this.resetFilter();
-    const filters = {};
-    for (const key in params) {
-      if (Array.isArray(params[key])) {
-        filters[key] = params[key];
-        for (const value of params[key]) {
-          this.aggregationService.current_active_filters.push(value);
-          this.aggregationService.active_filters[key].push(value);
+      this.resetFilter();
+      const filters = {};
+      for (const key in params) {
+        if (Array.isArray(params[key])) {
+          filters[key] = params[key];
+          for (const value of params[key]) {
+            this.aggregationService.current_active_filters.push(value);
+            this.aggregationService.active_filters[key].push(value);
+          }
+        } else {
+          filters[key] = [params[key]];
+          this.aggregationService.current_active_filters.push(params[key]);
+          this.aggregationService.active_filters[key].push(params[key]);
         }
-      } else {
-        filters[key] = [params[key]];
-        this.aggregationService.current_active_filters.push(params[key]);
-        this.aggregationService.active_filters[key].push(params[key]);
       }
-    }
-    this.aggregationService.field.next(this.aggregationService.active_filters);
-    this.filter_field = filters;
-    this.query['filters'] = filters;
-    this.filter_field = Object.assign({}, this.filter_field);
+      this.aggregationService.field.next(this.aggregationService.active_filters);
+      this.filter_field = filters;
+      this.query['filters'] = filters;
+      this.filter_field = Object.assign({}, this.filter_field);
     });
     this.tableServerComponent.dataUpdate.subscribe((data) => {
       this.aggregationService.getAggregations(data.aggregations, 'ontology');
@@ -159,7 +166,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       this.router.navigate(['ontology'], {queryParams: params});
     });
     // fetch usage statistics summary
-    this.ontologyService.getUsageStatistics().subscribe((data) =>{
+    this.ontologyService.getUsageStatistics().subscribe((data) => {
       this.usageStats = data;
     });
     // fetch FAANG species list for selection
@@ -167,21 +174,14 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     //   this.species = res;
     // });
     this.species = ['Capra hircus', 'Equus caballus', 'Gallus gallus', 'Ovis aries', 'Salmo salar', 'Scophthalmus maximus', 'Sus scrofa',
-            'Bubalus bubalis', 'Bos indicus', 'Dicentrarchus labrax', 'Sparus aurata', 'Oncorhynchus mykiss', 'Cyprinus carpio carpio',
-            'Bos taurus'];
+      'Bubalus bubalis', 'Bos indicus', 'Dicentrarchus labrax', 'Sparus aurata', 'Oncorhynchus mykiss', 'Cyprinus carpio carpio',
+      'Bos taurus'];
     // fetch FAANG ontology types list for selection
     // this.ontologyService.getTypes().subscribe((res: any) => {
     //   this.types = res;
     // });
     this.types = ['cellType', 'organismPart', 'sex', 'developmentalStage', 'cultureType', 'breed', 'healthStatusAtCollection',
-          'healthStatus', 'organism', 'species', 'material', 'organismpart', 'celltype'];
-  }
-
-  ngOnDestroy() {
-    if (typeof this.filter_field !== 'undefined') {
-      this.resetFilter();
-    }
-    this.aggrSubscription.unsubscribe();
+      'healthStatus', 'organism', 'species', 'material', 'organismpart', 'celltype'];
   }
 
   hasActiveFilters() {
@@ -212,19 +212,19 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   passwordValidator(group: FormGroup) {
     const password = group.get('password').value;
     const confirmPwd = group.get('confirmPwd').value;
-    return password === confirmPwd ? null : { passwordsNotEqual: true }
+    return password === confirmPwd ? null : {passwordsNotEqual: true}
   }
 
   createForm() {
     this.regForm = this.fb.group({
-       username: ['', Validators.required ],
-       first_name: ['', Validators.required ],
-       last_name: [''],
-       email: ['', [Validators.required, Validators.email]],
-       password: ['', Validators.required ],
-       confirmPwd: ['', [Validators.required, this.validateAreEqual.bind(this)]],
-       organisation: ['', Validators.required ]
-    },{
+      username: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: [''],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      confirmPwd: ['', [Validators.required, this.validateAreEqual.bind(this)]],
+      organisation: ['', Validators.required]
+    }, {
       updateOn: 'blur',
     });
   }
@@ -239,7 +239,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
 
   private validateAreEqual() {
     return this.pwd == this.confirmPwd ? null : {
-        NotEqual: true
+      NotEqual: true
     };
   }
 
@@ -251,8 +251,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           sessionStorage.setItem('token', data);
           sessionStorage.setItem('user', this.username);
           this.closeModal();
-        }
-        else {
+        } else {
           this.error = "Unable to login. Invalid credentials";
         }
       },
@@ -286,7 +285,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
 
   logout() {
     this.token = '';
-    this.username = null;
+    this.username = '';
     sessionStorage.setItem('token', '');
     sessionStorage.setItem('user', '');
     this.password = null;
@@ -309,7 +308,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
 
   validateOntology(data, project, status) {
     if (status === 'Verified') {
-      this.submitFeedback(data, project, status);
+      this.submitFeedback(data, project, status, '');
     } else {
       this.dialogRef.close();
       this.dialogRef = this.dialog.open(this.validateModalTemplate, {
@@ -323,19 +322,21 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     }
   }
 
-  submitFeedback(data, project, status) {
+  submitFeedback(data, project, status, userComments) {
     this.dialogRef.close();
     this.openSnackbar('Saving feedback...', 'Dismiss');
     const requestBody = {
       'ontology': data,
       'user': this.username,
       'project': project,
-      'status': status
+      'status': status,
+      'user_comments': userComments
     }
-    this.ontologyService.validateTerms(requestBody).subscribe(
+    this.ontologyService.validateTerms(requestBody, this.username).subscribe(
       data => {
         this.showSpinner = false;
         this.openSnackbar('Feeback submitted!', 'Dismiss');
+        this.ontology_update_status = '';
         if (this.tabGroup.selectedIndex == 0) {
           // update ontology table
           setTimeout(() => {
@@ -348,15 +349,23 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           }, 1000);
         }
         // update summary statistics
-        this.ontologyService.getUsageStatistics().subscribe((data) =>{
+        this.ontologyService.getUsageStatistics().subscribe((data) => {
           this.usageStats = data;
         });
       },
       error => {
         this.showSpinner = false;
-        this.openSnackbar('Submission failed!', 'Dismiss');
+        this.error = error;
+        if (error.status == 409) {
+          setTimeout(() => {
+            this.openSnackbar(this.ontology_update_status, 'Dismiss');
+          }, 1000);
+        } else {
+          this.openSnackbar('Submission failed!', 'Dismiss');
+        }
       }
     );
+    this.userComments = '';
   }
 
   displayStatusActivity(data) {
@@ -398,11 +407,15 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
 
   editTag(data, tag, prop) {
     this.newTag[prop] = tag;
-    data[prop] = data[prop].filter(function(e) { return e !== tag });
+    data[prop] = data[prop].filter(function (e) {
+      return e !== tag
+    });
   }
 
   removeTag(data, tag, prop) {
-    data[prop] = data[prop].filter(function(e) { return e !== tag });
+    data[prop] = data[prop].filter(function (e) {
+      return e !== tag
+    });
   }
 
   addTagToolTab(data, tag, prop) {
@@ -442,7 +455,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           }, 1000);
         }
         // update summary statistics
-        this.ontologyService.getUsageStatistics().subscribe((data) =>{
+        this.ontologyService.getUsageStatistics().subscribe((data) => {
           this.usageStats = data;
         });
       },
@@ -499,7 +512,9 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
                 // handle OLS downtime here
                 if (err.status == 500) {
                   this.disableOntologyCreation = true;
-                  this.openSnackbar('The Ontology Lookup Service (OLS) is down. New ontologies cannot be created at the moment. Please try again later.', 'Dismiss');
+                  this.openSnackbar('The Ontology Lookup Service (OLS) is down. ' +
+                    'New ontologies cannot be created at the moment. Please try again later.',
+                    'Dismiss');
                 }
               });
           }
@@ -525,9 +540,9 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       // set ontology id options
       this.ontologyIdOptions = data.ontology_id.split(', ');
     }
-    data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', '): [];
-    data.project = data['project'] ? data['project']: [];
-    data.species = data['species'] ? data['species']: [];
+    data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', ') : [];
+    data.project = data['project'] ? data['project'] : [];
+    data.species = data['species'] ? data['species'] : [];
     // mark current ontology as selected
     data['selected'] = true;
     let l = this.ontologyMatches[key].length;
@@ -551,9 +566,9 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     if (data.ontology_id) {
       this.ontologyIdOptions = data.ontology_id.split(', ');
     }
-    data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', '): [];
-    data.project = data['project'] ? data['project']: [];
-    data.species = data['species'] ? data['species']: [];
+    data.ontology_id = data['ontology_id'] ? data['ontology_id'].split(', ') : [];
+    data.project = data['project'] ? data['project'] : [];
+    data.species = data['species'] ? data['species'] : [];
     this.openModal(data);
   }
 
@@ -608,10 +623,10 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     for (const prop in this.ontologyMatches) {
       let l = this.ontologyMatches[prop].length;
       for (let index = 0; index < l; index += 1) {
-        if (this.ontologyMatches[prop][index]['selected'])  {
+        if (this.ontologyMatches[prop][index]['selected']) {
           let ontology = {};
           let data = this.ontologyMatches[prop][index];
-          if (data['ontology_label'].length == 0 || !data['term_type'] || data['term_type'].length == 0){
+          if (data['ontology_label'].length == 0 || !data['term_type'] || data['term_type'].length == 0) {
             valid = false;
             this.openSnackbar('Ontology labels/types should not be empty', 'Dismiss');
             break;
@@ -679,6 +694,32 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     if (tab.index == 1 && !this.token) {
       this.openLoginModal();
     }
+  }
+
+  setSocket() {
+    const url = validation_ws_url + this.username + '/';
+    this.socket = new WebSocket(url);
+    this.socket.onopen = () => {
+      console.log('WebSockets connection created.');
+    };
+    this.socket.onmessage = (event) => {
+      const data = JSON.parse(event.data)['response'];
+      console.log("inside setsovket")
+      if (data['ontology_update_status']) {
+        this.ontology_update_status = data['ontology_update_status'];
+      }
+    };
+    if (this.socket.readyState === WebSocket.OPEN) {
+      this.socket.onopen(null);
+    }
+  }
+
+  ngOnDestroy() {
+    if (typeof this.filter_field !== 'undefined') {
+      this.resetFilter();
+    }
+    this.aggrSubscription.unsubscribe();
+    this.socket.close();
   }
 
 }

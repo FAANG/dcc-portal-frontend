@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HostSetting } from './host-setting';
-import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { validation_service_url } from '../shared/constants';
+import {Injectable} from '@angular/core';
+import {HostSetting} from './host-setting';
+import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
+import {throwError} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import {validation_service_url} from '../shared/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,8 @@ import { validation_service_url } from '../shared/constants';
 export class OntologyService {
   hostSetting = new HostSetting;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   login(username: string, password: string) {
     const url = validation_service_url + '/ontology_improver_workshop/auth/';
@@ -40,7 +41,7 @@ export class OntologyService {
 
   searchTerms(terms: any) {
     const url = `${this.hostSetting.host}data/ontologies_test/_search/?size=10000`;
-    const filters = {"term":terms};
+    const filters = {"term": terms};
     const params = new HttpParams().set('_source', 'term,type,id,projects,tags,species')
       .set('filters', JSON.stringify(filters)).set('from_', 0);
     return this.http.get(url, {params: params}).pipe(
@@ -62,8 +63,8 @@ export class OntologyService {
     );
   }
 
-  validateTerms(body: any, termId) {
-    const url = validation_service_url + '/ontology_improver_workshop/validate/' + termId;
+  validateTerms(body: any, username) {
+    const url = validation_service_url + '/ontology_improver_workshop/validate/' + username;
     return this.http.post(url, body).pipe(
       map((data: any) => {
         return data;
@@ -82,74 +83,44 @@ export class OntologyService {
     );
   }
 
-  getSpecies() {
-    const url = `${this.hostSetting.host}data/ontologies_test/_search/?size=10000`;
-    const filters = {"type":["species"]};
-    const params = new HttpParams().set('_source', 'term,type').set('filters', JSON.stringify(filters)).set('from_', 0);
-    return this.http.get(url, {params: params}).pipe(
-      map((data: any) => {
-        let res = data.hits.hits.map(entry => entry['_source']['term']
-        );
-        return res;
-      }),
-      catchError(this.handleError),
-    );
-  }
-
-  getTypes() {
-    const url = `${this.hostSetting.host}data/ontologies_test/_search/?size=10000`;
-    const params = new HttpParams().set('_source', 'type').set('from_', 0);
-    return this.http.get(url, {params: params}).pipe(
-      map((data: any) => {
-        let types = [];
-        data.hits.hits.forEach(record => {
-          types = types.concat(record['_source']['type']);
-          types = Array.from(new Set(types));
-        });
-        return types;
-      }),
-      catchError(this.handleError),
-    );
-  }
-
   getDetailsFromOls(ontology) {
     const url = `https://www.ebi.ac.uk/ols4/api/terms?short_form=${ontology['ontology_id']}`;
     return this.http.get(url).pipe(
       map((data: any) => {
-        if (data['_embedded']) {
-          data = data['_embedded']['terms'][0];
-          if (data['iri']) {
-            ontology['iri'] = data['iri'];
+          if (data['_embedded']) {
+            data = data['_embedded']['terms'][0];
+            if (data['iri']) {
+              ontology['iri'] = data['iri'];
+            }
+            if (data['description']) {
+              ontology['summary'] = data['description'][0];
+            }
+            if (data['synonyms']) {
+              ontology['synonyms'] = data['synonyms'];
+            }
+            if (data['annotation']) {
+              if (data['annotation']['has_alternative_id']) {
+                ontology['alternative_id'] = data['annotation']['has_alternative_id'];
+              }
+              if (!ontology['summary'] && data['annotation']['summary']) {
+                ontology['summary'] = data['annotation']['summary'];
+              }
+              if (data['annotation']['database_cross_reference']) {
+                ontology['database_cross_reference'] = data['annotation']['database_cross_reference'];
+              }
+              if (data['annotation']['related_synonyms']) {
+                ontology['related_synonyms'] = data['annotation']['related_synonyms'];
+              }
+              if (!ontology['synonyms'] && data['annotation']['has_exact_synonym']) {
+                ontology['synonyms'] = data['annotation']['has_exact_synonym'];
+              }
+            }
           }
-          if (data['description']) {
-            ontology['summary'] = data['description'][0];
-          }
-          if (data['synonyms']) {
-            ontology['synonyms'] = data['synonyms'];
-          }
-          if (data['annotation']) {
-            if (data['annotation']['has_alternative_id']) {
-              ontology['alternative_id'] = data['annotation']['has_alternative_id'];
-            }
-            if (!ontology['summary'] && data['annotation']['summary']) {
-              ontology['summary'] = data['annotation']['summary'];
-            }
-            if (data['annotation']['database_cross_reference']) {
-              ontology['database_cross_reference'] = data['annotation']['database_cross_reference'];
-            }
-            if (data['annotation']['related_synonyms']) {
-              ontology['related_synonyms'] = data['annotation']['related_synonyms'];
-            }
-            if (!ontology['synonyms'] && data['annotation']['has_exact_synonym']) {
-              ontology['synonyms'] = data['annotation']['has_exact_synonym'];
-            }
-          }
-        }
-        return ontology;
-      },
-      (err: any) => {
-        return throwError(err);
-      })
+          return ontology;
+        },
+        (err: any) => {
+          return throwError(err);
+        })
     );
   }
 
@@ -174,7 +145,7 @@ export class OntologyService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
-      if (error.status === 409){
+      if (error.status === 409) {
         return throwError(error);
       }
     }
