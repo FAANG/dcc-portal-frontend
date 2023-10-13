@@ -45,7 +45,7 @@
       <ng-container *ngIf="token">
         <!--Page 2.1 - Input terms-->
         <div style="margin-bottom: 40px;" *ngIf="mode == 'input' || mode == 'validate'">
-          <div fxLayout="row"fxLayoutAlign="space-between center" style="margin-top: 30px; margin-bottom: 20px;">
+          <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 30px; margin-bottom: 20px;">
             <h2>Check/Add missing terms</h2>
             <button mat-raised-button color="warn" (click)="logout()">Logout</button>
           </div>
@@ -80,7 +80,8 @@
           <br>
           <mat-accordion>
             <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;"
-                                 [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+                                 [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst"
+                                 (opened)="panelOpenState = true" (closed)="panelOpenState = false"
                                  style="margin-bottom: 20px;">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -94,10 +95,13 @@
                       <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
                       <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index">
                         {{data[col]}}
-                        <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']" (click)="addNewOntology(item.key, j)"
+                        <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']"
+                               (click)="addNewOntology(item.key, j)"
                                style="margin-right: 40px; float: right;" [disabled]="disableOntologyCreation">
-                        <button *ngIf="data['selected']" mat-raised-button color="primary" (click)="editNewOntology(item.key, j)"
-                                style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;" [disabled]="disableOntologyCreation"> Edit
+                        <button *ngIf="data['selected']" mat-raised-button color="primary"
+                                (click)="editNewOntology(item.key, j)"
+                                style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;"
+                                [disabled]="disableOntologyCreation"> Edit
                         </button>
                       </td>
                     </ng-container>
@@ -113,19 +117,22 @@
               <ng-container *ngIf="item.value?.length == 0">
                 <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
                   <span>No Matches Found</span>
-                  <button mat-raised-button color="primary" (click)="addNewOntology(item.key, -1)">Provide Ontology</button>
+                  <button mat-raised-button color="primary" (click)="addNewOntology(item.key, -1)">Provide Ontology
+                  </button>
                 </div>
               </ng-container>
             </mat-expansion-panel>
           </mat-accordion>
           <br>
-          <button mat-raised-button color="primary" [disabled]="disableOntologyCreation" (click)="submitTerms()">Submit</button>
+          <button mat-raised-button color="primary" [disabled]="disableOntologyCreation" (click)="submitTerms()">
+            Submit
+          </button>
         </div>
       </ng-container>
     </mat-tab>
     <!-- Page 3 - Display Ontology usage statistics summary for each project -->
     <mat-tab label="Summary Statistics">
-      <div *ngIf="usageStats as summary;"style="margin: 30px 0 10px 15px;">
+      <div *ngIf="usageStats as summary;" style="margin: 30px 0 10px 15px;">
         <app-table-client-side
           [display_fields]="statsFields"
           [column_names]="statsColumns"
@@ -157,7 +164,8 @@
     <mat-form-field appearance="fill" style="width: 100%">
       <mat-label>Enter your password</mat-label>
       <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
@@ -185,7 +193,9 @@
           <input class="form-control" formControlName="username" type="text" required>
         </div>
       </div>
-      <div *ngIf="regForm.controls['username'].invalid && (regForm.controls['username'].dirty || regForm.controls['username'].touched)" class="alert alert-danger">
+      <div
+        *ngIf="regForm.controls['username'].invalid && (regForm.controls['username'].dirty || regForm.controls['username'].touched)"
+        class="alert alert-danger">
         <div *ngIf="regForm.controls['username'].errors.required">
           Username is required
         </div>
@@ -203,7 +213,9 @@
           <input class="form-control" formControlName="last_name" type="text">
         </div>
       </div>
-      <div *ngIf="regForm.controls['first_name'].invalid && (regForm.controls['first_name'].dirty || regForm.controls['first_name'].touched)" class="alert alert-danger">
+      <div
+        *ngIf="regForm.controls['first_name'].invalid && (regForm.controls['first_name'].dirty || regForm.controls['first_name'].touched)"
+        class="alert alert-danger">
         <div *ngIf="regForm.controls['first_name'].errors.required">
           First Name is required
         </div>
@@ -215,7 +227,9 @@
           <input class="form-control" formControlName="email" type="email" required>
         </div>
       </div>
-      <div *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].dirty || regForm.controls['email'].touched)" class="alert alert-danger">
+      <div
+        *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].dirty || regForm.controls['email'].touched)"
+        class="alert alert-danger">
         <div *ngIf="regForm.controls['email'].errors.required">
           Email is required
         </div>
@@ -234,12 +248,16 @@
           <input class="form-control" formControlName="confirmPwd" type="password" required>
         </div>
       </div>
-      <div *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].dirty || regForm.controls['password'].touched)" class="alert alert-danger">
+      <div
+        *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].dirty || regForm.controls['password'].touched)"
+        class="alert alert-danger">
         <div *ngIf="regForm.controls['password'].errors.required">
           Password is required
         </div>
       </div>
-      <div *ngIf="regForm.controls['confirmPwd'].invalid && (regForm.controls['confirmPwd'].dirty || regForm.controls['confirmPwd'].touched)" class="alert alert-danger">
+      <div
+        *ngIf="regForm.controls['confirmPwd'].invalid && (regForm.controls['confirmPwd'].dirty || regForm.controls['confirmPwd'].touched)"
+        class="alert alert-danger">
         <div *ngIf="regForm.controls['confirmPwd'].errors.required">
           Password confirmation is required
         </div>
@@ -254,7 +272,9 @@
           <input class="form-control" formControlName="organisation" type="text" required>
         </div>
       </div>
-      <div *ngIf="regForm.controls['organisation'].invalid && (regForm.controls['organisation'].dirty || regForm.controls['organisation'].touched)" class="alert alert-danger">
+      <div
+        *ngIf="regForm.controls['organisation'].invalid && (regForm.controls['organisation'].dirty || regForm.controls['organisation'].touched)"
+        class="alert alert-danger">
         <div *ngIf="regForm.controls['organisation'].errors.required">
           Organisation is required.
         </div>
@@ -294,15 +314,18 @@
     </div>
     <div *ngIf="!showSpinner" fxFlex="25">
       <button mat-raised-button color="warn" (click)="closeModal()"
-              style="float:right; margin: 10px;">Cancel</button>
+              style="float:right; margin: 10px;">Cancel
+      </button>
 
       <button *ngIf="data.status == 'Verified'" mat-raised-button color="primary"
               (click)="validateOntology(data.ontology, data.project, data.status)"
-              style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
+              style="float:right; margin: 10px;" cdkFocusInitial>Submit
+      </button>
 
       <button *ngIf="data.status == 'Needs Improvement'" mat-raised-button color="primary"
               (click)="validateOntology(data.ontology, data.project, data.status)"
-              style="float:right; margin: 10px;" cdkFocusInitial>Next</button>
+              style="float:right; margin: 10px;" cdkFocusInitial>Next
+      </button>
     </div>
     <div *ngIf="showSpinner" fxFlex="30">
       <mat-spinner [diameter]="30"></mat-spinner>
@@ -317,13 +340,21 @@
       <mat-label>Ontology Text</mat-label>
       <input matInput [(ngModel)]="data.ontology.term">
     </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Comments</mat-label>
+      <textarea [(ngModel)]="userComments" matInput
+                placeholder="Please provide any feedback that may be useful to other users. This is an optional field"></textarea>
+    </mat-form-field>
   </div>
   <div *ngIf="!showSpinner">
     <button mat-raised-button color="warn" (click)="closeModal()"
-            style="float:right; margin: 10px;">Cancel</button>
+            style="float:right; margin: 10px;">Cancel
+    </button>
     <button mat-raised-button color="primary"
-            (click)="submitFeedback(data.ontology, data.project, data.status)"
-            style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
+            (click)="submitFeedback(data.ontology, data.project, data.status, userComments)"
+            style="float:right; margin: 10px;" cdkFocusInitial>Submit
+    </button>
   </div>
   <div *ngIf="showSpinner">
     <mat-spinner [diameter]="30"></mat-spinner>
@@ -377,7 +408,8 @@
           <mat-icon>edit</mat-icon>
         </button>
         <mat-icon (click)="removeTag(data, synonym, 'synonyms')"
-                  style="vertical-align: middle;">close</mat-icon>
+                  style="vertical-align: middle;">close
+        </mat-icon>
       </div>
     </ng-container>
     <mat-form-field appearance="fill" style="width: 100%;">
@@ -396,7 +428,8 @@
           <mat-icon>edit</mat-icon>
         </button>
         <mat-icon (click)="removeTag(data, tag, 'tags')"
-                  style="vertical-align: middle;">close</mat-icon>
+                  style="vertical-align: middle;">close
+        </mat-icon>
       </div>
     </ng-container>
     <mat-form-field appearance="fill" style="width: 100%;">
@@ -408,9 +441,11 @@
   </div>
   <div *ngIf="!showSpinner">
     <button mat-raised-button color="warn" (click)="closeModal()"
-            style="float:right; margin: 10px;">Cancel</button>
+            style="float:right; margin: 10px;">Cancel
+    </button>
     <button mat-raised-button color="primary" (click)="submitEditedOntology(data)"
-            style="float:right; margin: 10px;" cdkFocusInitial>Submit</button>
+            style="float:right; margin: 10px;" cdkFocusInitial>Submit
+    </button>
   </div>
   <div *ngIf="showSpinner">
     <mat-spinner [diameter]="30"></mat-spinner>
@@ -421,25 +456,15 @@
 <ng-template #activityModalTemplate let-data>
   <div mat-dialog-content>
     <h3>Status Activity History</h3>
-    <p *ngFor="let action of data">
-            <span style="font-size: 14px; color: #5b5858;">
-                {{action.timestamp.replace('T', ' ').replace('+', ' +').split('.')[0]}}
-            </span>
-      <br>
-      {{action.user}}
-      <span *ngIf="action.status == 'Awaiting Assessment'">
-                created the ontology
-            </span>
-      <span *ngIf="action.status == 'Verified'">
-                verified that the ontology is suitable
-            </span>
-      <span *ngIf="action.status == 'Needs Improvement'">
-                suggested improvements to the ontology
-            </span>
-      <span *ngIf="action.project != undefined && action.project.length > 0">
-                for project(s) {{action.project.join(', ')}}
-            </span>
-    </p>
+    <div *ngFor="let action of data" style="margin-bottom: 10px;">
+      <div style="font-size: 14px; color: #4d759a;">
+        {{action.timestamp.replace('T', ' ').replace('+', ' +').split('.')[0]}}
+      </div>
+      <div>{{generateStatusMsg(action)}}</div>
+      <div *ngIf="action.comments">
+        {{action.user}} provided the following feedback: <span class="userComments">{{action.comments}}</span>
+      </div>
+    </div>
   </div>
 </ng-template>
 
@@ -505,7 +530,8 @@
           <mat-icon>edit</mat-icon>
         </button>
         <mat-icon (click)="removeTag(data, synonym, 'synonyms')"
-                  style="vertical-align: middle;">close</mat-icon>
+                  style="vertical-align: middle;">close
+        </mat-icon>
       </div>
     </ng-container>
     <mat-form-field appearance="fill" style="width: 100%;">
@@ -524,7 +550,8 @@
           <mat-icon>edit</mat-icon>
         </button>
         <mat-icon (click)="removeTag(data, tag, 'tags')"
-                  style="vertical-align: middle;">close</mat-icon>
+                  style="vertical-align: middle;">close
+        </mat-icon>
       </div>
     </ng-container>
     <mat-form-field appearance="fill" style="width: 100%;">
@@ -536,9 +563,11 @@
   </div>
   <div>
     <button mat-flat-button color="warn" (click)="closeModal()"
-            style="float:right; margin: 10px;">Cancel</button>
+            style="float:right; margin: 10px;">Cancel
+    </button>
     <button mat-flat-button color="primary" (click)="saveModalData(data)" [disabled]="disableOntologyCreation"
-            style="float:right; margin: 10px;" cdkFocusInitial>Save</button>
+            style="float:right; margin: 10px;" cdkFocusInitial>Save
+    </button>
   </div>
 </ng-template>
 
@@ -580,7 +609,7 @@
   </button>
   <span>{{item.upvotes_count}}</span>
   <button mat-icon-button [disabled]="!token"
-          (click)="startOntologyValidation(item, 'Needs Improvement')" >
+          (click)="startOntologyValidation(item, 'Needs Improvement')">
     <mat-icon>thumb_down</mat-icon>
   </button>
   <span>{{item.downvotes_count}}</span>
@@ -590,7 +619,8 @@
   <button *ngIf="token" mat-icon-button
           style="margin-left: 15px; color: rgba(0, 0, 128, 0.8);"
           (click)="editOntology(item)">
-    <mat-icon>edit_outline</mat-icon>Edit
+    <mat-icon>edit_outline</mat-icon>
+    Edit
   </button>
 </ng-template>
 
