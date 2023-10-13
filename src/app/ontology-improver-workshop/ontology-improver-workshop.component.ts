@@ -714,6 +714,26 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
     }
   }
 
+  generateStatusMsg(action) {
+    if (action.status === 'Awaiting Assessment') {
+      return `${action.user} created the ontology`
+    } else if (action.status.toLowerCase() === 'verified') {
+      return `${action.user} verified that the ontology is suitable`
+    } else if (action.status.toLowerCase() === 'needs improvement') {
+      let msg = `${action.user} suggested improvements to the ontology`
+      if (action.project != undefined && action.project.length > 0) {
+        msg += `for project(s) ${action.project.join(', ')}`
+      }
+      return msg
+    }
+  }
+
+  generateCommentsMsg(action){
+    if (action.comments) {
+      return `${action.user} provided the following feedback: <span class="userComments">${action.comments} </span>`
+    }
+  }
+
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
       this.resetFilter();

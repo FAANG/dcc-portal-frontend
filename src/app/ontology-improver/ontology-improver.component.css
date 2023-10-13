@@ -1,6 +1,6 @@
 .ontology-input {
-    min-height: 200px; 
-    width: 100%; 
+    min-height: 200px;
+    width: 100%;
     margin-bottom: 10px;
 }
 
@@ -51,10 +51,15 @@ textarea:focus {
 }
 
 .beta-tag {
-    margin-left: 8px; 
-    cursor: default; 
+    margin-left: 8px;
+    cursor: default;
 }
 
 :host ::ng-deep .mat-tab-body-content {
     padding: 10px 20px 10px 20px;
+}
+
+.userComments{
+  font-style: oblique;
+  color: #777572;
 }

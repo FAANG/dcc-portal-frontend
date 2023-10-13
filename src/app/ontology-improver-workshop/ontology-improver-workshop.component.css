@@ -58,3 +58,8 @@ textarea:focus {
 :host ::ng-deep .mat-tab-body-content {
   padding: 10px 20px 10px 20px;
 }
+
+.userComments{
+  font-style: oblique;
+  color: #777572;
+}
