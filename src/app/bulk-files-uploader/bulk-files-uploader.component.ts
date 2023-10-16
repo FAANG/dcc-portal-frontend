@@ -1,10 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpRequest, HttpEvent,
-  HttpEventType, HttpResponse  } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { makeid } from '../shared/common_functions';
 import { validation_ws_url } from '../shared/constants';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bulk-files-uploader',
@@ -47,6 +45,8 @@ export class BulkFilesUploaderComponent implements OnInit {
           this.buttonDisabled = false;
         }
       );
+    } else {
+      this.buttonDisabled = false;
     }
   }
 
@@ -75,8 +75,8 @@ export class BulkFilesUploaderComponent implements OnInit {
 
   uploadService(files: FileList): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-    for(let i=0; i<files.length; i+=1) {
-      let fileid = makeid(20);
+    for (let i = 0; i < files.length; i += 1) {
+      const fileid = makeid(20);
       this.setSocket(fileid, files[i].name);
       formData.append(fileid, files[i]);
       this.fileNamesList.push(files[i].name);
