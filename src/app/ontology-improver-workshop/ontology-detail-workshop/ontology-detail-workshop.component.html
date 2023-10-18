@@ -32,25 +32,15 @@
                   <span>{{data.downvotes_count}}</span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <p *ngFor="let action of data.status_activity">
-                                <span style="font-size: 14px; color: #5b5858;">
-                                    {{action.timestamp.replace('T', ' ').replace('+', ' +')}}
-                                </span>
-                <br>
-                {{action.user}}
-                <span *ngIf="action.status == 'Awaiting Assessment'">
-                                    created the ontology
-                                </span>
-                <span *ngIf="action.status == 'Verified'">
-                                    verified that the ontology is suitable
-                                </span>
-                <span *ngIf="action.status == 'Needs Improvement'">
-                                    suggested improvements to the ontology
-                                </span>
-                <span *ngIf="action.project != undefined && action.project.length > 0">
-                                    for project(s) {{action.project.join(', ')}}
-                                </span>
-              </p>
+              <div *ngFor="let action of data.status_activity" style="margin-bottom: 10px;">
+                <div style="font-size: 14px; color: #4d759a;">
+                  {{action.timestamp.replace('T', ' ').replace('+', ' +')}}
+                </div>
+                <div>{{generateStatusMsg(action)}}</div>
+                <div *ngIf="action.comments">
+                  {{action.user}} provided the following feedback: <span class="userComments">{{action.comments}}</span>
+                </div>
+              </div>
             </mat-expansion-panel>
           </mat-accordion>
         </dt>
