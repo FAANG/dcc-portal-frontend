@@ -33,4 +33,18 @@ export class OntologyDetailComponent implements OnInit {
     });
   }
 
+  generateStatusMsg(action) {
+    if (action.status === 'Awaiting Assessment') {
+      return `${action.user} created the ontology`
+    } else if (action.status.toLowerCase() === 'verified') {
+      return `${action.user} verified that the ontology is suitable`
+    } else if (action.status.toLowerCase() === 'needs improvement') {
+      let msg = `${action.user} suggested improvements to the ontology`
+      if (action.project != undefined && action.project.length > 0) {
+        msg += `for project(s) ${action.project.join(', ')}`
+      }
+      return msg
+    }
+  }
+
 }
