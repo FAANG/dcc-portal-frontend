@@ -68,7 +68,6 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   ontology_update_status: string;
   socket;
   userComments: string;
-  searchTerm : string;
 
   query = {
     'sort': ['key', 'asc'],
@@ -148,11 +147,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
             filters[key] = [params[key]];
             this.aggregationService.current_active_filters.push(params[key]);
             this.aggregationService.active_filters[key].push(params[key]);
-            console.log("this.aggregationService.active_filters: ", this.aggregationService.active_filters)
           }
         }
-        // this.searchTerm = params['searchTerm'];
-
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
@@ -175,10 +171,10 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           params[key] = data[key];
         }
       }
-      console.log("params: ", params)
-
       //update url for search term
-      params['searchTerm'] = this.query['search'];
+      if (this.query['search']){
+        params['searchTerm'] = this.query['search'];
+      }
 
       this.router.navigate(['ontology'], {queryParams: params});
     });
@@ -186,17 +182,9 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     this.ontologyService.getUsageStatistics().subscribe((data) => {
       this.usageStats = data;
     });
-    // fetch FAANG species list for selection
-    // this.ontologyService.getSpecies().subscribe((res: any) => {
-    //   this.species = res;
-    // });
     this.species = ['Capra hircus', 'Equus caballus', 'Gallus gallus', 'Ovis aries', 'Salmo salar', 'Scophthalmus maximus', 'Sus scrofa',
       'Bubalus bubalis', 'Bos indicus', 'Dicentrarchus labrax', 'Sparus aurata', 'Oncorhynchus mykiss', 'Cyprinus carpio carpio',
       'Bos taurus'];
-    // fetch FAANG ontology types list for selection
-    // this.ontologyService.getTypes().subscribe((res: any) => {
-    //   this.types = res;
-    // });
     this.types = ['cellType', 'organismPart', 'sex', 'developmentalStage', 'cultureType', 'breed', 'healthStatusAtCollection',
       'healthStatus', 'organism', 'species', 'material', 'organismpart', 'celltype'];
   }

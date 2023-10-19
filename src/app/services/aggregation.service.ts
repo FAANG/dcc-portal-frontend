@@ -73,7 +73,7 @@ export class AggregationService {
 
   getAggregations(recordList: any, type: string) {
     if (type === 'file' || type === 'organism' || type === 'specimen' || type === 'dataset' ||
-        type === 'analysis' || type === 'protocol' || type === 'protocol_experiments' 
+        type === 'analysis' || type === 'protocol' || type === 'protocol_experiments'
         || type === 'article' || type === 'ontology') {
       let all_data = {};
       for (const key in recordList) { // recordList contains aggregations from API response
@@ -176,7 +176,7 @@ export class AggregationService {
         })
       }
       this.data.next(all_data);
-    } 
+    }
   }
 
   private updatePaperAggregation(paper_published: {}, value: string) {

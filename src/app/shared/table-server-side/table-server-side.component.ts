@@ -1,9 +1,6 @@
 import { Component, Input, Output, AfterViewInit, ViewChild, EventEmitter, TemplateRef, OnInit} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Location } from '@angular/common';
-
 import { filter } from 'rxjs/operators';
-// import 'rxjs/add/operator/filter';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,7 +10,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {MatDialog} from '@angular/material/dialog';
 import {female_values, male_values, published_article_source} from '../constants';
 import {ApiDataService} from '../../services/api-data.service';
-import {ComponentStateService} from '../../services/component-state.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {subscription_ws_url} from '../constants';
 
@@ -62,8 +58,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog,
-              private dataService: ApiDataService,
-              private componentStateService: ComponentStateService) {
+              private dataService: ApiDataService) {
   }
 
 
@@ -71,21 +66,12 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     this.subscriptionForm = new FormGroup({
       subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
+    this.currentSearchTerm = this.query['search'];
+
     this.activatedRoute.queryParams.subscribe(params => {
         this.queryParams = params;
-        // this.currentSearchTerm = params['searchTerm'];
       }
     );
-    // if (this.currentSearchTerm){
-    //   this.applySearchFilter(this.currentSearchTerm);
-    // }
-
-    // reset page state index based on state TODELTE
-    this.componentStateService.setComponentHistory(this.constructor.name)
-
-    if (this.componentStateService.getResetPageBool() === true) {
-      this.resetPageState()
-    }
   }
 
   ngAfterViewInit() {
@@ -109,7 +95,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
             this.query['sort'] = this.defaultSort;
           }
           this.query['from_'] = this.paginator.pageIndex * this.paginator.pageSize;
-          // this.query['search'] = 'testkoosum';
           return this.apiFunction(
             this.query, 25);
         }),
@@ -203,10 +188,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
 
     searchChanged(event: any){
-      this.componentStateService.setPaginationState(0);
-
       const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-      this.componentStateService.setFilterState(searchFilterValue) // store filter term value
 
       if (this.delaySearch){
         if (this.timer){
@@ -232,17 +214,18 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         this.spinner.hide();
       });
 
-      // TODO: to continue from here
+      // Update query parameters to pass to route
       const queryParameters = {...this.queryParams};
-      queryParameters['searchTerm'] = value;
-      console.log("applySearchFilter: ", queryParameters)
-
+      if (value){
+        queryParameters['searchTerm'] = value;
+      } else {
+        delete queryParameters['searchTerm'];
+      }
       this.router.navigate([],
         {
           relativeTo: this.activatedRoute,
           queryParams: queryParameters,
         });
-
     }
 
 
@@ -310,29 +293,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.onopen(null);
     }
-  }
-
-  resetPageState() {
-    if (this.componentStateService.getFilterState() != '') {
-      this.currentSearchTerm = this.componentStateService.getFilterState()
-      this.applySearchFilter(this.currentSearchTerm);
-    }
-
-    if (this.componentStateService.getPaginationState() != 0){
-      this.paginator.pageIndex = this.componentStateService.getPaginationState();
-      // emit an event so that the table will refresh the data
-      this.paginator.page.next({
-        pageIndex: this.paginator.pageIndex,
-        pageSize: this.paginator.pageSize,
-        length: this.paginator.length
-      });
-    }
-
-
-  }
-
-  onPageChange(event){
-    this.componentStateService.setPaginationState(event.pageIndex); // save event.pageIndex in a service
   }
 
 }
