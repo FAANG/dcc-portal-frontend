@@ -68,6 +68,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   ontology_update_status: string;
   socket;
   userComments: string;
+  searchTerm : string;
 
   query = {
     'sort': ['key', 'asc'],
@@ -135,26 +136,37 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       this.resetFilter();
       const filters = {};
       for (const key in params) {
-        if (Array.isArray(params[key])) {
-          filters[key] = params[key];
-          for (const value of params[key]) {
-            this.aggregationService.current_active_filters.push(value);
-            this.aggregationService.active_filters[key].push(value);
+        if (key !== 'searchTerm'){
+          console.log("key: ", key)
+          if (Array.isArray(params[key])) {
+            filters[key] = params[key];
+            for (const value of params[key]) {
+              this.aggregationService.current_active_filters.push(value);
+              this.aggregationService.active_filters[key].push(value);
+            }
+          } else {
+            filters[key] = [params[key]];
+            this.aggregationService.current_active_filters.push(params[key]);
+            this.aggregationService.active_filters[key].push(params[key]);
+            console.log("this.aggregationService.active_filters: ", this.aggregationService.active_filters)
           }
-        } else {
-          filters[key] = [params[key]];
-          this.aggregationService.current_active_filters.push(params[key]);
-          this.aggregationService.active_filters[key].push(params[key]);
         }
+        // this.searchTerm = params['searchTerm'];
+
       }
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
       this.query['filters'] = filters;
+      if (params['searchTerm']){
+        this.query['search'] = params['searchTerm'];
+      }
       this.filter_field = Object.assign({}, this.filter_field);
     });
+
     this.tableServerComponent.dataUpdate.subscribe((data) => {
       this.aggregationService.getAggregations(data.aggregations, 'ontology');
     });
+
     // setting urls params based on filters
     this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -163,6 +175,11 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           params[key] = data[key];
         }
       }
+      console.log("params: ", params)
+
+      //update url for search term
+      params['searchTerm'] = this.query['search'];
+
       this.router.navigate(['ontology'], {queryParams: params});
     });
     // fetch usage statistics summary

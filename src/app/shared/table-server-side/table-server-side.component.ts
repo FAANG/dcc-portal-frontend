@@ -1,4 +1,9 @@
 import { Component, Input, Output, AfterViewInit, ViewChild, EventEmitter, TemplateRef, OnInit} from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Location } from '@angular/common';
+
+import { filter } from 'rxjs/operators';
+// import 'rxjs/add/operator/filter';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -51,8 +56,11 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   subscription_status: string;
   apiKey:string;
   currentSearchTerm: string = '';
+  queryParams: any;
 
   constructor(private spinner: NgxSpinnerService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
               public dialog: MatDialog,
               private dataService: ApiDataService,
               private componentStateService: ComponentStateService) {
@@ -63,8 +71,16 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     this.subscriptionForm = new FormGroup({
       subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
+    this.activatedRoute.queryParams.subscribe(params => {
+        this.queryParams = params;
+        // this.currentSearchTerm = params['searchTerm'];
+      }
+    );
+    // if (this.currentSearchTerm){
+    //   this.applySearchFilter(this.currentSearchTerm);
+    // }
 
-    // reset page state index based on state
+    // reset page state index based on state TODELTE
     this.componentStateService.setComponentHistory(this.constructor.name)
 
     if (this.componentStateService.getResetPageBool() === true) {
@@ -79,6 +95,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
     // Reset back to the first page when sort order is changed
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    console.log("ngAfterViewInit: ", this.query)
+
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -91,6 +109,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
             this.query['sort'] = this.defaultSort;
           }
           this.query['from_'] = this.paginator.pageIndex * this.paginator.pageSize;
+          // this.query['search'] = 'testkoosum';
           return this.apiFunction(
             this.query, 25);
         }),
@@ -212,6 +231,18 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         this.totalHits = res.totalHits; // set length of paginator
         this.spinner.hide();
       });
+
+      // TODO: to continue from here
+      const queryParameters = {...this.queryParams};
+      queryParameters['searchTerm'] = value;
+      console.log("applySearchFilter: ", queryParameters)
+
+      this.router.navigate([],
+        {
+          relativeTo: this.activatedRoute,
+          queryParams: queryParameters,
+        });
+
     }
 
 
