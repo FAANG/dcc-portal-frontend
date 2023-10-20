@@ -52,7 +52,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   subscription_status: string;
   apiKey:string;
   currentSearchTerm: string = '';
-  queryParams: any;
+  queryParams: any = {};
+  updateUrlSort: boolean = false;
 
   constructor(private spinner: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
@@ -66,12 +67,25 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     this.subscriptionForm = new FormGroup({
       subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
+    // get search term
     this.currentSearchTerm = this.query['search'];
 
+    // extract query parameters
     this.activatedRoute.queryParams.subscribe(params => {
-        this.queryParams = params;
-      }
-    );
+        this.queryParams = {...params};
+      });
+
+    if (this.queryParams['sortTerm'] && this.queryParams['sortDirection']){
+      // display sort arrow
+      this.sort.active = this.queryParams['sortTerm'];
+      this.sort.direction = this.queryParams['sortDirection'];
+      // set initial state of this.query['sort']
+      // this.query['sort'] = [this.queryParams['sortTerm'], this.queryParams['sortDirection']];
+      // this.updateSortingUrlParameters(this.queryParams['sortTerm'], this.queryParams['sortDirection']);
+      this.updateUrlSort = true;
+    }
+
+    console.log("onInit: ", this.queryParams)
   }
 
   ngAfterViewInit() {
@@ -80,7 +94,9 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
       this.setSocket();
     }
     // Reset back to the first page when sort order is changed
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0;
+    });
     console.log("ngAfterViewInit: ", this.query)
 
     merge(this.sort.sortChange, this.paginator.page)
@@ -92,8 +108,14 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
             this.query['sort'] = [this.sort.active, this.sort.direction];
             this.sortUpdate.emit(this.query['sort']);
           } else {
-            this.query['sort'] = this.defaultSort;
+            if (!this.updateUrlSort){
+              this.query['sort'] = this.defaultSort;
+            }
+           // reset variable to deal with 3 clicks sorting (default sort)
+            this.updateUrlSort = false;
           }
+          this.updateSortingUrlParameters(this.query['sort'][0], this.query['sort'][1]);
+
           this.query['from_'] = this.paginator.pageIndex * this.paginator.pageSize;
           return this.apiFunction(
             this.query, 25);
@@ -125,7 +147,9 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         } else {
           this.query['sort'] = this.defaultSort;
         }
+        this.updateSortingUrlParameters(this.query['sort'][0], this.query['sort'][1]);
         this.sortUpdate.emit(this.query['sort']);
+
         this.query['from_'] = 0;
         for (const col in this.query['filters']) {
           // process paper_published filter
@@ -184,7 +208,10 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
           this.totalHits = res.totalHits; // set length of paginator
           this.spinner.hide();
         });
+
+
       }
+
     }
 
     searchChanged(event: any){
@@ -215,19 +242,29 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
       });
 
       // Update query parameters to pass to route
-      const queryParameters = {...this.queryParams};
-      if (value){
-        queryParameters['searchTerm'] = value;
-      } else {
-        delete queryParameters['searchTerm'];
-      }
-      this.router.navigate([],
-        {
-          relativeTo: this.activatedRoute,
-          queryParams: queryParameters,
-        });
+      this .updateUrlParameters(value, 'searchTerm')
     }
 
+
+  updateSortingUrlParameters(sortTerm, sortDirection){
+    this.updateUrlParameters(sortTerm, 'sortTerm');
+    this.updateUrlParameters(sortDirection, 'sortDirection');
+  }
+
+  updateUrlParameters(value, parameterName){
+    if (value){
+      this.queryParams[parameterName] = value;
+    } else {
+      if (parameterName in this.queryParams){
+        delete this.queryParams[parameterName];
+      }
+    }
+    this.router.navigate([],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: this.queryParams,
+      });
+  }
 
   openSubscriptionDialog(value: string) {
     this.subscriptionDialogTitle = `Subscribing to record ${value}`

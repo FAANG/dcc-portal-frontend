@@ -134,8 +134,11 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
       const filters = {};
+
+      // set up filters based on queryParams
       for (const key in params) {
-        if (key !== 'searchTerm'){
+        // if(['searchTerm', 'sortTerm', 'sortDirection'].indexOf(key) === -1){
+        if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection'){
           console.log("key: ", key)
           if (Array.isArray(params[key])) {
             filters[key] = params[key];
@@ -156,6 +159,11 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       if (params['searchTerm']){
         this.query['search'] = params['searchTerm'];
       }
+      //TODO to continue from here
+      if (params['sortTerm'] && params['sortDirection']){
+        this.query['sort'] = [params['sortTerm'], params['sortDirection']];
+      }
+
       this.filter_field = Object.assign({}, this.filter_field);
     });
 
@@ -174,6 +182,10 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       //update url for search term
       if (this.query['search']){
         params['searchTerm'] = this.query['search'];
+      }
+      if (this.query['sort']){
+        params['sortTerm'] = this.query['sort'][0]
+        params['sortDirection'] = this.query['sort'][1]
       }
 
       this.router.navigate(['ontology'], {queryParams: params});
