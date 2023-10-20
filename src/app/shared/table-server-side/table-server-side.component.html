@@ -29,7 +29,7 @@
     <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
     <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
 </table>
-<mat-paginator pageSize="25" [length]="totalHits"></mat-paginator>
+<mat-paginator pageSize="25" [length]="totalHits" (page)="onPageChange($event)"></mat-paginator>
 
 
 <ng-template let-data #subscriptionTemplate>

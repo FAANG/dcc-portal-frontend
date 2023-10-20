@@ -12,6 +12,7 @@ import {female_values, male_values, published_article_source} from '../constants
 import {ApiDataService} from '../../services/api-data.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {subscription_ws_url} from '../constants';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 
 
 @Component({
@@ -53,13 +54,16 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   apiKey:string;
   currentSearchTerm: string = '';
   queryParams: any = {};
-  updateUrlSort: boolean = false;
+  location: Location;
+  urlTree: string;
 
   constructor(private spinner: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog,
-              private dataService: ApiDataService) {
+              private dataService: ApiDataService,
+              location: Location) {
+    this.location = location;
   }
 
 
@@ -79,13 +83,10 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
       // display sort arrow
       this.sort.active = this.queryParams['sortTerm'];
       this.sort.direction = this.queryParams['sortDirection'];
-      // set initial state of this.query['sort']
-      // this.query['sort'] = [this.queryParams['sortTerm'], this.queryParams['sortDirection']];
-      // this.updateSortingUrlParameters(this.queryParams['sortTerm'], this.queryParams['sortDirection']);
-      this.updateUrlSort = true;
     }
-
-    console.log("onInit: ", this.queryParams)
+    if (this.queryParams['pageNumber']){
+      this.resetPagination(this.queryParams['pageNumber']);
+    }
   }
 
   ngAfterViewInit() {
@@ -108,11 +109,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
             this.query['sort'] = [this.sort.active, this.sort.direction];
             this.sortUpdate.emit(this.query['sort']);
           } else {
-            if (!this.updateUrlSort){
-              this.query['sort'] = this.defaultSort;
-            }
-           // reset variable to deal with 3 clicks sorting (default sort)
-            this.updateUrlSort = false;
+            this.query['sort'] = this.defaultSort;
           }
           this.updateSortingUrlParameters(this.query['sort'][0], this.query['sort'][1]);
 
@@ -148,8 +145,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
           this.query['sort'] = this.defaultSort;
         }
         this.updateSortingUrlParameters(this.query['sort'][0], this.query['sort'][1]);
-        this.sortUpdate.emit(this.query['sort']);
 
+        this.sortUpdate.emit(this.query['sort']);
         this.query['from_'] = 0;
         for (const col in this.query['filters']) {
           // process paper_published filter
@@ -208,10 +205,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
           this.totalHits = res.totalHits; // set length of paginator
           this.spinner.hide();
         });
-
-
       }
-
     }
 
     searchChanged(event: any){
@@ -242,7 +236,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
       });
 
       // Update query parameters to pass to route
-      this .updateUrlParameters(value, 'searchTerm')
+      this.updateUrlParameters(value, 'searchTerm')
     }
 
 
@@ -330,6 +324,40 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.onopen(null);
     }
+  }
+
+  resetPagination(pageIndex) {
+    if (pageIndex != 0) {
+      this.queryParams['pageNumber'] = pageIndex;
+      this.paginator.pageIndex = pageIndex;
+      // emit an event so that the table will refresh the data
+      this.paginator.page.next({
+        pageIndex: this.paginator.pageIndex,
+        pageSize: this.paginator.pageSize,
+        length: this.paginator.length
+      });
+    }
+  }
+
+  onPageChange($event) {
+    const params = {
+      pageNumber: this.paginator.pageIndex,
+    };
+    this.urlTree = this.router.createUrlTree([], {
+      relativeTo: this.activatedRoute,
+      queryParams: params,
+      queryParamsHandling: 'merge',
+    }).toString();
+
+    //Update route with Query Params
+    this.location.go(this.urlTree);
+
+    // will not reload the page, but will update query params
+    this.router.navigate([],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: {...this.queryParams, ...params}
+      });
   }
 
 }

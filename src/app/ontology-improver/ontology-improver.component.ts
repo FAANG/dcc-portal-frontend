@@ -68,6 +68,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   ontology_update_status: string;
   socket;
   userComments: string;
+  currentPageIndex: number;
 
   query = {
     'sort': ['key', 'asc'],
@@ -137,9 +138,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
 
       // set up filters based on queryParams
       for (const key in params) {
-        // if(['searchTerm', 'sortTerm', 'sortDirection'].indexOf(key) === -1){
-        if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection'){
-          console.log("key: ", key)
+        // if(['searchTerm', 'sortTerm', 'sortDirection', 'pageIndex'].indexOf(key) === -1){
+        if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection' && key !== 'pageNumber'){
           if (Array.isArray(params[key])) {
             filters[key] = params[key];
             for (const value of params[key]) {
@@ -156,10 +156,10 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       this.aggregationService.field.next(this.aggregationService.active_filters);
       this.filter_field = filters;
       this.query['filters'] = filters;
+      // my changes
       if (params['searchTerm']){
         this.query['search'] = params['searchTerm'];
       }
-      //TODO to continue from here
       if (params['sortTerm'] && params['sortDirection']){
         this.query['sort'] = [params['sortTerm'], params['sortDirection']];
       }
@@ -187,7 +187,6 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
         params['sortTerm'] = this.query['sort'][0]
         params['sortDirection'] = this.query['sort'][1]
       }
-
       this.router.navigate(['ontology'], {queryParams: params});
     });
     // fetch usage statistics summary
