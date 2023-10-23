@@ -110,6 +110,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { GraphQLModule } from './graphql.module';
 import { GraphqlComponent } from './graphql/graphql.component';
+import { GlobalSearchComponent } from './globalsearch/globalsearch.component';
 import { DisplayDataComponent } from './graphql/display-data/display-data.component';
 import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
 import {ShortenTitlePipe} from './graphql/display-data/shorten-title.pipe';
@@ -192,6 +193,7 @@ export function removeToken(): void {
     EnsemblAnnotationComponent,
     LocalGenomeBrowserComponent,
     GraphqlComponent,
+    GlobalSearchComponent,
     DisplayDataComponent,
     IndexFiltersComponent,
     ShortenTitlePipe,

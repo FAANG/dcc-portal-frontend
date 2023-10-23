@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search</title>
+</head>
+<body>
+<div class="search-container">
+  <div class="input-group margin-bottom-none">
+    <input type="text" name="text" id="local-searchbox" [(ngModel)]="searchText" placeholder="Search" class="input-group-field" value="">
+    <div class="input-group-button" style="position: relative;">
+      <button mat-button style="position: absolute; right: 0; border: none;" (click)="onSearch()">
+        <mat-icon>search</mat-icon></button>
+    </div>
+  </div>
+</div>
+<div id="search-results" *ngIf="showResults">
+  <table>
+    <tr>
+      <ng-container *ngFor="let item of jsonData">
+        <td>{{ item }}</td>
+      </ng-container>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

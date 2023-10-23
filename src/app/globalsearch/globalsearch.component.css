@@ -1,0 +1,45 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  margin: 100px;
+}
+
+.search-container {
+  text-align: center;
+}
+
+input[type="text"] {
+  height: 40px;
+  width: 500px;
+}
+
+button {
+  height: 40px;
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+  horiz-align: center;
+  vertical-align: middle;
+}
+
+mat-icon {
+  horiz-align: center;
+  vertical-align: middle;
+}
+
+#search-results {
+  margin-top: 70px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
