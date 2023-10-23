@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
       'data': ['organism', 'specimen', 'dataset', 'file', 'analysis', 'protocol', 'article'],
       'submit': ['ruleset', 'validation', 'trackhubs', 'nextflowSubmission'],
       'help': ['api'],
+      'search': ['graphql', 'globalsearch'],
       'protocol': ['protocol'],
       'validation': ['validation'],
       'ruleset': ['ruleset']

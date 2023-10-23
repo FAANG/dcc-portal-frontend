@@ -14,15 +14,3 @@ a {
 .mat-button {
   padding: 0;
 }
-
-.search-container {
-  display: flex;
-  align-items: center;
-}
-
-.mat-form-field {
-}
-
-.search-button {
-  border: none;
-}
