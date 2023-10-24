@@ -55,6 +55,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   queryParams: any = {};
   location: Location;
   urlTree: string;
+  updateUrlSpecialParams: boolean = false;
 
   constructor(private spinner: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
@@ -67,6 +68,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+    this.updateUrlSpecialParams=false;
     this.subscriptionForm = new FormGroup({
       subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
@@ -76,6 +78,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     // extract query parameters
     this.activatedRoute.queryParams.subscribe(params => {
         this.queryParams = {...params};
+
       });
 
     if (this.queryParams['sortTerm'] && this.queryParams['sortDirection']){
@@ -220,6 +223,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
     applySearchFilter(value: string) {
       // reset query params before applying search
+      this.updateUrlSpecialParams = true;
       this.paginator.pageIndex = 0;
       this.query['from_'] = 0;
       this.query['search'] = value;
@@ -230,7 +234,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         this.totalHits = res.totalHits; // set length of paginator
         this.spinner.hide();
       });
-
       // Update query parameters to pass to route
       this.updateUrlParameters(value, 'searchTerm')
     }
@@ -249,11 +252,21 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         delete this.queryParams[parameterName];
       }
     }
+
+    if (this.updateUrlSpecialParams) {
+      if ('pageIndex' in this.queryParams){
+        delete this.queryParams['pageIndex'];
+      }
+      this.updateUrlSpecialFilters();
+    }
     this.router.navigate([],
       {
         relativeTo: this.activatedRoute,
         queryParams: this.queryParams,
       });
+    //reset boolean variable
+    this.updateUrlSpecialParams = false;
+
   }
 
   openSubscriptionDialog(value: string) {
@@ -335,20 +348,44 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+  updateUrlSpecialFilters(){
+    for (const param in this.queryParams) {
+      if (Array.isArray(this.queryParams[param])) {
+        this.queryParams[param].forEach((val, i) => {
+          const filterDisplayVal = this.getFilterDisplayValue(param, val);
+          if (filterDisplayVal) this.queryParams[param][i] = filterDisplayVal
+        });
+      }
+    }
+    console.log("zourer: ", this.queryParams)
+  }
+
+  getFilterDisplayValue(paramName, filterVal){
+    const specialFilters = {
+      paper_published: [{filterValue: 'true', displayValue: 'Yes'}, {filterValue: 'false', displayValue: 'No'}]
+    }
+    if (paramName in specialFilters){
+      const displayVal = specialFilters[paramName].filter(obj => obj['filterValue'] == filterVal);
+      console.log('displayVal: ', displayVal)
+      if (displayVal.length > 0){
+        return displayVal[0]['displayValue']
+      }
+    }
+    return null
+
+
+
+  }
   onPageChange($event) {
     const params = {
       pageIndex: this.paginator.pageIndex,
     };
 
-    // dealing with special case of paper_published
-    if ('paper_published' in this.queryParams) {
-      let updatedqueryParams = {};
-      updatedqueryParams = {...this.queryParams}
-      if (this.queryParams['paper_published'][0] === 'false'){
-        updatedqueryParams['paper_published'] = ['No'];
-      }else{
-        updatedqueryParams['paper_published'] = ['Yes']
-      }
+    // special cases for filters
+    for (const param in this.queryParams) {
+        const filterDisplayVal = this.getFilterDisplayValue(param, this.queryParams[param]);
+        if (filterDisplayVal) params[param] = filterDisplayVal
     }
 
     this.urlTree = this.router.createUrlTree([], {
@@ -357,15 +394,14 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
       queryParamsHandling: 'merge',
     }).toString();
 
+
     //Update route with Query Params
     this.location.go(this.urlTree);
 
-    // will not reload the page, but will update query params
-    this.router.navigate([],
-      {
-        relativeTo: this.activatedRoute,
-        queryParams: {...this.queryParams, ...params}
-      });
+  }
+
+  sortChange($event){
+    this.updateUrlSpecialParams = true;
   }
 
 }

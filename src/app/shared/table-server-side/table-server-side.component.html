@@ -3,7 +3,7 @@
     <input (keyup)="searchChanged($event)" matInput name="searchField" [(ngModel)]="currentSearchTerm"
         placeholder="Search">
 </mat-form-field>
-<table mat-table matSort [dataSource]="dataSource" table-striped style="width: 100%">
+<table mat-table matSort [dataSource]="dataSource" table-striped style="width: 100%" (matSortChange)="sortChange($event)">
     <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
         <ng-container *ngIf="templates[col]">
             <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
