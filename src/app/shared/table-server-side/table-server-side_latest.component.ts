@@ -1,5 +1,6 @@
 import { Component, Input, Output, AfterViewInit, ViewChild, EventEmitter, TemplateRef, OnInit} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +12,7 @@ import {female_values, male_values, published_article_source} from '../constants
 import {ApiDataService} from '../../services/api-data.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {subscription_ws_url} from '../constants';
-import {Location} from '@angular/common';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 
 
 @Component({
@@ -53,6 +54,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   apiKey:string;
   currentSearchTerm: string = '';
   queryParams: any = {};
+  currentPageIndex: any;
   location: Location;
   urlTree: string;
 
@@ -78,23 +80,32 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         this.queryParams = {...params};
       });
 
+    console.log('this.queryParams: ', this.queryParams)
+
     if (this.queryParams['sortTerm'] && this.queryParams['sortDirection']){
       // display sort arrow
       this.sort.active = this.queryParams['sortTerm'];
       this.sort.direction = this.queryParams['sortDirection'];
     }
-    if (this.queryParams['pageIndex']){
-      this.resetPagination(this.queryParams['pageIndex']);
+    if (this.queryParams['pagination']){
+      console.log("miawmiawmiaw")
+      this.resetPagination(this.queryParams['pagination']);
     }
+
+    console.log("onInit: ", this.queryParams)
   }
 
   ngAfterViewInit() {
+    // alert("pong")
     if (this.indexDetails){
       this.apiKey = this.indexDetails['apiKey']
       this.setSocket();
     }
     // Reset back to the first page when sort order is changed
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sort.sortChange.subscribe(() => {
+      // this.paginator.pageIndex = 0;
+    });
+    console.log("ngAfterViewInit: ", this.query)
 
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
@@ -128,12 +139,41 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         });
   }
 
+  buildUrlTree(params, pageIndex){
+    if (pageIndex){
+      params['pageNumber'] = pageIndex;
+    }
+    this.urlTree = this.router.createUrlTree([], {
+      relativeTo: this.activatedRoute,
+      queryParams: params,
+      queryParamsHandling: 'merge',
+    }).toString();
+  }
+
     // apply filter when component input "filter_values" is changed
     ngOnChanges() {
       if (this.dataSource) {
         this.spinner.show();
+        console.log("ngOnChanges", this.queryParams)
+        const pageIndex = this.router.parseUrl(this.urlTree).queryParams['pagination'] || 0;
+        this.buildUrlTree(this.queryParams, pageIndex);
+
+
+
+
+        console.log("old urlTree", this.urlTree)
+
+        console.log("ngOnchanges", pageIndex)
+
+
+        // this.location.go(this.urlTree);
+
+
+
         // reset query params before applying filter
-        this.paginator.pageIndex = 0;
+        // this.paginator.pageIndex = 0;
+        // this.updateUrlParameters(this.paginator.pageIndex, 'pagination')
+
         if(this.sort.active && this.sort.direction) {
           this.query['sort'] = [this.sort.active, this.sort.direction];
           this.sortUpdate.emit(this.query['sort']);
@@ -322,9 +362,57 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onPageChangeOld(event){
+    console.log("event.pageIndex: ", event.pageIndex)
+    this.currentPageIndex = event.pageIndex;
+    if (this.currentPageIndex > 0){
+      // this.queryParams['pagination'] = this.currentPageIndex;
+    }
+    // this.queryParams['pagination'] = event.pageIndex;
+    // this.router.navigate([],
+    //   {
+    //     relativeTo: this.activatedRoute,
+    //     queryParams: this.queryParams,
+    //   });
+  }
+
+
+  onPageChange($event) {
+    this.queryParams['pagination'] = this.paginator.pageIndex;
+    const params = {
+      pagination: this.paginator.pageIndex,
+      // searchText: this.searchTextControl?.value?.trim() ?? '',
+      // sortBy: this.sort.active,
+      // sortDirection: this.sort.direction,
+    };
+    this.urlTree = this.router.createUrlTree([], {
+      relativeTo: this.activatedRoute,
+      queryParams: params,
+      queryParamsHandling: 'merge',
+    }).toString();
+
+    console.log("urlTree: ", this.urlTree)
+    const test = this.activatedRoute.snapshot.queryParamMap.get('pagination')
+    console.log("test: ", test)
+
+
+
+    console.log(this.queryParams)
+
+    //Update route with Query Params
+    this.location.go(this.urlTree);
+
+    this.router.navigate([],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: this.queryParams,
+      });
+
+
+  }
+
   resetPagination(pageIndex) {
     if (pageIndex != 0) {
-      this.queryParams['pageIndex'] = pageIndex;
       this.paginator.pageIndex = pageIndex;
       // emit an event so that the table will refresh the data
       this.paginator.page.next({
@@ -335,37 +423,21 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onPageChange($event) {
-    const params = {
-      pageIndex: this.paginator.pageIndex,
-    };
-
-    // dealing with special case of paper_published
-    if ('paper_published' in this.queryParams) {
-      let updatedqueryParams = {};
-      updatedqueryParams = {...this.queryParams}
-      if (this.queryParams['paper_published'][0] === 'false'){
-        updatedqueryParams['paper_published'] = ['No'];
-      }else{
-        updatedqueryParams['paper_published'] = ['Yes']
-      }
-    }
-
-    this.urlTree = this.router.createUrlTree([], {
-      relativeTo: this.activatedRoute,
-      queryParams: params,
-      queryParamsHandling: 'merge',
-    }).toString();
-
-    //Update route with Query Params
-    this.location.go(this.urlTree);
-
-    // will not reload the page, but will update query params
-    this.router.navigate([],
-      {
-        relativeTo: this.activatedRoute,
-        queryParams: {...this.queryParams, ...params}
-      });
-  }
+  // resetPageState() {
+  //   if (this.componentStateService.getFilterState() != '') {
+  //     this.currentSearchTerm = this.componentStateService.getFilterState()
+  //     this.applySearchFilter(this.currentSearchTerm);
+  //   }
+  //
+  //   if (this.componentStateService.getPaginationState() != 0){
+  //     this.paginator.pageIndex = this.componentStateService.getPaginationState();
+  //     // emit an event so that the table will refresh the data
+  //     this.paginator.page.next({
+  //       pageIndex: this.paginator.pageIndex,
+  //       pageSize: this.paginator.pageSize,
+  //       length: this.paginator.length
+  //     });
+  //   }
+  // }
 
 }

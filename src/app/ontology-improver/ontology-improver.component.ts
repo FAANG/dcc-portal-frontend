@@ -68,7 +68,6 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   ontology_update_status: string;
   socket;
   userComments: string;
-  currentPageIndex: number;
 
   query = {
     'sort': ['key', 'asc'],
@@ -134,65 +133,20 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     // getting filters from url
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.resetFilter();
-      const filters = {};
-
-      // set up filters based on queryParams
-      for (const key in params) {
-        // if(['searchTerm', 'sortTerm', 'sortDirection', 'pageIndex'].indexOf(key) === -1){
-        if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection' && key !== 'pageNumber'){
-          if (Array.isArray(params[key])) {
-            filters[key] = params[key];
-            for (const value of params[key]) {
-              this.aggregationService.current_active_filters.push(value);
-              this.aggregationService.active_filters[key].push(value);
-            }
-          } else {
-            filters[key] = [params[key]];
-            this.aggregationService.current_active_filters.push(params[key]);
-            this.aggregationService.active_filters[key].push(params[key]);
-          }
-        }
-      }
-      this.aggregationService.field.next(this.aggregationService.active_filters);
-      this.filter_field = filters;
-      this.query['filters'] = filters;
-      // my changes
-      if (params['searchTerm']){
-        this.query['search'] = params['searchTerm'];
-      }
-      if (params['sortTerm'] && params['sortDirection']){
-        this.query['sort'] = [params['sortTerm'], params['sortDirection']];
-      }
-
-      this.filter_field = Object.assign({}, this.filter_field);
+      this.loadInitialPageState(params);
     });
 
     this.tableServerComponent.dataUpdate.subscribe((data) => {
       this.aggregationService.getAggregations(data.aggregations, 'ontology');
     });
 
-    // setting urls params based on filters
-    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
-      const params = {};
-      for (const key of Object.keys(data)) {
-        if (data[key] && data[key].length !== 0) {
-          params[key] = data[key];
-        }
-      }
-      //update url for search term
-      if (this.query['search']){
-        params['searchTerm'] = this.query['search'];
-      }
-      if (this.query['sort']){
-        params['sortTerm'] = this.query['sort'][0]
-        params['sortDirection'] = this.query['sort'][1]
-      }
-      this.router.navigate(['ontology'], {queryParams: params});
-    });
+    this.updateUrlParams();
+
     // fetch usage statistics summary
     this.ontologyService.getUsageStatistics().subscribe((data) => {
       this.usageStats = data;
     });
+
     this.species = ['Capra hircus', 'Equus caballus', 'Gallus gallus', 'Ovis aries', 'Salmo salar', 'Scophthalmus maximus', 'Sus scrofa',
       'Bubalus bubalis', 'Bos indicus', 'Dicentrarchus labrax', 'Sparus aurata', 'Oncorhynchus mykiss', 'Cyprinus carpio carpio',
       'Bos taurus'];
@@ -749,6 +703,60 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       return `${action.user} provided the following feedback: <span class="userComments">${action.comments} </span>`
     }
   }
+
+  loadInitialPageState(params){
+    const filters = {};
+    // set up filters on pageLoad based on queryParams
+    for (const key in params) {
+      // if(['searchTerm', 'sortTerm', 'sortDirection', 'pageIndex'].indexOf(key) === -1){
+      if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection' && key !== 'pageIndex'){
+        if (Array.isArray(params[key])) {
+          filters[key] = params[key];
+          for (const value of params[key]) {
+            this.aggregationService.current_active_filters.push(value);
+            this.aggregationService.active_filters[key].push(value);
+          }
+        } else {
+          filters[key] = [params[key]];
+          this.aggregationService.current_active_filters.push(params[key]);
+          this.aggregationService.active_filters[key].push(params[key]);
+        }
+      }
+    }
+    this.aggregationService.field.next(this.aggregationService.active_filters);
+    this.filter_field = filters;
+    this.query['filters'] = filters;
+    // load pre-search and pre-sorting
+    if (params['searchTerm']){
+      this.query['search'] = params['searchTerm'];
+    }
+    if (params['sortTerm'] && params['sortDirection']){
+      this.query['sort'] = [params['sortTerm'], params['sortDirection']];
+    }
+  }
+
+
+  updateUrlParams(){
+    // setting urls params based on filters
+    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
+      const params = {};
+      for (const key of Object.keys(data)) {
+        if (data[key] && data[key].length !== 0) {
+          params[key] = data[key];
+        }
+      }
+      //update url for search term and sorting
+      if (this.query['search']){
+        params['searchTerm'] = this.query['search'];
+      }
+      if (this.query['sort']){
+        params['sortTerm'] = this.query['sort'][0]
+        params['sortDirection'] = this.query['sort'][1]
+      }
+      this.router.navigate(['ontology'], {queryParams: params});
+    });
+  }
+
 
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
