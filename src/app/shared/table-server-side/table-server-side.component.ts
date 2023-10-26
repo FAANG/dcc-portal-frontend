@@ -56,6 +56,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   location: Location;
   urlTree: string;
   updateUrlSpecialParams: boolean = false;
+  specialFilters: any ={}
 
   constructor(private spinner: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
@@ -68,6 +69,10 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+    this.specialFilters = {
+      paper_published: [{filterValue: 'true', displayValue: 'Yes'}, {filterValue: 'false', displayValue: 'No'}],
+      sex:[]
+    }
     this.updateUrlSpecialParams=false;
     this.subscriptionForm = new FormGroup({
       subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
@@ -147,57 +152,60 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
         this.sortUpdate.emit(this.query['sort']);
         this.query['from_'] = 0;
-        for (const col in this.query['filters']) {
+
+        // koosum changes here. Update filter value for special cases
+        this.updateUrlCodeFilters();
+
+        // for (const col in this.query['filters']) {
           // process paper_published filter
-          if (col === 'paper_published') {
-            this.query['filters'][col].forEach((val, i) => {
-              val == 'Yes' ? this.query['filters'][col][i] = 'true' : this.query['filters'][col][i] = 'false';
-            });
-          }
+          // if (col === 'paper_published') {
+          //   this.query['filters'][col].forEach((val, i) => {
+          //     val == 'Yes' ? this.query['filters'][col][i] = 'true' : this.query['filters'][col][i] = 'false';
+          //   });
+          // }
           // process assayType filter
-          if (col === 'assayType') {
-            this.query['filters'][col].forEach((val, i) => {
-              if (val == 'RNA-Seq') {
-                this.query['filters'][col][i] = 'transcription profiling by high throughput sequencing';
-                this.query['filters'][col].push('RNA-Seq');
-              }
-            });
-          }
+          // if (col === 'assayType') {
+          //   this.query['filters'][col].forEach((val, i) => {
+          //     if (val == 'RNA-Seq') {
+          //       this.query['filters'][col][i] = 'transcription profiling by high throughput sequencing';
+          //       this.query['filters'][col].push('RNA-Seq');
+          //     }
+          //   });
+          // }
           // process sex filter
-          if (col == 'sex') {
-            let sex_val = [];
-            this.query['filters'][col].forEach((val, i) => {
-              if (val == 'male') {
-                sex_val = sex_val.concat(male_values);
-              }
-              else if (val == 'female') {
-                sex_val = sex_val.concat(female_values);
-              }
-              else {
-                sex_val.push(val);
-              }
-            });
-            this.query['filters'][col] = sex_val;
-          }
+          // if (col == 'sex') {
+          //   let sex_val = [];
+          //   this.query['filters'][col].forEach((val, i) => {
+          //     if (val == 'male') {
+          //       sex_val = sex_val.concat(male_values);
+          //     }
+          //     else if (val == 'female') {
+          //       sex_val = sex_val.concat(female_values);
+          //     }
+          //     else {
+          //       sex_val.push(val);
+          //     }
+          //   });
+          //   this.query['filters'][col] = sex_val;
+          // }
 
           // process article source (Article Type) filter
-          if (col === 'source') {
-            let source_val = [];
-            this.query['filters'][col].forEach((val, i) => {
-              if (val === 'preprint') {
-                source_val = source_val.concat('PPR');
-              } else if (val === 'published') {
-                source_val = source_val.concat(published_article_source);
-              }
-              else {
-                source_val.push(val);
-              }
-            });
-           this.query['filters'][col] = source_val;
-          }
+          // if (col === 'source') {
+          //   let source_val = [];
+          //   this.query['filters'][col].forEach((val, i) => {
+          //     if (val === 'preprint') {
+          //       source_val = source_val.concat('PPR');
+          //     } else if (val === 'published') {
+          //       source_val = source_val.concat(published_article_source);
+          //     }
+          //     else {
+          //       source_val.push(val);
+          //     }
+          //   });
+          //  this.query['filters'][col] = source_val;
+          // }
+        // }
 
-
-        }
         this.apiFunction(this.query, 25).subscribe((res: any) => {
           this.dataSource.data = res.data; // set table data
           this.dataUpdate.emit(res); // emit data update event
@@ -252,13 +260,14 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         delete this.queryParams[parameterName];
       }
     }
-
+    // remove pageIndex when resseting page for special filters
     if (this.updateUrlSpecialParams) {
       if ('pageIndex' in this.queryParams){
         delete this.queryParams['pageIndex'];
       }
       this.updateUrlSpecialFilters();
     }
+    // will not reload the page, but will update query params
     this.router.navigate([],
       {
         relativeTo: this.activatedRoute,
@@ -349,6 +358,23 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   }
 
 
+  updateUrlCodeFilters() {
+    for (const param in this.query['filters']) {
+      if (Array.isArray(this.query['filters'][param])) {
+        let filters_arr = [];
+        this.query['filters'][param].forEach((val, i) => {
+          const filterValue = this.getFilterCodeValue(param, val);
+          if (filterValue) {
+            filters_arr = filters_arr.concat(filterValue);
+          }
+        });
+        this.query['filters'][param] = filters_arr;
+      }
+    }
+    console.log("zourer: ", this.query['filters'])
+  }
+
+
   updateUrlSpecialFilters(){
     for (const param in this.queryParams) {
       if (Array.isArray(this.queryParams[param])) {
@@ -363,20 +389,44 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
   getFilterDisplayValue(paramName, filterVal){
     const specialFilters = {
-      paper_published: [{filterValue: 'true', displayValue: 'Yes'}, {filterValue: 'false', displayValue: 'No'}]
+      paper_published: [{filterValue: 'true', displayValue: 'Yes'}, {filterValue: 'false', displayValue: 'No'}],
+      sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}, {filterValue: [filterVal], displayValue: 'other'}],
+      source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}, {filterValue: [filterVal], displayValue: 'other'}],
+      assayType: [{filterValue: 'transcription profiling by high throughput sequencing', displayValue: 'RNA-Seq'}]
     }
     if (paramName in specialFilters){
-      const displayVal = specialFilters[paramName].filter(obj => obj['filterValue'] == filterVal);
-      console.log('displayVal: ', displayVal)
-      if (displayVal.length > 0){
-        return displayVal[0]['displayValue']
+      const matchedFiltersArr = specialFilters[paramName].filter(obj => obj['filterValue'] == filterVal);
+      console.log('displayVal: ', matchedFiltersArr)
+      if (matchedFiltersArr.length > 0){
+        return matchedFiltersArr[0]['displayValue']
       }
     }
     return null
-
-
-
   }
+
+  getFilterCodeValue(paramName, displayVal){
+    const specialFilters = {
+      paper_published: [{filterValue: 'true', displayValue: 'Yes'}, {filterValue: 'false', displayValue: 'No'}],
+      sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}, {filterValue: [displayVal], displayValue: 'other'}],
+      source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}, {filterValue: [displayVal], displayValue: 'other'}],
+      assayType: [{filterValue: 'transcription profiling by high throughput sequencing', displayValue: 'RNA-Seq'}]
+    }
+    if (paramName in specialFilters){
+      const matchedFiltersArr = specialFilters[paramName].filter(obj => obj['displayValue'] == displayVal);
+      console.log('filterVal: ', matchedFiltersArr)
+      if (matchedFiltersArr.length > 0){
+        return matchedFiltersArr[0]['filterValue']
+      } else{
+        // cater for cases where we have other values
+        const otherFilterValue = specialFilters[paramName].filter(obj => obj['displayValue'] == 'other')
+        if (otherFilterValue && otherFilterValue.length > 0){
+          return otherFilterValue[0]['filterValue']
+        }
+      }
+    }
+    return null
+  }
+
   onPageChange($event) {
     const params = {
       pageIndex: this.paginator.pageIndex,

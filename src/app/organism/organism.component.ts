@@ -176,6 +176,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   }
 
   loadInitialPageState(params){
+    console.log("delete", params)
     const filters = {};
     // set up filters on pageLoad based on queryParams
     for (const key in params) {
