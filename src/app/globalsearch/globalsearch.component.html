@@ -15,10 +15,20 @@
 </div>
 <div id="search-results" *ngIf="showResults">
   <table>
-    <tr>
-      <ng-container *ngFor="let item of jsonData">
-        <td>{{ item }}</td>
-      </ng-container>
+    <tr *ngFor="let item of jsonData | keyvalue">
+      <td>
+        <p>Index: {{ item.key }}</p>
+      </td>
+      <td>
+        <p>Total Hits: {{ item.value.totalHits }}</p>
+      </td>
+      <td>
+        <p>Link:
+          <a [routerLink]="['/' + item.key ]" [queryParams]="{ searchTerm: searchText }">
+            {{ item.key + '?searchTerm=' + searchText }}
+          </a>
+        </p>
+      </td>
     </tr>
   </table>
 </div>

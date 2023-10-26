@@ -11,13 +11,6 @@ export const external_doi_prefix = 'https://doi.org/';
 export const ruleset_prefix_old = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
 export const ruleset_prefix_new = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/json_schema/';
 
-// export const validation_service_url = 'https://data.faang.org/validation_api';
-export const validation_service_url_download = 'https://api.faang.org';
-// export const validation_ws_url = 'wss://data.faang.org/validation_ws/ws/submission/';
-
-export const validation_service_url = 'https://api.faang.org';
-export const validation_ws_url = 'wss://api.faang.org/ws/submission/';
-
 export const internal_organism = '../organism/';
 export const internal_specimen = '../specimen/';
 export const internal_dataset = '../dataset/';
@@ -39,7 +32,14 @@ export const trackhubs_template_without_examples = '../../assets/empty/trackhubs
 export const missing_values = ['not applicable', 'not collected', 'not provided', 'restricted access'];
 export const special_sheets = ['describedBy', 'schema_version', 'samples_core', 'experiments_core', 'input_dna', 'dna-binding_proteins'];
 
-export const graphql_ws_url = 'wss://api.faang.org/ws/graphqltaskstatus/';
-export const graphql_server_endpoint = 'https://api.faang.org/graphql/';
+// export const validation_service_url = 'https://data.faang.org/validation_api';
+export const validation_service_url_download = 'https://api.faang.org';
+// export const validation_ws_url = 'wss://data.faang.org/validation_ws/ws/submission/';
+
+export const validation_service_url = 'https://api.faang.org';
+export const validation_ws_url = 'wss://api.faang.org/ws/submission/';
 
 export const subscription_ws_url = 'wss://api.faang.org/ws/';
+
+export const graphql_ws_url = 'wss://api.faang.org/ws/graphqltaskstatus/';
+export const graphql_server_endpoint = 'https://api.faang.org/graphql/';
