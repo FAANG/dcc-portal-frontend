@@ -79,8 +79,10 @@ export class AggregationService {
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
         if (recordList[key]['buckets']) {
-          recordList[key]['buckets'].forEach(element => {
-            all_data[key][element['key']] = element['doc_count'];
+          recordList[key]['buckets'].forEach(bucket => {
+            if (bucket['key']){
+              all_data[key][bucket['key']] = bucket['doc_count'];
+            }
           });
         } else {
           all_data[key] = recordList[key]['doc_count'];
