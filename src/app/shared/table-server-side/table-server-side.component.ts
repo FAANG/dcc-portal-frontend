@@ -157,53 +157,53 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         this.updateUrlCodeFilters();
 
         // for (const col in this.query['filters']) {
-          // process paper_published filter
-          // if (col === 'paper_published') {
-          //   this.query['filters'][col].forEach((val, i) => {
-          //     val == 'Yes' ? this.query['filters'][col][i] = 'true' : this.query['filters'][col][i] = 'false';
-          //   });
-          // }
-          // process assayType filter
-          // if (col === 'assayType') {
-          //   this.query['filters'][col].forEach((val, i) => {
-          //     if (val == 'RNA-Seq') {
-          //       this.query['filters'][col][i] = 'transcription profiling by high throughput sequencing';
-          //       this.query['filters'][col].push('RNA-Seq');
-          //     }
-          //   });
-          // }
-          // process sex filter
-          // if (col == 'sex') {
-          //   let sex_val = [];
-          //   this.query['filters'][col].forEach((val, i) => {
-          //     if (val == 'male') {
-          //       sex_val = sex_val.concat(male_values);
-          //     }
-          //     else if (val == 'female') {
-          //       sex_val = sex_val.concat(female_values);
-          //     }
-          //     else {
-          //       sex_val.push(val);
-          //     }
-          //   });
-          //   this.query['filters'][col] = sex_val;
-          // }
-
-          // process article source (Article Type) filter
-          // if (col === 'source') {
-          //   let source_val = [];
-          //   this.query['filters'][col].forEach((val, i) => {
-          //     if (val === 'preprint') {
-          //       source_val = source_val.concat('PPR');
-          //     } else if (val === 'published') {
-          //       source_val = source_val.concat(published_article_source);
-          //     }
-          //     else {
-          //       source_val.push(val);
-          //     }
-          //   });
-          //  this.query['filters'][col] = source_val;
-          // }
+        //   //process paper_published filter
+        //   if (col === 'paper_published') {
+        //     this.query['filters'][col].forEach((val, i) => {
+        //       val == 'Yes' ? this.query['filters'][col][i] = 'true' : this.query['filters'][col][i] = 'false';
+        //     });
+        //   }
+        //   //process assayType filter
+        //   if (col === 'assayType') {
+        //     this.query['filters'][col].forEach((val, i) => {
+        //       if (val == 'RNA-Seq') {
+        //         this.query['filters'][col][i] = 'transcription profiling by high throughput sequencing';
+        //         this.query['filters'][col].push('RNA-Seq');
+        //       }
+        //     });
+        //   }
+        //   //process sex filter
+        //   if (col == 'sex') {
+        //     let sex_val = [];
+        //     this.query['filters'][col].forEach((val, i) => {
+        //       if (val == 'male') {
+        //         sex_val = sex_val.concat(male_values);
+        //       }
+        //       else if (val == 'female') {
+        //         sex_val = sex_val.concat(female_values);
+        //       }
+        //       else {
+        //         sex_val.push(val);
+        //       }
+        //     });
+        //     this.query['filters'][col] = sex_val;
+        //   }
+        //
+        //   //process article source (Article Type) filter
+        //   if (col === 'source') {
+        //     let source_val = [];
+        //     this.query['filters'][col].forEach((val, i) => {
+        //       if (val === 'preprint') {
+        //         source_val = source_val.concat('PPR');
+        //       } else if (val === 'published') {
+        //         source_val = source_val.concat(published_article_source);
+        //       }
+        //       else {
+        //         source_val.push(val);
+        //       }
+        //     });
+        //    this.query['filters'][col] = source_val;
+        //   }
         // }
 
         this.apiFunction(this.query, 25).subscribe((res: any) => {
@@ -260,13 +260,13 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         delete this.queryParams[parameterName];
       }
     }
-    // remove pageIndex when resseting page for special filters
-    if (this.updateUrlSpecialParams) {
-      if ('pageIndex' in this.queryParams){
-        delete this.queryParams['pageIndex'];
-      }
-      this.updateUrlSpecialFilters();
-    }
+    // remove pageIndex when resseting page for special filters koosum
+    // if (this.updateUrlSpecialParams) {
+    //   if ('pageIndex' in this.queryParams){
+    //     delete this.queryParams['pageIndex'];
+    //   }
+    //   this.updateUrlSpecialFilters();
+    // }
     // will not reload the page, but will update query params
     this.router.navigate([],
       {
@@ -375,24 +375,24 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   }
 
 
-  updateUrlSpecialFilters(){
-    for (const param in this.queryParams) {
-      if (Array.isArray(this.queryParams[param])) {
-        this.queryParams[param].forEach((val, i) => {
-          const filterDisplayVal = this.getFilterDisplayValue(param, val);
-          if (filterDisplayVal) this.queryParams[param][i] = filterDisplayVal
-        });
-      }
-    }
-    console.log("zourer: ", this.queryParams)
-  }
+  // updateUrlSpecialFilters(){
+  //   for (const param in this.queryParams) {
+  //     if (Array.isArray(this.queryParams[param])) {
+  //       this.queryParams[param].forEach((val, i) => {
+  //         const filterDisplayVal = this.getFilterDisplayValue(param, val);
+  //         if (filterDisplayVal) this.queryParams[param][i] = filterDisplayVal
+  //       });
+  //     }
+  //   }
+  //   console.log("zourer: ", this.queryParams)
+  // }
 
   getFilterDisplayValue(paramName, filterVal){
     const specialFilters = {
-      paper_published: [{filterValue: 'true', displayValue: 'Yes'}, {filterValue: 'false', displayValue: 'No'}],
-      sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}, {filterValue: [filterVal], displayValue: 'other'}],
-      source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}, {filterValue: [filterVal], displayValue: 'other'}],
-      assayType: [{filterValue: 'transcription profiling by high throughput sequencing', displayValue: 'RNA-Seq'}]
+      paper_published: [{filterValue: ['true'], displayValue: 'Yes'}, {filterValue: ['false'], displayValue: 'No'}],
+      sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}],
+      source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}],
+      assayType: [{filterValue: ['transcription profiling by high throughput sequencing'], displayValue: 'RNA-Seq'}]
     }
     if (paramName in specialFilters){
       const matchedFiltersArr = specialFilters[paramName].filter(obj => obj['filterValue'] == filterVal);
@@ -401,30 +401,24 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         return matchedFiltersArr[0]['displayValue']
       }
     }
-    return null
+    return [filterVal]
   }
 
   getFilterCodeValue(paramName, displayVal){
     const specialFilters = {
-      paper_published: [{filterValue: 'true', displayValue: 'Yes'}, {filterValue: 'false', displayValue: 'No'}],
-      sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}, {filterValue: [displayVal], displayValue: 'other'}],
-      source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}, {filterValue: [displayVal], displayValue: 'other'}],
-      assayType: [{filterValue: 'transcription profiling by high throughput sequencing', displayValue: 'RNA-Seq'}]
+      paper_published: [{filterValue: ['true'], displayValue: 'Yes'}, {filterValue: ['false'], displayValue: 'No'}],
+      sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}],
+      source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}],
+      assayType: [{filterValue: ['transcription profiling by high throughput sequencing'], displayValue: 'RNA-Seq'}]
     }
     if (paramName in specialFilters){
       const matchedFiltersArr = specialFilters[paramName].filter(obj => obj['displayValue'] == displayVal);
       console.log('filterVal: ', matchedFiltersArr)
       if (matchedFiltersArr.length > 0){
         return matchedFiltersArr[0]['filterValue']
-      } else{
-        // cater for cases where we have other values
-        const otherFilterValue = specialFilters[paramName].filter(obj => obj['displayValue'] == 'other')
-        if (otherFilterValue && otherFilterValue.length > 0){
-          return otherFilterValue[0]['filterValue']
-        }
       }
     }
-    return null
+    return [displayVal]
   }
 
   onPageChange($event) {
@@ -433,10 +427,10 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     };
 
     // special cases for filters
-    for (const param in this.queryParams) {
-        const filterDisplayVal = this.getFilterDisplayValue(param, this.queryParams[param]);
-        if (filterDisplayVal) params[param] = filterDisplayVal
-    }
+    // for (const param in this.queryParams) {
+    //     const filterDisplayVal = this.getFilterDisplayValue(param, this.queryParams[param]);
+    //     if (filterDisplayVal) params[param] = filterDisplayVal
+    // }
 
     this.urlTree = this.router.createUrlTree([], {
       relativeTo: this.activatedRoute,

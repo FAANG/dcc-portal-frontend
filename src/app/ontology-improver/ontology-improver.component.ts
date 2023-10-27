@@ -708,7 +708,6 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     const filters = {};
     // set up filters on pageLoad based on queryParams
     for (const key in params) {
-      // if(['searchTerm', 'sortTerm', 'sortDirection', 'pageIndex'].indexOf(key) === -1){
       if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection' && key !== 'pageIndex'){
         if (Array.isArray(params[key])) {
           filters[key] = params[key];
