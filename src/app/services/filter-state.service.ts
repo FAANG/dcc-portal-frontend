@@ -12,7 +12,7 @@ export class FilterStateService {
   constructor(private aggregationService: AggregationService,
               private router: Router,) { }
 
-  updateUrlParams(queryObj, componentName) {
+  updateUrlParams(queryObj, componentRoute) {
     // setting urls params based on filters
     const aggrSubscription: Subscription = this.aggregationService.field.subscribe((data) => {
       const params = {};
@@ -29,9 +29,31 @@ export class FilterStateService {
         params['sortTerm'] = queryObj['sort'][0]
         params['sortDirection'] = queryObj['sort'][1]
       }
-      this.router.navigate([componentName], {queryParams: params});
+      this.router.navigate(componentRoute, {queryParams: params});
     });
     return aggrSubscription;
+  }
+
+  setUpAggregationFilters(params){
+    // set up filters on pageLoad based on queryParams
+    const filters = {};
+    for (const key in params) {
+      if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection' && key !== 'pageIndex'){
+        if (Array.isArray(params[key])) {
+          filters[key] = params[key];
+          for (const value of params[key]) {
+            this.aggregationService.current_active_filters.push(value);
+            this.aggregationService.active_filters[key].push(value);
+          }
+        } else {
+          filters[key] = [params[key]];
+          this.aggregationService.current_active_filters.push(params[key]);
+          this.aggregationService.active_filters[key].push(params[key]);
+        }
+      }
+    }
+    this.aggregationService.field.next(this.aggregationService.active_filters);
+    return filters
   }
 
 }

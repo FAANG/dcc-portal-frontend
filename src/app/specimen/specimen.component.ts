@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/cor
 import {SpecimenTable} from '../shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
+import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -82,6 +83,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
+              private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private dialogModel: MatDialog,
@@ -106,8 +108,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
       this.downloadQuery['sort'] = sortParams;
     });
-
-    this.updateUrlParams();
+    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['specimen']);
   }
 
   hasActiveFilters() {
@@ -189,24 +190,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   }
 
   loadInitialPageState(params){
-    const filters = {};
-    // set up filters on pageLoad based on queryParams
-    for (const key in params) {
-      if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection' && key !== 'pageIndex'){
-        if (Array.isArray(params[key])) {
-          filters[key] = params[key];
-          for (const value of params[key]) {
-            this.aggregationService.current_active_filters.push(value);
-            this.aggregationService.active_filters[key].push(value);
-          }
-        } else {
-          filters[key] = [params[key]];
-          this.aggregationService.current_active_filters.push(params[key]);
-          this.aggregationService.active_filters[key].push(params[key]);
-        }
-      }
-    }
-    this.aggregationService.field.next(this.aggregationService.active_filters);
+    const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;
     this.downloadQuery['filters'] = filters;
@@ -217,27 +201,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     if (params['sortTerm'] && params['sortDirection']){
       this.query['sort'] = [params['sortTerm'], params['sortDirection']];
     }
-  }
-
-  updateUrlParams(){
-    // setting urls params based on filters
-    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
-      const params = {};
-      for (const key of Object.keys(data)) {
-        if (data[key] && data[key].length !== 0) {
-          params[key] = data[key];
-        }
-      }
-      //update url for search term and sorting
-      if (this.query['search']){
-        params['searchTerm'] = this.query['search'];
-      }
-      if (this.query['sort']){
-        params['sortTerm'] = this.query['sort'][0]
-        params['sortDirection'] = this.query['sort'][1]
-      }
-      this.router.navigate(['specimen'], {queryParams: params});
-    });
   }
 
 }
