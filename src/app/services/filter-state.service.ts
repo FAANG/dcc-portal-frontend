@@ -56,4 +56,15 @@ export class FilterStateService {
     return filters
   }
 
+  resetFilter() {
+    for (const key of Object.keys(this.aggregationService.active_filters)) {
+      this.aggregationService.active_filters[key] = [];
+    }
+    this.aggregationService.current_active_filters = [];
+  }
+
 }
+
+
+
+

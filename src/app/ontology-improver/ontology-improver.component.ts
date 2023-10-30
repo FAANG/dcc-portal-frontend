@@ -134,7 +134,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     this.loadTableDataFunction = this.dataService.getAllOntologies.bind(this.dataService);
     // getting filters from url
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.resetFilter();
+      this.filterStateService.resetFilter();
       this.loadInitialPageState(params);
     });
 
@@ -168,16 +168,9 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  resetFilter() {
-    for (const key of Object.keys(this.aggregationService.active_filters)) {
-      this.aggregationService.active_filters[key] = [];
-    }
-    this.aggregationService.current_active_filters = [];
-    this.filter_field = {};
-  }
-
   removeFilter() {
-    this.resetFilter();
+    this.filterStateService.resetFilter();
+    this.filter_field = {};
     this.router.navigate(['ontology'], {queryParams: {}});
   }
 
@@ -721,7 +714,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
-      this.resetFilter();
+      this.filterStateService.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
     this.socket.close();
