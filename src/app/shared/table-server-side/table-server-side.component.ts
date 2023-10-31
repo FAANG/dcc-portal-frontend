@@ -311,17 +311,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
   }
 
-
-  getFilterDisplayValue(paramName, filterVal){
-    if (paramName in this.specialFilters){
-      const matchedFiltersArr = this.specialFilters[paramName].filter(obj => obj['filterValue'] == filterVal);
-      if (matchedFiltersArr.length > 0){
-        return matchedFiltersArr[0]['displayValue']
-      }
-    }
-    return [filterVal]
-  }
-
   getFilterCodeValue(paramName, displayVal){
     if (paramName in this.specialFilters){
       const matchedFiltersArr = this.specialFilters[paramName].filter(obj => obj['displayValue'] == displayVal);
