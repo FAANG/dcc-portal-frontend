@@ -55,8 +55,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   queryParams: any = {};
   location: Location;
   urlTree: string;
-  updateUrlSpecialParams: boolean = false;
-  specialFilters: any ={}
 
   constructor(private spinner: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
@@ -69,11 +67,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    this.specialFilters = {
-      paper_published: [{filterValue: 'true', displayValue: 'Yes'}, {filterValue: 'false', displayValue: 'No'}],
-      sex:[]
-    }
-    this.updateUrlSpecialParams=false;
     this.subscriptionForm = new FormGroup({
       subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
@@ -153,58 +146,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         this.sortUpdate.emit(this.query['sort']);
         this.query['from_'] = 0;
 
-        // koosum changes here. Update filter value for special cases
+        // Update filter value for special cases
         this.updateUrlCodeFilters();
-
-        // for (const col in this.query['filters']) {
-        //   //process paper_published filter
-        //   if (col === 'paper_published') {
-        //     this.query['filters'][col].forEach((val, i) => {
-        //       val == 'Yes' ? this.query['filters'][col][i] = 'true' : this.query['filters'][col][i] = 'false';
-        //     });
-        //   }
-        //   //process assayType filter
-        //   if (col === 'assayType') {
-        //     this.query['filters'][col].forEach((val, i) => {
-        //       if (val == 'RNA-Seq') {
-        //         this.query['filters'][col][i] = 'transcription profiling by high throughput sequencing';
-        //         this.query['filters'][col].push('RNA-Seq');
-        //       }
-        //     });
-        //   }
-        //   //process sex filter
-        //   if (col == 'sex') {
-        //     let sex_val = [];
-        //     this.query['filters'][col].forEach((val, i) => {
-        //       if (val == 'male') {
-        //         sex_val = sex_val.concat(male_values);
-        //       }
-        //       else if (val == 'female') {
-        //         sex_val = sex_val.concat(female_values);
-        //       }
-        //       else {
-        //         sex_val.push(val);
-        //       }
-        //     });
-        //     this.query['filters'][col] = sex_val;
-        //   }
-        //
-        //   //process article source (Article Type) filter
-        //   if (col === 'source') {
-        //     let source_val = [];
-        //     this.query['filters'][col].forEach((val, i) => {
-        //       if (val === 'preprint') {
-        //         source_val = source_val.concat('PPR');
-        //       } else if (val === 'published') {
-        //         source_val = source_val.concat(published_article_source);
-        //       }
-        //       else {
-        //         source_val.push(val);
-        //       }
-        //     });
-        //    this.query['filters'][col] = source_val;
-        //   }
-        // }
 
         this.apiFunction(this.query, 25).subscribe((res: any) => {
           this.dataSource.data = res.data; // set table data
@@ -231,7 +174,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
     applySearchFilter(value: string) {
       // reset query params before applying search
-      this.updateUrlSpecialParams = true;
       this.paginator.pageIndex = 0;
       this.query['from_'] = 0;
       this.query['search'] = value;
@@ -260,22 +202,12 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         delete this.queryParams[parameterName];
       }
     }
-    // remove pageIndex when resseting page for special filters koosum
-    // if (this.updateUrlSpecialParams) {
-    //   if ('pageIndex' in this.queryParams){
-    //     delete this.queryParams['pageIndex'];
-    //   }
-    //   this.updateUrlSpecialFilters();
-    // }
     // will not reload the page, but will update query params
     this.router.navigate([],
       {
         relativeTo: this.activatedRoute,
         queryParams: this.queryParams,
       });
-    //reset boolean variable
-    this.updateUrlSpecialParams = false;
-
   }
 
   openSubscriptionDialog(value: string) {
@@ -371,21 +303,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         this.query['filters'][param] = filters_arr;
       }
     }
-    console.log("zourer: ", this.query['filters'])
   }
 
-
-  // updateUrlSpecialFilters(){
-  //   for (const param in this.queryParams) {
-  //     if (Array.isArray(this.queryParams[param])) {
-  //       this.queryParams[param].forEach((val, i) => {
-  //         const filterDisplayVal = this.getFilterDisplayValue(param, val);
-  //         if (filterDisplayVal) this.queryParams[param][i] = filterDisplayVal
-  //       });
-  //     }
-  //   }
-  //   console.log("zourer: ", this.queryParams)
-  // }
 
   getFilterDisplayValue(paramName, filterVal){
     const specialFilters = {
@@ -396,7 +315,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
     if (paramName in specialFilters){
       const matchedFiltersArr = specialFilters[paramName].filter(obj => obj['filterValue'] == filterVal);
-      console.log('displayVal: ', matchedFiltersArr)
       if (matchedFiltersArr.length > 0){
         return matchedFiltersArr[0]['displayValue']
       }
@@ -413,7 +331,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
     if (paramName in specialFilters){
       const matchedFiltersArr = specialFilters[paramName].filter(obj => obj['displayValue'] == displayVal);
-      console.log('filterVal: ', matchedFiltersArr)
       if (matchedFiltersArr.length > 0){
         return matchedFiltersArr[0]['filterValue']
       }
@@ -425,27 +342,14 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     const params = {
       pageIndex: this.paginator.pageIndex,
     };
-
-    // special cases for filters
-    // for (const param in this.queryParams) {
-    //     const filterDisplayVal = this.getFilterDisplayValue(param, this.queryParams[param]);
-    //     if (filterDisplayVal) params[param] = filterDisplayVal
-    // }
-
     this.urlTree = this.router.createUrlTree([], {
       relativeTo: this.activatedRoute,
       queryParams: params,
       queryParamsHandling: 'merge',
     }).toString();
 
-
     //Update route with Query Params
     this.location.go(this.urlTree);
-
-  }
-
-  sortChange($event){
-    this.updateUrlSpecialParams = true;
   }
 
 }
