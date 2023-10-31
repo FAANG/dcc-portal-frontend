@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {ApiDataService} from '../services/api-data.service';
+import {FilterStateService} from '../services/filter-state.service';
 import {OrganismTable} from '../shared/interfaces';
 import {AggregationService} from '../services/aggregation.service';
 import {Observable, Subscription} from 'rxjs';
@@ -72,6 +73,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
+              private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog,
@@ -86,26 +88,8 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.loadTableDataFunction = this.dataService.getAllOrganisms.bind(this.dataService);
     this.titleService.setTitle('FAANG organisms');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.resetFilter();
-      const filters = {};
-      for (const key in params) {
-        if (Array.isArray(params[key])) {
-          filters[key] = params[key];
-          for (const value of params[key]) {
-            this.aggregationService.current_active_filters.push(value);
-            this.aggregationService.active_filters[key].push(value);
-          }
-        } else {
-          filters[key] = [params[key]];
-          this.aggregationService.current_active_filters.push(params[key]);
-          this.aggregationService.active_filters[key].push(params[key]);
-        }
-      }
-      this.aggregationService.field.next(this.aggregationService.active_filters);
-      this.filter_field = filters;
-      this.query['filters'] = filters;
-      this.downloadQuery['filters'] = filters;
-      this.filter_field = Object.assign({}, this.filter_field);
+      this.filterStateService.resetFilter();
+      this.loadInitialPageState(params);
     });
     this.tableServerComponent.dataUpdate.subscribe((data) => {
       this.aggregationService.getAggregations(data.aggregations, 'organism');
@@ -113,15 +97,8 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
       this.downloadQuery['sort'] = sortParams;
     });
-    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
-      const params = {};
-      for (const key of Object.keys(data)) {
-        if (data[key] && data[key].length !== 0) {
-          params[key] = data[key];
-        }
-      }
-      this.router.navigate(['organism'], {queryParams: params});
-    });
+
+    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['organism']);
   }
 
   hasActiveFilters() {
@@ -136,16 +113,9 @@ export class OrganismComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  resetFilter() {
-    for (const key of Object.keys(this.aggregationService.active_filters)) {
-      this.aggregationService.active_filters[key] = [];
-    }
-    this.aggregationService.current_active_filters = [];
-    this.filter_field = Object.assign({}, this.filter_field);
-  }
-
   removeFilter() {
-    this.resetFilter();
+    this.filterStateService.resetFilter();
+    this.filter_field = {};
     this.router.navigate(['organism'], {queryParams: {}});
   }
 
@@ -184,7 +154,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
-      this.resetFilter();
+      this.filterStateService.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
   }
@@ -198,6 +168,21 @@ export class OrganismComponent implements OnInit, OnDestroy {
       height: '300px', width: '400px',
       data: this.subscriber
     });
+  }
+
+  loadInitialPageState(params){
+    const filters = this.filterStateService.setUpAggregationFilters(params);
+
+    this.filter_field = filters;
+    this.query['filters'] = filters;
+    this.downloadQuery['filters'] = filters;
+    // load pre-search and pre-sorting
+    if (params['searchTerm']){
+      this.query['search'] = params['searchTerm'];
+    }
+    if (params['sortTerm'] && params['sortDirection']){
+      this.query['sort'] = [params['sortTerm'], params['sortDirection']];
+    }
   }
 
 }

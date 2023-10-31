@@ -10,6 +10,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {ApiDataService} from '../services/api-data.service';
+import {FilterStateService} from '../services/filter-state.service';
 import {validation_ws_url} from '../shared/constants';
 
 @Component({
@@ -92,6 +93,7 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataService: ApiDataService,
+    private filterStateService: FilterStateService,
     private ontologyService: OntologyService,
     public dialog: MatDialog,
     public snackbar: MatSnackBar,
@@ -132,54 +134,25 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
     this.loadTableDataFunction = this.dataService.getAllOntologiesWorkshop.bind(this.dataService);
     // getting filters from url
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.resetFilter();
-      const filters = {};
-      for (const key in params) {
-        if (Array.isArray(params[key])) {
-          filters[key] = params[key];
-          for (const value of params[key]) {
-            this.aggregationService.current_active_filters.push(value);
-            this.aggregationService.active_filters[key].push(value);
-          }
-        } else {
-          filters[key] = [params[key]];
-          this.aggregationService.current_active_filters.push(params[key]);
-          this.aggregationService.active_filters[key].push(params[key]);
-        }
-      }
-      this.aggregationService.field.next(this.aggregationService.active_filters);
-      this.filter_field = filters;
-      this.query['filters'] = filters;
-      this.filter_field = Object.assign({}, this.filter_field);
+      this.filterStateService.resetFilter();
+      this.loadInitialPageState(params);
     });
+
     this.tableServerComponent.dataUpdate.subscribe((data) => {
       this.aggregationService.getAggregations(data.aggregations, 'ontology');
     });
-    // setting urls params based on filters
-    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
-      const params = {};
-      for (const key of Object.keys(data)) {
-        if (data[key] && data[key].length !== 0) {
-          params[key] = data[key];
-        }
-      }
-      this.router.navigate(['ontology-workshop'], {queryParams: params});
-    });
+
+    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['ontology-workshop']);
+
     // fetch usage statistics summary
     this.ontologyService.getUsageStatistics().subscribe((data) => {
       this.usageStats = data;
     });
-    // fetch FAANG species list for selection
-    // this.ontologyService.getSpecies().subscribe((res: any) => {
-    //   this.species = res;
-    // });
+
     this.species = ['Capra hircus', 'Equus caballus', 'Gallus gallus', 'Ovis aries', 'Salmo salar', 'Scophthalmus maximus', 'Sus scrofa',
       'Bubalus bubalis', 'Bos indicus', 'Dicentrarchus labrax', 'Sparus aurata', 'Oncorhynchus mykiss', 'Cyprinus carpio carpio',
       'Bos taurus'];
-    // fetch FAANG ontology types list for selection
-    // this.ontologyService.getTypes().subscribe((res: any) => {
-    //   this.types = res;
-    // });
+
     this.types = ['cellType', 'organismPart', 'sex', 'developmentalStage', 'cultureType', 'breed', 'healthStatusAtCollection',
       'healthStatus', 'organism', 'species', 'material', 'organismpart', 'celltype'];
   }
@@ -196,16 +169,9 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  resetFilter() {
-    for (const key of Object.keys(this.aggregationService.active_filters)) {
-      this.aggregationService.active_filters[key] = [];
-    }
-    this.aggregationService.current_active_filters = [];
-    this.filter_field = {};
-  }
-
   removeFilter() {
-    this.resetFilter();
+    this.filterStateService.resetFilter();
+    this.filter_field = {};
     this.router.navigate(['ontology-workshop'], {queryParams: {}});
   }
 
@@ -734,9 +700,22 @@ export class OntologyImproverWorkshopComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadInitialPageState(params){
+    const filters = this.filterStateService.setUpAggregationFilters(params);
+    this.filter_field = filters;
+    this.query['filters'] = filters;
+    // load pre-search and pre-sorting
+    if (params['searchTerm']){
+      this.query['search'] = params['searchTerm'];
+    }
+    if (params['sortTerm'] && params['sortDirection']){
+      this.query['sort'] = [params['sortTerm'], params['sortDirection']];
+    }
+  }
+
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
-      this.resetFilter();
+      this.filterStateService.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
     this.socket.close();

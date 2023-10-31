@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {ApiDataService} from '../services/api-data.service';
+import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
 import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
@@ -17,17 +18,17 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angu
   styleUrls: ['./dataset.component.css']
 })
 export class DatasetComponent implements OnInit, OnDestroy {
-  @ViewChild('datasetAccessionTemplate', { static: true }) datasetAccessionTemplate: TemplateRef<any>;
-  @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
-  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  @ViewChild('datasetAccessionTemplate', {static: true}) datasetAccessionTemplate: TemplateRef<any>;
+  @ViewChild('paperPublishedTemplate', {static: true}) paperPublishedTemplate: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent: TableServerSideComponent;
   @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   public loadTableDataFunction: Function;
   datasetListShort: Observable<DatasetTable[]>;
   datasetListLong: Observable<DatasetTable[]>;
   displayFields: string[] = ['datasetAccession', 'title', 'species', 'archive', 'assayType', 'numberOfExperiments',
     'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished', 'subscribe'];
-  columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive',  'Assay type', 'Number of Experiments',
-  'Number of Specimens', 'Number of Files', 'Standard', 'Paper published', 'Subscribe'];
+  columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive', 'Assay type', 'Number of Experiments',
+    'Number of Specimens', 'Number of Files', 'Standard', 'Paper published', 'Subscribe'];
   filter_field: {};
   templates: Object;
   aggrSubscription: Subscription;
@@ -35,13 +36,13 @@ export class DatasetComponent implements OnInit, OnDestroy {
   downloading = false;
   data = {};
   subscriptionDialogTitle: string;
-  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
+  subscriber = {email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   dialogInfoRef: any;
   indexDetails: {};
 
   query = {
-    'sort': ['accession','desc'],
+    'sort': ['accession', 'desc'],
     '_source': [
       'accession',
       'title',
@@ -58,7 +59,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   };
 
   downloadQuery = {
-    'sort': ['accession','desc'],
+    'sort': ['accession', 'desc'],
     '_source': [
       '_source.accession',
       '_source.title',
@@ -77,60 +78,40 @@ export class DatasetComponent implements OnInit, OnDestroy {
     'file_format': 'csv',
   };
 
-  defaultSort = ['accession','desc'];
+  defaultSort = ['accession', 'desc'];
   error: string;
   subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
+              private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
               private dialogModel: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
-              private titleService: Title) { }
+              private titleService: Title) {
+  }
 
   ngOnInit() {
     this.indexDetails = {index: 'dataset', indexKey: 'accession', apiKey: 'datasetAccession'}
-    this.templates = {'datasetAccession': this.datasetAccessionTemplate,
-                      'paperPublished': this.paperPublishedTemplate };
+    this.templates = {
+      'datasetAccession': this.datasetAccessionTemplate,
+      'paperPublished': this.paperPublishedTemplate
+    };
     this.loadTableDataFunction = this.dataService.getAllDatasets.bind(this.dataService);
     this.titleService.setTitle('FAANG datasets');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.resetFilter();
-      const filters = {};
-      for (const key in params) {
-        if (Array.isArray(params[key])) { // multiple values chosed for one filter
-          filters[key] = params[key];
-          for (const value of params[key]) {
-            this.aggregationService.current_active_filters.push(value);
-            this.aggregationService.active_filters[key].push(value);
-          }
-        } else {
-          filters[key] = [params[key]];
-          this.aggregationService.current_active_filters.push(params[key]);
-          this.aggregationService.active_filters[key].push(params[key]);
-        }
-      }
-      this.aggregationService.field.next(this.aggregationService.active_filters);
-      this.filter_field = filters;
-      this.query['filters'] = filters;
-      this.downloadQuery['filters'] = filters;
-      this.filter_field = Object.assign({}, this.filter_field);
+      this.filterStateService.resetFilter();
+      this.loadInitialPageState(params);
     });
+
     this.tableServerComponent.dataUpdate.subscribe((data) => {
       this.aggregationService.getAggregations(data.aggregations, 'dataset');
     });
     this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
       this.downloadQuery['sort'] = sortParams;
     });
-    this.aggrSubscription = this.aggregationService.field.subscribe((data) => {
-      const params = {};
-      for (const key of Object.keys(data)) {
-        if (data[key].length !== 0) {
-          params[key] = data[key];
-        }
-      }
-      this.router.navigate(['dataset'], {queryParams: params});
-    });
+
+    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['dataset']);
   }
 
   hasActiveFilters() {
@@ -145,16 +126,9 @@ export class DatasetComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  resetFilter() {
-    for (const key of Object.keys(this.aggregationService.active_filters)) {
-      this.aggregationService.active_filters[key] = [];
-    }
-    this.aggregationService.current_active_filters = [];
-    this.filter_field = Object.assign({}, this.filter_field);
-  }
-
   removeFilter() {
-    this.resetFilter();
+    this.filterStateService.resetFilter();
+    this.filter_field = {};
     this.router.navigate(['dataset'], {queryParams: {}});
   }
 
@@ -180,7 +154,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'submitterEmail': 'submitterEmail'
     }
     this.dataService.downloadRecords('dataset', mapping, this.downloadQuery).subscribe(
-      (res:Blob)=>{
+      (res: Blob) => {
         var a = document.createElement("a");
         a.href = URL.createObjectURL(res);
         a.download = 'faang_data.' + format;
@@ -214,8 +188,23 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
-      this.resetFilter();
+      this.filterStateService.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
   }
+
+  loadInitialPageState(params) {
+    const filters = this.filterStateService.setUpAggregationFilters(params);
+    this.filter_field = filters;
+    this.query['filters'] = filters;
+    this.downloadQuery['filters'] = filters;
+    // load pre-search and pre-sorting
+    if (params['searchTerm']) {
+      this.query['search'] = params['searchTerm'];
+    }
+    if (params['sortTerm'] && params['sortDirection']) {
+      this.query['sort'] = [params['sortTerm'], params['sortDirection']];
+    }
+  }
+
 }

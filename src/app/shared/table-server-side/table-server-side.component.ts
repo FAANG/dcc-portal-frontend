@@ -1,4 +1,5 @@
 import { Component, Input, Output, AfterViewInit, ViewChild, EventEmitter, TemplateRef, OnInit} from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,9 +9,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {MatDialog} from '@angular/material/dialog';
 import {female_values, male_values, published_article_source} from '../constants';
 import {ApiDataService} from '../../services/api-data.service';
-import {ComponentStateService} from '../../services/component-state.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {subscription_ws_url} from '../constants';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -51,11 +52,23 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   subscription_status: string;
   apiKey:string;
   currentSearchTerm: string = '';
+  queryParams: any = {};
+  location: Location;
+  urlTree: string;
+  specialFilters = {
+    paper_published: [{filterValue: ['true'], displayValue: 'Yes'}, {filterValue: ['false'], displayValue: 'No'}],
+    sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}],
+    source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}],
+    assayType: [{filterValue: ['transcription profiling by high throughput sequencing'], displayValue: 'RNA-Seq'}]
+  }
 
   constructor(private spinner: NgxSpinnerService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
               public dialog: MatDialog,
               private dataService: ApiDataService,
-              private componentStateService: ComponentStateService) {
+              location: Location) {
+    this.location = location;
   }
 
 
@@ -63,12 +76,22 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     this.subscriptionForm = new FormGroup({
       subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
     });
+    // get search term
+    this.currentSearchTerm = this.query['search'];
 
-    // reset page state index based on state
-    this.componentStateService.setComponentHistory(this.constructor.name)
+    // extract query parameters
+    this.activatedRoute.queryParams.subscribe(params => {
+        this.queryParams = {...params};
 
-    if (this.componentStateService.getResetPageBool() === true) {
-      this.resetPageState()
+      });
+
+    if (this.queryParams['sortTerm'] && this.queryParams['sortDirection']){
+      // display sort arrow
+      this.sort.active = this.queryParams['sortTerm'];
+      this.sort.direction = this.queryParams['sortDirection'];
+    }
+    if (this.queryParams['pageIndex']){
+      this.resetPagination(this.queryParams['pageIndex']);
     }
   }
 
@@ -79,6 +102,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
     // Reset back to the first page when sort order is changed
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -90,6 +114,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
           } else {
             this.query['sort'] = this.defaultSort;
           }
+          this.updateSortingUrlParameters(this.query['sort'][0], this.query['sort'][1]);
+
           this.query['from_'] = this.paginator.pageIndex * this.paginator.pageSize;
           return this.apiFunction(
             this.query, 25);
@@ -121,59 +147,14 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         } else {
           this.query['sort'] = this.defaultSort;
         }
+        this.updateSortingUrlParameters(this.query['sort'][0], this.query['sort'][1]);
+
         this.sortUpdate.emit(this.query['sort']);
         this.query['from_'] = 0;
-        for (const col in this.query['filters']) {
-          // process paper_published filter
-          if (col === 'paper_published') {
-            this.query['filters'][col].forEach((val, i) => {
-              val == 'Yes' ? this.query['filters'][col][i] = 'true' : this.query['filters'][col][i] = 'false';
-            });
-          }
-          // process assayType filter
-          if (col === 'assayType') {
-            this.query['filters'][col].forEach((val, i) => {
-              if (val == 'RNA-Seq') {
-                this.query['filters'][col][i] = 'transcription profiling by high throughput sequencing';
-                this.query['filters'][col].push('RNA-Seq');
-              }
-            });
-          }
-          // process sex filter
-          if (col == 'sex') {
-            let sex_val = [];
-            this.query['filters'][col].forEach((val, i) => {
-              if (val == 'male') {
-                sex_val = sex_val.concat(male_values);
-              }
-              else if (val == 'female') {
-                sex_val = sex_val.concat(female_values);
-              }
-              else {
-                sex_val.push(val);
-              }
-            });
-            this.query['filters'][col] = sex_val;
-          }
 
-          // process article source (Article Type) filter
-          if (col === 'source') {
-            let source_val = [];
-            this.query['filters'][col].forEach((val, i) => {
-              if (val === 'preprint') {
-                source_val = source_val.concat('PPR');
-              } else if (val === 'published') {
-                source_val = source_val.concat(published_article_source);
-              }
-              else {
-                source_val.push(val);
-              }
-            });
-           this.query['filters'][col] = source_val;
-          }
+        // Update filter value for special cases
+        this.updateUrlCodeFilters();
 
-
-        }
         this.apiFunction(this.query, 25).subscribe((res: any) => {
           this.dataSource.data = res.data; // set table data
           this.dataUpdate.emit(res); // emit data update event
@@ -184,10 +165,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
 
     searchChanged(event: any){
-      this.componentStateService.setPaginationState(0);
-
       const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-      this.componentStateService.setFilterState(searchFilterValue) // store filter term value
 
       if (this.delaySearch){
         if (this.timer){
@@ -212,8 +190,31 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         this.totalHits = res.totalHits; // set length of paginator
         this.spinner.hide();
       });
+      // Update query parameters to pass to route
+      this.updateUrlParameters(value, 'searchTerm')
     }
 
+
+  updateSortingUrlParameters(sortTerm, sortDirection){
+    this.updateUrlParameters(sortTerm, 'sortTerm');
+    this.updateUrlParameters(sortDirection, 'sortDirection');
+  }
+
+  updateUrlParameters(value, parameterName){
+    if (value){
+      this.queryParams[parameterName] = value;
+    } else {
+      if (parameterName in this.queryParams){
+        delete this.queryParams[parameterName];
+      }
+    }
+    // will not reload the page, but will update query params
+    this.router.navigate([],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: this.queryParams,
+      });
+  }
 
   openSubscriptionDialog(value: string) {
     this.subscriptionDialogTitle = `Subscribing to record ${value}`
@@ -281,14 +282,10 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
   }
 
-  resetPageState() {
-    if (this.componentStateService.getFilterState() != '') {
-      this.currentSearchTerm = this.componentStateService.getFilterState()
-      this.applySearchFilter(this.currentSearchTerm);
-    }
-
-    if (this.componentStateService.getPaginationState() != 0){
-      this.paginator.pageIndex = this.componentStateService.getPaginationState();
+  resetPagination(pageIndex) {
+    if (pageIndex != 0) {
+      this.queryParams['pageIndex'] = pageIndex;
+      this.paginator.pageIndex = pageIndex;
       // emit an event so that the table will refresh the data
       this.paginator.page.next({
         pageIndex: this.paginator.pageIndex,
@@ -296,12 +293,46 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         length: this.paginator.length
       });
     }
-
-
   }
 
-  onPageChange(event){
-    this.componentStateService.setPaginationState(event.pageIndex); // save event.pageIndex in a service
+
+  updateUrlCodeFilters() {
+    for (const param in this.query['filters']) {
+      if (Array.isArray(this.query['filters'][param])) {
+        let filters_arr = [];
+        this.query['filters'][param].forEach((val, i) => {
+          const filterValue = this.getFilterCodeValue(param, val);
+          if (filterValue) {
+            filters_arr = filters_arr.concat(filterValue);
+          }
+        });
+        this.query['filters'][param] = filters_arr;
+      }
+    }
+  }
+
+  getFilterCodeValue(paramName, displayVal){
+    if (paramName in this.specialFilters){
+      const matchedFiltersArr = this.specialFilters[paramName].filter(obj => obj['displayValue'] == displayVal);
+      if (matchedFiltersArr.length > 0){
+        return matchedFiltersArr[0]['filterValue']
+      }
+    }
+    return [displayVal]
+  }
+
+  onPageChange($event) {
+    const params = {
+      pageIndex: this.paginator.pageIndex,
+    };
+    this.urlTree = this.router.createUrlTree([], {
+      relativeTo: this.activatedRoute,
+      queryParams: params,
+      queryParamsHandling: 'merge',
+    }).toString();
+
+    //Update route with Query Params
+    this.location.go(this.urlTree);
   }
 
 }
