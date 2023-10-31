@@ -166,7 +166,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   loadInitialPageState(params){
-    console.log("delete", params)
     const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;

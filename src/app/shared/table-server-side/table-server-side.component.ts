@@ -55,6 +55,12 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   queryParams: any = {};
   location: Location;
   urlTree: string;
+  specialFilters = {
+    paper_published: [{filterValue: ['true'], displayValue: 'Yes'}, {filterValue: ['false'], displayValue: 'No'}],
+    sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}],
+    source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}],
+    assayType: [{filterValue: ['transcription profiling by high throughput sequencing'], displayValue: 'RNA-Seq'}]
+  }
 
   constructor(private spinner: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
@@ -307,14 +313,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
 
   getFilterDisplayValue(paramName, filterVal){
-    const specialFilters = {
-      paper_published: [{filterValue: ['true'], displayValue: 'Yes'}, {filterValue: ['false'], displayValue: 'No'}],
-      sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}],
-      source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}],
-      assayType: [{filterValue: ['transcription profiling by high throughput sequencing'], displayValue: 'RNA-Seq'}]
-    }
-    if (paramName in specialFilters){
-      const matchedFiltersArr = specialFilters[paramName].filter(obj => obj['filterValue'] == filterVal);
+    if (paramName in this.specialFilters){
+      const matchedFiltersArr = this.specialFilters[paramName].filter(obj => obj['filterValue'] == filterVal);
       if (matchedFiltersArr.length > 0){
         return matchedFiltersArr[0]['displayValue']
       }
@@ -323,14 +323,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   }
 
   getFilterCodeValue(paramName, displayVal){
-    const specialFilters = {
-      paper_published: [{filterValue: ['true'], displayValue: 'Yes'}, {filterValue: ['false'], displayValue: 'No'}],
-      sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}],
-      source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}],
-      assayType: [{filterValue: ['transcription profiling by high throughput sequencing'], displayValue: 'RNA-Seq'}]
-    }
-    if (paramName in specialFilters){
-      const matchedFiltersArr = specialFilters[paramName].filter(obj => obj['displayValue'] == displayVal);
+    if (paramName in this.specialFilters){
+      const matchedFiltersArr = this.specialFilters[paramName].filter(obj => obj['displayValue'] == displayVal);
       if (matchedFiltersArr.length > 0){
         return matchedFiltersArr[0]['filterValue']
       }

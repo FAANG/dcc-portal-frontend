@@ -173,7 +173,6 @@ export class ProtocolAnalysisComponent implements OnInit {
   }
 
   loadInitialPageState(params){
-    console.log("delete", params)
     const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;
