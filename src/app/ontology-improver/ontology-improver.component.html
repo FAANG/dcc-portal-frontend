@@ -17,6 +17,7 @@
         <div fxFlex="17" fxFlex.lt-md="100">
           <app-filter title="Projects" [filterSize]=4></app-filter>
           <app-filter title="Ontology Type" [filterSize]=5></app-filter>
+          <app-filter title="Term Status" [filterSize]=4></app-filter>
         </div>
         <div fxFlex="81" fxFlex.lt-md="100">
           <div *ngIf="hasActiveFilters()">
@@ -635,21 +636,24 @@
 <ng-template #activityTemplate let-item>
   <div>
         <span [matBadge]="item.row.activity.created_edited_count">
-            <button mat-stroked-button class="table-color-status">
+            <button mat-stroked-button class="table-color-status"
+                    (click)="item['row']['activity']['created_edited_count'] ? onBadgeClick(item, 'all') : ''">
                 Created/Updated
             </button>
         </span>
   </div>
   <div>
         <span [matBadge]="item.row.activity.validated_count">
-            <button mat-stroked-button class="table-color-status">
+            <button mat-stroked-button class="table-color-status"
+                    (click)="item['row']['activity']['validated_count'] ? onBadgeClick(item, 'validated') : ''">
                 Validated
             </button>
         </span>
   </div>
   <div>
         <span [matBadge]="item.row.activity.downvoted_count">
-            <button mat-stroked-button class="table-color-status">
+            <button mat-stroked-button class="table-color-status"
+                    (click)="item['row']['activity']['downvoted_count'] ? onBadgeClick(item, 'downvoted') : ''">
                 Needs improvement
             </button>
         </span>

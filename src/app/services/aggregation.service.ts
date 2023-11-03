@@ -39,6 +39,7 @@ export class AggregationService {
     project: [],
     type: [],
     projects: [],
+    status_activity: []
   };
 
   protocolNames = protocolNames;

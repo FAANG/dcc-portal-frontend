@@ -669,7 +669,6 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     };
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data)['response'];
-      console.log("inside setsovket")
       if (data['ontology_update_status']) {
         this.ontology_update_status = data['ontology_update_status'];
       }
@@ -710,6 +709,18 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     if (params['sortTerm'] && params['sortDirection']){
       this.query['sort'] = [params['sortTerm'], params['sortDirection']];
     }
+  }
+
+  onBadgeClick(item, type){
+    const project = item['row']['project'];
+    if (type === 'all'){
+      this.router.navigate(['ontology'], {queryParams: { projects: project }});
+    } else if (type === 'validated'){
+      this.router.navigate(['ontology'], {queryParams: { projects: project, status_activity: 'Verified' }});
+    } else if (type === 'downvoted'){
+      this.router.navigate(['ontology'], {queryParams: { projects: project, status_activity: 'Needs Improvement' }});
+    }
+    this.tabGroup.selectedIndex = 0;
   }
 
   ngOnDestroy() {
