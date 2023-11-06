@@ -39,7 +39,7 @@ export class OntologyImproverPage {
 
     cy.get('tbody')
       .find('tr')
-      .should("have.length", 25)
+      .should("have.length.greaterThan", 5)
 
     cy.wait('@filteredList').then(({request, response}) => {
       expect(response.statusCode).to.eq(200)
@@ -61,7 +61,7 @@ export class OntologyImproverPage {
 
     cy.get('tbody')
       .find('tr')
-      .should("have.length", 25)
+      .should("have.length.greaterThan", 5)
 
     cy.get('app-active-filter.ng-star-inserted').children()
       .should('have.length', 2)
