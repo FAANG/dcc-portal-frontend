@@ -84,6 +84,8 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['project'];
         } else if (this.title === 'Projects') {
           this.aggregation = data['projects'];
+        }else if (this.title === 'Term Status') {
+          this.aggregation = data['status_activity'];
         }
         this.cdRef.detectChanges();
       }
@@ -204,6 +206,10 @@ export class FilterComponent implements OnInit, OnDestroy {
       }
       case 'Projects': {
         data_key = 'projects';
+        break;
+      }
+      case 'Term Status': {
+        data_key = 'status_activity';
         break;
       }
     }

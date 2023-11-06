@@ -82,7 +82,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     // extract query parameters
     this.activatedRoute.queryParams.subscribe(params => {
         this.queryParams = {...params};
-
       });
 
     if (this.queryParams['sortTerm'] && this.queryParams['sortDirection']){

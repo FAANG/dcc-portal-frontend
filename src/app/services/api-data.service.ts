@@ -360,7 +360,8 @@ export class ApiDataService {
     const url = `${this.hostSetting.host}data/ontologies/_search/?size=${size}`;
     const aggs = {
       'projects': 'projects',
-      'type': 'type'
+      'type': 'type',
+      'status_activity': 'status_activity'
     };
     const filters = query['filters'];
     for (const prop of Object.keys(filters)) {
@@ -379,6 +380,13 @@ export class ApiDataService {
         );
         res['totalHits'] = data.hits.total.value;
         res['aggregations'] = data.aggregations;
+        // status_activity is a special case as a nested property is used for the aggregate
+        if ('status_activity' in res['aggregations']){
+          res['aggregations']['status_activity'] = res['aggregations']['status_activity']['status']
+          // do not display Awaiting Assessment in filter list
+          res['aggregations']['status_activity']['buckets'] = res['aggregations']['status_activity']['buckets']
+            .filter((ele) => ele['key'] !== "Awaiting Assessment");
+        }
         return res;
       }),
       retry(3),
