@@ -6,10 +6,10 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "es2020",
+    "target": "ES2022",
+    "module": "es2020",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "typeRoots": [
