@@ -27,7 +27,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   columnNames: string[] = ['Protocol type', 'Experiment target', 'Assay type', 'Subscribe'];
   displayFields: string[] = ['protocol_type', 'experiment_target', 'assay_type', 'subscribe'];
   templates: Object;
-  filter_field: {};
+  filter_field: any;
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;

@@ -37,9 +37,9 @@
         Export as Tabular file
       </button>
       <button mat-raised-button style="background-color: green; color: white;" (click)="onUploadProtocolClick()">Upload protocol</button>
-      <mat-spinner *ngIf="downloading" [diameter]="30"
-        style="display: inline; margin-left: 10px;">
-      </mat-spinner>
+<!--      <mat-spinner *ngIf="downloading" [diameter]="30"-->
+<!--        style="display: inline; margin-left: 10px;">-->
+<!--      </mat-spinner>-->
       <app-table-server-side  [display_fields]="displayFields"
             [column_names]="columnNames"
             [indexDetails]="indexDetails"

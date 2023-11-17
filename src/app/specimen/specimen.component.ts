@@ -30,7 +30,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     'Paper published', 'Track Hub', 'Subscribe'];
   displayFields: string[] = ['bioSampleId', 'material', 'organismpart_celltype', 'sex', 'organism', 'breed', 'standard',
   'paperPublished', 'trackhubUrl', 'subscribe'];
-  filter_field: {};
+  filter_field: any;
   templates: Object;
   aggrSubscription: Subscription;
   downloadData = false;

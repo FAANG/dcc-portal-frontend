@@ -60,7 +60,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Activity'];
   statsFields: string[] = ['project', 'species', 'type_counts', 'activity'];
   templates: Object;
-  filter_field: {};
+  filter_field: any;
   regForm: FormGroup;
   species;
   types;

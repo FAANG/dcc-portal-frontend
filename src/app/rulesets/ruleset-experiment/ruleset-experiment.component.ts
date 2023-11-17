@@ -181,7 +181,6 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   getValidValues(data: any) {
-    console.log(data);
     let field;
     if ('properties' in data) {
       field = data['properties'];

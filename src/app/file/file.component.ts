@@ -27,7 +27,7 @@ export class FileComponent implements OnInit, OnDestroy {
   fileListLong: Observable<FileTable[]>;
   displayFields: string[] = ['fileName', 'study', 'experiment', 'species', 'assayType', 'target', 'specimen', 'instrument', 'standard', 'paperPublished', 'subscribe'];
   columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard', 'Paper published', 'Subscribe'];
-  filter_field: {};
+  filter_field: any;
   templates: Object;
   aggrSubscription: Subscription;
   downloadData = false;

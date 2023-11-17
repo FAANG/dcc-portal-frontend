@@ -105,8 +105,8 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="end" *ngIf="dataset.secondaryProject && dataset?.secondaryProject.toString() === 'GENE-SWitCH'">
-      <mat-spinner *ngIf="queryService.downloading" [diameter]="30">
-      </mat-spinner>
+<!--      <mat-spinner *ngIf="queryService.downloading" [diameter]="30">-->
+<!--      </mat-spinner>-->
       <button mat-raised-button color="accent" *ngIf="!queryService.downloading" (click)="downloadTSV()">
         Download metadata for analysis
       </button>

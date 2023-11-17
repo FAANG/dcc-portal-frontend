@@ -134,64 +134,64 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         });
   }
 
-    // apply filter when component input "filter_values" is changed
-    ngOnChanges() {
-      if (this.dataSource) {
-        this.spinner.show();
-        // reset query params before applying filter
-        this.paginator.pageIndex = 0;
-        if(this.sort.active && this.sort.direction) {
-          this.query['sort'] = [this.sort.active, this.sort.direction];
-          this.sortUpdate.emit(this.query['sort']);
-        } else {
-          this.query['sort'] = this.defaultSort;
-        }
-        this.updateSortingUrlParameters(this.query['sort'][0], this.query['sort'][1]);
-
-        this.sortUpdate.emit(this.query['sort']);
-        this.query['from_'] = 0;
-
-        // Update filter value for special cases
-        this.updateUrlCodeFilters();
-
-        this.apiFunction(this.query, 25).subscribe((res: any) => {
-          this.dataSource.data = res.data; // set table data
-          this.dataUpdate.emit(res); // emit data update event
-          this.totalHits = res.totalHits; // set length of paginator
-          this.spinner.hide();
-        });
-      }
-    }
-
-    searchChanged(event: any){
-      const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-
-      if (this.delaySearch){
-        if (this.timer){
-          clearTimeout(this.timer);
-        }
-        this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
-      }
-      else {
-        this.applySearchFilter(searchFilterValue);
-      }
-    }
-
-    applySearchFilter(value: string) {
-      // reset query params before applying search
-      this.paginator.pageIndex = 0;
-      this.query['from_'] = 0;
-      this.query['search'] = value;
+  // apply filter when component input "filter_values" is changed
+  ngOnChanges() {
+    if (this.dataSource) {
       this.spinner.show();
+      // reset query params before applying filter
+      this.paginator.pageIndex = 0;
+      if(this.sort.active && this.sort.direction) {
+        this.query['sort'] = [this.sort.active, this.sort.direction];
+        this.sortUpdate.emit(this.query['sort']);
+      } else {
+        this.query['sort'] = this.defaultSort;
+      }
+      this.updateSortingUrlParameters(this.query['sort'][0], this.query['sort'][1]);
+
+      this.sortUpdate.emit(this.query['sort']);
+      this.query['from_'] = 0;
+
+      // Update filter value for special cases
+      this.updateUrlCodeFilters();
+
       this.apiFunction(this.query, 25).subscribe((res: any) => {
         this.dataSource.data = res.data; // set table data
         this.dataUpdate.emit(res); // emit data update event
         this.totalHits = res.totalHits; // set length of paginator
         this.spinner.hide();
       });
-      // Update query parameters to pass to route
-      this.updateUrlParameters(value, 'searchTerm')
     }
+  }
+
+  searchChanged(event: any){
+    const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+
+    if (this.delaySearch){
+      if (this.timer){
+        clearTimeout(this.timer);
+      }
+      this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
+    }
+    else {
+      this.applySearchFilter(searchFilterValue);
+    }
+  }
+
+  applySearchFilter(value: string) {
+    // reset query params before applying search
+    this.paginator.pageIndex = 0;
+    this.query['from_'] = 0;
+    this.query['search'] = value;
+    this.spinner.show();
+    this.apiFunction(this.query, 25).subscribe((res: any) => {
+      this.dataSource.data = res.data; // set table data
+      this.dataUpdate.emit(res); // emit data update event
+      this.totalHits = res.totalHits; // set length of paginator
+      this.spinner.hide();
+    });
+    // Update query parameters to pass to route
+    this.updateUrlParameters(value, 'searchTerm')
+  }
 
 
   updateSortingUrlParameters(sortTerm, sortDirection){
@@ -334,4 +334,10 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     this.location.go(this.urlTree);
   }
 
+  ngDoCheck(){
+    if (this.urlTree){
+      this.location.go(this.urlTree);
+    }
+    this.urlTree = '';
+  }
 }

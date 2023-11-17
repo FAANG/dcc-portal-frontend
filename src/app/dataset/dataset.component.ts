@@ -29,7 +29,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished', 'subscribe'];
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive', 'Assay type', 'Number of Experiments',
     'Number of Specimens', 'Number of Files', 'Standard', 'Paper published', 'Subscribe'];
-  filter_field: {};
+  filter_field: any;
   templates: Object;
   aggrSubscription: Subscription;
   downloadData = false;

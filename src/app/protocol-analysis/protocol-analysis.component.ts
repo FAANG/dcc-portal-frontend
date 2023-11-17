@@ -28,7 +28,7 @@ export class ProtocolAnalysisComponent implements OnInit {
   columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol', 'Subscribe'];
   displayFields: string[] = ['protocol_name', 'university_name', 'protocol_date', 'subscribe'];
   templates: Object;
-  filter_field: {};
+  filter_field: any;
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;

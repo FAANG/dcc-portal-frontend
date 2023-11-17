@@ -25,7 +25,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
               private spinner: NgxSpinnerService,
               private router: Router,
               private titleService: Title,
-              private _userService: UserService) {
+              protected _userService: UserService) {
     this.initTwitterWidget();
   }
 

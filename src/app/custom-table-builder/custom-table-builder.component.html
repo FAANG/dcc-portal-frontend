@@ -1,9 +1,9 @@
 <div style="padding-bottom: 50px;">
     <hr>
     <h3 style="display: inline;">Custom Queries</h3>
-    <mat-spinner *ngIf="queryService.downloading" [diameter]="30"
-      style="display: inline; float: right; margin-left: 10px; margin-bottom: 20px;">
-    </mat-spinner>
+<!--    <mat-spinner *ngIf="queryService.downloading" [diameter]="30"-->
+<!--      style="display: inline; float: right; margin-left: 10px; margin-bottom: 20px;">-->
+<!--    </mat-spinner>-->
     <button *ngIf="totalHits == 0 && !queryService.downloading" mat-raised-button color="accent" (click)="downloadCSV()"
       style="float: right; margin-bottom: 20px;">
       Download as CSV
@@ -59,7 +59,7 @@
       </mat-paginator>
     </div>
     <div *ngIf="loading">
-        <mat-spinner [diameter]="30"></mat-spinner>
+<!--        <mat-spinner [diameter]="30"></mat-spinner>-->
     </div>
 </div>
 

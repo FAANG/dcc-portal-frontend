@@ -18,7 +18,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   current_active_filters = this.aggregationService.current_active_filters;
 
   constructor(
-    private aggregationService: AggregationService,
+    public aggregationService: AggregationService,
     private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
