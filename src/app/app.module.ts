@@ -31,7 +31,7 @@ import { SubprojectDetailComponent } from './subprojects/subproject-detail/subpr
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ServiceWorkerModule } from '@angular/service-worker';
 // import { environment } from '../environments/environment';
-// import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 // import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';

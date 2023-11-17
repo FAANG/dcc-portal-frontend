@@ -39,6 +39,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+//    "skipLibCheck": true,
     "resolveJsonModule": true,
     "strictNullChecks":false,
     "useUnknownInCatchVariables": false,
