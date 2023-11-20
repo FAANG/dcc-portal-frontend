@@ -39,6 +39,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "noPropertyAccessFromIndexSignature": false,
 //    "skipLibCheck": true,
     "resolveJsonModule": true,
     "strictNullChecks":false,

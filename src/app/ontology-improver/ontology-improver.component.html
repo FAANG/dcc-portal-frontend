@@ -80,49 +80,49 @@
           <p>Select the best match for each your ontology terms</p>
           <br>
           <mat-accordion>
-            <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;"
-                                 [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst"
-                                 (opened)="panelOpenState = true" (closed)="panelOpenState = false"
-                                 style="margin-bottom: 20px;">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <h6><b>Ontology Matches for term '{{item.key}}'</b></h6>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <ng-container *ngIf="item.value?.length">
-                <table mat-table [dataSource]="item.value" table-striped style="width: 100%">
-                  <ng-container *ngFor="let col of ontologyMatchColsToDisplay; let i = index">
-                    <ng-container *ngIf="col == 'source'" [matColumnDef]=col>
-                      <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
-                      <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index">
-                        {{data[col]}}
-                        <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']"
-                               (click)="addNewOntology(item.key, j)"
-                               style="margin-right: 40px; float: right;" [disabled]="disableOntologyCreation">
-                        <button *ngIf="data['selected']" mat-raised-button color="primary"
-                                (click)="editNewOntology(item.key, j)"
-                                style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;"
-                                [disabled]="disableOntologyCreation"> Edit
-                        </button>
-                      </td>
-                    </ng-container>
-                    <ng-container *ngIf="col != 'source'" [matColumnDef]=col>
-                      <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
-                      <td mat-cell class="table-cell-data" *matCellDef="let data"> {{data[col]}} </td>
-                    </ng-container>
-                  </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="ontologyMatchColsToDisplay"></tr>
-                  <tr mat-row *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
-                </table>
-              </ng-container>
-              <ng-container *ngIf="item.value?.length == 0">
-                <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
-                  <span>No Matches Found</span>
-                  <button mat-raised-button color="primary" (click)="addNewOntology(item.key, -1)">Provide Ontology
-                  </button>
-                </div>
-              </ng-container>
-            </mat-expansion-panel>
+<!--            <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;"-->
+<!--                                 [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst"-->
+<!--                                 (opened)="panelOpenState = true" (closed)="panelOpenState = false"-->
+<!--                                 style="margin-bottom: 20px;">-->
+<!--              <mat-expansion-panel-header>-->
+<!--                <mat-panel-title>-->
+<!--                  <h6><b>Ontology Matches for term '{{item.key}}'</b></h6>-->
+<!--                </mat-panel-title>-->
+<!--              </mat-expansion-panel-header>-->
+<!--              <ng-container *ngIf="item.value?.length">-->
+<!--                <table mat-table [dataSource]="item.value" table-striped style="width: 100%">-->
+<!--                  <ng-container *ngFor="let col of ontologyMatchColsToDisplay; let i = index">-->
+<!--                    <ng-container *ngIf="col == 'source'" [matColumnDef]=col>-->
+<!--                      <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>-->
+<!--                      <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index">-->
+<!--                        {{data[col]}}-->
+<!--                        <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']"-->
+<!--                               (click)="addNewOntology(item.key, j)"-->
+<!--                               style="margin-right: 40px; float: right;" [disabled]="disableOntologyCreation">-->
+<!--                        <button *ngIf="data['selected']" mat-raised-button color="primary"-->
+<!--                                (click)="editNewOntology(item.key, j)"-->
+<!--                                style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;"-->
+<!--                                [disabled]="disableOntologyCreation"> Edit-->
+<!--                        </button>-->
+<!--                      </td>-->
+<!--                    </ng-container>-->
+<!--                    <ng-container *ngIf="col != 'source'" [matColumnDef]=col>-->
+<!--                      <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>-->
+<!--                      <td mat-cell class="table-cell-data" *matCellDef="let data"> {{data[col]}} </td>-->
+<!--                    </ng-container>-->
+<!--                  </ng-container>-->
+<!--                  <tr mat-header-row *matHeaderRowDef="ontologyMatchColsToDisplay"></tr>-->
+<!--                  <tr mat-row *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>-->
+<!--                </table>-->
+<!--              </ng-container>-->
+<!--              <ng-container *ngIf="item.value?.length == 0">-->
+<!--                <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">-->
+<!--                  <span>No Matches Found</span>-->
+<!--                  <button mat-raised-button color="primary" (click)="addNewOntology(item.key, -1)">Provide Ontology-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--              </ng-container>-->
+<!--            </mat-expansion-panel>-->
           </mat-accordion>
           <br>
           <button mat-raised-button color="primary" [disabled]="disableOntologyCreation" (click)="submitTerms()">
@@ -197,7 +197,7 @@
       <div
         *ngIf="regForm.controls['username'].invalid && (regForm.controls['username'].dirty || regForm.controls['username'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['username'].errors.required">
+        <div *ngIf="regForm.controls['username'].errors?.['required']">
           Username is required
         </div>
       </div>
@@ -217,7 +217,7 @@
       <div
         *ngIf="regForm.controls['first_name'].invalid && (regForm.controls['first_name'].dirty || regForm.controls['first_name'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['first_name'].errors.required">
+        <div *ngIf="regForm.controls['first_name'].errors?.['required']">
           First Name is required
         </div>
       </div>
@@ -231,10 +231,10 @@
       <div
         *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].dirty || regForm.controls['email'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['email'].errors.required">
+        <div *ngIf="regForm.controls['email'].errors?.['required']">
           Email is required
         </div>
-        <div *ngIf="regForm.controls['email'].errors.email">
+        <div *ngIf="regForm.controls['email'].errors?.['email']">
           Enter valid email
         </div>
       </div>
@@ -252,17 +252,17 @@
       <div
         *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].dirty || regForm.controls['password'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['password'].errors.required">
+        <div *ngIf="regForm.controls['password'].errors?.['required']">
           Password is required
         </div>
       </div>
       <div
         *ngIf="regForm.controls['confirmPwd'].invalid && (regForm.controls['confirmPwd'].dirty || regForm.controls['confirmPwd'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['confirmPwd'].errors.required">
+        <div *ngIf="regForm.controls['confirmPwd'].errors?.['required']">
           Password confirmation is required
         </div>
-        <div *ngIf="regForm.controls['confirmPwd'].errors.NotEqual">
+        <div *ngIf="regForm.controls['confirmPwd'].errors?.['NotEqual']">
           Password do not match
         </div>
       </div>
@@ -276,7 +276,7 @@
       <div
         *ngIf="regForm.controls['organisation'].invalid && (regForm.controls['organisation'].dirty || regForm.controls['organisation'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['organisation'].errors.required">
+        <div *ngIf="regForm.controls['organisation'].errors?.['required']">
           Organisation is required.
         </div>
       </div>

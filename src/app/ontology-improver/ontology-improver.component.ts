@@ -64,7 +64,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   regForm: FormGroup;
   species;
   types;
-  usageStats: Observable<any[]>;
+  usageStats: any; //Observable<any[]>;
   disableOntologyCreation: boolean;
   ontology_update_status: string;
   socket;

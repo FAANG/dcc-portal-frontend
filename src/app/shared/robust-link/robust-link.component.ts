@@ -7,7 +7,7 @@ import { Input } from '@angular/core';
   styleUrls: ['./robust-link.component.css']
 })
 export class RobustLinkComponent implements OnInit {
-  @Input() text: string;
+  @Input() text: any;
   @Input() link: string;
   @Input() prefix: string;
 

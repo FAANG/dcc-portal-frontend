@@ -25,6 +25,7 @@
         <h3>Sex</h3>
         <span class="subheader">Click on legend to exclude item</span>
         <hr>
+        <canvas baseChart [data]="sexChartData" [options]="barChartOptions" [type]="'bar'"> </canvas>
         <canvas baseChart
                 [data]="sexChartData"
                 [labels]="sexChartLabels"
@@ -35,7 +36,7 @@
                 [legend]="true">
         </canvas>
       </mat-card>
-  
+
       <mat-card fxFlex="48" class="card">
         <h3>Paper published</h3>
         <span class="subheader">Click on legend to exclude item</span>
@@ -51,7 +52,7 @@
         </canvas>
       </mat-card>
     </div>
-  
+
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
       <mat-card fxFlex="48" class="card">
         <h3>Organisms</h3>
@@ -66,7 +67,7 @@
                 [legend]="false">
         </canvas>
       </mat-card>
-  
+
       <mat-card fxFlex="48" class="card">
         <h3>Standard</h3>
         <span class="subheader">Click on legend to exclude item</span>
@@ -80,7 +81,7 @@
         </canvas>
       </mat-card>
     </div>
-  
+
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
       <mat-card fxFlex="48" class="card">
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" >

@@ -10,7 +10,7 @@
     </div>
     <div formArrayName="filterFields" class="section">
       <div fxLayout="row"
-           *ngFor="let filterField of filterForm.get('filterFields').controls; let i = index"
+           *ngFor="let filterField of filterForm.get('filterFields')['controls']; let i = index"
            [formGroupName]="i">
         <div fxLayoutGap="3vw" fxLayout="row">
           <div>
