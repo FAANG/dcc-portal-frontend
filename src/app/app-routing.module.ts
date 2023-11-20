@@ -52,6 +52,7 @@ import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-s
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
 import {GraphqlComponent} from './graphql/graphql.component';
+import { KoosumComponent } from './koosum/koosum.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -108,7 +109,8 @@ const routes: Routes = [
   {path: 'genome_browser', component: LocalGenomeBrowserComponent},
   {path: 'graphql', component: GraphqlComponent},
   {path: '404', component: NonExistingComponent},
-  {path: '**', component: NonExistingComponent}
+  {path: '**', component: NonExistingComponent},
+  {path: 'koosum', component: KoosumComponent},
 ];
 
 @NgModule({
