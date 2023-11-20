@@ -30,16 +30,12 @@ export class ApiDataService {
     const json_data = {};
     return this.http.get(url).pipe(
       map((data: any) => {
-        // tslint:disable-next-line:forin
         for (const [key, value] of Object.entries(data)) {
-          console.log(data[key]['hits']['hits']);
-          console.log(data[key]['hits']['total']['value']);
           json_data[key] = {
-            data: data[key]['hits']['hits'],
-            totalHits: data[key]['hits']['total']['value']
+            data: value['hits']['hits'],
+            totalHits: value['hits']['total']['value']
           };
         }
-        console.log(json_data);
         return json_data;
       }),
       retry(3),

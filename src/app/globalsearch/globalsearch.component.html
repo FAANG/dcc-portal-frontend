@@ -13,6 +13,9 @@
     </div>
   </div>
 </div>
+
+<mat-spinner class="spinner-with-margin" mode="indeterminate" *ngIf="showSpinner" color="primary" diameter="50"></mat-spinner>
+
 <div id="search-results" *ngIf="showResults">
   <table>
     <tr *ngFor="let item of jsonData | keyvalue">

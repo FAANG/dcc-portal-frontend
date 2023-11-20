@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiDataService} from '../services/api-data.service';
-import { HostSetting } from '../services/host-setting';
-import {Observable} from 'rxjs';
+import { ApiDataService } from '../services/api-data.service';
 
 @Component({
   selector: 'app-globalsearch',
@@ -13,7 +11,7 @@ export class GlobalSearchComponent implements OnInit {
   searchText = '';
   jsonData: {};
   showResults = false;
-  hostSetting = new HostSetting;
+  showSpinner = false;
 
   constructor(private dataService: ApiDataService) { }
 
@@ -22,8 +20,10 @@ export class GlobalSearchComponent implements OnInit {
 
   onSearch() {
     if (this.searchText) {
+      this.showSpinner = true;
       this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
         this.jsonData = json_data;
+        this.showSpinner = false;
       });
     } else {
       this.jsonData = null;
