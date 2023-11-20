@@ -49,7 +49,7 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
     "material-design-icons": "^3.0.1",
-    "ng2-charts": "^2.3.0",
+    "ng2-charts": "^2.4.3",
     "ng2-file-upload": "^1.4.0",
     "ngx-bootstrap": "^5.2.0",
     "ngx-cookieconsent": "^2.2.3",

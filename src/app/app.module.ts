@@ -128,6 +128,7 @@ export function removeToken(): void {
   return localStorage.removeItem('jwt_token');
 }
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -185,7 +186,6 @@ export function removeToken(): void {
     // to delete
     CustomTableBuilderComponent,
     TableServerSideComponent,
-
     NextflowSubmissionComponent,
     ProtocolAnalysisDetailsComponent,
     EnsemblAnnotationComponent,
