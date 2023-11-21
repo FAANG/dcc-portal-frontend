@@ -38,7 +38,7 @@ import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sampl
 import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
 // import { ChartsModule } from 'ng2-charts';
 import { NgChartsModule } from 'ng2-charts';
-// import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
+import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
 // import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
 // import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
 // import { FilesSummaryComponent } from './files-summary/files-summary.component';
@@ -116,6 +116,7 @@ import {ShortenTitlePipe} from './graphql/display-data/shorten-title.pipe';
 import { SubscriptionDialogComponent } from './shared/subscription-dialog/subscription-dialog.component';
 // import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
 // import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
+import { KoosumComponent } from './koosum/koosum.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -156,7 +157,7 @@ export function removeToken(): void {
     ProtocolExperimentComponent,
     ProtocolSampleDetailsComponent,
     ProtocolExperimentDetailsComponent,
-    // OrganismsSummaryComponent,
+    OrganismsSummaryComponent,
     // SpecimensSummaryComponent,
     // DatasetsSummaryComponent,
     // FilesSummaryComponent,
@@ -197,7 +198,8 @@ export function removeToken(): void {
     ShortenTitlePipe,
     SubscriptionDialogComponent,
     // OntologyImproverWorkshopComponent,
-    // OntologyDetailWorkshopComponent
+    // OntologyDetailWorkshopComponent,
+    KoosumComponent
   ],
   imports: [
     BrowserModule,
