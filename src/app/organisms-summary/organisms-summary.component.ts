@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { pieChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
@@ -13,7 +13,17 @@ import { ChartConfiguration } from 'chart.js';
   templateUrl: './organisms-summary.component.html',
   styleUrls: ['./organisms-summary.component.css']
 })
-export class OrganismsSummaryComponent implements OnInit, AfterViewInit {
+export class OrganismsSummaryComponent implements OnInit {
+
+  // Doughnut
+  public doughnutChartLabels: string[] = [ 'Download Sales', 'In-Store Sales', 'Mail-Order Sales' ];
+  public doughnutChartDatasets: ChartConfiguration<'doughnut'>['data']['datasets'] = [
+    { data: [ 350, 450, 100 ], label: 'Series A' }
+  ];
+
+  public doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
+    responsive: false
+  };
 
   // Pie
   public pieChartLabels = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
@@ -58,19 +68,14 @@ export class OrganismsSummaryComponent implements OnInit, AfterViewInit {
   public sexChartLabels: any;
   public sexChartData: any;
 
-  public paperChartLabels = [];
-  public paperChartData = [{data: []}];
+  public paperChartLabels: any;
+  public paperChartData: any;
 
-  public standardChartLabels = [];
-  public standardChartData = [];
+  public standardChartLabels: any;
+  public standardChartData: ChartConfiguration<'doughnut'>['data']['datasets'];
 
-  public organismChartLabels = [];
-  public organismChartData: ChartConfiguration<'bar'>['data'] = {
-    labels: [],
-    datasets: [
-      { data: [], label: '' },
-    ]
-  };
+  // public organismChartLabels = [];
+  public organismChartData: ChartConfiguration<'bar'>['data'];
 
 
 
@@ -102,17 +107,12 @@ export class OrganismsSummaryComponent implements OnInit, AfterViewInit {
     this.dataService.getOrganismSummary('summary_organism').subscribe(
       data => {
         this.chartData = data['hits']['hits'][0]['_source'];
-        console.log("1")
         this.assignChartData(this.chartData, this.excludeLegacyData);
-        console.log("2")
       },
       error => {
         this.error = error;
       }
     );
-  }
-
-  ngAfterViewInit(){
   }
 
 
@@ -130,39 +130,99 @@ export class OrganismsSummaryComponent implements OnInit, AfterViewInit {
       breed_summary_name = 'breedSummaryFAANGOnly';
     }
     for (const item of data[sexSummaryName]) {
-      // this.sexChartLabels.push(item['name']);
-      // this.sexChartData[0]['data'].push(item['value']);
-
+      // labels array
       if (Array.isArray(this.sexChartLabels)){
         this.sexChartLabels.push(item['name']);
       } else {
         this.sexChartLabels = [item['name']];
       }
-
+      // data array
       if (Array.isArray(this.sexChartData) && 'data' in this.sexChartData[0]){
         this.sexChartData[0]['data'].push(item['value']);
       } else {
         this.sexChartData = [{'data': [item['value']]}];
       }
-
     }
     this.sexChartData[0]['backgroundColor'] = this.pieChartColors;
 
     for (const item of data[paperPublishedSummaryName]) {
-      this.paperChartLabels.push(item['name']);
-      this.paperChartData[0]['data'].push(item['value']);
+      // this.paperChartLabels.push(item['name']);
+      // this.paperChartData[0]['data'].push(item['value']);
+
+
+      // labels array
+      if (Array.isArray(this.paperChartLabels)){
+        this.paperChartLabels.push(item['name']);
+      } else {
+        this.paperChartLabels = [item['name']];
+      }
+
+      // data array
+      if (Array.isArray(this.paperChartData) && 'data' in this.paperChartData[0]){
+        this.paperChartData[0]['data'].push(item['value']);
+      } else {
+        this.paperChartData = [{'data': [item['value']]}];
+      }
+
     }
     this.paperChartData[0]['backgroundColor'] = this.pieChartColors;
 
     for (const item of data[organism_summary_name]) {
-      this.organismChartData['labels'].push(item['name']);
-      this.organismChartData['datasets'][0]['data'].push(item['value']);
+      // this.organismChartData['labels'].push(item['name']);
+      // this.organismChartData['datasets'][0]['data'].push(item['value']);
+
+      // labels array
+      if (typeof this.organismChartData === 'object' && Array.isArray(this.organismChartData['labels'])) {
+        this.organismChartData['labels'].push(item['name']);
+      } else {
+        this.organismChartData = {
+          labels: [item['name']],
+          datasets: [
+            {data: [], label: ''},
+          ]
+        };
+      }
+      // data array
+      if (Array.isArray(this.organismChartData['datasets']) && 'data' in this.organismChartData['datasets'][0]) {
+        this.organismChartData['datasets'][0]['data'].push(item['value']);
+      } else {
+        this.organismChartData = {
+          datasets: [
+            {data: [item['value']], label: ''},
+          ]
+        };
+      }
+
+      // this.organismChartData = {
+      //   labels: [],
+      //   datasets: [
+      //     { data: [], label: '' },
+      //   ]
+      // };
+
     }
     console.log(this.organismChartData)
+
+
+    // standard chart
     for (const item of data[standard_summary_name]) {
-      this.standardChartData.push(item['name']);
-      this.standardChartData.push(item['value']);
+      // labels array
+      if (Array.isArray(this.standardChartLabels)) {
+        this.standardChartLabels.push(item['name']);
+      } else {
+        this.standardChartLabels = [item['name']];
+      }
+      // data array
+      if (Array.isArray(this.standardChartData) && 'data' in this.standardChartData[0]) {
+        this.standardChartData[0]['data'].push(item['value']);
+      } else {
+        this.standardChartData = [
+          {'data': [item['value']]}
+        ];
+      }
+
     }
+
     for (const item of data[breed_summary_name]) {
       this.breedKeys.push(item['speciesName']);
       const labels = [];
@@ -201,7 +261,7 @@ export class OrganismsSummaryComponent implements OnInit, AfterViewInit {
     this.standardChartLabels = [];
     this.standardChartData = [];
 
-    this.organismChartLabels = [];
+    // this.organismChartLabels = [];
     this.organismChartData = {
       labels: [],
       datasets: [

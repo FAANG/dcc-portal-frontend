@@ -14,6 +14,15 @@
 <!--        [legend]="barChartLegend"-->
 <!--        [type]="'bar'">-->
 <!--</canvas>-->
+
+<!--<canvas baseChart-->
+<!--        [labels]="doughnutChartLabels"-->
+<!--        [datasets]="doughnutChartDatasets"-->
+<!--        [options]="doughnutChartOptions"-->
+<!--        [legend]="true"-->
+<!--        [type]="'doughnut'">-->
+<!--</canvas>-->
+
 <div class="container-fluid">
   <h2>FAANG Summary</h2>
   <hr>
@@ -34,7 +43,7 @@
     </div>
   </div>
 
-<!--  <div *ngIf="!error" fxLayout="column" fxLayoutGap="4%">-->
+  <div *ngIf="!error" fxLayout="column" fxLayoutGap="4%">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
       <mat-card fxFlex="48" class="card">
         <h3>Sex</h3>
@@ -85,35 +94,36 @@
         <h3>Standard</h3>
         <span class="subheader">Click on legend to exclude item</span>
         <hr>
-<!--        <canvas baseChart-->
-<!--                [data]="standardChartData"-->
-<!--                [labels]="standardChartLabels"-->
-<!--                [chartType]="'doughnut'"-->
-<!--                [colors]="pieChartColors"-->
-<!--                [legend]="true">-->
-<!--        </canvas>-->
+        <canvas baseChart
+                [labels]="standardChartLabels"
+                [datasets]="standardChartData"
+                [options]="doughnutChartOptions"
+                [legend]="true"
+                [type]="'doughnut'">
+        </canvas>
+
       </mat-card>
     </div>
 
-<!--    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">-->
-<!--      <mat-card fxFlex="48" class="card">-->
-<!--        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" >-->
-<!--          <h3>Breeds of <i class="subheader">{{name}}</i></h3>-->
-<!--          <div class="btn-group" dropdown>-->
-<!--            <button mat-raised-button color="primary" id="button-basic" dropdownToggle class="dropdown-toggle"-->
-<!--                    aria-controls="dropdown-basic">-->
-<!--              Choose organism <span class="caret"></span>-->
-<!--            </button>-->
-<!--            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"-->
-<!--                role="menu" aria-labelledby="button-basic">-->
-<!--              <li role="menuitem" *ngFor="let breed of breedKeys">-->
-<!--                <a class="dropdown-item" (click)="onItemClick(breed)" style="cursor: pointer">{{breed}}</a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <span class="subheader">Hover over bar to see full name</span>-->
-<!--        <hr>-->
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
+      <mat-card fxFlex="48" class="card">
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" >
+          <h3>Breeds of <i class="subheader">{{name}}</i></h3>
+          <div class="btn-group" dropdown>
+            <button mat-raised-button color="primary" id="button-basic" dropdownToggle class="dropdown-toggle"
+                    aria-controls="dropdown-basic">
+              Choose organism <span class="caret"></span>
+            </button> ---> {{breedKeys}}
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                role="menu" aria-labelledby="button-basic">
+              <li role="menuitem" *ngFor="let breed of breedKeys">
+                <a class="dropdown-item" (click)="onItemClick(breed)" style="cursor: pointer">{{breed}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span class="subheader">Hover over bar to see full name</span>
+        <hr>
 <!--        <canvas baseChart-->
 <!--                [data]="breedChartData"-->
 <!--                [labels]="breedChartLabels"-->
@@ -122,9 +132,18 @@
 <!--                [plugins]="barChartPlugins"-->
 <!--                [legend]="false">-->
 <!--        </canvas>-->
-<!--      </mat-card>-->
-<!--    </div>-->
-<!--  </div>-->
+
+        <canvas baseChart
+                [data]="organismChartData"
+                [type]="'bar'"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="false">
+        </canvas>
+
+      </mat-card>
+    </div>
+  </div>
 
   <div *ngIf="error" fxLayout="row">
     <div fxFlex="100" class="alert alert-danger"><p>{{ error }}</p></div>
