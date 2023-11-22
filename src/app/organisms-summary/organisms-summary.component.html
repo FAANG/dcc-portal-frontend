@@ -113,7 +113,7 @@
             <button mat-raised-button color="primary" id="button-basic" dropdownToggle class="dropdown-toggle"
                     aria-controls="dropdown-basic">
               Choose organism <span class="caret"></span>
-            </button> ---> {{breedKeys}}
+            </button>
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                 role="menu" aria-labelledby="button-basic">
               <li role="menuitem" *ngFor="let breed of breedKeys">
@@ -121,6 +121,20 @@
               </li>
             </ul>
           </div>
+
+
+
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+
         </div>
         <span class="subheader">Hover over bar to see full name</span>
         <hr>
@@ -133,13 +147,13 @@
 <!--                [legend]="false">-->
 <!--        </canvas>-->
 
-        <canvas baseChart
-                [data]="organismChartData"
-                [type]="'bar'"
-                [options]="barChartOptions"
-                [plugins]="barChartPlugins"
-                [legend]="false">
-        </canvas>
+<!--        <canvas baseChart-->
+<!--                [data]="organismChartData"-->
+<!--                [type]="'bar'"-->
+<!--                [options]="barChartOptions"-->
+<!--                [plugins]="barChartPlugins"-->
+<!--                [legend]="false">-->
+<!--        </canvas>-->
 
       </mat-card>
     </div>

@@ -42,7 +42,7 @@ export class OrganismsSummaryComponent implements OnInit {
   excludeLegacyData = true;
 
   breedsData = {};
-  breedKeys = [];
+  breedKeys:any;
 
 
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
@@ -220,11 +220,15 @@ export class OrganismsSummaryComponent implements OnInit {
           {'data': [item['value']]}
         ];
       }
-
     }
 
+    console.log("koosumtest: ", data)
     for (const item of data[breed_summary_name]) {
-      this.breedKeys.push(item['speciesName']);
+      if (Array.isArray(this.breedKeys)){
+        this.breedKeys.push(item['speciesName']);
+      } else {
+        this.breedKeys = [item['speciesName']];
+      }
       const labels = [];
       const breed_data = [];
       for (const tmp of item['speciesValue']) {
