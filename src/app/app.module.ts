@@ -4,9 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FileComponent } from './file/file.component';
 import { AppRoutingModule } from './app-routing.module';
-// import {ApiDataService} from './services/api-data.service';
-// import {ApiFiltersService} from './services/api-filters.service';
-// import {AggregationService} from './services/aggregation.service';
+import {ApiDataService} from './services/api-data.service';
+import {ApiFiltersService} from './services/api-filters.service';
+import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
 // import {NgxPaginationModule} from 'ngx-pagination';
 import {HttpClientModule} from '@angular/common/http';
@@ -42,7 +42,7 @@ import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary
 import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
 import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
 import { FilesSummaryComponent } from './files-summary/files-summary.component';
-// import {SlicePipe} from '@angular/common';
+import {SlicePipe} from '@angular/common';
 // import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
@@ -67,7 +67,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component';
 // import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
-// import {UserService} from './services/user.service';
+import {UserService} from './services/user.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -255,8 +255,7 @@ export function removeToken(): void {
   // entryComponents: [
   //   SubscriptionDialogComponent,
   // ],
-  // providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService],
-  providers: [],
+  providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
