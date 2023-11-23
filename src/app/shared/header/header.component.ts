@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   }
 
   isActive(option) {
-    let menuItems = {
+    const menuItems = {
       'data': ['organism', 'specimen', 'dataset', 'file', 'analysis', 'protocol', 'article'],
       'submit': ['ruleset', 'validation', 'trackhubs', 'nextflowSubmission'],
       'help': ['api'],
@@ -29,8 +29,8 @@ export class HeaderComponent implements OnInit {
       'validation': ['validation'],
       'ruleset': ['ruleset']
     }
-    for (let item of menuItems[option]) {
-      if (option == 'data') {
+    for (const item of menuItems[option]) {
+      if (option === 'data') {
         if (this.router.url.includes(item) && !this.router.url.includes('summary') ) {
           return 'active';
         }

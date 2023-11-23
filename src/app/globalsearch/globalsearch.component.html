@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Search</title>
-</head>
-<body>
+<app-header></app-header>
+
+<mat-toolbar class="centered-container" color="primary">
 <div class="search-container">
   <div class="input-group margin-bottom-none">
     <input type="text" name="text" id="local-searchbox" [(ngModel)]="searchText" placeholder="Search" class="input-group-field" value="">
@@ -13,27 +10,25 @@
     </div>
   </div>
 </div>
+</mat-toolbar>
 
-<mat-spinner class="spinner-with-margin" mode="indeterminate" *ngIf="showSpinner" color="primary" diameter="50"></mat-spinner>
+<div class="spinner-container">
+  <mat-spinner class="spinner-with-margin" mode="indeterminate" *ngIf="showSpinner" color="primary" diameter="50"></mat-spinner>
+</div>
 
 <div id="search-results" *ngIf="showResults">
-  <table>
-    <tr *ngFor="let item of jsonData | keyvalue">
-      <td>
-        <p>Index: {{ item.key }}</p>
-      </td>
-      <td>
-        <p>Total Hits: {{ item.value.totalHits }}</p>
-      </td>
-      <td>
-        <p>Link:
-          <a [routerLink]="['/' + item.key ]" [queryParams]="{ searchTerm: searchText }">
-            {{ item.key + '?searchTerm=' + searchText }}
-          </a>
+  <mat-list-item *ngFor="let item of jsonData | keyvalue">
+    <div class="row-container">
+      <a (click)="navigateToItem(item.key, linkText)" class="link-style">
+        <p [ngPlural]="item.value?.totalHits">
+          <ng-template ngPluralCase="one">
+            {{ item.value?.totalHits + ' ' + changeKey(item.key) }}
+          </ng-template>
+          <ng-template ngPluralCase="other">
+            {{ item.value?.totalHits + ' ' + changeKey(item.key) + 's' }}
+          </ng-template>
         </p>
-      </td>
-    </tr>
-  </table>
+      </a>
+    </div>
+  </mat-list-item>
 </div>
-</body>
-</html>
