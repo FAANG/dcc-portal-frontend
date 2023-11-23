@@ -57,7 +57,6 @@
                 [plugins]="pieChartPlugins"
                 [legend]="true">
         </canvas>
-
       </mat-card>
 
       <mat-card fxFlex="48" class="card">
@@ -87,7 +86,6 @@
                 [plugins]="barChartPlugins"
                 [legend]="false">
         </canvas>
-
       </mat-card>
 
       <mat-card fxFlex="48" class="card">
@@ -109,51 +107,26 @@
       <mat-card fxFlex="48" class="card">
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" >
           <h3>Breeds of <i class="subheader">{{name}}</i></h3>
-          <div class="btn-group" dropdown>
-            <button mat-raised-button color="primary" id="button-basic" dropdownToggle class="dropdown-toggle"
-                    aria-controls="dropdown-basic">
-              Choose organism <span class="caret"></span>
-            </button>
-            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                role="menu" aria-labelledby="button-basic">
-              <li role="menuitem" *ngFor="let breed of breedKeys">
-                <a class="dropdown-item" (click)="onItemClick(breed)" style="cursor: pointer">{{breed}}</a>
-              </li>
-            </ul>
+          <div>
+            <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+            <mat-menu #menu="matMenu">
+              <ng-container *ngFor="let breed of breedKeys">
+                <button mat-menu-item (click)="onItemClick(breed)" style="cursor: pointer">{{breed}}</button>
+              </ng-container>
+            </mat-menu>
           </div>
 
-
-
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown button
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
 
         </div>
         <span class="subheader">Hover over bar to see full name</span>
         <hr>
-<!--        <canvas baseChart-->
-<!--                [data]="breedChartData"-->
-<!--                [labels]="breedChartLabels"-->
-<!--                [chartType]="'bar'"-->
-<!--                [options]="barChartOptions"-->
-<!--                [plugins]="barChartPlugins"-->
-<!--                [legend]="false">-->
-<!--        </canvas>-->
-
-<!--        <canvas baseChart-->
-<!--                [data]="organismChartData"-->
-<!--                [type]="'bar'"-->
-<!--                [options]="barChartOptions"-->
-<!--                [plugins]="barChartPlugins"-->
-<!--                [legend]="false">-->
-<!--        </canvas>-->
+        <canvas baseChart
+                [data]="breedChartData"
+                [type]="'bar'"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="false">
+        </canvas>
 
       </mat-card>
     </div>

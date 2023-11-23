@@ -1,12 +1,17 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { pieChartOptions} from '../shared/chart-options';
+
+import {Chart} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+
+import {pieChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
 import {MatTabGroup} from '@angular/material/tabs';
 import {Router} from '@angular/router';
 import {ChartOptions} from 'chart.js';
-import { ChartConfiguration } from 'chart.js';
+import {ChartConfiguration} from 'chart.js';
 
 @Component({
   selector: 'app-organisms-summary',
@@ -16,9 +21,9 @@ import { ChartConfiguration } from 'chart.js';
 export class OrganismsSummaryComponent implements OnInit {
 
   // Doughnut
-  public doughnutChartLabels: string[] = [ 'Download Sales', 'In-Store Sales', 'Mail-Order Sales' ];
+  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
   public doughnutChartDatasets: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-    { data: [ 350, 450, 100 ], label: 'Series A' }
+    {data: [350, 450, 100], label: 'Series A'}
   ];
 
   public doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
@@ -32,7 +37,7 @@ export class OrganismsSummaryComponent implements OnInit {
   }];
   public pieChartLegend = true;
   public pieChartPlugins = [];
-  public barChartPlugins = [];
+  public barChartPlugins = [ChartDataLabels];
 
 
   @ViewChild('tabs', {static: true}) tabGroup: MatTabGroup;
@@ -42,16 +47,50 @@ export class OrganismsSummaryComponent implements OnInit {
   excludeLegacyData = true;
 
   breedsData = {};
-  breedKeys:any;
+  breedKeys: any;
 
 
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true
+      },
+      x: {
+        display: false
+      }
+    },
+    // tooltips: {
+    //   enabled: true,
+    //   mode: 'label',
+    //   callbacks: {
+    //     title: function (tooltipItems, data: any) {
+    //       const idx = tooltipItems[0].index;
+    //       return data.labels[idx];
+    //     }
+    //   }
+    // }
+    // interaction: {
+    //   mode: 'nearest'
+    // },
+
+    plugins: {
+      tooltip: {
+        enabled: true,
+        // mode: 'label',
+        // callbacks: {
+        //   title: function (tooltipItems, data: any) {
+        //     const idx = tooltipItems[0].index;
+        //     return data.labels[idx];
+        //   }
+        // }
+      }
+    }
   };
 
   public pieChartOptions = pieChartOptions;
   // public barChartOptions = barChartOptions;
-  // public barChartPlugins = [pluginDataLabels];
+  // public barChartPlugins = ChartDataLabels;
   // public pieChartPlugins = [pluginDataLabels];
   // public pieChartColors = [
   //   {
@@ -78,20 +117,17 @@ export class OrganismsSummaryComponent implements OnInit {
   public organismChartData: ChartConfiguration<'bar'>['data'];
 
 
-
   public barChartLegend = true;
   public barChartData: ChartConfiguration<'bar'>['data'] = {
-    labels: [ '2006', '2007', '2008', '2009', '2010', '2011', '2012' ],
+    labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
+      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
     ]
   };
 
 
-
-
   public breedChartLabels = [];
-  public breedChartData = [];
+  public breedChartData: ChartConfiguration<'bar'>['data'];
 
 
   constructor(
@@ -131,13 +167,13 @@ export class OrganismsSummaryComponent implements OnInit {
     }
     for (const item of data[sexSummaryName]) {
       // labels array
-      if (Array.isArray(this.sexChartLabels)){
+      if (Array.isArray(this.sexChartLabels)) {
         this.sexChartLabels.push(item['name']);
       } else {
         this.sexChartLabels = [item['name']];
       }
       // data array
-      if (Array.isArray(this.sexChartData) && 'data' in this.sexChartData[0]){
+      if (Array.isArray(this.sexChartData) && 'data' in this.sexChartData[0]) {
         this.sexChartData[0]['data'].push(item['value']);
       } else {
         this.sexChartData = [{'data': [item['value']]}];
@@ -151,14 +187,14 @@ export class OrganismsSummaryComponent implements OnInit {
 
 
       // labels array
-      if (Array.isArray(this.paperChartLabels)){
+      if (Array.isArray(this.paperChartLabels)) {
         this.paperChartLabels.push(item['name']);
       } else {
         this.paperChartLabels = [item['name']];
       }
 
       // data array
-      if (Array.isArray(this.paperChartData) && 'data' in this.paperChartData[0]){
+      if (Array.isArray(this.paperChartData) && 'data' in this.paperChartData[0]) {
         this.paperChartData[0]['data'].push(item['value']);
       } else {
         this.paperChartData = [{'data': [item['value']]}];
@@ -193,12 +229,6 @@ export class OrganismsSummaryComponent implements OnInit {
         };
       }
 
-      // this.organismChartData = {
-      //   labels: [],
-      //   datasets: [
-      //     { data: [], label: '' },
-      //   ]
-      // };
 
     }
     console.log(this.organismChartData)
@@ -213,7 +243,7 @@ export class OrganismsSummaryComponent implements OnInit {
         this.standardChartLabels = [item['name']];
       }
       // data array
-      if (Array.isArray(this.standardChartData) && 'data' in this.standardChartData[0]) {
+      if (Array.isArray(this.standardChartData) && this.standardChartData[0] && 'data' in this.standardChartData[0]) {
         this.standardChartData[0]['data'].push(item['value']);
       } else {
         this.standardChartData = [
@@ -224,7 +254,7 @@ export class OrganismsSummaryComponent implements OnInit {
 
     console.log("koosumtest: ", data)
     for (const item of data[breed_summary_name]) {
-      if (Array.isArray(this.breedKeys)){
+      if (Array.isArray(this.breedKeys)) {
         this.breedKeys.push(item['speciesName']);
       } else {
         this.breedKeys = [item['speciesName']];
@@ -241,14 +271,38 @@ export class OrganismsSummaryComponent implements OnInit {
       };
     }
     this.name = this.breedKeys[0];
-    this.breedChartLabels = this.breedsData[this.name]['labels'];
-    this.breedChartData = this.breedsData[this.name]['data'];
+    // this.breedChartLabels = this.breedsData[this.name]['labels'];
+    // this.breedChartData = this.breedsData[this.name]['data'];
+
+    console.log(this.breedsData[this.name]['data'])
+
+    // labels array
+    this.breedChartData = {
+      labels: this.breedsData[this.name]['labels'],
+      datasets: [
+        {data: this.breedsData[this.name]['data'], label: ''},
+      ]
+    };
+
+
+
+
+    console.log("miaw: ", this.breedChartData)
+
+
+
   }
 
   onItemClick(name: string) {
     this.name = name;
-    this.breedChartLabels = this.breedsData[this.name]['labels'];
-    this.breedChartData = this.breedsData[this.name]['data'];
+    // this.breedChartLabels = this.breedsData[this.name]['labels'];
+    // this.breedChartData = this.breedsData[this.name]['data'];
+    this.breedChartData = {
+      labels: this.breedsData[this.name]['labels'],
+      datasets: [
+        {data: this.breedsData[this.name]['data'], label: ''},
+      ]
+    };
   }
 
   clearChartData() {
@@ -269,12 +323,17 @@ export class OrganismsSummaryComponent implements OnInit {
     this.organismChartData = {
       labels: [],
       datasets: [
-        { data: [], label: '' },
+        {data: [], label: ''},
       ]
     };
 
     this.breedChartLabels = [];
-    this.breedChartData = [];
+    this.breedChartData = {
+      labels: [],
+      datasets: [
+        {data: [], label: ''},
+      ]
+    };
   }
 
   onCheckboxClick() {
@@ -292,6 +351,28 @@ export class OrganismsSummaryComponent implements OnInit {
       this.router.navigate(['summary/datasets']);
     } else if (tab.index == 3) {
       this.router.navigate(['summary/files']);
+    }
+  }
+
+
+  populateBarChart(chartData, data) {
+    // labels array
+    if (typeof chartData === 'object' && Array.isArray(chartData['labels'])) {
+      chartData['labels'].push(data['name']);
+    } else {
+      chartData = {
+        labels: [data['name']],
+      };
+    }
+    // data array
+    if (Array.isArray(chartData['datasets']) && 'data' in chartData['datasets'][0]) {
+      chartData['datasets'][0]['data'].push(data['value']);
+    } else {
+      chartData = {
+        datasets: [
+          {data: [data['value']], label: ''},
+        ]
+      };
     }
   }
 }
