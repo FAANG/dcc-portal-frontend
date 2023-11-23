@@ -36,7 +36,7 @@ export class OrganismsSummaryComponent implements OnInit {
     data: [300, 500, 100],
   }];
   public pieChartLegend = true;
-  public pieChartPlugins = [];
+  public pieChartPlugins = [ChartDataLabels];
   public barChartPlugins = [ChartDataLabels];
 
 
@@ -88,7 +88,20 @@ export class OrganismsSummaryComponent implements OnInit {
     }
   };
 
-  public pieChartOptions = pieChartOptions;
+  public pieChartOptions : ChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          return label;
+        },
+      },
+    }
+  };
   // public barChartOptions = barChartOptions;
   // public barChartPlugins = ChartDataLabels;
   // public pieChartPlugins = [pluginDataLabels];
