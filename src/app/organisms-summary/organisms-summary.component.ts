@@ -1,11 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-
+import {barChartOptions, pieChartOptions, doughnutChartOptions} from '../shared/chart-options';
 import {Chart} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-
-
-import {pieChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
 import {MatTabGroup} from '@angular/material/tabs';
@@ -20,102 +16,22 @@ import {ChartConfiguration} from 'chart.js';
 })
 export class OrganismsSummaryComponent implements OnInit {
 
-  // Doughnut
-  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartDatasets: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-    {data: [350, 450, 100], label: 'Series A'}
-  ];
+  public doughnutChartOptions = doughnutChartOptions;
 
-  public doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
-    responsive: false
-  };
-
-  // Pie
-  public pieChartLabels = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
-  public pieChartDatasets = [{
-    data: [300, 500, 100],
-  }];
-  public pieChartLegend = true;
+  public pieChartOptions = pieChartOptions;
+  public pieChartColors = ['#5bc0de', '#5cb85c', '#D3D3D3'];
   public pieChartPlugins = [ChartDataLabels];
-  public barChartPlugins = [ChartDataLabels];
 
+  public barChartPlugins = [ChartDataLabels];
+  public barChartOptions = barChartOptions;
 
   @ViewChild('tabs', {static: true}) tabGroup: MatTabGroup;
   name: string;
   error: string;
   chartData;
   excludeLegacyData = true;
-
   breedsData = {};
   breedKeys: any;
-
-
-  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true
-      },
-      x: {
-        display: false
-      }
-    },
-    // tooltips: {
-    //   enabled: true,
-    //   mode: 'label',
-    //   callbacks: {
-    //     title: function (tooltipItems, data: any) {
-    //       const idx = tooltipItems[0].index;
-    //       return data.labels[idx];
-    //     }
-    //   }
-    // }
-    // interaction: {
-    //   mode: 'nearest'
-    // },
-
-    plugins: {
-      tooltip: {
-        enabled: true,
-        // mode: 'label',
-        // callbacks: {
-        //   title: function (tooltipItems, data: any) {
-        //     const idx = tooltipItems[0].index;
-        //     return data.labels[idx];
-        //   }
-        // }
-      }
-    }
-  };
-
-  public pieChartOptions : ChartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      datalabels: {
-        formatter: (value, ctx) => {
-          const label = ctx.chart.data.labels[ctx.dataIndex];
-          return label;
-        },
-      },
-    }
-  };
-  // public barChartOptions = barChartOptions;
-  // public barChartPlugins = ChartDataLabels;
-  // public pieChartPlugins = [pluginDataLabels];
-  // public pieChartColors = [
-  //   {
-  //     backgroundColor: ['#5bc0de', '#5cb85c'],
-  //   },
-  // ];
-
-  public pieChartColors = ['#5bc0de', '#5cb85c'];
-
-
-  // public sexChartLabels = [];
-  // public sexChartData = [{data: []}];
 
   public sexChartLabels: any;
   public sexChartData: any;
@@ -126,18 +42,7 @@ export class OrganismsSummaryComponent implements OnInit {
   public standardChartLabels: any;
   public standardChartData: ChartConfiguration<'doughnut'>['data']['datasets'];
 
-  // public organismChartLabels = [];
   public organismChartData: ChartConfiguration<'bar'>['data'];
-
-
-  public barChartLegend = true;
-  public barChartData: ChartConfiguration<'bar'>['data'] = {
-    labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-    datasets: [
-      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    ]
-  };
-
 
   public breedChartLabels = [];
   public breedChartData: ChartConfiguration<'bar'>['data'];
@@ -195,10 +100,6 @@ export class OrganismsSummaryComponent implements OnInit {
     this.sexChartData[0]['backgroundColor'] = this.pieChartColors;
 
     for (const item of data[paperPublishedSummaryName]) {
-      // this.paperChartLabels.push(item['name']);
-      // this.paperChartData[0]['data'].push(item['value']);
-
-
       // labels array
       if (Array.isArray(this.paperChartLabels)) {
         this.paperChartLabels.push(item['name']);
@@ -217,9 +118,6 @@ export class OrganismsSummaryComponent implements OnInit {
     this.paperChartData[0]['backgroundColor'] = this.pieChartColors;
 
     for (const item of data[organism_summary_name]) {
-      // this.organismChartData['labels'].push(item['name']);
-      // this.organismChartData['datasets'][0]['data'].push(item['value']);
-
       // labels array
       if (typeof this.organismChartData === 'object' && Array.isArray(this.organismChartData['labels'])) {
         this.organismChartData['labels'].push(item['name']);
@@ -241,11 +139,7 @@ export class OrganismsSummaryComponent implements OnInit {
           ]
         };
       }
-
-
     }
-    console.log(this.organismChartData)
-
 
     // standard chart
     for (const item of data[standard_summary_name]) {
@@ -264,8 +158,7 @@ export class OrganismsSummaryComponent implements OnInit {
         ];
       }
     }
-
-    console.log("koosumtest: ", data)
+    
     for (const item of data[breed_summary_name]) {
       if (Array.isArray(this.breedKeys)) {
         this.breedKeys.push(item['speciesName']);
@@ -284,32 +177,16 @@ export class OrganismsSummaryComponent implements OnInit {
       };
     }
     this.name = this.breedKeys[0];
-    // this.breedChartLabels = this.breedsData[this.name]['labels'];
-    // this.breedChartData = this.breedsData[this.name]['data'];
-
-    console.log(this.breedsData[this.name]['data'])
-
-    // labels array
     this.breedChartData = {
       labels: this.breedsData[this.name]['labels'],
       datasets: [
         {data: this.breedsData[this.name]['data'], label: ''},
       ]
     };
-
-
-
-
-    console.log("miaw: ", this.breedChartData)
-
-
-
   }
 
   onItemClick(name: string) {
     this.name = name;
-    // this.breedChartLabels = this.breedsData[this.name]['labels'];
-    // this.breedChartData = this.breedsData[this.name]['data'];
     this.breedChartData = {
       labels: this.breedsData[this.name]['labels'],
       datasets: [

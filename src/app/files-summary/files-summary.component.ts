@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import {barChartOptions, pieChartOptions} from '../shared/chart-options';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {barChartOptions, pieChartOptions, doughnutChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
 import {MatTabGroup} from '@angular/material/tabs';
 import {Router} from '@angular/router';
+import {ChartConfiguration} from 'chart.js';
 
 @Component({
   selector: 'app-files-summary',
@@ -17,15 +18,12 @@ export class FilesSummaryComponent implements OnInit {
   chartData;
   excludeLegacyData = true;
 
+  public doughnutChartOptions = doughnutChartOptions;
   public pieChartOptions = pieChartOptions;
   public barChartOptions = barChartOptions;
-  public barChartPlugins = [pluginDataLabels];
-  public pieChartPlugins = [pluginDataLabels];
-  public pieChartColors = [
-    {
-      backgroundColor: ['#5bc0de', '#5cb85c'],
-    },
-  ];
+  public barChartPlugins = [ChartDataLabels];
+  public pieChartPlugins = [ChartDataLabels];
+  public pieChartColors = ['#5bc0de', '#5cb85c'];
 
   public standardChartLabels = [];
   public standardChartData = [];
@@ -33,14 +31,13 @@ export class FilesSummaryComponent implements OnInit {
   public paperChartLabels = [];
   public paperChartData = [];
 
-  public speciesChartLabels = [];
-  public speciesChartData = [];
+  public speciesChartData: any;
 
-  public assayTypeChartLabels = [];
-  public assayTypeChartData = [];
+
+  public assayTypeChartData: any;
 
   constructor(
-    private dataService: ApiDataService, 
+    private dataService: ApiDataService,
     private titleService: Title,
     private router: Router
   ) { }
@@ -71,20 +68,81 @@ export class FilesSummaryComponent implements OnInit {
       assayTypeSummaryName = 'assayTypeSummaryFAANGOnly';
     }
     for (const item of data[standardSummaryName]) {
-      this.standardChartLabels.push(item['name']);
-      this.standardChartData.push(item['value']);
+      // labels array
+      if (Array.isArray(this.standardChartLabels)) {
+        this.standardChartLabels.push(item['name']);
+      } else {
+        this.standardChartLabels = [item['name']];
+      }
+      // data array
+      if (Array.isArray(this.standardChartData) && this.standardChartData[0] && 'data' in this.standardChartData[0]) {
+        this.standardChartData[0]['data'].push(item['value']);
+      } else {
+        this.standardChartData = [
+          {'data': [item['value']]}
+        ];
+      }
+
     }
     for (const item of data[paperPublishedSummaryName]) {
-      this.paperChartLabels.push(item['name']);
-      this.paperChartData.push(item['value']);
+      // labels array
+      if (Array.isArray(this.paperChartLabels)) {
+        this.paperChartLabels.push(item['name']);
+      } else {
+        this.paperChartLabels = [item['name']];
+      }
+      // data array
+      if (Array.isArray(this.paperChartData) && this.paperChartData[0] && 'data' in this.paperChartData[0]) {
+        this.paperChartData[0]['data'].push(item['value']);
+      } else {
+        this.paperChartData = [{'data': [item['value']]}];
+      }
     }
     for (const item of data[specieSummaryName]) {
-      this.speciesChartLabels.push(item['name']);
-      this.speciesChartData.push(item['value']);
+      // labels array
+      if (typeof this.speciesChartData === 'object' && Array.isArray(this.speciesChartData['labels'])) {
+        this.speciesChartData['labels'].push(item['name']);
+      } else {
+        this.speciesChartData = {
+          labels: [item['name']],
+          datasets: [
+            {data: [], label: ''},
+          ]
+        };
+      }
+      // data array
+      if (Array.isArray(this.speciesChartData['datasets']) && 'data' in this.speciesChartData['datasets'][0]) {
+        this.speciesChartData['datasets'][0]['data'].push(item['value']);
+      } else {
+        this.speciesChartData = {
+          datasets: [
+            {data: [item['value']], label: ''},
+          ]
+        };
+      }
     }
     for (const item of data[assayTypeSummaryName]) {
-      this.assayTypeChartLabels.push(item['name']);
-      this.assayTypeChartData.push(item['value']);
+      // labels array
+      if (typeof this.assayTypeChartData === 'object' && Array.isArray(this.assayTypeChartData['labels'])) {
+        this.assayTypeChartData['labels'].push(item['name']);
+      } else {
+        this.assayTypeChartData = {
+          labels: [item['name']],
+          datasets: [
+            {data: [], label: ''},
+          ]
+        };
+      }
+      // data array
+      if (Array.isArray(this.assayTypeChartData['datasets']) && 'data' in this.assayTypeChartData['datasets'][0]) {
+        this.assayTypeChartData['datasets'][0]['data'].push(item['value']);
+      } else {
+        this.assayTypeChartData = {
+          datasets: [
+            {data: [item['value']], label: ''},
+          ]
+        };
+      }
     }
   }
 
@@ -95,10 +153,8 @@ export class FilesSummaryComponent implements OnInit {
     this.paperChartLabels = [];
     this.paperChartData = [];
 
-    this.speciesChartLabels = [];
     this.speciesChartData = [];
-
-    this.assayTypeChartLabels = [];
+    
     this.assayTypeChartData = [];
   }
 

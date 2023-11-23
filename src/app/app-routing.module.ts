@@ -19,9 +19,9 @@ import {ProtocolExperimentComponent} from './protocol-experiment/protocol-experi
 import {ProtocolSampleDetailsComponent} from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
 import {OrganismsSummaryComponent} from './organisms-summary/organisms-summary.component';
-// import {SpecimensSummaryComponent} from './specimens-summary/specimens-summary.component';
-// import {DatasetsSummaryComponent} from './datasets-summary/datasets-summary.component';
-// import {FilesSummaryComponent} from './files-summary/files-summary.component';
+import {SpecimensSummaryComponent} from './specimens-summary/specimens-summary.component';
+import {DatasetsSummaryComponent} from './datasets-summary/datasets-summary.component';
+import {FilesSummaryComponent} from './files-summary/files-summary.component';
 import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.component';
 import {ProtocolAnalysisDetailsComponent} from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import {NonExistingComponent} from './non-existing/non-existing.component';
@@ -77,9 +77,9 @@ const routes: Routes = [
   {path: 'protocol/analysis/:id', component: ProtocolAnalysisDetailsComponent},
   {path: 'summary', redirectTo: 'summary/organisms', pathMatch: 'full'},
   {path: 'summary/organisms', component: OrganismsSummaryComponent},
-  // {path: 'summary/specimens', component: SpecimensSummaryComponent},
-  // {path: 'summary/datasets', component: DatasetsSummaryComponent},
-  // {path: 'summary/files', component: FilesSummaryComponent},
+  {path: 'summary/specimens', component: SpecimensSummaryComponent},
+  {path: 'summary/datasets', component: DatasetsSummaryComponent},
+  {path: 'summary/files', component: FilesSummaryComponent},
   {path: 'ruleset/samples', component: RulesetSampleComponent},
   {path: 'ruleset/experiments', component: RulesetExperimentComponent},
   {path: 'ruleset/analyses', component: RulesetAnalysisComponent},

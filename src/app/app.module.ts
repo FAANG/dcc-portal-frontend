@@ -39,9 +39,9 @@ import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol
 // import { ChartsModule } from 'ng2-charts';
 import { NgChartsModule } from 'ng2-charts';
 import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
-// import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
-// import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
-// import { FilesSummaryComponent } from './files-summary/files-summary.component';
+import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
+import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
+import { FilesSummaryComponent } from './files-summary/files-summary.component';
 // import {SlicePipe} from '@angular/common';
 // import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
@@ -158,9 +158,9 @@ export function removeToken(): void {
     ProtocolSampleDetailsComponent,
     ProtocolExperimentDetailsComponent,
     OrganismsSummaryComponent,
-    // SpecimensSummaryComponent,
-    // DatasetsSummaryComponent,
-    // FilesSummaryComponent,
+    SpecimensSummaryComponent,
+    DatasetsSummaryComponent,
+    FilesSummaryComponent,
     ProtocolAnalysisComponent,
     NonExistingComponent,
     RulesetSampleComponent,
