@@ -8,7 +8,7 @@ import {ApiDataService} from './services/api-data.service';
 import {ApiFiltersService} from './services/api-filters.service';
 import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
-// import {NgxPaginationModule} from 'ngx-pagination';
+// import {NgxPaginationModule} from 'ngx-pagination'; <--- not used
 import {HttpClientModule} from '@angular/common/http';
 import { ActiveFilterComponent } from './shared/active-filter/active-filter.component';
 import { HomeComponent } from './home/home.component';
@@ -29,7 +29,7 @@ import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-det
 import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { ServiceWorkerModule } from '@angular/service-worker';
+// import { ServiceWorkerModule } from '@angular/service-worker'; <--- not used
 // import { environment } from '../environments/environment';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
@@ -47,15 +47,15 @@ import {SlicePipe} from '@angular/common';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
 // import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
-// import { IndeterminateDirective } from './shared/indeterminate.directive';
+import { IndeterminateDirective } from './shared/indeterminate.directive';
 import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import {FormsModule} from '@angular/forms';
 import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
-// import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
-// import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
+import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
+import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
 import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 import {FileUploadModule} from 'ng2-file-upload';
@@ -166,11 +166,11 @@ export function removeToken(): void {
     RulesetSampleComponent,
     RulesetExperimentComponent,
     RulesetAnalysisComponent,
-    // IndeterminateDirective,
+    IndeterminateDirective,
     FooterComponent,
     ValidationSamplesComponent,
-    // ValidationExperimentsComponent,
-    // ValidationAnalysesComponent,
+    ValidationExperimentsComponent,
+    ValidationAnalysesComponent,
     UsdaBovineComponent,
     SheepatlasComponent,
     SubprojectComponent,

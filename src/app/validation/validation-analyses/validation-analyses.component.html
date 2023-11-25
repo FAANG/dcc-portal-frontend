@@ -212,7 +212,7 @@
   <div *ngIf="submissionStarted === true" fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="6%">
     <div  fxFlex="47" [hidden]="disableAuthForm" *ngIf="!_userService.token">
       <h3 style="margin: 10px 0 20px 0;">Submit data to ENA</h3>
-      <p *ngIf="error" class="alert alert-danger">{{error}}</p>
+      <p *ngIf="errors" class="alert alert-danger">{{errors}}</p>
       <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
         <div class="form-group">
           <label for="aapUsername">Username</label>
