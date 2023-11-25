@@ -53,12 +53,12 @@ import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.c
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import {FormsModule} from '@angular/forms';
-// import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
+import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
 // import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
 // import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
 import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
-// import {FileUploadModule} from 'ng2-file-upload';
+import {FileUploadModule} from 'ng2-file-upload';
 import { SubprojectComponent } from './subprojects/subproject.component';
 // import {JwtModule} from '@auth0/angular-jwt';
 import { MatTableModule } from '@angular/material/table';
@@ -168,7 +168,7 @@ export function removeToken(): void {
     RulesetAnalysisComponent,
     // IndeterminateDirective,
     FooterComponent,
-    // ValidationSamplesComponent,
+    ValidationSamplesComponent,
     // ValidationExperimentsComponent,
     // ValidationAnalysesComponent,
     UsdaBovineComponent,
@@ -212,7 +212,7 @@ export function removeToken(): void {
     // ChartsModule,
     NgChartsModule,
     FormsModule,
-    // FileUploadModule,
+    FileUploadModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,

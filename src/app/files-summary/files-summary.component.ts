@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Chart} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {barChartOptions, pieChartOptions, doughnutChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
@@ -13,16 +14,21 @@ import {ChartConfiguration} from 'chart.js';
   styleUrls: ['./files-summary.component.css']
 })
 export class FilesSummaryComponent implements OnInit {
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
+  @ViewChild('tabs', {static: true}) tabGroup: MatTabGroup;
   error: string;
   chartData;
   excludeLegacyData = true;
 
+
   public doughnutChartOptions = doughnutChartOptions;
   public pieChartOptions = pieChartOptions;
   public barChartOptions = barChartOptions;
+
   public barChartPlugins = [ChartDataLabels];
   public pieChartPlugins = [ChartDataLabels];
+  // public doughnutChartPlugins = [ChartDataLabels];
+
+
   public pieChartColors = ['#5bc0de', '#5cb85c'];
 
   public standardChartLabels = [];
@@ -40,9 +46,11 @@ export class FilesSummaryComponent implements OnInit {
     private dataService: ApiDataService,
     private titleService: Title,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+    Chart.register(ChartDataLabels);
     this.titleService.setTitle('FAANG summary|files');
     this.tabGroup.selectedIndex = 3;
     this.dataService.getFileSummary('summary_file').subscribe(
@@ -154,7 +162,7 @@ export class FilesSummaryComponent implements OnInit {
     this.paperChartData = [];
 
     this.speciesChartData = [];
-    
+
     this.assayTypeChartData = [];
   }
 
@@ -167,14 +175,11 @@ export class FilesSummaryComponent implements OnInit {
   tabClick(tab) {
     if (tab.index == 0) {
       this.router.navigate(['summary/organisms']);
-    }
-    else if (tab.index == 1) {
+    } else if (tab.index == 1) {
       this.router.navigate(['summary/specimens']);
-    }
-    else if (tab.index == 2) {
+    } else if (tab.index == 2) {
       this.router.navigate(['summary/datasets']);
-    }
-    else if (tab.index == 3) {
+    } else if (tab.index == 3) {
       this.router.navigate(['summary/files']);
     }
   }

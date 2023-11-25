@@ -36,6 +36,28 @@ export const barChartOptions: ChartConfiguration<'bar'>['options'] = {
 
 
 export const doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
-  responsive: true
+  responsive: true,
+  plugins: {
+    datalabels: {
+      display: true,
+      anchor: 'center',
+      align: 'center',
+      font: {
+        size: 12,
+      },
+      color: "#000000"
+    },
+    tooltip: {
+      enabled: true,
+    },
+    title: {
+      display: true,
+      text: 'Macros'
+    },
+    legend: {
+      display: true,
+    },
+  },
+
 };
 
