@@ -37,7 +37,7 @@ import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.compone
 import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
 
 import {SubprojectComponent} from './subprojects/subproject.component';
-// import {LoginComponent} from './login/login.component';
+import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 // import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
@@ -93,7 +93,7 @@ const routes: Routes = [
   {path: 'projects/sheepatlas', component: SheepatlasComponent},
 
   {path: 'projects/:id', component: SubprojectDetailComponent},
-  // {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'upload_protocol', component: FilesUploadComponent},
   {path: 'ontology', component: OntologyImproverComponent},
   // {path: 'ontology-workshop', component: OntologyImproverWorkshopComponent},

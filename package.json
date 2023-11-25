@@ -27,7 +27,7 @@
     "@angular/router": "^17.0.0",
     "@angular/service-worker": "^17.0.2",
     "@apollo/client": "^3.0.0",
-    "@auth0/angular-jwt": "^3.0.1",
+    "@auth0/angular-jwt": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@popperjs/core": "^2.11.5",
     "@types/jasmine": "^5.1.2",

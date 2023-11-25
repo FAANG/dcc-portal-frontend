@@ -29,8 +29,8 @@ import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-det
 import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { ServiceWorkerModule } from '@angular/service-worker'; <--- not used
-// import { environment } from '../environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
@@ -60,12 +60,12 @@ import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.compo
 import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { SubprojectComponent } from './subprojects/subproject.component';
-// import {JwtModule} from '@auth0/angular-jwt';
+import {JwtModule} from '@auth0/angular-jwt';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component';
-// import {LoginComponent} from './login/login.component';
+import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
 import {UserService} from './services/user.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -175,7 +175,7 @@ export function removeToken(): void {
     SheepatlasComponent,
     SubprojectComponent,
     TableClientSideComponent,
-    // LoginComponent,
+    LoginComponent,
     FilesUploadComponent,
     OntologyImproverComponent,
     OntologyDetailComponent,
@@ -238,15 +238,15 @@ export function removeToken(): void {
     MatTreeModule,
     MatDividerModule,
     MatCheckboxModule,
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter: getToken,
-    //     whitelistedDomains: ['api.aai.ebi.ac.uk'],
-    //     blacklistedRoutes: ['https://api.aai.ebi.ac.uk/auth']
-    //   }
-    // }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getToken,
+        allowedDomains: ['api.aai.ebi.ac.uk'],
+        disallowedRoutes: ['https://api.aai.ebi.ac.uk/auth']
+      }
+    }),
     // BsDropdownModule.forRoot(),
-    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
     // NgbModule,
     // NgcCookieConsentModule.forRoot(cookieConfig),
