@@ -100,8 +100,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
-// import { NgcCookieConsentModule } from 'ngx-cookieconsent';
-// import { cookieConfig } from './app.component';
+import { NgcCookieConsentModule } from 'ngx-cookieconsent';
+import { cookieConfig } from './app.component';
 import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
 import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
@@ -249,12 +249,9 @@ export function removeToken(): void {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
     // NgbModule,
-    // NgcCookieConsentModule.forRoot(cookieConfig),
+    NgcCookieConsentModule.forRoot(cookieConfig),
     GraphQLModule
   ],
-  // entryComponents: [
-  //   SubscriptionDialogComponent,
-  // ],
   providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService],
   bootstrap: [AppComponent]
 })
