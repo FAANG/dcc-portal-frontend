@@ -10,6 +10,7 @@ img.faang-logo {
 
 .home-card {
   border: solid 0.2px rgba(0,0,0,0.15);
+  padding: 16px;
 }
 
 p {
@@ -19,4 +20,18 @@ p {
 
 a {
   color: steelblue;
+}
+
+hr {
+  width: 100%;
+  background-color:#ccc;
+}
+
+mat-card {
+  font-family: Roboto,Helvetica Neue,sans-serif;
+}
+
+mat-divider {
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
