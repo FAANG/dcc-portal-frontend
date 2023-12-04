@@ -154,11 +154,14 @@ export class OrganismsSummaryComponent implements OnInit {
         this.standardChartData[0]['data'].push(item['value']);
       } else {
         this.standardChartData = [
-          {'data': [item['value']]}
+          {
+            'data': [item['value']],
+            'backgroundColor': this.pieChartColors
+          }
         ];
       }
     }
-    
+
     for (const item of data[breed_summary_name]) {
       if (Array.isArray(this.breedKeys)) {
         this.breedKeys.push(item['speciesName']);
