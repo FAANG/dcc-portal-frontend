@@ -79,7 +79,10 @@ export class DatasetsSummaryComponent implements OnInit {
         this.standardChartData[0]['data'].push(item['value']);
       } else {
         this.standardChartData = [
-          {'data': [item['value']]}
+          {
+            'data': [item['value']],
+            'backgroundColor': this.pieChartColors
+          }
         ];
       }
 

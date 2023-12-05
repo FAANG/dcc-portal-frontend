@@ -87,7 +87,10 @@ export class FilesSummaryComponent implements OnInit {
         this.standardChartData[0]['data'].push(item['value']);
       } else {
         this.standardChartData = [
-          {'data': [item['value']]}
+          {
+            'data': [item['value']],
+            'backgroundColor': this.pieChartColors
+          }
         ];
       }
 
@@ -106,6 +109,8 @@ export class FilesSummaryComponent implements OnInit {
         this.paperChartData = [{'data': [item['value']]}];
       }
     }
+    this.paperChartData[0]['backgroundColor'] = this.pieChartColors;
+
     for (const item of data[specieSummaryName]) {
       // labels array
       if (typeof this.speciesChartData === 'object' && Array.isArray(this.speciesChartData['labels'])) {

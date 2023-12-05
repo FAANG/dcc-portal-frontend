@@ -21,59 +21,67 @@
 
   <div *ngIf="!error" fxLayout="column" fxLayoutGap="4%">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
-      <mat-card fxFlex="48" class="card">
+      <mat-card fxFlex="48" class="card" style="max-height: 600px; padding: 10px;">
         <h3>Standard</h3>
         <span class="subheader">Click on legend to exclude item</span>
         <hr>
-        <canvas baseChart
-                [datasets]="standardChartData"
-                [labels]="standardChartLabels"
-                [options]="doughnutChartOptions"
-                [type]="'doughnut'"
-                [legend]="true">
-        </canvas>
+        <div class="center">
+          <canvas baseChart
+                  [datasets]="standardChartData"
+                  [labels]="standardChartLabels"
+                  [options]="doughnutChartOptions"
+                  [type]="'doughnut'"
+                  [legend]="true">
+          </canvas>
+        </div>
       </mat-card>
 
-      <mat-card fxFlex="48" class="card">
+      <mat-card fxFlex="48" class="card" style="max-height: 600px; padding: 10px;">
         <h3>Paper published</h3>
         <span class="subheader">Click on legend to exclude item</span>
         <hr>
-        <canvas baseChart
-                [datasets]="paperChartData"
-                [labels]="paperChartLabels"
-                [type]="'pie'"
-                [options]="pieChartOptions"
-                [plugins]="pieChartPlugins"
-                [legend]="true">
-        </canvas>
+        <div class="center">
+          <canvas baseChart
+                  [datasets]="paperChartData"
+                  [labels]="paperChartLabels"
+                  [type]="'pie'"
+                  [options]="pieChartOptions"
+                  [plugins]="pieChartPlugins"
+                  [legend]="true">
+          </canvas>
+        </div>
       </mat-card>
     </div>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
-      <mat-card fxFlex="48" class="card">
+      <mat-card fxFlex="48" class="card" style="max-height: 600px; padding: 10px;">
         <h3>Species</h3>
         <span class="subheader">Hover over bar to see full name</span>
         <hr>
-        <canvas baseChart
-                [data]="speciesChartData"
-                [type]="'bar'"
-                [options]="barChartOptions"
-                [plugins]="barChartPlugins"
-                [legend]="false">
-        </canvas>
+        <div class="centerBarChart">
+          <canvas baseChart
+                  [data]="speciesChartData"
+                  [type]="'bar'"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="false">
+          </canvas>
+        </div>
       </mat-card>
 
-      <mat-card fxFlex="48" class="card">
+      <mat-card fxFlex="48" class="card" style="max-height: 600px; padding: 10px;">
         <h3>Assay type</h3>
         <span class="subheader">Hover over bar to see full name</span>
         <hr>
-        <canvas baseChart
-                [data]="assayTypeChartData"
-                [type]="'bar'"
-                [options]="barChartOptions"
-                [plugins]="barChartPlugins"
-                [legend]="false">
-        </canvas>
+        <div class="centerBarChart">
+          <canvas baseChart
+                  [data]="assayTypeChartData"
+                  [type]="'bar'"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="false">
+          </canvas>
+        </div>
 
       </mat-card>
     </div>

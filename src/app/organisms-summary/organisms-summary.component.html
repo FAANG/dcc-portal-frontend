@@ -21,7 +21,7 @@
 
   <div *ngIf="!error" fxLayout="column" fxLayoutGap="4%">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
-      <mat-card fxFlex="48" class="card" style="max-height: 550px">
+      <mat-card fxFlex="48" class="card" style="max-height: 600px">
           <h3>Sex</h3>
           <span class="subheader">Click on legend to exclude item</span>
           <hr>
@@ -37,7 +37,7 @@
           </div>
       </mat-card>
 
-      <mat-card fxFlex="48" class="card" style="max-height: 550px">
+      <mat-card fxFlex="48" class="card" style="max-height: 600px">
         <h3>Paper published</h3>
         <span class="subheader">Click on legend to exclude item</span>
         <hr>
@@ -55,7 +55,7 @@
     </div>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
-      <mat-card fxFlex="48" class="card" style="max-height: 550px">
+      <mat-card fxFlex="48" class="card" style="max-height: 600px">
         <h3>Organisms</h3>
         <span class="subheader">Hover over bar to see full name</span>
         <hr>
@@ -70,7 +70,7 @@
         </div>
       </mat-card>
 
-      <mat-card fxFlex="48" class="card" style="max-height: 550px">
+      <mat-card fxFlex="48" class="card" style="max-height: 600px">
         <h3>Standard</h3>
         <span class="subheader">Click on legend to exclude item</span>
         <hr>
@@ -87,11 +87,16 @@
     </div>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
-      <mat-card fxFlex="48" class="card" style="max-height: 550px">
+      <mat-card fxFlex="48" class="card" style="max-height: 600px">
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" >
           <h3>Breeds of <i class="subheader">{{name}}</i></h3>
           <div>
-            <button mat-button [matMenuTriggerFor]="menu">Choose Organism</button>
+            <button mat-button [matMenuTriggerFor]="menu">
+              <div style="display: flex; align-items: center;">
+                <div>Choose organism</div>
+                <mat-icon>arrow_drop_down</mat-icon>
+              </div>
+            </button>
             <mat-menu #menu="matMenu">
               <ng-container *ngFor="let breed of breedKeys">
                 <button mat-menu-item (click)="onItemClick(breed)" style="cursor: pointer">{{breed}}</button>
