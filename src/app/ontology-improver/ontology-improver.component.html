@@ -80,49 +80,49 @@
           <p>Select the best match for each your ontology terms</p>
           <br>
           <mat-accordion>
-<!--            <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;"-->
-<!--                                 [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst"-->
-<!--                                 (opened)="panelOpenState = true" (closed)="panelOpenState = false"-->
-<!--                                 style="margin-bottom: 20px;">-->
-<!--              <mat-expansion-panel-header>-->
-<!--                <mat-panel-title>-->
-<!--                  <h6><b>Ontology Matches for term '{{item.key}}'</b></h6>-->
-<!--                </mat-panel-title>-->
-<!--              </mat-expansion-panel-header>-->
-<!--              <ng-container *ngIf="item.value?.length">-->
-<!--                <table mat-table [dataSource]="item.value" table-striped style="width: 100%">-->
-<!--                  <ng-container *ngFor="let col of ontologyMatchColsToDisplay; let i = index">-->
-<!--                    <ng-container *ngIf="col == 'source'" [matColumnDef]=col>-->
-<!--                      <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>-->
-<!--                      <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index">-->
-<!--                        {{data[col]}}-->
-<!--                        <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']"-->
-<!--                               (click)="addNewOntology(item.key, j)"-->
-<!--                               style="margin-right: 40px; float: right;" [disabled]="disableOntologyCreation">-->
-<!--                        <button *ngIf="data['selected']" mat-raised-button color="primary"-->
-<!--                                (click)="editNewOntology(item.key, j)"-->
-<!--                                style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;"-->
-<!--                                [disabled]="disableOntologyCreation"> Edit-->
-<!--                        </button>-->
-<!--                      </td>-->
-<!--                    </ng-container>-->
-<!--                    <ng-container *ngIf="col != 'source'" [matColumnDef]=col>-->
-<!--                      <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>-->
-<!--                      <td mat-cell class="table-cell-data" *matCellDef="let data"> {{data[col]}} </td>-->
-<!--                    </ng-container>-->
-<!--                  </ng-container>-->
-<!--                  <tr mat-header-row *matHeaderRowDef="ontologyMatchColsToDisplay"></tr>-->
-<!--                  <tr mat-row *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>-->
-<!--                </table>-->
-<!--              </ng-container>-->
-<!--              <ng-container *ngIf="item.value?.length == 0">-->
-<!--                <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">-->
-<!--                  <span>No Matches Found</span>-->
-<!--                  <button mat-raised-button color="primary" (click)="addNewOntology(item.key, -1)">Provide Ontology-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </ng-container>-->
-<!--            </mat-expansion-panel>-->
+            <mat-expansion-panel *ngFor="let item of ontologyMatches | keyvalue; let isFirst = first;"
+                                 [expanded]="selectedTerm.key ? item.key === selectedTerm.key : isFirst"
+                                 (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+                                 style="margin-bottom: 20px;">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h6><b>Ontology Matches for term '{{item.key}}'</b></h6>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-container *ngIf="getArrLength(item['value'])">
+                <table mat-table [dataSource]="getItemValueArray(item)" table-striped style="width: 100%">
+                  <ng-container *ngFor="let col of ontologyMatchColsToDisplay; let i = index">
+                    <ng-container *ngIf="col == 'source'" [matColumnDef]=col>
+                      <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index">
+                        {{data[col]}}
+                        <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']"
+                               (click)="addNewOntology(getItemKey(item), j)"
+                               style="margin-right: 40px; float: right;" [disabled]="disableOntologyCreation">
+                        <button *ngIf="data['selected']" mat-raised-button color="primary"
+                                (click)="editNewOntology(getItemKey(item), j)"
+                                style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;"
+                                [disabled]="disableOntologyCreation"> Edit
+                        </button>
+                      </td>
+                    </ng-container>
+                    <ng-container *ngIf="col != 'source'" [matColumnDef]=col>
+                      <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let data"> {{data[col]}} </td>
+                    </ng-container>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="ontologyMatchColsToDisplay"></tr>
+                  <tr mat-row *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
+                </table>
+              </ng-container>
+              <ng-container *ngIf="getArrLength(item['value']) == 0">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
+                  <span>No Matches Found</span>
+                  <button mat-raised-button color="primary" (click)="addNewOntology(getItemKey(item), -1)">Provide Ontology
+                  </button>
+                </div>
+              </ng-container>
+            </mat-expansion-panel>
           </mat-accordion>
           <br>
           <button mat-raised-button color="primary" [disabled]="disableOntologyCreation" (click)="submitTerms()">

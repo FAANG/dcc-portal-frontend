@@ -69,6 +69,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   ontology_update_status: string;
   socket;
   userComments: string;
+  panelOpenState = false;
 
   query = {
     'sort': ['key', 'asc'],
@@ -741,6 +742,28 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
     this.socket.close();
+  }
+
+
+  getArrLength(arr) {
+    if (Array.isArray(arr)) {
+      return arr.length
+    }
+    return null
+  }
+
+  getItemValueArray(item){
+    if ('value' in item){
+      return item['value']
+    }
+    return null
+  }
+
+  getItemKey(item){
+    if ('key' in item){
+      return item['key']
+    }
+    return null
   }
 
 }
