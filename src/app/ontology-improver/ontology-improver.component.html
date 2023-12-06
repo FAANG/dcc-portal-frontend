@@ -604,25 +604,33 @@
 
 <!-- Template: Ontology table status column -->
 <ng-template #ontologyVotesTemplate let-item>
-  <button mat-icon-button [disabled]="!token"
-          (click)="startOntologyValidation(item, 'Verified')">
-    <mat-icon>thumb_up</mat-icon>
-  </button>
-  <span>{{item.upvotes_count}}</span>
-  <button mat-icon-button [disabled]="!token"
-          (click)="startOntologyValidation(item, 'Needs Improvement')">
-    <mat-icon>thumb_down</mat-icon>
-  </button>
-  <span>{{item.downvotes_count}}</span>
-  <button mat-icon-button (click)="displayStatusActivity(item.status_activity)">
-    <mat-icon>info_outline</mat-icon>
-  </button>
-  <button *ngIf="token" mat-icon-button
-          style="margin-left: 15px; color: rgba(0, 0, 128, 0.8);"
-          (click)="editOntology(item)">
-    <mat-icon>edit_outline</mat-icon>
-    Edit
-  </button>
+  <div   fxLayout="row" fxFlexFill fxLayout.lt-sm="column" fxLayoutAlign="center center">
+    <button mat-icon-button [disabled]="!token"
+            (click)="startOntologyValidation(item, 'Verified')">
+      <mat-icon>thumb_up</mat-icon>
+    </button>
+    <span>{{item.upvotes_count}}</span>
+
+    <button mat-icon-button [disabled]="!token"
+            (click)="startOntologyValidation(item, 'Needs Improvement')">
+      <mat-icon>thumb_down</mat-icon>
+    </button>
+    <span>{{item.downvotes_count}}</span>
+
+    <button mat-icon-button (click)="displayStatusActivity(item.status_activity)">
+      <mat-icon>info_outline</mat-icon>
+    </button>
+
+    <button *ngIf="token" mat-button class="edit-button"
+            style="margin-left: 15px; color: rgba(0, 0, 128, 0.8);"
+            (click)="editOntology(item)">
+      <div style="display: flex; align-items: center; gap: 3px;">
+        <mat-icon>edit_outline</mat-icon>
+        <div>Edit</div>
+      </div>
+    </button>
+
+  </div>
 </ng-template>
 
 <!-- Template: Usage stats table ontology types count column -->
