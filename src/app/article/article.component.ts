@@ -109,7 +109,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['article'], {queryParams: {}});
+    this.router.navigate(['article'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {

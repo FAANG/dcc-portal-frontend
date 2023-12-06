@@ -113,7 +113,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['protocol', 'experiments'], {queryParams: {}});
+    this.router.navigate(['protocol', 'experiments'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {
