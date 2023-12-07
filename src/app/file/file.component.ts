@@ -193,6 +193,10 @@ export class FileComponent implements OnInit, OnDestroy {
     if (params['sortTerm'] && params['sortDirection']){
       this.query['sort'] = [params['sortTerm'], params['sortDirection']];
     }
+
+    this.router.events.subscribe((event) => {
+      console.log('Router Event:', event);
+    });
   }
 
 }

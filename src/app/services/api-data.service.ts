@@ -25,6 +25,23 @@ export class ApiDataService {
               private apiFiltersService: ApiFiltersService) { }
 
 
+  getGSearchData(sterm: string) {
+    const url = `${this.hostSetting.host}data/_gsearch/?sterm=${sterm}`;
+    const json_data = {};
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        for (const [key, value] of Object.entries(data)) {
+          json_data[key] = {
+            data: value['hits']['hits'],
+            totalHits: value['hits']['total']['value']
+          };
+        }
+        return json_data;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
 
   getAllFiles(query: any, size: number) {
     const url = `${this.hostSetting.host}data/file/_search/?size=${size}`;
@@ -70,17 +87,17 @@ export class ApiDataService {
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map(entry => ({
-          fileName: entry['_id'],
-          study: entry['_source']['study']['accession'],
-          experiment: entry['_source']['experiment']['accession'],
-          species: entry['_source']['species']['text'],
-          assayType: entry['_source']['experiment']['assayType'],
-          target: entry['_source']['experiment']['target'],
-          specimen: entry['_source']['specimen'],
-          instrument: entry['_source']['run']['instrument'],
-          standard: entry['_source']['experiment']['standardMet'],
-          paperPublished: entry['_source']['paperPublished'],
-          submitterEmail: entry['_source']['submitterEmail']
+            fileName: entry['_id'],
+            study: entry['_source']['study']['accession'],
+            experiment: entry['_source']['experiment']['accession'],
+            species: entry['_source']['species']['text'],
+            assayType: entry['_source']['experiment']['assayType'],
+            target: entry['_source']['experiment']['target'],
+            specimen: entry['_source']['specimen'],
+            instrument: entry['_source']['run']['instrument'],
+            standard: entry['_source']['experiment']['standardMet'],
+            paperPublished: entry['_source']['paperPublished'],
+            submitterEmail: entry['_source']['submitterEmail']
           } as FileTable )
         );
         res['totalHits'] = data.hits.total.value;
@@ -165,7 +182,7 @@ export class ApiDataService {
   getAllFilesForProject(project: string, mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/file/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/file/?size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -179,7 +196,7 @@ export class ApiDataService {
               checksum: entry['_source']['checksum'],
               checksumMethod: entry['_source']['checksumMethod'],
               url: entry['_source']['url'],
-            private: entry['_source']['private']
+              private: entry['_source']['private']
             } as FileForProjectTable )
           );
           res['totalHits'] = data.hits.total.value;
@@ -192,21 +209,21 @@ export class ApiDataService {
       const project_filter = JSON.stringify({
         secondaryProject: [project]
       });
-      let url = `${this.hostSetting.host}data/file/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/file/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
-            name: entry['_source']['name'],
-            fileId: entry['_id'],
-            experiment: entry['_source']['experiment']['accession'],
-            assayType: entry['_source']['experiment']['assayType'],
-            experimentTarget: entry['_source']['experiment']['target'],
-            run: entry['_source']['run']['accession'],
-            readableSize: entry['_source']['readableSize'],
-            checksum: entry['_source']['checksum'],
-            checksumMethod: entry['_source']['checksumMethod'],
-            url: entry['_source']['url'],
-            private: false
+              name: entry['_source']['name'],
+              fileId: entry['_id'],
+              experiment: entry['_source']['experiment']['accession'],
+              assayType: entry['_source']['experiment']['assayType'],
+              experimentTarget: entry['_source']['experiment']['target'],
+              run: entry['_source']['run']['accession'],
+              readableSize: entry['_source']['readableSize'],
+              checksum: entry['_source']['checksum'],
+              checksumMethod: entry['_source']['checksumMethod'],
+              url: entry['_source']['url'],
+              private: false
             } as FileForProjectTable )
           );
           res['totalHits'] = data.hits.total.value;
@@ -221,7 +238,7 @@ export class ApiDataService {
   getAllDatasetsForProject(project: string, mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/dataset/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/dataset/?size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map(entry => ({
@@ -267,7 +284,7 @@ export class ApiDataService {
               numberOfFiles: entry['_source']['file'].length,
               standard: entry['_source']['standardMet'],
               private: false
-          } as DatasetTable)
+            } as DatasetTable)
           );
           res['totalHits'] = data.hits.total.value;
           return res;
@@ -360,8 +377,7 @@ export class ApiDataService {
     const url = `${this.hostSetting.host}data/ontologies/_search/?size=${size}`;
     const aggs = {
       'projects': 'projects',
-      'type': 'type',
-      'status_activity': 'status_activity'
+      'type': 'type'
     };
     const filters = query['filters'];
     for (const prop of Object.keys(filters)) {
@@ -380,13 +396,6 @@ export class ApiDataService {
         );
         res['totalHits'] = data.hits.total.value;
         res['aggregations'] = data.aggregations;
-        // status_activity is a special case as a nested property is used for the aggregate
-        if ('status_activity' in res['aggregations']){
-          res['aggregations']['status_activity'] = res['aggregations']['status_activity']['status']
-          // do not display Awaiting Assessment in filter list
-          res['aggregations']['status_activity']['buckets'] = res['aggregations']['status_activity']['buckets']
-            .filter((ele) => ele['key'] !== "Awaiting Assessment");
-        }
         return res;
       }),
       retry(3),
@@ -443,13 +452,13 @@ export class ApiDataService {
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map(entry => ({
-          bioSampleId: entry['_source']['biosampleId'],
-          sex: entry['_source']['sex']['text'],
-          organism: entry['_source']['organism']['text'],
-          breed: entry['_source']['breed']['text'],
-          standard: entry['_source']['standardMet'],
-          idNumber: entry['_source']['id_number'],
-          paperPublished: entry['_source']['paperPublished'],
+            bioSampleId: entry['_source']['biosampleId'],
+            sex: entry['_source']['sex']['text'],
+            organism: entry['_source']['organism']['text'],
+            breed: entry['_source']['breed']['text'],
+            standard: entry['_source']['standardMet'],
+            idNumber: entry['_source']['id_number'],
+            paperPublished: entry['_source']['paperPublished'],
           } as OrganismTable )
         );
         res['totalHits'] = data.hits.total.value;
@@ -464,7 +473,7 @@ export class ApiDataService {
   getAllOrganismsFromProject(project: string, mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/organism/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/organism/?size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -484,16 +493,16 @@ export class ApiDataService {
       const project_filter = JSON.stringify({
         secondaryProject: [project]
       });
-      let url = `${this.hostSetting.host}data/organism/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/organism/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
-            bioSampleId: entry['_source']['biosampleId'],
-            sex: entry['_source']['sex']['text'],
-            organism: entry['_source']['organism']['text'],
-            breed: entry['_source']['breed']['text'],
-            private: this.checkPrivateData(entry['_source']['customField'])
-          } as OrganismForProjectTable)
+              bioSampleId: entry['_source']['biosampleId'],
+              sex: entry['_source']['sex']['text'],
+              organism: entry['_source']['organism']['text'],
+              breed: entry['_source']['breed']['text'],
+              private: this.checkPrivateData(entry['_source']['customField'])
+            } as OrganismForProjectTable)
           );
           res['totalHits'] = data.hits.total.value;
           return res;
@@ -529,16 +538,16 @@ export class ApiDataService {
 
   getOrganismsSpecimens(biosampleId: any, sort: string, offset: number, mode: string, search: string) {
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/specimen/?q=organism.biosampleId:${biosampleId}&size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/specimen/?q=organism.biosampleId:${biosampleId}&size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
       );
     } else {
       const organism_filter = JSON.stringify({
-        "organism.biosampleId": [biosampleId]
+        'organism.biosampleId': [biosampleId]
       });
-      let url = `${this.hostSetting.host}data/specimen/_search/?filters=${organism_filter}&sort=${sort}&size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/specimen/_search/?filters=${organism_filter}&sort=${sort}&size=10&from_=${offset}&search=${search}`;
       return this.http.get<any>(url).pipe(
         retry(3),
         catchError(this.handleError),
@@ -549,7 +558,7 @@ export class ApiDataService {
   getAllSpecimensForProject(project: string, mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/specimen/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/specimen/?size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -559,7 +568,7 @@ export class ApiDataService {
               sex: this.checkField(entry['_source']['organism']['sex']),
               organism: this.checkField(entry['_source']['organism']['organism']),
               breed: this.checkField(entry['_source']['organism']['breed']),
-            private: this.checkPrivateData(entry['_source']['customField'])
+              private: this.checkPrivateData(entry['_source']['customField'])
             } as SpecimenForProjectTable)
           );
           res['totalHits'] = data.hits.total.value;
@@ -571,17 +580,17 @@ export class ApiDataService {
       const project_filter = JSON.stringify({
         secondaryProject: [project]
       });
-      let url = `${this.hostSetting.host}data/specimen/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/specimen/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
-            bioSampleId: entry['_source']['biosampleId'],
-            material: this.checkField(entry['_source']['material']),
-            organismpart_celltype: this.checkField(entry['_source']['cellType']),
-            sex: this.checkField(entry['_source']['organism']['sex']),
-            organism: this.checkField(entry['_source']['organism']['organism']),
-            breed: this.checkField(entry['_source']['organism']['breed']),
-            private: this.checkPrivateData(entry['_source']['customField'])
+              bioSampleId: entry['_source']['biosampleId'],
+              material: this.checkField(entry['_source']['material']),
+              organismpart_celltype: this.checkField(entry['_source']['cellType']),
+              sex: this.checkField(entry['_source']['organism']['sex']),
+              organism: this.checkField(entry['_source']['organism']['organism']),
+              breed: this.checkField(entry['_source']['organism']['breed']),
+              private: this.checkPrivateData(entry['_source']['customField'])
             } as SpecimenForProjectTable)
           );
           res['totalHits'] = data.hits.total.value;
@@ -705,16 +714,16 @@ export class ApiDataService {
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map( entry => ({
-          bioSampleId: entry['_source']['biosampleId'],
-          material: this.checkField(entry['_source']['material']),
-          organismpart_celltype: this.checkField(entry['_source']['cellType']),
-          sex: this.checkField(entry['_source']['organism']['sex']),
-          organism: this.checkField(entry['_source']['organism']['organism']),
-          breed: this.checkField(entry['_source']['organism']['breed']),
-          standard: entry['_source']['standardMet'],
-          idNumber: entry['_source']['id_number'],
-          paperPublished: entry['_source']['paperPublished'],
-          trackhubUrl: entry['_source']['trackhubUrl'],
+            bioSampleId: entry['_source']['biosampleId'],
+            material: this.checkField(entry['_source']['material']),
+            organismpart_celltype: this.checkField(entry['_source']['cellType']),
+            sex: this.checkField(entry['_source']['organism']['sex']),
+            organism: this.checkField(entry['_source']['organism']['organism']),
+            breed: this.checkField(entry['_source']['organism']['breed']),
+            standard: entry['_source']['standardMet'],
+            idNumber: entry['_source']['id_number'],
+            paperPublished: entry['_source']['paperPublished'],
+            trackhubUrl: entry['_source']['trackhubUrl'],
           } as SpecimenTable)
         );
         res['totalHits'] = data.hits.total.value;
@@ -830,17 +839,17 @@ export class ApiDataService {
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map( entry => ({
-          datasetAccession: entry['_source']['accession'],
-          title: entry['_source']['title'],
-          species: this.getSpeciesStr(entry),
-          archive: entry['_source']['archive'].toString(),
-          assayType: entry['_source']['assayType'].toString(),
-          numberOfExperiments: entry['_source']['experiment']['length'],
-          numberOfSpecimens: entry['_source']['specimen']['length'],
-          numberOfFiles: entry['_source']['file']['length'],
-          standard: entry['_source']['standardMet'],
-          paperPublished: entry['_source']['paperPublished'],
-          submitterEmail: entry['_source']['submitterEmail']
+            datasetAccession: entry['_source']['accession'],
+            title: entry['_source']['title'],
+            species: this.getSpeciesStr(entry),
+            archive: entry['_source']['archive'].toString(),
+            assayType: entry['_source']['assayType'].toString(),
+            numberOfExperiments: entry['_source']['experiment']['length'],
+            numberOfSpecimens: entry['_source']['specimen']['length'],
+            numberOfFiles: entry['_source']['file']['length'],
+            standard: entry['_source']['standardMet'],
+            paperPublished: entry['_source']['paperPublished'],
+            submitterEmail: entry['_source']['submitterEmail']
           } as DatasetTable)
         );
         res['totalHits'] = data.hits.total.value;
@@ -914,13 +923,13 @@ export class ApiDataService {
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map( entry => ({
-          accession: entry['_source']['accession'],
-          datasetAccession: entry['_source']['datasetAccession'],
-          title: entry['_source']['title'],
-          species: entry['_source']['organism']['text'],
-          assayType: entry['_source']['assayType'],
-          analysisType: replaceUnderscoreWithSpace(entry['_source']['analysisType']),
-          standard: entry['_source']['standardMet']
+            accession: entry['_source']['accession'],
+            datasetAccession: entry['_source']['datasetAccession'],
+            title: entry['_source']['title'],
+            species: entry['_source']['organism']['text'],
+            assayType: entry['_source']['assayType'],
+            analysisType: replaceUnderscoreWithSpace(entry['_source']['analysisType']),
+            standard: entry['_source']['standardMet']
           } as AnalysisTable)
         );
         res['totalHits'] = data.hits.total.value;
@@ -953,7 +962,7 @@ export class ApiDataService {
   getAnalysesByDataset(accession: any, sort: string, offset: number, mode: string, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/analysis/?q=datasetAccession:${accession}&size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/analysis/?q=datasetAccession:${accession}&size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits;
@@ -967,7 +976,7 @@ export class ApiDataService {
       const dataset_filter = JSON.stringify({
         datasetAccession: [accession]
       });
-      let url = `${this.hostSetting.host}data/analysis/_search/?filters=${dataset_filter}&size=10&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/analysis/_search/?filters=${dataset_filter}&size=10&sort=${sort}&from_=${offset}&search=${search}`;
       return this.http.get<any>(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits;
@@ -1004,11 +1013,11 @@ export class ApiDataService {
     return this.http.get(url).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map( entry => ({
-          id: entry['_id'],
-          title: entry['_source']['title'],
-          year: entry['_source']['year'],
-          journal: entry['_source']['journal'],
-          datasetSource: entry['_source']['datasetSource']
+            id: entry['_id'],
+            title: entry['_source']['title'],
+            year: entry['_source']['year'],
+            journal: entry['_source']['journal'],
+            datasetSource: entry['_source']['datasetSource']
           } as ArticleTable)
         );
         res['totalHits'] = data.hits.total.value;
@@ -1085,12 +1094,12 @@ export class ApiDataService {
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map( entry => ({
-          id: entry['_id'],
-          title: entry['_source']['title'],
-          year: entry['_source']['year'],
-          journal: entry['_source']['journal'],
-          datasetSource: entry['_source']['datasetSource'],
-          source: entry['_source']['source']
+            id: entry['_id'],
+            title: entry['_source']['title'],
+            year: entry['_source']['year'],
+            journal: entry['_source']['journal'],
+            datasetSource: entry['_source']['datasetSource'],
+            source: entry['_source']['source']
           } as ArticleTable)
         );
         res['totalHits'] = data.hits.total.value;
@@ -1142,10 +1151,10 @@ export class ApiDataService {
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map( entry => ({
-          key: entry['_source']['key'],
-          protocol_name: entry['_source']['protocolName'],
-          university_name: entry['_source']['universityName'],
-          protocol_date: entry['_source']['protocolDate'],
+            key: entry['_source']['key'],
+            protocol_name: entry['_source']['protocolName'],
+            university_name: entry['_source']['universityName'],
+            protocol_date: entry['_source']['protocolDate'],
           } as ProtocolSample)
         );
         res['totalHits'] = data.hits.total.value;
@@ -1200,10 +1209,10 @@ export class ApiDataService {
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map( entry => ({
-          key: entry['_source']['key'],
-          protocol_name: entry['_source']['protocolName'],
-          university_name: entry['_source']['universityName'],
-          protocol_date: entry['_source']['protocolDate'],
+            key: entry['_source']['key'],
+            protocol_name: entry['_source']['protocolName'],
+            university_name: entry['_source']['universityName'],
+            protocol_date: entry['_source']['protocolDate'],
           } as ProtocolSample)
         );
         res['totalHits'] = data.hits.total.value;
@@ -1259,10 +1268,10 @@ export class ApiDataService {
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
         res['data'] = data.hits.hits.map( entry => ({
-          key: entry['_source']['key'],
-          protocol_type: protocolNames[entry['_source']['name']] ? protocolNames[entry['_source']['name']] : entry['_source']['name'],
-          experiment_target: entry['_source']['experimentTarget'],
-          assay_type: entry['_source']['assayType'],
+            key: entry['_source']['key'],
+            protocol_type: protocolNames[entry['_source']['name']] ? protocolNames[entry['_source']['name']] : entry['_source']['name'],
+            experiment_target: entry['_source']['experimentTarget'],
+            assay_type: entry['_source']['assayType'],
           } as ProtocolFile)
         );
         res['totalHits'] = data.hits.total.value;
@@ -1452,14 +1461,14 @@ export class ApiDataService {
   subscribeUser(indexName, indexKey, subscriberEmail, filters) {
     const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
     const params = new HttpParams().set('filters', JSON.stringify(filters));
-    return this.http.get(url, {params: params})
+    return this.http.get(url, {params: params});
   }
 
   subscribeFilteredData(indexName, indexKey, subscriberEmail) {
     const filters = this.apiFiltersService.get_current_api_filters();
     const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
     const params = new HttpParams().set('filters', JSON.stringify(filters));
-    return this.http.get(url, {params: params})
+    return this.http.get(url, {params: params});
   }
 
 
