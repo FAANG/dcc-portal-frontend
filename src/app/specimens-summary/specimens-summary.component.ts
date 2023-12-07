@@ -10,11 +10,7 @@ import {ChartConfiguration} from 'chart.js';
 @Component({
   selector: 'app-specimens-summary',
   templateUrl: './specimens-summary.component.html',
-  // styleUrls: ['./specimens-summary.component.css'],
-  styleUrls: [
-    "../../../node_modules/bootstrap/dist/css/bootstrap.css",
-    "./specimens-summary.component.css"
-  ]
+  styleUrls: ['./specimens-summary.component.css']
 })
 export class SpecimensSummaryComponent implements OnInit {
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;

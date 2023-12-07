@@ -23,9 +23,9 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-  it(`should have as title 'faang-portal-frontend-angular6-second'`, waitForAsync(() => {
+  it(`should have as title 'faang-portal-frontend-angular-version17'`, waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('faang-portal-frontend-angular6-second');
+    expect(app.title).toEqual('faang-portal-frontend-angular-version17');
   }));
 });
