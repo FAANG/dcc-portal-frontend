@@ -56,7 +56,7 @@
       <div fxLayout="row" fxLayout.lt-md="column">
         <dt fxFlex="25">Species</dt>
         <dd fxFlex="75">
-  
+
           <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let organism of dataset?.species">
             <app-robust-link [prefix]="ols_prefix" [link]="organism?.ontologyTerms"
                              [text]="organism?.text"></app-robust-link>
@@ -105,8 +105,9 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="end" *ngIf="dataset.secondaryProject && dataset?.secondaryProject.toString() === 'GENE-SWitCH'">
-<!--      <mat-spinner *ngIf="queryService.downloading" [diameter]="30">-->
-<!--      </mat-spinner>-->
+      <div *ngIf="queryService.downloading">
+        <mat-spinner  [diameter]="30"></mat-spinner>
+      </div>
       <button mat-raised-button color="accent" *ngIf="!queryService.downloading" (click)="downloadTSV()">
         Download metadata for analysis
       </button>

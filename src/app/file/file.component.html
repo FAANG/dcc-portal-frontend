@@ -36,9 +36,11 @@
       <button (click)="downloadFile('txt')" mat-raised-button *ngIf="downloadData">
         Export as Tabular file
       </button>
-<!--      <mat-spinner *ngIf="downloading" [diameter]="30"-->
-<!--        style="display: inline; margin-left: 10px;">-->
-<!--      </mat-spinner>-->
+
+      <div *ngIf="downloading" style="padding: 15px">
+        <mat-spinner [diameter]="30"></mat-spinner>
+      </div>
+
       <app-table-server-side  [display_fields]="displayFields"
             [column_names]="columnNames"
             [indexDetails]="indexDetails"
