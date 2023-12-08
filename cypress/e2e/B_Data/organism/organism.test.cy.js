@@ -1,4 +1,4 @@
-import {OrganismPage} from "./organism"
+import {OrganismPage} from "./organism.cy"
 
 describe('Organism Page', () => {
   beforeEach(() => {
@@ -59,32 +59,32 @@ describe('Organism Page', () => {
   // --------------------
 
   it('should filter table by Sex - Female', () => {
-    organismPage.check_url_filter('[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(2)', 'path',  'sex.text')
+    organismPage.check_url_filter('[title="Sex"] > .mat-mdc-card > :nth-child(2) > :nth-child(2)', 'path',  'sex.text')
   })
 
   it('should filter table by Organism - Sus scrofa', () => {
-    organismPage.check_url_filter('[title="Organism"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.text')
+    organismPage.check_url_filter('[title="Organism"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.text')
   })
 
   it('should filter table by Breed - Chicken breed', () => {
-    organismPage.check_url_filter('[title="Breed"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'breed.text')
+    organismPage.check_url_filter('[title="Breed"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'breed.text')
   })
 
   it('should filter table by Paper published - Yes', () => {
-    organismPage.check_url_filter('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(2)', 'path', 'paperPublished')
+    organismPage.check_url_filter('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(2)', 'path', 'paperPublished')
   })
 
   it('should allow multiple filters', () => {
-    organismPage.allow_multiple_filters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(2)',
-      '[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(2)',
+    organismPage.allow_multiple_filters('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(2)',
+      '[title="Sex"] > .mat-mdc-card > :nth-child(2) > :nth-child(2)',
       'paperPublished',
       'sex.text',
       ['female', 'yes'])
   })
 
   it('should remove filters', () => {
-    organismPage.removeFilters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(2)',
-      '[title="Breed"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    organismPage.removeFilters('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(2)',
+      '[title="Breed"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'paperPublished',
       'breed.text')
   })
