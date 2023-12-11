@@ -19,7 +19,7 @@ describe('Summary Organisms Page', () => {
       expect(menuitems[1]).to.contain.text('Standard')
     })
 
-    cy.get('[fxlayout="column"] > :nth-child(3) > mat-card >  :nth-child(2) > h3').should("contain", "Breeds of")
+    cy.get('[fxlayout="column"] > :nth-child(3) > mat-card >  :nth-child(1) > h3').should("contain", "Breeds of")
 
   });
 

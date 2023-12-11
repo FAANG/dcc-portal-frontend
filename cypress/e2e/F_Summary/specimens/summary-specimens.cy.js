@@ -22,7 +22,7 @@ describe('Summary Specimens Page', () => {
       expect(menuitems[2]).to.contain.text('Materials')
     })
 
-    cy.get('[fxlayout="column"] > :nth-child(4) > mat-card >  :nth-child(2) > h3').should("contain", "Breeds of")
+    cy.get('[fxlayout="column"] > :nth-child(4) > mat-card >  :nth-child(1) > h3').should("contain", "Breeds of")
 
   })
 
