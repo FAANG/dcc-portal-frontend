@@ -1,4 +1,4 @@
-import {AnalysisPage} from "./analysis"
+import {AnalysisPage} from "./analysis.cy"
 
 describe('Analysis Page', () => {
   beforeEach(() => {
@@ -77,32 +77,32 @@ describe('Analysis Page', () => {
 
   /* filter table */
   it('should filter table by Species - Sus scrofa', () => {
-    analysisPage.check_url_filter('[title="Species"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.text')
+    analysisPage.check_url_filter('[title="Species"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.text')
   })
 
   it('should filter table by Assay Type - microRNA profiling by high throughput sequencing', () => {
-    analysisPage.check_url_filter('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'assayType')
+    analysisPage.check_url_filter('[title="Assay type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'assayType')
   })
 
   it('should filter table by Dataset - PRJEB19199', () => {
-    analysisPage.check_url_filter('[title="Dataset"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'datasetAccession')
+    analysisPage.check_url_filter('[title="Dataset"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'datasetAccession')
   })
 
   it('should filter table by Analysis Type - SEQUENCE_ANNOTATION', () => {
-    analysisPage.check_url_filter('[title="Analysis type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'analysisType')
+    analysisPage.check_url_filter('[title="Analysis type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'analysisType')
   })
 
   it('should allow multiple filters', () => {
-    analysisPage.allow_multiple_filters('[title="Analysis type"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Dataset"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    analysisPage.allow_multiple_filters('[title="Analysis type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Dataset"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'analysisType',
       'datasetAccession',
       ['PRJEB19199', 'SEQUENCE_ANNOTATION'])
   })
 
   it('should remove filters', () => {
-    analysisPage.removeFilters('[title="Analysis type"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Dataset"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    analysisPage.removeFilters('[title="Analysis type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Dataset"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'analysisType',
       'datasetAccession')
   })

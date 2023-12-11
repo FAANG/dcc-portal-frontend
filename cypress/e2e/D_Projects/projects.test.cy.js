@@ -1,4 +1,4 @@
-import {ProjectsPage} from "./projects"
+import {ProjectsPage} from "./projects.cy"
 
 describe('Projects Page', () => {
   beforeEach(() => {

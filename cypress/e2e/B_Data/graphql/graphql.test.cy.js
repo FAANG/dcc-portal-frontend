@@ -1,4 +1,4 @@
-import {GraphqlPage} from "./graphql"
+import {GraphqlPage} from "./graphql.cy"
 
 describe('GraphQl Page', () => {
   beforeEach(() => {

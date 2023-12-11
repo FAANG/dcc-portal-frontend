@@ -11,14 +11,14 @@ export class DatasetPage {
       cy.intercept('GET', `/data/dataset/_search/*&sort=*${colname}:asc*`, {fixture: 'data/dataset.json'}).as('ascendingList')
     }
 
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.get('tbody')
       .find('tr')
       .should("have.length", 25)
 
     cy.wait('@ascendingList').then(({request, response}) => {
-      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
+      cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
       expect(response.statusCode).to.eq(200)
       expect(request.url).to.contain(colname + ':asc')
 
@@ -36,12 +36,12 @@ export class DatasetPage {
       cy.intercept('GET', `/data/dataset/_search/*&sort=*${colname}:asc*`, {fixture: 'data/dataset.json'}).as('ascendingList')
     }
 
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.wait('@descendingList', {timeout: 60000}).then(({request, response}) => {
       cy.get('tbody').find('tr').should("have.length", 25)
-      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
+      cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
       expect(response.statusCode).to.eq(200)
       expect(request.url).to.contain(colname + ':desc')
     })
@@ -78,7 +78,7 @@ export class DatasetPage {
     cy.get('app-active-filter.ng-star-inserted').children()
       .should('have.length', 2)
       .each((el) => {
-        const filtername = el.text().trim().toLowerCase().split(/(\s+)/)[0];
+        const filtername = el.text().trim().toLowerCase().split(/(\s+)/)[0].replace("highlight_off", "");
         expect(filtername).to.be.oneOf(filterArr);
       })
   }
@@ -107,10 +107,10 @@ export class DatasetPage {
     cy.intercept('GET', '/data/dataset/_search/*&from_=50&*', {fixture: 'data/dataset.json'}).as('pagination2')
 
     // click on pagination
-    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+    cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
     cy.wait("@pagination1").its("request.url").should("contain", '&from_=25&')
 
-    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+    cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
     cy.wait("@pagination2").its("request.url").should("contain", '&from_=50&')
   }
 

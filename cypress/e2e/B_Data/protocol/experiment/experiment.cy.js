@@ -8,14 +8,14 @@ export class ExperimentPage {
   check_header_sort_asc(classname, colname) {
     cy.intercept('GET', `/data/protocol_files/_search/*&sort=*${colname}:asc*`, {fixture: 'data/protocol-files.json'}).as('ascendingList')
 
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.get('tbody')
       .find('tr')
       .should("have.length", 25)
 
     cy.wait('@ascendingList').then(({request, response}) => {
-      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
+      cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
       expect(response.statusCode).to.eq(200)
       expect(request.url).to.contain(colname + ':asc')
 
@@ -28,12 +28,12 @@ export class ExperimentPage {
     cy.intercept('GET', `/data/protocol_files/_search/*&sort=*${colname}:desc*`, {fixture: 'data/protocol-files.json'}).as('descendingList')
     cy.intercept('GET', `/data/protocol_files/_search/*&sort=*${colname}:asc*`, {fixture: 'data/protocol-files.json'}).as('ascendingList')
 
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.wait('@descendingList', {timeout: 60000}).then(({request, response}) => {
       cy.get('tbody').find('tr').should("have.length", 25)
-      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
+      cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
       expect(response.statusCode).to.eq(200)
       expect(request.url).to.contain(colname + ':desc')
     })
@@ -74,7 +74,7 @@ export class ExperimentPage {
     cy.get('app-active-filter.ng-star-inserted').children()
       .should('have.length', 2)
       .each((el) => {
-        const filtername = el.text().split('highlight_off')[0].trim();
+        const filtername = el.text().split('highlight_off')[0].trim().replace("highlight_off", "");
         console.log(filtername)
         expect(filtername).to.be.oneOf(filterArr);
       })
@@ -104,10 +104,10 @@ export class ExperimentPage {
     cy.intercept('GET', '/data/protocol_files/_search/*&from_=50&*', {fixture: 'data/protocol-files.json'}).as('pagination2')
 
     // click on pagination
-    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+    cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
     cy.wait("@pagination1").its("request.url").should("contain", '&from_=25&')
 
-    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+    cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
     cy.wait("@pagination2").its("request.url").should("contain", '&from_=50&')
   }
 

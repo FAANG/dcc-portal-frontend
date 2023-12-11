@@ -1,4 +1,4 @@
-import {ExperimentPage} from "./experiment"
+import {ExperimentPage} from "./experiment.cy"
 
 describe('Protocol Experiment Page', () => {
   beforeEach(() => {
@@ -43,24 +43,24 @@ describe('Protocol Experiment Page', () => {
 
   /* filter table */
   it('should filter table by Experiment target - CHEBI_33697', () => {
-    experimentPage.check_url_filter('[title="Experiment target"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'experimentTarget')
+    experimentPage.check_url_filter('[title="Experiment target"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'experimentTarget')
   })
 
   it('should filter table by Assay Type - RNA-Seq of coding RNA', () => {
-    experimentPage.check_url_filter('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'assayType')
+    experimentPage.check_url_filter('[title="Assay type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'assayType')
   })
 
   it('should allow multiple filters', () => {
-    experimentPage.allow_multiple_filters('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Experiment target"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    experimentPage.allow_multiple_filters('[title="Assay type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Experiment target"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'assayType',
       'experimentTarget',
       ['RNA-seq of coding RNA', 'CHEBI_33697'])
   })
 
   it('should remove filters', () => {
-    experimentPage.removeFilters('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Experiment target"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    experimentPage.removeFilters('[title="Assay type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Experiment target"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'assayType',
       'experimentTarget')
   })

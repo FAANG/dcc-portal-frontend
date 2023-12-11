@@ -7,11 +7,11 @@ export class PublicationPage {
   check_header_sort_asc(classname, colname) {
     cy.intercept('GET', `/data/article/_search/*&sort=*${colname}:asc*`, {fixture: 'data/publication.json'}).as('ascendingList')
 
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.wait('@ascendingList').then(({request, response}) => {
       cy.get('tbody').find('tr').should("have.length.greaterThan", 5)
-      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
+      cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
       expect(response.statusCode).to.eq(200)
       expect(request.url).to.contain(colname + ':asc')
 
@@ -24,12 +24,12 @@ export class PublicationPage {
     cy.intercept('GET', `/data/article/_search/*&sort=*${colname}:desc*`, {fixture: 'data/publication.json'}).as('descendingList')
     cy.intercept('GET', `/data/article/_search/*&sort=*${colname}:asc*`, {fixture: 'data/publication.json'}).as('ascendingList')
 
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.wait('@descendingList', {timeout: 60000}).then(({request, response}) => {
       cy.get('tbody').find('tr').should("have.length.greaterThan", 5)
-      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
+      cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
       expect(response.statusCode).to.eq(200)
       expect(request.url).to.contain(colname + ':desc')
     })
@@ -68,7 +68,7 @@ export class PublicationPage {
     cy.get('app-active-filter.ng-star-inserted').children()
       .should('have.length', 2)
       .each((el) => {
-        const filtername = el.text().split('highlight_off')[0].trim();
+        const filtername = el.text().split('highlight_off')[0].trim().replace("highlight_off", "");
         expect(filtername).to.be.oneOf(filterArr);
       })
   }
@@ -100,10 +100,10 @@ export class PublicationPage {
     cy.get('tbody').then((body) => {
       if (body.find('tr').length > 25) {
         // click on pagination
-        cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+        cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
         cy.wait("@pagination1").its("request.url").should("contain", '&from_=25&')
 
-        cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+        cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
         cy.wait("@pagination2").its("request.url").should("contain", '&from_=50&')
       }
       else {

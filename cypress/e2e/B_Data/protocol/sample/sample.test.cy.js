@@ -1,4 +1,4 @@
-import {SamplePage} from "./sample"
+import {SamplePage} from "./sample.cy"
 
 describe('Protocol Sample Page', () => {
   beforeEach(() => {
@@ -41,20 +41,20 @@ describe('Protocol Sample Page', () => {
 
   /* filter table */
   it('should filter table by Protocol Year - 2016', () => {
-    samplePage.check_url_filter('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'protocolDate')
+    samplePage.check_url_filter('[title="Protocol Year"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'protocolDate')
   })
 
   it('should allow multiple filters', () => {
-    samplePage.allow_multiple_filters('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Organisation"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    samplePage.allow_multiple_filters('[title="Protocol Year"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Organisation"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'protocolDate',
       'universityName',
       ['French National Institute for Agricultural Research (France)', '2016'])
   })
 
   it('should remove filters', () => {
-    samplePage.removeFilters('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Organisation"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    samplePage.removeFilters('[title="Protocol Year"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Organisation"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'protocolDate',
       'universityName')
   })

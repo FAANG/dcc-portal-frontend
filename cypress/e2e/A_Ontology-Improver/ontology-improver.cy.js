@@ -92,13 +92,13 @@ export class OntologyImproverPage {
     cy.get('[title="Projects"] >.mat-mdc-card > :nth-child(2) > :nth-child(1)').should('exist')
 
     // click on pagination
-    const termVal = '.mat-paginator-range-label'
+    const termVal = '.mat-mdc-paginator-range-label'
     cy.get(termVal)
       .invoke('text')
       .then((originalVal) => {
 
         // click on filter
-        cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+        cy.get('.mat-mdc-paginator-range-actions').click()
         cy.get('.ngx-spinner-overlay').should('not.exist')
 
 

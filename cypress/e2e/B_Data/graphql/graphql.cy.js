@@ -27,7 +27,7 @@ export class GraphqlPage {
     cy.get('body').click()
     cy.get('div[role="listbox"]').should('not.exist')
 
-    cy.get('#mat-select-8 > .mat-select-trigger > .mat-select-arrow-wrapper').click().get('mat-option')
+    cy.get('#mat-select-8 > .mat-mdc-select-trigger').click().get('mat-option')
       .contains(filterName).click();
     cy.get('#mat-input-0').type(filterValue)
     cy.get('div > div.button-div:first').click()
@@ -44,30 +44,30 @@ export class GraphqlPage {
   }
 
   check_header_sort_asc(classname, colname) {
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
     cy.get('tbody')
       .find('tr')
       .should("have.length.greaterThan", 2)
-    cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
+    cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
   }
 
 
   check_header_sort_desc(classname, colname) {
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
     cy.get('tbody')
       .find('tr')
       .should("have.length.greaterThan", 2)
-    cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
+    cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
   }
 
   verify_pagination() {
     // click on pagination
-    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
-    cy.get('.mat-paginator-range-label').should("contain", '11 – 20')
+    cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
+    cy.get('.mat-mdc-paginator-range-label').should("contain", '11 – 20')
 
-    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
-    cy.get('.mat-paginator-range-label').should("contain", '21 – 30')
+    cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
+    cy.get('.mat-mdc-paginator-range-label').should("contain", '21 – 30')
   }
 
 }

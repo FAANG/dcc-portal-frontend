@@ -1,4 +1,4 @@
-import {AnalysisPage} from "./analysis"
+import {AnalysisPage} from "./analysis.cy"
 
 describe('Protocol Analysis Page', () => {
   beforeEach(() => {
@@ -45,21 +45,21 @@ describe('Protocol Analysis Page', () => {
 
   /* filter table */
   it('should filter table by Protocol Year - 2020', () => {
-    analysisPage.check_url_filter('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'protocolDate')
+    analysisPage.check_url_filter('[title="Protocol Year"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'protocolDate')
   })
 
 
   it('should allow multiple filters', () => {
-    analysisPage.allow_multiple_filters('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Organisation"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    analysisPage.allow_multiple_filters('[title="Protocol Year"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Organisation"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'protocolDate',
       'universityName',
       ['Roslin Institute (Edinburgh, UK)', '2020'])
   })
 
   it('should remove filters', () => {
-    analysisPage.removeFilters('[title="Protocol Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Organisation"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    analysisPage.removeFilters('[title="Protocol Year"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Organisation"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'protocolDate',
       'universityName')
   })

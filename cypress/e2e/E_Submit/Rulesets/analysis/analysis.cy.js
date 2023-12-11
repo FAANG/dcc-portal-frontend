@@ -16,10 +16,13 @@ export class AnalysisPage{
   }
 
   check_ruleset_table(){
-    cy.get('.table-responsive.center').should('exist')
-    cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
+    cy.get('app-ruleset-analysis.ng-star-inserted > .container-fluid').should('exist')
 
-    cy.get('.mat-table.cdk-table > tbody > tr').each((tr)=> {
+    cy.get('.ngx-spinner-overlay').should('not.exist')
+
+    cy.get('.table-responsive.center').should('exist')
+    cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
+    cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').each((tr)=> {
       cy.get('tr > td:nth-child(1)').should('contain', 'alias')
       cy.get('tr > td:nth-child(1)').should('contain', 'project')
       cy.get('tr > td:nth-child(1)').should('contain', 'secondary project')
@@ -51,7 +54,7 @@ export class AnalysisPage{
   }
 
   check_ruleset_table_headers(){
-        cy.get('.mat-table.cdk-table > thead > tr > th').each((th)=> {
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > thead > tr > th').each((th)=> {
           cy.get('th').should('contain', 'Name')
           cy.get('th').should('contain', 'Description')
           cy.get('th').should('contain', 'Type')
@@ -69,20 +72,20 @@ export class AnalysisPage{
     switch(rulegroup) {
       case 'FAANG':
         cy.get('.table-responsive.center').should('exist')
-        cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'alias')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'project')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'alias')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'project')
         break;
       case 'ENA':
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'title')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'alias')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'title')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'alias')
         break;
       case 'EVA':
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'experiment type')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'program')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'experiment type')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'program')
         break;
       default:
-        cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 2)
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').its("length").should('be.gte', 2)
     }
   }
 }

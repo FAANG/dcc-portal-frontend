@@ -1,4 +1,4 @@
-import {PublicationPage} from "./publication"
+import {PublicationPage} from "./publication.cy"
 
 describe('Publication Page', () => {
   beforeEach(() => {
@@ -52,11 +52,11 @@ describe('Publication Page', () => {
 
 
   it('should filter table by  Year - 2020', () => {
-    publicationPage.check_url_filter('[title="Year"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'year')
+    publicationPage.check_url_filter('[title="Year"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'year')
   })
 
   it('should filter table by Journal - BMC Genomics', () => {
-    publicationPage.check_url_filter('[title="Journal"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'journal')
+    publicationPage.check_url_filter('[title="Journal"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'journal')
   })
 
 
@@ -64,16 +64,16 @@ describe('Publication Page', () => {
   /* filter table */
 
   it('should allow multiple filters', () => {
-    publicationPage.allow_multiple_filters('[title="Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Journal"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    publicationPage.allow_multiple_filters('[title="Year"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Journal"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'year',
       'journal',
       ['2020', 'BMC Genomics'])
   })
 
   it('should remove filters', () => {
-    publicationPage.removeFilters('[title="Year"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Journal"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    publicationPage.removeFilters('[title="Year"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Journal"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'year',
       'journal')
   })

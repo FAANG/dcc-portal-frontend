@@ -1,4 +1,4 @@
-import {SpecimenPage} from "./specimen"
+import {SpecimenPage} from "./specimen.cy"
 
 describe('Specimen Page', () => {
   beforeEach(() => {
@@ -77,40 +77,40 @@ describe('Specimen Page', () => {
   // --------------------
 
   it('should filter table by Sex - Female', () => {
-    specimenPage.check_url_filter('[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path',  'organism.sex.text')
+    specimenPage.check_url_filter('[title="Sex"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path',  'organism.sex.text')
   })
 
   it('should filter table by Organism - Bos taurus', () => {
-    specimenPage.check_url_filter('[title="Organism"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.organism.text')
+    specimenPage.check_url_filter('[title="Organism"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.organism.text')
   })
 
   it('should filter table by by Material - specimen from organism', () => {
-    specimenPage.check_url_filter('[title="Material"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'material.text')
+    specimenPage.check_url_filter('[title="Material"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'material.text')
   })
 
   it('should filter table by Organism part/Cell type - blood', () => {
-    specimenPage.check_url_filter('[title="Organism part/Cell type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'cellType.text')
+    specimenPage.check_url_filter('[title="Organism part/Cell type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'cellType.text')
   })
 
   it('should filter table by Breed - Holstein', () => {
-    specimenPage.check_url_filter('[title="Breed"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.breed.text')
+    specimenPage.check_url_filter('[title="Breed"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'organism.breed.text')
   })
 
   it('should filter table by Paper published - Yes', () => {
-    specimenPage.check_url_filter('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'paperPublished')
+    specimenPage.check_url_filter('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'paperPublished')
   })
 
   it('should allow multiple filters', () => {
-    specimenPage.allow_multiple_filters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    specimenPage.allow_multiple_filters('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Sex"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'paperPublished',
       'organism.sex.text',
       ['female', 'yes'])
   })
 
   it('should remove filters', () => {
-    specimenPage.removeFilters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Sex"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    specimenPage.removeFilters('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Sex"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'paperPublished',
       'organism.sex.text')
   })

@@ -17,9 +17,9 @@ export class ExperimentsPage{
 
   check_ruleset_table(){
     cy.get('.table-responsive.center').should('exist')
-    cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
+    cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
 
-    cy.get('.mat-table.cdk-table > tbody > tr').each((tr)=> {
+    cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').each((tr)=> {
       cy.get('tr > td:nth-child(1)').should('contain', 'Project')
       cy.get('tr > td:nth-child(1)').should('contain', 'Secondary project')
       cy.get('tr > td:nth-child(1)').should('contain', 'assay type')
@@ -52,7 +52,7 @@ export class ExperimentsPage{
   }
 
   check_ruleset_table_headers(){
-        cy.get('.mat-table.cdk-table > thead > tr > th').each((th)=> {
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > thead > tr > th').each((th)=> {
           cy.get('th').should('contain', 'Name')
           cy.get('th').should('contain', 'Description')
           cy.get('th').should('contain', 'Type')
@@ -70,16 +70,16 @@ export class ExperimentsPage{
     switch(rulegroup) {
       case 'Standard':
         cy.get('.table-responsive.center').should('exist')
-        cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'Project')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'Secondary project')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'Project')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'Secondary project')
         break;
       case 'AtacSeq':
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'experiment target')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'transposase protocol')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'experiment target')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'transposase protocol')
         break;
       default:
-        cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 2)
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').its("length").should('be.gte', 2)
     }
   }
 }

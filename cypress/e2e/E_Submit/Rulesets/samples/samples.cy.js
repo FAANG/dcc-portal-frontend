@@ -17,9 +17,9 @@ export class SamplesPage{
 
   check_ruleset_table(){
     cy.get('.table-responsive.center').should('exist')
-    cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
+    cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
 
-    cy.get('.mat-table.cdk-table > tbody > tr').each(()=> {
+    cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').each(()=> {
       cy.get('tr > td:nth-child(1)').should('contain', 'Sample Description')
       cy.get('tr > td:nth-child(1)').should('contain', 'Material')
       cy.get('tr > td:nth-child(1)').should('contain', 'Project')
@@ -74,7 +74,7 @@ export class SamplesPage{
   check_ruleset_table_headers(rulegroup){
     switch(rulegroup) {
       case 'Standard':
-        cy.get('.mat-table.cdk-table > thead > tr > th').each(()=> {
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > thead > tr > th').each(()=> {
           cy.get('th').should('contain', 'Name')
           cy.get('th').should('contain', 'Description')
           cy.get('th').should('contain', 'Type')
@@ -87,7 +87,7 @@ export class SamplesPage{
         })
         break;
       case 'Organism':
-        cy.get('.mat-table.cdk-table > thead > tr > th').each(()=> {
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > thead > tr > th').each(()=> {
           cy.get('th').should('contain', 'Name')
           cy.get('th').should('contain', 'Description')
           cy.get('th').should('contain', 'Type')
@@ -109,9 +109,9 @@ export class SamplesPage{
     switch(rulegroup) {
       case 'Standard':
         cy.get('.table-responsive.center').should('exist')
-        cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').its("length").should('be.gte', 6)
 
-        cy.get('.mat-table.cdk-table > tbody > tr').each(()=> {
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').each(()=> {
           cy.get('tr > td:nth-child(1)').should('contain', 'Sample Description')
           cy.get('tr > td:nth-child(1)').should('contain', 'Material')
           cy.get('tr > td:nth-child(1)').should('contain', 'Project')
@@ -121,27 +121,27 @@ export class SamplesPage{
         })
         break;
       case 'Organism':
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'Organism')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'Organism')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'Sex')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'birth date')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'breed')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'health status')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'diet')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'birth location')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'birth location latitude')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'birth location longitude')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'birth weight')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'placental weight')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'pregnancy length')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'delivery timing')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'delivery ease')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'Pedigree')
-        cy.get('.mat-table.cdk-table > tbody > tr').should('contain', 'Child of')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'Organism')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'Organism')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'Sex')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'birth date')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'breed')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'health status')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'diet')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'birth location')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'birth location latitude')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'birth location longitude')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'birth weight')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'placental weight')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'pregnancy length')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'delivery timing')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'delivery ease')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'Pedigree')
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').should('contain', 'Child of')
 
         break;
       default:
-        cy.get('.mat-table.cdk-table > tbody > tr').its("length").should('be.gte', 2)
+        cy.get('.mat-mdc-table.mdc-data-table__table.cdk-table > tbody > tr').its("length").should('be.gte', 2)
     }
 
 

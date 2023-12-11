@@ -1,4 +1,4 @@
-import {FilePage} from "./file"
+import {FilePage} from "./file.cy"
 
 describe('File Page', () => {
   beforeEach(() => {
@@ -98,36 +98,36 @@ describe('File Page', () => {
 
   /* filter table */
   it('should filter table by Species - Gallus gallus', () => {
-    filePage.check_url_filter('[title="Species"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'species.text')
+    filePage.check_url_filter('[title="Species"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'species.text')
   })
 
   it('should filter table by Assay Type - RNA-Seq', () => {
-    filePage.check_url_filter('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'experiment.assayType')
+    filePage.check_url_filter('[title="Assay type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'experiment.assayType')
   })
 
   it('should filter table by Target - input DNA', () => {
-    filePage.check_url_filter('[title="Target"] > .mat-card > :nth-child(2) > :nth-child(2)', 'path', 'experiment.target')
+    filePage.check_url_filter('[title="Target"] > .mat-mdc-card > :nth-child(2) > :nth-child(2)', 'path', 'experiment.target')
   })
 
   it('should filter table by Instrument - Illumina HiSeq 2000', () => {
-    filePage.check_url_filter('[title="Instrument"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'run.instrument')
+    filePage.check_url_filter('[title="Instrument"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'run.instrument')
   })
 
   it('should filter table by Paper published - Yes', () => {
-    filePage.check_url_filter('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'paperPublished')
+    filePage.check_url_filter('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'paperPublished')
   })
 
   it('should allow multiple filters', () => {
-    filePage.allow_multiple_filters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Instrument"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    filePage.allow_multiple_filters('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Instrument"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'paperPublished',
       'run.instrument',
       ['Illumina HiSeq 2000', 'Yes'])
   })
 
   it('should remove filters', () => {
-    filePage.removeFilters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Instrument"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    filePage.removeFilters('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Instrument"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'paperPublished',
       'run.instrument')
   })

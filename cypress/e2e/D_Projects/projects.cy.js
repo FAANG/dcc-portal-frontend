@@ -41,13 +41,14 @@ export class ProjectsPage{
     cy.get('[target_type="organism"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive')
-      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 
+    // cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive > div[_ngcontent-ng-c571785226=""] > .mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
     cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
-      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
   }
 
@@ -79,13 +80,13 @@ export class ProjectsPage{
     cy.get('[target_type="organism"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive')
-      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 
     cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
-      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
   }
 
@@ -115,13 +116,13 @@ export class ProjectsPage{
     cy.get('[target_type="organism"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive')
-      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 
     cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
-      .get('.mat-table > tbody > :nth-child(1) > .cdk-column-BioSamples-ID')
+      .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 
     cy.contains('Ensembl Rapid Release')
@@ -147,5 +148,5 @@ export class ProjectsPage{
     cy.visit('/projects/Bovine')
     cy.contains("The cattle industry is the largest of the agricultural commodities in the United. Although the sequence of the bovine reference genome has been publicly available since 2009");
   }
-  
+
 }

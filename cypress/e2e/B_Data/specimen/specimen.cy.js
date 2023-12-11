@@ -7,14 +7,14 @@ export class SpecimenPage {
 
   check_header_sort_asc(classname, colname) {
     cy.intercept('GET', '/data/specimen/_search/*&sort=*asc*', {fixture: 'data/specimen.json'}).as('ascendingList')
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.get('tbody')
       .find('tr')
       .should("have.length", 25)
 
     cy.wait('@ascendingList').then(({request, response}) => {
-      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
+      cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
       expect(response.statusCode).to.eq(200)
       expect(request.url).to.contain(colname + ':asc')
     })
@@ -25,15 +25,15 @@ export class SpecimenPage {
     cy.intercept('GET', '/data/specimen/_search/*&sort=*desc*', {fixture: 'data/specimen.json'}).as('descendingList')
     cy.intercept('GET', '/data/specimen/_search/*&sort=*asc*', {fixture: 'data/specimen.json'}).as('ascendingList')
 
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
-    cy.get(`.mat-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.get('tbody')
       .find('tr')
       .should("have.length", 25)
 
     cy.wait('@descendingList').then(({request, response}) => {
-      cy.get(`.mat-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
+      cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'descending')
       expect(response.statusCode).to.eq(200)
       expect(request.url).to.contain(colname + ':desc')
     })
@@ -79,7 +79,7 @@ export class SpecimenPage {
     cy.get('app-active-filter.ng-star-inserted').children()
       .should('have.length', 2)
       .each((el) => {
-        const filtername = el.text().trim().toLowerCase().split(/(\s+)/)[0];
+        const filtername = el.text().trim().toLowerCase().split(/(\s+)/)[0].replace("highlight_off", "");
         expect(filtername).to.be.oneOf(filterArr);
       })
   }
@@ -108,10 +108,10 @@ export class SpecimenPage {
     cy.intercept('GET', '/data/specimen/_search/*&from_=50&*', {fixture: 'data/specimen.json'}).as('pagination2')
 
     // click on pagination
-    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+    cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
     cy.wait("@pagination1").its("request.url").should("contain", '&from_=25&')
 
-    cy.get('.mat-paginator-navigation-next > .mat-button-wrapper > .mat-paginator-icon').click()
+    cy.get('.mat-mdc-paginator-navigation-next > .mat-mdc-button-touch-target').click()
     cy.wait("@pagination2").its("request.url").should("contain", '&from_=50&')
 
   }

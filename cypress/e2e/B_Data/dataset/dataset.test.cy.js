@@ -1,4 +1,4 @@
-import {DatasetPage} from "./dataset"
+import {DatasetPage} from "./dataset.cy"
 
 describe('Dataset Page', () => {
   beforeEach(() => {
@@ -95,32 +95,32 @@ describe('Dataset Page', () => {
   // --------------------
 
   it('should filter table by Species - Gallus gallus', () => {
-    datasetPage.check_url_filter('[title="Species"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path',  'species.text')
+    datasetPage.check_url_filter('[title="Species"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path',  'species.text')
   })
 
   it('should filter table by Assay Type - RNA-Seq', () => {
-    datasetPage.check_url_filter('[title="Assay type"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'assayType')
+    datasetPage.check_url_filter('[title="Assay type"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'assayType')
   })
 
   it('should filter table by Archive - ENA', () => {
-    datasetPage.check_url_filter('[title="Archive"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'archive')
+    datasetPage.check_url_filter('[title="Archive"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'archive')
   })
 
   it('should filter table by Paper published - Yes', () => {
-    datasetPage.check_url_filter('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)', 'path', 'paperPublished')
+    datasetPage.check_url_filter('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)', 'path', 'paperPublished')
   })
 
   it('should allow multiple filters', () => {
-    datasetPage.allow_multiple_filters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Archive"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    datasetPage.allow_multiple_filters('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Archive"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'paperPublished',
       'archive',
       ['ena', 'yes'])
   })
 
   it('should remove filters', () => {
-    datasetPage.removeFilters('[title="Paper published"] > .mat-card > :nth-child(2) > :nth-child(1)',
-      '[title="Archive"] > .mat-card > :nth-child(2) > :nth-child(1)',
+    datasetPage.removeFilters('[title="Paper published"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
+      '[title="Archive"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'paperPublished',
       'archive')
   })

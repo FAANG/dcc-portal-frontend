@@ -1,4 +1,4 @@
-import {SamplesPage} from "./samples"
+import {SamplesPage} from "./samples.cy"
 
 describe('Ruleset Samples Page', () => {
   beforeEach(() => {
