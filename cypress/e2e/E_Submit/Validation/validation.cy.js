@@ -23,22 +23,31 @@ export class ValidationPage{
       .next()
       .should('contain', 'Waiting')
 
-    // cy.get('h6:contains("Conversion Status")')
-    //   .should('exist')
-    //   .next()
-    //   .should('contain', 'Success')
+    cy.get('h6:contains("Conversion Status")')
+      .should('exist')
+      .next()
+      // .each(x => {
+      //   expect(x).to.be.oneOf([
+      //     "Success",
+      //     "Error",
+      //     "Waiting"
+      //   ]);
+      // });
+      .should('contain', 'Success')
+      // .should('contain', /Success|Error/g)
 
-    // cy.get('h6:contains("Validation Status")')
-    //   .should('exist')
 
-    // cy.wait(10000)
-    // cy.get('h6:contains("Validation Status")').next()
-    //
-    // cy.get('h6:contains("Validation Status")').next()
-    //   .should('be.visible')
-    //   .should('contain', 'Finished')
-    //
-    // cy.get('h3').eq(2).should("contain", 'Prepare data for submission')
+    cy.get('h6:contains("Validation Status")')
+      .should('exist')
+
+    cy.wait(10000)
+    cy.get('h6:contains("Validation Status")').next()
+
+    cy.get('h6:contains("Validation Status")').next()
+      .should('be.visible')
+      .should('contain', 'Finished')
+
+    cy.get('h3').eq(2).should("contain", 'Prepare data for submission')
   }
 
 }

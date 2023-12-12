@@ -1,4 +1,4 @@
-import {ValidationPage} from "./validation"
+import {ValidationPage} from "./validation.cy"
 
 describe('Experiment Submission Page', () => {
   beforeEach(() => {

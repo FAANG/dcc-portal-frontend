@@ -1,4 +1,4 @@
-import {ValidationPage} from "./validation"
+import {ValidationPage} from "./validation.cy"
 
 describe('Ruleset Samples Page', () => {
   beforeEach(() => {
