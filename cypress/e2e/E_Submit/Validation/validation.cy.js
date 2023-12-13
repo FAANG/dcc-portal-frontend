@@ -26,16 +26,7 @@ export class ValidationPage{
     cy.get('h6:contains("Conversion Status")')
       .should('exist')
       .next()
-      // .each(x => {
-      //   expect(x).to.be.oneOf([
-      //     "Success",
-      //     "Error",
-      //     "Waiting"
-      //   ]);
-      // });
       .should('contain', 'Success')
-      // .should('contain', /Success|Error/g)
-
 
     cy.get('h6:contains("Validation Status")')
       .should('exist')
