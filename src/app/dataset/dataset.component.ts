@@ -129,7 +129,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['dataset'], {queryParams: {}});
+    this.router.navigate(['dataset'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {

@@ -171,7 +171,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['ontology'], {queryParams: {}});
+    this.router.navigate(['ontology'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   passwordValidator(group: FormGroup) {

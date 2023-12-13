@@ -113,7 +113,7 @@ export class ProtocolAnalysisComponent implements OnInit {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['protocol', 'analysis'], {queryParams: {}});
+    this.router.navigate(['protocol', 'analysis'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {
