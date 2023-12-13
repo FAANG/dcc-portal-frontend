@@ -212,6 +212,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
       {
         relativeTo: this.activatedRoute,
         queryParams: this.queryParams,
+        replaceUrl: true, skipLocationChange: false
       });
   }
 
