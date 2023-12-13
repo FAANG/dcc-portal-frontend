@@ -7,6 +7,7 @@ WORKDIR /app
 
 # install cypress
 RUN npm install cypress@13.6.1
+RUN npm install typescript@5.2.2
 
 # copy cypress files and folders
 COPY cypress /app/cypress
