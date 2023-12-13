@@ -10,7 +10,7 @@ RUN npm install cypress@13.6.1
 
 # copy cypress files and folders
 COPY cypress /app/cypress
-COPY cypress.json /app/cypress.config.ts
+COPY cypress.config.ts /app/cypress.config.ts
 
 # confirm the cypress install
 RUN ./node_modules/.bin/cypress verify
