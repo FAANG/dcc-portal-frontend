@@ -24,7 +24,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   public loadTableDataFunction: Function;
   columnNames: string[] = ['Title', 'Journal', 'Year', 'Dataset source', 'Type', 'Subscribe'];
   displayFields: string[] = ['title', 'journal', 'year', 'datasetSource', 'source', 'subscribe'];
-  filter_field: {};
+  filter_field: any;
   templates: Object;
   aggrSubscription: Subscription;
   downloadData = false;

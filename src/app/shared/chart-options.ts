@@ -1,11 +1,12 @@
 import {ChartOptions} from 'chart.js';
+import {ChartConfiguration} from 'chart.js';
 
 export const pieChartOptions: ChartOptions = {
   responsive: true,
-  legend: {
-    position: 'top',
-  },
   plugins: {
+    legend: {
+      position: 'top',
+    },
     datalabels: {
       formatter: (value, ctx) => {
         const label = ctx.chart.data.labels[ctx.dataIndex];
@@ -15,24 +16,44 @@ export const pieChartOptions: ChartOptions = {
   }
 };
 
-export const barChartOptions: ChartOptions = {
+
+export const barChartOptions: ChartConfiguration<'bar'>['options'] = {
   responsive: true,
-  // We use these empty structures as placeholders for dynamic theming.
-  scales: { xAxes: [{
+  scales: {
+    y: {
+      beginAtZero: true
+    },
+    x: {
       display: false
-    }], yAxes: [{
-      ticks: {
-        beginAtZero: true,
-      }
-    }] },
-  tooltips: {
-    enabled: true,
-    mode: 'label',
-    callbacks: {
-      title: function (tooltipItems, data: any) {
-        const idx = tooltipItems[0].index;
-        return data.labels[idx];
-      }
+    }
+  },
+  plugins: {
+    tooltip: {
+      enabled: true,
     }
   }
 };
+
+
+export const doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
+  responsive: true,
+  plugins: {
+    datalabels: {
+      display: true,
+      anchor: 'center',
+      align: 'center',
+      font: {
+        size: 12,
+      },
+      color: "#000000"
+    },
+    tooltip: {
+      enabled: true,
+    },
+    legend: {
+      display: true,
+    },
+  },
+
+};
+

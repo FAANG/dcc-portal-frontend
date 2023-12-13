@@ -7,11 +7,11 @@
             <button mat-raised-button color="primary">
               <a href="{{trackhubs_template_with_examples}}">Download example template</a>
             </button>
-        
+
             <button mat-raised-button color="primary">
               <a href="{{trackhubs_template_without_examples}}">Download empty template</a>
             </button>
-    
+
             <button mat-raised-button color="accent">
               <a href="https://dcc-documentation.readthedocs.io/en/latest/trackhubs/trackhubs_submission/" target="_blank"
                 style="color: black;">Submission guidelines</a>
@@ -57,7 +57,7 @@
                                 <td mat-cell class="table-cell-data" *matCellDef="let item; let i = index"
                                     [ngClass]="getCellClass(tab, i, col)" [ngStyle]="{'cursor': getCellStyle(tab, i, col)}"
                                     (click)="showError(tab, i, col)">
-                                    {{item[col]}} 
+                                    {{item[col]}}
                                 </td>
                             </ng-container>
                             <tr mat-header-row *matHeaderRowDef="columns[tab]"></tr>
@@ -68,13 +68,13 @@
             </mat-tab-group>
             <div *ngIf="validation_results.hasOwnProperty('HubCheck Results')" style="margin: 30px 0;">
                 <h5>HubCheck Results</h5>
-                <ul *ngIf="validation_results['HubCheck Results']['errors'].length" 
+                <ul *ngIf="validation_results['HubCheck Results']['errors'].length"
                     class="alert alert-danger" style="margin: 20px 0; list-style-type:none;">
                     <li *ngFor="let err of validation_results['HubCheck Results']['errors']">
                         {{err}}
                     </li>
                 </ul>
-                <ul *ngIf="validation_results['HubCheck Results']['warnings'].length" 
+                <ul *ngIf="validation_results['HubCheck Results']['warnings'].length"
                     class="alert alert-warning" style="margin: 20px 0; list-style-type:none;">
                     <li *ngFor="let err of validation_results['HubCheck Results']['warnings']">
                         {{err}}
@@ -117,7 +117,7 @@
 <!-- Template: Login Modal Dialog Box -->
 <ng-template #loginModalTemplate let-data>
     <!-- User Login -->
-    <div *ngIf="!registerUser" mat-dialog-content>
+    <div mat-dialog-content>
         <h3><p>Login</p></h3>
         <mat-form-field appearance="fill" style="width: 100%">
             <mat-label>Enter your username</mat-label>
@@ -136,7 +136,7 @@
             <button mat-raised-button color="primary" (click)="login()">
                 Submit
             </button>
-            <p> If you do not have a Webin account, click 
+            <p> If you do not have a Webin account, click
                 <a href="https://www.ebi.ac.uk/ena/submit/webin/accountInfo" target="_blank">here</a>
                 to register
             </p>

@@ -28,7 +28,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published', 'Subscribe'];
   displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished', 'subscribe'];
   templates: Object;
-  filter_field: {};
+  filter_field: any;
   aggrSubscription: Subscription;
   downloadData = false;
   downloading = false;

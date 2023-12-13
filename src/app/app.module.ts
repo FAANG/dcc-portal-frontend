@@ -8,7 +8,7 @@ import {ApiDataService} from './services/api-data.service';
 import {ApiFiltersService} from './services/api-filters.service';
 import {AggregationService} from './services/aggregation.service';
 import { FilterComponent } from './shared/filter/filter.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+// import {NgxPaginationModule} from 'ngx-pagination'; <--- not used
 import {HttpClientModule} from '@angular/common/http';
 import { ActiveFilterComponent } from './shared/active-filter/active-filter.component';
 import { HomeComponent } from './home/home.component';
@@ -36,16 +36,17 @@ import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.compo
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
 import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
 import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
 import { FilesSummaryComponent } from './files-summary/files-summary.component';
 import {SlicePipe} from '@angular/common';
-import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+// import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 import { NonExistingComponent } from './non-existing/non-existing.component';
-import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { IndeterminateDirective } from './shared/indeterminate.directive';
 import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
@@ -81,14 +82,18 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatMenuModule } from '@angular/material/menu';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { QueryLanguageComponent } from './query-language/query-language.component';
 import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 import { BulkFilesUploaderComponent } from './bulk-files-uploader/bulk-files-uploader.component';
 import { EurofaangInfoComponent } from './subprojects/subproject-detail/eurofaang-info/eurofaang-info.component';
+
+// to delete
 import { CustomTableBuilderComponent } from './custom-table-builder/custom-table-builder.component';
 import { TableServerSideComponent } from './shared/table-server-side/table-server-side.component';
+
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -109,8 +114,8 @@ import { DisplayDataComponent } from './graphql/display-data/display-data.compon
 import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
 import {ShortenTitlePipe} from './graphql/display-data/shorten-title.pipe';
 import { SubscriptionDialogComponent } from './shared/subscription-dialog/subscription-dialog.component';
-import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
-import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
+// import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
+// import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
 
 export function getToken(): string {
   return localStorage.getItem('jwt_token') || '';
@@ -124,6 +129,7 @@ export function removeToken(): void {
   return localStorage.removeItem('jwt_token');
 }
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -177,6 +183,8 @@ export function removeToken(): void {
     TrackhubsSubmissionComponent,
     BulkFilesUploaderComponent,
     EurofaangInfoComponent,
+
+    // to delete
     CustomTableBuilderComponent,
     TableServerSideComponent,
     NextflowSubmissionComponent,
@@ -188,18 +196,19 @@ export function removeToken(): void {
     IndexFiltersComponent,
     ShortenTitlePipe,
     SubscriptionDialogComponent,
-    OntologyImproverWorkshopComponent,
-    OntologyDetailWorkshopComponent
+    // OntologyImproverWorkshopComponent,
+    // OntologyDetailWorkshopComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxPaginationModule,
+    // NgxPaginationModule,
     NgxSpinnerModule,
-    NgbDropdownModule,
+    // NgbDropdownModule,
     BrowserAnimationsModule,
-    ChartsModule,
+    // ChartsModule,
+    NgChartsModule,
     FormsModule,
     FileUploadModule,
     MatTableModule,
@@ -217,6 +226,7 @@ export function removeToken(): void {
     MatProgressSpinnerModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
     MatMenuModule,
     MatCardModule,
     FlexLayoutModule,
@@ -229,19 +239,16 @@ export function removeToken(): void {
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
-        whitelistedDomains: ['api.aai.ebi.ac.uk'],
-        blacklistedRoutes: ['https://api.aai.ebi.ac.uk/auth']
+        allowedDomains: ['api.aai.ebi.ac.uk'],
+        disallowedRoutes: ['https://api.aai.ebi.ac.uk/auth']
       }
     }),
-    BsDropdownModule.forRoot(),
+    // BsDropdownModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxSmartModalModule.forRoot(),
-    NgbModule,
+    // NgbModule,
     NgcCookieConsentModule.forRoot(cookieConfig),
     GraphQLModule
-  ],
-  entryComponents: [
-    SubscriptionDialogComponent,
   ],
   providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService],
   bootstrap: [AppComponent]

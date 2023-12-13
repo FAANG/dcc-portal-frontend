@@ -24,7 +24,7 @@ export class CustomTableBuilderComponent implements AfterViewInit {
   columnNames: string[];
   fields: string[];
   templates: Object;
-  filter_field: {};
+  filter_field: any;
   indices = new FormControl();
   indicesList = ['file', 'organism', 'specimen', 'dataset', 'article', 'analysis',
     'experiment', 'protocol_files', 'protocol_samples', 'protocol_analysis'];

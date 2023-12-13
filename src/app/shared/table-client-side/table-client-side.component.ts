@@ -28,8 +28,8 @@ export class TableClientSideComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource<any>(this.data); 
-    this.dataSource.paginator = this.paginator; 
+    this.dataSource = new MatTableDataSource<any>(this.data);
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.filterPredicate = this.createFilter();
     this.dataSource.filter = JSON.stringify(this.filter_values);
@@ -103,7 +103,7 @@ export class TableClientSideComponent implements OnInit {
           }
         }
         return true;
-      } 
+      }
       return true;
     }
     return filterFunction;

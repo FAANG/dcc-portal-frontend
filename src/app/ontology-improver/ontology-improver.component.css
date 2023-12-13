@@ -2,6 +2,9 @@
     min-height: 200px;
     width: 100%;
     margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
 }
 
 textarea {
@@ -63,4 +66,9 @@ textarea:focus {
 .userComments{
   font-style: oblique;
   color: #777572;
+}
+
+.edit-button{
+  margin-left: 15px;
+  color: rgba(0, 0, 128, 0.8);
 }

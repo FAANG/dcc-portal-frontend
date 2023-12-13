@@ -1,5 +1,5 @@
-<p class="mat-dialog-title-font">{{subscriptionDialogTitle}}</p>
 <div mat-dialog-content class="centerContents">
+  <p class="mat-dialog-title-font">{{subscriptionDialogTitle}}</p>
   <form [formGroup]="subscriptionForm" novalidate>
     <p>
       <mat-form-field appearance="fill" [style.width.%]="100">
@@ -14,8 +14,9 @@
       </mat-form-field>
     </p>
   </form>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancelDialog('form')">Cancel</button>
+    <button mat-button (click)="onRegister()" cdkFocusInitial>Register</button>
+  </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancelDialog('form')">Cancel</button>
-  <button mat-button (click)="onRegister()" cdkFocusInitial>Register</button>
-</div>
+

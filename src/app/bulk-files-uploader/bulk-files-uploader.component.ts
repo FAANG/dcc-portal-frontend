@@ -14,7 +14,7 @@ import { tap } from 'rxjs/operators';
 export class BulkFilesUploaderComponent implements OnInit {
   @Input() uploadUrl: string; // upload endpoint url
   @Input() mode: string; // upload mode: single or bulk
-  @Input() user: string; // user data
+  @Input() user: object; // user data
   @Output() messageUpdate = new EventEmitter<any>();
   selectedFiles?: FileList;
   fileNamesList: string[] = [];

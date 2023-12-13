@@ -25,9 +25,11 @@
             <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
             <hr>
           </div>
-          <mat-spinner *ngIf="showSpinner" [diameter]="30"
-                       style="display: inline; margin-left: 10px; padding-bottom: 20px;">
-          </mat-spinner>
+
+          <div *ngIf="showSpinner" style="padding: 15px">
+            <mat-spinner [diameter]="30"></mat-spinner>
+          </div>
+
           <app-table-server-side #tableComp id="ontology-table"
                                  [display_fields]="displayFields"
                                  [column_names]="columnNames"
@@ -89,18 +91,18 @@
                   <h6><b>Ontology Matches for term '{{item.key}}'</b></h6>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <ng-container *ngIf="item.value?.length">
-                <table mat-table [dataSource]="item.value" table-striped style="width: 100%">
+              <ng-container *ngIf="getArrLength(item['value'])">
+                <table mat-table [dataSource]="getItemValueArray(item)" table-striped style="width: 100%">
                   <ng-container *ngFor="let col of ontologyMatchColsToDisplay; let i = index">
                     <ng-container *ngIf="col == 'source'" [matColumnDef]=col>
                       <th mat-header-cell class="table-header" *matHeaderCellDef> {{ontologyMatchTableHeaders[i]}} </th>
                       <td mat-cell class="table-cell-data" *matCellDef="let data; let j = index">
                         {{data[col]}}
                         <input *ngIf="!data['selected']" type="checkbox" [(ngModel)]="data['selected']"
-                               (click)="addNewOntology(item.key, j)"
+                               (click)="addNewOntology(getItemKey(item), j)"
                                style="margin-right: 40px; float: right;" [disabled]="disableOntologyCreation">
                         <button *ngIf="data['selected']" mat-raised-button color="primary"
-                                (click)="editNewOntology(item.key, j)"
+                                (click)="editNewOntology(getItemKey(item), j)"
                                 style="margin-right: 20px; padding: 2px 10px 2px 10px; float: right;"
                                 [disabled]="disableOntologyCreation"> Edit
                         </button>
@@ -115,10 +117,10 @@
                   <tr mat-row *matRowDef="let row; columns: ontologyMatchColsToDisplay;"></tr>
                 </table>
               </ng-container>
-              <ng-container *ngIf="item.value?.length == 0">
+              <ng-container *ngIf="getArrLength(item['value']) == 0">
                 <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
                   <span>No Matches Found</span>
-                  <button mat-raised-button color="primary" (click)="addNewOntology(item.key, -1)">Provide Ontology
+                  <button mat-raised-button color="primary" (click)="addNewOntology(getItemKey(item), -1)">Provide Ontology
                   </button>
                 </div>
               </ng-container>
@@ -197,7 +199,7 @@
       <div
         *ngIf="regForm.controls['username'].invalid && (regForm.controls['username'].dirty || regForm.controls['username'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['username'].errors.required">
+        <div *ngIf="regForm.controls['username'].errors?.['required']">
           Username is required
         </div>
       </div>
@@ -217,7 +219,7 @@
       <div
         *ngIf="regForm.controls['first_name'].invalid && (regForm.controls['first_name'].dirty || regForm.controls['first_name'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['first_name'].errors.required">
+        <div *ngIf="regForm.controls['first_name'].errors?.['required']">
           First Name is required
         </div>
       </div>
@@ -231,10 +233,10 @@
       <div
         *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].dirty || regForm.controls['email'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['email'].errors.required">
+        <div *ngIf="regForm.controls['email'].errors?.['required']">
           Email is required
         </div>
-        <div *ngIf="regForm.controls['email'].errors.email">
+        <div *ngIf="regForm.controls['email'].errors?.['email']">
           Enter valid email
         </div>
       </div>
@@ -252,17 +254,17 @@
       <div
         *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].dirty || regForm.controls['password'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['password'].errors.required">
+        <div *ngIf="regForm.controls['password'].errors?.['required']">
           Password is required
         </div>
       </div>
       <div
         *ngIf="regForm.controls['confirmPwd'].invalid && (regForm.controls['confirmPwd'].dirty || regForm.controls['confirmPwd'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['confirmPwd'].errors.required">
+        <div *ngIf="regForm.controls['confirmPwd'].errors?.['required']">
           Password confirmation is required
         </div>
-        <div *ngIf="regForm.controls['confirmPwd'].errors.NotEqual">
+        <div *ngIf="regForm.controls['confirmPwd'].errors?.['NotEqual']">
           Password do not match
         </div>
       </div>
@@ -276,7 +278,7 @@
       <div
         *ngIf="regForm.controls['organisation'].invalid && (regForm.controls['organisation'].dirty || regForm.controls['organisation'].touched)"
         class="alert alert-danger">
-        <div *ngIf="regForm.controls['organisation'].errors.required">
+        <div *ngIf="regForm.controls['organisation'].errors?.['required']">
           Organisation is required.
         </div>
       </div>
@@ -604,25 +606,33 @@
 
 <!-- Template: Ontology table status column -->
 <ng-template #ontologyVotesTemplate let-item>
-  <button mat-icon-button [disabled]="!token"
-          (click)="startOntologyValidation(item, 'Verified')">
-    <mat-icon>thumb_up</mat-icon>
-  </button>
-  <span>{{item.upvotes_count}}</span>
-  <button mat-icon-button [disabled]="!token"
-          (click)="startOntologyValidation(item, 'Needs Improvement')">
-    <mat-icon>thumb_down</mat-icon>
-  </button>
-  <span>{{item.downvotes_count}}</span>
-  <button mat-icon-button (click)="displayStatusActivity(item.status_activity)">
-    <mat-icon>info_outline</mat-icon>
-  </button>
-  <button *ngIf="token" mat-icon-button
-          style="margin-left: 15px; color: rgba(0, 0, 128, 0.8);"
-          (click)="editOntology(item)">
-    <mat-icon>edit_outline</mat-icon>
-    Edit
-  </button>
+  <div   fxLayout="row" fxFlexFill fxLayout.lt-sm="column" fxLayoutAlign="center center">
+    <button mat-icon-button [disabled]="!token"
+            (click)="startOntologyValidation(item, 'Verified')">
+      <mat-icon>thumb_up</mat-icon>
+    </button>
+    <span>{{item.upvotes_count}}</span>
+
+    <button mat-icon-button [disabled]="!token"
+            (click)="startOntologyValidation(item, 'Needs Improvement')">
+      <mat-icon>thumb_down</mat-icon>
+    </button>
+    <span>{{item.downvotes_count}}</span>
+
+    <button mat-icon-button (click)="displayStatusActivity(item.status_activity)">
+      <mat-icon>info_outline</mat-icon>
+    </button>
+
+    <button *ngIf="token" mat-button class="edit-button"
+            style="margin-left: 15px; color: rgba(0, 0, 128, 0.8);"
+            (click)="editOntology(item)">
+      <div style="display: flex; align-items: center; gap: 3px;">
+        <mat-icon>edit_outline</mat-icon>
+        <div>Edit</div>
+      </div>
+    </button>
+
+  </div>
 </ng-template>
 
 <!-- Template: Usage stats table ontology types count column -->

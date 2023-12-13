@@ -60,15 +60,16 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   statsColumns: string[] = ['Project', 'Species', 'Ontology Type Counts', 'Activity'];
   statsFields: string[] = ['project', 'species', 'type_counts', 'activity'];
   templates: Object;
-  filter_field: {};
+  filter_field: any;
   regForm: FormGroup;
   species;
   types;
-  usageStats: Observable<any[]>;
+  usageStats: any; //Observable<any[]>;
   disableOntologyCreation: boolean;
   ontology_update_status: string;
   socket;
   userComments: string;
+  panelOpenState = false;
 
   query = {
     'sort': ['key', 'asc'],
@@ -714,11 +715,23 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   onBadgeClick(item, type){
     const project = item['row']['project'];
     if (type === 'all'){
-      this.router.navigate(['ontology'], {queryParams: { projects: project }});
+      this.router.navigate(['ontology'], {
+        queryParams: { projects: project },
+        replaceUrl: true,
+        skipLocationChange: false
+      });
     } else if (type === 'validated'){
-      this.router.navigate(['ontology'], {queryParams: { projects: project, status_activity: 'Verified' }});
+      this.router.navigate(['ontology'], {
+        queryParams: { projects: project, status_activity: 'Verified' },
+        replaceUrl: true,
+        skipLocationChange: false
+      });
     } else if (type === 'downvoted'){
-      this.router.navigate(['ontology'], {queryParams: { projects: project, status_activity: 'Needs Improvement' }});
+      this.router.navigate(['ontology'], {
+        queryParams: { projects: project, status_activity: 'Needs Improvement' },
+        replaceUrl: true,
+        skipLocationChange: false
+      });
     }
     this.tabGroup.selectedIndex = 0;
   }
@@ -729,6 +742,28 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     }
     this.aggrSubscription.unsubscribe();
     this.socket.close();
+  }
+
+
+  getArrLength(arr) {
+    if (Array.isArray(arr)) {
+      return arr.length
+    }
+    return null
+  }
+
+  getItemValueArray(item){
+    if ('value' in item){
+      return item['value']
+    }
+    return null
+  }
+
+  getItemKey(item){
+    if ('key' in item){
+      return item['key']
+    }
+    return null
   }
 
 }

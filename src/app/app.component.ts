@@ -37,7 +37,7 @@ export const cookieConfig:NgcCookieConsentConfig =   {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'faang-portal-frontend-angular6-second';
+  title = 'faang-portal-frontend-angular-version17';
 
   constructor(
     private ccService: NgcCookieConsentService

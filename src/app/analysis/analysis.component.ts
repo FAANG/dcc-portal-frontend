@@ -24,7 +24,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   public loadTableDataFunction: Function;
   columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard', 'Subscribe'];
   displayFields: string[] = ['accession', 'datasetAccession', 'title', 'species', 'assayType', 'analysisType', 'standard', 'subscribe'];
-  filter_field: {};
+  filter_field: any;
   templates: Object;
   aggrSubscription: Subscription;
   downloadData = false;

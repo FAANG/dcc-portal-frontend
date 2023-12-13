@@ -11,10 +11,10 @@
                 <!-- Tree node template for leaf nodes -->
                 <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
                     <div style="margin-left: 10px;">
-                        <mat-checkbox [(ngModel)]="currentTracks[node.data.url]" 
-                            (change)="addTrackByUrl(node.name, node.data.url, node.data.type, node.data.genome)" 
+                        <mat-checkbox [(ngModel)]="currentTracks[node.data.url]"
+                            (change)="addTrackByUrl(node.name, node.data.url, node.data.type, node.data.genome)"
                             [disabled]="disableSelection">
-                            <b>{{node.name}}</b>   
+                            <b>{{node.name}}</b>
                             <span style="margin-left: 10px" class="faded">{{node.data.description}}</span>
                         </mat-checkbox>
                     </div>

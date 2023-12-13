@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import {barChartOptions, pieChartOptions} from '../shared/chart-options';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Chart} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {barChartOptions, pieChartOptions, doughnutChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
 import {MatTabGroup} from '@angular/material/tabs';
 import {Router} from '@angular/router';
+import {ChartConfiguration} from 'chart.js';
 
 @Component({
   selector: 'app-files-summary',
@@ -12,20 +14,22 @@ import {Router} from '@angular/router';
   styleUrls: ['./files-summary.component.css']
 })
 export class FilesSummaryComponent implements OnInit {
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
+  @ViewChild('tabs', {static: true}) tabGroup: MatTabGroup;
   error: string;
   chartData;
   excludeLegacyData = true;
 
+
+  public doughnutChartOptions = doughnutChartOptions;
   public pieChartOptions = pieChartOptions;
   public barChartOptions = barChartOptions;
-  public barChartPlugins = [pluginDataLabels];
-  public pieChartPlugins = [pluginDataLabels];
-  public pieChartColors = [
-    {
-      backgroundColor: ['#5bc0de', '#5cb85c'],
-    },
-  ];
+
+  public barChartPlugins = [ChartDataLabels];
+  public pieChartPlugins = [ChartDataLabels];
+  // public doughnutChartPlugins = [ChartDataLabels];
+
+
+  public pieChartColors = ['#5bc0de', '#5cb85c'];
 
   public standardChartLabels = [];
   public standardChartData = [];
@@ -33,19 +37,20 @@ export class FilesSummaryComponent implements OnInit {
   public paperChartLabels = [];
   public paperChartData = [];
 
-  public speciesChartLabels = [];
-  public speciesChartData = [];
+  public speciesChartData: any;
 
-  public assayTypeChartLabels = [];
-  public assayTypeChartData = [];
+
+  public assayTypeChartData: any;
 
   constructor(
-    private dataService: ApiDataService, 
+    private dataService: ApiDataService,
     private titleService: Title,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+    Chart.register(ChartDataLabels);
     this.titleService.setTitle('FAANG summary|files');
     this.tabGroup.selectedIndex = 3;
     this.dataService.getFileSummary('summary_file').subscribe(
@@ -71,20 +76,86 @@ export class FilesSummaryComponent implements OnInit {
       assayTypeSummaryName = 'assayTypeSummaryFAANGOnly';
     }
     for (const item of data[standardSummaryName]) {
-      this.standardChartLabels.push(item['name']);
-      this.standardChartData.push(item['value']);
+      // labels array
+      if (Array.isArray(this.standardChartLabels)) {
+        this.standardChartLabels.push(item['name']);
+      } else {
+        this.standardChartLabels = [item['name']];
+      }
+      // data array
+      if (Array.isArray(this.standardChartData) && this.standardChartData[0] && 'data' in this.standardChartData[0]) {
+        this.standardChartData[0]['data'].push(item['value']);
+      } else {
+        this.standardChartData = [
+          {
+            'data': [item['value']],
+            'backgroundColor': this.pieChartColors
+          }
+        ];
+      }
+
     }
     for (const item of data[paperPublishedSummaryName]) {
-      this.paperChartLabels.push(item['name']);
-      this.paperChartData.push(item['value']);
+      // labels array
+      if (Array.isArray(this.paperChartLabels)) {
+        this.paperChartLabels.push(item['name']);
+      } else {
+        this.paperChartLabels = [item['name']];
+      }
+      // data array
+      if (Array.isArray(this.paperChartData) && this.paperChartData[0] && 'data' in this.paperChartData[0]) {
+        this.paperChartData[0]['data'].push(item['value']);
+      } else {
+        this.paperChartData = [{'data': [item['value']]}];
+      }
     }
+    this.paperChartData[0]['backgroundColor'] = this.pieChartColors;
+
     for (const item of data[specieSummaryName]) {
-      this.speciesChartLabels.push(item['name']);
-      this.speciesChartData.push(item['value']);
+      // labels array
+      if (typeof this.speciesChartData === 'object' && Array.isArray(this.speciesChartData['labels'])) {
+        this.speciesChartData['labels'].push(item['name']);
+      } else {
+        this.speciesChartData = {
+          labels: [item['name']],
+          datasets: [
+            {data: [], label: ''},
+          ]
+        };
+      }
+      // data array
+      if (Array.isArray(this.speciesChartData['datasets']) && 'data' in this.speciesChartData['datasets'][0]) {
+        this.speciesChartData['datasets'][0]['data'].push(item['value']);
+      } else {
+        this.speciesChartData = {
+          datasets: [
+            {data: [item['value']], label: ''},
+          ]
+        };
+      }
     }
     for (const item of data[assayTypeSummaryName]) {
-      this.assayTypeChartLabels.push(item['name']);
-      this.assayTypeChartData.push(item['value']);
+      // labels array
+      if (typeof this.assayTypeChartData === 'object' && Array.isArray(this.assayTypeChartData['labels'])) {
+        this.assayTypeChartData['labels'].push(item['name']);
+      } else {
+        this.assayTypeChartData = {
+          labels: [item['name']],
+          datasets: [
+            {data: [], label: ''},
+          ]
+        };
+      }
+      // data array
+      if (Array.isArray(this.assayTypeChartData['datasets']) && 'data' in this.assayTypeChartData['datasets'][0]) {
+        this.assayTypeChartData['datasets'][0]['data'].push(item['value']);
+      } else {
+        this.assayTypeChartData = {
+          datasets: [
+            {data: [item['value']], label: ''},
+          ]
+        };
+      }
     }
   }
 
@@ -95,10 +166,8 @@ export class FilesSummaryComponent implements OnInit {
     this.paperChartLabels = [];
     this.paperChartData = [];
 
-    this.speciesChartLabels = [];
     this.speciesChartData = [];
 
-    this.assayTypeChartLabels = [];
     this.assayTypeChartData = [];
   }
 
@@ -111,14 +180,11 @@ export class FilesSummaryComponent implements OnInit {
   tabClick(tab) {
     if (tab.index == 0) {
       this.router.navigate(['summary/organisms']);
-    }
-    else if (tab.index == 1) {
+    } else if (tab.index == 1) {
       this.router.navigate(['summary/specimens']);
-    }
-    else if (tab.index == 2) {
+    } else if (tab.index == 2) {
       this.router.navigate(['summary/datasets']);
-    }
-    else if (tab.index == 3) {
+    } else if (tab.index == 3) {
       this.router.navigate(['summary/files']);
     }
   }

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import {barChartOptions, pieChartOptions} from '../shared/chart-options';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {barChartOptions, pieChartOptions, doughnutChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
 import {MatTabGroup} from '@angular/material/tabs';
 import {Router} from '@angular/router';
+import {ChartConfiguration} from 'chart.js';
 
 @Component({
   selector: 'app-specimens-summary',
@@ -21,40 +22,39 @@ export class SpecimensSummaryComponent implements OnInit {
   cellsData = {};
   breedKeys = [];
   breedData = {};
+
+  public doughnutChartOptions = doughnutChartOptions;
   public pieChartOptions = pieChartOptions;
   public barChartOptions = barChartOptions;
-  public barChartPlugins = [pluginDataLabels];
-  public pieChartPlugins = [pluginDataLabels];
-  public pieChartColors = [
-    {
-      backgroundColor: ['#5bc0de', '#5cb85c', '#428bca', 'rgba(217,83,79,0.5)', '#f9f9f9'],
-    },
-  ];
+  public barChartPlugins = [ChartDataLabels];
+  public pieChartPlugins = [ChartDataLabels];
+  // public doughnutChartPlugins = [ChartDataLabels];
+  public pieChartColors = ['#5bc0de', '#5cb85c', '#428bca', 'rgba(217,83,79,0.5)', '#f9f9f9'];
 
-  public sexChartLabels = [];
-  public sexChartData = [];
+  public sexChartLabels: any;
+  public sexChartData: any;
 
   public paperChartLabels = [];
   public paperChartData = [];
 
-  public standardChartLabels = [];
-  public standardChartData = [];
+  public standardChartLabels: any;
+  public standardChartData: ChartConfiguration<'doughnut'>['data']['datasets'];
 
-  public cellsChartLabels = [];
-  public cellsChartData = [];
+  // public cellsChartLabels = [];
+  public cellsChartData: any;
 
-  public organismChartLabels = [];
-  public organismChartData = [];
 
-  public materialChartLabels = [];
-  public materialChartData = [];
 
-  public breedChartLabels = [];
-  public breedChartData = [];
+  public organismChartData: any;
+
+  public materialChartLabels: any;
+  public materialChartData: any;
+
+  public breedChartData: any;
 
 
   constructor(
-    private dataService: ApiDataService, 
+    private dataService: ApiDataService,
     private titleService: Title,
     private router: Router
   ) { }
@@ -90,18 +90,63 @@ export class SpecimensSummaryComponent implements OnInit {
       material_summary_name = 'materialSummaryFAANGOnly';
       breed_summary_name = 'breedSummaryFAANGOnly';
     }
+    // sex piechart
     for (const item of data[sexSummaryName]) {
-      this.sexChartLabels.push(item['name']);
-      this.sexChartData.push(item['value']);
+      // labels array
+      if (Array.isArray(this.sexChartLabels)) {
+        this.sexChartLabels.push(item['name']);
+      } else {
+        this.sexChartLabels = [item['name']];
+      }
+      // data array
+      if (Array.isArray(this.sexChartData) && this.sexChartData[0] && 'data' in this.sexChartData[0]) {
+        this.sexChartData[0]['data'].push(item['value']);
+      } else {
+        this.sexChartData = [{'data': [item['value']]}];
+      }
     }
+    this.sexChartData[0]['backgroundColor'] = this.pieChartColors;
+
+    // paper published piechart
     for (const item of data[paperPublishedSummaryName]) {
-      this.paperChartLabels.push(item['name']);
-      this.paperChartData.push(item['value']);
+      // labels array
+      if (Array.isArray(this.paperChartLabels)) {
+        this.paperChartLabels.push(item['name']);
+      } else {
+        this.paperChartLabels = [item['name']];
+      }
+      // data array
+      if (Array.isArray(this.paperChartData) && this.paperChartData[0] && 'data' in this.paperChartData[0]) {
+        this.paperChartData[0]['data'].push(item['value']);
+      } else {
+        this.paperChartData = [{'data': [item['value']]}];
+      }
     }
+    this.paperChartData[0]['backgroundColor'] = this.pieChartColors;
+
+    // standard doughnut chart
     for (const item of data[standard_summary_name]) {
-      this.standardChartLabels.push(item['name']);
-      this.standardChartData.push(item['value']);
+      // labels array
+      if (Array.isArray(this.standardChartLabels)) {
+        this.standardChartLabels.push(item['name']);
+      } else {
+        this.standardChartLabels = [item['name']];
+      }
+      // data array
+      if (Array.isArray(this.standardChartData) && this.standardChartData[0] && 'data' in this.standardChartData[0]) {
+        this.standardChartData[0]['data'].push(item['value']);
+      } else {
+        this.standardChartData = [
+          {
+            'data': [item['value']],
+            'backgroundColor': this.pieChartColors
+          }
+        ];
+      }
     }
+
+
+    // cell type barchart
     for (const item of data[cell_type_summary_name]) {
       this.cellsData[item['name']] = item['value'];
     }
@@ -111,18 +156,83 @@ export class SpecimensSummaryComponent implements OnInit {
     });
     tmp.forEach((item, index) => {
       if (index <= 10) {
-        this.cellsChartLabels.push(item[0]);
-        this.cellsChartData.push(item[1]);
+        // labels array
+        if (typeof this.cellsChartData === 'object' && Array.isArray(this.cellsChartData['labels'])) {
+          this.cellsChartData['labels'].push(item[0]);
+        } else {
+          this.cellsChartData = {
+            labels: [item[0]],
+            datasets: [
+              {data: [], label: ''},
+            ]
+          };
+        }
+        // data array
+        if (Array.isArray(this.cellsChartData['datasets']) && 'data' in this.cellsChartData['datasets'][0]) {
+          this.cellsChartData['datasets'][0]['data'].push(item[1]);
+        } else {
+          this.cellsChartData = {
+            datasets: [
+              {data: [item[1]], label: ''},
+            ]
+          };
+        }
+
       }
     });
+
+
+    // organism summary name barchart
     for (const item of data[organism_summary_name]) {
-      this.organismChartLabels.push(item['name']);
-      this.organismChartData.push(item['value']);
+      // labels array
+      if (typeof this.organismChartData === 'object' && Array.isArray(this.organismChartData['labels'])) {
+        this.organismChartData['labels'].push(item['name']);
+      } else {
+        this.organismChartData = {
+          labels: [item['name']],
+          datasets: [
+            {data: [], label: ''},
+          ]
+        };
+      }
+      // data array
+      if (Array.isArray(this.organismChartData['datasets']) &&
+        this.organismChartData['datasets'][0] &&
+        'data' in this.organismChartData['datasets'][0]) {
+        this.organismChartData['datasets'][0]['data'].push(item['value']);
+      } else {
+        this.organismChartData = {
+          datasets: [
+            {data: [item['value']], label: ''},
+          ]
+        };
+      }
     }
+
+    // material doughnut chart
     for (const item of data[material_summary_name]) {
-      this.materialChartLabels.push(item['name']);
-      this.materialChartData.push(item['value']);
+      // labels array
+      if (Array.isArray(this.materialChartLabels)) {
+        this.materialChartLabels.push(item['name']);
+      } else {
+        this.materialChartLabels = [item['name']];
+      }
+      // data array
+      if (Array.isArray(this.materialChartData) && this.materialChartData[0] && 'data' in this.materialChartData[0]) {
+        this.materialChartData[0]['data'].push(item['value']);
+      } else {
+        this.materialChartData = [
+          {
+            'data': [item['value']],
+            'backgroundColor': this.pieChartColors
+          }
+        ];
+      }
+
     }
+
+
+
     for (const item of data[breed_summary_name]) {
       this.breedKeys.push(item['speciesName']);
       const labels = [];
@@ -142,16 +252,23 @@ export class SpecimensSummaryComponent implements OnInit {
       };
     }
     this.name = this.breedKeys[0];
-    this.breedChartLabels = this.breedData[this.name]['labels'];
-    this.breedChartData = this.breedData[this.name]['data'];
+    this.breedChartData = {
+      labels: this.breedData[this.name]['labels'],
+      datasets: [
+        {data: this.breedData[this.name]['data'], label: ''},
+      ]
+    };
   }
 
   onItemClick(name: string) {
     this.name = name;
-    this.breedChartLabels = [];
-    this.breedChartData = [];
-    this.breedChartLabels = this.breedData[this.name]['labels'];
-    this.breedChartData = this.breedData[this.name]['data'];
+    this.breedChartData = {
+      labels: this.breedData[this.name]['labels'],
+      datasets: [
+        {data: this.breedData[this.name]['data'], label: ''},
+      ]
+    };
+
   }
 
   clearChartData() {
@@ -164,16 +281,13 @@ export class SpecimensSummaryComponent implements OnInit {
     this.standardChartLabels = [];
     this.standardChartData = [];
 
-    this.cellsChartLabels = [];
     this.cellsChartData = [];
 
-    this.organismChartLabels = [];
     this.organismChartData = [];
 
     this.materialChartLabels = [];
     this.materialChartData = [];
 
-    this.breedChartLabels = [];
     this.breedChartData = [];
   }
 
