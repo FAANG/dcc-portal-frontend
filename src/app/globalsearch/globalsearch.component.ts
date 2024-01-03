@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ApiDataService } from '../services/api-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -9,25 +9,35 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./globalsearch.component.css']
 })
 export class GlobalSearchComponent implements OnInit {
-
+  @Input() query: Object;
   searchText = '';
   jsonData: { [key: string]: { totalHits: number } } = {};
   showResults = false;
   showSpinner = false;
-  linkText = '';
+
+  queryParams: any = {};
 
   constructor(
-    private dataService: ApiDataService, private router: Router, private route: ActivatedRoute, private titleService: Title
+    private dataService: ApiDataService, private router: Router, private route: ActivatedRoute,
+    private titleService: Title, private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('FAANG Global Search');
+
+    this.route.queryParams.subscribe(params => {
+      this.queryParams = { ...params };
+      this.searchText = this.queryParams['searchText'];
+      this.onSearch();
+    });
+
     window.addEventListener('popstate', (event) => {
       if (window.location.href !== `${window.location.origin}/globalsearch`) {
-        const browserHistory = window.history;
-        if (window.location.href !== `${window.location.origin}/globalsearch`) {
-          this.router.navigate(['/globalsearch']);
-        }
+        this.router.navigate(['/globalsearch'], {
+          relativeTo: this.route,
+          queryParamsHandling: 'merge',
+          replaceUrl: true
+        });
       }
     });
   }
@@ -38,11 +48,15 @@ export class GlobalSearchComponent implements OnInit {
       this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
         this.showSpinner = false;
         this.jsonData = json_data;
-        this.linkText = this.searchText;
       });
     } else {
       this.jsonData = null;
     }
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { searchText: this.searchText },
+      queryParamsHandling: 'merge',
+    });
     this.showResults = true;
   }
 
@@ -58,10 +72,10 @@ export class GlobalSearchComponent implements OnInit {
     return key;
   }
 
-  navigateToItem(itemKey: string, searchTerm: string): void {
-    if (itemKey && searchTerm) {
+  navigateToItem(itemKey: string): void {
+    if (itemKey && this.searchText) {
       this.router.navigate(
-        [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm }, queryParamsHandling: 'merge'});
+        [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm: this.searchText }});
     }
   }
 

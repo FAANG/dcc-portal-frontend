@@ -20,7 +20,7 @@
   <mat-list>
     <mat-list-item *ngFor="let item of jsonData | keyvalue">
       <div class="row-container">
-        <a (click)="navigateToItem(item.key, linkText)" class="link-style">
+        <a (click)="navigateToItem(item.key)" class="link-style">
           <p [ngPlural]="item.value?.totalHits">
             <ng-template ngPluralCase="one">
               {{ item.value?.totalHits + ' ' + changeKey(item.key) }}
