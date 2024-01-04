@@ -25,6 +25,23 @@ export class ApiDataService {
               private apiFiltersService: ApiFiltersService) { }
 
 
+  getGSearchData(sterm: string) {
+    const url = `${this.hostSetting.host}data/_gsearch/?sterm=${sterm}`;
+    const json_data = {};
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        for (const [key, value] of Object.entries(data)) {
+          json_data[key] = {
+            data: value['hits']['hits'],
+            totalHits: value['hits']['total']['value']
+          };
+        }
+        return json_data;
+      }),
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
 
   getAllFiles(query: any, size: number) {
     const url = `${this.hostSetting.host}data/file/_search/?size=${size}`;
@@ -165,7 +182,7 @@ export class ApiDataService {
   getAllFilesForProject(project: string, mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/file/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/file/?size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -192,7 +209,7 @@ export class ApiDataService {
       const project_filter = JSON.stringify({
         secondaryProject: [project]
       });
-      let url = `${this.hostSetting.host}data/file/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/file/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -221,7 +238,7 @@ export class ApiDataService {
   getAllDatasetsForProject(project: string, mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/dataset/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/dataset/?size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map(entry => ({
@@ -464,7 +481,7 @@ export class ApiDataService {
   getAllOrganismsFromProject(project: string, mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/organism/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/organism/?size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -484,7 +501,7 @@ export class ApiDataService {
       const project_filter = JSON.stringify({
         secondaryProject: [project]
       });
-      let url = `${this.hostSetting.host}data/organism/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/organism/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -529,16 +546,16 @@ export class ApiDataService {
 
   getOrganismsSpecimens(biosampleId: any, sort: string, offset: number, mode: string, search: string) {
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/specimen/?q=organism.biosampleId:${biosampleId}&size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/specimen/?q=organism.biosampleId:${biosampleId}&size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
       );
     } else {
       const organism_filter = JSON.stringify({
-        "organism.biosampleId": [biosampleId]
+        'organism.biosampleId': [biosampleId]
       });
-      let url = `${this.hostSetting.host}data/specimen/_search/?filters=${organism_filter}&sort=${sort}&size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/specimen/_search/?filters=${organism_filter}&sort=${sort}&size=10&from_=${offset}&search=${search}`;
       return this.http.get<any>(url).pipe(
         retry(3),
         catchError(this.handleError),
@@ -549,7 +566,7 @@ export class ApiDataService {
   getAllSpecimensForProject(project: string, mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/specimen/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/specimen/?size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -571,7 +588,7 @@ export class ApiDataService {
       const project_filter = JSON.stringify({
         secondaryProject: [project]
       });
-      let url = `${this.hostSetting.host}data/specimen/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/specimen/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -953,7 +970,7 @@ export class ApiDataService {
   getAnalysesByDataset(accession: any, sort: string, offset: number, mode: string, search: string) {
     const res = {};
     if (mode === 'private') {
-      let url = `${this.hostSetting.host}private_portal/analysis/?q=datasetAccession:${accession}&size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/analysis/?q=datasetAccession:${accession}&size=10&from_=${offset}&search=${search}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits;
@@ -967,7 +984,7 @@ export class ApiDataService {
       const dataset_filter = JSON.stringify({
         datasetAccession: [accession]
       });
-      let url = `${this.hostSetting.host}data/analysis/_search/?filters=${dataset_filter}&size=10&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/analysis/_search/?filters=${dataset_filter}&size=10&sort=${sort}&from_=${offset}&search=${search}`;
       return this.http.get<any>(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits;
@@ -1452,14 +1469,14 @@ export class ApiDataService {
   subscribeUser(indexName, indexKey, subscriberEmail, filters) {
     const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
     const params = new HttpParams().set('filters', JSON.stringify(filters));
-    return this.http.get(url, {params: params})
+    return this.http.get(url, {params: params});
   }
 
   subscribeFilteredData(indexName, indexKey, subscriberEmail) {
     const filters = this.apiFiltersService.get_current_api_filters();
     const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
     const params = new HttpParams().set('filters', JSON.stringify(filters));
-    return this.http.get(url, {params: params})
+    return this.http.get(url, {params: params});
   }
 
 

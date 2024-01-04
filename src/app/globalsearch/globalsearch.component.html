@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<mat-toolbar class="centered-container" color="primary">
+<div class="search-container">
+  <div class="input-group margin-bottom-none">
+    <input type="text" name="text" id="local-searchbox" [(ngModel)]="searchText" placeholder="Search" class="input-group-field" value="">
+    <div class="input-group-button" style="position: relative;">
+      <button mat-button style="position: absolute; right: 0; border: none;" (click)="onSearch()">
+        <mat-icon>search</mat-icon></button>
+    </div>
+  </div>
+</div>
+</mat-toolbar>
+
+<div class="spinner-container" *ngIf="showSpinner">
+  <mat-spinner class="spinner-with-margin" mode="indeterminate" color="primary" diameter="50"></mat-spinner>
+</div>
+
+<div id="search-results" *ngIf="!showSpinner && showResults">
+  <mat-list>
+    <mat-list-item *ngFor="let item of jsonData | keyvalue">
+      <div class="row-container">
+        <a (click)="navigateToItem(item.key)" class="link-style">
+          <p [ngPlural]="item.value?.totalHits">
+            <ng-template ngPluralCase="one">
+              {{ item.value?.totalHits + ' ' + changeKey(item.key) }}
+            </ng-template>
+            <ng-template ngPluralCase="other">
+              {{ item.value?.totalHits + ' ' + changeKey(item.key) + 's' }}
+            </ng-template>
+          </p>
+        </a>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>

@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-container {
+  text-align: center;
+}
+
+input[type="text"] {
+  height: 40px;
+  width: 500px;
+}
+
+button {
+  height: 40px;
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+  horiz-align: center;
+  vertical-align: middle;
+}
+
+mat-icon {
+  horiz-align: center;
+  vertical-align: middle;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-with-margin {
+  margin-top: 50px;
+}
+
+#search-results {
+  margin-top: 50px;
+}
+
+.row-container {
+  margin-top: 20px;
+  margin-left: 150px;
+}
+
+.link-style {
+  cursor: pointer;
+  font-size: 14px;
+  color: #477AAF;
+}

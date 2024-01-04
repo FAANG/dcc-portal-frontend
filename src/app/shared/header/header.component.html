@@ -38,13 +38,13 @@
           Ontology Improver <sup>Beta</sup>
         </a>
       </button>
-      <button mat-button>
-        <a class="nav-link" routerLink="/graphql" routerLinkActive="active">
-          Search
-        </a>
-      </button>
       <button mat-button [matMenuTriggerFor]="help">
         <a class="nav-link" [ngClass]="isActive('help')">Help
+          <mat-icon style="vertical-align: middle;">arrow_drop_down</mat-icon>
+        </a>
+      </button>
+      <button mat-button [matMenuTriggerFor]="search">
+        <a class="nav-link" [ngClass]="isActive('search')">Search
           <mat-icon style="vertical-align: middle;">arrow_drop_down</mat-icon>
         </a>
       </button>
@@ -81,44 +81,43 @@
       Ontology Improver <sup>Beta</sup>
     </a>
   </button>
-  <button mat-menu-item>
-    <a class="nav-link" routerLink="/graphql" routerLinkActive="active">
-      Search
-    </a>
-  </button>
   <button mat-menu-item [matMenuTriggerFor]="help">
     <a class="nav-link" [ngClass]="isActive('help')">Help
     </a>
   </button>
+  <button mat-menu-item [matMenuTriggerFor]="search">
+    <a class="nav-link" [ngClass]="isActive('search')">Search
+    </a>
+  </button>
 </mat-menu>
 
-<!-- Data Menu Dopdown -->
-  <mat-menu #data="matMenu">
-    <button mat-menu-item>
-      <a class="nav-link" routerLink="/organism" routerLinkActive="active">Organisms</a>
-    </button>
-    <button mat-menu-item>
-      <a class="nav-link" routerLink="/specimen" routerLinkActive="active">Specimens</a>
-    </button>
-    <div class="dropdown-divider"></div>
-    <button mat-menu-item>
-      <a class="nav-link" routerLink="/dataset" routerLinkActive="active">Datasets</a>
-    </button>
-    <button mat-menu-item>
-      <a class="nav-link" routerLink="/file" routerLinkActive="active">Files</a>
-    </button>
-    <div class="dropdown-divider"></div>
-    <button mat-menu-item>
-      <a class="nav-link" routerLink="/analysis" routerLinkActive="active">Analyses</a>
-    </button>
-    <div class="dropdown-divider"></div>
-    <button mat-menu-item>
-      <a class="nav-link" routerLink="/protocol/samples" [ngClass]="isActive('protocol')">Protocols</a>
-    </button>
-    <button mat-menu-item>
-      <a class="nav-link" routerLink="/article" routerLinkActive="active">Publications</a>
-    </button>
-  </mat-menu>
+<!-- Data Menu Dropdown -->
+<mat-menu #data="matMenu">
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/organism" routerLinkActive="active">Organisms</a>
+  </button>
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/specimen" routerLinkActive="active">Specimens</a>
+  </button>
+  <div class="dropdown-divider"></div>
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/dataset" routerLinkActive="active">Datasets</a>
+  </button>
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/file" routerLinkActive="active">Files</a>
+  </button>
+  <div class="dropdown-divider"></div>
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/analysis" routerLinkActive="active">Analyses</a>
+  </button>
+  <div class="dropdown-divider"></div>
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/protocol/samples" [ngClass]="isActive('protocol')">Protocols</a>
+  </button>
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/article" routerLinkActive="active">Publications</a>
+  </button>
+</mat-menu>
 
 <!-- Submit Menu Dropdown -->
 <mat-menu #submit="matMenu">
@@ -137,7 +136,7 @@
   <div class="dropdown-divider"></div>
   <button mat-menu-item>
     <a class="nav-link" href="https://dcc-documentation.readthedocs.io/en/latest/"
-      target="_blank" routerLinkActive="active">Help</a>
+       target="_blank" routerLinkActive="active">Help</a>
   </button>
 </mat-menu>
 
@@ -154,5 +153,15 @@
        href="https://github.com/FAANG/dcc-validate-metadata/blob/yroochun/graphql-backend/metadata_validation_conversion/graphql_api/readme.md" routerLinkActive="active">
       GraphQL Docs
     </a>
+  </button>
+</mat-menu>
+
+<!-- Search Menu Dropdown -->
+<mat-menu #search="matMenu">
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/graphql" routerLinkActive="active">Custom queries</a>
+  </button>
+  <button mat-menu-item>
+    <a class="nav-link" routerLink="/globalsearch" routerLinkActive="active">Search</a>
   </button>
 </mat-menu>

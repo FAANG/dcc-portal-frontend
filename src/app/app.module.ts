@@ -110,10 +110,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { GraphQLModule } from './graphql.module';
 import { GraphqlComponent } from './graphql/graphql.component';
+import { GlobalSearchComponent } from './globalsearch/globalsearch.component';
 import { DisplayDataComponent } from './graphql/display-data/display-data.component';
 import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
-import {ShortenTitlePipe} from './graphql/display-data/shorten-title.pipe';
+import { ShortenTitlePipe } from './graphql/display-data/shorten-title.pipe';
 import { SubscriptionDialogComponent } from './shared/subscription-dialog/subscription-dialog.component';
+import { MatListModule } from '@angular/material/list';
 // import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
 // import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
 
@@ -192,6 +194,7 @@ export function removeToken(): void {
     EnsemblAnnotationComponent,
     LocalGenomeBrowserComponent,
     GraphqlComponent,
+    GlobalSearchComponent,
     DisplayDataComponent,
     IndexFiltersComponent,
     ShortenTitlePipe,
@@ -244,11 +247,12 @@ export function removeToken(): void {
       }
     }),
     // BsDropdownModule.forRoot(),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     NgxSmartModalModule.forRoot(),
     // NgbModule,
     NgcCookieConsentModule.forRoot(cookieConfig),
-    GraphQLModule
+    GraphQLModule,
+    MatListModule
   ],
   providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService],
   bootstrap: [AppComponent]
