@@ -11,7 +11,7 @@ import { Title } from '@angular/platform-browser';
 export class GlobalSearchComponent implements OnInit {
   @Input() query: Object;
   searchText = '';
-  jsonData: { [key: string]: { totalHits: number } } = {};
+  jsonData: { [key: string]: { totalHits: number, searchTerms: [] } } = {};
   showResults = false;
   showSpinner = false;
 
@@ -72,10 +72,14 @@ export class GlobalSearchComponent implements OnInit {
     return key;
   }
 
-  navigateToItem(itemKey: string): void {
+  navigateToItem(itemKey: string, searchTerm?: string | null): void {
     if (itemKey && this.searchText) {
       this.router.navigate(
         [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm: this.searchText }});
+    }
+    if (itemKey && searchTerm) {
+      this.router.navigate(
+        [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm: searchTerm }});
     }
   }
 

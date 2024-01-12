@@ -32,7 +32,8 @@ export class ApiDataService {
       map((data: any) => {
         for (const [key, value] of Object.entries(data)) {
           json_data[key] = {
-            totalHits: value['hits']['total']['value']
+            totalHits: value['hits']['total']['value'],
+            searchTerms: value['search_terms'] || []
           };
         }
         return json_data;

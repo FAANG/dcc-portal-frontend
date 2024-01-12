@@ -20,7 +20,7 @@
   <mat-list>
     <mat-list-item *ngFor="let item of jsonData | keyvalue">
       <div class="row-container">
-        <a (click)="navigateToItem(item.key)" class="link-style">
+        <a (click)="navigateToItem(item.key)" [ngClass]="{'link-style': !(item.value?.searchTerms && item.value?.searchTerms.length > 0)}">
           <p [ngPlural]="item.value?.totalHits">
             <ng-template ngPluralCase="one">
               {{ item.value?.totalHits + ' ' + changeKey(item.key) }}
@@ -30,6 +30,13 @@
             </ng-template>
           </p>
         </a>
+        <div *ngIf="item.value?.searchTerms && item.value?.searchTerms.length > 0">
+          <li *ngFor="let searchTerm of item.value?.searchTerms">
+            <a (click)="navigateToItem(item.key, searchTerm)" class="link-style">
+              {{ searchTerm }}
+            </a>
+          </li>
+        </div>
       </div>
     </mat-list-item>
   </mat-list>
