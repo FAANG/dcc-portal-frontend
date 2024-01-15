@@ -48,12 +48,30 @@ mat-icon {
   margin-top: 50px;
 }
 
+/** {*/
+/*  border: 1px solid red;*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+mat-list-item:nth-child(n){
+  height: auto;
+}
+
 .row-container {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
   margin-left: 150px;
 }
 
+.search-terms-container {
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
 .link-style {
+  margin-top: 20px;
   cursor: pointer;
   font-size: 14px;
   color: #477AAF;
