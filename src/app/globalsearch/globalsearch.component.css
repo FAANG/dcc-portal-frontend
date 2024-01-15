@@ -60,8 +60,14 @@ mat-list-item:nth-child(n){
 .row-container {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: auto;
   margin-left: 150px;
+}
+
+.search-terms-container {
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
 }
 
 .link-style {
