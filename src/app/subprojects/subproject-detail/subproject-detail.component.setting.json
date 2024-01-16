@@ -63,6 +63,17 @@
     },
     "parent_project": "EuroFAANG"
   },
+  "Holoruminant": {
+    "description": "Holoruminant is a multi-actor project aiming to elucidate the role of ruminant-associated microbiomes and their interplay with the host animal in early life and throughout fundamental life events (e.g. weaning, feed transitions and lactation) that are known to affect health, welfare and environmental efficiency in ruminant production systems.",
+    "twitter": {
+      "id": "holoruminant"
+    },
+    "url": "https://holoruminant.eu",
+    "image": {
+      "url": "https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/holoruminant/project-logo.jpeg"
+    },
+    "parent_project": "EuroFAANG"
+  },
   "FAANG": {
     "description": "FAANG is the Functional Annotation of ANimal Genomes project. We are working to understand the genotype to phenotype link in domesticated animals.",
     "twitter": {
