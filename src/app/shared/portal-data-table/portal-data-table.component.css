@@ -1,0 +1,64 @@
+.hide-column {
+  display: none;
+}
+
+table {
+  font-size: 14px;
+}
+
+button {
+  margin-left: 10px;
+}
+
+input {
+  margin-left: 5px;
+}
+
+.inner-input {
+  margin-right: 5px;
+}
+
+.lock {
+  margin-left: 5px;
+}
+
+a {
+  color: steelblue;
+}
+
+.pipeline-platform-logo {
+  max-width:90px;
+  max-height:50px;
+  width:auto;
+  height:auto;
+}
+
+.childproj-title {
+  color: #6f6f71;
+}
+
+::ng-deep div.mat-select-arrow-wrapper {
+  display: none;
+}
+
+.table-header {
+  background-color: rgba(0, 0, 0, 0.07);
+  font-size: 14px;
+  color: black;
+  font-weight: 600;
+}
+
+.table-cell-data {
+  padding-right: 12px !important;
+}
+
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type,
+th.mat-header-cell:first-of-type {
+  padding-left: 10px;
+}
+
+.projectNamesTitle{
+  font-size: 70%;
+  color: #5199a8;
+}

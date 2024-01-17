@@ -235,7 +235,7 @@ export class ApiDataService {
     }
   }
 
-  getAllDatasetsForProject(project: string, mode: string, sort: string, offset: number, search: string) {
+  getAllDatasetsForProject(projectArr: string[], mode: string, sort: string, offset: number, search: string) {
     const res = {};
     if (mode === 'private') {
       const url = `${this.hostSetting.host}private_portal/dataset/?size=10&from_=${offset}&search=${search}`;
@@ -261,9 +261,17 @@ export class ApiDataService {
         catchError(this.handleError),
       );
     } else {
-      const project_filter = JSON.stringify({
-        secondaryProject: [project]
-      });
+      let project_filter = '';
+      if (projectArr[0] === 'allEuroFaangSubprojects') {
+        project_filter = JSON.stringify({
+          secondaryProject: ["GENE-SWitCH","AQUA-FAANG","BovReg","GEroNIMO","RUMIGEN"]
+        });
+      } else{
+        project_filter = JSON.stringify({secondaryProject: projectArr});
+      }
+
+      console.log(project_filter)
+
       let url = `${this.hostSetting.host}data/dataset/_search/?size=10&filters=${project_filter}&from_=${offset}&search=${search}`;
       const sort_field = sort.split(':')[0];
       if ( sort_field === 'experiment' || sort_field === 'specimen' || sort_field === 'file') {
@@ -271,6 +279,7 @@ export class ApiDataService {
       } else {
         url = url + '&sort=' + sort;
       }
+      console.log(url)
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map(entry => ({
@@ -283,6 +292,7 @@ export class ApiDataService {
               numberOfSpecimens: entry['_source']['specimen'].length,
               numberOfFiles: entry['_source']['file'].length,
               standard: entry['_source']['standardMet'],
+              secondaryProject: entry['_source']['secondaryProject'].toString(),
               private: false
           } as DatasetTable)
           );

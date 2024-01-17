@@ -32,6 +32,62 @@
     </a>
   </div>
 
+
+  <div>
+    Select project data to display in tables:
+    <mat-form-field>
+      <mat-label>Select project(s):</mat-label>
+      <mat-select [formControl]="projects" multiple (selectionChange)="checkSelectedProjects($event.value)" #select required>
+        @for (project of projectList; track project) {
+        <mat-option [value]="project">{{project}}</mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="projects['status'] === 'INVALID'">
+        You need to select at least one project
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+
+  <div>
+<!--    <button (click)="mySelect.toggle(); testkoosum()">Toggle</button>-->
+
+<!--    <mat-form-field>-->
+<!--      <mat-select [formControl]="projects" multiple #mySelect>-->
+<!--        @for (project of projectList; track project) {-->
+<!--        <mat-option [value]="project">{{project}}</mat-option>-->
+<!--        }-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+
+
+
+<!--    <button mat-raised-button color="primary" (click)=select.open()>Column Selection-->
+<!--      <mat-icon>arrow_drop_down</mat-icon>-->
+<!--        <mat-select [formControl]="projects" multiple #select>-->
+<!--          @for (project of projectList; track project) {-->
+<!--          <mat-option [value]="project">{{project}}</mat-option>-->
+<!--          }-->
+<!--        </mat-select>-->
+<!--    </button>-->
+  </div>
+
+  <!-- Related Tables -->
+<!--  <app-portal-data-table source_type="project" data_type="publication" download_key=""-->
+<!--                     [record_id]="project"></app-portal-data-table>-->
+<!--  <app-related-items source_type="project" data_type="pipeline" download_key=""-->
+<!--                     [record_id]="project"></app-related-items>-->
+
+  <app-portal-data-table *ngIf="!projectSelectionErr"  source_type="project" data_type="dataset" download_key=""
+                     [project]="projects['value']"></app-portal-data-table>
+
+<!--  <app-related-items source_type="project" data_type="file" download_key="url"-->
+<!--                     [record_id]="project"></app-related-items>-->
+<!--  <app-related-items source_type="project" data_type="organism" download_key=""-->
+<!--                     [record_id]="project"></app-related-items>-->
+<!--  <app-related-items source_type="project" data_type="specimen" download_key=""-->
+<!--                     [record_id]="project"></app-related-items>-->
+
 </div>
 
 

@@ -82,6 +82,7 @@ export interface DatasetTable {
   numberOfFiles: string;
   standard: string;
   paperPublished: string;
+  secondaryProject: string;
   private: boolean;
   submitterEmail: string;
 }

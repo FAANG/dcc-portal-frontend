@@ -1,0 +1,96 @@
+<div [hidden]="isEmptyData() && initialDataExists===false">
+  <ng-container *ngIf="!['protocolsamples','protocolfiles','protocolanalysis'].includes(data_type)"><hr></ng-container>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" style="margin: 20px 0;">
+    <h3>
+      <span *ngIf="data_type != 'protocolsamples' && data_type != 'protocolfiles' && data_type != 'protocolanalysis'">
+        Related {{displayTitle(data_type)}}
+        <span class="projectNamesTitle">associated with {{project.join(', ')}}</span>
+      </span>
+    </h3>
+
+    <div fxLayout="row" fxLayout.lt-md="column">
+      <button mat-raised-button color="accent"
+              (click)="goToDownloader()"
+              *ngIf="download_key.length > 0">
+        Go to bulk downloader utility
+      </button>
+      <button mat-raised-button color="accent" (click)="downloadAllFiles()" [disabled]="urls.length === 0"
+              *ngIf="download_key.length > 0 && mode == 'public'">Download selected files ({{urls.length}})
+      </button>
+
+      <div style="margin-left: 10px;">
+        <mat-form-field>
+          <mat-label>Column Selection</mat-label>
+          <mat-select [(ngModel)]="display_fields" multiple>
+            <mat-option *ngFor="let col of get_all_fields(); let i = index"
+                        [value]="col" [disabled]="i==0"> {{col}}
+            </mat-option>
+            <mat-option *ngIf="download_key.length > 0"
+                        value="Download" disabled="true"> Download
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <mat-form-field style="width: 100%;">
+      <mat-label>Search</mat-label>
+      <input (keyup)="searchChanged($event)" matInput
+             placeholder="Search">
+    </mat-form-field>
+
+    <div>
+      <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
+        <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
+          <ng-container *ngIf="col == 'Download'">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>
+              <input id="mainBox" type="checkbox" [checked]="mainCheckboxChecked() == 2"
+                     [indeterminate]="mainCheckboxChecked() == 1" (click)="mainCheckboxClicked()">
+              {{display_fields[i]}}
+            </th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item">
+              <input type="checkbox" (click)="onCheckboxClick(item['Download'])"
+                     [checked]="CheckboxChecked(item['Download'])">
+              <mat-progress-bar *ngIf="progress[item['Download']] >= 0" mode="determinate" [value]="progress[item['Download']]">
+              </mat-progress-bar>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="col != 'Download'">
+            <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode == 'private'"> {{display_fields[i]}} </th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item">
+              <ng-container *ngIf="get_field_values_for_links(col)">
+                <ng-container *ngIf="!isRecordPrivate(item)">
+                  <app-robust-link [prefix]="get_field_values_for_links(col)['prefix']"
+                                   [link]="item[get_field_values_for_links(col)['url']]"
+                                   [text]="item[col]">
+                  </app-robust-link>
+                </ng-container>
+                <ng-container *ngIf="isRecordPrivate(item)">
+                  <a [routerLink]="['/' + data_type, item[get_field_values_for_links(col)['url']]]">{{item[col]}}</a>
+                  <i class="material-icons lock">lock</i>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="!get_field_values_for_links(col)">
+                <ng-container *ngIf="displayPlatformLogo(item, col)">
+                  <img src="assets/logos/nf-core-logo.png" class="img-fluid pipeline-platform-logo" alt="nf-core">
+                </ng-container>
+                <ng-container *ngIf="!displayPlatformLogo(item, col)">
+                  {{item[col]}}
+                </ng-container>
+              </ng-container>
+            </td>
+          </ng-container>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
+        <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
+      </table>
+      <mat-paginator pageSize="10" [length]="totalHits"></mat-paginator>
+    </div>
+
+  </div>
+</div>
+

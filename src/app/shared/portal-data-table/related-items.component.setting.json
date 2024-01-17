@@ -1,0 +1,900 @@
+{
+  "publication": {
+    "dataset": {
+      "display": [
+        "Accession",
+        "Species",
+        "Standard"
+      ],
+      "all": [
+        "Accession",
+        "Species",
+        "Standard"
+      ],
+      "fields": {
+        "Accession": {
+          "value": "accession",
+          "link": {
+            "prefix": "../dataset/",
+            "url": "Accession"
+          }
+        },
+        "Standard": {
+          "value": "standardMet"
+        },
+        "Species": {
+          "value": "species"
+        }
+      }
+    }
+  },
+  "analysis": {
+    "file": {
+      "display": [
+        "Name",
+        "Type",
+        "Size"
+      ],
+      "all": [
+        "Name",
+        "Type",
+        "Size",
+        "Checksum",
+        "Checksum method"
+      ],
+      "fields": {
+        "Name": {
+          "value": "name",
+          "link": {
+            "prefix": "ftp://",
+            "url": "URL"
+          }
+        },
+        "URL": {
+          "value": "url"
+        },
+        "Type": {
+          "value": "type"
+        },
+        "Size": {
+          "value": "size"
+        },
+        "Checksum": {
+          "value": "checksum"
+        },
+        "Checksum method": {
+          "value": "checksumMethod"
+        }
+      }
+    }
+  },
+  "file": {
+    "paper": {
+      "display": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "../article/",
+            "url": "Article ID"
+          }
+        },
+        "Article ID": {
+          "value": "articleId"
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
+        }
+      }
+    },
+    "download": {
+      "display": [
+        "Name",
+        "File size",
+        "Checksum"
+      ],
+      "all": [
+        "Name",
+        "File size",
+        "Checksum",
+        "Checksum method"
+      ],
+      "fields": {
+        "Name": {
+          "value": "_source.name",
+          "source": "name",
+          "link": {
+            "prefix": "ftp://",
+            "url": "URL"
+          }
+        },
+        "URL": {
+          "value": "_source.url"
+        },
+        "File size": {
+          "value": "_source.readableSize",
+          "source": "readableSize"
+        },
+        "Checksum": {
+          "value": "_source.checksum",
+          "source": "checksum"
+        },
+        "Checksum method": {
+          "value": "_source.checksumMethod",
+          "source": "checksumMethod"
+        }
+      }
+    }
+  },
+  "dataset": {
+    "paper": {
+      "display": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "../article/",
+            "url": "Article ID"
+          }
+        },
+        "Article ID": {
+          "value": "articleId"
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
+        }
+      }
+    },
+    "specimen": {
+      "display": [
+        "BioSamples ID",
+        "Material",
+        "Cell type",
+        "Sex",
+        "Species",
+        "Breed"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Material",
+        "Cell type",
+        "Sex",
+        "Species",
+        "Breed"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "biosampleId",
+          "link": {
+            "prefix": "../specimen/",
+            "url": "BioSamples ID"
+          }
+        },
+        "Material": {
+          "value": "material.text"
+        },
+        "Cell type": {
+          "value": "cellType.text"
+        },
+        "Sex": {
+          "value": "sex.text"
+        },
+        "Species": {
+          "value": "organism.text"
+        },
+        "Breed": {
+          "value": "breed.text"
+        }
+      }
+    },
+    "file": {
+      "display": [
+        "File name",
+        "Experiment",
+        "File size"
+      ],
+      "all": [
+        "File name",
+        "Experiment",
+        "Archive",
+        "File size",
+        "Checksum",
+        "Checksum method"
+      ],
+      "fields": {
+        "File name": {
+          "value": "name",
+          "link": {
+            "prefix": "../file/",
+            "url": "File ID"
+          }
+        },
+        "File ID": {
+          "value": "fileId"
+        },
+        "Experiment": {
+          "value": "experiment"
+        },
+        "Archive": {
+          "value": "archive"
+        },
+        "File size": {
+          "value": "readableSize"
+        },
+        "Checksum": {
+          "value": "checksum"
+        },
+        "Checksum method": {
+          "value": "checksumMethod"
+        }
+      }
+    },
+    "analysis": {
+      "display": [
+        "Accession",
+        "Type"
+      ],
+      "all": [
+        "Accession",
+        "Type"
+      ],
+      "fields": {
+        "Accession": {
+          "value": "_id",
+          "source": "accession",
+          "link": {
+            "prefix": "../analysis/",
+            "url": "Accession"
+          }
+        },
+        "Type": {
+          "value": "_source.analysisType",
+          "source": "analysisType"
+        }
+      }
+    }
+  },
+  "organism": {
+    "paper": {
+      "display": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "../article/",
+            "url": "Article ID"
+          }
+        },
+        "Article ID": {
+          "value": "articleId"
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
+        }
+      }
+    },
+    "specimen": {
+      "display": [
+        "BioSamples ID",
+        "Organism part/Cell type",
+        "Material type"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Organism part/Cell type",
+        "Material type"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "_source.biosampleId",
+          "source": "biosampleId",
+          "link": {
+            "prefix": "../specimen/",
+            "url": "BioSamples ID"
+          }
+        },
+        "Organism part/Cell type": {
+          "value": "_source.cellType.text",
+          "source": "cellType.text"
+        },
+        "Material type": {
+          "value": "_source.material.text",
+          "source": "material.text"
+        }
+      }
+    }
+  },
+  "specimen": {
+    "paper": {
+      "display": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "fields": {
+        "Title": {
+          "value": "title",
+          "link": {
+            "prefix": "../article/",
+            "url": "Article ID"
+          }
+        },
+        "Article ID": {
+          "value": "articleId"
+        },
+        "Year": {
+          "value": "year"
+        },
+        "Journal": {
+          "value": "journal"
+        }
+      }
+    },
+    "specimen": {
+      "display": [
+        "BioSamples ID",
+        "Organism part/Cell type",
+        "Material type"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Organism part/Cell type",
+        "Material type"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "_source.biosampleId",
+          "source": "biosampleId",
+          "link": {
+            "prefix": "../specimen/",
+            "url": "BioSamples ID"
+          }
+        },
+        "Organism part/Cell type": {
+          "value": "_source.cellType.text",
+          "source": "cellType.text"
+        },
+        "Material type": {
+          "value": "_source.material.text",
+          "source": "material.text"
+        }
+      }
+    },
+    "file": {
+      "display": [
+        "File name",
+        "Archive",
+        "Experiment",
+        "Run",
+        "Assay type",
+        "Experiment target",
+        "File size"
+      ],
+      "all": [
+        "File name",
+        "Archive",
+        "Experiment",
+        "Run",
+        "Assay type",
+        "Experiment target",
+        "File size",
+        "Checksum",
+        "Checksum method"
+      ],
+      "fields": {
+        "File name": {
+          "value": "_id",
+          "source": "name",
+          "link": {
+            "prefix": "../file/",
+            "url": "File name"
+          }
+        },
+        "Archive": {
+          "value": "_source.archive",
+          "source": "archive"
+        },
+        "Experiment": {
+          "value": "_source.experiment.accession",
+          "source": "experiment.accession",
+          "link": {
+            "prefix": "http://www.ebi.ac.uk/ena/data/view/",
+            "url": "Experiment"
+          }
+        },
+        "Run": {
+          "value": "_source.run.accession",
+          "source": "run.accession",
+          "link": {
+            "prefix": "http://www.ebi.ac.uk/ena/data/view/",
+            "url": "Run"
+          }
+        },
+        "Assay type": {
+          "value": "_source.experiment.assayType",
+          "source": "experiment.assayType"
+        },
+        "Experiment target": {
+          "value": "_source.experiment.target",
+          "source": "experiment.target"
+        },
+        "File size": {
+          "value": "_source.readableSize",
+          "source": "readableSize"
+        },
+        "Checksum": {
+          "value": "_source.checksum",
+          "source": "checksum"
+        },
+        "Checksum method": {
+          "value": "_source.checksumMethod",
+          "source": "checksumMethod"
+        }
+      }
+    },
+    "analysis": {
+      "display": [
+        "Accession",
+        "Type",
+        "Dataset"
+      ],
+      "all": [
+        "Accession",
+        "Type",
+        "Dataset"
+      ],
+      "fields": {
+        "Accession": {
+          "value": "_id",
+          "source": "accession",
+          "link": {
+            "prefix": "../analysis/",
+            "url": "Accession"
+          }
+        },
+        "Type": {
+          "value": "_source.analysisType",
+          "source": "analysisType"
+        },
+        "Dataset": {
+          "value": "_source.datasetAccession",
+          "source": "datasetAccession",
+          "link": {
+            "prefix": "http://www.ebi.ac.uk/ena/data/view/",
+            "url": "Dataset"
+          }
+        }
+      }
+    }
+  },
+  "project": {
+    "publication": {
+      "display": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "all": [
+        "Title",
+        "Year",
+        "Journal"
+      ],
+      "fields": {
+        "Title": {
+          "value": "title",
+          "source": "title",
+          "link": {
+            "prefix": "../article/",
+            "url": "ID"
+          }
+        },
+        "ID": {
+          "value": "id"
+        },
+        "Year": {
+          "value": "year",
+          "source": "year"
+        },
+        "Journal": {
+          "value": "journal",
+          "source": "datasetSource"
+        }
+      }
+    },
+    "pipeline": {
+      "display": [
+        "Pipeline name",
+        "Assay type",
+        "Pipeline link",
+        "Pipeline documentation",
+        "Platform"
+      ],
+      "all": [
+        "Pipeline name",
+        "Assay type",
+        "Pipeline link",
+        "Pipeline documentation",
+        "Platform"
+      ],
+      "fields": {
+        "Pipeline name": {
+          "value": "name"
+        },
+        "Assay type": {
+          "value": "assayType"
+        },
+        "Pipeline link": {
+          "value": "link",
+          "link": {
+            "url": "Pipeline link"
+          }
+        },
+        "Pipeline documentation": {
+          "value": "documentation",
+          "link": {
+            "url": "Pipeline documentation"
+          }
+        },
+        "Platform": {
+          "value": "platform"
+        }
+      }
+    },
+    "organism": {
+      "display": [
+        "BioSamples ID",
+        "Species",
+        "Sex",
+        "Breed"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Species",
+        "Sex",
+        "Breed"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "bioSampleId",
+          "source": "biosampleId",
+          "link": {
+            "prefix": "../organism/",
+            "url": "BioSamples ID"
+          }
+        },
+        "Sex": {
+          "value": "sex",
+          "source": "sex.text"
+        },
+        "Species": {
+          "value": "organism",
+          "source": "organism.text"
+        },
+        "Breed": {
+          "value": "breed",
+          "source": "breed.text"
+        }
+      }
+    },
+    "specimen": {
+      "display": [
+        "BioSamples ID",
+        "Material",
+        "Organism part/Cell type",
+        "Sex",
+        "Species",
+        "Breed"
+      ],
+      "all": [
+        "BioSamples ID",
+        "Material",
+        "Organism part/Cell type",
+        "Sex",
+        "Species",
+        "Breed"
+      ],
+      "fields": {
+        "BioSamples ID": {
+          "value": "bioSampleId",
+          "source": "biosampleId",
+          "link": {
+            "prefix": "../specimen/",
+            "url": "BioSamples ID"
+          }
+        },
+        "Material": {
+          "value": "material",
+          "source": "material.text"
+        },
+        "Organism part/Cell type": {
+          "value": "organismpart_celltype",
+          "source": "cellType.text"
+        },
+        "Sex": {
+          "value": "sex",
+          "source": "organism.sex.text"
+        },
+        "Species": {
+          "value": "organism",
+          "source": "organism.organism.text"
+        },
+        "Breed": {
+          "value": "breed",
+          "source": "organism.breed.text"
+        }
+      }
+    },
+    "protocolsamples": {
+      "display": [
+        "Protocol Name",
+        "University Name",
+        "Protocol Year"
+      ],
+      "all": [
+        "Key",
+        "Protocol Name",
+        "University Name",
+        "Protocol Year"
+      ],
+      "fields": {
+        "Key": {
+          "value": "key",
+          "source": "key"
+        },
+        "Protocol Name": {
+          "value": "protocol_name",
+          "source": "protocolName",
+          "link": {
+            "prefix": "../protocol/samples/",
+            "url": "Key"
+          }
+        },
+        "University Name": {
+          "value": "university_name",
+          "source": "universityName"
+        },
+        "Protocol Year": {
+          "value": "protocol_date",
+          "source": "protocolDate"
+        }
+      }
+    },
+    "protocolfiles": {
+      "display": [
+        "Protocol Type",
+        "Experiment Target",
+        "Assay Type"
+      ],
+      "all": [
+        "Key",
+        "Protocol Type",
+        "Experiment Target",
+        "Assay Type"
+      ],
+      "fields": {
+        "Key": {
+          "value": "key",
+          "source": "key"
+        },
+        "Protocol Type": {
+          "value": "protocol_type",
+          "source": "name",
+          "link": {
+            "prefix": "../protocol/experiments/",
+            "url": "Key"
+          }
+        },
+        "Experiment Target": {
+          "value": "experiment_target",
+          "source": "experimentTarget"
+        },
+        "Assay Type": {
+          "value": "assay_type",
+          "source": "assayType"
+        }
+      }
+    },
+    "protocolanalysis": {
+      "display": [
+        "Protocol Name",
+        "University Name",
+        "Protocol Year"
+      ],
+      "all": [
+        "Key",
+        "Protocol Name",
+        "University Name",
+        "Protocol Year"
+      ],
+      "fields": {
+        "Key": {
+          "value": "key",
+          "source": "key"
+        },
+        "Protocol Name": {
+          "value": "protocol_name",
+          "source": "protocolName",
+          "link": {
+            "prefix": "../protocol/analysis/",
+            "url": "Key"
+          }
+        },
+        "University Name": {
+          "value": "university_name",
+          "source": "universityName"
+        },
+        "Protocol Year": {
+          "value": "protocol_date",
+          "source": "protocolDate"
+        }
+      }
+    },
+    "file": {
+      "display": [
+        "File name",
+        "Assay type",
+        "Experiment target",
+        "File size"
+      ],
+      "all": [
+        "File name",
+        "Experiment",
+        "Run",
+        "Assay type",
+        "Experiment target",
+        "File size",
+        "Checksum",
+        "Checksum method"
+      ],
+      "fields": {
+        "File name": {
+          "value": "name",
+          "source": "name",
+          "link": {
+            "prefix": "../file/",
+            "url": "File ID"
+          }
+        },
+        "File ID": {
+          "value": "fileId"
+        },
+        "Experiment": {
+          "value": "experiment",
+          "source": "experiment.accession"
+        },
+        "Run": {
+          "value":"run",
+          "source": "run.accession"
+        },
+        "Assay type": {
+          "value": "assayType",
+          "source": "experiment.assayType"
+        },
+        "Experiment target": {
+          "value": "experimentTarget",
+          "source": "experiment.target"
+        },
+        "File size": {
+          "value": "readableSize",
+          "source": "readableSize"
+        },
+        "Checksum": {
+          "value": "checksum",
+          "source": "checksum"
+        },
+        "Checksum method": {
+          "value": "checksumMethod",
+          "source": "checksumMethod"
+        }
+      }
+    },
+    "dataset": {
+      "display": [
+        "Study name",
+        "Species",
+        "Archive",
+        "Assay type",
+        "Secondary Project"
+      ],
+      "all": [
+        "Study name",
+        "Title",
+        "Species",
+        "Archive",
+        "Assay type",
+        "Number of experiments",
+        "Number of specimens",
+        "Number of files",
+        "Standard",
+        "Secondary Project"
+      ],
+      "fields": {
+        "Study name": {
+          "value": "datasetAccession",
+          "source": "accession",
+          "link": {
+            "prefix": "../dataset/",
+            "url": "Study name"
+          }
+        },
+        "Title": {
+          "value": "title",
+          "source": "title"
+        },
+        "Species": {
+          "value": "species",
+          "source": "species.text"
+        },
+        "Archive": {
+          "value": "archive",
+          "source": "archive"
+        },
+        "Assay type": {
+          "value": "assayType",
+          "source": "assayType"
+        },
+        "Number of experiments": {
+          "value": "numberOfExperiments",
+          "source": "experiment"
+        },
+        "Secondary Project": {
+          "value": "secondaryProject",
+          "source": "secondaryProject"
+        },
+        "Number of specimens": {
+          "value": "numberOfSpecimens",
+          "source": "specimen"
+        },
+        "Number of files": {
+          "value": "numberOfFiles",
+          "source": "file"
+        },
+        "Standard": {
+          "value": "standard",
+          "source": "accession"
+        }
+      }
+    }
+  }
+}
