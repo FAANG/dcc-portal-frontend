@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
-import {NgxSpinnerService} from 'ngx-spinner';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import setting from './subproject-detail.component.setting.json';
-import {UserService} from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-subproject-detail',
@@ -18,10 +18,10 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   error: any;
   right_logo_url: {};
   project_links: {};
-  disable_tabs: {};
+  enable_tabs: {};
+  init_tabs: {};
 
   constructor(private route: ActivatedRoute,
-              private title: Title,
               private spinner: NgxSpinnerService,
               private router: Router,
               private titleService: Title,
@@ -30,8 +30,12 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // display tabs for 'Related Protocols' section
-    this.disable_tabs = {
+    this.enable_tabs = {
+      'protocol_samples': false,
+      'protocol_files': false,
+      'protocol_analysis': false
+    };
+    this.init_tabs = {
       'protocol_samples': false,
       'protocol_files': false,
       'protocol_analysis': false
@@ -116,18 +120,14 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
     this.twitter.unsubscribe();
   }
 
-
-// disable tab if records count == 0
-  public disableTab(emittedVal: any): void {
-    if (emittedVal[1] === 0) {
-      this.disable_tabs[emittedVal[0]] = true;
+  public enableTab(emittedVal: any): void {
+    this.init_tabs[emittedVal[0]] = true;
+    if (emittedVal[1] !== 0) {
+      this.enable_tabs[emittedVal[0]] = true;
     }
   }
 
-  hideProtocolTable() {
-    const disableTable = Object.values(this.disable_tabs).every(
-      value => value === true
-    );
-    return disableTable;
+  getEnabledStatus(type: string) {
+    return this.enable_tabs[type] || !this.init_tabs[type];
   }
 }
