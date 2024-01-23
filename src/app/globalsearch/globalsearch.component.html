@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<mat-toolbar class="centered-container" color="primary">
+<div class="centered-container">
 <div class="search-container">
   <div class="input-group margin-bottom-none">
     <input type="text" name="text" id="local-searchbox" [(ngModel)]="searchText" placeholder="Search" class="input-group-field" value="">
@@ -10,7 +10,7 @@
     </div>
   </div>
 </div>
-</mat-toolbar>
+</div>
 
 <div class="spinner-container" *ngIf="showSpinner">
   <mat-spinner class="spinner-with-margin" mode="indeterminate" color="primary" diameter="50"></mat-spinner>
