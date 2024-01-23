@@ -79,31 +79,22 @@
                          [record_id]="project"></app-related-items>
 
       <!-- Related Protocols -->
-      <h3 *ngIf="!disable_tabs['protocol_samples'] || !disable_tabs['protocol_files'] || !disable_tabs['protocol_analysis']"
+      <h3 *ngIf="getTotalEnabledStatus()"
         style="margin-bottom: 20px;">
         Related Protocols
       </h3>
-      <mat-tab-group animationDuration="0ms" [hidden]="hideProtocolTable()">
-        <mat-tab *ngIf="!disable_tabs['protocol_samples']" label="Samples">
-          <ng-template matTabContent #displayProtocolSamples>
-            <app-related-items source_type="project" target_type="protocolsamples" download_key=""
-                               [record_id]="project" (fetchedRecords)="disableTab($event)"></app-related-items>
-          </ng-template>
-        </mat-tab>
-
-        <mat-tab *ngIf="!disable_tabs['protocol_files']" label="Experiments">
-          <ng-template matTabContent #displayProtocolFiles>
-            <app-related-items source_type="project" target_type="protocolfiles" download_key=""
-                               [record_id]="project" (fetchedRecords)="disableTab($event)"></app-related-items>
-          </ng-template>
-        </mat-tab>
-
-        <mat-tab *ngIf="!disable_tabs['protocol_analysis']" label="Analyses">
-          <ng-template matTabContent #displayProtocolAnalysis>
-            <app-related-items source_type="project" target_type="protocolanalysis" download_key=""
-                               [record_id]="project" (fetchedRecords)="disableTab($event)"></app-related-items>
-          </ng-template>
-        </mat-tab>
+      <mat-tab-group animationDuration="0ms" [selectedIndex]="getSelectedTab()">
+        <ng-container *ngFor="let targetType of tabs">
+            <mat-tab [label]="tabsConfig[targetType].title" [labelClass]="getEnabledStatus(targetType) ? '' : 'hidden-tab'">
+              <app-related-items
+                source_type="project"
+                [target_type]="targetType"
+                download_key=""
+                [record_id]="project"
+                (fetchedRecords)="enableTab($event)"
+              ></app-related-items>
+            </mat-tab>
+        </ng-container>
       </mat-tab-group>
 
 
