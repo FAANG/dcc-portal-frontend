@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {ApiDataService} from '../../services/api-data.service';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ApiDataService } from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
-import {UserService} from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -93,7 +93,9 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-specimen') {
-      this.dataService.getAllSpecimensForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllSpecimensForProject(
+        [this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search
+      ).subscribe(
         (res: any) => {
           console.log(res)
           this.dataSource.data = this.getDataSource(res['data']);
@@ -101,31 +103,39 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-protocolsamples') {
-      this.dataService.getAllProtocolSamplesForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllProtocolSamplesForProject(
+        [this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search
+      ).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.fetchedRecords.emit(['protocol_samples', this.totalHits]);
+          this.fetchedRecords.emit(['protocolsamples', this.totalHits]);
         }
       );
     } else if (relationship_type === 'project-protocolfiles') {
-      this.dataService.getAllProtocolFilesForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllProtocolFilesForProject(
+        [this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search
+      ).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.fetchedRecords.emit(['protocol_files', this.totalHits]);
+          this.fetchedRecords.emit(['protocolfiles', this.totalHits]);
         }
       );
     } else if (relationship_type === 'project-protocolanalysis') {
-      this.dataService.getAllProtocolAnalysisForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllProtocolAnalysisForProject(
+        [this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search
+      ).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.fetchedRecords.emit(['protocol_analysis', this.totalHits]);
+          this.fetchedRecords.emit(['protocolanalysis', this.totalHits]);
         }
       );
     } else if (relationship_type === 'project-publication') {
-      this.dataService.getAllArticlesForProject([this.record_id], this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllArticlesForProject(
+        [this.record_id], this.getSort(), this.paginator.pageIndex * 10, this.search
+      ).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -141,14 +151,18 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-file') {
-      this.dataService.getAllFilesForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllFilesForProject(
+        [this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search
+      ).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-dataset') {
-      this.dataService.getAllDatasetsForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllDatasetsForProject(
+        [this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search
+      ).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -190,7 +204,9 @@ export class RelatedItemsComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'dataset-analysis') {
-      this.dataService.getAnalysesByDataset(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode, this.search).subscribe(
+      this.dataService.getAnalysesByDataset(
+        this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode, this.search
+      ).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -201,7 +217,9 @@ export class RelatedItemsComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.totalHits = this.dataSource.data.length;
     } else if (relationship_type === 'organism-specimen') {
-      this.dataService.getOrganismsSpecimens(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode, this.search).subscribe(
+      this.dataService.getOrganismsSpecimens(
+        this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode, this.search
+      ).subscribe(
         (data: any) => {
           this.records = data.hits.hits;
           this.dataSource.data = this.getDataSource(this.records);
@@ -322,7 +340,7 @@ export class RelatedItemsComponent implements OnInit {
 
   downloadAllFiles() {
     this.urls.forEach(url => {
-      let file_url = url.split('://')[1];
+      const file_url = url.split('://')[1];
       this.progress[file_url] = 0;
       this.http.get(url,
         {
@@ -330,7 +348,7 @@ export class RelatedItemsComponent implements OnInit {
             reportProgress: true,
             observe: 'events',
         }).subscribe(result => {
-        let filename = file_url.split('/').pop();
+        const filename = file_url.split('/').pop();
         if (result.type === HttpEventType.DownloadProgress) {
           this.progress[file_url] = Math.round(100 * result.loaded / result.total);
         }
@@ -442,6 +460,6 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   goToDownloader(){
-    (window as any).open("https://github.com/FAANG/dcc-bulk-data-downloader", "_blank");
+    (window as any).open('https://github.com/FAANG/dcc-bulk-data-downloader', '_blank');
   }
 }

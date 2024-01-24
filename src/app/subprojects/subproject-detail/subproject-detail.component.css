@@ -3,6 +3,11 @@
   max-width: 75%!important;
 }
 
+.hidden-tab {
+  display: none !important;
+}
+
+
 .small-project-logo {
   max-width:fit-content;
   max-height:200px;
