@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
 import setting from './subproject-detail.component.setting.json';
-import { UserService } from '../../services/user.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-subproject-detail',
   templateUrl: './subproject-detail.component.html',
-  styleUrls: ['./subproject-detail.component.css']
+  styleUrls: ['./subproject-detail.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SubprojectDetailComponent implements OnInit, OnDestroy {
   private twitter: any;
@@ -18,8 +19,21 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   error: any;
   right_logo_url: {};
   project_links: {};
-  enable_tabs: {};
-  init_tabs: {};
+  public tabs: string[];
+  public tabsConfig: {} = {
+    protocolsamples: {
+      title: 'Samples',
+      enabled: false,
+    },
+    protocolfiles: {
+      title: 'Experiments',
+      enabled: false,
+    },
+    protocolanalysis: {
+      title: 'Analyses',
+      enabled: false,
+    },
+  };
 
   constructor(private route: ActivatedRoute,
               private spinner: NgxSpinnerService,
@@ -30,16 +44,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.enable_tabs = {
-      'protocol_samples': false,
-      'protocol_files': false,
-      'protocol_analysis': false
-    };
-    this.init_tabs = {
-      'protocol_samples': false,
-      'protocol_files': false,
-      'protocol_analysis': false
-    };
+    this.tabs = Object.keys(this.tabsConfig);
     this.spinner.show();
     this.right_logo_url = {
       bovine: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/funding-logo-1.png',
@@ -121,13 +126,22 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   }
 
   public enableTab(emittedVal: any): void {
-    this.init_tabs[emittedVal[0]] = true;
+    console.log(emittedVal);
     if (emittedVal[1] !== 0) {
-      this.enable_tabs[emittedVal[0]] = true;
+      this.tabsConfig[emittedVal[0]].enabled = true;
     }
   }
 
   getEnabledStatus(type: string) {
-    return this.enable_tabs[type] || !this.init_tabs[type];
+    return this.tabsConfig[type].enabled;
+  }
+
+  getTotalEnabledStatus() {
+    for (const key in this.tabsConfig) {
+      if (this.tabsConfig[key].enabled) {
+         return true;
+      }
+    }
+    return false;
   }
 }

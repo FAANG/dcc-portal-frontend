@@ -106,7 +106,7 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.fetchedRecords.emit(['protocol_samples', this.totalHits]);
+          this.fetchedRecords.emit(['protocolsamples', this.totalHits]);
         }
       );
     } else if (relationship_type === 'project-protocolfiles') {
@@ -115,7 +115,7 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.fetchedRecords.emit(['protocol_files', this.totalHits]);
+          this.fetchedRecords.emit(['protocolfiles', this.totalHits]);
         }
       );
     } else if (relationship_type === 'project-protocolanalysis') {
@@ -124,7 +124,7 @@ export class RelatedItemsComponent implements OnInit {
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
-          this.fetchedRecords.emit(['protocol_analysis', this.totalHits]);
+          this.fetchedRecords.emit(['protocolanalysis', this.totalHits]);
         }
       );
     } else if (relationship_type === 'project-publication') {
