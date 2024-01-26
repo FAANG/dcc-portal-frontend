@@ -24,13 +24,54 @@
     frontier G2P research in Europe and globally.
   </div>
 
-
-
   <div class="img-center">
     <a>
       <img [src]="imgUrl('project-desc-2.png')" alt="EuroFAANG"/>
     </a>
   </div>
+
+  <div class="projectSelection">
+    Select project(s) data to display in tables:
+    <mat-form-field>
+      <mat-label>Select project(s):</mat-label>
+      <mat-select [formControl]="projects" multiple (selectionChange)="checkSelectedProjects($event.value)" #select required>
+        @for (project of projectList; track project) {
+        <mat-option [value]="project">{{project}}</mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="projects['status'] === 'INVALID'">
+        You need to select at least one project
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+
+  <app-ensembl-annotation [projectArr]="projects['value']" parentComponent="eurofaangMainPage"></app-ensembl-annotation>
+
+  <app-portal-data-table *ngIf="!projectSelectionErr" data_type="publication"
+                         [project]="projects['value']"></app-portal-data-table>
+
+  <app-portal-data-table *ngIf="!projectSelectionErr" data_type="dataset"
+                         [project]="projects['value']"></app-portal-data-table>
+
+  <app-portal-data-table *ngIf="!projectSelectionErr" data_type="file" download_key="url"
+                     [project]="projects['value']"></app-portal-data-table>
+
+  <app-portal-data-table *ngIf="!projectSelectionErr" data_type="organism"
+                         [project]="projects['value']"></app-portal-data-table>
+
+  <app-portal-data-table *ngIf="!projectSelectionErr" data_type="specimen"
+                         [project]="projects['value']"></app-portal-data-table>
+
+  <!-- Related Protocols -->
+  <app-portal-data-table *ngIf="!projectSelectionErr" data_type="protocolsamples"
+                         [project]="projects['value']"></app-portal-data-table>
+
+  <app-portal-data-table *ngIf="!projectSelectionErr" data_type="protocolfiles"
+                         [project]="projects['value']"></app-portal-data-table>
+
+  <app-portal-data-table *ngIf="!projectSelectionErr" data_type="protocolanalysis"
+                         [project]="projects['value']"></app-portal-data-table>
 
 </div>
 

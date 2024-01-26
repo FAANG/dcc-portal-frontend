@@ -86,21 +86,22 @@ export class RelatedItemsComponent implements OnInit {
     const relationship_type = `${this.source_type}-${this.target_type}`;
     if (relationship_type === 'project-organism') {
       this.dataService.getAllOrganismsFromProject(
-        this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+        [this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-specimen') {
-      this.dataService.getAllSpecimensForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllSpecimensForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
+          console.log(res)
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-protocolsamples') {
-      this.dataService.getAllProtocolSamplesForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllProtocolSamplesForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -108,7 +109,7 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-protocolfiles') {
-      this.dataService.getAllProtocolFilesForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllProtocolFilesForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -116,7 +117,7 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-protocolanalysis') {
-      this.dataService.getAllProtocolAnalysisForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllProtocolAnalysisForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -124,7 +125,7 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-publication') {
-      this.dataService.getAllArticlesForProject(this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllArticlesForProject([this.record_id], this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
@@ -140,14 +141,14 @@ export class RelatedItemsComponent implements OnInit {
         }
       );
     } else if (relationship_type === 'project-file') {
-      this.dataService.getAllFilesForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllFilesForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         }
       );
     } else if (relationship_type === 'project-dataset') {
-      this.dataService.getAllDatasetsForProject(this.record_id, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+      this.dataService.getAllDatasetsForProject([this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
         (res: any) => {
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];

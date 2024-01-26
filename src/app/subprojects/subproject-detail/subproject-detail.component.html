@@ -58,12 +58,7 @@
         {{project}} </a>
       </div>
 
-      <h3 style="margin-bottom: 20px;">Ensembl Rapid Release</h3>
-      <app-ensembl-annotation [project_name]="project"></app-ensembl-annotation>
-
-
-
-
+      <app-ensembl-annotation [projectArr]="[project]"></app-ensembl-annotation>
       <!-- Related Tables -->
       <app-related-items source_type="project" target_type="publication" download_key=""
                          [record_id]="project"></app-related-items>

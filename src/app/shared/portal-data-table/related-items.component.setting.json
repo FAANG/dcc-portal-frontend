@@ -1,0 +1,431 @@
+{
+  "publication": {
+    "display": [
+      "Title",
+      "Year",
+      "Journal",
+      "Secondary Project"
+    ],
+    "all": [
+      "Title",
+      "Year",
+      "Journal",
+      "Secondary Project"
+    ],
+    "fields": {
+      "Title": {
+        "value": "title",
+        "source": "title",
+        "link": {
+          "prefix": "../article/",
+          "url": "ID"
+        }
+      },
+      "ID": {
+        "value": "id"
+      },
+      "Year": {
+        "value": "year",
+        "source": "year"
+      },
+      "Journal": {
+        "value": "journal",
+        "source": "datasetSource"
+      },
+      "Secondary Project": {
+        "value": "secondaryProject",
+        "source": "secondaryProject"
+      }
+    }
+  },
+  "pipeline": {
+    "display": [
+      "Pipeline name",
+      "Assay type",
+      "Pipeline link",
+      "Pipeline documentation",
+      "Platform"
+    ],
+    "all": [
+      "Pipeline name",
+      "Assay type",
+      "Pipeline link",
+      "Pipeline documentation",
+      "Platform"
+    ],
+    "fields": {
+      "Pipeline name": {
+        "value": "name"
+      },
+      "Assay type": {
+        "value": "assayType"
+      },
+      "Pipeline link": {
+        "value": "link",
+        "link": {
+          "url": "Pipeline link"
+        }
+      },
+      "Pipeline documentation": {
+        "value": "documentation",
+        "link": {
+          "url": "Pipeline documentation"
+        }
+      },
+      "Platform": {
+        "value": "platform"
+      }
+    }
+  },
+  "organism": {
+    "display": [
+      "BioSamples ID",
+      "Species",
+      "Sex",
+      "Breed",
+      "Secondary Project"
+    ],
+    "all": [
+      "BioSamples ID",
+      "Species",
+      "Sex",
+      "Breed",
+      "Secondary Project"
+    ],
+    "fields": {
+      "BioSamples ID": {
+        "value": "bioSampleId",
+        "source": "biosampleId",
+        "link": {
+          "prefix": "../organism/",
+          "url": "BioSamples ID"
+        }
+      },
+      "Sex": {
+        "value": "sex",
+        "source": "sex.text"
+      },
+      "Species": {
+        "value": "organism",
+        "source": "organism.text"
+      },
+      "Breed": {
+        "value": "breed",
+        "source": "breed.text"
+      },
+      "Secondary Project": {
+        "value": "secondaryProject",
+        "source": "secondaryProject"
+      }
+    }
+  },
+  "specimen": {
+    "display": [
+      "BioSamples ID",
+      "Material",
+      "Organism part/Cell type",
+      "Sex",
+      "Species",
+      "Breed",
+      "Secondary Project"
+    ],
+    "all": [
+      "BioSamples ID",
+      "Material",
+      "Organism part/Cell type",
+      "Sex",
+      "Species",
+      "Breed",
+      "Secondary Project"
+    ],
+    "fields": {
+      "BioSamples ID": {
+        "value": "bioSampleId",
+        "source": "biosampleId",
+        "link": {
+          "prefix": "../specimen/",
+          "url": "BioSamples ID"
+        }
+      },
+      "Material": {
+        "value": "material",
+        "source": "material.text"
+      },
+      "Organism part/Cell type": {
+        "value": "organismpart_celltype",
+        "source": "cellType.text"
+      },
+      "Sex": {
+        "value": "sex",
+        "source": "organism.sex.text"
+      },
+      "Species": {
+        "value": "organism",
+        "source": "organism.organism.text"
+      },
+      "Breed": {
+        "value": "breed",
+        "source": "organism.breed.text"
+      },
+      "Secondary Project": {
+        "value": "secondaryProject",
+        "source": "secondaryProject"
+      }
+    }
+  },
+  "protocolsamples": {
+    "display": [
+      "Protocol Name",
+      "University Name",
+      "Protocol Year",
+      "Secondary Project"
+    ],
+    "all": [
+      "Key",
+      "Protocol Name",
+      "University Name",
+      "Protocol Year",
+      "Secondary Project"
+    ],
+    "fields": {
+      "Key": {
+        "value": "key",
+        "source": "key"
+      },
+      "Protocol Name": {
+        "value": "protocol_name",
+        "source": "protocolName",
+        "link": {
+          "prefix": "../protocol/samples/",
+          "url": "Key"
+        }
+      },
+      "University Name": {
+        "value": "university_name",
+        "source": "universityName"
+      },
+      "Protocol Year": {
+        "value": "protocol_date",
+        "source": "protocolDate"
+      },
+      "Secondary Project": {
+        "value": "secondaryProject",
+        "source": "secondaryProject"
+      }
+    }
+  },
+  "protocolfiles": {
+    "display": [
+      "Protocol Type",
+      "Experiment Target",
+      "Assay Type",
+      "Secondary Project"
+    ],
+    "all": [
+      "Key",
+      "Protocol Type",
+      "Experiment Target",
+      "Assay Type",
+      "Secondary Project"
+    ],
+    "fields": {
+      "Key": {
+        "value": "key",
+        "source": "key"
+      },
+      "Protocol Type": {
+        "value": "protocol_type",
+        "source": "name",
+        "link": {
+          "prefix": "../protocol/experiments/",
+          "url": "Key"
+        }
+      },
+      "Experiment Target": {
+        "value": "experiment_target",
+        "source": "experimentTarget"
+      },
+      "Assay Type": {
+        "value": "assay_type",
+        "source": "assayType"
+      },
+      "Secondary Project": {
+        "value": "secondaryProject",
+        "source": "secondaryProject"
+      }
+    }
+  },
+  "protocolanalysis": {
+    "display": [
+      "Protocol Name",
+      "University Name",
+      "Protocol Year",
+      "Secondary Project"
+    ],
+    "all": [
+      "Key",
+      "Protocol Name",
+      "University Name",
+      "Protocol Year",
+      "Secondary Project"
+    ],
+    "fields": {
+      "Key": {
+        "value": "key",
+        "source": "key"
+      },
+      "Protocol Name": {
+        "value": "protocol_name",
+        "source": "protocolName",
+        "link": {
+          "prefix": "../protocol/analysis/",
+          "url": "Key"
+        }
+      },
+      "University Name": {
+        "value": "university_name",
+        "source": "universityName"
+      },
+      "Protocol Year": {
+        "value": "protocol_date",
+        "source": "protocolDate"
+      },
+      "Secondary Project": {
+        "value": "secondaryProject",
+        "source": "secondaryProject"
+      }
+    }
+  },
+  "file": {
+    "display": [
+      "File name",
+      "Assay type",
+      "Experiment target",
+      "File size",
+      "Secondary Project"
+    ],
+    "all": [
+      "File name",
+      "Experiment",
+      "Run",
+      "Assay type",
+      "Experiment target",
+      "File size",
+      "Checksum",
+      "Checksum method",
+      "Secondary Project"
+    ],
+    "fields": {
+      "File name": {
+        "value": "name",
+        "source": "name",
+        "link": {
+          "prefix": "../file/",
+          "url": "File ID"
+        }
+      },
+      "File ID": {
+        "value": "fileId"
+      },
+      "Experiment": {
+        "value": "experiment",
+        "source": "experiment.accession"
+      },
+      "Run": {
+        "value": "run",
+        "source": "run.accession"
+      },
+      "Assay type": {
+        "value": "assayType",
+        "source": "experiment.assayType"
+      },
+      "Experiment target": {
+        "value": "experimentTarget",
+        "source": "experiment.target"
+      },
+      "File size": {
+        "value": "readableSize",
+        "source": "readableSize"
+      },
+      "Checksum": {
+        "value": "checksum",
+        "source": "checksum"
+      },
+      "Checksum method": {
+        "value": "checksumMethod",
+        "source": "checksumMethod"
+      },
+      "Secondary Project": {
+        "value": "secondaryProject",
+        "source": "secondaryProject"
+      }
+    }
+  },
+  "dataset": {
+    "display": [
+      "Study name",
+      "Species",
+      "Archive",
+      "Assay type",
+      "Secondary Project"
+    ],
+    "all": [
+      "Study name",
+      "Title",
+      "Species",
+      "Archive",
+      "Assay type",
+      "Number of experiments",
+      "Number of specimens",
+      "Number of files",
+      "Standard",
+      "Secondary Project"
+    ],
+    "fields": {
+      "Study name": {
+        "value": "datasetAccession",
+        "source": "accession",
+        "link": {
+          "prefix": "../dataset/",
+          "url": "Study name"
+        }
+      },
+      "Title": {
+        "value": "title",
+        "source": "title"
+      },
+      "Species": {
+        "value": "species",
+        "source": "species.text"
+      },
+      "Archive": {
+        "value": "archive",
+        "source": "archive"
+      },
+      "Assay type": {
+        "value": "assayType",
+        "source": "assayType"
+      },
+      "Number of experiments": {
+        "value": "numberOfExperiments",
+        "source": "experiment"
+      },
+      "Secondary Project": {
+        "value": "secondaryProject",
+        "source": "secondaryProject"
+      },
+      "Number of specimens": {
+        "value": "numberOfSpecimens",
+        "source": "specimen"
+      },
+      "Number of files": {
+        "value": "numberOfFiles",
+        "source": "file"
+      },
+      "Standard": {
+        "value": "standard",
+        "source": "accession"
+      }
+    }
+  }
+}

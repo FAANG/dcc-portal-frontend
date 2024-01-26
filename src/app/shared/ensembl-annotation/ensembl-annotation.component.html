@@ -1,5 +1,12 @@
 <!-- Ensembl Rapid Release table-->
 <div [hidden]="!dataSource.data || dataSource.data.length == 0">
+  <h3 style="margin-bottom: 20px;">
+    Ensembl Rapid Release
+    <span class="projectNamesTitle" *ngIf="parentComponent === 'eurofaangMainPage'">
+      associated with {{projectArr.join(', ')}}
+    </span>
+  </h3>
+
   <table mat-table matSort matSortDisableClear [dataSource]="dataSource" style="width: 100%; margin-top: 15px;">
     <ng-container [matColumnDef]="tableDef['columnDefinition']" *ngFor="let tableDef of tableDefinitions">
       <ng-container *ngIf="tableDef.hasOwnProperty('span'); else noSpan">
