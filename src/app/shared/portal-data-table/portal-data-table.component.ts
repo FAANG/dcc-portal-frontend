@@ -250,11 +250,6 @@ export class PortalDataTableComponent implements OnInit {
     });
   }
 
-  displayPlatformLogo(record: any, attr: string): string | null {
-    return (this.data_type === 'pipeline' && attr === 'Platform') ? record['Platform'] : null;
-  }
-
-
   // the behaviour of the checkbox in the table under Download column
   onCheckboxClick(url: string) {
     url = `https://${url}`;

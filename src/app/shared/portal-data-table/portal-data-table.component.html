@@ -74,13 +74,7 @@
               </ng-container>
 
               <ng-container *ngIf="!get_field_values_for_links(col)">
-                <ng-container [ngSwitch]="displayPlatformLogo(item, col)">
-                  <img *ngSwitchCase="'nf-core'" src="assets/logos/nf-core-logo.png" class="img-fluid pipeline-platform-logo" alt="nf-core">
-                  <img *ngSwitchCase="'Nextflow'" src="assets/logos/nextflow-logo-dark.png" class="img-fluid pipeline-platform-logo" alt="nextflow">
-                </ng-container>
-                <ng-container *ngIf="!displayPlatformLogo(item, col)">
                   {{item[col]}}
-                </ng-container>
               </ng-container>
             </td>
           </ng-container>
