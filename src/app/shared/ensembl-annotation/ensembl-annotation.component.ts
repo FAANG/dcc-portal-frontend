@@ -11,7 +11,9 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./ensembl-annotation.component.css']
 })
 export class EnsemblAnnotationComponent implements OnInit {
-  @Input() project_name: string;
+  @Input() projectArr: string[];
+  @Input() parentComponent: string;
+
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -106,6 +108,18 @@ export class EnsemblAnnotationComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.parentComponent === 'eurofaangMainPage') {
+      this.displayedColumns.push('project');
+
+      const projObj = {
+        columnDefinition: 'project',
+        columnTitle: 'Project',
+        cellVar: 'project',
+      }
+      this.tableDefinitions.push(projObj);
+
+    }
+
     this.dataSource = new MatTableDataSource([]);
 
     // fetch data from ES
@@ -121,8 +135,14 @@ export class EnsemblAnnotationComponent implements OnInit {
     });
   }
 
+  ngOnChanges() {
+    setTimeout(() => {
+      this.fetchData();
+    }, Math.floor(Math.random() * 200));
+  }
+
   fetchData() {
-    this.dataService.getEnsemblAnnotationData(this.project_name, this.getSort(), this.paginator.pageIndex * 10).subscribe(
+    this.dataService.getEnsemblAnnotationData(this.projectArr, this.getSort(), this.paginator.pageIndex * 10).subscribe(
       (res: any) => {
         this.dataSource.data = res['data'];
         this.totalHits = res['totalHits'];

@@ -22,3 +22,8 @@ td.mat-footer-cell:first-of-type,
 th.mat-header-cell:first-of-type {
   padding-left: 10px;
 }
+
+.projectNamesTitle{
+  font-size: 70%;
+  color: #5199a8;
+}

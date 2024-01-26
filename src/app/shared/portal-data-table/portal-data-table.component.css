@@ -62,3 +62,7 @@ th.mat-header-cell:first-of-type {
   font-size: 70%;
   color: #5199a8;
 }
+
+.dataTable {
+  margin-top: 30px;
+}

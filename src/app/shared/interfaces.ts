@@ -27,6 +27,7 @@ export interface FileForProjectTable {
   readableSize: string;
   checksum: string;
   checksumMethod: string;
+  secondaryProject: string;
   private: boolean;
 }
 
@@ -45,6 +46,7 @@ export interface OrganismForProjectTable {
   sex: string;
   organism: string;
   breed: string;
+  secondaryProject: string;
   private: boolean;
 }
 
@@ -68,6 +70,7 @@ export interface SpecimenForProjectTable {
   sex: string;
   organism: string;
   breed: string;
+  secondaryProject: string;
   private: boolean;
 }
 
@@ -102,6 +105,7 @@ export interface ProtocolFile {
   experiment_target: string;
   assay_type: string;
   key: string;
+  secondaryProject: string;
 }
 
 export interface ProtocolSample {
@@ -110,6 +114,7 @@ export interface ProtocolSample {
   university_name: string;
   protocol_date: string;
   protocol_type: string;
+  secondaryProject: string;
 }
 
 export interface ProtocolAnalysis {
@@ -117,6 +122,7 @@ export interface ProtocolAnalysis {
   protocol_name: string;
   university_name: string;
   protocol_date: string;
+  secondaryProject: string;
 }
 
 export interface ArticleTable {
