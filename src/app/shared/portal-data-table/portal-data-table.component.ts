@@ -3,11 +3,11 @@ import {ApiDataService} from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
 import setting from './portal-data-table.setting.json';
 import {UserService} from '../../services/user.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { HttpClient, HttpEventType} from '@angular/common/http';
-import { Observable, of as observableOf } from 'rxjs';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {HttpClient, HttpEventType} from '@angular/common/http';
+import {Observable, of as observableOf} from 'rxjs';
 
 @Component({
   selector: 'app-portal-data-table',
@@ -19,8 +19,8 @@ export class PortalDataTableComponent implements OnInit {
   @Input() data_type: string;
   @Input() download_key: string;
   @Output() fetchedRecords = new EventEmitter<any>();
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   dataSource: MatTableDataSource<any>;
   display_fields: Array<string> = [];
   progress: Observable<Object> = observableOf({});
@@ -48,7 +48,6 @@ export class PortalDataTableComponent implements OnInit {
     for (const column of setting[this.data_type]['display']) {
       this.display_fields.push(column);
     }
-    console.log(" this.display_fields: ",  this.display_fields)
     if (this.download_key && this.download_key.length > 0 && this.mode == 'public') {
       this.display_fields.push('Download');
     }
@@ -66,92 +65,90 @@ export class PortalDataTableComponent implements OnInit {
   }
 
   ngOnChanges() {
-    // random delay for concurrent requests
     setTimeout(() => {
       this.fetchData();
     }, Math.floor(Math.random() * 200));
-    console.log("inside ngOnChanges")
   }
 
   fetchData() {
-    if (!this.project.length){
+    if (!this.project.length) {
       return;
     }
-    if (this.data_type === 'organism') {
-      this.dataService.getAllOrganismsFromProject(
-        this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
-        (res: any) => {
-          this.dataSource.data = this.getDataSource(res['data']);
-          this.totalHits = res['totalHits'];
-        }
-      );
-    } else if (this.data_type === 'specimen') {
-      this.dataService.getAllSpecimensForProject(
-        this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
-        (res: any) => {
-          this.dataSource.data = this.getDataSource(res['data']);
-          this.totalHits = res['totalHits'];
-        }
-      );
-    } else if (this.data_type === 'protocolsamples') {
-      this.dataService.getAllProtocolSamplesForProject(
-        this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
-        (res: any) => {
-          this.dataSource.data = this.getDataSource(res['data']);
-          this.totalHits = res['totalHits'];
-          this.fetchedRecords.emit(['protocol_samples', this.totalHits]);
-        }
-      );
-    } else if (this.data_type === 'protocolfiles') {
-      this.dataService.getAllProtocolFilesForProject(
-        this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
-        (res: any) => {
-          this.dataSource.data = this.getDataSource(res['data']);
-          this.totalHits = res['totalHits'];
-          this.fetchedRecords.emit(['protocol_files', this.totalHits]);
-        }
-      );
-    } else if (this.data_type === 'protocolanalysis') {
-      this.dataService.getAllProtocolAnalysisForProject(
-        this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
-        (res: any) => {
-          this.dataSource.data = this.getDataSource(res['data']);
-          this.totalHits = res['totalHits'];
-          this.fetchedRecords.emit(['protocol_analysis', this.totalHits]);
-        }
-      );
-    } else if (this.data_type === 'publication') {
-      this.dataService.getAllArticlesForProject(
-        this.project, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
-        (res: any) => {
-          this.dataSource.data = this.getDataSource(res['data']);
-          this.totalHits = res['totalHits'];
-        }
-      );
-    } else if (this.data_type === 'file') {
-      this.dataService.getAllFilesForProject(
-        this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
-        (res: any) => {
-          this.dataSource.data = this.getDataSource(res['data']);
-          this.totalHits = res['totalHits'];
-        }
-      );
-    } else if (this.data_type === 'dataset') {
-      this.dataService.getAllDatasetsForProject(
-        this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
-        (res: any) => {
-          this.dataSource.data = this.getDataSource(res['data']);
-          this.totalHits = res['totalHits'];
-        }
-      );
-
+    switch (this.data_type) {
+      case 'organism':
+        this.dataService.getAllOrganismsFromProject(
+          this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+          (res: any) => {
+            this.dataSource.data = this.getDataSource(res['data']);
+            this.totalHits = res['totalHits'];
+          });
+        break;
+      case 'specimen':
+        this.dataService.getAllSpecimensForProject(
+          this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+          (res: any) => {
+            this.dataSource.data = this.getDataSource(res['data']);
+            this.totalHits = res['totalHits'];
+          });
+        break;
+      case 'protocolsamples':
+        this.dataService.getAllProtocolSamplesForProject(
+          this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+          (res: any) => {
+            this.dataSource.data = this.getDataSource(res['data']);
+            this.totalHits = res['totalHits'];
+            this.fetchedRecords.emit(['protocol_samples', this.totalHits]);
+          });
+        break;
+      case 'protocolfiles':
+        this.dataService.getAllProtocolFilesForProject(
+          this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+          (res: any) => {
+            this.dataSource.data = this.getDataSource(res['data']);
+            this.totalHits = res['totalHits'];
+            this.fetchedRecords.emit(['protocol_files', this.totalHits]);
+          });
+        break;
+      case 'protocolanalysis':
+        this.dataService.getAllProtocolAnalysisForProject(
+          this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+          (res: any) => {
+            this.dataSource.data = this.getDataSource(res['data']);
+            this.totalHits = res['totalHits'];
+            this.fetchedRecords.emit(['protocol_analysis', this.totalHits]);
+          });
+        break;
+      case 'publication':
+        this.dataService.getAllArticlesForProject(
+          this.project, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+          (res: any) => {
+            this.dataSource.data = this.getDataSource(res['data']);
+            this.totalHits = res['totalHits'];
+          });
+        break;
+      case 'file':
+        this.dataService.getAllFilesForProject(
+          this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+          (res: any) => {
+            this.dataSource.data = this.getDataSource(res['data']);
+            this.totalHits = res['totalHits'];
+          });
+        break;
+      case 'dataset':
+        this.dataService.getAllDatasetsForProject(
+          this.project, this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search).subscribe(
+          (res: any) => {
+            this.dataSource.data = this.getDataSource(res['data']);
+            this.totalHits = res['totalHits'];
+          });
+        break;
+      default:
+        break;
     }
-
-
   }
 
-  checkSelectedProjects(selectedProjects: string[]){
-    if (!selectedProjects.length){
+  checkSelectedProjects(selectedProjects: string[]) {
+    if (!selectedProjects.length) {
       console.log("empty projects")
     }
 
@@ -159,13 +156,13 @@ export class PortalDataTableComponent implements OnInit {
 
   getSort() {
     const defaults = {
-      'organism' : 'BioSamples ID',
-      'specimen' : 'BioSamples ID',
-      'protocolsamples' : 'Protocol Name',
-      'protocolfiles' : 'Protocol Type',
-      'protocolanalysis' : 'Protocol Name',
+      'organism': 'BioSamples ID',
+      'specimen': 'BioSamples ID',
+      'protocolsamples': 'Protocol Name',
+      'protocolfiles': 'Protocol Type',
+      'protocolanalysis': 'Protocol Name',
       'publication': 'Title',
-      'file' : 'File name',
+      'file': 'File name',
       'dataset': 'Study name',
       'download': 'Name',
       'analysis': 'Accession'
@@ -309,10 +306,10 @@ export class PortalDataTableComponent implements OnInit {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  searchChanged(event: any){
+  searchChanged(event: any) {
     const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    if (this.delaySearch){
-      if (this.timer){
+    if (this.delaySearch) {
+      if (this.timer) {
         clearTimeout(this.timer);
       }
       this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
@@ -329,10 +326,10 @@ export class PortalDataTableComponent implements OnInit {
 
   displayTitle(targetType: string) {
     const titles = {
-      'analysis' : 'Analyses',
-      'protocolsamples' : 'Protocol Samples',
-      'protocolfiles' : 'Protocol Experiments',
-      'protocolanalysis' : 'Protocol Analysis'
+      'analysis': 'Analyses',
+      'protocolsamples': 'Protocol Samples',
+      'protocolfiles': 'Protocol Experiments',
+      'protocolanalysis': 'Protocol Analysis'
     };
     if (titles.hasOwnProperty(targetType)) {
       return titles[targetType];
@@ -341,12 +338,12 @@ export class PortalDataTableComponent implements OnInit {
     }
   }
 
-  goToDownloader(){
+  goToDownloader() {
     (window as any).open("https://github.com/FAANG/dcc-bulk-data-downloader", "_blank");
   }
 
-  displayCellData(str){
-    if (str && str.charAt(0) === ','){
+  displayCellData(str) {
+    if (str && str.charAt(0) === ',') {
       return str.replace(/^,/, '');
     }
     return str
