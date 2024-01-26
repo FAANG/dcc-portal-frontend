@@ -266,7 +266,6 @@ export class ApiDataService {
       } else {
         url = url + '&sort=' + sort;
       }
-      console.log(url)
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map(entry => ({
@@ -563,7 +562,6 @@ export class ApiDataService {
     const res = {};
     if (mode === 'private') {
       const url = `${this.hostSetting.host}private_portal/specimen/?size=10&from_=${offset}&search=${search}`;
-      console.log("private url", url)
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -584,7 +582,6 @@ export class ApiDataService {
     } else {
       const project_filter = JSON.stringify({secondaryProject: projectArr});
       const url = `${this.hostSetting.host}data/specimen/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
-      console.log("public url", url)
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data.hits.hits.map( entry => ({
@@ -1031,7 +1028,6 @@ export class ApiDataService {
 
   getAllPipelinesForProject(project: string) {
     const url = this.hostSetting.relatedProjectsHost + project.toLowerCase() + '/pipelines.tsv';
-    console.log("getAllPipelinesForProject url ----->", url)
     let pipelineArr: any[] = [];
     return this.http.get(url, {responseType: 'text'})
       .pipe(
