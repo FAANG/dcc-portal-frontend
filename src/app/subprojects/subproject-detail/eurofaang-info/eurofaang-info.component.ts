@@ -16,15 +16,12 @@ export class EurofaangInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.projects['value'])
-
   }
 
   imgUrl(relative_path) {
     return (this.imageHost + 'eurofaang/' + relative_path);
   }
 
-  // to delete
   checkSelectedProjects(selectedProjects: string[]){
     if (!selectedProjects.length){
       this.projectSelectionErr = true;

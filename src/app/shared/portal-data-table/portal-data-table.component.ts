@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ApiDataService} from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
-import setting from './related-items.component.setting.json';
+import setting from './portal-data-table.setting.json';
 import {UserService} from '../../services/user.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -343,5 +343,12 @@ export class PortalDataTableComponent implements OnInit {
 
   goToDownloader(){
     (window as any).open("https://github.com/FAANG/dcc-bulk-data-downloader", "_blank");
+  }
+
+  displayCellData(str){
+    if (str && str.charAt(0) === ','){
+      return str.replace(/^,/, '');
+    }
+    return str
   }
 }
