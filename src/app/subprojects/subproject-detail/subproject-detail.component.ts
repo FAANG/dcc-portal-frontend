@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -8,7 +8,8 @@ import {UserService} from '../../services/user.service';
 @Component({
   selector: 'app-subproject-detail',
   templateUrl: './subproject-detail.component.html',
-  styleUrls: ['./subproject-detail.component.css']
+  styleUrls: ['./subproject-detail.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SubprojectDetailComponent implements OnInit, OnDestroy {
   private twitter: any;
@@ -18,10 +19,23 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   error: any;
   right_logo_url: {};
   project_links: {};
-  disable_tabs: {};
+  public tabs: string[];
+  public tabsConfig: {} = {
+    protocolsamples: {
+      title: 'Samples',
+      enabled: false,
+    },
+    protocolfiles: {
+      title: 'Experiments',
+      enabled: false,
+    },
+    protocolanalysis: {
+      title: 'Analyses',
+      enabled: false,
+    },
+  };
 
   constructor(private route: ActivatedRoute,
-              private title: Title,
               private spinner: NgxSpinnerService,
               private router: Router,
               private titleService: Title,
@@ -30,12 +44,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // display tabs for 'Related Protocols' section
-    this.disable_tabs = {
-      'protocol_samples': false,
-      'protocol_files': false,
-      'protocol_analysis': false
-    };
+    this.tabs = Object.keys(this.tabsConfig);
     this.spinner.show();
     this.right_logo_url = {
       bovine: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/funding-logo-1.png',
@@ -116,18 +125,33 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
     this.twitter.unsubscribe();
   }
 
-
-// disable tab if records count == 0
-  public disableTab(emittedVal: any): void {
-    if (emittedVal[1] === 0) {
-      this.disable_tabs[emittedVal[0]] = true;
+  public enableTab(emittedVal: any): void {
+    if (emittedVal[1] !== 0) {
+      this.tabsConfig[emittedVal[0]].enabled = true;
     }
   }
 
-  hideProtocolTable() {
-    const disableTable = Object.values(this.disable_tabs).every(
-      value => value === true
-    );
-    return disableTable;
+  getEnabledStatus(type: string) {
+    return this.tabsConfig[type].enabled;
+  }
+
+  getTotalEnabledStatus() {
+    for (const key in this.tabsConfig) {
+      if (this.tabsConfig[key].enabled) {
+         return true;
+      }
+    }
+    return false;
+  }
+
+  getSelectedTab() {
+    let i = 0;
+    for (const key in this.tabsConfig) {
+      if (this.tabsConfig[key].enabled) {
+        return i;
+      }
+      i++;
+    }
+    return 0;
   }
 }
