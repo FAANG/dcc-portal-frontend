@@ -23,8 +23,14 @@ button a {
   overflow-wrap: break-word;
 }
 
-td.mat-cell:first-of-type, 
-td.mat-footer-cell:first-of-type, 
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type,
 th.mat-header-cell:first-of-type {
   padding-left: 10px;
+}
+
+.table-danger {
+  background-color: #f8d7da;
+  color: #000;
+  border-color: #dfc2c4;
 }

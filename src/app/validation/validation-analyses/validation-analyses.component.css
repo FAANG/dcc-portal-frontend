@@ -89,3 +89,15 @@ mat-expansion-panel-header {
 mat-panel-title {
   color: #49494A;
 }
+
+.table-danger {
+  background-color: #f8d7da;
+  color: #000;
+  border-color: #dfc2c4;
+}
+
+.table-warning {
+  background-color: #fff3cd;
+  color: #000;
+  border-color: #e6dbb9;
+}
