@@ -1,4 +1,4 @@
-<mat-card *ngIf="aggregation.length !== 0">
+<mat-card *ngIf="aggregation.length !== 0" class="filter-card">
   <h6 class="filter-header item">
     {{title}}
     <i class="material-icons float-right" *ngIf="aggregation?.length > filterSize && isCollapsed" (click)="toggleCollapse()">add</i>
