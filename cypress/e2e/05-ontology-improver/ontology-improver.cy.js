@@ -1,10 +1,8 @@
 export class OntologyImproverPage {
 
   check_title() {
-    cy.get('.ngx-spinner-overlay').should('not.exist')
-    cy.get('h2').should("contain", 'FAANG Analyses')
+    cy.get('h2').should("contain", 'Livestock Ontologies')
   }
-
 
   compare_value(classname) {
     cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
@@ -110,7 +108,5 @@ export class OntologyImproverPage {
           })
       })
   }
-
-
 
 }

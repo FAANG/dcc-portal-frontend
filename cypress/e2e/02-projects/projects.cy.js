@@ -44,7 +44,7 @@ export class ProjectsPage{
       .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 
-    // cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive > div[_ngcontent-ng-c571785226=""] > .mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
+    // cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive > div[_ngcontent-ng-c571785226=""] > .mat-mdc-table > .mdc-data-table__content > :nth-child(1) > '.cdk-column-BioSamples-ID')
     cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
     cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
@@ -147,6 +147,11 @@ export class ProjectsPage{
   check_bovine_page(){
     cy.visit('/projects/Bovine')
     cy.contains("The cattle industry is the largest of the agricultural commodities in the United. Although the sequence of the bovine reference genome has been publicly available since 2009");
+  }
+
+  check_holoruminant_page() {
+    cy.visit('/projects/Holoruminant')
+    cy.contains("Holoruminant is a multi-actor project aiming to elucidate the role of ruminant-associated microbiomes and their interplay with the host animal in early life and throughout fundamental life events (e.g. weaning, feed transitions and lactation) that are known to affect health, welfare and environmental efficiency in ruminant production systems.");
   }
 
 }
