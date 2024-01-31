@@ -46,7 +46,6 @@ export class OntologyImproverPage {
     })
   }
 
-
   allow_multiple_filters(filterAccessor_1, filterAccessor_2, colname1, colname2, filterArr) {
     cy.intercept('GET', '/data/ontologies/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'ontology-improver/ontology-improver.json'}).as('filteredList1')
     cy.intercept('GET', '/data/ontologies/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'ontology-improver/ontology-improver.json'}).as('filteredList2')

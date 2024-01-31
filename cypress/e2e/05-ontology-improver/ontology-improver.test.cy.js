@@ -13,7 +13,6 @@ describe('Ontology Improver Page', () => {
     ontologyPage.check_title()
   })
 
-
   it('should sort table on column Term', () => {
     cy.wait('@ontologyList').then(({response}) => {
       expect(response.statusCode).to.eq(200)

@@ -338,7 +338,6 @@ export class ApiDataService {
     );
   }
 
-
   getAllOntologiesWorkshop(query: any, size: number) {
     const url = `${this.hostSetting.host}data/ontologies_test/_search/?size=${size}`;
     const aggs = {
@@ -394,11 +393,11 @@ export class ApiDataService {
         res['totalHits'] = data.hits.total.value;
         res['aggregations'] = data.aggregations;
         // status_activity is a special case as a nested property is used for the aggregate
-        if ('status_activity' in res['aggregations']){
-          res['aggregations']['status_activity'] = res['aggregations']['status_activity']['status']
+        if ('status_activity' in res['aggregations']) {
+          res['aggregations']['status_activity'] = res['aggregations']['status_activity']['status'];
           // do not display Awaiting Assessment in filter list
           res['aggregations']['status_activity']['buckets'] = res['aggregations']['status_activity']['buckets']
-            .filter((ele) => ele['key'] !== "Awaiting Assessment");
+            .filter((ele) => ele['key'] !== 'Awaiting Assessment');
         }
         return res;
       }),

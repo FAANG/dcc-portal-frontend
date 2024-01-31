@@ -1,0 +1,302 @@
+{
+  "organism": {
+    "took": 1,
+    "timed_out": false,
+    "_shards": {
+      "total": 1,
+      "successful": 1,
+      "skipped": 0,
+      "failed": 0
+    },
+    "hits": {
+      "total": {
+        "value": 1,
+        "relation": "eq"
+      },
+      "max_score": 7.9435453,
+      "hits": [
+        {
+          "_index": "organism",
+          "_id": "SAMEA114307439",
+          "_score": 7.9435453,
+          "_source": {
+            "organism": {
+              "text": "Rangifer tarandus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9870"
+            },
+            "sex": {
+              "text": "male",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+            },
+            "deliveryTiming": null,
+            "deliveryEase": null,
+            "pedigree": null,
+            "name": "RTA_LUKE_R35",
+            "biosampleId": "SAMEA114307439",
+            "etag": null,
+            "id_number": "114307439",
+            "description": null,
+            "releaseDate": "2023-08-29",
+            "updateDate": "2023-08-29",
+            "material": {
+              "text": "organism",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0100026"
+            },
+            "project": "FAANG",
+            "secondaryProject": null,
+            "availability": "mailto:kisun.pokharel@luke.fi",
+            "organization": [
+              {
+                "name": "Natural Resources Institute Finland",
+                "role": "Institution",
+                "URL": "https://www.luke.fi/en"
+              }
+            ],
+            "alternativeId": [],
+            "standardMet": "FAANG"
+          }
+        }
+      ]
+    },
+    "index": "organism"
+  },
+  "specimen": {
+    "took": 1,
+    "timed_out": false,
+    "_shards": {
+      "total": 1,
+      "successful": 1,
+      "skipped": 0,
+      "failed": 0
+    },
+    "hits": {
+      "total": {
+        "value": 1,
+        "relation": "eq"
+      },
+      "max_score": 9.883881,
+      "hits": [
+        {
+          "_index": "specimen",
+          "_id": "SAMEA114307474",
+          "_score": 9.883881,
+          "_source": {
+            "derivedFrom": "SAMEA114307439"
+            },
+            "name": "RTA_LUKE_YR9",
+            "biosampleId": "SAMEA114307474",
+            "etag": null,
+            "id_number": "114307474",
+            "description": null,
+            "releaseDate": "2023-08-29",
+            "updateDate": "2023-08-29",
+            "material": {
+              "text": "specimen from organism",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/OBI_0001479"
+            },
+            "project": "FAANG",
+            "secondaryProject": null,
+            "availability": null,
+            "organization": [
+              {
+                "name": "Natural Resources Institute Finland",
+                "role": "Institution",
+                "URL": "https://www.luke.fi/en"
+              }
+            ],
+            "cellType": {
+              "text": "blood",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/not available"
+            },
+            "organism": {
+              "biosampleId": "SAMEA114307439",
+              "organism": {
+                "text": "Rangifer tarandus",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9870"
+              },
+              "sex": {
+                "text": "male",
+                "ontologyTerms": "http://purl.obolibrary.org/obo/PATO_0000384"
+              }
+            },
+            "alternativeId": [],
+            "standardMet": "FAANG"
+          }
+      ]
+    },
+    "index": "specimen"
+  },
+  "file": {
+    "took": 2,
+    "timed_out": false,
+    "_shards": {
+      "total": 1,
+      "successful": 1,
+      "skipped": 0,
+      "failed": 0
+    },
+    "hits": {
+      "total": {
+        "value": 2,
+        "relation": "eq"
+      },
+      "max_score": 10.63395,
+      "hits": [
+        {
+          "_index": "file",
+          "_id": "ERR12030933_1",
+          "_score": 10.63395,
+          "_source": {
+            "specimen": "SAMEA114307474",
+            "organism": "SAMEA114307439",
+            "species": {
+              "text": "Rangifer tarandus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9870"
+            },
+            "secondaryProject": "AQUA-FAANG",
+            "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR120/033/ERR12030933/ERR12030933_1.fastq.gz",
+            "name": "ERR12030933_1.fastq.gz",
+            "type": "fastq",
+            "size": "10783665456",
+            "readableSize": "10.04GB",
+            "checksumMethod": "md5",
+            "checksum": "a94e88a998d1c6a98d6cc97cd9cc26af",
+            "archive": "ENA",
+            "baseCount": "40408003500",
+            "readCount": "269386690",
+            "releaseDate": "2023-09-08",
+            "updateDate": "2023-09-08",
+            "submission": "ERA27200040",
+            "experiment": {
+              "accession": "ERX11414477",
+              "assayType": "RNA-seq of coding RNA",
+              "target": "input DNA",
+              "standardMet": "FAANG"
+            },
+            "run": {
+              "accession": "ERR12030933",
+              "alias": "RTA_LUKE_S35",
+              "platform": "ILLUMINA",
+              "instrument": "Illumina HiSeq 4000",
+              "centerName": "Natural Resources Institute Finland (Luke)",
+              "sequencingDate": "",
+              "sequencingLocation": "BGI;Beijing",
+              "sequencingLatitude": null,
+              "sequencingLongitude": ""
+            },
+            "study": {
+              "accession": "PRJEB65932",
+              "alias": "RTA_LUKE_II",
+              "title": "WGS of northern-Eurasian reindeer populations",
+              "type": null,
+              "secondaryAccession": "ERP151027"
+            }
+          }
+        },
+        {
+          "_index": "file",
+          "_id": "ERR12030933_2",
+          "_score": 10.63395,
+          "_source": {
+            "specimen": "SAMEA114307474",
+            "organism": "SAMEA114307439",
+            "species": {
+              "text": "Rangifer tarandus",
+              "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9870"
+            },
+            "secondaryProject": "AQUA-FAANG",
+            "url": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR120/033/ERR12030933/ERR12030933_2.fastq.gz",
+            "name": "ERR12030933_2.fastq.gz",
+            "type": "fastq",
+            "size": "11820570963",
+            "readableSize": "11.01GB",
+            "checksumMethod": "md5",
+            "checksum": "deaa738d7275f31d463ab336cbe9276f",
+            "archive": "ENA",
+            "baseCount": "40408003500",
+            "readCount": "269386690",
+            "releaseDate": "2023-09-08",
+            "updateDate": "2023-09-08",
+            "submission": "ERA27200040",
+            "experiment": {
+              "accession": "ERX11414477",
+              "assayType": "RNA-seq of coding RNA",
+              "target": "input DNA",
+              "standardMet": "FAANG"
+            },
+            "run": {
+              "accession": "ERR12030933",
+              "alias": "RTA_LUKE_S35",
+              "platform": "ILLUMINA",
+              "instrument": "Illumina HiSeq 4000",
+              "centerName": "Natural Resources Institute Finland (Luke)",
+              "sequencingDate": "",
+              "sequencingLocation": "BGI;Beijing",
+              "sequencingLatitude": null,
+              "sequencingLongitude": ""
+            },
+            "study": {
+              "accession": "PRJEB65932",
+              "alias": "RTA_LUKE_II",
+              "title": "WGS of northern-Eurasian reindeer populations",
+              "type": null,
+              "secondaryAccession": "ERP151027"
+            }
+          }
+        }
+      ]
+    },
+    "index": "file"
+  },
+  "protocol/samples": {
+    "took": 1,
+    "timed_out": false,
+    "_shards": {
+      "total": 1,
+      "successful": 1,
+      "skipped": 0,
+      "failed": 0
+    },
+    "hits": {
+      "total": {
+        "value": 1,
+        "relation": "eq"
+      },
+      "max_score": 8.19874,
+      "hits": [
+        {
+          "_index": "protocol_samples",
+          "_id": "WUR_SOP_animal_sampling_20160405.pdf",
+          "_score": 8.19874,
+          "_source": {
+            "universityName": "WUR",
+            "specimens": [
+              {
+                "organism": "Gallus gallus",
+                "derivedFrom": "SAMEA4447327",
+                "id": "SAMEA4447321",
+                "organismPartCellType": "skeletal muscle tissue of pectoralis major",
+                "breed": "chicken breed"
+              }
+            ],
+            "protocolDate": 2016,
+            "protocolName": "animal sampling",
+            "key": "WUR_SOP_animal_sampling_20160405.pdf",
+            "url": "https://data.faang.org/api/fire_api/samples/WUR_SOP_animal_sampling_20160405.pdf"
+          }
+        }
+      ]
+    },
+    "index": "protocol/samples"
+  },
+  "dataset": {
+    "hits": {
+      "total": {
+        "value": 1
+      }
+    },
+    "search_terms": [
+      "PRJEB65932"
+    ]
+  }
+}
