@@ -5,10 +5,8 @@
   <div class="input-group margin-bottom-none">
     <input type="text" name="text" id="local-searchbox" [(ngModel)]="searchText" placeholder="Search" class="input-group-field" value="">
     <div class="input-group-button" style="position: relative;">
-      <button mat-button class="action nonDefault" #btnFocus [autofocus]="btnFocus.focus()"
-              (keyup.enter)="onSearch()" (click)="onSearch()">
-        <mat-icon>search</mat-icon>
-      </button>
+      <button mat-button style="position: absolute; right: 0; border: none;" (click)="onSearch()">
+        <mat-icon>search</mat-icon></button>
     </div>
   </div>
 </div>
