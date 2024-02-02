@@ -52,4 +52,8 @@ describe('Projects Page', () => {
     projectsPage.check_bovine_page()
   })
 
+  it('should verify Holoruminant project', () => {
+    projectsPage.check_holoruminant_page()
+  })
+
 })

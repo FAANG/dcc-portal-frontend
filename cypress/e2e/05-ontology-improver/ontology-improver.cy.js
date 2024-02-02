@@ -1,10 +1,8 @@
 export class OntologyImproverPage {
 
   check_title() {
-    cy.get('.ngx-spinner-overlay').should('not.exist')
-    cy.get('h2').should("contain", 'FAANG Analyses')
+    cy.get('h2').should("contain", 'Livestock Ontologies')
   }
-
 
   compare_value(classname) {
     cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
@@ -47,7 +45,6 @@ export class OntologyImproverPage {
       console.log("request", request.url)
     })
   }
-
 
   allow_multiple_filters(filterAccessor_1, filterAccessor_2, colname1, colname2, filterArr) {
     cy.intercept('GET', '/data/ontologies/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'ontology-improver/ontology-improver.json'}).as('filteredList1')
@@ -110,7 +107,5 @@ export class OntologyImproverPage {
           })
       })
   }
-
-
 
 }

@@ -1,4 +1,4 @@
-import {OntologyImproverPage} from "./ontology-improver.cy";
+import { OntologyImproverPage } from "./ontology-improver.cy";
 
 describe('Ontology Improver Page', () => {
   beforeEach(() => {
@@ -10,9 +10,8 @@ describe('Ontology Improver Page', () => {
   let ontologyPage = new OntologyImproverPage()
 
   it('should display welcome message', () => {
-    cy.get('h2').should("contain", 'Livestock Ontologies')
+    ontologyPage.check_title()
   })
-
 
   it('should sort table on column Term', () => {
     cy.wait('@ontologyList').then(({response}) => {
