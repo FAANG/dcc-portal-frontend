@@ -42,8 +42,8 @@ export class GlobalSearchComponent implements OnInit {
     });
   }
 
-  onSearch() {
-    if (this.searchText) {
+  onSearch(event?: Event) {
+    if (this.searchText && event) {
       this.showSpinner = true;
       this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
         this.showSpinner = false;

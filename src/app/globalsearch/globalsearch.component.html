@@ -1,17 +1,15 @@
 <app-header></app-header>
 
 <div class="centered-container">
-<div class="search-container">
-  <div class="input-group margin-bottom-none">
-    <input type="text" name="text" id="local-searchbox" [(ngModel)]="searchText" placeholder="Search" class="input-group-field" value="">
-    <div class="input-group-button" style="position: relative;">
-      <button mat-button class="action nonDefault" #btnFocus [autofocus]="btnFocus.focus()"
-              (keyup.enter)="onSearch()" (click)="onSearch()">
-        <mat-icon>search</mat-icon>
-      </button>
+  <div class="search-container">
+    <div class="input-group margin-bottom-none">
+        <input type="text" name="text" id="local-searchbox" [(ngModel)]="searchText" placeholder="Search"
+               class="input-group-field" value="" (keyup)="onSearch($event)">
+        <button mat-button disabled style="position: absolute; right: 0; border: none;">
+          <mat-icon>search</mat-icon>
+        </button>
     </div>
   </div>
-</div>
 </div>
 
 <div class="spinner-container" *ngIf="showSpinner">
