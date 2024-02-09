@@ -32,12 +32,12 @@
         </ng-template>
 
         <ng-template #commonTemplate let-hits="hits" let-key="key">
-          <p [ngPlural]="hits">
+          <p [ngPlural]="hits" class="common-text">
             <ng-template ngPluralCase="one">
-              {{ hits + ' ' + changeKey(key) }}
+              {{ hits }} {{ changeKey(key) }}
             </ng-template>
             <ng-template ngPluralCase="other">
-              {{ hits + ' ' + changeKey(key) + 's' }}
+              {{ hits }} {{ key === 'analysis' ? 'analyses' : changeKey(key) + 's' }}
             </ng-template>
           </p>
         </ng-template>

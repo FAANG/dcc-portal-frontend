@@ -62,6 +62,10 @@ mat-list-item:nth-child(n){
 .link-style {
   margin-top: 20px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 17px;
   color: #477AAF;
+}
+
+.common-text {
+  font-size: 17px;
 }

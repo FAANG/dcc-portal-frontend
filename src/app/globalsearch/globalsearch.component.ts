@@ -17,6 +17,8 @@ export class GlobalSearchComponent implements OnInit {
 
   queryParams: any = {};
 
+  timer = null;
+
   constructor(
     private dataService: ApiDataService, private router: Router, private route: ActivatedRoute,
     private titleService: Title, private cdr: ChangeDetectorRef
@@ -42,13 +44,20 @@ export class GlobalSearchComponent implements OnInit {
     });
   }
 
-  onSearch(event?: Event) {
+  onSearch(event?: KeyboardEvent) {
     if (this.searchText && event) {
-      this.showSpinner = true;
-      this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
-        this.showSpinner = false;
-        this.jsonData = json_data;
-      });
+      let time = 500;
+      if (event.key === 'Enter' || event.key === 'Meta' || event.key === 'Backspace') {
+        time = 0;
+      }
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.showSpinner = true;
+        this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
+          this.showSpinner = false;
+          this.jsonData = json_data;
+        });
+      }, time);
     } else {
       this.jsonData = null;
     }
