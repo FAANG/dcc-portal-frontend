@@ -46,6 +46,12 @@ mat-list-item:nth-child(n){
   height: auto;
 }
 
+.not-found-container {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
 .row-container {
   display: flex;
   flex-direction: column;

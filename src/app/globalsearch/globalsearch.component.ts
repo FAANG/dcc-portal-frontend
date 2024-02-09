@@ -30,7 +30,7 @@ export class GlobalSearchComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.queryParams = { ...params };
       this.searchText = this.queryParams['searchText'];
-      this.onSearch();
+      this.onSearch(0);
     });
 
     window.addEventListener('popstate', (event) => {
@@ -44,12 +44,8 @@ export class GlobalSearchComponent implements OnInit {
     });
   }
 
-  onSearch(event?: KeyboardEvent) {
-    if (this.searchText && event) {
-      let time = 500;
-      if (event.key === 'Enter' || event.key === 'Meta' || event.key === 'Backspace') {
-        time = 0;
-      }
+  onSearch(time = 1000) {
+    if (this.searchText) {
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         this.showSpinner = true;
@@ -61,12 +57,16 @@ export class GlobalSearchComponent implements OnInit {
     } else {
       this.jsonData = null;
     }
+    this.showResults = true;
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { searchText: this.searchText },
       queryParamsHandling: 'merge',
     });
-    this.showResults = true;
+  }
+
+  isJsonDataEmpty(): boolean {
+    return Object.keys(this.jsonData).length === 0;
   }
 
   changeKey(key: string) {

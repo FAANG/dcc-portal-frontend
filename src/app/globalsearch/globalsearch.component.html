@@ -1,10 +1,16 @@
 <app-header></app-header>
 
+<div class="container-fluid" style="min-height:87vh">
+
+<h2>FAANG Global Search</h2>
+<b>This page is designed for searching through all FAANG tables and data</b>
+<hr>
+
 <div class="centered-container">
   <div class="search-container">
     <div class="input-group margin-bottom-none">
         <input type="text" name="text" id="local-searchbox" [(ngModel)]="searchText" placeholder="Search"
-               class="input-group-field" value="" (keyup)="onSearch($event)">
+               class="input-group-field" value="" (input)="onSearch()">
         <button mat-button disabled style="position: absolute; right: 0; border: none;">
           <mat-icon>search</mat-icon>
         </button>
@@ -17,6 +23,9 @@
 </div>
 
 <div id="search-results" *ngIf="!showSpinner && showResults">
+  <div *ngIf="jsonData && isJsonDataEmpty()">
+    <div class="not-found-container">Nothing was found</div>
+  </div>
   <mat-list>
     <mat-list-item *ngFor="let item of jsonData | keyvalue">
 
