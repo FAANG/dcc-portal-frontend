@@ -42,20 +42,24 @@
 
   <div fxLayout="row" fxLayout.lt-md="column" style="margin-bottom: 20px;">
     <button mat-raised-button color="primary">
-      <a href="{{metadata_template_with_examples}}">Download example template</a>
+      <a href="{{metadata_template_with_examples}}" style="text-decoration: none;">Download example template</a>
     </button>
 
     <button mat-raised-button color="primary">
-      <a href="{{metadata_template_without_examples}}">Download empty template</a>
+      <a href="{{metadata_template_without_examples}}" style="text-decoration: none;">Download empty template</a>
     </button>
 
     <button mat-raised-button color="primary">
-      <a href="{{biosample_update_template}}">Download example template for UPDATE</a>
+      <a href="{{biosample_update_template}}" style="text-decoration: none;">Download example template for UPDATE</a>
+    </button>
+
+    <button mat-raised-button style="background-color: green; color: white;" routerLink="/upload_protocol">
+      Upload protocol
     </button>
 
     <button mat-raised-button color="accent">
       <a href="https://dcc-documentation.readthedocs.io/en/latest/sample/biosamples_template/" target="_blank"
-        style="color: black;">Submission guideline</a>
+         style="color: black; text-decoration: none;">Submission guideline</a>
     </button>
   </div>
 
