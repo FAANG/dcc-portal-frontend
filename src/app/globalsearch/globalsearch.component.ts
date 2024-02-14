@@ -17,6 +17,8 @@ export class GlobalSearchComponent implements OnInit {
 
   queryParams: any = {};
 
+  timer = null;
+
   constructor(
     private dataService: ApiDataService, private router: Router, private route: ActivatedRoute,
     private titleService: Title, private cdr: ChangeDetectorRef
@@ -28,7 +30,7 @@ export class GlobalSearchComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.queryParams = { ...params };
       this.searchText = this.queryParams['searchText'];
-      this.onSearch();
+      this.onSearch(0);
     });
 
     window.addEventListener('popstate', (event) => {
@@ -42,22 +44,29 @@ export class GlobalSearchComponent implements OnInit {
     });
   }
 
-  onSearch() {
+  onSearch(time = 1000) {
     if (this.searchText) {
-      this.showSpinner = true;
-      this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
-        this.showSpinner = false;
-        this.jsonData = json_data;
-      });
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.showSpinner = true;
+        this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
+          this.showSpinner = false;
+          this.jsonData = json_data;
+        });
+      }, time);
     } else {
       this.jsonData = null;
     }
+    this.showResults = true;
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { searchText: this.searchText },
       queryParamsHandling: 'merge',
     });
-    this.showResults = true;
+  }
+
+  isJsonDataEmpty(): boolean {
+    return Object.keys(this.jsonData).length === 0;
   }
 
   changeKey(key: string) {
