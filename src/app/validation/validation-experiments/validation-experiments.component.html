@@ -50,7 +50,8 @@
       <a href="{{metadata_template_without_examples}}" style="text-decoration: none;">Download empty template</a>
     </button>
 
-    <button mat-raised-button style="background-color: green; color: white;" routerLink="/upload_protocol">
+    <button mat-raised-button style="background-color: green; color: white;" routerLink="/upload_protocol"
+            [queryParams]="{ from: 'experiments' }">
       Upload protocol
     </button>
 

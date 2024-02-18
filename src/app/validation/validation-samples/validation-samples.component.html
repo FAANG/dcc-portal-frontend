@@ -53,7 +53,8 @@
       <a href="{{biosample_update_template}}" style="text-decoration: none;">Download example template for UPDATE</a>
     </button>
 
-    <button mat-raised-button style="background-color: green; color: white;" routerLink="/upload_protocol">
+    <button mat-raised-button style="background-color: green; color: white;" routerLink="/upload_protocol"
+            [queryParams]="{ from: 'samples' }">
       Upload protocol
     </button>
 
