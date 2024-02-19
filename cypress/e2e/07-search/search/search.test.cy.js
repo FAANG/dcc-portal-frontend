@@ -19,7 +19,7 @@ describe('Search Page', () => {
     cy.wait('@getGlobalsearchData', {timeout: 10000 }).then(({response}) => {
       expect(response.statusCode).to.eq(200)
       cy.contains('.row-container', '1 dataset').should('exist');
-      cy.contains('.link-style', 'PRJEB65932').should('exist');
+      cy.get('.search-terms-container .link-style').should('exist')
       cy.get('p.ng-star-inserted').contains('2 files').should('exist');
       cy.get('p.ng-star-inserted').contains('1 sample protocol').should('exist');
     })
@@ -28,7 +28,7 @@ describe('Search Page', () => {
   it('checking if the concrete dataset link is working', () => {
     cy.wait('@getGlobalsearchData', {timeout: 10000 }).then(({response}) => {
       expect(response.statusCode).to.eq(200);
-      cy.contains('.link-style', 'PRJEB65932').should('exist').click();
+      cy.get('.search-terms-container .link-style').should('exist').click();
       cy.url().should('include', 'dataset?searchTerm=PRJEB65932&sortTerm=accession&sortDirection=desc');
     });
   });
