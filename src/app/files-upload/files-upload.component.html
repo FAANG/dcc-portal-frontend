@@ -12,15 +12,15 @@
 
     <div class="form-check" style="margin: 10px 0;">
       <input class="form-check-input" type="radio" name="exampleRadios" id="samples" value="samples" checked
-             (click)="chooseProtocolType('samples')">
+             [checked]="previousPage === 'samples'" (click)="chooseProtocolType('samples')">
       <label for="samples">Samples protocol</label> <br>
 
       <input class="form-check-input" type="radio" name="exampleRadios" id="experiments" value="experiments"
-             (click)="chooseProtocolType('experiments')">
+             [checked]="previousPage === 'experiments'" (click)="chooseProtocolType('experiments')">
       <label for="experiments">Experiments protocol</label> <br>
 
       <input class="form-check-input" type="radio" name="exampleRadios" id="analyses" value="analyses"
-             (click)="chooseProtocolType('analyses')">
+             [checked]="previousPage === 'analyses'" (click)="chooseProtocolType('analyses')">
       <label for="analyses">Analyses protocol</label>
     </div>
 
@@ -29,6 +29,6 @@
       [uploadUrl]="UploadURL"
       [mode]="'bulk'">
     </app-bulk-files-uploader>
-    
+
   </div>
 </div>
