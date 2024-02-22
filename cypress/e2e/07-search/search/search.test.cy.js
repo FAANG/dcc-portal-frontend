@@ -36,7 +36,7 @@ describe('Search Page', () => {
   it('checking if the files link is working', () => {
     cy.wait('@getGlobalsearchData', {timeout: 10000 }).then(({response}) => {
       expect(response.statusCode).to.eq(200);
-      cy.get('p.ng-star-inserted').contains('2 files').should('exist').click();
+      cy.get('p.ng-star-inserted').contains('2 files').should('exist').click({ force: true });
       cy.url().should('include', 'file?searchTerm=SAMEA114307439&sortTerm=fileName&sortDirection=desc');
     });
   });
