@@ -82,7 +82,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { QueryLanguageComponent } from './query-language/query-language.component';
