@@ -37,7 +37,7 @@
         <mat-card class="card scroll" fxFlex="50" fxFlex.lt-md="100" *ngIf="project === 'Bovine'">
           <h5>{{setting.description}}</h5>
         </mat-card>
-        <mat-card class="card" fxFlex="45" fxFlex.lt-md="100" *ngIf="project !== 'Bovine'" style="padding: 30px;">
+        <mat-card class="card" fxFlex="50" fxFlex.lt-md="100" *ngIf="project !== 'Bovine'" style="padding: 30px;">
           <h5>{{setting.description}}</h5>
         </mat-card>
 <!--        <mat-card class="card" fxFlex="50" fxFlex.lt-md="100" *ngIf="project !== 'Bovine'" style="text-align: right;">-->
@@ -57,6 +57,8 @@
         For more information on the {{project}} project: <a href="{{project_links[project]}}" target='_blank'>
         {{project}} </a>
       </div>
+
+      <app-usfaang></app-usfaang>
 
       <app-ensembl-annotation [projectArr]="[project]"></app-ensembl-annotation>
       <!-- Related Tables -->
