@@ -1,4 +1,4 @@
-<table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
+<table mat-table matSort matSortDisableClear [dataSource]="dataSource" style="width: 100%">
   <ng-container [matColumnDef]=col *ngFor="let col of displayedColumns; let i = index">
     <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header > {{ col }}
     </th>
