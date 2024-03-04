@@ -93,5 +93,15 @@
       "url": "https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/project-logo.png"
     },
     "parent_project": "FAANG"
+  },
+  "USFAANG": {
+    "description": "The lack of functional annotation of the domestic pig genome prevents full exploitation of single nucleotide variant analysis for genetic improvement through traditional breeding, and limits efficiency of gene editing of specific genome components to understand function and accelerate genetic improvement. We will dramatically increase the depth and breadth of current porcine functional annotation and generate a community resource for scientists in both the public and private sectors. Across all objectives, we will use RNA assays (RNAseq, the 5' end mapping technique RAMPAGE, and PacBio Iso-seq) and epigenetics assays (histone ChIP-seq, ATAC-seq and DNA methylation) to annotate a tremendous breadth of biological states. In Objective 1, we will triple the number of adult tissues currently being annotated. In Objective 2, we will annotate four tissues at important stages of fetal development, and link allele-specific expression with allele-specific functional elements through analyzing divergent-breed reciprocal crosses. In Objective 3, we will annotate circulating white blood cell populations in healthy pigs, as well as macrophage responses to bacterial and viral mimics. We will also profile gene expression of single cells in complex cell populations to maximize annotation of critical immune tissues.  In Objective 4, we will use all these data as well as public FAANG data to generate a first-generation chromatin state segmentation map. All data and associated metadata will be publically available. This is USDA-NIFA-AFRI project 2018-67015-27501 which addresses Program Area Priority A1202, Annotation of Agricultural Animal Genomes.",
+    "twitter": {
+      "id": ""
+    },
+    "image": {
+      "url": "https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/usfaang/project-logo.png"
+    },
+    "parent_project": "FAANG"
   }
 }

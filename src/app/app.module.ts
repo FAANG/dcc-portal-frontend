@@ -82,7 +82,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
 import { QueryLanguageComponent } from './query-language/query-language.component';
@@ -113,9 +113,11 @@ import { ShortenTitlePipe } from './graphql/display-data/shorten-title.pipe';
 import { SubscriptionDialogComponent } from './shared/subscription-dialog/subscription-dialog.component';
 import { MatListModule } from '@angular/material/list';
 import { PortalDataTableComponent } from './shared/portal-data-table/portal-data-table.component';
+import {UsfaangComponent} from './subprojects/subproject-detail/usfaang/usfaang.component';
 
 // to delete
 import { CustomTableBuilderComponent } from './custom-table-builder/custom-table-builder.component';
+
 // import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
 // import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
 
@@ -198,6 +200,7 @@ export function removeToken(): void {
     ShortenTitlePipe,
     SubscriptionDialogComponent,
     PortalDataTableComponent,
+    UsfaangComponent,
 
     // to delete
     CustomTableBuilderComponent,
