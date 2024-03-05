@@ -113,7 +113,6 @@ import { ShortenTitlePipe } from './graphql/display-data/shorten-title.pipe';
 import { SubscriptionDialogComponent } from './shared/subscription-dialog/subscription-dialog.component';
 import { MatListModule } from '@angular/material/list';
 import { PortalDataTableComponent } from './shared/portal-data-table/portal-data-table.component';
-import {UsfaangComponent} from './subprojects/subproject-detail/usfaang/usfaang.component';
 
 // to delete
 import { CustomTableBuilderComponent } from './custom-table-builder/custom-table-builder.component';
@@ -200,7 +199,6 @@ export function removeToken(): void {
     ShortenTitlePipe,
     SubscriptionDialogComponent,
     PortalDataTableComponent,
-    UsfaangComponent,
 
     // to delete
     CustomTableBuilderComponent,
