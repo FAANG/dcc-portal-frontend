@@ -58,8 +58,6 @@
         {{project}} </a>
       </div>
 
-      <app-usfaang *ngIf="project == 'USFAANG'" ></app-usfaang>
-
       <app-ensembl-annotation [projectArr]="[project]"></app-ensembl-annotation>
       <!-- Related Tables -->
       <app-related-items source_type="project" target_type="publication" download_key=""
