@@ -185,25 +185,41 @@
   </div>
 
   <!-- Step 3: Prepare data for submission -->
+<!--  <hr *ngIf="validation_results">-->
+<!--  <div fxLayout="column" *ngIf="validation_results">-->
+<!--    <h3 style="margin: 10px 0 20px 0;">3. Prepare data for submission</h3>-->
+<!--    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">-->
+<!--      <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">-->
+<!--        <h6>Status</h6>-->
+<!--        <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>-->
+<!--      </div>-->
+<!--      <button class="submission_data_button" mat-raised-button color="primary"-->
+<!--        *ngIf="submission_status !== 'Data is ready'" (click)="onStartSubmissionClick()"-->
+<!--        [disabled]="isSubmissionDisabled(submission_status)">-->
+<!--        Start submission to BioSamples-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+
   <hr *ngIf="validation_results">
   <div fxLayout="column" *ngIf="validation_results">
-    <h3 style="margin: 10px 0 20px 0;">3. Prepare data for submission</h3>
+    <h3 style="margin: 10px 0 20px 0;">3. Prepare data for submission via Webin</h3>
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
       <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
         <h6>Status</h6>
-        <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
+        <span [ngClass]="statusClass(webin_submission_status)">{{webin_submission_status}}</span>
       </div>
       <button class="submission_data_button" mat-raised-button color="primary"
-        *ngIf="submission_status !== 'Data is ready'" (click)="onStartSubmissionClick()"
-        [disabled]="isSubmissionDisabled(submission_status)">
-        Start submission to BioSamples
+              *ngIf="webin_submission_status !== 'Data is ready'" (click)="onStartWebinSubmissionClick()"
+              [disabled]="isWebinSubmissionDisabled(webin_submission_status)">
+        Start submission to BioSamples via Webin
       </button>
     </div>
   </div>
 
-  <hr *ngIf="submissionStarted === true">
+  <hr *ngIf="webinSubmissionStarted === true">
 
-  <div fxLayout="row" *ngIf="submissionStarted === true">
+  <div fxLayout="row" *ngIf="webinSubmissionStarted === true">
     <div fxFlex="100" [ngClass]="submissionMessageClass()" role="alert">
       {{submission_message}}
       <div *ngFor="let error of errors">
@@ -212,7 +228,7 @@
     </div>
   </div>
 
-  <div fxLayout="row" *ngIf="submissionStarted === true && model.mode === 'test' && disableAuthForm">
+  <div fxLayout="row" *ngIf="webinSubmissionStarted === true && model.mode === 'test' && disableAuthForm">
     <div fxFlex="100" class="alert alert-warning" role="alert">
       This is test submission and it will be removed in next 24 hours, <a (click)="goBack()"
                                                                           style="cursor: pointer"
@@ -220,17 +236,17 @@
     </div>
   </div>
 
-  <div *ngIf="submissionStarted === true" fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="6%">
+  <div *ngIf="webinSubmissionStarted === true" fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="6%">
     <div fxFlex="47" [hidden]="disableAuthForm">
-      <h3 style="margin: 10px 0 20px 0;">Submit data to BioSamples</h3>
-      <form (ngSubmit)="onSubmit()" #biosamplesForm="ngForm">
+      <h3 style="margin: 10px 0 20px 0;">Submit data to BioSamples via Webin</h3>
+      <form (ngSubmit)="onSubmitRecordsClick()" #biosamplesForm="ngForm">
         <div class="form-group" *ngIf="!_userService.token">
-          <label for="aapUsername">AAP username</label>
-          <input class="form-control" id="aapUsername"
-                 placeholder="Enter your AAP username" required [(ngModel)]="model.username" name="username"
+          <label for="WebinUsername">Webin username</label>
+          <input class="form-control" id="WebinUsername"
+                 placeholder="Enter your Webin username" required [(ngModel)]="model.username" name="username"
                  #username="ngModel">
           <small class="form-text text-muted">Please use this
-            <a href="{{aap_link}}" class="link" target="_blank">service</a>
+            <a href="{{webin_link}}" class="link" target="_blank">service</a>
             to get your credentials
           </small>
           <div [hidden]="username.valid || username.pristine"
@@ -240,8 +256,8 @@
         </div>
 
         <div class="form-group" *ngIf="!_userService.token">
-          <label for="aapPassword">Password</label>
-          <input type="password" class="form-control" id="aapPassword" placeholder="Password"
+          <label for="WebinPassword">Password</label>
+          <input type="password" class="form-control" id="WebinPassword" placeholder="Password"
                  required [(ngModel)]="model.password" name="password" #password="ngModel">
           <div [hidden]="password.valid || password.pristine"
                class="alert alert-danger form-danger">
@@ -268,81 +284,6 @@
         <button mat-raised-button color="primary" class="validation_button"
                 type="submit" [disabled]="!biosamplesForm.form.valid">Submit
         </button>
-      </form>
-    </div>
-
-    <div fxFlex="47" [hidden]="disableChooseDomainForm">
-      <h3 style="display: inline-block; margin: 10px 0 20px 0;">
-        Choose domain or
-        <button mat-raised-button color="primary" (click)="onCreateNewDomainClick()">
-          Create new domain
-        </button>
-      </h3>
-      <button
-        mat-icon-button
-        matTooltip="BioSamples considers each piece of data to be owned by a domain. This allows several people part of the same domain to collaborate on submission, without sharing account details. You therefore need to create/choose a domain before you can work with the BioSamples submission API"
-        aria-label="Button that displays a tooltip when focused or hovered over"
-        style="font-size: 200%;">
-        <mat-icon>help</mat-icon>
-      </button>
-      <form>
-        <div class="form-check" *ngFor="let domain of domains; let i = index">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="{{i}}" value="{{domain}}" checked
-                 (click)="onChooseDomainClick(domain)">
-          <label class="form-check-label" for="{{i}}">
-            {{domain}}
-          </label>
-        </div>
-        <button mat-raised-button color="primary" class="validation_button"
-                type="submit" (click)="onSubmitRecordsClick()" [disabled]="disableSubmitButton">
-          Submit records to BioSamples
-        </button>
-      </form>
-    </div>
-
-    <div fxFlex="47" [hidden]="disableDomainForm">
-      <h3 style="display: inline-block; margin: 10px 0 20px 0;">
-        Create new domain
-        <span *ngIf="domains.length !== 0">
-        or
-        <button mat-raised-button color="primary" (click)="onCreateNewDomainClick()">Choose domain</button>
-      </span>
-      </h3>
-      <button
-        mat-icon-button
-        matTooltip="BioSamples considers each piece of data to be owned by a domain. This allows several people part of the same domain to collaborate on submission, without sharing account details. You therefore need to create/choose a domain before you can work with the BioSamples submission API"
-        aria-label="Button that displays a tooltip when focused or hovered over"
-        style="font-size: 200%;">
-        <mat-icon>help</mat-icon>
-      </button>
-      <form (ngSubmit)="onDomainSubmit()" #domainForm="ngForm">
-        <div class="form-group">
-          <label for="domainName">Domain name</label>
-          <input class="form-control" id="domainName"
-                 placeholder="Enter your domain name" required [(ngModel)]="domain.name" name="domain_name"
-                 #domain_name="ngModel">
-          <small class="form-text text-muted">You can find more about domains
-            <a href="https://www.ebi.ac.uk/biosamples/docs/guides/authentication" class="link">here</a>
-          </small>
-          <div [hidden]="domain_name.valid || domain_name.pristine"
-               class="alert alert-danger form-danger">
-            Domain name is required
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="domainDescription">Domain description</label>
-          <input class="form-control" id="domainDescription"
-                 placeholder="Enter your domain description" required [(ngModel)]="domain.description"
-                 name="domain_description"
-                 #domain_description="ngModel">
-          <div [hidden]="domain_description.valid || domain_description.pristine"
-               class="alert alert-danger form-danger" >
-            Domain description is required
-          </div>
-        </div>
-        <button mat-raised-button color="primary" class="validation_button"
-              type="submit" [disabled]="!domainForm.form.valid">Submit</button>
       </form>
     </div>
 

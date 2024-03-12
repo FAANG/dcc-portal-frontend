@@ -13,7 +13,7 @@ import {
   validation_ws_url
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
-import {AAPUser} from '../aap_user';
+import {WebinUser} from '../webin_user';
 import {SubmissionDomain} from '../submission_domain';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
@@ -33,8 +33,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<any>;
   subResults: MatTableDataSource<any>;
   p = 1;
-  model = new AAPUser('', '', 'test');
+  model = new WebinUser('', '', 'test');
   aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
+  webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login'
   domain = new SubmissionDomain('', '');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
@@ -43,9 +44,11 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   conversion_status: string;
   validation_status: string;
   submission_status: string;
+  webin_submission_status: string;
   annotation_status: string;
   submission_message: string;
   gcp_subscription_status: string;
+  gcp_subscription_webin_status: string;
   domains = [];
   socket;
   validation_results;
@@ -75,6 +78,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   disableDomainForm = true;
   disableChooseDomainForm = true;
   submissionStarted = false;
+  webinSubmissionStarted = false;
   disableSubmitButton = false;
   submissionResults = [];
   optionsCsv;
@@ -483,6 +487,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.submissionStarted = !this.submissionStarted;
   }
 
+  onStartWebinSubmissionClick() {
+    this.webinSubmissionStarted = !this.webinSubmissionStarted;
+  }
+
   getTemplateFile() {
     this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'samples', this.action).subscribe(response => {
       console.log(response);
@@ -496,6 +504,11 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   isSubmissionDisabled(status) {
     return status === 'Fix issues' || this.submission_status === 'Preparing data'
       || this.gcp_subscription_status === 'failure';
+  }
+
+  isWebinSubmissionDisabled(status) {
+    return status === 'Fix issues' || this.webin_submission_status === 'Preparing data'
+      || this.gcp_subscription_webin_status === 'failure';
   }
 
   constructDownloadTemplateLink() {
@@ -531,9 +544,11 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   onSubmitRecordsClick() {
+    this.disableAuthForm = false;
     this.disableSubmitButton = true;
+
     this.apiDataService.submitRecords(this.action, this.model.username,
-      this.model.password,  this.model.mode, this.domain.name, this.fileid, this.conversion_task_id,
+      this.model.password,  this.model.mode, this.fileid, this.conversion_task_id,
       'samples', this.private_submission).subscribe( response => {
         this.submission_task_id = response['id'];
     }, error => {
@@ -572,7 +587,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   onChooseModeClick(mode: string) {
     this.model.mode = mode;
-    mode === 'prod' ? this.aap_link = 'https://aai.ebi.ac.uk/registerUser' : this.aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
+    mode === 'prod' ? this.webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login' :
+      this.webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login';
   }
 
   downloadSubmissionResults() {
