@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
-import {ApiDataService} from '../../services/api-data.service';
+import { ApiDataService } from '../../services/api-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import {
   issue_type,
@@ -19,6 +19,7 @@ import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {MatTabGroup} from '@angular/material/tabs';
 import { MatTableDataSource } from '@angular/material/table';
+import {consumerDestroy} from '@angular/core/primitives/signals';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -34,17 +35,13 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   subResults: MatTableDataSource<any>;
   p = 1;
   model = new WebinUser('', '', 'test');
-  aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
   webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login'
   domain = new SubmissionDomain('', '');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
-  submission_type: string;
-
   conversion_status: string;
   validation_status: string;
   submission_status: string;
-  webin_submission_status: string;
   annotation_status: string;
   submission_message: string;
   gcp_subscription_status: string;
@@ -75,20 +72,14 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   table_errors = [];
   table_warnings = [];
   disableAuthForm = false;
-  disableDomainForm = true;
-  disableChooseDomainForm = true;
-  submissionStarted = false;
   webinSubmissionStarted = false;
   disableSubmitButton = false;
   submissionResults = [];
-  optionsCsv;
-  optionsTabular;
   downloadData = false;
   bovreg_submission = false;
   private_submission = false;
   col_index = [];
   action: 'update'|'submission' = 'submission';
-  custom_col_name: 'sample_name' | 'biosample_id';
   tooltipUpdate: string;
   tooltipSubmission: string;
   currentDate: Date;
@@ -216,8 +207,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   getPubSubMessage() {
     this.apiDataService.get_pubsub_messages().subscribe(data => {
       this.gcp_subscription_status = data[0]['biosampleStatus']
@@ -225,8 +214,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       console.log(error);
     });
   }
-
-
 
   setSocket() {
     const url = validation_ws_url + this.fileid + '/';
@@ -239,15 +226,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       console.log(data);
       if (data['conversion_status']) {
         this.conversion_status = data['conversion_status'];
-      }
-      if (data['domains']) {
-       if (data['domains'].length !== 0) {
-         this.domains = data['domains'];
-         this.disableChooseDomainForm = false;
-         this.domain.name = this.domains[this.domains.length - 1];
-       } else {
-         this.disableDomainForm = false;
-       }
       }
       if (data['submission_results']) {
         this.submissionResults = Object.entries(data['submission_results']);
@@ -394,22 +372,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  isButtonActive(button_record: string) {
-    if (button_record === this.active_key) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  isRecordsButtonActive(type: string) {
-    if (type === this.active_issue) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
   onRecordButtonClick(tab) {
     this.active_key = tab['tab']['textLabel'].replace(/[ ]/g, '_');
     this.active_table = this.validation_results[this.active_key];
@@ -483,11 +445,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     );
   }
 
-  onStartSubmissionClick() {
-    this.submissionStarted = !this.submissionStarted;
-  }
-
   onStartWebinSubmissionClick() {
+    console.log('this.webinSubmissionStarted');
+    console.log(this.webinSubmissionStarted);
     this.webinSubmissionStarted = !this.webinSubmissionStarted;
   }
 
@@ -501,13 +461,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       );
   }
 
-  isSubmissionDisabled(status) {
-    return status === 'Fix issues' || this.submission_status === 'Preparing data'
-      || this.gcp_subscription_status === 'failure';
-  }
-
   isWebinSubmissionDisabled(status) {
-    return status === 'Fix issues' || this.webin_submission_status === 'Preparing data'
+    return status === 'Fix issues' || this.submission_status === 'Preparing data'
       || this.gcp_subscription_webin_status === 'failure';
   }
 
@@ -515,36 +470,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     return validation_service_url_download + '/submission/download_template/' + this.fileid;
   }
 
-  onSubmit() {
-    this.disableAuthForm = true;
-    this.apiDataService.chooseDomain(this.model.username, this.model.password, this.model.mode, this.fileid,
-      this.private_submission).subscribe(response => {
-      console.log(response);
-    },
-      error => {
-      console.log(error);
-      });
-  }
-
-  onDomainSubmit() {
-    this.disableDomainForm = true;
-    this.apiDataService.submitDomain(this.model.username,
-      this.model.password, this.model.mode, this.domain.name, this.domain.description, this.fileid,
-      this.private_submission).subscribe(response => {
-        console.log(response);
-    },
-      error => {
-        console.log(error);
-      }
-      );
-  }
-
-  onChooseDomainClick(name: string) {
-    this.domain.name = name;
-  }
-
   onSubmitRecordsClick() {
-    this.disableAuthForm = false;
+    this.disableAuthForm = true;
     this.disableSubmitButton = true;
 
     this.apiDataService.submitRecords(this.action, this.model.username,
@@ -576,11 +503,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCreateNewDomainClick() {
-    this.disableChooseDomainForm = !this.disableChooseDomainForm;
-    this.disableDomainForm = !this.disableDomainForm;
-  }
-
   onDownloadData() {
     this.downloadData = !this.downloadData;
   }
@@ -602,8 +524,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.disableAuthForm = false;
-    this.disableDomainForm = true;
-    this.disableChooseDomainForm = true;
     this.submission_message = 'Please login';
     this.submissionResults = [];
   }
