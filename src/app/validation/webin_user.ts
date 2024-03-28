@@ -1,4 +1,4 @@
-export class AAPUser {
+export class WebinUser {
 
   constructor(
     public username: string,

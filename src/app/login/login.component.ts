@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AAPUser} from '../validation/aap_user';
+import {WebinUser} from '../validation/webin_user';
 import {UserService} from '../services/user.service';
 import {Router} from '@angular/router';
 
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  model = new AAPUser('', '', '');
+  model = new WebinUser('', '', '');
 
   constructor(public _userService: UserService, private router: Router) { }
 

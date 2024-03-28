@@ -220,8 +220,8 @@
       <p *ngIf="errors" class="alert alert-danger">{{errors}}</p>
       <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
         <div class="form-group">
-          <label for="aapUsername">Username</label>
-          <input class="form-control" id="aapUsername"
+          <label for="WebinUsername">Username</label>
+          <input class="form-control" id="WebinUsername"
                  placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
                  #username="ngModel" pattern="^[Ww]ebin.*">
           <small class="form-text text-muted">Please use this
