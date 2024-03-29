@@ -1,4 +1,4 @@
-export class WebinUser {
+export class UserForm {
 
   constructor(
     public username: string,

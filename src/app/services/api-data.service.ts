@@ -1424,9 +1424,14 @@ export class ApiDataService {
       domain_description: domain_description, private_submission: private_submission});
   }
 
-  submitRecords(action, username, password, mode, room_id, task_id, submission_type, private_submission) {
+  submitRecords(action, username, password, mode, room_id, task_id, submission_type, private_submission, domain_name='') {
     const url = `${validation_service_url}/submission/${action}/${submission_type}/${task_id}/${room_id}/submit_records`;
-    return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
+    if (domain_name !== '') {
+      return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
+        private_submission: private_submission});
+    } else {
+      return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
+    }
   }
 
   get_pubsub_messages() {
