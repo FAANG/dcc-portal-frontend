@@ -11,7 +11,7 @@ import {
   validation_ws_url
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
-import {AAPUser} from '../aap_user';
+import {UserForm} from '../webin_aap_user';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {MatTabGroup} from '@angular/material/tabs';
@@ -28,7 +28,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   dataSource: MatTableDataSource<any>;
-  model = new AAPUser('', '', 'prod');
+  model = new UserForm('', '', 'prod');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
   conversion_status: string;
@@ -486,8 +486,8 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.disableAuthForm = true;
-    this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, '', this.fileid,
-      this.conversion_task_id, 'experiments', this.private_submission).subscribe(
+    this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, this.fileid,
+      this.conversion_task_id, 'experiments', this.private_submission, '').subscribe(
       (response) => {
           this.submission_task_id = response['id'];
       },

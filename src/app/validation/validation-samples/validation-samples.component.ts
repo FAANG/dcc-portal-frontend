@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {FileUploader} from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
 import {NgxSmartModalService} from 'ngx-smart-modal';
-import {ApiDataService} from '../../services/api-data.service';
+import { ApiDataService } from '../../services/api-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import {
   issue_type,
@@ -13,12 +13,13 @@ import {
   validation_ws_url
 } from '../../shared/constants';
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
-import {AAPUser} from '../aap_user';
+import {UserForm} from '../webin_aap_user';
 import {SubmissionDomain} from '../submission_domain';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {MatTabGroup} from '@angular/material/tabs';
 import { MatTableDataSource } from '@angular/material/table';
+import {consumerDestroy} from '@angular/core/primitives/signals';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
@@ -33,13 +34,12 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<any>;
   subResults: MatTableDataSource<any>;
   p = 1;
-  model = new AAPUser('', '', 'test');
+  model = new UserForm('', '', 'test');
+  webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login'
   aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
   domain = new SubmissionDomain('', '');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
-  submission_type: string;
-
   conversion_status: string;
   validation_status: string;
   submission_status: string;
@@ -212,8 +212,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   getPubSubMessage() {
     this.apiDataService.get_pubsub_messages().subscribe(data => {
       this.gcp_subscription_status = data[0]['biosampleStatus']
@@ -221,8 +219,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       console.log(error);
     });
   }
-
-
 
   setSocket() {
     const url = validation_ws_url + this.fileid + '/';
@@ -237,13 +233,13 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
         this.conversion_status = data['conversion_status'];
       }
       if (data['domains']) {
-       if (data['domains'].length !== 0) {
-         this.domains = data['domains'];
-         this.disableChooseDomainForm = false;
-         this.domain.name = this.domains[this.domains.length - 1];
-       } else {
-         this.disableDomainForm = false;
-       }
+        if (data['domains'].length !== 0) {
+          this.domains = data['domains'];
+          this.disableChooseDomainForm = false;
+          this.domain.name = this.domains[this.domains.length - 1];
+        } else {
+          this.disableDomainForm = false;
+        }
       }
       if (data['submission_results']) {
         this.submissionResults = Object.entries(data['submission_results']);
@@ -506,10 +502,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.disableAuthForm = true;
     this.apiDataService.chooseDomain(this.model.username, this.model.password, this.model.mode, this.fileid,
       this.private_submission).subscribe(response => {
-      console.log(response);
-    },
+        console.log(response);
+      },
       error => {
-      console.log(error);
+        console.log(error);
       });
   }
 
@@ -519,22 +515,37 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       this.model.password, this.model.mode, this.domain.name, this.domain.description, this.fileid,
       this.private_submission).subscribe(response => {
         console.log(response);
-    },
+      },
       error => {
         console.log(error);
       }
-      );
+    );
   }
 
   onChooseDomainClick(name: string) {
     this.domain.name = name;
   }
 
-  onSubmitRecordsClick() {
+  onSubmitWebinRecordsClick() {
+    this.disableAuthForm = true;
     this.disableSubmitButton = true;
+
     this.apiDataService.submitRecords(this.action, this.model.username,
-      this.model.password,  this.model.mode, this.domain.name, this.fileid, this.conversion_task_id,
-      'samples', this.private_submission).subscribe( response => {
+      this.model.password,  this.model.mode, this.fileid, this.conversion_task_id,
+      'samples', this.private_submission, '').subscribe( response => {
+      this.submission_task_id = response['id'];
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  onSubmitRecordsClick() {
+    this.disableAuthForm = true;
+    this.disableSubmitButton = true;
+
+    this.apiDataService.submitRecords(this.action, this.model.username,
+      this.model.password,  this.model.mode, this.fileid, this.conversion_task_id,
+      'samples', this.private_submission, this.domain.name).subscribe( response => {
         this.submission_task_id = response['id'];
     }, error => {
         console.log(error);
@@ -572,7 +583,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   onChooseModeClick(mode: string) {
     this.model.mode = mode;
-    mode === 'prod' ? this.aap_link = 'https://aai.ebi.ac.uk/registerUser' : this.aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
+    mode === 'prod' ? this.webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login' :
+      this.webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login';
+    mode === 'prod' ? this.aap_link = 'https://aai.ebi.ac.uk/registerUser' :
+      this.aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
   }
 
   downloadSubmissionResults() {
@@ -586,8 +600,6 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.disableAuthForm = false;
-    this.disableDomainForm = true;
-    this.disableChooseDomainForm = true;
     this.submission_message = 'Please login';
     this.submissionResults = [];
   }

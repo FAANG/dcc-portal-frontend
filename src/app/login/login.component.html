@@ -6,8 +6,8 @@
     <div fxFlex="35" fxFlex.lt-md="50" fxFlex.lt-sm="100" >
       <form (ngSubmit)="login()" #userForm="ngForm">
         <div class="form-group">
-          <label for="aapUsername">Username</label>
-          <input class="form-control" id="aapUsername"
+          <label for="Username">Username</label>
+          <input class="form-control" id="Username"
                   placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
                   #username="ngModel">
           <div [hidden]="username.valid || username.pristine"

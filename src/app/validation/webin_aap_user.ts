@@ -1,4 +1,4 @@
-export class AAPUser {
+export class UserForm {
 
   constructor(
     public username: string,
