@@ -84,7 +84,7 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['project'];
         } else if (this.title === 'Projects') {
           this.aggregation = data['projects'];
-        }else if (this.title === 'Term Status') {
+        } else if (this.title === 'Term Status') {
           this.aggregation = data['status_activity'];
         }
         this.cdRef.detectChanges();

@@ -53,7 +53,7 @@ export class FilterStateService {
       }
     }
     this.aggregationService.field.next(this.aggregationService.active_filters);
-    return filters
+    return filters;
   }
 
   resetFilter() {

@@ -199,11 +199,11 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     this.updateUrlParameters(sortDirection, 'sortDirection');
   }
 
-  updateUrlParameters(value, parameterName){
-    if (value){
+  updateUrlParameters(value, parameterName) {
+    if (value) {
       this.queryParams[parameterName] = value;
     } else {
-      if (parameterName in this.queryParams){
+      if (parameterName in this.queryParams) {
         delete this.queryParams[parameterName];
       }
     }
@@ -217,7 +217,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   }
 
   openSubscriptionDialog(value: string) {
-    this.subscriptionDialogTitle = `Subscribing to record ${value}`
+    this.subscriptionDialogTitle = `Subscribing to record ${value}`;
     this.subscriber.filters[this.indexDetails['indexKey']] = [value];
     this.dialogRef = this.dialog.open(this.subscriptionTemplate,
       { data: this.subscriber, height: '260px', width: '400px' });

@@ -176,7 +176,7 @@ export class AggregationService {
         }
         all_data[key] = Object.entries(all_data[key]).sort(function (a: any, b: any) {
           return b[1] - a[1];
-        })
+        });
       }
       this.data.next(all_data);
     }
