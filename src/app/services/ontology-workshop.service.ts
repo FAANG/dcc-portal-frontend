@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HostSetting} from './host-setting';
-import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import {throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {validation_service_url} from '../shared/constants';

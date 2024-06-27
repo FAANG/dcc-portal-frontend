@@ -4,7 +4,8 @@ import { SpecimensSummaryComponent } from './specimens-summary.component';
 import {HeaderComponent} from '../shared/header/header.component';
 import {ChartsModule} from 'ng2-charts';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SpecimensSummaryComponent', () => {
   let component: SpecimensSummaryComponent;
@@ -12,16 +13,14 @@ describe('SpecimensSummaryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         SpecimensSummaryComponent,
         HeaderComponent
-      ],
-      imports: [
-        ChartsModule,
-        RouterTestingModule,
-        HttpClientTestingModule
-      ]
-    })
+    ],
+    imports: [ChartsModule,
+        RouterTestingModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

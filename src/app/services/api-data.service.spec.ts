@@ -1,18 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ApiDataService } from './api-data.service';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ApiDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        ApiDataService
-      ],
-      imports: [
-        HttpClientModule
-      ]
-    });
+    imports: [],
+    providers: [
+        ApiDataService,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+});
   });
 
   it('should be created', inject([ApiDataService], (service: ApiDataService) => {

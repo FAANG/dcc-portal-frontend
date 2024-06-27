@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpRequest, HttpEvent,
-  HttpEventType, HttpResponse  } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import { makeid } from '../shared/common_functions';
 import { validation_ws_url } from '../shared/constants';
 import { tap } from 'rxjs/operators';

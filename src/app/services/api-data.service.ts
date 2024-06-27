@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HostSetting } from './host-setting';
-import {HttpClient, HttpErrorResponse, HttpParams, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import {throwError, EMPTY} from 'rxjs';
 import {catchError, retry, map} from 'rxjs/operators';
 import {
