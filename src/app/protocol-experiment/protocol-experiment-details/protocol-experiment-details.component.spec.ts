@@ -6,7 +6,8 @@ import {RobustLinkComponent} from '../../shared/robust-link/robust-link.componen
 import {NgxPaginationModule} from 'ngx-pagination';
 import {NgxSmartModalModule, NgxSmartModalService} from 'ngx-smart-modal';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ProtocolExperimentDetailsComponent', () => {
   let component: ProtocolExperimentDetailsComponent;
@@ -14,21 +15,20 @@ describe('ProtocolExperimentDetailsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         ProtocolExperimentDetailsComponent,
         HeaderComponent,
         RobustLinkComponent
-      ],
-      imports: [
-        NgxPaginationModule,
+    ],
+    imports: [NgxPaginationModule,
         NgxSmartModalModule,
-        RouterTestingModule,
-        HttpClientTestingModule
-      ],
-      providers: [
-        NgxSmartModalService
-      ]
-    })
+        RouterTestingModule],
+    providers: [
+        NgxSmartModalService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
     .compileComponents();
   }));
 
