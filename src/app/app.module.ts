@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -251,5 +251,8 @@ export function removeToken(): void {
         // NgbModule,
         NgcCookieConsentModule.forRoot(cookieConfig),
         GraphQLModule,
-        MatListModule], providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService, provideHttpClient(withInterceptorsFromDi())] })
+        MatListModule],
+    providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService,
+    provideHttpClient(withInterceptorsFromDi()), provideClientHydration()]
+})
 export class AppModule { }
