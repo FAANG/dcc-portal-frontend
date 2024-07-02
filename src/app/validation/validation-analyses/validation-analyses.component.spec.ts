@@ -14,13 +14,10 @@ describe('ValidationAnalysesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [
-        ValidationAnalysesComponent,
-        HeaderComponent
-    ],
+    declarations: [ValidationAnalysesComponent],
     imports: [RouterTestingModule,
         FileUploadModule,
-        NgxSmartModalModule],
+        NgxSmartModalModule, HeaderComponent],
     providers: [
         NgxSmartModalService,
         provideHttpClient(withInterceptorsFromDi()),

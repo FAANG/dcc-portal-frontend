@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatButton } from '@angular/material/button';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: true,
+    imports: [MatToolbar, RouterLink, MatButton, MatMenuTrigger, MatIcon, RouterLinkActive, NgClass, MatMenu, MatMenuItem]
 })
 export class HeaderComponent implements OnInit {
   collapsed = true;
@@ -19,7 +26,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  isActive(option) {
+  isActive(option: string) {
     const menuItems = {
       'data': ['organism', 'specimen', 'dataset', 'file', 'analysis', 'protocol', 'article'],
       'submit': ['ruleset', 'validation', 'trackhubs', 'nextflowSubmission'],

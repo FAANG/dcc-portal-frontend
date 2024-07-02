@@ -7,16 +7,14 @@ import {FooterComponent} from './shared/footer/footer.component';
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        FooterComponent
-      ],
-      imports: [
+    declarations: [AppComponent],
+    imports: [
         RouterTestingModule,
         NgxSpinnerModule,
-        BrowserAnimationsModule
-      ]
-    }).compileComponents();
+        BrowserAnimationsModule,
+        FooterComponent
+    ]
+}).compileComponents();
   }));
   it('should create the app', waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);

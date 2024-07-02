@@ -12,11 +12,8 @@ describe('RulesetAnalysisComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [
-        RulesetAnalysisComponent,
-        HeaderComponent
-    ],
-    imports: [RouterTestingModule],
+    declarations: [RulesetAnalysisComponent],
+    imports: [RouterTestingModule, HeaderComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();

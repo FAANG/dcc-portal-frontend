@@ -12,11 +12,8 @@ describe('RulesetExperimentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [
-        RulesetExperimentComponent,
-        HeaderComponent
-    ],
-    imports: [RouterTestingModule],
+    declarations: [RulesetExperimentComponent],
+    imports: [RouterTestingModule, HeaderComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();

@@ -1,16 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ApiDataService} from '../../services/api-data.service';
+import { MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatHint, MatError } from '@angular/material/form-field';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 
 export interface DialogData {
   email: string;
 }
 
 @Component({
-  selector: 'app-subscription-dialog',
-  templateUrl: './subscription-dialog.component.html',
-  styleUrls: ['./subscription-dialog.component.css']
+    selector: 'app-subscription-dialog',
+    templateUrl: './subscription-dialog.component.html',
+    styleUrls: ['./subscription-dialog.component.css'],
+    standalone: true,
+    imports: [CdkScrollable, MatDialogContent, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatHint, MatError, MatDialogActions, MatButton]
 })
 export class SubscriptionDialogComponent implements OnInit {
   email: string = '';

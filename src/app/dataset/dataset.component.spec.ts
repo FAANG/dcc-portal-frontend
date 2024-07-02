@@ -18,17 +18,14 @@ describe('DatasetComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [
-        DatasetComponent,
-        HeaderComponent,
+    declarations: [DatasetComponent],
+    imports: [NgxPaginationModule,
+        RouterTestingModule, HeaderComponent,
         ActiveFilterComponent,
         FilterComponent,
         ExportComponent,
         FilterPipe,
-        SortPipe
-    ],
-    imports: [NgxPaginationModule,
-        RouterTestingModule],
+        SortPipe],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();

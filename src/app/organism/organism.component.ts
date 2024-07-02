@@ -5,17 +5,27 @@ import {OrganismTable} from '../shared/interfaces';
 import {AggregationService} from '../services/aggregation.service';
 import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { NgClass } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
+import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
+import { FilterComponent } from '../shared/filter/filter.component';
+import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
-  selector: 'app-organism',
-  templateUrl: './organism.component.html',
-  styleUrls: ['./organism.component.css']
+    selector: 'app-organism',
+    templateUrl: './organism.component.html',
+    styleUrls: ['./organism.component.css'],
+    standalone: true,
+    imports: [HeaderComponent, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner, TableServerSideComponent, RouterLink, NgClass]
 })
 export class OrganismComponent implements OnInit, OnDestroy {
   @ViewChild('bioSampleIdTemplate', { static: true }) bioSampleIdTemplate: TemplateRef<any>;
@@ -82,7 +92,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.indexDetails = {index: 'organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'}
+    this.indexDetails = {index: 'organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
     this.templates = {'bioSampleId': this.bioSampleIdTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllOrganisms.bind(this.dataService);
@@ -127,16 +137,16 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
-    let mapping = {
+    const mapping = {
       'bioSampleId': 'biosampleId',
       'sex': 'sex.text',
       'organism': 'organism.text',
       'breed': 'breed.text',
       'standard': 'standardMet',
       'paper_published': 'paperPublished',
-    }
-    this.dataService.downloadRecords('organism', mapping, this.downloadQuery).subscribe((res:Blob)=>{
-      var a = document.createElement("a");
+    };
+    this.dataService.downloadRecords('organism', mapping, this.downloadQuery).subscribe((res: Blob) => {
+      const a = document.createElement('a');
       a.href = URL.createObjectURL(res);
       a.download = 'faang_data.' + format;
       a.click();
@@ -161,7 +171,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
 
   openSubscriptionDialog() {
     // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Organism entries'
+    this.subscriber.title = 'Subscribing to filtered Organism entries';
     this.subscriber.indexName = this.indexDetails['index'];
     this.subscriber.indexKey = this.indexDetails['indexKey'];
     const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
@@ -170,17 +180,17 @@ export class OrganismComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadInitialPageState(params){
+  loadInitialPageState(params) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
 
     this.filter_field = filters;
     this.query['filters'] = filters;
     this.downloadQuery['filters'] = filters;
     // load pre-search and pre-sorting
-    if (params['searchTerm']){
+    if (params['searchTerm']) {
       this.query['search'] = params['searchTerm'];
     }
-    if (params['sortTerm'] && params['sortDirection']){
+    if (params['sortTerm'] && params['sortDirection']) {
       this.query['sort'] = [params['sortTerm'], params['sortDirection']];
     }
   }

@@ -2,11 +2,15 @@ import {Component, OnDestroy, OnInit, Input, ChangeDetectorRef} from '@angular/c
 import {Subscription} from 'rxjs';
 import {AggregationService} from '../../services/aggregation.service';
 import {reverseProtocolNames} from '../protocolnames';
+import { NgClass } from '@angular/common';
+import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css']
+    selector: 'app-filter',
+    templateUrl: './filter.component.html',
+    styleUrls: ['./filter.component.css'],
+    standalone: true,
+    imports: [MatCard, NgClass]
 })
 export class FilterComponent implements OnInit, OnDestroy {
   @Input() title: string;

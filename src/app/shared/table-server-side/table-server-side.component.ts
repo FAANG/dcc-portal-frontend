@@ -1,23 +1,30 @@
 import { Component, Input, Output, AfterViewInit, ViewChild, EventEmitter, TemplateRef, OnInit} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { Observable, merge, of as observableOf } from 'rxjs';
 import { map, startWith, switchMap, catchError, finalize, first } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import {female_values, male_values, published_article_source} from '../constants';
 import {ApiDataService} from '../../services/api-data.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {subscription_ws_url} from '../constants';
-import {Location} from '@angular/common';
+import { Location, NgTemplateOutlet, NgClass } from '@angular/common';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
 
 
 @Component({
-  selector: 'app-table-server-side',
-  templateUrl: './table-server-side.component.html',
-  styleUrls: ['./table-server-side.component.css']
+    selector: 'app-table-server-side',
+    templateUrl: './table-server-side.component.html',
+    styleUrls: ['./table-server-side.component.css'],
+    standalone: true,
+    imports: [MatFormField, MatLabel, MatInput, FormsModule, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, NgTemplateOutlet, MatIconButton, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, CdkScrollable, MatDialogContent, ReactiveFormsModule, MatHint, MatError, MatDialogActions, MatButton, NgClass]
 })
 
 export class TableServerSideComponent implements OnInit, AfterViewInit {

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {AggregationService} from '../../services/aggregation.service';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-active-filter',
-  templateUrl: './active-filter.component.html',
-  styleUrls: ['./active-filter.component.css']
+    selector: 'app-active-filter',
+    templateUrl: './active-filter.component.html',
+    styleUrls: ['./active-filter.component.css'],
+    standalone: true,
+    imports: [MatButton]
 })
 export class ActiveFilterComponent implements OnInit {
   aggs = [];

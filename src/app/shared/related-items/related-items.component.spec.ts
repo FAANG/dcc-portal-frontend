@@ -14,10 +14,8 @@ describe('RelatedItemsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [
-        RelatedItemsComponent,
-        RobustLinkComponent
-    ],
+    declarations: [RelatedItemsComponent,
+        RobustLinkComponent],
     imports: [NgxPaginationModule,
         RouterTestingModule],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]

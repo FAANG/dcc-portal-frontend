@@ -15,14 +15,11 @@ describe('ArticleDetailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [
-        ArticleDetailComponent,
-        HeaderComponent,
+    declarations: [ArticleDetailComponent,
         RobustLinkComponent,
-        RelatedItemsComponent,
-    ],
+        RelatedItemsComponent,],
     imports: [NgxPaginationModule,
-        RouterTestingModule],
+        RouterTestingModule, HeaderComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();
