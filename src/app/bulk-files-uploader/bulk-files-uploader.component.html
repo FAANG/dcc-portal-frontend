@@ -1,72 +1,88 @@
 <!-- View for Bulk upload mode -->
-<div *ngIf="mode == 'bulk'">
-  <div fxLayout="row" style="margin-bottom: 20px;">
-    <div fxFlex="48">
-      <label class="btn btn-default p-0">
-        <input *ngIf="mode == 'bulk'" type="file" multiple (change)="selectFiles($event)" />
-      </label>
-      <button mat-raised-button color="primary"
-              [disabled]="buttonDisabled" (click)="uploadFiles()"
-        style="float: right;">
-        Upload
-      </button>
-    </div>
-  </div>
-  <hr>
-  <div *ngFor="let file of fileNamesList" style="word-break: break-all;">
-    <div fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%">
+@if (mode == 'bulk') {
+  <div>
+    <div fxLayout="row" style="margin-bottom: 20px;">
       <div fxFlex="48">
-        {{ file }}
+        <label class="btn btn-default p-0">
+          @if (mode == 'bulk') {
+            <input type="file" multiple (change)="selectFiles($event)" />
+          }
+        </label>
+        <button mat-raised-button color="primary"
+          [disabled]="buttonDisabled" (click)="uploadFiles()"
+          style="float: right;">
+          Upload
+        </button>
       </div>
-      <div fxFlex="47" style="word-break: break-word;">
-        <div [ngClass]="getAlertClass(submission_message[file])" role="alert"
-              style="margin-top: 5px; padding: 5px; text-align: center;" >
-          {{ submission_message[file] }}
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let error of errors[file]">
-              <ng-container *ngIf="error.indexOf('Your organization') !== -1">
-                <p>{{error}}</p>
-                <p>
-                  Please contact <a href="mailto:faang-dcc@ebi.ac.uk">faang-dcc&#64;ebi.ac.uk</a> to add your organization to
-                  list of <a href="https://dcc-documentation.readthedocs.io/en/latest/organization_group_abbreviations/">
-                  FAANG organizations</a>
-                </p>
-              </ng-container>
-              <ng-container *ngIf="error.indexOf('Your organization') === -1">
-                {{error}}
-              </ng-container>
-            </li>
-          </ul>
+    </div>
+    <hr>
+      @for (file of fileNamesList; track file) {
+        <div style="word-break: break-all;">
+          <div fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%">
+            <div fxFlex="48">
+              {{ file }}
+            </div>
+            <div fxFlex="47" style="word-break: break-word;">
+              <div [ngClass]="getAlertClass(submission_message[file])" role="alert"
+                style="margin-top: 5px; padding: 5px; text-align: center;" >
+                {{ submission_message[file] }}
+                <ul class="list-group">
+                  @for (error of errors[file]; track error) {
+                    <li class="list-group-item">
+                      @if (error.indexOf('Your organization') !== -1) {
+                        <p>{{error}}</p>
+                        <p>
+                          Please contact <a href="mailto:faang-dcc@ebi.ac.uk">faang-dcc&#64;ebi.ac.uk</a> to add your organization to
+                          list of <a href="https://dcc-documentation.readthedocs.io/en/latest/organization_group_abbreviations/">
+                        FAANG organizations</a>
+                      </p>
+                    }
+                    @if (error.indexOf('Your organization') === -1) {
+                      {{error}}
+                    }
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @if (fileNamesList.length) {
+      <hr>
+      }
+    </div>
+  }
+
+  <!-- View for Single upload mode -->
+  @if (mode == 'single') {
+    <div>
+      <div fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%" style="margin-bottom: 20px;">
+        <div fxFlex="48">
+          <label class="btn btn-default p-0">
+            @if (mode == 'single') {
+              <input type="file" (change)="selectFiles($event)" />
+            }
+          </label>
+          <button mat-raised-button color="primary"
+            [disabled]="buttonDisabled" (click)="uploadFiles()"
+            style="float: right;">
+            Upload
+          </button>
+        </div>
+        <div fxFlex="47" fxlayout="column" style="word-break: break-word;">
+          <div [ngClass]="getAlertClass(submission_message[fileNamesList[0]])" role="alert"
+            style="padding: 5px; text-align: center;" >
+            {{ submission_message[fileNamesList[0]] }}
+            <ul class="list-group">
+              @for (error of errors[fileNamesList[0]]; track error) {
+                <li class="list-group-item">
+                  {{error}}
+                </li>
+              }
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <hr *ngIf="fileNamesList.length">
-</div>
-
-<!-- View for Single upload mode -->
-<div *ngIf="mode == 'single'">
-  <div fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%" style="margin-bottom: 20px;">
-    <div fxFlex="48">
-      <label class="btn btn-default p-0">
-        <input *ngIf="mode == 'single'" type="file" (change)="selectFiles($event)" />
-      </label>
-      <button mat-raised-button color="primary"
-              [disabled]="buttonDisabled" (click)="uploadFiles()"
-        style="float: right;">
-        Upload
-      </button>
-    </div>
-    <div fxFlex="47" fxlayout="column" style="word-break: break-word;">
-      <div [ngClass]="getAlertClass(submission_message[fileNamesList[0]])" role="alert"
-            style="padding: 5px; text-align: center;" >
-        {{ submission_message[fileNamesList[0]] }}
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let error of errors[fileNamesList[0]]">
-            {{error}}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+  }

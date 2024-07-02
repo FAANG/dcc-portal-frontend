@@ -1,91 +1,101 @@
 <div [hidden]="isEmptyData() && initialDataExists===false" class="dataTable">
-<hr>
-  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" style="margin: 20px 0;">
-    <h3>
-      <span>
-        Related {{displayTitle(data_type)}}
-        <span class="projectNamesTitle">associated with {{project.join(', ')}}</span>
-      </span>
-    </h3>
+  <hr>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" style="margin: 20px 0;">
+      <h3>
+        <span>
+          Related {{displayTitle(data_type)}}
+          <span class="projectNamesTitle">associated with {{project.join(', ')}}</span>
+        </span>
+      </h3>
 
-    <div fxLayout="row" fxLayout.lt-md="column">
-      <button mat-raised-button color="accent"
-              (click)="goToDownloader()"
-              *ngIf="download_key && download_key.length > 0">
-        Go to bulk downloader utility
-      </button>
-      <button mat-raised-button color="accent" (click)="downloadAllFiles()" [disabled]="urls.length === 0"
-              *ngIf="download_key && download_key.length > 0 && mode == 'public'">Download selected files ({{urls.length}})
-      </button>
+      <div fxLayout="row" fxLayout.lt-md="column">
+        @if (download_key && download_key.length > 0) {
+          <button mat-raised-button color="accent"
+            (click)="goToDownloader()"
+            >
+            Go to bulk downloader utility
+          </button>
+        }
+        @if (download_key && download_key.length > 0 && mode == 'public') {
+          <button mat-raised-button color="accent" (click)="downloadAllFiles()" [disabled]="urls.length === 0"
+            >Download selected files ({{urls.length}})
+          </button>
+        }
 
-      <div style="margin-left: 10px;">
-        <mat-form-field>
-          <mat-label>Column Selection</mat-label>
-          <mat-select [(ngModel)]="display_fields" multiple>
-            <mat-option *ngFor="let col of get_all_fields(); let i = index"
-                        [value]="col" [disabled]="i==0"> {{col}}
-            </mat-option>
-            <mat-option *ngIf="download_key && download_key.length > 0"
-                        value="Download" disabled="true"> Download
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div style="margin-left: 10px;">
+          <mat-form-field>
+            <mat-label>Column Selection</mat-label>
+            <mat-select [(ngModel)]="display_fields" multiple>
+              @for (col of get_all_fields(); track col; let i = $index) {
+                <mat-option
+                  [value]="col" [disabled]="i==0"> {{col}}
+                </mat-option>
+              }
+              @if (download_key && download_key.length > 0) {
+                <mat-option
+                  value="Download" disabled="true"> Download
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="table-responsive">
-    <mat-form-field style="width: 100%;">
-      <mat-label>Search</mat-label>
-      <input (keyup)="searchChanged($event)" matInput placeholder="Search">
-    </mat-form-field>
+    <div class="table-responsive">
+      <mat-form-field style="width: 100%;">
+        <mat-label>Search</mat-label>
+        <input (keyup)="searchChanged($event)" matInput placeholder="Search">
+      </mat-form-field>
 
-    <div>
-      <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
-        <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
-          <ng-container *ngIf="col == 'Download'">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>
-              <input id="downloadCheckBox" type="checkbox"
-                     [checked]="mainCheckboxChecked() == 2"
-                     [indeterminate]="mainCheckboxChecked() == 1"
-                     (click)="mainCheckboxClicked()">
-              {{display_fields[i]}}
-            </th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item">
-              <input type="checkbox"
-                     (click)="onCheckboxClick(item['Download'])"
-                     [checked]="CheckboxChecked(item['Download'])">
-              <mat-progress-bar *ngIf="progress[item['Download']] >= 0"
-                                mode="determinate" [value]="progress[item['Download']]">
-              </mat-progress-bar>
-            </td>
-          </ng-container>
+      <div>
+        <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
+          @for (col of display_fields; track col; let i = $index) {
+            <ng-container [matColumnDef]=col>
+              @if (col == 'Download') {
+                <th mat-header-cell class="table-header" *matHeaderCellDef>
+                  <input id="downloadCheckBox" type="checkbox"
+                    [checked]="mainCheckboxChecked() == 2"
+                    [indeterminate]="mainCheckboxChecked() == 1"
+                    (click)="mainCheckboxClicked()">
+                  {{display_fields[i]}}
+                </th>
+                <td mat-cell class="table-cell-data" *matCellDef="let item">
+                  <input type="checkbox"
+                    (click)="onCheckboxClick(item['Download'])"
+                    [checked]="CheckboxChecked(item['Download'])">
+                  @if (progress[item['Download']] >= 0) {
+                    <mat-progress-bar
+                      mode="determinate" [value]="progress[item['Download']]">
+                    </mat-progress-bar>
+                  }
+                </td>
+              }
+              @if (col != 'Download') {
+                <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode == 'private'">
+                  {{display_fields[i]}}
+                </th>
+                <td mat-cell class="table-cell-data" *matCellDef="let item">
+                  @if (get_field_values_for_links(col)) {
+                    <app-robust-link [prefix]="get_field_values_for_links(col)['prefix']"
+                      [link]="item[get_field_values_for_links(col)['url']]"
+                      [text]="item[col]">
+                    </app-robust-link>
+                  }
+                  @if (!get_field_values_for_links(col)) {
+                    {{displayCellData(item[col])}}
+                  }
+                </td>
+              }
+            </ng-container>
+          }
 
-          <ng-container *ngIf="col != 'Download'">
-            <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode == 'private'">
-              {{display_fields[i]}}
-            </th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item">
-              <ng-container *ngIf="get_field_values_for_links(col)">
-                  <app-robust-link [prefix]="get_field_values_for_links(col)['prefix']"
-                                   [link]="item[get_field_values_for_links(col)['url']]"
-                                   [text]="item[col]">
-                  </app-robust-link>
-              </ng-container>
+          <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
+          <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
+        </table>
+        <mat-paginator pageSize="10" [length]="totalHits"></mat-paginator>
+      </div>
 
-              <ng-container *ngIf="!get_field_values_for_links(col)">
-                  {{displayCellData(item[col])}}
-              </ng-container>
-            </td>
-          </ng-container>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
-        <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
-      </table>
-      <mat-paginator pageSize="10" [length]="totalHits"></mat-paginator>
     </div>
-
   </div>
-</div>
 
