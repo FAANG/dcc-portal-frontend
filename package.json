@@ -58,7 +58,7 @@
     "material-design-icons": "^3.0.1",
     "ng2-charts": "^5.0.3",
     "ngx-bootstrap": "^5.2.0",
-    "ngx-cookieconsent": "^4.0.2",
+    "ngx-cookieconsent": "^6.0.0",
     "ngx-pagination": "^3.3.1",
     "ngx-smart-modal": "^14.0.3",
     "ngx-spinner": "^16.0.2",
