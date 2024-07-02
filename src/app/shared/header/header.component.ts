@@ -40,5 +40,6 @@ export class HeaderComponent implements OnInit {
         }
       }
     }
+    return null;
   }
 }

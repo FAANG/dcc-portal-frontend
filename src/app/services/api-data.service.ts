@@ -521,6 +521,7 @@ export class ApiDataService {
         return true;
       }
     }
+    return false;
   }
 
   getOrganism(biosampleId: string, mode: string) {
@@ -1049,9 +1050,9 @@ export class ApiDataService {
                 }),
               );
             }
-            return throwError(
-              'Something bad happened; please try again later.');
+            return throwError(() => 'Something bad happened; please try again later.');
           }
+          return throwError(() => error);
         }),
       );
   }
