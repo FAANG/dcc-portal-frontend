@@ -13,13 +13,13 @@ export class UserService {
   private httpOptions: any;
 
   // the actual JWT token
-  public token: string;
+  public token: any;
 
   // the token expiration date
-  public token_expires: Date;
+  public token_expires: any;
 
   // the username of the logged in user
-  public username: string;
+  public username: any = '';
 
   // error messages received from the login attempt
   public errors: any = [];
@@ -31,9 +31,9 @@ export class UserService {
   }
 
   // Uses http.post() to get an auth token from djangorestframework-jwt endpoint
-  public login(user) {
+  public login(user: {[index: string]: any}) {
     this.http.post('https://api.faang.org/api-token-auth/', JSON.stringify(user), this.httpOptions).subscribe(
-      data => {
+      (data: {[index: string]: any}) => {
         console.log('login success', data);
         this.loginSuccess.next(true);
         this.updateData(data['token']);
@@ -50,7 +50,7 @@ export class UserService {
    */
   public refreshToken() {
     this.http.post('https://api.faang.org/api-token-refresh/', JSON.stringify({token: this.token}), this.httpOptions).subscribe(
-      data => {
+      (data: {[index: string]: any}) => {
         console.log('refresh success', data);
         this.updateData(data['token']);
       },
@@ -77,7 +77,7 @@ export class UserService {
     this.username = null;
   }
 
-  private updateData(token) {
+  private updateData(token: string) {
     this.token = token;
     this.errors = [];
 

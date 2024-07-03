@@ -1,6 +1,6 @@
 import {EXCLUDED_FIELD_NAMES, FIELD_NAMES} from './fieldnames';
 
-export function replaceUnderscoreWithSpace(data) {
+export function replaceUnderscoreWithSpace(data: any) {
   if (data) {
     if (data.indexOf('_') !== -1) {
       return data.split('_').join(' ');
@@ -10,8 +10,8 @@ export function replaceUnderscoreWithSpace(data) {
   }
 }
 
-export function replaceUnderscoreWithSpaceAndCapitalize(data) {
-  return data.split('_').map(item => item.charAt(0).toUpperCase() + item.substring(1)).join(' ');
+export function replaceUnderscoreWithSpaceAndCapitalize(data: any) {
+  return data.split('_').map((item: string) => item.charAt(0).toUpperCase() + item.substring(1)).join(' ');
 }
 
 export function convertArrayToStr(data: any[], subelement: string): string {
@@ -87,7 +87,7 @@ export function getValidItems(rule: any, section_name: string) {
 
 export function getValidItemsOld(rule: any, section_name: string) {
   if (rule[section_name]) {
-    return rule[section_name].map(function (el) {
+    return rule[section_name].map(function (el: string) {
       return '"' + el + '"';
     }).join(', ');
   }
@@ -104,7 +104,7 @@ export function getOntologyTermFromIRI(iri: string) {
 
 export const ols_prefix = 'https://www.ebi.ac.uk/ols/ontologies/';
 
-export function generateEbiOntologyLink(ontology_name, term_iri) {
+export function generateEbiOntologyLink(ontology_name: string, term_iri: string) {
   let ontology_url;
   if (ontology_name === 'EFO') {
     ontology_url = 'http://www.ebi.ac.uk/efo/';
@@ -114,12 +114,12 @@ export function generateEbiOntologyLink(ontology_name, term_iri) {
   return ols_prefix + ontology_name + '/terms?iri=' + ontology_url + term_iri.replace(':', '_');
 }
 
-export function generateEbiOntologyLinkOld(ontology_name, term_iri) {
+export function generateEbiOntologyLinkOld(ontology_name: string, term_iri: string) {
   return ols_prefix + ontology_name + '/terms?iri=' + term_iri;
 }
 
 export function getMandatoryRulesOnly(data: any) {
-  const data_to_return = {
+  const data_to_return: {[index: string]: any} = {
     'properties': {}
   };
   for (const key of Object.keys(data['properties'])) {
@@ -134,14 +134,14 @@ export function getMandatoryRulesOnly(data: any) {
 }
 
 export function getMandatoryRulesOnlyOld(data: any) {
-  const data_to_return = {};
+  const data_to_return: {[index: string]: any} = {};
   data_to_return['description'] = data['description'];
   data_to_return['name'] = data['name'];
   data_to_return['further_details_iri'] = data['further_details_iri'];
   data_to_return['rule_groups'] = [];
 
   for (const rule of data['rule_groups']) {
-    const tmp = {};
+    const tmp: {[index: string]: any} = {};
     tmp['name'] = rule['name'];
     tmp['consistency_check'] = rule['consistency_check'];
     tmp['imports'] = rule['imports'];
@@ -161,7 +161,7 @@ export function convertToSnakeCase(id: string) {
   return id.replace(/\s+/g, '_');
 }
 
-export function getProtocolLink(url) {
+export function getProtocolLink(url: string) {
   if (url) {
     let link: string;
     if (url.indexOf('ftp.faang.ebi.ac.uk') !== -1) {
@@ -188,7 +188,7 @@ export function makeid(length: number) {
   return result;
 }
 
-export function getIssues(issues_list, issue_type) {
+export function getIssues(issues_list: any, issue_type: string) {
   issues_list = issues_list.length;
   if (issues_list === 0) {
     return 'pass';
@@ -201,7 +201,7 @@ export function getIssues(issues_list, issue_type) {
   }
 }
 
-export function getCellClass(issues_list, issue_type) {
+export function getCellClass(issues_list: any, issue_type: string) {
   issues_list = issues_list.length;
   if (issues_list === 0) {
     return '';

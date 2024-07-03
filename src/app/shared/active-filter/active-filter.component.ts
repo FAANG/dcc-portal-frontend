@@ -10,8 +10,8 @@ import { MatButton } from '@angular/material/button';
     imports: [MatButton]
 })
 export class ActiveFilterComponent implements OnInit {
-  aggs = [];
-  data = {};
+  aggs: any[] = [];
+  data: {[index: string]:any} = {};
 
   constructor(private aggregationService: AggregationService) { }
 

@@ -92,7 +92,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.indexDetails = {index: 'dataset', indexKey: 'accession', apiKey: 'datasetAccession'}
+    this.indexDetails = {index: 'dataset', indexKey: 'accession', apiKey: 'datasetAccession'};
     this.templates = {
       'datasetAccession': this.datasetAccessionTemplate,
       'paperPublished': this.paperPublishedTemplate
@@ -140,7 +140,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
-    let mapping = {
+    const mapping = {
       'datasetAccession': 'accession',
       'title': 'title',
       'species': 'species.text',
@@ -152,10 +152,10 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'standard': 'standardMet',
       'paper_published': 'paperPublished',
       'submitterEmail': 'submitterEmail'
-    }
+    };
     this.dataService.downloadRecords('dataset', mapping, this.downloadQuery).subscribe(
       (res: Blob) => {
-        var a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = URL.createObjectURL(res);
         a.download = 'faang_data.' + format;
         a.click();
@@ -177,7 +177,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   openSubscriptionDialog() {
     // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Dataset entries'
+    this.subscriber.title = 'Subscribing to filtered Dataset entries';
     this.subscriber.indexName = this.indexDetails['index'];
     this.subscriber.indexKey = this.indexDetails['indexKey'];
     const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {

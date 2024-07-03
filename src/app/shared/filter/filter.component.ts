@@ -13,12 +13,12 @@ import { MatCard } from '@angular/material/card';
     imports: [MatCard, NgClass]
 })
 export class FilterComponent implements OnInit, OnDestroy {
-  @Input() title: string;
-  @Input() filterSize: number;
-  aggregation = [];
-  subsription: Subscription;
+  @Input() title: string = '';
+  @Input() filterSize: number = 0;
+  aggregation: any[] = [];
+  subscription!: Subscription;
   isCollapsed = true;
-  itemLimit: number;
+  itemLimit: number = 0;
   current_active_filters = this.aggregationService.current_active_filters;
 
   constructor(
@@ -27,7 +27,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.itemLimit = this.filterSize;
-    this.subsription = this.aggregationService.data.subscribe(
+    this.subscription = this.aggregationService.data.subscribe(
       (data: any) => {
         // data is a map, keys are active_filters names defined in service/aggregatin_service.ts,
         // values are the corresponding aggregation e.g. { "FAANG":675,"Legacy": 9834}
@@ -97,7 +97,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   onButtonClick(key: string, title: string) {
-    let data_key: string;
+    let data_key: any;
     // the data_key refers to active_filters defined in service/aggregatin_service.ts
     switch (title) {
       case 'Standard': {
@@ -244,13 +244,13 @@ export class FilterComponent implements OnInit, OnDestroy {
     }
   }
 
-  getReverseHumanName(data) {
+  getReverseHumanName(data: string) {
     return reverseProtocolNames[data];
   }
 
-  revertReadableType(data) {
+  revertReadableType(data: any) {
     data = data.split(' ');
-    for(let i=1; i<data.length; i+=1) {
+    for (let i = 1; i < data.length; i += 1) {
       data[i] = data[i].charAt(0).toUpperCase() + data[i].slice(1);
     }
     data = data.join('');
@@ -259,6 +259,6 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subsription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

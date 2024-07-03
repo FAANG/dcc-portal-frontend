@@ -183,7 +183,7 @@ export function removeToken(): void {
         // // NgbModule,
         NgcCookieConsentModule.forRoot(cookieConfig),
         // GraphQLModule,
-        MatListModule, 
+        MatListModule,
         // FileComponent,
         FilterComponent,
         ActiveFilterComponent,

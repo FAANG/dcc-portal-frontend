@@ -36,9 +36,9 @@ export class RelatedItemsComponent implements OnInit {
   checked = false;
   mode: string;
   timer: any;
-  delaySearch: boolean = true;
+  delaySearch = true;
   search = '';
-  initialDataExists: boolean = false;
+  initialDataExists = false;
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -97,7 +97,7 @@ export class RelatedItemsComponent implements OnInit {
         [this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search
       ).subscribe(
         (res: any) => {
-          console.log(res)
+          console.log(res);
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         }
@@ -423,10 +423,10 @@ export class RelatedItemsComponent implements OnInit {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  searchChanged(event: any){
+  searchChanged(event: any) {
     const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    if (this.delaySearch){
-      if (this.timer){
+    if (this.delaySearch) {
+      if (this.timer) {
         clearTimeout(this.timer);
       }
       this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
@@ -459,7 +459,7 @@ export class RelatedItemsComponent implements OnInit {
     }
   }
 
-  goToDownloader(){
+  goToDownloader() {
     (window as any).open('https://github.com/FAANG/dcc-bulk-data-downloader', '_blank');
   }
 }

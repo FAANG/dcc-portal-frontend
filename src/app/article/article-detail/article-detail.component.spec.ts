@@ -17,7 +17,7 @@ describe('ArticleDetailComponent', () => {
     TestBed.configureTestingModule({
     declarations: [ArticleDetailComponent,
         RobustLinkComponent,
-        RelatedItemsComponent,],
+        RelatedItemsComponent, ],
     imports: [NgxPaginationModule,
         RouterTestingModule, HeaderComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]

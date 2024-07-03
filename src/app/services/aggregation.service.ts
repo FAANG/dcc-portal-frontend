@@ -10,7 +10,7 @@ import {replaceUnderscoreWithSpace} from '../shared/common_functions';
 })
 export class AggregationService {
 
-  active_filters = {
+  active_filters: {[index: string]: any} = {
     standard: [],
     study: [],
     species: [],
@@ -42,33 +42,33 @@ export class AggregationService {
     status_activity: []
   };
 
-  protocolNames = protocolNames;
+  protocolNames: {[index: string]: any} = protocolNames;
 
-  current_active_filters = [];
+  current_active_filters: any[] = [];
 
   data = new Subject();
   field = new Subject();
 
   constructor() { }
 
-  getHumanName(data) {
+  getHumanName(data: string) {
     return this.protocolNames[data];
   }
 
-  getHumanReadableValue(data) {
+  getHumanReadableValue(data: string) {
     return data.split(/(?=[A-Z])/).join(' ').toLowerCase();
   }
 
-  updateAggregation(aggs: {}, value: string): {} {
+  updateAggregation(aggs: {[index: string]: any}, value: string): {} {
     aggs.hasOwnProperty(value) ? aggs[value] += 1 : aggs[value] = 1;
     return aggs;
   }
 
-  updateAggregationCommaSeparated(aggs: {}, value: string): {} {
-    let values = value.split(', ');
+  updateAggregationCommaSeparated(aggs: {[index: string]: any}, value: string): {} {
+    const values = value.split(', ');
     values.forEach(val => {
       aggs.hasOwnProperty(val) ? aggs[val] += 1 : aggs[val] = 1;
-    })
+    });
     return aggs;
   }
 
@@ -76,12 +76,12 @@ export class AggregationService {
     if (type === 'file' || type === 'organism' || type === 'specimen' || type === 'dataset' ||
         type === 'analysis' || type === 'protocol' || type === 'protocol_experiments'
         || type === 'article' || type === 'ontology') {
-      let all_data = {};
+      const all_data: {[index: string]: any} = {};
       for (const key in recordList) { // recordList contains aggregations from API response
         all_data[key] = {};
         if (recordList[key]['buckets']) {
-          recordList[key]['buckets'].forEach(bucket => {
-            if (bucket['key']){
+          recordList[key]['buckets'].forEach((bucket: { [x: string]: any; }) => {
+            if (bucket['key']) {
               all_data[key][bucket['key']] = bucket['doc_count'];
             }
           });
@@ -90,10 +90,10 @@ export class AggregationService {
         }
       }
       let paperPublishedProcessed = false;
-      for (let key in all_data) {
+      for (const key in all_data) {
         // process paperPublished values
         if ((key == 'paper_published' || key == 'paper_published_missing') && !paperPublishedProcessed) {
-          let paper_values = {'Yes': 0, 'No': 0};
+          const paper_values: {[index: string]: any} = {'Yes': 0, 'No': 0};
           for (const val in all_data['paper_published']) {
             val == 'true' ? paper_values['Yes'] += all_data['paper_published'][val] : paper_values['No'] += all_data['paper_published'][val];
           }
@@ -120,7 +120,7 @@ export class AggregationService {
         }
         // process sex
         if (key == 'sex') {
-          let sex_values = {'male': 0, 'female': 0};
+          const sex_values: {[index: string]: any} = {'male': 0, 'female': 0};
           for (const val in all_data['sex']) {
             male_values.indexOf(val) > -1 ? sex_values['male'] += all_data['sex'][val]
             : female_values.indexOf(val) > -1 ? sex_values['female'] += all_data['sex'][val]
@@ -136,7 +136,7 @@ export class AggregationService {
 
         // process article source
         if (key === 'source') {
-          const source_values = {'published': 0, 'preprint': 0};
+          const source_values: {[index: string]: any} = {'published': 0, 'preprint': 0};
           for (const prop in all_data['source']) {
             if (prop.toUpperCase() === 'PPR') {
               source_values['preprint'] += all_data['source'][prop];

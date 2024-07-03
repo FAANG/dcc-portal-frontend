@@ -74,8 +74,8 @@ export class BulkFilesUploaderComponent implements OnInit {
 
   uploadService(files: FileList): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-    for(let i=0; i<files.length; i+=1) {
-      let fileid = makeid(20);
+    for (let i = 0; i < files.length; i += 1) {
+      const fileid = makeid(20);
       this.setSocket(fileid, files[i].name);
       formData.append(fileid, files[i]);
       this.fileNamesList.push(files[i].name);

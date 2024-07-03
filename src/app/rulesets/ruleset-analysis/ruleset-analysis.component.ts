@@ -68,7 +68,7 @@ export class RulesetAnalysisComponent implements OnInit {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 2;
-    this.dataSource = new MatTableDataSource([]); 
+    this.dataSource = new MatTableDataSource([]);
     this.rule_groups = ['FAANG', 'ENA', 'EVA'];
     this.active_rule = 'FAANG';
     this.convertToSnakeCase = convertToSnakeCase;
@@ -246,10 +246,10 @@ export class RulesetAnalysisComponent implements OnInit {
     this.location.go(url);
   }
 
-  getDataSource(data, rules){
+  getDataSource(data, rules) {
     let ds = [];
     for (let rule of rules) {
-      if (rule !== 'describedBy' && rule !== 'schema_version' 
+      if (rule !== 'describedBy' && rule !== 'schema_version'
         && rule !== 'samples_core' && rule !== 'eva') {
         let rowObj = data[rule];
         rowObj['rule'] = rule;
@@ -262,11 +262,9 @@ export class RulesetAnalysisComponent implements OnInit {
   tabClick(tab) {
     if (tab.index == 0) {
       this.router.navigate(['ruleset/samples'], {fragment: 'Standard'});
-    }
-    else if (tab.index == 1) {
+    } else if (tab.index == 1) {
       this.router.navigate(['ruleset/experiments'], {fragment: 'Standard'});
-    }
-    else if (tab.index == 2) {
+    } else if (tab.index == 2) {
       this.router.navigate(['ruleset/analyses'], {fragment: 'FAANG'});
     }
   }

@@ -19,9 +19,9 @@ export interface DialogData {
     imports: [CdkScrollable, MatDialogContent, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatHint, MatError, MatDialogActions, MatButton]
 })
 export class SubscriptionDialogComponent implements OnInit {
-  email: string = '';
-  title: string = '';
-  public subscriptionForm: FormGroup;
+  email = '';
+  title = '';
+  public subscriptionForm!: FormGroup;
   inputData: any;
   subscriptionDialogTitle: string;
 
@@ -30,7 +30,7 @@ export class SubscriptionDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this.inputData = {...data};
-    this.subscriptionDialogTitle = this.inputData['title']
+    this.subscriptionDialogTitle = this.inputData['title'];
 
   }
 
@@ -41,18 +41,18 @@ export class SubscriptionDialogComponent implements OnInit {
   }
 
 
-  public displayError = (controlName: string, errorName: string) =>{
+  public displayError = (controlName: string, errorName: string) => {
     return this.subscriptionForm.controls[controlName].hasError(errorName);
   }
 
-  onCancelDialog(dialogType) {
+  onCancelDialog(dialogType: any) {
     this.dialogRef.close();
   }
 
   onRegister() {
-    if (this.subscriptionForm.valid && this.subscriptionForm.touched){
+    if (this.subscriptionForm.valid && this.subscriptionForm.touched) {
       this.dataService.subscribeFilteredData(this.inputData['indexName'], this.inputData['indexKey'], this.inputData['email']).subscribe(response => {
-          console.log("You have now been subscribed!")
+          console.log('You have now been subscribed!');
           this.dialogRef.close();
         },
         error => {

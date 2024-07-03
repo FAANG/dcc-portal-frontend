@@ -2,10 +2,10 @@
   <mat-card class="filter-card">
     <h6 class="filter-header item">
       {{title}}
-      @if (aggregation?.length > filterSize && isCollapsed) {
+      @if (aggregation.length > filterSize && isCollapsed) {
         <i class="material-icons float-right" (click)="toggleCollapse()">add</i>
       }
-      @if (aggregation?.length > filterSize && !isCollapsed) {
+      @if (aggregation.length > filterSize && !isCollapsed) {
         <i class="material-icons float-right" (click)="toggleCollapse()">remove</i>
       }
     </h6>

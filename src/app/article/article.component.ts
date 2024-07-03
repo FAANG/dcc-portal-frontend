@@ -73,7 +73,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.indexDetails = {index: 'article', indexKey: '_id', apiKey: 'id'}
+    this.indexDetails = {index: 'article', indexKey: '_id', apiKey: 'id'};
     this.templates = {'title': this.titleTemplate,
                       'source': this.articleSourceTemplate};
 
@@ -128,8 +128,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
       'source': 'source',
     };
     this.dataService.downloadRecords('article', mapping, this.downloadQuery).subscribe(
-      (res:Blob)=>{
-        var a = document.createElement("a");
+      (res: Blob) => {
+        let a = document.createElement('a');
         a.href = URL.createObjectURL(res);
         a.download = 'faang_data.' + format;
         a.click();
@@ -142,14 +142,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   isPublished(source: any) {
-    if (source){
+    if (source) {
       return source.toUpperCase() !== 'PPR' ? 'published' : 'preprint' ;
     }
   }
 
   openSubscriptionDialog() {
     // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Publication entries'
+    this.subscriber.title = 'Subscribing to filtered Publication entries';
     this.subscriber.indexName = this.indexDetails['index'];
     this.subscriber.indexKey = this.indexDetails['indexKey'];
     const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
@@ -165,16 +165,16 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.aggrSubscription.unsubscribe();
   }
 
-  loadInitialPageState(params){
+  loadInitialPageState(params) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;
     this.downloadQuery['filters'] = filters;
     // load pre-search and pre-sorting
-    if (params['searchTerm']){
+    if (params['searchTerm']) {
       this.query['search'] = params['searchTerm'];
     }
-    if (params['sortTerm'] && params['sortDirection']){
+    if (params['sortTerm'] && params['sortDirection']) {
       this.query['sort'] = [params['sortTerm'], params['sortDirection']];
     }
   }

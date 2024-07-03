@@ -17,7 +17,7 @@ describe('DatasetDetailComponent', () => {
     TestBed.configureTestingModule({
     declarations: [DatasetDetailComponent,
         RobustLinkComponent,
-        RelatedItemsComponent,],
+        RelatedItemsComponent, ],
     imports: [NgxPaginationModule,
         RouterTestingModule, HeaderComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]

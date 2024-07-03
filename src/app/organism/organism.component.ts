@@ -28,28 +28,28 @@ import { HeaderComponent } from '../shared/header/header.component';
     imports: [HeaderComponent, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner, TableServerSideComponent, RouterLink, NgClass]
 })
 export class OrganismComponent implements OnInit, OnDestroy {
-  @ViewChild('bioSampleIdTemplate', { static: true }) bioSampleIdTemplate: TemplateRef<any>;
-  @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
-  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
-  public loadTableDataFunction: Function;
-  organismListShort: Observable<OrganismTable[]>;
-  organismListLong: Observable<OrganismTable[]>;
+  @ViewChild('bioSampleIdTemplate', { static: true }) bioSampleIdTemplate!: TemplateRef<any>;
+  @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate!: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
+  public loadTableDataFunction!: Function;
+  organismListShort!: Observable<OrganismTable[]>;
+  organismListLong!: Observable<OrganismTable[]>;
 
   columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published', 'Subscribe'];
   displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished', 'subscribe'];
-  templates: Object;
+  templates: {[index: string]: any} = {};
   filter_field: any;
-  aggrSubscription: Subscription;
+  aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle: string;
+  subscriptionDialogTitle: string = '';
   subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   dialogInfoRef: any;
-  indexDetails: {};
+  indexDetails: {[index: string]: any} = {};
 
-  query = {
+  query: {[index: string]: any} = {
     'sort': ['id_number', 'desc'],
     '_source': [
       'biosampleId',
@@ -79,8 +79,8 @@ export class OrganismComponent implements OnInit, OnDestroy {
   };
 
   defaultSort = ['id_number', 'desc'];
-  error: string;
-  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
+  error: string = '';
+  subscriptionDialog!: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
@@ -180,7 +180,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadInitialPageState(params) {
+  loadInitialPageState(params: any) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
 
     this.filter_field = filters;

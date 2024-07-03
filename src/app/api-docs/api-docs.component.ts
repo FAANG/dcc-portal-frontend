@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SwaggerUIBundle } from 'swagger-ui-dist';
-import { HostSetting } from '../services/host-setting'
+import { HostSetting } from '../services/host-setting';
 
 @Component({
   selector: 'app-api-docs',
@@ -27,7 +27,7 @@ export class ApiDocsComponent implements OnInit {
 
   modifyResponse(res) {
     if (res.headers['content-type'] == 'application/pdf' || res.headers['content-type'] == 'text/plain') {
-      let filename = res.url.split('/').slice(-1)[0];
+      const filename = res.url.split('/').slice(-1)[0];
       res.headers['Content-Disposition'] = ' attachment; filename=' +  filename;
     }
   }
