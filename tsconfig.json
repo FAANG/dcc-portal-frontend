@@ -1,64 +1,26 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
-{
-  "compileOnSave": false,
-  "compilerOptions": {
-    "skipLibCheck": true,
-    "strict": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "resolveJsonModule": true,
-    "strictNullChecks":false,
-    "useUnknownInCatchVariables": false,
-    "strictPropertyInitialization": false,
-    "noImplicitAny": false,
-    "noImplicitReturns": true,
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./",
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
-}
-
-
-
-
-
-
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 //{
 //  "compileOnSave": false,
 //  "compilerOptions": {
-//    "outDir": "./dist/out-tsc",
+//    "skipLibCheck": true,
 //    "strict": true,
+//    "noPropertyAccessFromIndexSignature": false,
+//    "resolveJsonModule": true,
+//    "strictNullChecks":false,
+//    "useUnknownInCatchVariables": false,
+//    "strictPropertyInitialization": false,
+//    "noImplicitAny": false,
+//    "noImplicitReturns": true,
+//    "outDir": "./dist/out-tsc",
+//    "forceConsistentCasingInFileNames": true,
+//    "baseUrl": "./",
 //    "noImplicitOverride": true,
 //    "noPropertyAccessFromIndexSignature": true,
-//    "noImplicitReturns": true,
 //    "noFallthroughCasesInSwitch": true,
-//    "skipLibCheck": true,
 //    "esModuleInterop": true,
 //    "sourceMap": true,
 //    "declaration": false,
+//    "downlevelIteration": true,
 //    "experimentalDecorators": true,
 //    "moduleResolution": "node",
 //    "importHelpers": true,
@@ -77,4 +39,42 @@
 //    "strictTemplates": true
 //  }
 //}
+
+
+
+
+
+
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}
 

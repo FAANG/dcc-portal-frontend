@@ -28,14 +28,14 @@ import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/for
 })
 
 export class TableServerSideComponent implements OnInit, AfterViewInit {
-  @Input() display_fields: Array<string>; // list of fields to be displayed in the table
-  @Input() column_names: Array<string>; // list of column headers for the selected fields
-  @Input() templates: Object; // column templates
-  @Input() filter_values: Observable<Object>; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ... }
-  @Input() apiFunction: Function; // function that queries the API endpoints
-  @Input() query: Object; // query params ('sort', 'aggs', 'filters', '_source', 'from_')
-  @Input() defaultSort: string[]; // default sort param e.g - ['id': 'desc'];
-  @Input() indexDetails: Object;
+  @Input() display_fields: Array<string> = []; // list of fields to be displayed in the table
+  @Input() column_names: Array<string> = []; // list of column headers for the selected fields
+  @Input() templates: Object = {}; // column templates
+  @Input() filter_values: Observable<Object> | undefined; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ... }
+  @Input() apiFunction: Function | undefined; // function that queries the API endpoints
+  @Input() query: {[index: string]: any} = {}; // query params ('sort', 'aggs', 'filters', '_source', 'from_')
+  @Input() defaultSort: string[] = []; // default sort param e.g - ['id': 'desc'];
+  @Input() indexDetails: {[index: string]: any} = {};
 
   @Output() dataUpdate = new EventEmitter<any>();
   @Output() sortUpdate = new EventEmitter<any>();
@@ -49,20 +49,20 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   totalHits = 0;
   timer: any;
   delaySearch: boolean = true;
-  subscriptionDialogTitle: string;
+  subscriptionDialogTitle: string = '';
   subscriber = { email: '', filters: {} };
   dialogRef: any;
   dialogSubscriptionInfoRef: any;
-  public subscriptionForm: FormGroup;
-  socket;
-  submission_message: string;
-  subscription_status: string;
-  apiKey:string;
+  public subscriptionForm: FormGroup | undefined;
+  socket: any;
+  submission_message: string = '';
+  subscription_status: string = '';
+  apiKey:string = '';
   currentSearchTerm: string = '';
   queryParams: any = {};
   location: Location;
-  urlTree: string;
-  specialFilters = {
+  urlTree: string = '';
+  specialFilters: any = {
     paper_published: [{filterValue: ['true'], displayValue: 'Yes'}, {filterValue: ['false'], displayValue: 'No'}],
     sex:[{filterValue: male_values, displayValue: 'male'}, {filterValue: female_values, displayValue: 'female'}],
     source:[{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}],
@@ -289,8 +289,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
   }
 
-  resetPagination(pageIndex) {
-    if (pageIndex != 0) {
+  resetPagination(pageIndex: number) {
+    if (pageIndex !== 0) {
       this.queryParams['pageIndex'] = pageIndex;
       this.paginator.pageIndex = pageIndex;
       // emit an event so that the table will refresh the data
@@ -306,8 +306,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   updateUrlCodeFilters() {
     for (const param in this.query['filters']) {
       if (Array.isArray(this.query['filters'][param])) {
-        let filters_arr = [];
-        this.query['filters'][param].forEach((val, i) => {
+        let filters_arr: any[] = [];
+        this.query['filters'][param].forEach((val: string, i: any) => {
           const filterValue = this.getFilterCodeValue(param, val);
           if (filterValue) {
             filters_arr = filters_arr.concat(filterValue);
@@ -318,9 +318,9 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getFilterCodeValue(paramName, displayVal){
+  getFilterCodeValue(paramName: string, displayVal: string){
     if (paramName in this.specialFilters){
-      const matchedFiltersArr = this.specialFilters[paramName].filter(obj => obj['displayValue'] == displayVal);
+      const matchedFiltersArr = this.specialFilters[paramName].filter((obj: { [x: string]: string; }) => obj['displayValue'] == displayVal);
       if (matchedFiltersArr.length > 0){
         return matchedFiltersArr[0]['filterValue']
       }
@@ -328,7 +328,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     return [displayVal]
   }
 
-  onPageChange($event) {
+  onPageChange($event: any) {
     const params = {
       pageIndex: this.paginator.pageIndex,
     };
