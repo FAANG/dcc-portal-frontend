@@ -38,8 +38,8 @@ export class TableClientSideComponent implements OnInit {
     if (this.col_width == undefined) {
       this.col_width = [];
       this.column_names.forEach(el => {
-        this.col_width.push("calc(100%/" + this.column_names.length + ")");
-      })
+        this.col_width.push('calc(100%/' + this.column_names.length + ')');
+      });
     }
   }
 
@@ -56,8 +56,8 @@ export class TableClientSideComponent implements OnInit {
 
   // custom filter function to override angular material tables default filter behaviour
   createFilter() {
-    let filterFunction = function (data: any, filter: string): boolean {
-      let searchTerms = JSON.parse(filter);
+    const filterFunction = function (data: any, filter: string): boolean {
+      const searchTerms = JSON.parse(filter);
       let isFilterSet = false;
       for (const col in searchTerms) {
         if (searchTerms[col].length > 0) {
@@ -73,18 +73,17 @@ export class TableClientSideComponent implements OnInit {
             if (!searchTerms['search'][0]) {
               return true;
             }
-            for (let column in data) {
-              let colData = data[column].toString().trim().toLowerCase();
+            for (const column in data) {
+              const colData = data[column].toString().trim().toLowerCase();
               if (colData.search(searchTerms[col][0]) !== -1) {
                 return true;
               }
             }
             return false;
-          }
-          else {
+          } else {
             // process filters for comma-separated ontology_type and project values
             if (col == 'ontology_type' || col == 'project') {
-              let ontology_type_values = data[col].split(', ');
+              const ontology_type_values = data[col].split(', ');
               let found = false;
               ontology_type_values.forEach((val, i) => {
                 if (searchTerms[col].indexOf(val) >= 0) {
@@ -94,8 +93,7 @@ export class TableClientSideComponent implements OnInit {
               if (!found) {
                 return false;
               }
-            }
-            else {
+            } else {
               if (!data[col] || searchTerms[col].indexOf(data[col]) == -1) {
                 return false;
               }
@@ -105,7 +103,7 @@ export class TableClientSideComponent implements OnInit {
         return true;
       }
       return true;
-    }
+    };
     return filterFunction;
   }
 }

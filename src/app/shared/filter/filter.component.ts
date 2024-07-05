@@ -13,12 +13,12 @@ import { MatCard } from '@angular/material/card';
     imports: [MatCard, NgClass]
 })
 export class FilterComponent implements OnInit, OnDestroy {
-  @Input() title: string = '';
-  @Input() filterSize: number = 0;
+  @Input() title = '';
+  @Input() filterSize = 0;
   aggregation: any[] = [];
   subscription!: Subscription;
   isCollapsed = true;
-  itemLimit: number = 0;
+  itemLimit = 0;
   current_active_filters = this.aggregationService.current_active_filters;
 
   constructor(

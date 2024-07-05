@@ -30,9 +30,9 @@ export class PortalDataTableComponent implements OnInit {
   checked = false;
   mode: string;
   timer: any;
-  delaySearch: boolean = true;
+  delaySearch = true;
   search = '';
-  initialDataExists: boolean = false;
+  initialDataExists = false;
 
   constructor(
     private dataService: ApiDataService,
@@ -149,7 +149,7 @@ export class PortalDataTableComponent implements OnInit {
 
   checkSelectedProjects(selectedProjects: string[]) {
     if (!selectedProjects.length) {
-      console.log("empty projects")
+      console.log('empty projects');
     }
 
   }
@@ -227,7 +227,7 @@ export class PortalDataTableComponent implements OnInit {
 
   downloadAllFiles() {
     this.urls.forEach(url => {
-      let file_url = url.split('://')[1];
+      const file_url = url.split('://')[1];
       this.progress[file_url] = 0;
       this.http.get(url,
         {
@@ -235,7 +235,7 @@ export class PortalDataTableComponent implements OnInit {
           reportProgress: true,
           observe: 'events',
         }).subscribe(result => {
-        let filename = file_url.split('/').pop();
+        const filename = file_url.split('/').pop();
         if (result.type === HttpEventType.DownloadProgress) {
           this.progress[file_url] = Math.round(100 * result.loaded / result.total);
         }
@@ -339,13 +339,13 @@ export class PortalDataTableComponent implements OnInit {
   }
 
   goToDownloader() {
-    (window as any).open("https://github.com/FAANG/dcc-bulk-data-downloader", "_blank");
+    (window as any).open('https://github.com/FAANG/dcc-bulk-data-downloader', '_blank');
   }
 
   displayCellData(str) {
     if (str && str.charAt(0) === ',') {
       return str.replace(/^,/, '');
     }
-    return str
+    return str;
   }
 }

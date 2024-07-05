@@ -129,7 +129,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     };
     this.dataService.downloadRecords('article', mapping, this.downloadQuery).subscribe(
       (res: Blob) => {
-        let a = document.createElement('a');
+        const a = document.createElement('a');
         a.href = URL.createObjectURL(res);
         a.download = 'faang_data.' + format;
         a.click();

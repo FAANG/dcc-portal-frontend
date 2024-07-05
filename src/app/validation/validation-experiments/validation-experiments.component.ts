@@ -194,7 +194,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   getPubSubMessage() {
     this.apiDataService.get_pubsub_messages().subscribe(data => {
-      this.gcp_subscription_status = data[0]['enaStatus']
+      this.gcp_subscription_status = data[0]['enaStatus'];
     }, error => {
       console.log(error);
     });

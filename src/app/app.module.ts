@@ -13,7 +13,7 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { ActiveFilterComponent } from './shared/active-filter/active-filter.component';
 import { HomeComponent } from './home/home.component';
 import { OrganismComponent } from './organism/organism.component';
-// import { SpecimenComponent } from './specimen/specimen.component';
+import { SpecimenComponent } from './specimen/specimen.component';
 // import { DatasetComponent } from './dataset/dataset.component';
 // import { AnalysisComponent } from './analysis/analysis.component';
 // import { ArticleComponent } from './article/article.component';
@@ -189,7 +189,7 @@ export function removeToken(): void {
         ActiveFilterComponent,
         HomeComponent,
         OrganismComponent,
-        // SpecimenComponent,
+        SpecimenComponent,
         // DatasetComponent,
         // AnalysisComponent,
         // ArticleComponent,

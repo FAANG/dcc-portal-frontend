@@ -43,7 +43,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle: string = '';
+  subscriptionDialogTitle = '';
   subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   dialogInfoRef: any;
@@ -79,7 +79,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   };
 
   defaultSort = ['id_number', 'desc'];
-  error: string = '';
+  error = '';
   subscriptionDialog!: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,

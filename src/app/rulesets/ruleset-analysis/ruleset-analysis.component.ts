@@ -247,11 +247,11 @@ export class RulesetAnalysisComponent implements OnInit {
   }
 
   getDataSource(data, rules) {
-    let ds = [];
-    for (let rule of rules) {
+    const ds = [];
+    for (const rule of rules) {
       if (rule !== 'describedBy' && rule !== 'schema_version'
         && rule !== 'samples_core' && rule !== 'eva') {
-        let rowObj = data[rule];
+        const rowObj = data[rule];
         rowObj['rule'] = rule;
         ds.push(rowObj);
       }

@@ -291,11 +291,11 @@ export class RulesetSampleComponent implements OnInit {
     this.location.go(url);
   }
 
-  getDataSource(data, rules){
-    let ds = [];
-    for (let rule of rules) {
+  getDataSource(data, rules) {
+    const ds = [];
+    for (const rule of rules) {
       if (rule !== 'describedBy' && rule !== 'schema_version' && rule !== 'samples_core') {
-        let rowObj = data[rule];
+        const rowObj = data[rule];
         rowObj['rule'] = rule;
         ds.push(rowObj);
       }
@@ -306,11 +306,9 @@ export class RulesetSampleComponent implements OnInit {
   tabClick(tab) {
     if (tab.index == 0) {
       this.router.navigate(['ruleset/samples'], {fragment: 'Standard'});
-    }
-    else if (tab.index == 1) {
+    } else if (tab.index == 1) {
       this.router.navigate(['ruleset/experiments'], {fragment: 'Standard'});
-    }
-    else if (tab.index == 2) {
+    } else if (tab.index == 2) {
       this.router.navigate(['ruleset/analyses'], {fragment: 'FAANG'});
     }
   }

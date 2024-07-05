@@ -53,7 +53,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   timer: any;
   delaySearch = true;
   subscriptionDialogTitle = '';
-  subscriber: {[index: string]:any} = { email: '', filters: {} };
+  subscriber: {[index: string]: any} = { email: '', filters: {} };
   dialogRef: any;
   dialogSubscriptionInfoRef: any;
   public subscriptionForm!: FormGroup;

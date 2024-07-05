@@ -35,7 +35,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   subResults: MatTableDataSource<any>;
   p = 1;
   model = new UserForm('', '', 'test');
-  webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login'
+  webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login';
   aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
   domain = new SubmissionDomain('', '');
   fileid = makeid(20);
@@ -113,7 +113,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onBeforeUploadItem = (file) => {
       this.conversion_status = 'Waiting';
-    }
+    };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
       if (this.conversion_status == 'Success') {
@@ -214,7 +214,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   getPubSubMessage() {
     this.apiDataService.get_pubsub_messages().subscribe(data => {
-      this.gcp_subscription_status = data[0]['biosampleStatus']
+      this.gcp_subscription_status = data[0]['biosampleStatus'];
     }, error => {
       console.log(error);
     });
@@ -244,11 +244,11 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       if (data['submission_results']) {
         this.submissionResults = Object.entries(data['submission_results']);
         if (this.submissionResults.length !== 0) {
-          let data = [];
+          const data = [];
           this.submissionResults.forEach(record => {
-            let rowObj = {};
-            let cols = ['Sample Name', 'BioSample ID'];
-            for (let index in cols) {
+            const rowObj = {};
+            const cols = ['Sample Name', 'BioSample ID'];
+            for (const index in cols) {
               rowObj[cols[index]] = record[index];
             }
             data.push(rowObj);
@@ -420,10 +420,10 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
-    let data = [];
+    const data = [];
     this.records_to_show.forEach(record => {
-      let rowObj = {};
-      for (let index in this.column_names) {
+      const rowObj = {};
+      for (const index in this.column_names) {
         rowObj[index] = record[index];
       }
       data.push(rowObj);
@@ -607,11 +607,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   tabClick(tab) {
     if (tab.index == 0) {
       this.router.navigate(['validation/samples']);
-    }
-    else if (tab.index == 1) {
+    } else if (tab.index == 1) {
       this.router.navigate(['validation/experiments']);
-    }
-    else if (tab.index == 2) {
+    } else if (tab.index == 2) {
       this.router.navigate(['validation/analyses']);
     }
   }

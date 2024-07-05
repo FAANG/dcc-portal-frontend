@@ -45,7 +45,7 @@ export const doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
       font: {
         size: 12,
       },
-      color: "#000000"
+      color: '#000000'
     },
     tooltip: {
       enabled: true,

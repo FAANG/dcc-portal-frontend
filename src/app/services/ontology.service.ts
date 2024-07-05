@@ -16,7 +16,7 @@ export class OntologyService {
 
   login(username: string, password: string) {
     const url = validation_service_url + '/ontology_improver/auth/';
-    let auth = 'Basic ' + btoa(username + ':' + password);
+    const auth = 'Basic ' + btoa(username + ':' + password);
     return this.http.post(url, {'auth': auth}).pipe(
       map((data: any) => {
         return data.token;
@@ -41,12 +41,12 @@ export class OntologyService {
 
   searchTerms(terms: any) {
     const url = `${this.hostSetting.host}data/ontologies/_search/?size=10000`;
-    const filters = {"term": terms};
+    const filters = {'term': terms};
     const params = new HttpParams().set('_source', 'term,type,id,projects,tags,species')
       .set('filters', JSON.stringify(filters)).set('from_', 0);
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        let res = data.hits.hits.map(entry => entry['_source']);
+        const res = data.hits.hits.map(entry => entry['_source']);
         return res;
       }),
       catchError(this.handleError),
@@ -128,7 +128,7 @@ export class OntologyService {
     const url = `${this.hostSetting.host}data/summary_ontologies/_search/?size=10`;
     return this.http.get(url).pipe(
       map((data: any) => {
-        let res = data.hits.hits.map(entry => entry['_source']);
+        const res = data.hits.hits.map(entry => entry['_source']);
         return res;
       }),
       catchError(this.handleError),

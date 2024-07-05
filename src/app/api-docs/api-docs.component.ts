@@ -25,10 +25,10 @@ export class ApiDocsComponent implements OnInit {
     });
   }
 
-  modifyResponse(res) {
-    if (res.headers['content-type'] == 'application/pdf' || res.headers['content-type'] == 'text/plain') {
-      const filename = res.url.split('/').slice(-1)[0];
-      res.headers['Content-Disposition'] = ' attachment; filename=' +  filename;
+  modifyResponse(res: {[index: string]: any}) {
+    if (res['headers']['content-type'] === 'application/pdf' || res['headers']['content-type'] === 'text/plain') {
+      const filename = res['url'].split('/').slice(-1)[0];
+      res['headers']['Content-Disposition'] = ' attachment; filename=' +  filename;
     }
   }
 

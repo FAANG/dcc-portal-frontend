@@ -115,7 +115,7 @@ export class EnsemblAnnotationComponent implements OnInit {
         columnDefinition: 'project',
         columnTitle: 'Project',
         cellVar: 'project',
-      }
+      };
       this.tableDefinitions.push(projObj);
 
     }
