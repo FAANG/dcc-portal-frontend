@@ -18,14 +18,13 @@ describe('SpecimenComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [SpecimenComponent],
     imports: [NgxPaginationModule,
         RouterTestingModule, HeaderComponent,
         FilterComponent,
         ExportComponent,
         ActiveFilterComponent,
         FilterPipe,
-        SortPipe],
+        SortPipe, SpecimenComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();

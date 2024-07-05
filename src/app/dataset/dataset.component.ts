@@ -5,43 +5,54 @@ import {AggregationService} from '../services/aggregation.service';
 import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import {DatasetTable} from '../shared/interfaces';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {ActivatedRoute, Params, Router, RouterLink} from '@angular/router';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import {HeaderComponent} from '../shared/header/header.component';
+import {FilterComponent} from '../shared/filter/filter.component';
+import {ActiveFilterComponent} from '../shared/active-filter/active-filter.component';
+import {MatButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatIcon} from '@angular/material/icon';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-dataset',
   templateUrl: './dataset.component.html',
-  styleUrls: ['./dataset.component.css']
+  standalone: true,
+  styleUrls: ['./dataset.component.css'],
+  imports: [HeaderComponent, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
+    TableServerSideComponent, RouterLink, NgClass]
 })
 export class DatasetComponent implements OnInit, OnDestroy {
-  @ViewChild('datasetAccessionTemplate', {static: true}) datasetAccessionTemplate: TemplateRef<any>;
-  @ViewChild('paperPublishedTemplate', {static: true}) paperPublishedTemplate: TemplateRef<any>;
-  @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent: TableServerSideComponent;
+  @ViewChild('datasetAccessionTemplate', {static: true}) datasetAccessionTemplate!: TemplateRef<any>;
+  @ViewChild('paperPublishedTemplate', {static: true}) paperPublishedTemplate!: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent!: TableServerSideComponent;
   @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
-  public loadTableDataFunction: Function;
-  datasetListShort: Observable<DatasetTable[]>;
-  datasetListLong: Observable<DatasetTable[]>;
+  public loadTableDataFunction!: Function;
+  datasetListShort!: Observable<DatasetTable[]>;
+  datasetListLong!: Observable<DatasetTable[]>;
   displayFields: string[] = ['datasetAccession', 'title', 'species', 'archive', 'assayType', 'numberOfExperiments',
     'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished', 'subscribe'];
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive', 'Assay type', 'Number of Experiments',
     'Number of Specimens', 'Number of Files', 'Standard', 'Paper published', 'Subscribe'];
   filter_field: any;
-  templates: Object;
-  aggrSubscription: Subscription;
+  templates: {[index: string]: any} = {};
+  aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle: string;
+  subscriptionDialogTitle = '';
   subscriber = {email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   dialogInfoRef: any;
-  indexDetails: {};
+  indexDetails: {[index: string]: any} = {};
 
-  query = {
+  query: {[index: string]: any} = {
     'sort': ['accession', 'desc'],
     '_source': [
       'accession',
@@ -79,8 +90,8 @@ export class DatasetComponent implements OnInit, OnDestroy {
   };
 
   defaultSort = ['accession', 'desc'];
-  error: string;
-  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
+  error = '';
+  subscriptionDialog!: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
@@ -193,7 +204,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.aggrSubscription.unsubscribe();
   }
 
-  loadInitialPageState(params) {
+  loadInitialPageState(params: any) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;
