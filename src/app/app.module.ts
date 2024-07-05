@@ -14,7 +14,7 @@ import { ActiveFilterComponent } from './shared/active-filter/active-filter.comp
 import { HomeComponent } from './home/home.component';
 import { OrganismComponent } from './organism/organism.component';
 import { SpecimenComponent } from './specimen/specimen.component';
-// import { DatasetComponent } from './dataset/dataset.component';
+import { DatasetComponent } from './dataset/dataset.component';
 // import { AnalysisComponent } from './analysis/analysis.component';
 // import { ArticleComponent } from './article/article.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -190,7 +190,7 @@ export function removeToken(): void {
         HomeComponent,
         OrganismComponent,
         SpecimenComponent,
-        // DatasetComponent,
+        DatasetComponent,
         // AnalysisComponent,
         // ArticleComponent,
         HeaderComponent,

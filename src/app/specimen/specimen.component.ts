@@ -1,45 +1,48 @@
 import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {SpecimenTable} from '../shared/interfaces';
+import {Observable, Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
 import {FilterStateService} from '../services/filter-state.service';
-import {OrganismTable} from '../shared/interfaces';
 import {AggregationService} from '../services/aggregation.service';
-import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {ActivatedRoute, Params, Router, RouterLink} from '@angular/router';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
-import { NgClass } from '@angular/common';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatButton } from '@angular/material/button';
-import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
-import { FilterComponent } from '../shared/filter/filter.component';
-import { HeaderComponent } from '../shared/header/header.component';
+import {HeaderComponent} from '../shared/header/header.component';
+import {FilterComponent} from '../shared/filter/filter.component';
+import {ActiveFilterComponent} from '../shared/active-filter/active-filter.component';
+import {MatButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatIcon} from '@angular/material/icon';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {NgClass} from '@angular/common';
 
 @Component({
-    selector: 'app-organism',
-    templateUrl: './organism.component.html',
-    styleUrls: ['./organism.component.css'],
-    standalone: true,
-    imports: [HeaderComponent, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
-      TableServerSideComponent, RouterLink, NgClass]
+  selector: 'app-specimen',
+  templateUrl: './specimen.component.html',
+  standalone: true,
+  styleUrls: ['./specimen.component.css'],
+  imports: [HeaderComponent, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
+    TableServerSideComponent, RouterLink, NgClass]
 })
-export class OrganismComponent implements OnInit, OnDestroy {
-  @ViewChild('bioSampleIdTemplate', { static: true }) bioSampleIdTemplate!: TemplateRef<any>;
+export class SpecimenComponent implements OnInit, OnDestroy {
+  @ViewChild('biosampleIdTemplate', { static: true }) biosampleIdTemplate!: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate!: TemplateRef<any>;
+  @ViewChild('trackhubUrlTemplate', { static: true }) trackhubUrlTemplate!: TemplateRef<any>;
+  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
   public loadTableDataFunction!: Function;
-  organismListShort!: Observable<OrganismTable[]>;
-  organismListLong!: Observable<OrganismTable[]>;
-
-  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published', 'Subscribe'];
-  displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished', 'subscribe'];
-  templates: {[index: string]: any} = {};
+  specimenListShort!: Observable<SpecimenTable[]>;
+  specimenListLong!: Observable<SpecimenTable[]>;
+  columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard',
+    'Paper published', 'Track Hub', 'Subscribe'];
+  displayFields: string[] = ['bioSampleId', 'material', 'organismpart_celltype', 'sex', 'organism', 'breed', 'standard',
+  'paperPublished', 'trackhubUrl', 'subscribe'];
   filter_field: any;
+  templates: {[index: string]: any} = {};
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
@@ -54,12 +57,15 @@ export class OrganismComponent implements OnInit, OnDestroy {
     'sort': ['id_number', 'desc'],
     '_source': [
       'biosampleId',
-      'sex.text',
-      'organism.text',
-      'breed.text',
+      'material.text',
+      'cellType.text',
+      'organism.sex.text',
+      'organism.organism.text',
+      'organism.breed.text',
       'standardMet',
       'id_number',
-      'paperPublished'
+      'paperPublished',
+      'trackhubUrl'
     ],
     'search': ''
   };
@@ -68,13 +74,17 @@ export class OrganismComponent implements OnInit, OnDestroy {
     'sort': ['id_number', 'desc'],
     '_source': [
       '_source.biosampleId',
-      '_source.sex.text',
-      '_source.organism.text',
-      '_source.breed.text',
+      '_source.id_number',
+      '_source.material.text',
+      '_source.cellType.text',
+      '_source.organism.sex.text',
+      '_source.organism.organism.text',
+      '_source.organism.breed.text',
       '_source.standardMet',
-      '_source.paperPublished'
+      '_source.paperPublished',
+      '_source.trackhubUrl'
     ],
-    'columns': this.columnNames,
+    'columns': this.columnNames.concat(['Track Hub']),
     'filters': {},
     'file_format': 'csv',
   };
@@ -87,29 +97,29 @@ export class OrganismComponent implements OnInit, OnDestroy {
               private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              public dialog: MatDialog,
               private dialogModel: MatDialog,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
   ngOnInit() {
-    this.indexDetails = {index: 'organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
-    this.templates = {'bioSampleId': this.bioSampleIdTemplate,
-                      'paperPublished': this.paperPublishedTemplate };
-    this.loadTableDataFunction = this.dataService.getAllOrganisms.bind(this.dataService);
-    this.titleService.setTitle('FAANG organisms');
+    this.indexDetails = {index: 'specimen', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
+    this.templates = {'bioSampleId': this.biosampleIdTemplate,
+                      'paperPublished': this.paperPublishedTemplate,
+                      'trackhubUrl': this.trackhubUrlTemplate };
+    this.loadTableDataFunction = this.dataService.getAllSpecimens.bind(this.dataService);
+    this.titleService.setTitle('FAANG specimens');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.filterStateService.resetFilter();
       this.loadInitialPageState(params);
     });
+
     this.tableServerComponent.dataUpdate.subscribe((data) => {
-      this.aggregationService.getAggregations(data.aggregations, 'organism');
+      this.aggregationService.getAggregations(data.aggregations, 'specimen');
     });
     this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
       this.downloadQuery['sort'] = sortParams;
     });
-
-    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['organism']);
+    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['specimen']);
   }
 
   hasActiveFilters() {
@@ -127,7 +137,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['organism'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    this.router.navigate(['specimen'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {
@@ -138,15 +148,17 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
-    const mapping = {
-      'bioSampleId': 'biosampleId',
-      'sex': 'sex.text',
-      'organism': 'organism.text',
-      'breed': 'breed.text',
+    const mapping: {[index: string]: any} = {
       'standard': 'standardMet',
+      'sex': 'organism.sex.text',
+      'organism': 'organism.organism.text',
+      'material': 'material.text',
+      'organismpart_celltype': 'cellType.text',
+      'breed': 'organism.breed.text',
       'paper_published': 'paperPublished',
+      'trackhubUrl': 'trackhubUrl'
     };
-    this.dataService.downloadRecords('organism', mapping, this.downloadQuery).subscribe((res: Blob) => {
+    this.dataService.downloadRecords('specimen', mapping, this.downloadQuery).subscribe((res: Blob) => {
       const a = document.createElement('a');
       a.href = URL.createObjectURL(res);
       a.download = 'faang_data.' + format;
@@ -163,16 +175,9 @@ export class OrganismComponent implements OnInit, OnDestroy {
     return published === 'true' ? 'green' : 'default';
   }
 
-  ngOnDestroy() {
-    if (typeof this.filter_field !== 'undefined') {
-      this.filterStateService.resetFilter();
-    }
-    this.aggrSubscription.unsubscribe();
-  }
-
   openSubscriptionDialog() {
     // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Organism entries';
+    this.subscriber.title = 'Subscribing to filtered Specimen entries';
     this.subscriber.indexName = this.indexDetails['index'];
     this.subscriber.indexKey = this.indexDetails['indexKey'];
     const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
@@ -181,9 +186,15 @@ export class OrganismComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy() {
+    if (typeof  this.filter_field !== 'undefined') {
+      this.filterStateService.resetFilter();
+    }
+    this.aggrSubscription.unsubscribe();
+  }
+
   loadInitialPageState(params: any) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
-
     this.filter_field = filters;
     this.query['filters'] = filters;
     this.downloadQuery['filters'] = filters;

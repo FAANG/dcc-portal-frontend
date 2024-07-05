@@ -3,8 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 // import {FileComponent} from './file/file.component';
 import {HomeComponent} from './home/home.component';
 import {OrganismComponent} from './organism/organism.component';
-// import {SpecimenComponent} from './specimen/specimen.component';
-// import {DatasetComponent} from './dataset/dataset.component';
+import {SpecimenComponent} from './specimen/specimen.component';
+import {DatasetComponent} from './dataset/dataset.component';
 // import {AnalysisComponent} from './analysis/analysis.component';
 // import {ArticleComponent} from './article/article.component';
 // import {FileDetailComponent} from './file/file-detail/file-detail.component';
@@ -59,9 +59,9 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'organism', component: OrganismComponent},
   // {path: 'organism/:id', component: OrganismDetailComponent},
-  // {path: 'specimen', component: SpecimenComponent},
+  {path: 'specimen', component: SpecimenComponent},
   // {path: 'specimen/:id', component: SpecimenDetailComponent},
-  // {path: 'dataset', component: DatasetComponent},
+  {path: 'dataset', component: DatasetComponent},
   // {path: 'dataset/:id', component: DatasetDetailComponent},
   // {path: 'file', component: FileComponent},
   // {path: 'file/:id', component: FileDetailComponent},
