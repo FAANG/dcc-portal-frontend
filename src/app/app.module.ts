@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { OrganismComponent } from './organism/organism.component';
 import { SpecimenComponent } from './specimen/specimen.component';
 import { DatasetComponent } from './dataset/dataset.component';
-// import { AnalysisComponent } from './analysis/analysis.component';
+import { AnalysisComponent } from './analysis/analysis.component';
 // import { ArticleComponent } from './article/article.component';
 import { HeaderComponent } from './shared/header/header.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
@@ -191,7 +191,7 @@ export function removeToken(): void {
         OrganismComponent,
         SpecimenComponent,
         DatasetComponent,
-        // AnalysisComponent,
+        AnalysisComponent,
         // ArticleComponent,
         HeaderComponent,
         // FileDetailComponent,

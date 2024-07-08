@@ -5,7 +5,7 @@ import {HomeComponent} from './home/home.component';
 import {OrganismComponent} from './organism/organism.component';
 import {SpecimenComponent} from './specimen/specimen.component';
 import {DatasetComponent} from './dataset/dataset.component';
-// import {AnalysisComponent} from './analysis/analysis.component';
+import {AnalysisComponent} from './analysis/analysis.component';
 // import {ArticleComponent} from './article/article.component';
 // import {FileDetailComponent} from './file/file-detail/file-detail.component';
 // import {OrganismDetailComponent} from './organism/organism-detail/organism-detail.component';
@@ -65,7 +65,7 @@ const routes: Routes = [
   // {path: 'dataset/:id', component: DatasetDetailComponent},
   {path: 'file', component: FileComponent},
   // {path: 'file/:id', component: FileDetailComponent},
-  // {path: 'analysis', component: AnalysisComponent},
+  {path: 'analysis', component: AnalysisComponent},
   // {path: 'analysis/:id', component: AnalysisDetailComponent},
   // {path: 'article', component: ArticleComponent},
   // {path: 'article/:id', component: ArticleDetailComponent},
