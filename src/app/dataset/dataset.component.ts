@@ -23,12 +23,12 @@ import { FlexModule } from '@angular/flex-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
-    selector: 'app-dataset',
-    templateUrl: './dataset.component.html',
-    styleUrls: ['./dataset.component.css'],
-    standalone: true,
-    imports: [HeaderComponent, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
-      TableServerSideComponent, RouterLink, NgClass, ExtendedModule]
+  selector: 'app-dataset',
+  templateUrl: './dataset.component.html',
+  styleUrls: ['./dataset.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
+    TableServerSideComponent, RouterLink, NgClass, ExtendedModule]
 })
 export class DatasetComponent implements OnInit, OnDestroy {
   @ViewChild('datasetAccessionTemplate', {static: true}) datasetAccessionTemplate!: TemplateRef<any>;

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-// import {FileComponent} from './file/file.component';
+import {FileComponent} from './file/file.component';
 import {HomeComponent} from './home/home.component';
 import {OrganismComponent} from './organism/organism.component';
 import {SpecimenComponent} from './specimen/specimen.component';
@@ -63,7 +63,7 @@ const routes: Routes = [
   // {path: 'specimen/:id', component: SpecimenDetailComponent},
   {path: 'dataset', component: DatasetComponent},
   // {path: 'dataset/:id', component: DatasetDetailComponent},
-  // {path: 'file', component: FileComponent},
+  {path: 'file', component: FileComponent},
   // {path: 'file/:id', component: FileDetailComponent},
   // {path: 'analysis', component: AnalysisComponent},
   // {path: 'analysis/:id', component: AnalysisDetailComponent},

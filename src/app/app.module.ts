@@ -2,7 +2,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-// import { FileComponent } from './file/file.component';
+import { FileComponent } from './file/file.component';
 import { AppRoutingModule } from './app-routing.module';
 import {ApiDataService} from './services/api-data.service';
 import {ApiFiltersService} from './services/api-filters.service';
@@ -184,7 +184,7 @@ export function removeToken(): void {
         NgcCookieConsentModule.forRoot(cookieConfig),
         // GraphQLModule,
         MatListModule,
-        // FileComponent,
+        FileComponent,
         FilterComponent,
         ActiveFilterComponent,
         HomeComponent,

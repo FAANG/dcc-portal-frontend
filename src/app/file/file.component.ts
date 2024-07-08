@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
-import {SpecimenTable} from '../shared/interfaces';
-import {Observable, Subscription} from 'rxjs';
 import {ApiDataService} from '../services/api-data.service';
 import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
+import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
+import {FileTable} from '../shared/interfaces';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
@@ -23,28 +23,25 @@ import { FlexModule } from '@angular/flex-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
-  selector: 'app-specimen',
-  templateUrl: './specimen.component.html',
-  styleUrls: ['./specimen.component.css'],
+  selector: 'app-file-table',
+  templateUrl: './file.component.html',
+  styleUrls: ['./file.component.css'],
   standalone: true,
   imports: [HeaderComponent, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
     TableServerSideComponent, RouterLink, NgClass, ExtendedModule]
 })
-export class SpecimenComponent implements OnInit, OnDestroy {
-  @ViewChild('biosampleIdTemplate', { static: true }) biosampleIdTemplate!: TemplateRef<any>;
+export class FileComponent implements OnInit, OnDestroy {
+  @ViewChild('fileNameTemplate', { static: true }) fileNameTemplate!: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate!: TemplateRef<any>;
-  @ViewChild('trackhubUrlTemplate', { static: true }) trackhubUrlTemplate!: TemplateRef<any>;
-  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
+  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   public loadTableDataFunction!: Function;
-  specimenListShort!: Observable<SpecimenTable[]>;
-  specimenListLong!: Observable<SpecimenTable[]>;
-  columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard',
-    'Paper published', 'Track Hub', 'Subscribe'];
-  displayFields: string[] = ['bioSampleId', 'material', 'organismpart_celltype', 'sex', 'organism', 'breed', 'standard',
-  'paperPublished', 'trackhubUrl', 'subscribe'];
+  fileListShort!: Observable<FileTable[]>;
+  fileListLong!: Observable<FileTable[]>;
+  displayFields: string[] = ['fileName', 'study', 'experiment', 'species', 'assayType', 'target', 'specimen', 'instrument', 'standard', 'paperPublished', 'subscribe'];
+  columnNames: string[] = ['File name', 'Study', 'Experiment', 'Species', 'Assay type', 'Target', 'Specimen', 'Instrument', 'Standard', 'Paper published', 'Subscribe'];
   filter_field: any;
-  templates: {[index: string]: any} = {};
+  templates: { [index: string]: any } = {};
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
@@ -53,75 +50,74 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   dialogInfoRef: any;
-  indexDetails: {[index: string]: any} = {};
+  indexDetails: { [index: string]: any } = {};
 
-  query: {[index: string]: any} = {
-    'sort': ['id_number', 'desc'],
+  query: { [index: string]: any } = {
+    'sort': ['fileName', 'desc'],
     '_source': [
-      'biosampleId',
-      'material.text',
-      'cellType.text',
-      'organism.sex.text',
-      'organism.organism.text',
-      'organism.breed.text',
-      'standardMet',
-      'id_number',
+      'study.accession',
+      'experiment.accession',
+      'species.text',
+      'experiment.assayType',
+      'experiment.target',
+      'specimen',
+      'run.instrument',
+      'experiment.standardMet',
       'paperPublished',
-      'trackhubUrl'
-    ],
+      'submitterEmail'],
     'search': ''
   };
 
   downloadQuery = {
-    'sort': ['id_number', 'desc'],
+    'sort': ['fileName', 'desc'],
     '_source': [
-      '_source.biosampleId',
-      '_source.id_number',
-      '_source.material.text',
-      '_source.cellType.text',
-      '_source.organism.sex.text',
-      '_source.organism.organism.text',
-      '_source.organism.breed.text',
-      '_source.standardMet',
+      '_id',
+      '_source.study.accession',
+      '_source.experiment.accession',
+      '_source.species.text',
+      '_source.experiment.assayType',
+      '_source.experiment.target',
+      '_source.specimen',
+      '_source.run.instrument',
+      '_source.experiment.standardMet',
       '_source.paperPublished',
-      '_source.trackhubUrl'
+      '_source.submitterEmail'
     ],
-    'columns': this.columnNames.concat(['Track Hub']),
+    'columns': this.columnNames.concat(['Submitter Email']),
     'filters': {},
     'file_format': 'csv',
   };
 
-  defaultSort = ['id_number', 'desc'];
+  defaultSort = ['fileName', 'desc'];
   error = '';
   subscriptionDialog!: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
-              private router: Router,
               private dialogModel: MatDialog,
+              private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
   ngOnInit() {
-    this.indexDetails = {index: 'specimen', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
-    this.templates = {'bioSampleId': this.biosampleIdTemplate,
-                      'paperPublished': this.paperPublishedTemplate,
-                      'trackhubUrl': this.trackhubUrlTemplate };
-    this.loadTableDataFunction = this.dataService.getAllSpecimens.bind(this.dataService);
-    this.titleService.setTitle('FAANG specimens');
+    this.indexDetails = {index: 'file', indexKey: '_id', apiKey: 'fileName'};
+    this.templates = {'fileName': this.fileNameTemplate,
+                      'paperPublished': this.paperPublishedTemplate };
+    this.loadTableDataFunction = this.dataService.getAllFiles.bind(this.dataService);
+    this.titleService.setTitle('FAANG files');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.filterStateService.resetFilter();
       this.loadInitialPageState(params);
     });
-
     this.tableServerComponent.dataUpdate.subscribe((data) => {
-      this.aggregationService.getAggregations(data.aggregations, 'specimen');
+      this.aggregationService.getAggregations(data.aggregations, 'file');
     });
     this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
       this.downloadQuery['sort'] = sortParams;
     });
-    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['specimen']);
+
+    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['file']);
   }
 
   hasActiveFilters() {
@@ -139,7 +135,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['specimen'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    this.router.navigate(['file'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {
@@ -150,17 +146,20 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
-    const mapping: {[index: string]: any} = {
-      'standard': 'standardMet',
-      'sex': 'organism.sex.text',
-      'organism': 'organism.organism.text',
-      'material': 'material.text',
-      'organismpart_celltype': 'cellType.text',
-      'breed': 'organism.breed.text',
+    const mapping = {
+      'study': 'study.accession',
+      'experiment': 'experiment.accession',
+      'species': 'species.text',
+      'assay_type': 'experiment.assayType',
+      'target': 'experiment.target',
+      'specimen': 'specimen',
+      'instrument': 'run.instrument',
+      'assayType': 'experiment.assayType',
+      'standard': 'experiment.standardMet',
       'paper_published': 'paperPublished',
-      'trackhubUrl': 'trackhubUrl'
+      'submitterEmail': 'submitterEmail'
     };
-    this.dataService.downloadRecords('specimen', mapping, this.downloadQuery).subscribe((res: Blob) => {
+    this.dataService.downloadRecords('file', mapping, this.downloadQuery).subscribe((res: Blob) => {
       const a = document.createElement('a');
       a.href = URL.createObjectURL(res);
       a.download = 'faang_data.' + format;
@@ -179,7 +178,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
 
   openSubscriptionDialog() {
     // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Specimen entries';
+    this.subscriber.title = 'Subscribing to filtered File entries';
     this.subscriber.indexName = this.indexDetails['index'];
     this.subscriber.indexKey = this.indexDetails['indexKey'];
     const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
@@ -189,7 +188,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (typeof  this.filter_field !== 'undefined') {
+    if (typeof this.filter_field !== 'undefined') {
       this.filterStateService.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
