@@ -32,8 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 // import { NgxSmartModalModule } from 'ngx-smart-modal';
-// import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
-// import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
+import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
+import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 // import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
 // import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
 // // import { ChartsModule } from 'ng2-charts';
@@ -44,7 +44,7 @@ import { environment } from '../environments/environment';
 // import { FilesSummaryComponent } from './files-summary/files-summary.component';
 // import {SlicePipe} from '@angular/common';
 // // import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
-// import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
+import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
 // import { NonExistingComponent } from './non-existing/non-existing.component';
 // // import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import { IndeterminateDirective } from './shared/indeterminate.directive';
@@ -203,15 +203,15 @@ export function removeToken(): void {
         // AnalysisDetailComponent,
         // ArticleDetailComponent,
         // SubprojectDetailComponent,
-        // ProtocolSampleComponent,
-        // ProtocolExperimentComponent,
+        ProtocolSampleComponent,
+        ProtocolExperimentComponent,
         // ProtocolSampleDetailsComponent,
         // ProtocolExperimentDetailsComponent,
         // OrganismsSummaryComponent,
         // SpecimensSummaryComponent,
         // DatasetsSummaryComponent,
         // FilesSummaryComponent,
-        // ProtocolAnalysisComponent,
+        ProtocolAnalysisComponent,
         // NonExistingComponent,
         // RulesetSampleComponent,
         // RulesetExperimentComponent,

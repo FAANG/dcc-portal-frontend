@@ -4,28 +4,42 @@ import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
 import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {ArticleTable} from '../shared/interfaces';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
+import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
+import { FilterComponent } from '../shared/filter/filter.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.css']
+  selector: 'app-protocol-sample',
+  templateUrl: './protocol-sample.component.html',
+  styleUrls: ['./protocol-sample.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatTabGroup, MatTab, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon,
+    MatProgressSpinner, TableServerSideComponent, RouterLink]
 })
-export class ArticleComponent implements OnInit, OnDestroy {
-  @ViewChild('titleTemplate', { static: true }) titleTemplate: TemplateRef<any>;
-  @ViewChild('articleSourceTemplate', { static: true }) articleSourceTemplate: TemplateRef<any>;
-  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+export class ProtocolSampleComponent implements OnInit, OnDestroy {
+  @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
+  @ViewChild('nameTemplate', { static: true }) nameTemplate!: TemplateRef<any>;
+  @ViewChild('uniTemplate', { static: true }) uniTemplate!: TemplateRef<any>;
+  @ViewChild('dateTemplate', { static: true }) dateTemplate!: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
   public loadTableDataFunction!: Function;
-  columnNames: string[] = ['Title', 'Journal', 'Year', 'Dataset source', 'Type', 'Subscribe'];
-  displayFields: string[] = ['title', 'journal', 'year', 'datasetSource', 'source', 'subscribe'];
-  filter_field: any;
+
+  columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol', 'Subscribe'];
+  displayFields: string[] = ['protocol_name', 'university_name', 'protocol_date', 'subscribe'];
   templates: { [index: string]: any } = {};
+  filter_field: any;
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
@@ -37,30 +51,29 @@ export class ArticleComponent implements OnInit, OnDestroy {
   indexDetails: { [index: string]: any } = {};
 
   query: { [index: string]: any } = {
-    'sort': ['pmcId', 'asc'],
+    'sort': ['protocolName', 'asc'],
     '_source': [
-      'title',
-      'journal',
-      'year',
-      'datasetSource',
-      'source'],
+      'key',
+      'protocolName',
+      'universityName',
+      'protocolDate'
+    ],
     'search': ''
   };
 
   downloadQuery = {
-    'sort': ['title', 'asc'],
+    'sort': ['protocolName', 'asc'],
     '_source': [
-      '_source.title',
-      '_source.journal',
-      '_source.year',
-      '_source.datasetSource',
-      '_source.source'],
+      '_source.protocolName',
+      '_source.universityName',
+      '_source.protocolDate'
+    ],
     'columns': this.columnNames,
     'filters': {},
     'file_format': 'csv',
   };
 
-  defaultSort = ['pmcId', 'asc'];
+  defaultSort = ['protocolName', 'asc'];
   error = '';
   subscriptionDialog!: MatDialogRef<SubscriptionDialogComponent>;
 
@@ -73,24 +86,27 @@ export class ArticleComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.indexDetails = {index: 'article', indexKey: '_id', apiKey: 'id'};
-    this.templates = {'title': this.titleTemplate,
-                      'source': this.articleSourceTemplate};
-
-    this.loadTableDataFunction = this.dataService.getAllArticles.bind(this.dataService);
-    this.titleService.setTitle('FAANG Articles');
+    this.indexDetails = {index: 'protocol_samples', indexKey: 'key', apiKey: 'key'};
+    this.tabGroup.selectedIndex = 0;
+    this.templates = {
+      'protocol_name': this.nameTemplate,
+      'university_name': this.uniTemplate,
+      'protocol_date': this.dateTemplate
+    };
+    this.loadTableDataFunction = this.dataService.getAllSamplesProtocols.bind(this.dataService);
+    this.titleService.setTitle('FAANG protocols');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.filterStateService.resetFilter();
       this.loadInitialPageState(params);
     });
 
     this.tableServerComponent.dataUpdate.subscribe((data) => {
-      this.aggregationService.getAggregations(data.aggregations, 'article');
+      this.aggregationService.getAggregations(data.aggregations, 'protocol');
     });
     this.tableServerComponent.sortUpdate.subscribe((sortParams) => {
       this.downloadQuery['sort'] = sortParams;
     });
-    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['article']);
+    this.aggrSubscription = this.filterStateService.updateUrlParams(this.query, ['protocol', 'samples']);
   }
 
   hasActiveFilters() {
@@ -105,11 +121,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
     return false;
   }
 
-
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['article'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    this.router.navigate(['protocol', 'samples'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {
@@ -121,35 +136,36 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
     const mapping = {
-      'title': 'title',
-      'year': 'year',
-      'journal': 'journal',
-      'datasetSource': 'datasetSource',
-      'source': 'source',
+      'protocol_name': 'protocolName',
+      'university_name': 'universityName',
+      'protocol_date': 'protocolDate',
     };
-    this.dataService.downloadRecords('article', mapping, this.downloadQuery).subscribe(
-      (res: Blob) => {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(res);
-        a.download = 'faang_data.' + format;
-        a.click();
-        this.downloading = false;
-      },
-      (err) => {
-        this.downloading = false;
-      }
-    );
+    this.dataService.downloadRecords('protocol_samples', mapping, this.downloadQuery).subscribe((res: Blob) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(res);
+      a.download = 'faang_data.' + format;
+      a.click();
+      this.downloading = false;
+    });
   }
 
-  isPublished(source: any) {
-    if (source) {
-      return source.toUpperCase() !== 'PPR' ? 'published' : 'preprint' ;
+  onUploadProtocolClick() {
+    this.router.navigate(['upload_protocol']);
+  }
+
+  tabClick(tab: any) {
+    if (tab.index === 0) {
+      this.router.navigate(['protocol/samples']);
+    } else if (tab.index === 1) {
+      this.router.navigate(['protocol/experiments']);
+    } else if (tab.index === 2) {
+      this.router.navigate(['protocol/analysis']);
     }
   }
 
   openSubscriptionDialog() {
     // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Publication entries';
+    this.subscriber.title = 'Subscribing to filtered Protocol Samples entries';
     this.subscriber.indexName = this.indexDetails['index'];
     this.subscriber.indexKey = this.indexDetails['indexKey'];
     const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
@@ -165,7 +181,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.aggrSubscription.unsubscribe();
   }
 
-  loadInitialPageState(params) {
+  loadInitialPageState(params: any) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;

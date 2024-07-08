@@ -72,7 +72,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   tooltipUpdate: string;
   tooltipSubmission: string;
   currentDate: Date;
-  error: string;
+  error = '';
 
   @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
 

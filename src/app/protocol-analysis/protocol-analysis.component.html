@@ -1,0 +1,90 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <h2>FAANG Protocols</h2>
+  <hr>
+
+  <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+    <mat-tab label="Samples"></mat-tab>
+    <mat-tab label="Experiments"></mat-tab>
+    <mat-tab label="Analyses"></mat-tab>
+  </mat-tab-group>
+
+  <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
+    <div fxFlex="17">
+      <app-filter title="Organisation" [filterSize]=2></app-filter>
+      <app-filter title="Protocol Year" [filterSize]=5></app-filter>
+      <app-filter title="Project" [filterSize]=4></app-filter>
+    </div>
+
+    <div fxFlex="83" class="table-responsive">
+      @if (hasActiveFilters()) {
+        <div>
+          @if (hasActiveFilters()) {
+            <app-active-filter></app-active-filter>
+          }
+          <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
+          <button mat-raised-button
+                  matTooltip="Subscribe to selected Protocol Analysis entries"
+                  (click)="openSubscriptionDialog()">
+            <div class="subscription-icon">
+              <mat-icon>email</mat-icon>
+            </div>
+          </button>
+          <hr>
+        </div>
+      }
+      <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
+        Download data
+      </button>
+      @if (downloadData) {
+        <button (click)="downloadFile('csv')" mat-raised-button>
+          Export as CSV file
+        </button>
+      }
+      @if (downloadData) {
+        <button (click)="downloadFile('txt')" mat-raised-button>
+          Export as Tabular file
+        </button>
+      }
+      <button mat-raised-button style="background-color: green; color: white;" (click)="onUploadProtocolClick()">Upload protocol</button>
+
+      @if (downloading) {
+        <div style="padding: 15px">
+          <mat-spinner [diameter]="30"></mat-spinner>
+        </div>
+      }
+
+      <app-table-server-side  [display_fields]="displayFields"
+                              [column_names]="columnNames"
+                              [indexDetails]="indexDetails"
+                              [templates]="templates"
+                              [filter_values]="filter_field"
+                              [apiFunction]="loadTableDataFunction"
+                              [query]="query"
+                              [defaultSort]="defaultSort">
+      </app-table-server-side>
+    </div>
+  </div>
+</div>
+
+<ng-template #nameTemplate let-item>
+  <a style="cursor: pointer" target="_blank" [routerLink]="item['key']">{{item['protocol_name']}}</a>
+</ng-template>
+
+<ng-template #uniTemplate let-item>
+  @if (item['university_name']) {
+    <span>{{item['university_name']}}</span>
+  }
+  @if (!item['university_name']) {
+    <span>-</span>
+  }
+</ng-template>
+
+<ng-template #dateTemplate let-item>
+  @if (item['protocol_date']) {
+    <span>{{item['protocol_date']}}</span>
+  }
+  @if (!item['protocol_date']) {
+    <span>-</span>
+  }
+</ng-template>
