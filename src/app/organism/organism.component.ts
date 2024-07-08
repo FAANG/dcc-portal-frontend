@@ -5,52 +5,54 @@ import {OrganismTable} from '../shared/interfaces';
 import {AggregationService} from '../services/aggregation.service';
 import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/internal/operators/finalize';
-import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
-import { NgClass } from '@angular/common';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatButton } from '@angular/material/button';
-import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
-import { FilterComponent } from '../shared/filter/filter.component';
-import { HeaderComponent } from '../shared/header/header.component';
+import {ActivatedRoute, Params, Router, RouterLink} from '@angular/router';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {finalize} from 'rxjs/internal/operators/finalize';
+import {SubscriptionDialogComponent} from '../shared/subscription-dialog/subscription-dialog.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
+import {ExtendedModule} from '@angular/flex-layout/extended';
+import {NgClass} from '@angular/common';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatButton} from '@angular/material/button';
+import {ActiveFilterComponent} from '../shared/active-filter/active-filter.component';
+import {FilterComponent} from '../shared/filter/filter.component';
+import {FlexModule} from '@angular/flex-layout/flex';
+import {HeaderComponent} from '../shared/header/header.component';
 
 @Component({
-    selector: 'app-organism',
-    templateUrl: './organism.component.html',
-    styleUrls: ['./organism.component.css'],
-    standalone: true,
-    imports: [HeaderComponent, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
-      TableServerSideComponent, RouterLink, NgClass]
+  selector: 'app-organism',
+  templateUrl: './organism.component.html',
+  styleUrls: ['./organism.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
+    TableServerSideComponent, RouterLink, NgClass, ExtendedModule]
 })
 export class OrganismComponent implements OnInit, OnDestroy {
-  @ViewChild('bioSampleIdTemplate', { static: true }) bioSampleIdTemplate!: TemplateRef<any>;
-  @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate!: TemplateRef<any>;
-  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
+  @ViewChild('bioSampleIdTemplate', {static: true}) bioSampleIdTemplate!: TemplateRef<any>;
+  @ViewChild('paperPublishedTemplate', {static: true}) paperPublishedTemplate!: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent!: TableServerSideComponent;
   public loadTableDataFunction!: Function;
   organismListShort!: Observable<OrganismTable[]>;
   organismListLong!: Observable<OrganismTable[]>;
 
   columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published', 'Subscribe'];
   displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished', 'subscribe'];
-  templates: {[index: string]: any} = {};
+  templates: { [index: string]: any } = {};
   filter_field: any;
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
   subscriptionDialogTitle = '';
-  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
+  subscriber = {email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   dialogInfoRef: any;
-  indexDetails: {[index: string]: any} = {};
+  indexDetails: { [index: string]: any } = {};
 
-  query: {[index: string]: any} = {
+  query: { [index: string]: any } = {
     'sort': ['id_number', 'desc'],
     '_source': [
       'biosampleId',
@@ -90,12 +92,15 @@ export class OrganismComponent implements OnInit, OnDestroy {
               public dialog: MatDialog,
               private dialogModel: MatDialog,
               private aggregationService: AggregationService,
-              private titleService: Title) { }
+              private titleService: Title) {
+  }
 
   ngOnInit() {
     this.indexDetails = {index: 'organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
-    this.templates = {'bioSampleId': this.bioSampleIdTemplate,
-                      'paperPublished': this.paperPublishedTemplate };
+    this.templates = {
+      'bioSampleId': this.bioSampleIdTemplate,
+      'paperPublished': this.paperPublishedTemplate
+    };
     this.loadTableDataFunction = this.dataService.getAllOrganisms.bind(this.dataService);
     this.titleService.setTitle('FAANG organisms');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
