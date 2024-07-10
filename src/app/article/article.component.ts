@@ -5,22 +5,35 @@ import {AggregationService} from '../services/aggregation.service';
 import {Observable, Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import {ArticleTable} from '../shared/interfaces';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { NgClass } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { FilterComponent } from '../shared/filter/filter.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
+import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.css']
+  styleUrls: ['./article.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, FilterComponent, MatProgressSpinner,
+    TableServerSideComponent, RouterLink, NgClass, ExtendedModule]
 })
 export class ArticleComponent implements OnInit, OnDestroy {
-  @ViewChild('titleTemplate', { static: true }) titleTemplate: TemplateRef<any>;
-  @ViewChild('articleSourceTemplate', { static: true }) articleSourceTemplate: TemplateRef<any>;
-  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
+  @ViewChild('titleTemplate', { static: true }) titleTemplate!: TemplateRef<any>;
+  @ViewChild('articleSourceTemplate', { static: true }) articleSourceTemplate!: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
   public loadTableDataFunction!: Function;
   columnNames: string[] = ['Title', 'Journal', 'Year', 'Dataset source', 'Type', 'Subscribe'];
   displayFields: string[] = ['title', 'journal', 'year', 'datasetSource', 'source', 'subscribe'];
@@ -145,6 +158,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     if (source) {
       return source.toUpperCase() !== 'PPR' ? 'published' : 'preprint' ;
     }
+    return;
   }
 
   openSubscriptionDialog() {
@@ -165,7 +179,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.aggrSubscription.unsubscribe();
   }
 
-  loadInitialPageState(params) {
+  loadInitialPageState(params: any) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;

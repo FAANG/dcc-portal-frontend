@@ -9,8 +9,12 @@ export const pieChartOptions: ChartOptions = {
     },
     datalabels: {
       formatter: (value, ctx) => {
-        const label = ctx.chart.data.labels[ctx.dataIndex];
-        return label;
+        const chartLabels = ctx.chart.data.labels;
+        if (chartLabels) {
+          const label = chartLabels[ctx.dataIndex];
+          return label;
+        }
+        return;
       },
     },
   }

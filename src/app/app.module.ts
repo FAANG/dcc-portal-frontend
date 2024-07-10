@@ -16,7 +16,7 @@ import { OrganismComponent } from './organism/organism.component';
 import { SpecimenComponent } from './specimen/specimen.component';
 import { DatasetComponent } from './dataset/dataset.component';
 import { AnalysisComponent } from './analysis/analysis.component';
-// import { ArticleComponent } from './article/article.component';
+import { ArticleComponent } from './article/article.component';
 import { HeaderComponent } from './shared/header/header.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
 // import { FileDetailComponent } from './file/file-detail/file-detail.component';
@@ -38,10 +38,10 @@ import { ProtocolExperimentComponent } from './protocol-experiment/protocol-expe
 // import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
 // // import { ChartsModule } from 'ng2-charts';
 // import { NgChartsModule } from 'ng2-charts';
-// import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
-// import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
-// import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
-// import { FilesSummaryComponent } from './files-summary/files-summary.component';
+import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
+import { SpecimensSummaryComponent } from './specimens-summary/specimens-summary.component';
+import { DatasetsSummaryComponent } from './datasets-summary/datasets-summary.component';
+import { FilesSummaryComponent } from './files-summary/files-summary.component';
 // import {SlicePipe} from '@angular/common';
 // // import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
@@ -192,7 +192,7 @@ export function removeToken(): void {
         SpecimenComponent,
         DatasetComponent,
         AnalysisComponent,
-        // ArticleComponent,
+        ArticleComponent,
         HeaderComponent,
         // FileDetailComponent,
         // RobustLinkComponent,
@@ -207,10 +207,10 @@ export function removeToken(): void {
         ProtocolExperimentComponent,
         // ProtocolSampleDetailsComponent,
         // ProtocolExperimentDetailsComponent,
-        // OrganismsSummaryComponent,
-        // SpecimensSummaryComponent,
-        // DatasetsSummaryComponent,
-        // FilesSummaryComponent,
+        OrganismsSummaryComponent,
+        SpecimensSummaryComponent,
+        DatasetsSummaryComponent,
+        FilesSummaryComponent,
         ProtocolAnalysisComponent,
         // NonExistingComponent,
         // RulesetSampleComponent,

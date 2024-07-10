@@ -1,0 +1,126 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <h2>FAANG Summary</h2>
+  <hr>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" style="margin-bottom: 20px;">
+    <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+      <mat-tab label="Organisms"></mat-tab>
+      <mat-tab label="Specimens"></mat-tab>
+      <mat-tab label="Datasets"></mat-tab>
+      <mat-tab label="Files"></mat-tab>
+    </mat-tab-group>
+
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="onCheckboxClick()" checked>
+      <label class="form-check-label" for="defaultCheck1">
+        Show only FAANG data (exclude legacy data)
+      </label>
+    </div>
+  </div>
+
+  @if (!error) {
+    <div fxLayout="column" fxLayoutGap="4%">
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
+        <mat-card fxFlex="48" class="card" style="max-height: 600px">
+          <h3>Sex</h3>
+          <span class="subheader">Click on legend to exclude item</span>
+          <hr>
+          <div class="center">
+            <canvas baseChart
+                    [datasets]="sexChartData"
+                    [labels]="sexChartLabels"
+                    [type]="'pie'"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="true">
+            </canvas>
+          </div>
+        </mat-card>
+        <mat-card fxFlex="48" class="card" style="max-height: 600px">
+          <h3>Paper published</h3>
+          <span class="subheader">Click on legend to exclude item</span>
+          <hr>
+          <div class="center">
+            <canvas baseChart
+                    [datasets]="paperChartData"
+                    [labels]="paperChartLabels"
+                    [type]="'pie'"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="true">
+            </canvas>
+          </div>
+        </mat-card>
+      </div>
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
+        <mat-card fxFlex="48" class="card" style="max-height: 600px">
+          <h3>Organisms</h3>
+          <span class="subheader">Hover over bar to see full name</span>
+          <hr>
+          <div class="centerBarChart">
+            <canvas baseChart
+                    [data]="organismChartData"
+                    [type]="'bar'"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="false">
+            </canvas>
+          </div>
+        </mat-card>
+        <mat-card fxFlex="48" class="card" style="max-height: 600px">
+          <h3>Standard</h3>
+          <span class="subheader">Click on legend to exclude item</span>
+          <hr>
+          <div class="center">
+            <canvas baseChart
+                    [labels]="standardChartLabels"
+                    [datasets]="standardChartData"
+                    [options]="doughnutChartOptions"
+                    [legend]="true"
+                    [type]="'doughnut'">
+            </canvas>
+          </div>
+        </mat-card>
+      </div>
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%">
+        <mat-card fxFlex="48" class="card" style="max-height: 600px">
+          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" >
+            <h3>Breeds of <i class="subheader">{{name}}</i></h3>
+            <div>
+              <button mat-button [matMenuTriggerFor]="menu">
+                <div style="display: flex; align-items: center;">
+                  <div>Choose organism</div>
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+              </button>
+              <mat-menu #menu="matMenu">
+                @for (breed of breedKeys; track breed) {
+                  <button mat-menu-item (click)="onItemClick(breed)" style="cursor: pointer">{{breed}}</button>
+                }
+              </mat-menu>
+            </div>
+          </div>
+          <span class="subheader">Hover over bar to see full name</span>
+          <hr>
+          <div class="centerBarChart">
+            <canvas baseChart
+                    [data]="breedChartData"
+                    [type]="'bar'"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="false">
+            </canvas>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  }
+
+  @if (error) {
+    <div fxLayout="row">
+      <div fxFlex="100" class="alert alert-danger"><p>{{ error }}</p></div>
+    </div>
+  }
+
+</div>
