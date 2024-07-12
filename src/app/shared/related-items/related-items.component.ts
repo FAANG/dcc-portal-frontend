@@ -289,7 +289,7 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   getDataSource(records: any[]) {
-    const tableData = [];
+    const tableData: any[] = [];
     const fields = this.setting[this.source_type][this.target_type]['fields'];
     if (records) {
       for (const index of Object.keys(records)) {

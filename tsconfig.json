@@ -49,6 +49,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "noImplicitAny": false,
+
     "outDir": "./dist/out-tsc",
     "strict": true,
     "resolveJsonModule": true,

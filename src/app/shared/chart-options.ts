@@ -14,7 +14,7 @@ export const pieChartOptions: ChartOptions = {
           const label = chartLabels[ctx.dataIndex];
           return label;
         }
-        return;
+        return null;
       },
     },
   }

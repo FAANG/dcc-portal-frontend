@@ -191,7 +191,7 @@ export class PortalDataTableComponent implements OnInit {
   }
 
   getDataSource(records: {[index: string]: any}) {
-    const tableData = [];
+    const tableData: any[] = [];
     const fields = this.setting[this.data_type]['fields'];
     if (records) {
       for (const index of Object.keys(records)) {

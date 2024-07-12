@@ -23,8 +23,8 @@ export class SubprojectComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('FAANG projects');
-    const eurofaang_keyproj = [];
-    const faang_keyproj = [];
+    const eurofaang_keyproj: any[] = [];
+    const faang_keyproj: any[] = [];
 
     for (const [key, val] of Object.entries(setting)) {
       const value: any = val;

@@ -48,9 +48,9 @@ import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis
 // import { NonExistingComponent } from './non-existing/non-existing.component';
 // // import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import { IndeterminateDirective } from './shared/indeterminate.directive';
-// import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
-// import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
-// import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
+import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
+import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
+import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import {FormsModule} from '@angular/forms';
 // import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
@@ -100,7 +100,7 @@ import { NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { cookieConfig } from './app.component';
 // import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 // import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
-// import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
+import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -213,9 +213,9 @@ export function removeToken(): void {
         FilesSummaryComponent,
         ProtocolAnalysisComponent,
         // NonExistingComponent,
-        // RulesetSampleComponent,
-        // RulesetExperimentComponent,
-        // RulesetAnalysisComponent,
+        RulesetSampleComponent,
+        RulesetExperimentComponent,
+        RulesetAnalysisComponent,
         // IndeterminateDirective,
         FooterComponent,
         // ValidationSamplesComponent,
@@ -238,7 +238,7 @@ export function removeToken(): void {
         // NextflowSubmissionComponent,
         // ProtocolAnalysisDetailsComponent,
         // EnsemblAnnotationComponent,
-        // LocalGenomeBrowserComponent,
+        LocalGenomeBrowserComponent,
         // GraphqlComponent,
         // GlobalSearchComponent,
         // DisplayDataComponent,

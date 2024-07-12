@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { Location, LocationStrategy, PathLocationStrategy, NgClass, KeyValuePipe } from '@angular/common';
 import {ApiDataService} from '../../services/api-data.service';
 import {
   experiment_metadata_template_with_examples,
@@ -17,18 +17,43 @@ import {
   getValidItems,
   replaceUnderscoreWithSpace
 } from '../../shared/common_functions';
-import {MatTabGroup} from '@angular/material/tabs';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatButton } from '@angular/material/button';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
-  selector: 'app-ruleset-experiment',
-  templateUrl: './ruleset-experiment.component.html',
-  styleUrls: ['../rulesets.css'],
-  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+    selector: 'app-ruleset-experiment',
+    templateUrl: './ruleset-experiment.component.html',
+    styleUrls: ['../rulesets.css'],
+    providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
+    standalone: true,
+    imports: [
+        HeaderComponent,
+        MatTabGroup,
+        MatTab,
+        FlexModule,
+        MatButton,
+        NgClass,
+        ExtendedModule,
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCellDef,
+        MatCell,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        KeyValuePipe,
+    ],
 })
 export class RulesetExperimentComponent implements OnInit {
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
-  dataSource: MatTableDataSource<any>;
+  @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
+  dataSource!: MatTableDataSource<any>;
   column_names = ['Name', 'Description', 'Type', 'Required?', 'Allow multiple?', 'Valid values', 'Valid units', 'Valid terms', 'Condition'];
   error: any;
   data: any;
@@ -42,8 +67,8 @@ export class RulesetExperimentComponent implements OnInit {
   getMandatoryData: any;
   generateEbiOntologyLink: any;
   replaceUnderscoreWithSpace: any;
-  metadata_template_with_examples: string;
-  metadata_template_without_examples: string;
+  metadata_template_with_examples = '';
+  metadata_template_without_examples = '';
   record_specific_templates = {
     'ATAC-seq': '../../../assets/atac-seq.xlsx',
     'BS-seq': '../../../assets/bs-seq.xlsx',
@@ -57,13 +82,13 @@ export class RulesetExperimentComponent implements OnInit {
     'CAGE-seq': '../../../assets/cage-seq.xlsx',
     'scRNA-seq': '../../../assets/scrna-seq.xlsx'
   };
-  rule_groups = [];
-  rules = [];
-  active_rule: string;
-  length: number;
-  name: string;
-  description: string;
-  details: string;
+  rule_groups: any[] = [];
+  rules: any[] = [];
+  active_rule = '';
+  length: number = 0;
+  name = '';
+  description = '';
+  details = '';
   location: Location;
 
   constructor(private titleService: Title,
@@ -76,7 +101,7 @@ export class RulesetExperimentComponent implements OnInit {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 1;
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource<any[]>([]);
     this.rule_groups = [
       'Standard',
       'ATAC-seq',
@@ -106,7 +131,7 @@ export class RulesetExperimentComponent implements OnInit {
 
     this.route.fragment
       .subscribe(
-        (fragment: string) => {
+        (fragment: string | null) => {
           if (fragment) {
             this.clickOnRule(fragment);
           } else {
@@ -142,6 +167,7 @@ export class RulesetExperimentComponent implements OnInit {
     } else if (this.active_rule === 'EM-seq' && rule === 'self') {
       return 'methylation profiling by high throughput sequencing';
     }
+    return '';
   }
 
   getType(data: any) {
@@ -302,7 +328,7 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   getDataSource(data, rules) {
-    const ds = [];
+    const ds: any[] = [];
     for (const rule of rules) {
       if (rule !== 'describedBy' && rule !== 'schema_version' && rule !== 'experiments_core'
           && rule !== 'input_dna' && rule !== 'dna-binding_proteins') {

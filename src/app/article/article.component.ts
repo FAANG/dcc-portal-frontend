@@ -158,7 +158,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     if (source) {
       return source.toUpperCase() !== 'PPR' ? 'published' : 'preprint' ;
     }
-    return;
+    return null;
   }
 
   openSubscriptionDialog() {

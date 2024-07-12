@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <mat-accordion>
+    <mat-expansion-panel style="margin-bottom: 20px;" expanded="true">
+      <mat-expansion-panel-header style="background-color: rgba(0,0,0,0.05);">
+        <mat-panel-title>
+          <h4 style="margin-top: 10px;">FAANG Track Hubs</h4>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- Tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <div style="margin-left: 10px;">
+            <mat-checkbox [(ngModel)]="currentTracks[node.data.url]"
+                          (change)="addTrackByUrl(node.name, node.data.url, node.data.type, node.data.genome)"
+                          [disabled]="disableSelection">
+              <b>{{node.name}}</b>
+              <span style="margin-left: 10px" class="faded">{{node.data.description}}</span>
+            </mat-checkbox>
+          </div>
+        </mat-tree-node>
+        <!-- Tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle
+                  [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="faded">
+              {{treeControl.isExpanded(node) ? 'folder_open' : 'create_new_folder'}}
+            </mat-icon>
+          </button>
+          {{node.name}}
+        </mat-tree-node>
+      </mat-tree>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div #igvdiv style="margin-top: 20px;"></div>
+</div>

@@ -25,9 +25,9 @@ import {FilesSummaryComponent} from './files-summary/files-summary.component';
 import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.component';
 // import {ProtocolAnalysisDetailsComponent} from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 // import {NonExistingComponent} from './non-existing/non-existing.component';
-// import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
-// import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
-// import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
+import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
+import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
+import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 // import {ValidationSamplesComponent} from './validation/validation-samples/validation-samples.component';
 // import {ValidationExperimentsComponent} from './validation/validation-experiments/validation-experiments.component';
 // import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
@@ -50,7 +50,7 @@ import {SubprojectComponent} from './subprojects/subproject.component';
 //
 // import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 // import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
-// import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
+import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
 // import { GraphqlComponent } from './graphql/graphql.component';
 // import { GlobalSearchComponent } from './globalsearch/globalsearch.component';
 
@@ -80,9 +80,9 @@ const routes: Routes = [
   {path: 'summary/specimens', component: SpecimensSummaryComponent},
   {path: 'summary/datasets', component: DatasetsSummaryComponent},
   {path: 'summary/files', component: FilesSummaryComponent},
-  // {path: 'ruleset/samples', component: RulesetSampleComponent},
-  // {path: 'ruleset/experiments', component: RulesetExperimentComponent},
-  // {path: 'ruleset/analyses', component: RulesetAnalysisComponent},
+  {path: 'ruleset/samples', component: RulesetSampleComponent},
+  {path: 'ruleset/experiments', component: RulesetExperimentComponent},
+  {path: 'ruleset/analyses', component: RulesetAnalysisComponent},
   // {path: 'validation/samples', component: ValidationSamplesComponent},
   // {path: 'validation/experiments', component: ValidationExperimentsComponent},
   // {path: 'validation/analyses', component: ValidationAnalysesComponent},
@@ -106,7 +106,7 @@ const routes: Routes = [
   //
   // {path: 'trackhubs', component: TrackhubsSubmissionComponent},
   // {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
-  // {path: 'genome_browser', component: LocalGenomeBrowserComponent},
+  {path: 'genome_browser', component: LocalGenomeBrowserComponent},
   // {path: 'graphql', component: GraphqlComponent},
   // {path: 'globalsearch', component: GlobalSearchComponent},
   // {path: '404', component: NonExistingComponent},
