@@ -1,0 +1,61 @@
+.funding-logo {
+  float: right!important;
+  max-width: 75%!important;
+}
+
+.hidden-tab {
+  display: none !important;
+}
+
+
+.small-project-logo {
+  max-width:fit-content;
+  max-height:200px;
+  float: left;
+  width:auto;
+  height:auto;
+}
+
+.large-project-logo {
+  max-width:fit-content;
+  max-height:150px;
+  float: left;
+  width:auto;
+  height:auto;
+}
+
+h3{
+  clear: both;
+}
+
+.spacer {
+  padding: 10px 0 10px 0;
+}
+
+.scroll {
+  overflow-y: scroll;
+  height: 400px;
+  padding: 20px;
+}
+
+div.keyproj{
+  width: 100%;
+}
+
+.project-link {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.project-link a{
+  text-decoration:none;
+  color:#5199a8;
+}
+
+.project-link a:hover{
+  color:#8dc7d3;
+}
+
+h5 {
+  text-align: justify;
+}

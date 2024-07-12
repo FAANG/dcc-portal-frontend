@@ -1,0 +1,66 @@
+<app-header></app-header>
+<div class="container-fluid" style="min-height:87vh">
+  <h2>FAANG Projects</h2>
+  <hr>
+
+  @if ((eurofaang_proj | keyvalue)?.length) {
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayout.lt-md="column" fxLayoutGap="2%" style="margin-bottom:20px;">
+      <div style="padding: 20px; margin-bottom:20px;">
+        <a [routerLink]="['/projects', eurofaang_proj.id]">
+          <mat-card style="height: 170px;" class="z-depth card">
+            <div class="card-div extra-padding">
+              <img src="{{eurofaang_proj.image.url}}" alt="Project Logo" class="parent-project-logo">
+            </div>
+          </mat-card>
+        </a>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
+      @for (keyproject of eurofaang_proj['key_projects']; track keyproject) {
+        <div
+          fxFlex="30" fxFlex.lt-md="100" style="text-align: center;">
+          <a [routerLink]="['/projects', keyproject.id]">
+            <mat-card style="height: 170px; margin-bottom: 20px;" class="z-depth card">
+              <div class="card-div">
+                <img src="{{keyproject.image.url}}" alt="{{keyproject}}" [ngClass]="keyproject.id === 'AQUA-FAANG' ? 'aquaa-project-logo' : 'project-logo'">
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      }
+    </div>
+  }
+
+  <hr class="horizontal-rule">
+
+  @if ((faang_proj | keyvalue)?.length) {
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayout.lt-md="column" style="margin-bottom:20px">
+      <div style="padding: 20px; margin-bottom:20px;">
+        <a [routerLink]="['/projects', faang_proj.id]">
+          <mat-card style="height: 170px;" class="z-depth card">
+            <div class="card-div extra-padding">
+              <img src="{{faang_proj.image.url}}" alt="Project Logo" class="faang-parent-project-logo">
+            </div>
+          </mat-card>
+        </a>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
+      @for (keyproject of faang_proj['key_projects']; track keyproject) {
+        <div
+          fxFlex="30" fxFlex.lt-md="100" style="text-align: center;">
+          <div style="padding: 20px; margin-bottom:20px;">
+            <a [routerLink]="['/projects', keyproject.id]">
+              <mat-card style="height: 170px;" class="z-depth card">
+                <div class="card-div extra-padding">
+                  <img src="{{keyproject.image.url}}" alt="{{keyproject}}" class="project-logo">
+                </div>
+              </mat-card>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</div>

@@ -27,7 +27,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 // import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
 // import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
 // import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
-// import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
+import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -59,7 +59,7 @@ import {FormsModule} from '@angular/forms';
 // import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 // import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 // import {FileUploadModule} from 'ng2-file-upload';
-// import { SubprojectComponent } from './subprojects/subproject.component';
+import { SubprojectComponent } from './subprojects/subproject.component';
 // import {JwtModule} from '@auth0/angular-jwt';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -202,7 +202,7 @@ export function removeToken(): void {
         // DatasetDetailComponent,
         // AnalysisDetailComponent,
         // ArticleDetailComponent,
-        // SubprojectDetailComponent,
+        SubprojectDetailComponent,
         ProtocolSampleComponent,
         ProtocolExperimentComponent,
         // ProtocolSampleDetailsComponent,
@@ -223,7 +223,7 @@ export function removeToken(): void {
         // ValidationAnalysesComponent,
         // UsdaBovineComponent,
         // SheepatlasComponent,
-        // SubprojectComponent,
+        SubprojectComponent,
         // TableClientSideComponent,
         // LoginComponent,
         // FilesUploadComponent,

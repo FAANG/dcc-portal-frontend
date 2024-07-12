@@ -13,7 +13,7 @@ import {ArticleComponent} from './article/article.component';
 // import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
 // import {AnalysisDetailComponent} from './analysis/analysis-detail/analysis-detail.component';
 // import {ArticleDetailComponent} from './article/article-detail/article-detail.component';
-// import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
+import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.component';
 import {ProtocolExperimentComponent} from './protocol-experiment/protocol-experiment.component';
 // import {ProtocolSampleDetailsComponent} from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
@@ -36,7 +36,7 @@ import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.c
 // import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
 // import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
 //
-// import {SubprojectComponent} from './subprojects/subproject.component';
+import {SubprojectComponent} from './subprojects/subproject.component';
 // import {LoginComponent} from './login/login.component';
 // import {FilesUploadComponent} from './files-upload/files-upload.component';
 // import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
@@ -86,13 +86,13 @@ const routes: Routes = [
   // {path: 'validation/samples', component: ValidationSamplesComponent},
   // {path: 'validation/experiments', component: ValidationExperimentsComponent},
   // {path: 'validation/analyses', component: ValidationAnalysesComponent},
-  // {path: 'projects', component: SubprojectComponent},
+  {path: 'projects', component: SubprojectComponent},
 
   // //to delete
   // {path: 'projects/usda-bovine', component: UsdaBovineComponent},
   // {path: 'projects/sheepatlas', component: SheepatlasComponent},
   //
-  // {path: 'projects/:id', component: SubprojectDetailComponent},
+  {path: 'projects/:id', component: SubprojectDetailComponent},
   // {path: 'login', component: LoginComponent},
   // {path: 'upload_protocol', component: FilesUploadComponent},
   // {path: 'ontology', component: OntologyImproverComponent},

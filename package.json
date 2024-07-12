@@ -36,6 +36,7 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
     "@popperjs/core": "^2.11.5",
+    "@types/file-saver": "^2.0.7",
     "@types/jasmine": "^5.1.2",
     "@types/jasminewd2": "^2.0.13",
     "angular-popper": "^2.0.1",
@@ -48,7 +49,7 @@
     "cookieconsent": "^3.1.1",
     "core-js": "^3.34.0",
     "express": "^4.18.2",
-    "file-saver": "^2.0.2",
+    "file-saver": "^2.0.5",
     "graphql": "^16",
     "igv": "^2.15.11",
     "jasmine-core": "^5.1.1",
@@ -57,6 +58,7 @@
     "karma-jasmine-html-reporter": "^2.1.0",
     "material-design-icons": "^3.0.1",
     "ng2-charts": "^5.0.3",
+    "ng2-file-upload": "^5.0.0",
     "ngx-bootstrap": "^5.2.0",
     "ngx-cookieconsent": "^6.0.0",
     "ngx-pagination": "^3.3.1",
@@ -66,8 +68,7 @@
     "rxjs": "^7.8.0",
     "swagger-ui-dist": "^3.51.1",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.2",
-    "ng2-file-upload": "^5.0.0"
+    "zone.js": "~0.14.2"
   },
   "devDependencies": {
     "@angular/cli": "^18.0.6",

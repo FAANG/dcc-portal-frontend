@@ -1,0 +1,102 @@
+.paragraph {
+  word-wrap:break-word;
+  text-align:justify;
+}
+
+.wrapper {
+  width: 100%;
+  margin-top: 15px;
+  overflow: hidden;
+}
+.first-section {
+  width: 50%;
+  text-align:justify;
+  float:left; /* add this */
+  padding-right: 20px;
+}
+.second-section {
+  margin-left:0;
+  margin-right:0;
+  text-align:center;
+  overflow: hidden;
+}
+
+div.second-section img {
+  max-width:80%;
+}
+
+span.sm-para{
+  display: block;
+  margin-bottom: 20px;
+}
+
+.wrapper-logo {
+  width: 100%;
+  overflow: hidden;
+}
+
+.logo-col {
+  width:25%;
+  padding:10px 15px;
+  float:left;
+  margin-left:0;
+  margin-right:0;
+  text-align:center;
+}
+
+.text-col {
+  margin-left:0;
+  margin-right:0;
+  overflow: hidden;
+}
+
+.img-center{
+  padding-top:10px;
+  padding-bottom:10px;
+  margin-left:0;
+  margin-right:0;
+  text-align:center;
+}
+
+.bottom-table {
+  position:relative;
+  border-collapse:collapse;
+  table-layout:fixed;
+  width:100%;
+  margin:0!important;
+  border:0!important;
+  padding:0!important;
+}
+
+.bottom-table-col {
+  vertical-align:top;
+  margin:0!important;
+  border:0!important;
+  -moz-box-sizing:border-box;
+  padding:0 15px;
+}
+
+a {
+  text-decoration:none;
+  color:#5199a8;
+}
+
+a:hover {
+  color:#8dc7d3;
+}
+
+.project-link {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.projectNamesTitle{
+  font-size: 60%;
+  color: #5199a8;
+}
+
+.projectSelection{
+  margin: 60px 0px 40px 0px;
+  color: #425360;
+  font-size: 20px;
+}

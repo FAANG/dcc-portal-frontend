@@ -2,22 +2,26 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ApiDataService} from '../../services/api-data.service';
 import {UserService} from '../../services/user.service';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
 
 @Component({
   selector: 'app-ensembl-annotation',
   templateUrl: './ensembl-annotation.component.html',
-  styleUrls: ['./ensembl-annotation.component.css']
+  styleUrls: ['./ensembl-annotation.component.css'],
+  standalone: true,
+  imports: [MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatSortHeader, MatHeaderRowDef,
+    MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
 export class EnsemblAnnotationComponent implements OnInit {
-  @Input() projectArr: string[];
-  @Input() parentComponent: string;
+  @Input() projectArr: string[] = [];
+  @Input() parentComponent = '';
 
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  dataSource: MatTableDataSource<any>;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
+  dataSource!: MatTableDataSource<any>;
   totalHits = 0;
   displayedColumns: string[] = ['species', 'accession', 'assembly_submitter', 'annotation', 'proteins',
     'transcripts', 'softmasked_genome', 'repeat_library', 'other_data', 'browser_view'];
@@ -120,7 +124,7 @@ export class EnsemblAnnotationComponent implements OnInit {
 
     }
 
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource<any[]>([]);
 
     // fetch data from ES
     this.fetchData();
