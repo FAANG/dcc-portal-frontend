@@ -1,0 +1,120 @@
+<app-header></app-header>
+<div class="container-fluid">
+    <div *ngIf="data">
+        <h2 style="padding-top: 30px;">{{data?.id}}</h2>
+        <hr>
+        <dl fxLayout="column">
+            <!-- ontology_term -->
+            <div fxLayout="row" fxLayout.lt-md="column" *ngIf="data.hasOwnProperty('term')">
+                <dt fxFlex="25">Ontology Term:</dt>
+                <dd fxFlex="75">{{data?.term}}</dd>
+            </div>
+            <!-- type -->
+            <div fxLayout="row" fxLayout.lt-md="column" *ngIf="data.hasOwnProperty('type')">
+                <dt fxFlex="25">Ontology Type:</dt>
+                <dd fxFlex="75">{{data?.type}}</dd>
+            </div>
+            <!-- status -->
+            <div fxLayout="row" fxLayout.lt-md="column" *ngIf="data.hasOwnProperty('status_activity')">
+                <dt fxFlex="25">Status Activity:</dt>
+                <dt fxFlex="50">
+                    <mat-accordion>
+                        <mat-expansion-panel style="margin-bottom: 20px;">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <button mat-icon-button disabled>
+                                        <mat-icon>thumb_up</mat-icon>
+                                    </button>
+                                    <span>{{data.upvotes_count}}</span>
+                                    <button mat-icon-button disabled>
+                                        <mat-icon>thumb_down</mat-icon>
+                                    </button>
+                                    <span>{{data.downvotes_count}}</span>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div *ngFor="let action of data.status_activity" style="margin-bottom: 10px;">
+                                <div style="font-size: 14px; color: #4d759a;">
+                                    {{action.timestamp.replace('T', ' ').replace('+', ' +')}}
+                                </div>
+                                <div>{{generateStatusMsg(action)}}</div>
+                              <div *ngIf="action.comments">
+                                {{action.user}} provided the following feedback: <span class="userComments">{{action.comments}}</span>
+                              </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </dt>
+            </div>
+            <!-- project -->
+            <div fxLayout="row" fxLayout.lt-md="column"
+                *ngIf="data.hasOwnProperty('projects') && data.projects && data.projects.length">
+                <dt fxFlex="25">Project:</dt>
+                <dd fxFlex="75">{{data?.projects}}</dd>
+            </div>
+            <!-- species -->
+            <div fxLayout="row" fxLayout.lt-md="column"
+                *ngIf="data.hasOwnProperty('species') && data.species && data.species.length">
+                <dt fxFlex="25">Species:</dt>
+                <dd fxFlex="75">{{data?.species}}</dd>
+            </div>
+            <!-- tags -->
+            <div fxLayout="row" fxLayout.lt-md="column"
+                *ngIf="data.hasOwnProperty('tags') && data.tags && data.tags.length">
+                <dt fxFlex="25">Tags:</dt>
+                <dd fxFlex="75">{{data?.tags}}</dd>
+            </div>
+            <!-- iri -->
+            <div fxLayout="row" fxLayout.lt-md="column" *ngIf="data.hasOwnProperty('iri') && data.iri">
+                <dt fxFlex="25">Ontology IRI:</dt>
+                <dd fxFlex="75">
+                    <a [href]="data?.iri" target="_blank" style="color: #0056b3;">{{data?.iri}}</a>
+                </dd>
+            </div>
+            <!-- summary -->
+            <div fxLayout="row" fxLayout.lt-md="column" *ngIf="data.hasOwnProperty('summary') && data.summary">
+                <dt fxFlex="25">Summary:</dt>
+                <dd fxFlex="75">{{data?.summary}}</dd>
+            </div>
+            <!-- synonyms -->
+            <div fxLayout="row" fxLayout.lt-md="column"
+                *ngIf="data.hasOwnProperty('synonyms') && data.synonyms && data.synonyms.length">
+                <dt fxFlex="25">Synonyms:</dt>
+                <dd fxFlex="75">
+                    <div *ngFor="let syn of data.synonyms" style="padding-bottom: 5px;">
+                        {{syn}}
+                    </div>
+                </dd>
+            </div>
+            <!-- related_synonyms -->
+            <div fxLayout="row" fxLayout.lt-md="column"
+                *ngIf="data.hasOwnProperty('related_synonyms') && data.related_synonyms && data.related_synonyms.length">
+                <dt fxFlex="25">Related Synonyms:</dt>
+                <dd fxFlex="75">
+                    <div *ngFor="let rel_syn of data.related_synonyms" style="padding-bottom: 5px;">
+                        {{rel_syn}}
+                    </div>
+                </dd>
+            </div>
+            <!-- alternative_id -->
+            <div fxLayout="row" fxLayout.lt-md="column"
+                *ngIf="data.hasOwnProperty('alternative_id') && data.alternative_id && data.alternative_id.length">
+                <dt fxFlex="25">Alternative IDs:</dt>
+                <dd fxFlex="75">
+                    <div *ngFor="let alt_id of data.alternative_id" style="padding-bottom: 5px;">
+                        {{alt_id}}
+                    </div>
+                </dd>
+            </div>
+            <!-- database_cross_reference -->
+            <div fxLayout="row" fxLayout.lt-md="column"
+                *ngIf="data.hasOwnProperty('database_cross_reference') && data.database_cross_reference && data.database_cross_reference.length">
+                <dt fxFlex="25">Database Cross References:</dt>
+                <dd fxFlex="75">
+                    <div *ngFor="let ref of data.database_cross_reference" style="padding-bottom: 5px;">
+                        {{ref}}
+                    </div>
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>

@@ -71,7 +71,7 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-// import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
+import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 // import {MatExpansionModule} from '@angular/material/expansion';
 import {MatInputModule} from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
@@ -227,7 +227,7 @@ export function removeToken(): void {
         // TableClientSideComponent,
         // LoginComponent,
         // FilesUploadComponent,
-        // OntologyImproverComponent,
+        OntologyImproverComponent,
         // OntologyDetailComponent,
         // ApiDocsComponent,
         // QueryLanguageComponent,
