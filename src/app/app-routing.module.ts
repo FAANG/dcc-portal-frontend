@@ -28,9 +28,9 @@ import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.c
 import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
-// import {ValidationSamplesComponent} from './validation/validation-samples/validation-samples.component';
-// import {ValidationExperimentsComponent} from './validation/validation-experiments/validation-experiments.component';
-// import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
+import {ValidationSamplesComponent} from './validation/validation-samples/validation-samples.component';
+import {ValidationExperimentsComponent} from './validation/validation-experiments/validation-experiments.component';
+import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
 
 // // to delete
 // import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
@@ -39,7 +39,7 @@ import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-
 import {SubprojectComponent} from './subprojects/subproject.component';
 // import {LoginComponent} from './login/login.component';
 // import {FilesUploadComponent} from './files-upload/files-upload.component';
-// import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
+import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 // // import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
 // import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 // // import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
@@ -83,9 +83,9 @@ const routes: Routes = [
   {path: 'ruleset/samples', component: RulesetSampleComponent},
   {path: 'ruleset/experiments', component: RulesetExperimentComponent},
   {path: 'ruleset/analyses', component: RulesetAnalysisComponent},
-  // {path: 'validation/samples', component: ValidationSamplesComponent},
-  // {path: 'validation/experiments', component: ValidationExperimentsComponent},
-  // {path: 'validation/analyses', component: ValidationAnalysesComponent},
+  {path: 'validation/samples', component: ValidationSamplesComponent},
+  {path: 'validation/experiments', component: ValidationExperimentsComponent},
+  {path: 'validation/analyses', component: ValidationAnalysesComponent},
   {path: 'projects', component: SubprojectComponent},
 
   // //to delete
@@ -95,7 +95,7 @@ const routes: Routes = [
   {path: 'projects/:id', component: SubprojectDetailComponent},
   // {path: 'login', component: LoginComponent},
   // {path: 'upload_protocol', component: FilesUploadComponent},
-  // {path: 'ontology', component: OntologyImproverComponent},
+  {path: 'ontology', component: OntologyImproverComponent},
   // // {path: 'ontology-workshop', component: OntologyImproverWorkshopComponent},
   // {path: 'ontology/:id', component: OntologyDetailComponent},
   // // {path: 'ontology-workshop/:id', component: OntologyDetailWorkshopComponent},

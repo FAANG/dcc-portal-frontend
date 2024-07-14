@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FileUploader} from 'ng2-file-upload';
+import { FileUploader, FileUploadModule } from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
-import {NgxSmartModalService} from 'ngx-smart-modal';
+import { NgxSmartModalService, NgxSmartModalModule } from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import {
@@ -13,68 +13,83 @@ import {
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {UserForm} from '../webin_aap_user';
 import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
-import {MatTabGroup} from '@angular/material/tabs';
-import { MatTableDataSource } from '@angular/material/table';
+import { Router, RouterLink } from '@angular/router';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { NgClass, NgStyle, DatePipe } from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
+import { MatButton } from '@angular/material/button';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 const UploadURL = validation_service_url + '/conversion/experiments';
 
 @Component({
   selector: 'app-validation-experiments',
   templateUrl: './validation-experiments.component.html',
-  styleUrls: ['./validation-experiments.component.css']
+  styleUrls: ['./validation-experiments.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatButton, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription,
+    MatTabGroup, MatTab, FlexModule, RouterLink, FileUploadModule, MatRadioGroup, FormsModule, MatRadioButton, MatTooltip, NgClass,
+    ExtendedModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgStyle, MatHeaderRowDef, MatHeaderRow,
+    MatRowDef, MatRow, MatPaginator, NgxSmartModalModule, DatePipe]
 })
 export class ValidationExperimentsComponent implements OnInit, OnDestroy {
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  dataSource: MatTableDataSource<any>;
+  @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  dataSource!: MatTableDataSource<any>;
   model = new UserForm('', '', 'prod');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
-  conversion_status: string;
-  validation_status: string;
-  submission_status: string;
-  annotation_status: string;
-  submission_message: string;
-  gcp_subscription_status: string;
+  conversion_status = '';
+  validation_status = '';
+  submission_status = '';
+  annotation_status = '';
+  submission_message = '';
+  gcp_subscription_status = '';
   socket;
   validation_results;
-  record_types = [];
-  active_key: string;
+  record_types: any[] = [];
+  active_key = '';
   active_issue;
   active_table;
-  active_column: string;
+  active_column = '';
   active_issues;
-  records_that_pass = [];
-  records_with_issues = [];
+  records_that_pass: any[] = [];
+  records_with_issues: any[] = [];
   records_to_show;
   show_table = false;
   validation_started = false;
-  conversion_task_id: string;
-  validation_task_id: string;
-  download_data_task_id: string;
-  metadata_template_with_examples: string;
-  metadata_template_without_examples: string;
-  errors = [];
-  conversion_errors = [];
-  column_names = [];
-  table_data = [];
-  table_errors = [];
-  table_warnings = [];
+  conversion_task_id = '';
+  validation_task_id = '';
+  download_data_task_id = '';
+  metadata_template_with_examples = '';
+  metadata_template_without_examples = '';
+  errors: any[] = [];
+  conversion_errors: any[] = [];
+  column_names: any[] = [];
+  table_data: any[] = [];
+  table_errors: any[] = [];
+  table_warnings: any[] = [];
   submissionStarted = false;
   disableAuthForm = false;
-  submissionResults = [];
-  submission_task_id: string;
+  submissionResults: any[] = [];
+  submission_task_id = '';
   bovreg_submission = false;
   private_submission = false;
-  col_index = [];
+  col_index: any[] = [];
   action: 'update'|'submission' = 'submission';
-  tooltipUpdate: string;
-  tooltipSubmission: string;
-  currentDate: Date;
+  tooltipUpdate = '';
+  tooltipSubmission = '';
+  currentDate!: Date;
   error = '';
 
-  @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
+  @ViewChild('myButton') myButton!: ElementRef<HTMLElement>;
 
   constructor(
     private titleService: Title,
@@ -90,7 +105,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     this.getPubSubMessage();
 
     this.tabGroup.selectedIndex = 1;
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource<any[]>([]);
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Experiments');
     this.setSocket();
@@ -146,9 +161,9 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
       this.parseColumnNames(table['custom']);
     }
     for (const record of this.active_table) {
-      let tmp = [];
-      let tmp_errors = [];
-      let tmp_warnings = [];
+      let tmp: any[] = [];
+      let tmp_errors: any[] = [];
+      let tmp_warnings: any[] = [];
       tmp.push(record['custom']['sample_descriptor']['value']);
       tmp_errors.push('valid');
       tmp_warnings.push('valid');
@@ -276,9 +291,9 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   }
 
   parseColumnData(data: any) {
-    let data_to_return = [];
-    let errors_to_return = [];
-    let warnings_to_return = [];
+    let data_to_return: any[] = [];
+    let errors_to_return: any[] = [];
+    let warnings_to_return: any[] = [];
     for (const name of Object.keys(data)) {
       if (Array.isArray(data[name])) {
         for (const record of data[name]) {
@@ -338,6 +353,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     } else if (this.active_issue === 'issues' && this.table_warnings[i][j] !== 'valid') {
       return 'table-warning';
     }
+    return '';
   }
 
   getCellStyle(i: number, j: number) {
@@ -384,11 +400,13 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
-    const data = [];
+    const data: any[] = [];
     this.records_to_show.forEach(record => {
       const rowObj = {};
       for (const index in this.column_names) {
-        rowObj[index] = record[index];
+        if (index) {
+          rowObj[index] = record[index];
+        }
       }
       data.push(rowObj);
     });
@@ -426,6 +444,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     } else if (status === 'Error' || status === 'Fix issues' || status === 'Failed to convert data') {
       return 'badge badge-pill badge-danger';
     }
+    return '';
   }
 
   startValidation() {
@@ -461,7 +480,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   }
 
   isSubmissionDisabled(status) {
-    return status === 'Fix issues' || this.gcp_subscription_status == 'failure';
+    return status === 'Fix issues' || this.gcp_subscription_status === 'failure';
   }
 
   constructDownloadLink() {
@@ -520,11 +539,11 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   }
 
   tabClick(tab) {
-    if (tab.index == 0) {
+    if (tab.index === 0) {
       this.router.navigate(['validation/samples']);
-    } else if (tab.index == 1) {
+    } else if (tab.index === 1) {
       this.router.navigate(['validation/experiments']);
-    } else if (tab.index == 2) {
+    } else if (tab.index === 2) {
       this.router.navigate(['validation/analyses']);
     }
   }

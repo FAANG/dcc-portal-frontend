@@ -31,7 +31,7 @@ import { SubprojectDetailComponent } from './subprojects/subproject-detail/subpr
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-// import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
 // import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
@@ -53,9 +53,9 @@ import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.c
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import {FormsModule} from '@angular/forms';
-// import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
-// import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
-// import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
+import { ValidationSamplesComponent } from './validation/validation-samples/validation-samples.component';
+import { ValidationExperimentsComponent } from './validation/validation-experiments/validation-experiments.component';
+import { ValidationAnalysesComponent } from './validation/validation-analyses/validation-analyses.component';
 // import { UsdaBovineComponent } from './subprojects/usda-bovine/usda-bovine.component';
 // import { SheepatlasComponent } from './subprojects/sheepatlas/sheepatlas.component';
 // import {FileUploadModule} from 'ng2-file-upload';
@@ -179,7 +179,7 @@ export function removeToken(): void {
         // }),
         // // BsDropdownModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-        // NgxSmartModalModule.forRoot(),
+        NgxSmartModalModule.forRoot(),
         // // NgbModule,
         NgcCookieConsentModule.forRoot(cookieConfig),
         // GraphQLModule,
@@ -218,9 +218,9 @@ export function removeToken(): void {
         RulesetAnalysisComponent,
         // IndeterminateDirective,
         FooterComponent,
-        // ValidationSamplesComponent,
-        // ValidationExperimentsComponent,
-        // ValidationAnalysesComponent,
+        ValidationSamplesComponent,
+        ValidationExperimentsComponent,
+        ValidationAnalysesComponent,
         // UsdaBovineComponent,
         // SheepatlasComponent,
         SubprojectComponent,

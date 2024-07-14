@@ -26,320 +26,320 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <p>Although you can still convert and validate your submission file, the ENA Submission Tool is unavailable
-        at the moment.</p>
+          at the moment.</p>
         <p>
           Please come back at a later time or if you would like to contact helpdesk, send us an email on
           <a href="mailto:faang-dcc@ebi.ac.uk?Subject=Submission%20Tool%20Downtime" target="_top">
             <span class="emailStyle">faang-dcc&#64;ebi.ac.uk</span></a>.
-          </p>
-        </mat-expansion-panel>
+        </p>
+      </mat-expansion-panel>
+    </div>
+  }
+
+  <hr>
+
+  <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+    <mat-tab label="Samples" style="font-size: 16px; font-weight: 500;"></mat-tab>
+    <mat-tab label="Experiments"></mat-tab>
+    <mat-tab label="Analysis"></mat-tab>
+  </mat-tab-group>
+
+  <div fxLayout="row" fxLayout.lt-md="column" style="margin-bottom: 20px;">
+    <button mat-raised-button color="primary">
+      <a href="{{metadata_template_with_examples}}" style="text-decoration: none;">Download example template</a>
+    </button>
+
+    <button mat-raised-button color="primary">
+      <a href="{{metadata_template_without_examples}}" style="text-decoration: none;">Download empty template</a>
+    </button>
+
+    <button mat-raised-button style="background-color: green; color: white;" routerLink="/upload_protocol"
+            [queryParams]="{ from: 'analyses' }">
+      Upload protocol
+    </button>
+
+    <button mat-raised-button color="accent">
+      <a href="https://dcc-documentation.readthedocs.io/en/latest/analysis/analysis_index/" target="_blank"
+         style="color: black; text-decoration: none;">Submission guideline</a>
+    </button>
+  </div>
+
+  <!-- Step 1: Upload Template -->
+  <h3 style="margin: 25px 0 20px 0;">1. Upload template</h3>
+  <div fxLayout="row" fxLayout.lt-md="column">
+    <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+    <button mat-raised-button color="primary"
+            (click)="uploader.uploadAll()"
+            [disabled]="!uploader.getNotUploadedItems().length" >
+      Upload a File
+    </button>
+  </div>
+
+  <div fxLayout="row">
+    <mat-radio-group [(ngModel)]="action" fxLayout="row" [style.margin-top]="'20px'">
+      <mat-radio-button value="submission" [matTooltip]="tooltipSubmission"
+                        [matTooltipClass]="{'yellow-tooltip': true}"
+                        [matTooltipShowDelay]=500
+                        matTooltipPosition="below"
+                        style="margin-right: 25px;">Submit new analysis</mat-radio-button>
+      <mat-radio-button value="update" [matTooltip]="tooltipUpdate"
+                        [matTooltipClass]="{'yellow-tooltip': true}"
+                        [matTooltipShowDelay]=500
+                        matTooltipPosition="below">Update existing analysis</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <hr>
+
+  @if (bovreg_submission && !_userService.token) {
+    <div fxLayout="row">
+      <div fxFlex="100" class="alert alert-info" role="alert">
+        You’re about to submit BovReg data as public data. If you wish to submit this data privately please
+        <a [routerLink]="['/login']" class="link">log in</a> to the private BovReg data portal before continuing with your submission.
       </div>
-    }
+    </div>
+  }
 
-    <hr>
-
-      <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
-        <mat-tab label="Samples" style="font-size: 16px; font-weight: 500;"></mat-tab>
-        <mat-tab label="Experiments"></mat-tab>
-        <mat-tab label="Analysis"></mat-tab>
-      </mat-tab-group>
-
-      <div fxLayout="row" fxLayout.lt-md="column" style="margin-bottom: 20px;">
-        <button mat-raised-button color="primary">
-          <a href="{{metadata_template_with_examples}}" style="text-decoration: none;">Download example template</a>
-        </button>
-
-        <button mat-raised-button color="primary">
-          <a href="{{metadata_template_without_examples}}" style="text-decoration: none;">Download empty template</a>
-        </button>
-
-        <button mat-raised-button style="background-color: green; color: white;" routerLink="/upload_protocol"
-          [queryParams]="{ from: 'analyses' }">
-          Upload protocol
-        </button>
-
-        <button mat-raised-button color="accent">
-          <a href="https://dcc-documentation.readthedocs.io/en/latest/analysis/analysis_index/" target="_blank"
-          style="color: black; text-decoration: none;">Submission guideline</a>
-        </button>
+  @if (bovreg_submission && _userService.token) {
+    <div fxLayout="row">
+      <div fxFlex="100" class="alert alert-info" role="alert">
+        You’re about to submit BovReg data as private data. If you wish to submit this publicly to FAANG then please
+        logout of the Private BovReg data portal first.
       </div>
+    </div>
+  }
 
-      <!-- Step 1: Upload Template -->
-      <h3 style="margin: 25px 0 20px 0;">1. Upload template</h3>
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-        <button mat-raised-button color="primary"
-          (click)="uploader.uploadAll()"
-          [disabled]="!uploader.getNotUploadedItems().length" >
-          Upload a File
-        </button>
-      </div>
-
-      <div fxLayout="row">
-        <mat-radio-group [(ngModel)]="action" fxLayout="row" [style.margin-top]="'20px'">
-          <mat-radio-button value="submission" [matTooltip]="tooltipSubmission"
-            [matTooltipClass]="{'yellow-tooltip': true}"
-            [matTooltipShowDelay]=500
-            matTooltipPosition="below"
-          style="margin-right: 25px;">Submit new analysis</mat-radio-button>
-          <mat-radio-button value="update" [matTooltip]="tooltipUpdate"
-            [matTooltipClass]="{'yellow-tooltip': true}"
-            [matTooltipShowDelay]=500
-          matTooltipPosition="below">Update existing analysis</mat-radio-button>
-        </mat-radio-group>
-      </div>
-
-      <hr>
-
-        @if (bovreg_submission && !_userService.token) {
+  <!-- Step 2.1 Show conversion and validation status -->
+  @if (conversion_status || validation_started || validation_results) {
+    <div fxLayout="column">
+      <h3 style="margin: 10px 0 20px 0;">2. Conversion and Validation results</h3>
+      @if (conversion_status) {
+        <div fxLayout="row">
+          <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
+            <h6>Conversion Status</h6>
+            <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
+          </div>
+        </div>
+      }
+      @if (conversion_status === 'Error') {
+        <div fxLayout="column">
+          Errors:
+          @for (error of errors; track error) {
+            <div fxLayout="row" role="alert">
+              {{error}}
+            </div>
+          }
+        </div>
+      }
+      @if (validation_results) {
+        <div fxLayout="column">
           <div fxLayout="row">
-            <div fxFlex="100" class="alert alert-info" role="alert">
-              You’re about to submit BovReg data as public data. If you wish to submit this data privately please
-              <a [routerLink]="['/login']" class="link">log in</a> to the private BovReg data portal before continuing with your submission.
+            <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
+              <h6>Validation Status</h6>
+              <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
             </div>
           </div>
-        }
-
-        @if (bovreg_submission && _userService.token) {
-          <div fxLayout="row">
-            <div fxFlex="100" class="alert alert-info" role="alert">
-              You’re about to submit BovReg data as private data. If you wish to submit this publicly to FAANG then please
-              logout of the Private BovReg data portal first.
-            </div>
-          </div>
-        }
-
-        <!-- Step 2.1 Show conversion and validation status -->
-        @if (conversion_status || validation_started || validation_results) {
-          <div fxLayout="column">
-            <h3 style="margin: 10px 0 20px 0;">2. Conversion and Validation results</h3>
-            @if (conversion_status) {
-              <div fxLayout="row">
-                <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
-                  <h6>Conversion Status</h6>
-                  <span [ngClass]="statusClass(conversion_status)">{{conversion_status}}</span>
-                </div>
-              </div>
-            }
-            @if (conversion_status === 'Error') {
-              <div fxLayout="column">
-                Errors:
-                @for (error of errors; track error) {
-                  <div fxLayout="row" role="alert">
-                    {{error}}
-                  </div>
-                }
-              </div>
-            }
-            @if (validation_results) {
-              <div fxLayout="column">
-                <div fxLayout="row">
-                  <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
-                    <h6>Validation Status</h6>
-                    <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
-                  </div>
-                </div>
-                <div fxLayout="row" style="margin-top: 10px;">
-                  <mat-tab-group (selectedTabChange)="onRecordButtonClick($event)">
-                    @for (key of record_types; track key) {
-                      <mat-tab [label]="remove_underscores(key)"></mat-tab>
-                    }
-                  </mat-tab-group>
-                </div>
-              </div>
-            }
-            <div fxLayout="row">
-              @if (!validation_results && validation_started) {
-                <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
-                  <h6>Validation Status</h6>
-                  <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
-                </div>
+          <div fxLayout="row" style="margin-top: 10px;">
+            <mat-tab-group (selectedTabChange)="onRecordButtonClick($event)">
+              @for (key of record_types; track key) {
+                <mat-tab [label]="remove_underscores(key)"></mat-tab>
               }
-            </div>
-            @if (validation_status === 'Error') {
-              <div fxLayout="column">
-                Errors:
-                @for (error of errors; track error) {
-                  <div fxLayout="row" role="alert">
-                    {{error}}
-                  </div>
-                }
-              </div>
-            }
+            </mat-tab-group>
+          </div>
+        </div>
+      }
+      <div fxLayout="row">
+        @if (!validation_results && validation_started) {
+          <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
+            <h6>Validation Status</h6>
+            <span [ngClass]="statusClass(validation_status)">{{validation_status}}</span>
           </div>
         }
+      </div>
+      @if (validation_status === 'Error') {
+        <div fxLayout="column">
+          Errors:
+          @for (error of errors; track error) {
+            <div fxLayout="row" role="alert">
+              {{error}}
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
 
-        <!-- Step 2.2 Show validation results table -->
-        @if (validation_results) {
-          <div fxLayout="row">
-            <button class="validation_button" mat-stroked-button color="primary"
+  <!-- Step 2.2 Show validation results table -->
+  @if (validation_results) {
+    <div fxLayout="row">
+      <button class="validation_button" mat-stroked-button color="primary"
               [ngClass]="active_issue == 'passed' ? 'mat-stroked-button' : 'mat-raised-button'"
               [style.font-weight]="active_issue == 'passed' ? 700 : 500"
               (click)="onValidationResultsButtonClick('passed')">
-              Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
-            </button>
-            <button class="validation_button" mat-raised-button color="warn"
+        Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
+      </button>
+      <button class="validation_button" mat-raised-button color="warn"
               [ngClass]="active_issue == 'issues' ? 'mat-stroked-button' : 'mat-raised-button'"
               [style.font-weight]="active_issue == 'issues' ? 700 : 500"
               (click)="onValidationResultsButtonClick('issues')">
-              Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
-            </button>
-            @if (annotation_status !== 'Download data') {
-              <button mat-raised-button color="accent" class="validation_button"
+        Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
+      </button>
+      @if (annotation_status !== 'Download data') {
+        <button mat-raised-button color="accent" class="validation_button"
                 (click)="getTemplateFile()">
-                Get annotated template
-              </button>
-            }
-            @if (annotation_status === 'Download data') {
-              <button mat-raised-button color="accent" class="validation_button">
-                <a href="{{constructDownloadTemplateLink()}}" target="_blank" style="text-decoration: none; color: black;">Download annotated template</a>
-              </button>
-            }
+          Get annotated template
+        </button>
+      }
+      @if (annotation_status === 'Download data') {
+        <button mat-raised-button color="accent" class="validation_button">
+          <a href="{{constructDownloadTemplateLink()}}" target="_blank" style="text-decoration: none; color: black;">Download annotated template</a>
+        </button>
+      }
+    </div>
+  }
+
+  <div class="table-responsive" [hidden]="!show_table || dataSource.data.length == 0">
+    <table mat-table [dataSource]="dataSource" table-striped style="width: 100%; margin-top: 15px;">
+      @for (col of col_index; track col; let j = $index) {
+        <ng-container [matColumnDef]=col>
+          <th mat-header-cell class="table-header" *matHeaderCellDef>{{column_names[j]}}</th>
+          <td mat-cell class="table-cell-data" *matCellDef="let item; let i = index"
+              [ngClass]="getCellClass(i, j)" [ngStyle]="{'cursor': getCellStyle(i, j)}"
+              (click)="openModal(i, j)">
+            {{item[col]}}
+          </td>
+        </ng-container>
+      }
+      <tr mat-header-row *matHeaderRowDef="col_index"></tr>
+      <tr mat-row *matRowDef="let row; columns: col_index;"></tr>
+    </table>
+    <mat-paginator [pageSize]=10></mat-paginator>
+  </div>
+
+  <!-- Step 3: Prepare data for submission -->
+  @if (validation_results) {
+    <hr>
+  }
+  @if (validation_results) {
+    <div fxLayout="column">
+      <h3 style="margin: 10px 0 20px 0;">3. Prepare data for submission</h3>
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
+        <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
+          <h6>Status</h6>
+          <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
+        </div>
+        @if (submission_status !== 'Data is ready') {
+          <button mat-raised-button color="primary" class="submission_data_button"
+                  (click)="onStartSubmissionClick(private_submission)"
+                  [disabled]="isSubmissionDisabled(submission_status)">
+            Start submission to ENA
+          </button>
+        }
+        @if (submission_status === 'Data is ready') {
+          <button mat-raised-button color="accent" class="submission_data_button">
+            <a href="{{constructDownloadLink()}}" style="color: black;">Download data</a>
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  @if (submissionStarted === true) {
+    <hr>
+  }
+
+  @if (submissionStarted === true) {
+    <div fxLayout="row">
+      <div fxFlex="100" [ngClass]="submissionMessageClass()" role="alert">
+        {{submission_message}}
+        @for (error of errors; track error) {
+          <div>
+            {{error}}
           </div>
         }
+      </div>
+    </div>
+  }
 
-        <div class="table-responsive" [hidden]="!show_table || dataSource.data.length == 0">
-          <table mat-table [dataSource]="dataSource" table-striped style="width: 100%; margin-top: 15px;">
-            @for (col of col_index; track col; let j = $index) {
-              <ng-container [matColumnDef]=col>
-                <th mat-header-cell class="table-header" *matHeaderCellDef>{{column_names[j]}}</th>
-                <td mat-cell class="table-cell-data" *matCellDef="let item; let i = index"
-                  [ngClass]="getCellClass(i, j)" [ngStyle]="{'cursor': getCellStyle(i, j)}"
-                  (click)="openModal(i, j)">
-                  {{item[col]}}
-                </td>
-              </ng-container>
-            }
-            <tr mat-header-row *matHeaderRowDef="col_index"></tr>
-            <tr mat-row *matRowDef="let row; columns: col_index;"></tr>
-          </table>
-          <mat-paginator [pageSize]=10></mat-paginator>
+  @if (submissionStarted === true) {
+    <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="6%">
+      @if (!_userService.token) {
+        <div  fxFlex="47" [hidden]="disableAuthForm">
+          <h3 style="margin: 10px 0 20px 0;">Submit data to ENA</h3>
+          @if (errors) {
+            <p class="alert alert-danger">{{errors}}</p>
+          }
+          <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
+            <div class="form-group">
+              <label for="WebinUsername">Username</label>
+              <input class="form-control" id="WebinUsername"
+                     placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
+                     #username="ngModel" pattern="^[Ww]ebin.*">
+              <small class="form-text text-muted">Please use this
+                <a href="https://www.ebi.ac.uk/ena/submit/sra/#registration" class="link" target="_blank">service</a>
+                to get your credentials
+              </small>
+              <div [hidden]="username.valid || username.pristine"
+                   class="alert alert-danger form-danger">
+                Webin-username is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="aapPassword">Password</label>
+              <input type="password" class="form-control" id="aapPassword" placeholder="Password"
+                     required [(ngModel)]="model.password" name="password" #password="ngModel">
+              <div [hidden]="password.valid || password.pristine"
+                   class="alert alert-danger form-danger">
+                Password is required
+              </div>
+            </div>
+            <button mat-raised-button color="primary" class="validation_button"
+                    type="submit" [disabled]="!enaForm.form.valid">Submit</button>
+          </form>
         </div>
-
-        <!-- Step 3: Prepare data for submission -->
-        @if (validation_results) {
-          <hr>
+      }
+      <div fxFlex="47" [hidden]="submissionResults.length === 0">
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" style="margin: 10px 0 20px 0;">
+          <h3>
+            Submission results
+          </h3>
+          <button mat-raised-button color="accent">
+            <a href="{{downloadSubmissionResults()}}" #myButton style="color: black;">
+              Download submission results
+            </a>
+          </button>
+        </div>
+        <ul class="list-group">
+          @for (message of submissionResults[0]; track message) {
+            <li class="list-group-item list-group-item-info">
+              {{message}}
+            </li>
           }
-          @if (validation_results) {
-            <div fxLayout="column">
-              <h3 style="margin: 10px 0 20px 0;">3. Prepare data for submission</h3>
-              <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
-                <div fxFlex.gt-md="20" fxFlex.md="30" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign="space-between center">
-                  <h6>Status</h6>
-                  <span [ngClass]="statusClass(submission_status)">{{submission_status}}</span>
-                </div>
-                @if (submission_status !== 'Data is ready') {
-                  <button mat-raised-button color="primary" class="submission_data_button"
-                    (click)="onStartSubmissionClick(private_submission)"
-                    [disabled]="isSubmissionDisabled(submission_status)">
-                    Start submission to ENA
-                  </button>
-                }
-                @if (submission_status === 'Data is ready') {
-                  <button mat-raised-button color="accent" class="submission_data_button">
-                    <a href="{{constructDownloadLink()}}" style="color: black;">Download data</a>
-                  </button>
-                }
-              </div>
-            </div>
+          @for (message of submissionResults[1]; track message) {
+            <li class="list-group-item list-group-item-danger">
+              {{message}}
+            </li>
           }
-
-          @if (submissionStarted === true) {
-            <hr>
-            }
-
-            @if (submissionStarted === true) {
-              <div fxLayout="row">
-                <div fxFlex="100" [ngClass]="submissionMessageClass()" role="alert">
-                  {{submission_message}}
-                  @for (error of errors; track error) {
-                    <div>
-                      {{error}}
-                    </div>
-                  }
-                </div>
-              </div>
-            }
-
-            @if (submissionStarted === true) {
-              <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="6%">
-                @if (!_userService.token) {
-                  <div  fxFlex="47" [hidden]="disableAuthForm">
-                    <h3 style="margin: 10px 0 20px 0;">Submit data to ENA</h3>
-                    @if (errors) {
-                      <p class="alert alert-danger">{{errors}}</p>
-                    }
-                    <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
-                      <div class="form-group">
-                        <label for="WebinUsername">Username</label>
-                        <input class="form-control" id="WebinUsername"
-                          placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
-                          #username="ngModel" pattern="^[Ww]ebin.*">
-                        <small class="form-text text-muted">Please use this
-                          <a href="https://www.ebi.ac.uk/ena/submit/sra/#registration" class="link" target="_blank">service</a>
-                          to get your credentials
-                        </small>
-                        <div [hidden]="username.valid || username.pristine"
-                          class="alert alert-danger form-danger">
-                          Webin-username is required
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="aapPassword">Password</label>
-                        <input type="password" class="form-control" id="aapPassword" placeholder="Password"
-                          required [(ngModel)]="model.password" name="password" #password="ngModel">
-                        <div [hidden]="password.valid || password.pristine"
-                          class="alert alert-danger form-danger">
-                          Password is required
-                        </div>
-                      </div>
-                      <button mat-raised-button color="primary" class="validation_button"
-                      type="submit" [disabled]="!enaForm.form.valid">Submit</button>
-                    </form>
-                  </div>
-                }
-                <div fxFlex="47" [hidden]="submissionResults.length === 0">
-                  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" style="margin: 10px 0 20px 0;">
-                    <h3>
-                      Submission results
-                    </h3>
-                    <button mat-raised-button color="accent">
-                      <a href="{{downloadSubmissionResults()}}" #myButton style="color: black;">
-                        Download submission results
-                      </a>
-                    </button>
-                  </div>
-                  <ul class="list-group">
-                    @for (message of submissionResults[0]; track message) {
-                      <li class="list-group-item list-group-item-info">
-                        {{message}}
-                      </li>
-                    }
-                    @for (message of submissionResults[1]; track message) {
-                      <li class="list-group-item list-group-item-danger">
-                        {{message}}
-                      </li>
-                    }
-                  </ul>
-                </div>
-              </div>
-            }
+        </ul>
+      </div>
+    </div>
+  }
 
 
-            <ngx-smart-modal #myModal identifier="myModal" customClass="nsm-dialog-animation-fade">
-              <h3>{{active_column}}</h3>
-              <hr>
-                @if (active_issues) {
-                  <div>
-                    <ul class="list-group list-group-flush">
-                      @for (issue of active_issues; track issue) {
-                        <li class="list-group-item">
-                          {{issue.split(',').join(' ')}}
-                        </li>
-                      }
-                    </ul>
-                  </div>
-                }
-                <button mat-raised-button color="primary" (click)="myModal.close()" class="modal-button">Close</button>
-              </ngx-smart-modal>
-            </div>
+  <ngx-smart-modal #myModal identifier="myModal" customClass="nsm-dialog-animation-fade">
+    <h3>{{active_column}}</h3>
+    <hr>
+    @if (active_issues) {
+      <div>
+        <ul class="list-group list-group-flush">
+          @for (issue of active_issues; track issue) {
+            <li class="list-group-item">
+              {{issue.split(',').join(' ')}}
+            </li>
+          }
+        </ul>
+      </div>
+    }
+    <button mat-raised-button color="primary" (click)="myModal.close()" class="modal-button">Close</button>
+  </ngx-smart-modal>
+</div>

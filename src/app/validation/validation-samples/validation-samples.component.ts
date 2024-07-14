@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FileUploader} from 'ng2-file-upload';
+import { FileUploader, FileUploadModule } from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
-import {NgxSmartModalService} from 'ngx-smart-modal';
+import { NgxSmartModalService, NgxSmartModalModule } from 'ngx-smart-modal';
 import { ApiDataService } from '../../services/api-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import {
@@ -16,23 +16,39 @@ import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/comm
 import {UserForm} from '../webin_aap_user';
 import {SubmissionDomain} from '../submission_domain';
 import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
-import {MatTabGroup} from '@angular/material/tabs';
-import { MatTableDataSource } from '@angular/material/table';
+import { Router, RouterLink } from '@angular/router';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
 import {consumerDestroy} from '@angular/core/primitives/signals';
+import { MatIcon } from '@angular/material/icon';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { NgClass, NgStyle, DatePipe } from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
 @Component({
   selector: 'app-validation-samples',
   templateUrl: './validation-samples.component.html',
-  styleUrls: ['./validation-samples.component.css']
+  styleUrls: ['./validation-samples.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatButton, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription,
+    MatTabGroup, MatTab, FlexModule, RouterLink, FileUploadModule, MatRadioGroup, FormsModule, MatRadioButton, MatTooltip, NgClass,
+    ExtendedModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgStyle, MatHeaderRowDef, MatHeaderRow,
+    MatRowDef, MatRow, MatPaginator, MatIconButton, MatIcon, NgxSmartModalModule, DatePipe]
 })
 export class ValidationSamplesComponent implements OnInit, OnDestroy {
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  dataSource: MatTableDataSource<any>;
-  subResults: MatTableDataSource<any>;
+  @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  dataSource!: MatTableDataSource<any>;
+  subResults!: MatTableDataSource<any>;
   p = 1;
   model = new UserForm('', '', 'test');
   webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login';
@@ -40,56 +56,56 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   domain = new SubmissionDomain('', '');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
-  conversion_status: string;
-  validation_status: string;
-  submission_status: string;
-  annotation_status: string;
-  submission_message: string;
-  gcp_subscription_status: string;
+  conversion_status = '';
+  validation_status = '';
+  submission_status = '';
+  annotation_status = '';
+  submission_message = '';
+  gcp_subscription_status = '';
   domains = [];
   socket;
   validation_results;
-  record_types = [];
-  active_key: string;
+  record_types: any[] = [];
+  active_key = '';
   active_issue;
   active_table;
-  active_column: string;
+  active_column = '';
   active_issues;
-  records_that_pass = [];
-  records_with_issues = [];
+  records_that_pass: any[] = [];
+  records_with_issues: any[] = [];
   records_to_show;
   show_table = false;
   validation_started = false;
-  conversion_task_id: string;
-  validation_task_id: string;
-  submission_task_id: string;
-  metadata_template_with_examples: string;
-  metadata_template_without_examples: string;
-  biosample_update_template: string;
-  errors = [];
-  column_names = [];
-  table_data = [];
-  table_errors = [];
-  table_warnings = [];
+  conversion_task_id = '';
+  validation_task_id = '';
+  submission_task_id = '';
+  metadata_template_with_examples = '';
+  metadata_template_without_examples = '';
+  biosample_update_template = '';
+  errors: any[] = [];
+  column_names: any[] = [];
+  table_data: any[] = [];
+  table_errors: any[] = [];
+  table_warnings: any[] = [];
   disableAuthForm = false;
   disableDomainForm = true;
   disableChooseDomainForm = true;
   submissionStarted = false;
   disableSubmitButton = false;
-  submissionResults = [];
+  submissionResults: any[] = [];
   optionsCsv;
   optionsTabular;
   downloadData = false;
   bovreg_submission = false;
   private_submission = false;
-  col_index = [];
+  col_index: any[] = [];
   action: 'update'|'submission' = 'submission';
-  custom_col_name: 'sample_name' | 'biosample_id';
-  tooltipUpdate: string;
-  tooltipSubmission: string;
-  currentDate: Date;
+  custom_col_name: 'sample_name' | 'biosample_id' = 'sample_name';
+  tooltipUpdate = '';
+  tooltipSubmission = '';
+  currentDate!: Date;
 
-  @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
+  @ViewChild('myButton') myButton!: ElementRef<HTMLElement>;
 
   constructor(
     private titleService: Title,
@@ -105,8 +121,8 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.getPubSubMessage();
 
     this.tabGroup.selectedIndex = 0;
-    this.dataSource = new MatTableDataSource([]);
-    this.subResults = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource<any[]>([]);
+    this.subResults = new MatTableDataSource<any[]>([]);
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Samples');
     this.setSocket();
@@ -116,7 +132,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
-      if (this.conversion_status == 'Success') {
+      if (this.conversion_status === 'Success') {
         this.startValidation();
       }
     };
@@ -165,9 +181,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       this.parseColumnNames(table['custom']);
     }
     for (const record of this.active_table) {
-      let tmp = [];
-      let tmp_errors = [];
-      let tmp_warnings = [];
+      let tmp: any[] = [];
+      let tmp_errors: any[] = [];
+      let tmp_warnings: any[] = [];
       const custom_col_name = this.action === 'update' ? 'biosample_id' : 'sample_name';
       tmp.push(record['custom'][custom_col_name]['value']);
       tmp_errors.push('valid');
@@ -244,12 +260,14 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       if (data['submission_results']) {
         this.submissionResults = Object.entries(data['submission_results']);
         if (this.submissionResults.length !== 0) {
-          const data = [];
+          const data: any[] = [];
           this.submissionResults.forEach(record => {
             const rowObj = {};
             const cols = ['Sample Name', 'BioSample ID'];
             for (const index in cols) {
-              rowObj[cols[index]] = record[index];
+              if (cols[index]) {
+                rowObj[cols[index]] = record[index];
+              }
             }
             data.push(rowObj);
           });
@@ -311,9 +329,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   parseColumnData(data: any) {
-    let data_to_return = [];
-    let errors_to_return = [];
-    let warnings_to_return = [];
+    let data_to_return: any[] = [];
+    let errors_to_return: any[] = [];
+    let warnings_to_return: any[] = [];
     for (const name of Object.keys(data)) {
       if (Array.isArray(data[name])) {
         for (const record of data[name]) {
@@ -374,6 +392,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     } else if (this.active_issue === 'issues' && this.table_warnings[i][j] !== 'valid') {
       return 'table-warning';
     }
+    return '';
   }
 
   getCellStyle(i: number, j: number) {
@@ -420,11 +439,13 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
-    const data = [];
+    const data: any[] = [];
     this.records_to_show.forEach(record => {
-      const rowObj = {};
+      const rowObj: {[index: string]: any} = {};
       for (const index in this.column_names) {
-        rowObj[index] = record[index];
+        if (index) {
+          rowObj[index] = record[index];
+        }
       }
       data.push(rowObj);
     });
@@ -462,6 +483,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     } else if (status === 'Error' || status === 'Fix issues') {
       return 'badge badge-pill badge-danger';
     }
+    return '';
   }
 
   startValidation() {
@@ -605,11 +627,11 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   tabClick(tab) {
-    if (tab.index == 0) {
+    if (tab.index === 0) {
       this.router.navigate(['validation/samples']);
-    } else if (tab.index == 1) {
+    } else if (tab.index === 1) {
       this.router.navigate(['validation/experiments']);
-    } else if (tab.index == 2) {
+    } else if (tab.index === 2) {
       this.router.navigate(['validation/analyses']);
     }
   }
