@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { SwaggerUIBundle } from 'swagger-ui-dist';
 import { HostSetting } from '../services/host-setting';
+import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
   selector: 'app-api-docs',
   templateUrl: './api-docs.component.html',
-  styleUrls: ['./api-docs.component.css']
+  styleUrls: ['./api-docs.component.css'],
+  standalone: true,
+  imports: [HeaderComponent]
 })
 export class ApiDocsComponent implements OnInit {
   hostSetting = new HostSetting;

@@ -84,7 +84,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
-// import { ApiDocsComponent } from './api-docs/api-docs.component';
+import { ApiDocsComponent } from './api-docs/api-docs.component';
 // import { QueryLanguageComponent } from './query-language/query-language.component';
 // import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 // import { BulkFilesUploaderComponent } from './bulk-files-uploader/bulk-files-uploader.component';
@@ -104,12 +104,12 @@ import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome
 import { MatTreeModule } from '@angular/material/tree';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-// import { GraphQLModule } from './graphql.module';
-// import { GraphqlComponent } from './graphql/graphql.component';
+import { GraphQLModule } from './graphql.module';
+import { GraphqlComponent } from './graphql/graphql.component';
 // import { GlobalSearchComponent } from './globalsearch/globalsearch.component';
 // import { DisplayDataComponent } from './graphql/display-data/display-data.component';
-// import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
-// import { ShortenTitlePipe } from './graphql/display-data/shorten-title.pipe';
+import { IndexFiltersComponent } from './graphql/index-filters/index-filters.component';
+import { ShortenTitlePipe } from './graphql/display-data/shorten-title.pipe';
 import { SubscriptionDialogComponent } from './shared/subscription-dialog/subscription-dialog.component';
 import { MatListModule } from '@angular/material/list';
 // import { PortalDataTableComponent } from './shared/portal-data-table/portal-data-table.component';
@@ -182,7 +182,7 @@ export function removeToken(): void {
         NgxSmartModalModule.forRoot(),
         // // NgbModule,
         NgcCookieConsentModule.forRoot(cookieConfig),
-        // GraphQLModule,
+        GraphQLModule,
         MatListModule,
         FileComponent,
         FilterComponent,
@@ -229,7 +229,7 @@ export function removeToken(): void {
         // FilesUploadComponent,
         OntologyImproverComponent,
         // OntologyDetailComponent,
-        // ApiDocsComponent,
+        ApiDocsComponent,
         // QueryLanguageComponent,
         // TrackhubsSubmissionComponent,
         // BulkFilesUploaderComponent,
@@ -239,11 +239,11 @@ export function removeToken(): void {
         // ProtocolAnalysisDetailsComponent,
         // EnsemblAnnotationComponent,
         LocalGenomeBrowserComponent,
-        // GraphqlComponent,
+        GraphqlComponent,
         // GlobalSearchComponent,
         // DisplayDataComponent,
-        // IndexFiltersComponent,
-        // ShortenTitlePipe,
+        IndexFiltersComponent,
+        ShortenTitlePipe,
         SubscriptionDialogComponent],
     // providers: [ApiDataService, AggregationService, SlicePipe, UserService, ApiFiltersService,
     // provideHttpClient(withInterceptorsFromDi()), provideClientHydration()]

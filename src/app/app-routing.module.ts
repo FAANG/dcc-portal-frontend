@@ -43,7 +43,7 @@ import { OntologyImproverComponent } from './ontology-improver/ontology-improver
 // // import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
 // import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 // // import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
-// import { ApiDocsComponent } from './api-docs/api-docs.component';
+import { ApiDocsComponent } from './api-docs/api-docs.component';
 
 // to delete
 // import { QueryLanguageComponent } from './query-language/query-language.component';
@@ -51,7 +51,7 @@ import { OntologyImproverComponent } from './ontology-improver/ontology-improver
 // import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 // import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
-// import { GraphqlComponent } from './graphql/graphql.component';
+import { GraphqlComponent } from './graphql/graphql.component';
 // import { GlobalSearchComponent } from './globalsearch/globalsearch.component';
 
 const routes: Routes = [
@@ -99,7 +99,7 @@ const routes: Routes = [
   // // {path: 'ontology-workshop', component: OntologyImproverWorkshopComponent},
   // {path: 'ontology/:id', component: OntologyDetailComponent},
   // // {path: 'ontology-workshop/:id', component: OntologyDetailWorkshopComponent},
-  // {path: 'api', component: ApiDocsComponent},
+  {path: 'api', component: ApiDocsComponent},
   //
   // // to delete
   // {path: 'query', component: QueryLanguageComponent},
@@ -107,7 +107,7 @@ const routes: Routes = [
   // {path: 'trackhubs', component: TrackhubsSubmissionComponent},
   // {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
   {path: 'genome_browser', component: LocalGenomeBrowserComponent},
-  // {path: 'graphql', component: GraphqlComponent},
+  {path: 'graphql', component: GraphqlComponent},
   // {path: 'globalsearch', component: GlobalSearchComponent},
   // {path: '404', component: NonExistingComponent},
   // {path: '**', component: NonExistingComponent}

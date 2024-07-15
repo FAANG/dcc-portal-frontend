@@ -1,0 +1,17 @@
+.section{
+  margin-top: 10px
+}
+.button-div{
+  margin: 10px 0px;
+}
+.data-table{
+  margin-top: 10px;
+}
+.progress-bar{
+  margin-top: 30px;
+}
+.user-info{
+  font-style: italic;
+  color: rgba(0,0,0,.5);
+  margin: 10px 0px;
+}
