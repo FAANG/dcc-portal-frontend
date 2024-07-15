@@ -16,6 +16,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["igv", "file-saver"],
             "outputPath": "dist/faang-portal-frontend-angular-version17/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
