@@ -19,14 +19,14 @@ import { AnalysisComponent } from './analysis/analysis.component';
 import { ArticleComponent } from './article/article.component';
 import { HeaderComponent } from './shared/header/header.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
-// import { FileDetailComponent } from './file/file-detail/file-detail.component';
+import { FileDetailComponent } from './file/file-detail/file-detail.component';
 // import { RobustLinkComponent } from './shared/robust-link/robust-link.component';
 // import { RelatedItemsComponent } from './shared/related-items/related-items.component';
-// import { OrganismDetailComponent } from './organism/organism-detail/organism-detail.component';
-// import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-detail.component';
-// import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
-// import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
-// import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
+import { OrganismDetailComponent } from './organism/organism-detail/organism-detail.component';
+import { SpecimenDetailComponent } from './specimen/specimen-detail/specimen-detail.component';
+import { DatasetDetailComponent } from './dataset/dataset-detail/dataset-detail.component';
+import { AnalysisDetailComponent } from './analysis/analysis-detail/analysis-detail.component';
+import { ArticleDetailComponent } from './article/article-detail/article-detail.component';
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -194,14 +194,14 @@ export function removeToken(): void {
         AnalysisComponent,
         ArticleComponent,
         HeaderComponent,
-        // FileDetailComponent,
+        FileDetailComponent,
         // RobustLinkComponent,
         // RelatedItemsComponent,
-        // OrganismDetailComponent,
-        // SpecimenDetailComponent,
-        // DatasetDetailComponent,
-        // AnalysisDetailComponent,
-        // ArticleDetailComponent,
+        OrganismDetailComponent,
+        SpecimenDetailComponent,
+        DatasetDetailComponent,
+        AnalysisDetailComponent,
+        ArticleDetailComponent,
         SubprojectDetailComponent,
         ProtocolSampleComponent,
         ProtocolExperimentComponent,

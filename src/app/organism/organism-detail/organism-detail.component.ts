@@ -1,24 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {external_ols_prefix, internal_organism} from '../../shared/constants';
 import {UserService} from '../../services/user.service';
+import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
+import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-organism-detail',
   templateUrl: './organism-detail.component.html',
-  styleUrls: ['./organism-detail.component.css']
+  styleUrls: ['./organism-detail.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatButton, FlexModule, RobustLinkComponent, RouterLink, RelatedItemsComponent]
 })
 export class OrganismDetailComponent implements OnInit {
-  biosampleId: string;
+  biosampleId = '';
   organism: any;
   error: any;
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;
-  mode: string;
-  relatedArticles: Array<any>;
+  mode = '';
+  relatedArticles: Array<any> = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,

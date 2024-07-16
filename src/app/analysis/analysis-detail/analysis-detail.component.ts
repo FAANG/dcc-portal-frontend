@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { ApiDataService } from '../../services/api-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Title } from '@angular/platform-browser';
@@ -13,25 +13,31 @@ import {
   internal_specimen
 } from '../../shared/constants';
 import {UserService} from '../../services/user.service';
+import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
+import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-analysis-detail',
   templateUrl: './analysis-detail.component.html',
-  styleUrls: ['./analysis-detail.component.css']
+  styleUrls: ['./analysis-detail.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, RobustLinkComponent, RouterLink, RelatedItemsComponent]
 })
 export class AnalysisDetailComponent implements OnInit {
-  accession: string;
+  accession = '';
   analysis: any;
   error: any;
   convertArrayToStr: any;
   getProtocolLink: any;
-  relatedFiles: Array<any>;
+  relatedFiles: Array<any> = [];
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly biosample_prefix = external_biosample_prefix;
   readonly specimen_prefix = internal_specimen;
   readonly dataset_prefix = internal_dataset;
-  mode: string;
+  mode = '';
 
   constructor(private route: ActivatedRoute,
               private router: Router,

@@ -6,25 +6,34 @@ import {Title} from '@angular/platform-browser';
 import {external_ena_prefix, external_ols_prefix} from '../../shared/constants';
 import {UserService} from '../../services/user.service';
 import {QueryService} from '../../services/query.service';
+import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-dataset-detail',
   templateUrl: './dataset-detail.component.html',
-  styleUrls: ['./dataset-detail.component.css']
+  styleUrls: ['./dataset-detail.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatButton, FlexModule, RobustLinkComponent, MatProgressSpinner, RelatedItemsComponent]
 })
 
+
 export class DatasetDetailComponent implements OnInit {
-  accession: string;
+  accession = '';
   dataset: any;
   error: any;
   publishedArticles: any;
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
-  mode: string;
-  downloadColumns: string[];
-  relatedSpecimen: Array<any>;
-  relatedFiles: Array<any>;
-  relatedArticles: Array<any>;
+  mode = '';
+  downloadColumns: string[] = [];
+  relatedSpecimen: Array<any> = [];
+  relatedFiles: Array<any> = [];
+  relatedArticles: Array<any> = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,

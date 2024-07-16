@@ -4,18 +4,24 @@ import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {external_doi_prefix, external_epmc_prefix, external_pubmed_prefix, internal_dataset} from '../../shared/constants';
+import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
+import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-article-detail',
   templateUrl: './article-detail.component.html',
-  styleUrls: ['./article-detail.component.css']
+  styleUrls: ['./article-detail.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, RobustLinkComponent, RelatedItemsComponent]
 })
 
 export class ArticleDetailComponent implements OnInit {
-  id: string;
+  id = '';
   article: any;
   error: any;
-  relatedDatasets: Array<any>;
+  relatedDatasets: Array<any> = [];
   readonly dataset_prefix = internal_dataset;
   readonly doi_prefix = external_doi_prefix;
   readonly epmc_prefix = external_epmc_prefix;

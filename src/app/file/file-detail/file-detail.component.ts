@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
@@ -7,14 +7,22 @@ import {FIELD_NAMES} from '../../shared/fieldnames';
 import {external_ena_prefix, external_ols_prefix, internal_dataset, internal_organism, internal_specimen} from '../../shared/constants';
 import {expandObject, getProtocolLink} from '../../shared/common_functions';
 import {UserService} from '../../services/user.service';
+import { SlicePipe } from '@angular/common';
+import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
+import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-file-detail',
   templateUrl: './file-detail.component.html',
-  styleUrls: ['./file-detail.component.css']
+  styleUrls: ['./file-detail.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatButton, FlexModule, RobustLinkComponent, RouterLink, RelatedItemsComponent, SlicePipe]
 })
 export class FileDetailComponent implements OnInit {
-  fileId: string;
+  fileId = '';
   file: any;
   experiment: any = {};
   error: any;
@@ -22,13 +30,13 @@ export class FileDetailComponent implements OnInit {
   showExperimentDetail = false;
   expandObject: any;
   getProtocolLink: any;
-  relatedArticles: Array<any>;
+  relatedArticles: Array<any> = [];
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;
   readonly specimen_prefix = internal_specimen;
   readonly dataset_prefix = internal_dataset;
-  mode: string;
+  mode = '';
 
   objectKeys = Object.keys;
 
@@ -81,11 +89,7 @@ export class FileDetailComponent implements OnInit {
   }
 
   checkIsObject(value: any) {
-    if (typeof value === 'object') {
-      return true;
-    } else {
-      return false;
-    }
+    return typeof value === 'object';
   }
 
   toggleExperiment() {

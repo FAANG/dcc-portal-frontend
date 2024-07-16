@@ -1,26 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {external_ols_prefix, internal_organism, internal_specimen} from '../../shared/constants';
 import {getProtocolLink} from '../../shared/common_functions';
 import {UserService} from '../../services/user.service';
+import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
+import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-specimen-detail',
   templateUrl: './specimen-detail.component.html',
-  styleUrls: ['./specimen-detail.component.css']
+  styleUrls: ['./specimen-detail.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatButton, FlexModule, RobustLinkComponent, RouterLink, RelatedItemsComponent]
 })
 export class SpecimenDetailComponent implements OnInit {
-  biosampleId: string;
+  biosampleId = '';
   specimen: any;
   error: any;
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;
   readonly specimen_prefix = internal_specimen;
-  mode: string;
-  relatedArticles: Array<any>;
+  mode = '';
+  relatedArticles: Array<any> = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,

@@ -7,12 +7,12 @@ import {SpecimenComponent} from './specimen/specimen.component';
 import {DatasetComponent} from './dataset/dataset.component';
 import {AnalysisComponent} from './analysis/analysis.component';
 import {ArticleComponent} from './article/article.component';
-// import {FileDetailComponent} from './file/file-detail/file-detail.component';
-// import {OrganismDetailComponent} from './organism/organism-detail/organism-detail.component';
-// import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detail.component';
-// import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
-// import {AnalysisDetailComponent} from './analysis/analysis-detail/analysis-detail.component';
-// import {ArticleDetailComponent} from './article/article-detail/article-detail.component';
+import {FileDetailComponent} from './file/file-detail/file-detail.component';
+import {OrganismDetailComponent} from './organism/organism-detail/organism-detail.component';
+import {SpecimenDetailComponent} from './specimen/specimen-detail/specimen-detail.component';
+import {DatasetDetailComponent} from './dataset/dataset-detail/dataset-detail.component';
+import {AnalysisDetailComponent} from './analysis/analysis-detail/analysis-detail.component';
+import {ArticleDetailComponent} from './article/article-detail/article-detail.component';
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.component';
 import {ProtocolExperimentComponent} from './protocol-experiment/protocol-experiment.component';
@@ -58,17 +58,17 @@ const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'organism', component: OrganismComponent},
-  // {path: 'organism/:id', component: OrganismDetailComponent},
+  {path: 'organism/:id', component: OrganismDetailComponent},
   {path: 'specimen', component: SpecimenComponent},
-  // {path: 'specimen/:id', component: SpecimenDetailComponent},
+  {path: 'specimen/:id', component: SpecimenDetailComponent},
   {path: 'dataset', component: DatasetComponent},
-  // {path: 'dataset/:id', component: DatasetDetailComponent},
+  {path: 'dataset/:id', component: DatasetDetailComponent},
   {path: 'file', component: FileComponent},
-  // {path: 'file/:id', component: FileDetailComponent},
+  {path: 'file/:id', component: FileDetailComponent},
   {path: 'analysis', component: AnalysisComponent},
-  // {path: 'analysis/:id', component: AnalysisDetailComponent},
+  {path: 'analysis/:id', component: AnalysisDetailComponent},
   {path: 'article', component: ArticleComponent},
-  // {path: 'article/:id', component: ArticleDetailComponent},
+  {path: 'article/:id', component: ArticleDetailComponent},
   {path: 'protocol/samples', component: ProtocolSampleComponent},
   // {path: 'protocol/samples/:id', component: ProtocolSampleDetailsComponent},
   {path: 'protocol/experiments', component: ProtocolExperimentComponent},
