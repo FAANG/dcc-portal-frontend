@@ -18,7 +18,7 @@
     <hr>
       @for (file of fileNamesList; track file) {
         <div style="word-break: break-all;">
-          <div fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%">
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
             <div fxFlex="48">
               {{ file }}
             </div>
@@ -57,7 +57,7 @@
   <!-- View for Single upload mode -->
   @if (mode == 'single') {
     <div>
-      <div fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="5%" style="margin-bottom: 20px;">
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%" style="margin-bottom: 20px;">
         <div fxFlex="48">
           <label class="btn btn-default p-0">
             @if (mode == 'single') {
@@ -70,7 +70,7 @@
             Upload
           </button>
         </div>
-        <div fxFlex="47" fxlayout="column" style="word-break: break-word;">
+        <div fxFlex="47" fxLayout="column" style="word-break: break-word;">
           <div [ngClass]="getAlertClass(submission_message[fileNamesList[0]])" role="alert"
             style="padding: 5px; text-align: center;" >
             {{ submission_message[fileNamesList[0]] }}

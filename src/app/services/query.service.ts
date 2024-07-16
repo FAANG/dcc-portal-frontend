@@ -22,7 +22,7 @@ export class QueryService {
     );
   }
 
-  getRecords(indices, fields, from, sort, project) {
+  getRecords(indices: any, fields: any, from: any, sort: any, project: string) {
     if (indices.length === 1) {
       let params = new HttpParams({
         fromObject: { 'indices': indices }
@@ -57,6 +57,7 @@ export class QueryService {
         catchError(this.handleError),
       );
     }
+    return null;
   }
 
   downloadCsv(indices, fields, project, fileFormat) {
@@ -73,7 +74,7 @@ export class QueryService {
     this.http.get(url, { params: params, responseType: 'blob' }).subscribe(
       (response: any) => {
         const dataType = response.type;
-        const binaryData = [];
+        const binaryData: any[] = [];
         binaryData.push(response);
         const downloadLink = document.createElement('a');
         downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
@@ -98,7 +99,7 @@ export class QueryService {
     this.http.get(url, { params: params, responseType: 'blob' }).subscribe(
       (response: any) => {
         const dataType = response.type;
-        const binaryData = [];
+        const binaryData: any[] = [];
         binaryData.push(response);
         const downloadLink = document.createElement('a');
         downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));

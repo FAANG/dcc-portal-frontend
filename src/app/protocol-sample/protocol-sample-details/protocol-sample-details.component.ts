@@ -1,29 +1,36 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
 import {getProtocolLink} from '../../shared/common_functions';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
+import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-protocol-sample-details',
   templateUrl: './protocol-sample-details.component.html',
-  styleUrls: ['./protocol-sample-details.component.css']
+  styleUrls: ['./protocol-sample-details.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, RobustLinkComponent, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell,
+    MatSortHeader, MatCellDef, MatCell, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
 export class ProtocolSampleDetailsComponent implements OnInit {
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  dataSource: MatTableDataSource<any>;
-  fileId: string;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  dataSource!: MatTableDataSource<any>;
+  fileId = '';
   file: any;
   error: any;
-  link: string;
+  link = '';
   p = 1;
-  display_fields = ['id', 'organismPartCellType', 'organism', 'breed', 'derivedFrom']
-  column_names = ['Specimen', 'Organism part/Cell type', 'Organism', 'Breed', 'Derived from']
+  display_fields = ['id', 'organismPartCellType', 'organism', 'breed', 'derivedFrom'];
+  column_names = ['Specimen', 'Organism part/Cell type', 'Organism', 'Breed', 'Derived from'];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -37,7 +44,7 @@ export class ProtocolSampleDetailsComponent implements OnInit {
       this.fileId = params['id'];
       this.titleService.setTitle(`${this.fileId} | FAANG protocol`);
     });
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource<any[]>([]);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataService.getSampleProtocol(this.fileId).subscribe(data => {

@@ -196,7 +196,7 @@
               <dd fxFlex="75">
                 <div fxLayout="row" fxLayout.lt-md="column">
                   @switch (specimen?.material?.text) {
-                    @case (pool of specimens) {
+                    @case ('pool of specimens') {
                       @for (derived of specimen?.derivedFrom; track derived; let i = $index) {
                         <div fxLayout="row" fxLayout.lt-md="column">
                           <!--            <robust-link prefix="http://www.ebi.ac.uk/biosamples/samples/" [link]="derived" [text]="derived"></robust-link>-->
@@ -212,7 +212,7 @@
                         </div>
                       }
                     }
-                    @case (cell specimen) {
+                    @case ('cell specimen') {
                       <!--ruleset constrain: specimen from organism-->
                       @if (!_userService.token) {
                         <app-robust-link [prefix]="specimen_prefix" [link]="specimen?.derivedFrom"
@@ -222,7 +222,7 @@
                         <a [routerLink]="['/specimen/' + specimen?.derivedFrom ]">{{specimen?.derivedFrom}}</a>
                       }
                     }
-                    @case (cell culture) {
+                    @case ('cell culture') {
                       <!--ruleset constrain: specimen from organism or cell specimen-->
                       @if (!_userService.token) {
                         <app-robust-link [prefix]="specimen_prefix" [link]="specimen?.derivedFrom"
@@ -248,7 +248,7 @@
           }
           <div fxLayout="column">
             @switch (specimen?.material?.text) {
-              @case (specimen from organism) {
+              @case ('specimen from organism') {
                 @if (specimen && specimen?.specimenFromOrganism?.hasOwnProperty('specimenCollectionDate')) {
                   <div fxLayout="row" fxLayout.lt-md="column">
                     <dt fxFlex="25">Specimen collection date:</dt>
@@ -346,7 +346,7 @@
                   </div>
                 }
               }
-              @case (pool of specimens) {
+              @case ('pool of specimens') {
                 @if (specimen && specimen.poolOfSpecimens.hasOwnProperty('poolCreationDate')) {
                   <div fxLayout="row" fxLayout.lt-md="column">
                     <dt fxFlex="25">Pool creation date:</dt>
@@ -398,7 +398,7 @@
                   </div>
                 }
               }
-              @case (cell specimen) {
+              @case ('cell specimen') {
                 @if (specimen?.cellSpecimen?.markers) {
                   <div fxLayout="row" fxLayout.lt-md="column">
                     <dt fxFlex="25">Markers:</dt>
@@ -438,7 +438,7 @@
                   </div>
                 }
               }
-              @case (cell culture) {
+              @case ('cell culture') {
                 @if (specimen && specimen?.cellCulture?.hasOwnProperty('cultureType')) {
                   <div fxLayout="row" fxLayout.lt-md="column">
                     <dt fxFlex="25">Culture type:</dt>
@@ -491,7 +491,7 @@
                   </div>
                 }
               }
-              @case (cell line) {
+              @case ('cell line') {
                 @if (specimen && specimen?.cellLine?.hasOwnProperty('cellLine')) {
                   <div fxLayout="row" fxLayout.lt-md="column">
                     <dt fxFlex="25">Cell line:</dt>

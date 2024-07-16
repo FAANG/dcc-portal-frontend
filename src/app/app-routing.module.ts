@@ -16,15 +16,15 @@ import {ArticleDetailComponent} from './article/article-detail/article-detail.co
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
 import {ProtocolSampleComponent} from './protocol-sample/protocol-sample.component';
 import {ProtocolExperimentComponent} from './protocol-experiment/protocol-experiment.component';
-// import {ProtocolSampleDetailsComponent} from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
-// import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
+import {ProtocolSampleDetailsComponent} from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
+import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
 import {OrganismsSummaryComponent} from './organisms-summary/organisms-summary.component';
 import {SpecimensSummaryComponent} from './specimens-summary/specimens-summary.component';
 import {DatasetsSummaryComponent} from './datasets-summary/datasets-summary.component';
 import {FilesSummaryComponent} from './files-summary/files-summary.component';
 import {ProtocolAnalysisComponent} from './protocol-analysis/protocol-analysis.component';
-// import {ProtocolAnalysisDetailsComponent} from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
-// import {NonExistingComponent} from './non-existing/non-existing.component';
+import {ProtocolAnalysisDetailsComponent} from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
+import {NonExistingComponent} from './non-existing/non-existing.component';
 import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
 import {RulesetSampleComponent} from './rulesets/ruleset-sample/ruleset-sample.component';
 import {RulesetExperimentComponent} from './rulesets/ruleset-experiment/ruleset-experiment.component';
@@ -37,11 +37,11 @@ import {ValidationAnalysesComponent} from './validation/validation-analyses/vali
 // import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
 //
 import {SubprojectComponent} from './subprojects/subproject.component';
-// import {LoginComponent} from './login/login.component';
-// import {FilesUploadComponent} from './files-upload/files-upload.component';
+import {LoginComponent} from './login/login.component';
+import {FilesUploadComponent} from './files-upload/files-upload.component';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 // // import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
-// import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
+import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 // // import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
 
@@ -70,11 +70,11 @@ const routes: Routes = [
   {path: 'article', component: ArticleComponent},
   {path: 'article/:id', component: ArticleDetailComponent},
   {path: 'protocol/samples', component: ProtocolSampleComponent},
-  // {path: 'protocol/samples/:id', component: ProtocolSampleDetailsComponent},
+  {path: 'protocol/samples/:id', component: ProtocolSampleDetailsComponent},
   {path: 'protocol/experiments', component: ProtocolExperimentComponent},
-  // {path: 'protocol/experiments/:id', component: ProtocolExperimentDetailsComponent},
+  {path: 'protocol/experiments/:id', component: ProtocolExperimentDetailsComponent},
   {path: 'protocol/analysis', component: ProtocolAnalysisComponent},
-  // {path: 'protocol/analysis/:id', component: ProtocolAnalysisDetailsComponent},
+  {path: 'protocol/analysis/:id', component: ProtocolAnalysisDetailsComponent},
   {path: 'summary', redirectTo: 'summary/organisms', pathMatch: 'full'},
   {path: 'summary/organisms', component: OrganismsSummaryComponent},
   {path: 'summary/specimens', component: SpecimensSummaryComponent},
@@ -93,11 +93,11 @@ const routes: Routes = [
   // {path: 'projects/sheepatlas', component: SheepatlasComponent},
   //
   {path: 'projects/:id', component: SubprojectDetailComponent},
-  // {path: 'login', component: LoginComponent},
-  // {path: 'upload_protocol', component: FilesUploadComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'upload_protocol', component: FilesUploadComponent},
   {path: 'ontology', component: OntologyImproverComponent},
   // // {path: 'ontology-workshop', component: OntologyImproverWorkshopComponent},
-  // {path: 'ontology/:id', component: OntologyDetailComponent},
+  {path: 'ontology/:id', component: OntologyDetailComponent},
   // // {path: 'ontology-workshop/:id', component: OntologyDetailWorkshopComponent},
   {path: 'api', component: ApiDocsComponent},
   //
@@ -109,8 +109,8 @@ const routes: Routes = [
   {path: 'genome_browser', component: LocalGenomeBrowserComponent},
   {path: 'graphql', component: GraphqlComponent},
   {path: 'globalsearch', component: GlobalSearchComponent},
-  // {path: '404', component: NonExistingComponent},
-  // {path: '**', component: NonExistingComponent}
+  {path: '404', component: NonExistingComponent},
+  {path: '**', component: NonExistingComponent}
 ];
 
 @NgModule({

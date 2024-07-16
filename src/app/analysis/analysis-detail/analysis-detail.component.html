@@ -1,167 +1,225 @@
 <app-header></app-header>
-<div class="row first-row" *ngIf="_userService.token">
-  <div class="col-md-12">
-    <div class="alert alert-info" role="alert">
-      <p>
-        You are logged in as {{ _userService.username }}. <br>
-        Token Expires: {{ _userService.token_expires }}
-      </p>
-      <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
-      <button (click)="_userService.logout()" class="btn btn-primary">Log Out</button>
+@if (_userService.token) {
+  <div class="row first-row">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        <p>
+          You are logged in as {{ _userService.username }}. <br>
+          Token Expires: {{ _userService.token_expires }}
+        </p>
+        <button (click)="_userService.refreshToken()" class="btn btn-primary">Refresh Token</button>&nbsp;
+        <button (click)="_userService.logout()" class="btn btn-primary">Log Out</button>
+      </div>
     </div>
   </div>
-</div>
+}
 <div class="container-fluid">
-  <div *ngIf="analysis">
-    <h2>{{analysis.accession}}</h2>
-    <hr>
-    <div fxLayout="column">
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">Analysis accession:</dt>
-        <dd fxFlex="75">
-          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="analysis?.accession"
-                           [text]="analysis?.accession"></app-robust-link>
-          <div *ngIf="_userService.token">{{analysis?.accession}}</div>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">Title:</dt>
-        <dd fxFlex="75">{{analysis?.title}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.alias">
-        <dt fxFlex="25">Alias:</dt>
-        <dd fxFlex="75">{{analysis?.alias}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.type">
-        <dt fxFlex="25">Type:</dt>
-        <dd fxFlex="75">{{analysis?.type}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">Dataset accession:</dt>
-        <dd fxFlex="75">
-          <div *ngIf="analysis?.datasetInPortal">
-            <app-robust-link *ngIf="!_userService.token" [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
-                           [text]="analysis?.datasetAccession"></app-robust-link>
-            <a *ngIf="_userService.token" [routerLink]="['/dataset/' + analysis?.datasetAccession ]">{{analysis?.datasetAccession}}</a>
+  @if (analysis) {
+    <div>
+      <h2>{{analysis.accession}}</h2>
+      <hr>
+      <div fxLayout="column">
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">Analysis accession:</dt>
+          <dd fxFlex="75">
+            @if (!_userService.token) {
+              <app-robust-link [prefix]="ena_prefix" [link]="analysis?.accession"
+                               [text]="analysis?.accession"></app-robust-link>
+            }
+            @if (_userService.token) {
+              <div>{{analysis?.accession}}</div>
+            }
+          </dd>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">Title:</dt>
+          <dd fxFlex="75">{{analysis?.title}}</dd>
+        </div>
+        @if (analysis?.alias) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Alias:</dt>
+            <dd fxFlex="75">{{analysis?.alias}}</dd>
           </div>
-          <div *ngIf="!analysis?.datasetInPortal">
-            <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="analysis?.datasetAccession"
-                           [text]="analysis?.datasetAccession"></app-robust-link>
-            <div *ngIf="_userService.token">{{analysis?.datasetAccession}}</div>
+        }
+        @if (analysis?.type) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Type:</dt>
+            <dd fxFlex="75">{{analysis?.type}}</dd>
           </div>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">Analysis type:</dt>
-        <dd fxFlex="75">
-          {{analysis?.analysisType}}
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.type">
-        <dt fxFlex="25">Assay type:</dt>
-        <dd fxFlex="75">{{analysis?.assayType}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.standardMet">
-        <dt fxFlex="25">Standard:</dt>
-        <dd fxFlex="75">{{analysis?.standardMet}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.analysisCenter">
-        <dt fxFlex="25">Analysis center:</dt>
-        <dd fxFlex="75">{{analysis?.analysisCenter}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.releaseDate">
-        <dt fxFlex="25">Release date:</dt>
-        <dd fxFlex="75">{{analysis?.releaseDate}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.updateDate">
-        <dt fxFlex="25">Update date:</dt>
-        <dd fxFlex="75">{{analysis?.updateDate}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.organism">
-        <dt fxFlex="25">Species:</dt>
-        <dd fxFlex="75">
-          <app-robust-link [prefix]="ols_prefix" [link]="analysis?.organism?.ontologyTerms"
-                           [text]="analysis?.organism?.text"></app-robust-link>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.sampleAccessions">
-        <dt fxFlex="25">Related Samples:</dt>
-        <dd fxFlex="75" *ngIf="!_userService.token">
-          <div fxLayout="row wrap" fxLayout.lt-md="column">
-            <div *ngFor="let accession of analysis?.sampleAccessions" fxFlex="15" fxLayoutGap="16px">
-              <div *ngIf="sampleInES(accession)">
-                <app-robust-link *ngIf="!_userService.token" [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
-                <a *ngIf="_userService.token" [routerLink]="['/specimen/' + accession ]">{{accession}}</a>
+        }
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">Dataset accession:</dt>
+          <dd fxFlex="75">
+            @if (analysis?.datasetInPortal) {
+              <div>
+                @if (!_userService.token) {
+                  <app-robust-link [prefix]="dataset_prefix" [link]="analysis?.datasetAccession"
+                                   [text]="analysis?.datasetAccession"></app-robust-link>
+                }
+                @if (_userService.token) {
+                  <a [routerLink]="['/dataset/' + analysis?.datasetAccession ]">{{analysis?.datasetAccession}}</a>
+                }
               </div>
-              <div *ngIf="!sampleInES(accession)">
-                <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
+            }
+            @if (!analysis?.datasetInPortal) {
+              <div>
+                @if (!_userService.token) {
+                  <app-robust-link [prefix]="ena_prefix" [link]="analysis?.datasetAccession"
+                                   [text]="analysis?.datasetAccession"></app-robust-link>
+                }
+                @if (_userService.token) {
+                  <div>{{analysis?.datasetAccession}}</div>
+                }
               </div>
-            </div>
+            }
+          </dd>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">Analysis type:</dt>
+          <dd fxFlex="75">
+            {{analysis?.analysisType}}
+          </dd>
+        </div>
+        @if (analysis?.type) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Assay type:</dt>
+            <dd fxFlex="75">{{analysis?.assayType}}</dd>
           </div>
-        </dd>
-        <dd fxFlex="75" *ngIf="_userService.token">
-          <div *ngFor="let accession of analysis?.sampleAccessions" fxFlex="15" fxLayoutGap="16px">
-            <a [routerLink]="['/specimen/' + accession]">{{accession}}</a>
+        }
+        @if (analysis?.standardMet) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Standard:</dt>
+            <dd fxFlex="75">{{analysis?.standardMet}}</dd>
           </div>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.experimentAccessions && analysis?.experimentAccessions.length > 0">
-        <dt fxFlex="25">Related Experiments:</dt>
-        <dd fxFlex="75">
-          <div fxLayout="row wrap" fxLayout.lt-md="column">
-            <div *ngFor="let exp of analysis?.experimentAccessions" fxFlex="15" fxLayoutGap="16px">
-              <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
-              <div *ngIf="_userService.token">{{exp}}</div>
-            </div>
+        }
+        @if (analysis?.analysisCenter) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Analysis center:</dt>
+            <dd fxFlex="75">{{analysis?.analysisCenter}}</dd>
           </div>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.runAccessions && analysis?.runAccessions.length > 0">
-        <dt fxFlex="25">Related Runs:</dt>
-        <dd fxFlex="75">
-          <div fxLayout="row wrap" fxLayout.lt-md="column">
-            <div *ngFor="let run of analysis?.runAccessions" fxFlex="15" fxLayoutGap="16px">
-              <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
-              <div *ngIf="_userService.token">{{run}}</div>
-            </div>
+        }
+        @if (analysis?.releaseDate) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Release date:</dt>
+            <dd fxFlex="75">{{analysis?.releaseDate}}</dd>
           </div>
-        </dd>
+        }
+        @if (analysis?.updateDate) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Update date:</dt>
+            <dd fxFlex="75">{{analysis?.updateDate}}</dd>
+          </div>
+        }
+        @if (analysis?.organism) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Species:</dt>
+            <dd fxFlex="75">
+              <app-robust-link [prefix]="ols_prefix" [link]="analysis?.organism?.ontologyTerms"
+                               [text]="analysis?.organism?.text"></app-robust-link>
+            </dd>
+          </div>
+        }
+        @if (analysis?.sampleAccessions) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Related Samples:</dt>
+            @if (!_userService.token) {
+              <dd fxFlex="75">
+                <div fxLayout="row wrap" fxLayout.lt-md="column">
+                  @for (accession of analysis?.sampleAccessions; track accession) {
+                    <div fxFlex="15" fxLayoutGap="16px">
+                      @if (sampleInES(accession)) {
+                        <div>
+                          @if (!_userService.token) {
+                            <app-robust-link [prefix]="specimen_prefix" [link]="accession" [text]="accession"></app-robust-link>
+                          }
+                          @if (_userService.token) {
+                            <a [routerLink]="['/specimen/' + accession ]">{{accession}}</a>
+                          }
+                        </div>
+                      }
+                      @if (!sampleInES(accession)) {
+                        <div>
+                          <app-robust-link [prefix]="biosample_prefix" [link]="accession" [text]="accession"></app-robust-link>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </dd>
+            }
+            @if (_userService.token) {
+              <dd fxFlex="75">
+                @for (accession of analysis?.sampleAccessions; track accession) {
+                  <div fxFlex="15" fxLayoutGap="16px">
+                    <a [routerLink]="['/specimen/' + accession]">{{accession}}</a>
+                  </div>
+                }
+              </dd>
+            }
+          </div>
+        }
+        @if (analysis?.experimentAccessions && analysis?.experimentAccessions.length > 0) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Related Experiments:</dt>
+            <dd fxFlex="75">
+              <div fxLayout="row wrap" fxLayout.lt-md="column">
+                @for (exp of analysis?.experimentAccessions; track exp) {
+                  <div fxFlex="15" fxLayoutGap="16px">
+                    @if (!_userService.token) {
+                      <app-robust-link [prefix]="ena_prefix" [link]="exp" [text]="exp"></app-robust-link>
+                    }
+                    @if (_userService.token) {
+                      <div>{{exp}}</div>
+                    }
+                  </div>
+                }
+              </div>
+            </dd>
+          </div>
+        }
+        @if (analysis?.runAccessions && analysis?.runAccessions.length > 0) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Related Runs:</dt>
+            <dd fxFlex="75">
+              <div fxLayout="row wrap" fxLayout.lt-md="column">
+                @for (run of analysis?.runAccessions; track run) {
+                  <div fxFlex="15" fxLayoutGap="16px">
+                    @if (!_userService.token) {
+                      <app-robust-link [prefix]="ena_prefix" [link]="run" [text]="run"></app-robust-link>
+                    }
+                    @if (_userService.token) {
+                      <div>{{run}}</div>
+                    }
+                  </div>
+                }
+              </div>
+            </dd>
+          </div>
+        }
+        @if (analysis?.experimentType) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Experiment type:</dt>
+            <dd fxFlex="75">{{convertArrayToStr(analysis.experimentType, '')}}</dd>
+          </div>
+        }
+        @if (analysis?.platform) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Platform:</dt>
+            <dd fxFlex="75">{{convertArrayToStr(analysis.platform, '')}}</dd>
+          </div>
+        }
+        @if (analysis?.analysisProtocol?.url) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Analysis Protocol:</dt>
+            <dd fxFlex="75">
+              <app-robust-link prefix="" [link]="getProtocolLink(analysis.analysisProtocol.url)"
+                               [text]="analysis.analysisProtocol.filename"></app-robust-link>
+            </dd>
+          </div>
+        }
       </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.experimentType">
-        <dt fxFlex="25">Experiment type:</dt>
-        <dd fxFlex="75">{{convertArrayToStr(analysis.experimentType, '')}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.platform">
-        <dt fxFlex="25">Platform:</dt>
-        <dd fxFlex="75">{{convertArrayToStr(analysis.platform, '')}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="analysis?.analysisProtocol?.url">
-        <dt fxFlex="25">Analysis Protocol:</dt>
-        <dd fxFlex="75">
-          <app-robust-link prefix="" [link]="getProtocolLink(analysis.analysisProtocol.url)"
-                              [text]="analysis.analysisProtocol.filename"></app-robust-link>
-        </dd>
-      </div>
+      <app-related-items source_type="analysis" target_type="file" [data]="relatedFiles"
+                         download_key="url" [record_id]="analysis.accession"></app-related-items>
     </div>
-
-    <app-related-items source_type="analysis" target_type="file" [data]="relatedFiles"
-                       download_key="url" [record_id]="analysis.accession"></app-related-items>
-  </div>
+  }
 </div>

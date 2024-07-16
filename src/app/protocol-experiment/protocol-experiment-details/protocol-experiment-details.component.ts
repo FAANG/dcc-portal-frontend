@@ -4,33 +4,43 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ApiDataService} from '../../services/api-data.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Title} from '@angular/platform-browser';
-import {NgxSmartModalService} from 'ngx-smart-modal';
+import { NgxSmartModalService, NgxSmartModalModule } from 'ngx-smart-modal';
 import {protocolNames} from '../../shared/protocolnames';
 import {getProtocolLink, expandObject} from '../../shared/common_functions';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
+import { SlicePipe } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-protocol-experiment-details',
   templateUrl: './protocol-experiment-details.component.html',
-  styleUrls: ['./protocol-experiment-details.component.css']
+  styleUrls: ['./protocol-experiment-details.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, RobustLinkComponent, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell,
+    MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, NgxSmartModalModule, MatButton,
+    SlicePipe]
 })
 export class ProtocolExperimentDetailsComponent implements OnInit {
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  dataSource: MatTableDataSource<any>;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  dataSource!: MatTableDataSource<any>;
   expandObject: any;
-  protocolId: string;
+  protocolId = '';
   protocol: any;
   error: any;
   experiment: any = {};
   fieldNames = FIELD_NAMES;
-  experimentId: string;
+  experimentId = '';
   objectKeys = Object.keys;
-  link: string;
-  display_fields = ['accession', 'sampleStorage', 'sampleStorageProcessing']
-  column_names = ['Accession number', 'Sample storage', 'Sample storage processing']
+  link = '';
+  display_fields = ['accession', 'sampleStorage', 'sampleStorageProcessing'];
+  column_names = ['Accession number', 'Sample storage', 'Sample storage processing'];
 
   p = 1;
 
@@ -50,7 +60,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
         this.titleService.setTitle(`${this.protocolId.split('-')[0]} | FAANG protocol`);
       }
     });
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource<any[]>([]);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataService.getExperimentProtocol(this.protocolId).subscribe(data => {
@@ -92,11 +102,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
   }
 
   checkIsObject(value: any) {
-    if (typeof value === 'object') {
-      return true;
-    } else {
-      return false;
-    }
+    return typeof value === 'object';
   }
 
 }

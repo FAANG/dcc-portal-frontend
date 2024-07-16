@@ -1,0 +1,34 @@
+<app-header></app-header>
+<div class="container-fluid" style="padding-top: 10px">
+  <h2>Upload Protocols</h2>
+  <hr>
+  <div fxLayout="column">
+    <div class="alert alert-primary" role="alert">
+      Please name your files using this convention INSTITUTE_SOP_PROTOCOLNAME_YYYYMMDD.pdf e.g
+      INRA_SOP_sorting_swine_CD_cells_20160504.pdf. This is a protocol for Sorting Swine CD cells, the protocol
+      comes from the French National Institute for Agricultural Research and the protocol was written on the
+      4th May 2016. Read more in <a href="https://dcc-documentation.readthedocs.io/en/latest/">documentation</a>
+    </div>
+
+    <div class="form-check" style="margin: 10px 0;">
+      <input class="form-check-input" type="radio" name="exampleRadios" id="samples" value="samples" checked
+             [checked]="previousPage === 'samples'" (click)="chooseProtocolType('samples')">
+      <label for="samples">Samples protocol</label> <br>
+
+      <input class="form-check-input" type="radio" name="exampleRadios" id="experiments" value="experiments"
+             [checked]="previousPage === 'experiments'" (click)="chooseProtocolType('experiments')">
+      <label for="experiments">Experiments protocol</label> <br>
+
+      <input class="form-check-input" type="radio" name="exampleRadios" id="analyses" value="analyses"
+             [checked]="previousPage === 'analyses'" (click)="chooseProtocolType('analyses')">
+      <label for="analyses">Analyses protocol</label>
+    </div>
+
+    <app-bulk-files-uploader
+      style="margin: 10px 0;"
+      [uploadUrl]="UploadURL"
+      [mode]="'bulk'">
+    </app-bulk-files-uploader>
+
+  </div>
+</div>

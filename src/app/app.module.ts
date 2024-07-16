@@ -34,8 +34,8 @@ import { environment } from '../environments/environment';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { ProtocolSampleComponent } from './protocol-sample/protocol-sample.component';
 import { ProtocolExperimentComponent } from './protocol-experiment/protocol-experiment.component';
-// import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
-// import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
+import { ProtocolSampleDetailsComponent } from './protocol-sample/protocol-sample-details/protocol-sample-details.component';
+import {ProtocolExperimentDetailsComponent} from './protocol-experiment/protocol-experiment-details/protocol-experiment-details.component';
 // // import { ChartsModule } from 'ng2-charts';
 // import { NgChartsModule } from 'ng2-charts';
 import { OrganismsSummaryComponent } from './organisms-summary/organisms-summary.component';
@@ -45,7 +45,7 @@ import { FilesSummaryComponent } from './files-summary/files-summary.component';
 // import {SlicePipe} from '@angular/common';
 // // import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { ProtocolAnalysisComponent } from './protocol-analysis/protocol-analysis.component';
-// import { NonExistingComponent } from './non-existing/non-existing.component';
+import { NonExistingComponent } from './non-existing/non-existing.component';
 // // import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import { IndeterminateDirective } from './shared/indeterminate.directive';
 import {RulesetAnalysisComponent} from './rulesets/ruleset-analysis/ruleset-analysis.component';
@@ -65,8 +65,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 // import { TableClientSideComponent } from './shared/table-client-side/table-client-side.component';
-// import {LoginComponent} from './login/login.component';
-// import {FilesUploadComponent} from './files-upload/files-upload.component';
+import {LoginComponent} from './login/login.component';
+import {FilesUploadComponent} from './files-upload/files-upload.component';
 // import {UserService} from './services/user.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -79,7 +79,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-// import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
+import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -98,7 +98,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 // import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { cookieConfig } from './app.component';
-// import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
+import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
 // import { EnsemblAnnotationComponent } from './shared/ensembl-annotation/ensembl-annotation.component';
 import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
 import { MatTreeModule } from '@angular/material/tree';
@@ -205,14 +205,14 @@ export function removeToken(): void {
         SubprojectDetailComponent,
         ProtocolSampleComponent,
         ProtocolExperimentComponent,
-        // ProtocolSampleDetailsComponent,
-        // ProtocolExperimentDetailsComponent,
+        ProtocolSampleDetailsComponent,
+        ProtocolExperimentDetailsComponent,
         OrganismsSummaryComponent,
         SpecimensSummaryComponent,
         DatasetsSummaryComponent,
         FilesSummaryComponent,
         ProtocolAnalysisComponent,
-        // NonExistingComponent,
+        NonExistingComponent,
         RulesetSampleComponent,
         RulesetExperimentComponent,
         RulesetAnalysisComponent,
@@ -225,10 +225,10 @@ export function removeToken(): void {
         // SheepatlasComponent,
         SubprojectComponent,
         // TableClientSideComponent,
-        // LoginComponent,
-        // FilesUploadComponent,
+        LoginComponent,
+        FilesUploadComponent,
         OntologyImproverComponent,
-        // OntologyDetailComponent,
+        OntologyDetailComponent,
         ApiDocsComponent,
         // QueryLanguageComponent,
         // TrackhubsSubmissionComponent,
@@ -236,7 +236,7 @@ export function removeToken(): void {
         // EurofaangInfoComponent,
         TableServerSideComponent,
         // NextflowSubmissionComponent,
-        // ProtocolAnalysisDetailsComponent,
+        ProtocolAnalysisDetailsComponent,
         // EnsemblAnnotationComponent,
         LocalGenomeBrowserComponent,
         GraphqlComponent,

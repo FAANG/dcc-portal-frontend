@@ -15,7 +15,7 @@
                 class="alert alert-danger form-danger">
                 Username is required
               </div>
-              @for (error of _userService.errors.username; track error) {
+              @for (error of getErrors(); track error) {
                 <span><br />{{ error }}</span>
               }
             </div>
