@@ -40,14 +40,9 @@ import {SubprojectComponent} from './subprojects/subproject.component';
 import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
-// // import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
-// // import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
 
-// to delete
-// import { QueryLanguageComponent } from './query-language/query-language.component';
-//
 import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
@@ -96,14 +91,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'upload_protocol', component: FilesUploadComponent},
   {path: 'ontology', component: OntologyImproverComponent},
-  // // {path: 'ontology-workshop', component: OntologyImproverWorkshopComponent},
   {path: 'ontology/:id', component: OntologyDetailComponent},
-  // // {path: 'ontology-workshop/:id', component: OntologyDetailWorkshopComponent},
   {path: 'api', component: ApiDocsComponent},
-  //
-  // // to delete
-  // {path: 'query', component: QueryLanguageComponent},
-  //
   {path: 'trackhubs', component: TrackhubsSubmissionComponent},
   {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
   {path: 'genome_browser', component: LocalGenomeBrowserComponent},
