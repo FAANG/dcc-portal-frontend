@@ -52,7 +52,7 @@ import { ApiDocsComponent } from './api-docs/api-docs.component';
 // import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
 import { GraphqlComponent } from './graphql/graphql.component';
-// import { GlobalSearchComponent } from './globalsearch/globalsearch.component';
+import { GlobalSearchComponent } from './globalsearch/globalsearch.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -108,7 +108,7 @@ const routes: Routes = [
   // {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
   {path: 'genome_browser', component: LocalGenomeBrowserComponent},
   {path: 'graphql', component: GraphqlComponent},
-  // {path: 'globalsearch', component: GlobalSearchComponent},
+  {path: 'globalsearch', component: GlobalSearchComponent},
   // {path: '404', component: NonExistingComponent},
   // {path: '**', component: NonExistingComponent}
 ];
