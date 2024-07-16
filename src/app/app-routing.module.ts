@@ -48,8 +48,8 @@ import { ApiDocsComponent } from './api-docs/api-docs.component';
 // to delete
 // import { QueryLanguageComponent } from './query-language/query-language.component';
 //
-// import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
-// import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
+import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
+import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome-browser.component';
 import { GraphqlComponent } from './graphql/graphql.component';
 import { GlobalSearchComponent } from './globalsearch/globalsearch.component';
@@ -104,8 +104,8 @@ const routes: Routes = [
   // // to delete
   // {path: 'query', component: QueryLanguageComponent},
   //
-  // {path: 'trackhubs', component: TrackhubsSubmissionComponent},
-  // {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
+  {path: 'trackhubs', component: TrackhubsSubmissionComponent},
+  {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
   {path: 'genome_browser', component: LocalGenomeBrowserComponent},
   {path: 'graphql', component: GraphqlComponent},
   {path: 'globalsearch', component: GlobalSearchComponent},

@@ -86,7 +86,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
 // import { QueryLanguageComponent } from './query-language/query-language.component';
-// import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
+import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 // import { BulkFilesUploaderComponent } from './bulk-files-uploader/bulk-files-uploader.component';
 // import { EurofaangInfoComponent } from './subprojects/subproject-detail/eurofaang-info/eurofaang-info.component';
 import { TableServerSideComponent } from './shared/table-server-side/table-server-side.component';
@@ -95,7 +95,7 @@ import { MatCardModule } from '@angular/material/card';
 // import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 // import { MatBadgeModule } from '@angular/material/badge';
-// import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
+import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
 import { NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { cookieConfig } from './app.component';
 import { ProtocolAnalysisDetailsComponent } from './protocol-analysis/protocol-analysis-details/protocol-analysis-details.component';
@@ -231,11 +231,11 @@ export function removeToken(): void {
         OntologyDetailComponent,
         ApiDocsComponent,
         // QueryLanguageComponent,
-        // TrackhubsSubmissionComponent,
+        TrackhubsSubmissionComponent,
         // BulkFilesUploaderComponent,
         // EurofaangInfoComponent,
         TableServerSideComponent,
-        // NextflowSubmissionComponent,
+        NextflowSubmissionComponent,
         ProtocolAnalysisDetailsComponent,
         // EnsemblAnnotationComponent,
         LocalGenomeBrowserComponent,
