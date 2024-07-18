@@ -29,7 +29,7 @@ export class FilterStateService {
         params['sortTerm'] = queryObj['sort'][0];
         params['sortDirection'] = queryObj['sort'][1];
       }
-      this.router.navigate(componentRoute, {queryParams: params, replaceUrl: true, skipLocationChange: false});
+      void this.router.navigate(componentRoute, {queryParams: params, replaceUrl: true, skipLocationChange: false});
     });
     return aggrSubscription;
   }

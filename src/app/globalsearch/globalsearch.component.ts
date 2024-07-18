@@ -45,7 +45,7 @@ export class GlobalSearchComponent implements OnInit {
 
     window.addEventListener('popstate', (event) => {
       if (window.location.href !== `${window.location.origin}/globalsearch`) {
-        this.router.navigate(['/globalsearch'], {
+        void this.router.navigate(['/globalsearch'], {
           relativeTo: this.route,
           queryParamsHandling: 'merge',
           replaceUrl: true
@@ -70,7 +70,7 @@ export class GlobalSearchComponent implements OnInit {
       this.jsonData = {};
     }
     this.showResults = true;
-    this.router.navigate([], {
+    void this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { searchText: this.searchText },
       queryParamsHandling: 'merge',
@@ -95,11 +95,11 @@ export class GlobalSearchComponent implements OnInit {
 
   navigateToItem(itemKey: string, searchTerm?: string | null): void {
     if (itemKey && this.searchText) {
-      this.router.navigate(
+      void this.router.navigate(
         [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm: this.searchText }});
     }
     if (itemKey && searchTerm) {
-      this.router.navigate(
+      void this.router.navigate(
         [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm: searchTerm }});
     }
   }

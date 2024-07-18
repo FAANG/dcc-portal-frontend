@@ -58,7 +58,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.tabs = Object.keys(this.tabsConfig);
-    this.spinner.show();
+    void this.spinner.show();
     this.right_logo_url = {
       bovine: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/funding-logo-1.png',
       other: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovreg/funding-logo-1.png'
@@ -73,11 +73,11 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params: Params) => {
         this.project = params['id'];
         this.titleService.setTitle(`${this.project} | FAANG project`);
-        this.spinner.hide();
+        void this.spinner.hide();
       },
       error => {
         this.error = error;
-        this.spinner.hide();
+        void this.spinner.hide();
       });
     if (setting.hasOwnProperty(this.project)) {
       this.setting = setting[this.project as keyof typeof setting];
@@ -91,7 +91,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
         }
       }
     } else {
-      this.router.navigate(['404']);
+      void this.router.navigate(['404']);
     }
   }
 
@@ -133,7 +133,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.router.navigate(['login']);
+    void this.router.navigate(['login']);
   }
 
   ngOnDestroy() {

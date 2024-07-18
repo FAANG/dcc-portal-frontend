@@ -51,7 +51,7 @@ export class DatasetDetailComponent implements OnInit {
       'specimen.specimenFromOrganism.animalAgeAtCollection.unit', 'specimen.biosampleId', 'specimen.cellType.text'];
 
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
-    this.spinner.show();
+    void this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.accession = params['id'];
       this.titleService.setTitle(`${this.accession} | FAANG dataset`);
@@ -59,8 +59,8 @@ export class DatasetDetailComponent implements OnInit {
     this.dataService.getDataset(this.accession, this.mode).subscribe({
       next: (data: any) => {
         if (data['hits']['hits'].length === 0) {
-          this.spinner.hide();
-          this.router.navigate(['404']);
+          void this.spinner.hide();
+          void this.router.navigate(['404']);
         } else {
           this.dataset = data['hits']['hits'][0]['_source'];
           if (this.dataset) {
@@ -69,11 +69,11 @@ export class DatasetDetailComponent implements OnInit {
             this.relatedArticles = data['hits']['hits'][0]['_source']['publishedArticles'];
           }
         }
-        this.spinner.hide();
+        void this.spinner.hide();
       },
       error: error => {
         this.error = error;
-        this.spinner.hide();
+        void this.spinner.hide();
       }
     });
   }

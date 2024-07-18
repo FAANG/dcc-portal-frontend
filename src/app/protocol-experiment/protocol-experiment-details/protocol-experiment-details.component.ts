@@ -53,7 +53,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.expandObject = expandObject;
-    this.spinner.show();
+    void this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.protocolId = params['id'];
       if (this.protocolId) {
@@ -65,12 +65,12 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataService.getExperimentProtocol(this.protocolId).subscribe(data => {
         if (data['hits']['hits'].length === 0) {
-          this.spinner.hide();
-          this.router.navigate(['404']);
+          void this.spinner.hide();
+          void this.router.navigate(['404']);
         } else {
           this.protocol = data['hits']['hits'][0]['_source'];
           if (this.protocol) {
-            this.spinner.hide();
+            void this.spinner.hide();
             this.link = getProtocolLink(this.protocol.url);
             if (this.protocol.experiments) {
               this.dataSource.data = this.protocol['experiments'];
@@ -79,7 +79,7 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
         }
       },
       error => {
-        this.spinner.hide();
+        void this.spinner.hide();
         this.error = error;
       });
   }

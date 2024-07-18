@@ -132,7 +132,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['organism'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    void this.router.navigate(['organism'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {

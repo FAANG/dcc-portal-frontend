@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this._userService.loginSuccess.subscribe(data => {
-      this.router.navigate(['projects/BovReg']);
+      void this.router.navigate(['projects/BovReg']);
     });
   }
 

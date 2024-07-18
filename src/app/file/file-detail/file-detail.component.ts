@@ -51,21 +51,21 @@ export class FileDetailComponent implements OnInit {
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
     this.expandObject = expandObject;
     this.getProtocolLink = getProtocolLink;
-    this.spinner.show();
+    void this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.fileId = params['id'];
       this.titleService.setTitle(`${this.fileId} | FAANG file`);
     });
-    this.dataService.getFile(this.fileId, this.mode).subscribe(
-      (data: any) => {
+    this.dataService.getFile(this.fileId, this.mode).subscribe({
+      next: (data: any) => {
         if (data['hits']['hits'].length === 0) {
-          this.spinner.hide();
-          this.router.navigate(['404']);
+          void this.spinner.hide();
+          void this.router.navigate(['404']);
         } else {
           this.file = data['hits']['hits'][0]['_source'];
           if (this.file) {
             this.relatedArticles = data['hits']['hits'][0]['_source']['publishedArticles'];
-            this.spinner.hide();
+            void this.spinner.hide();
             if (this.file.hasOwnProperty('experiment')) {
               this.dataService.getExperimentByAccession(this.file['experiment']['accession']).subscribe(
                 (experiment_data: any) => {
@@ -81,11 +81,11 @@ export class FileDetailComponent implements OnInit {
           }
         }
       },
-      error => {
+      error: error => {
         this.error = error;
-        this.spinner.hide();
+        void this.spinner.hide();
       }
-    );
+    });
   }
 
   checkIsObject(value: any) {

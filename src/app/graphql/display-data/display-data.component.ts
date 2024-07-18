@@ -21,15 +21,15 @@ import { NgStyle, NgTemplateOutlet } from '@angular/common';
     ShortenTitlePipe]
 })
 export class DisplayDataComponent implements OnInit, OnChanges {
-  @Input() dataTable;
-  @Input() displayedColumns;
-  @Input() colLinks;
-  @Input() primaryField;
-  @Input() firstIndex;
+  @Input() dataTable: any;
+  @Input() displayedColumns: any;
+  @Input() colLinks: any;
+  @Input() primaryField: any;
+  @Input() firstIndex: any;
 
   indexData = {};
   dataSource!: MatTableDataSource<any>;
-  colPrimaryField;
+  colPrimaryField: any;
   timer: any;
   delaySearch = true;
 
@@ -54,10 +54,6 @@ export class DisplayDataComponent implements OnInit, OnChanges {
     if (this.dataSource) {
       this.dataSource.data = this.dataTable;
     }
-  }
-
-  keyExists(key: any, obj: Object) {
-    return key in obj;
   }
 
   extractNumEntries(str: any) {
@@ -87,22 +83,22 @@ export class DisplayDataComponent implements OnInit, OnChanges {
     }
   }
 
-  getUrlAccession(colValue) {
+  getUrlAccession(colValue: string) {
     return this.firstIndex === 'file' ? colValue.split('.')[0] : colValue;
   }
 
-  isOntologyTerm(colName, indexName) {
+  isOntologyTerm(colName: string, indexName: string | number) {
     if (this.indexData[indexName]['ontologyTermsLink']) {
       return colName in this.indexData[indexName]['ontologyTermsLink'];
     }
     return false;
   }
 
-  getOntologyTermsLink(colName, indexName) {
+  getOntologyTermsLink(colName: string | number, indexName: string | number) {
     return this.indexData[indexName]['ontologyTermsLink'][colName];
   }
 
-  updateDisplayedColumnsArr(displayedColumns) {
+  updateDisplayedColumnsArr(displayedColumns: any) {
     const filteredColumnsArr = [...displayedColumns];
     for (const col of filteredColumnsArr) {
       const indexName = col.split('.')[0];
@@ -128,7 +124,7 @@ export class DisplayDataComponent implements OnInit, OnChanges {
     }
   }
 
-  applySearchFilter(val) {
+  applySearchFilter(val: string) {
     this.dataSource.filter = val;
   }
 

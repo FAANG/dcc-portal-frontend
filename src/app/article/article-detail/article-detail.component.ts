@@ -33,7 +33,7 @@ export class ArticleDetailComponent implements OnInit {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.spinner.show();
+    void this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.titleService.setTitle(`${this.id} | FAANG article`);
@@ -41,19 +41,19 @@ export class ArticleDetailComponent implements OnInit {
     this.dataService.getArticle(this.id).subscribe({
       next: (data: any) => {
         if (data['hits']['hits'].length === 0) {
-          this.spinner.hide();
-          this.router.navigate(['404']);
+          void this.spinner.hide();
+          void this.router.navigate(['404']);
         } else {
           this.article = data['hits']['hits'][0]['_source'];
           if (this.article) {
             this.relatedDatasets = data['hits']['hits'][0]['_source']['relatedDatasets'];
-            this.spinner.hide();
+            void this.spinner.hide();
           }
         }
       },
       error: error => {
         this.error = error;
-        this.spinner.hide();
+        void this.spinner.hide();
       }
     });
   }

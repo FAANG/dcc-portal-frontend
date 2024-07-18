@@ -313,11 +313,11 @@ export class RulesetSampleComponent implements OnInit {
 
   tabClick(tab) {
     if (tab.index == 0) {
-      this.router.navigate(['ruleset/samples'], {fragment: 'Standard'});
+      void this.router.navigate(['ruleset/samples'], {fragment: 'Standard'});
     } else if (tab.index == 1) {
-      this.router.navigate(['ruleset/experiments'], {fragment: 'Standard'});
+      void this.router.navigate(['ruleset/experiments'], {fragment: 'Standard'});
     } else if (tab.index == 2) {
-      this.router.navigate(['ruleset/analyses'], {fragment: 'FAANG'});
+      void this.router.navigate(['ruleset/analyses'], {fragment: 'FAANG'});
     }
   }
 

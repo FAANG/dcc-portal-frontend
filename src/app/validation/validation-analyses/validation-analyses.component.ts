@@ -509,13 +509,13 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     el.click();
   }
 
-  tabClick(tab) {
+  tabClick(tab: any) {
     if (tab.index === 0) {
-      this.router.navigate(['validation/samples']);
+      void this.router.navigate(['validation/samples']);
     } else if (tab.index === 1) {
-      this.router.navigate(['validation/experiments']);
+      void this.router.navigate(['validation/experiments']);
     } else if (tab.index === 2) {
-      this.router.navigate(['validation/analyses']);
+      void this.router.navigate(['validation/analyses']);
     }
   }
 

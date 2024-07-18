@@ -39,7 +39,7 @@ export class ProtocolSampleDetailsComponent implements OnInit {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.spinner.show();
+    void this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.fileId = params['id'];
       this.titleService.setTitle(`${this.fileId} | FAANG protocol`);
@@ -49,21 +49,21 @@ export class ProtocolSampleDetailsComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataService.getSampleProtocol(this.fileId).subscribe(data => {
         if (data['hits']['hits'].length === 0) {
-          this.spinner.hide();
-          this.router.navigate(['404']);
+          void this.spinner.hide();
+          void this.router.navigate(['404']);
         } else {
           this.file = data['hits']['hits'][0]['_source'];
           if (this.file) {
             if (this.file.specimens) {
               this.dataSource.data = this.file['specimens'];
             }
-            this.spinner.hide();
+            void this.spinner.hide();
             this.link = getProtocolLink(this.file.url);
           }
         }
       },
       error => {
-        this.spinner.hide();
+        void this.spinner.hide();
         this.error = error;
       });
   }

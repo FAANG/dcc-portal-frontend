@@ -39,7 +39,7 @@ export class SpecimenDetailComponent implements OnInit {
 
   ngOnInit() {
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
-    this.spinner.show();
+    void this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.biosampleId = params['id'];
       this.titleService.setTitle(`${this.biosampleId} | FAANG specimen`);
@@ -47,25 +47,24 @@ export class SpecimenDetailComponent implements OnInit {
     this.dataService.getSpecimen(this.biosampleId, this.mode).subscribe(
       (data: any) => {
         if (data['hits']['hits'].length === 0) {
-          this.spinner.hide();
-          this.router.navigate(['404']);
+          void this.spinner.hide();
+          void this.router.navigate(['404']);
         } else {
           this.specimen = data['hits']['hits'][0]['_source'];
           if (this.specimen) {
             this.relatedArticles = data['hits']['hits'][0]['_source']['publishedArticles'];
           }
           if (this.biosampleId !== this.specimen.biosampleId) {
-            // this.router.navigate(['/specimen', this.specimen.biosampleId]);
             this.router.navigate(['/']).then(() => {
-              this.router.navigate(['/specimen', this.specimen.biosampleId]);
+              void this.router.navigate(['/specimen', this.specimen.biosampleId]);
             });
           }
         }
-        this.spinner.hide();
+        void this.spinner.hide();
       },
       error => {
         this.error = error;
-        this.spinner.hide();
+        void this.spinner.hide();
       }
     );
   }

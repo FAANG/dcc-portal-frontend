@@ -28,7 +28,7 @@ export class OntologyDetailComponent implements OnInit {
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.spinner.show();
+    void this.spinner.show();
     this.route.params.subscribe((params: Params) => {
       this.ontologyDbId = params['id'];
       this.titleService.setTitle('Ontology');
@@ -36,7 +36,7 @@ export class OntologyDetailComponent implements OnInit {
     this.data = this.dataService.getOntologyById(this.ontologyDbId, 'ontologies').subscribe(
       (data: any) => {
         this.data = data;
-        this.spinner.hide();
+        void this.spinner.hide();
         this.titleService.setTitle(`${this.data.id} | Ontology`);
     });
   }

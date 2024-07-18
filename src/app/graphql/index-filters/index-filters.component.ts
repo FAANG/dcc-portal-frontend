@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormArray, FormGroup, FormControl, Validators, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -20,9 +20,9 @@ import { MatToolbar } from '@angular/material/toolbar';
     MatIconButton, MatTooltip, MatIcon]
 })
 export class IndexFiltersComponent implements OnInit {
-  @Input() firstIndex;
-  @Input() secondIndex;
-  @Input() indexFilters;
+  @Input() firstIndex: any;
+  @Input() secondIndex: any;
+  @Input() indexFilters: any;
   public filterForm!: FormGroup;
 
   constructor(private formBuilder: UntypedFormBuilder) {

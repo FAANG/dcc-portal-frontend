@@ -199,7 +199,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['ontology'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    void this.router.navigate(['ontology'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   passwordValidator(group: FormGroup) {
@@ -741,19 +741,19 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   onBadgeClick(item, type) {
     const project = item['row']['project'];
     if (type === 'all') {
-      this.router.navigate(['ontology'], {
+      void this.router.navigate(['ontology'], {
         queryParams: { projects: project },
         replaceUrl: true,
         skipLocationChange: false
       });
     } else if (type === 'validated') {
-      this.router.navigate(['ontology'], {
+      void this.router.navigate(['ontology'], {
         queryParams: { projects: project, status_activity: 'Verified' },
         replaceUrl: true,
         skipLocationChange: false
       });
     } else if (type === 'downvoted') {
-      this.router.navigate(['ontology'], {
+      void this.router.navigate(['ontology'], {
         queryParams: { projects: project, status_activity: 'Needs Improvement' },
         replaceUrl: true,
         skipLocationChange: false

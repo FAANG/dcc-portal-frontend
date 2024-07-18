@@ -124,7 +124,7 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['protocol', 'experiments'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    void this.router.navigate(['protocol', 'experiments'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {
@@ -150,16 +150,16 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   }
 
   onUploadProtocolClick() {
-    this.router.navigate(['upload_protocol']);
+    void this.router.navigate(['upload_protocol']);
   }
 
   tabClick(tab: any) {
     if (tab.index === 0) {
-      this.router.navigate(['protocol/samples']);
+      void this.router.navigate(['protocol/samples']);
     } else if (tab.index === 1) {
-      this.router.navigate(['protocol/experiments']);
+      void this.router.navigate(['protocol/experiments']);
     } else if (tab.index === 2) {
-      this.router.navigate(['protocol/analysis']);
+      void this.router.navigate(['protocol/analysis']);
     }
   }
 

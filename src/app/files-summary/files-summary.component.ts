@@ -6,7 +6,6 @@ import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import {Router} from '@angular/router';
-import {ChartConfiguration} from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 import { MatCard } from '@angular/material/card';
 import { FlexModule } from '@angular/flex-layout/flex';
@@ -59,15 +58,15 @@ export class FilesSummaryComponent implements OnInit {
     Chart.register(ChartDataLabels);
     this.titleService.setTitle('FAANG summary|files');
     this.tabGroup.selectedIndex = 3;
-    this.dataService.getFileSummary('summary_file').subscribe(
-      data => {
+    this.dataService.getFileSummary('summary_file').subscribe({
+      next: data => {
         this.chartData = data['hits']['hits'][0]['_source'];
         this.assignChartData(this.chartData, this.excludeLegacyData);
       },
-      error => {
+      error: error => {
         this.error = error;
       }
-    );
+    });
   }
 
   assignChartData(data: any, excludeLegacy: boolean) {
@@ -75,7 +74,7 @@ export class FilesSummaryComponent implements OnInit {
     let paperPublishedSummaryName = 'paperPublishedSummary';
     let specieSummaryName = 'specieSummary';
     let assayTypeSummaryName = 'assayTypeSummary';
-    if (excludeLegacy === true) {
+    if (excludeLegacy) {
       standardSummaryName = 'standardSummaryFAANGOnly';
       paperPublishedSummaryName = 'paperPublishedSummaryFAANGOnly';
       specieSummaryName = 'specieSummaryFAANGOnly';
@@ -185,13 +184,13 @@ export class FilesSummaryComponent implements OnInit {
 
   tabClick(tab: any) {
     if (tab.index === 0) {
-      this.router.navigate(['summary/organisms']);
+      void this.router.navigate(['summary/organisms']);
     } else if (tab.index === 1) {
-      this.router.navigate(['summary/specimens']);
+      void this.router.navigate(['summary/specimens']);
     } else if (tab.index === 2) {
-      this.router.navigate(['summary/datasets']);
+      void this.router.navigate(['summary/datasets']);
     } else if (tab.index === 3) {
-      this.router.navigate(['summary/files']);
+      void this.router.navigate(['summary/files']);
     }
   }
 

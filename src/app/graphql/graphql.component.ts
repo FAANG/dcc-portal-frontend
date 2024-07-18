@@ -49,7 +49,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   dataSource!: MatTableDataSource<any>;
   indexData: {[index: string]: any} = {};
   dataTable: any[] = [];
-  socket;
+  socket: any;
   taskId = '';
   errors: any[] = [];
   columnValuesCount = 0;
@@ -72,7 +72,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     this.dataTable = [];
   }
 
-  onIndexChange(indexName, event) {
+  onIndexChange(indexName: string, event: { value: any; }) {
     if (indexName === 'firstIndex') {
       this.selectedIndicesArray = [];
       this.dataTable = [];
@@ -124,7 +124,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
         `
       })
         .valueChanges
-        .subscribe(({ data, loading }) => {
+        .subscribe(({ data }) => {
           if (this.firstIndexName.value) {
             this.taskId = data?.[this.indexData[this.firstIndexName.value].celeryQueryName]?.['id'];
             this.setSocket(this.taskId);
@@ -137,7 +137,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     }
   }
 
-  includeOntologyTermsField(selectedIndexFields, indexName) {
+  includeOntologyTermsField(selectedIndexFields: any[], indexName: string) {
     for (const col of selectedIndexFields) {
       const colName = indexName + '.' + col;
       if (this.indexData[indexName]['ontologyTermsLink'] && colName in this.indexData[indexName]['ontologyTermsLink']) {
@@ -175,7 +175,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
         `
       })
         .valueChanges
-        .subscribe(({ data, loading }) => {
+        .subscribe(({ data }) => {
           this.generateDataTable(data);
           this.showProgressBar = false;
           this.searchSuccess = true;
@@ -188,7 +188,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  flatten(obj, path = '') {
+  flatten(obj: any, path = '') {
     if (!(obj instanceof Object)) {
       return {[path.replace(/\.$/g, '')] : obj};
     }
@@ -214,7 +214,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  setColumnValue(indexName, dictRecord, container) {
+  setColumnValue(indexName: any, dictRecord: any, container: any) {
     const flatRec = this.flatten(dictRecord);
     for (const [key, recValue] of Object.entries(flatRec)) {
       const pattern = /\.\[\d*\]/g;
@@ -248,7 +248,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     }
   }
 
-  generateDataTable(data) {
+  generateDataTable(data: any) {
     this.dataTable = [];
     const leftIndex = this.selectedIndicesArray[0];
     const queryName = this.indexData[leftIndex].resultQueryName;
@@ -256,7 +256,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     const completeResultset: any[] = [];
     let joinRecords: any[] = [];
     let joinIndex = '';
-    recordsList.forEach(record => {
+    recordsList.forEach((record: any) => {
       const {join: joinObj, ...leftIndexObj} = record['node'];
       if (joinObj) {
         joinIndex = Object.keys(joinObj)[0];
@@ -283,7 +283,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  buildGraphqlJoinQuery(graphqlFiltersObj) {
+  buildGraphqlJoinQuery(graphqlFiltersObj: any) {
     const firstIndex = this.selectedIndicesArray[0];
     const secondIndex = this.selectedIndicesArray[1];
     const queryName = this.indexData[firstIndex].celeryQueryName;
@@ -298,7 +298,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  buildGraphqlQuery(leftIndexFields, joinIndexFields) {
+  buildGraphqlQuery(leftIndexFields: any, joinIndexFields: any) {
     const firstIndex = this.selectedIndicesArray[0];
     const secondIndex = this.selectedIndicesArray[1];
     if (!leftIndexFields.includes(this.indexData[firstIndex]['primary'])) {
@@ -356,8 +356,8 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  formatFields(indexFields) {
-    return indexFields.map(field => {
+  formatFields(indexFields: any) {
+    return indexFields.map((field: string) => {
       if (field.includes('.')) {
         const nestedFieldsArr = field.split('.');
         let fieldGraphqlString = '';
@@ -389,7 +389,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
         'task_id': task_id
       }));
     };
-    this.socket.onmessage = (event) => {
+    this.socket.onmessage = (event: any) => {
       const data = JSON.parse(event.data)['response'];
       if (data['graphql_status'] && data['graphql_status'] === 'Success') {
         this.fetchFilteredResult();
@@ -410,7 +410,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  generateGraphqlFilters(filterObj) {
+  generateGraphqlFilters(filterObj: any) {
     /*{
       "filterFields": [
       {
@@ -434,15 +434,15 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     for (let i = 0; i < filtersArr.length; i++) {
       const filterName = filtersArr[i].filterName;
       const filterValuesArr = filtersArr[i].filterValue.split(',')
-        .map(element => element.trim())
-        .filter(element => element !== '');
+        .map((element: string) => element.trim())
+        .filter((element: string) => element !== '');
 
-      const filterValuesArrGQL = `[${filterValuesArr.map(val => '"' + val + '"')}]`;
+      const filterValuesArrGQL = `[${filterValuesArr.map((val: string) => '"' + val + '"')}]`;
 
       if (filterName.includes('.')) {
         const graphqlObject = {};
         let container = graphqlObject;
-        filterName.split('.').map((k, idx, values) => {
+        filterName.split('.').map((k: string | number, idx: number, values: any) => {
           container = (container[k] = (idx === values.length - 1 ? filterValuesArrGQL : {}));
         });
         graphqlString += this.stringifyObject(graphqlObject).slice(1, -1);
@@ -455,7 +455,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  stringifyObject(graphqlObject) {
+  stringifyObject(graphqlObject: any) {
     if (typeof graphqlObject !== 'object' || Array.isArray(graphqlObject)) {
       return graphqlObject;
     }
@@ -500,7 +500,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     }
   }
 
-  buildGraphqlDownloadQuery(leftIndexFields, joinIndexFields, graphqlFiltersObj) {
+  buildGraphqlDownloadQuery(leftIndexFields: any, joinIndexFields: any, graphqlFiltersObj: any) {
     const firstIndex = this.selectedIndicesArray[0];
     const secondIndex = this.selectedIndicesArray[1];
     const formattedLeftIndexFields = this.formatFields(leftIndexFields);

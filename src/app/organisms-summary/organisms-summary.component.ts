@@ -247,13 +247,13 @@ export class OrganismsSummaryComponent implements OnInit {
 
   tabClick(tab: any) {
     if (tab.index === 0) {
-      this.router.navigate(['summary/organisms']);
+      void this.router.navigate(['summary/organisms']);
     } else if (tab.index === 1) {
-      this.router.navigate(['summary/specimens']);
+      void this.router.navigate(['summary/specimens']);
     } else if (tab.index === 2) {
-      this.router.navigate(['summary/datasets']);
+      void this.router.navigate(['summary/datasets']);
     } else if (tab.index === 3) {
-      this.router.navigate(['summary/files']);
+      void this.router.navigate(['summary/files']);
     }
   }
 

@@ -139,7 +139,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['specimen'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    void this.router.navigate(['specimen'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {

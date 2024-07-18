@@ -116,7 +116,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-          this.spinner.show();
+          void this.spinner.show();
           if (this.sort.active && this.sort.direction) {
             this.query['sort'] = [this.sort.active, this.sort.direction];
             this.sortUpdate.emit(this.query['sort']);
@@ -133,21 +133,21 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
           return data;
         }),
         catchError(() => {
-          this.spinner.hide();
+          void this.spinner.hide();
           return observableOf([]);
         })
       ).subscribe((res: any) => {
           this.dataSource.data = res.data; // set table data
           this.dataUpdate.emit(res); // emit data update event
           this.totalHits = res.totalHits; // set length of paginator
-          this.spinner.hide();
+          void this.spinner.hide();
         });
   }
 
   // apply filter when component input "filter_values" is changed
   ngOnChanges() {
     if (this.dataSource) {
-      this.spinner.show();
+      void this.spinner.show();
       // reset query params before applying filter
       this.paginator.pageIndex = 0;
       if (this.sort.active && this.sort.direction) {
@@ -168,7 +168,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
         this.dataSource.data = res.data; // set table data
         this.dataUpdate.emit(res); // emit data update event
         this.totalHits = res.totalHits; // set length of paginator
-        this.spinner.hide();
+        void this.spinner.hide();
       });
     }
   }
@@ -191,12 +191,12 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
     this.paginator.pageIndex = 0;
     this.query['from_'] = 0;
     this.query['search'] = value;
-    this.spinner.show();
+    void this.spinner.show();
     this.apiFunction(this.query, 25).subscribe((res: any) => {
       this.dataSource.data = res.data; // set table data
       this.dataUpdate.emit(res); // emit data update event
       this.totalHits = res.totalHits; // set length of paginator
-      this.spinner.hide();
+      void this.spinner.hide();
     });
     // Update query parameters to pass to route
     this.updateUrlParameters(value, 'searchTerm');
@@ -217,7 +217,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
       }
     }
     // will not reload the page, but will update query params
-    this.router.navigate([],
+    void this.router.navigate([],
       {
         relativeTo: this.activatedRoute,
         queryParams: this.queryParams,
