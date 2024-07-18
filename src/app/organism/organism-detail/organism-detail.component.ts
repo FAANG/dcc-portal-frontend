@@ -42,8 +42,8 @@ export class OrganismDetailComponent implements OnInit {
       this.biosampleId = params['id'];
       this.titleService.setTitle(`${this.biosampleId} | FAANG organism`);
     });
-    this.dataService.getOrganism(this.biosampleId, this.mode).subscribe(
-      (data: any) => {
+    this.dataService.getOrganism(this.biosampleId, this.mode).subscribe({
+      next: (data: any) => {
         if (data['hits']['hits'].length === 0) {
           void this.spinner.hide();
           void this.router.navigate(['404']);
@@ -60,16 +60,16 @@ export class OrganismDetailComponent implements OnInit {
           void this.spinner.hide();
         }
       },
-      error => {
+      error: error => {
         this.error = error;
         void this.spinner.hide();
       }
-    );
+    });
   }
 
   dealWithAvailability(input: string): string {
-    if (input.substr(0, 6) === 'mailto') {
-      return input.substr(7);
+    if (input.substring(0, 7) === 'mailto') {
+      return input.substring(7);
     } else {
       return input;
     }

@@ -3,7 +3,7 @@ import {OntologyService} from '../services/ontology.service';
 import { MatDialog, MatDialogContent } from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import {AggregationService} from '../services/aggregation.service';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
@@ -66,15 +66,15 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   token: string | null = '';
   mode = '';
   ontologyTerms = '';
-  searchResults;
-  ontologyMatches;
-  ontologyIdOptions;
-  selectedTerm;
-  selectedOntologyData;
+  searchResults: any;
+  ontologyMatches: any;
+  ontologyIdOptions: any;
+  selectedTerm: any;
+  selectedOntologyData: any;
   newTag = {'tags': null, 'synonyms': null};
   error = '';
   success = '';
-  dialogRef;
+  dialogRef: any;
   showSpinner = false;
   registerUser = false;
   aggrSubscription!: Subscription;
@@ -87,8 +87,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   templates: {[index: string]: any} = {};
   filter_field: any;
   regForm!: FormGroup;
-  species;
-  types;
+  species: any;
+  types: any;
   usageStats: any; // Observable<any[]>;
   disableOntologyCreation = false;
   ontology_update_status = '';
@@ -237,8 +237,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.ontologyService.login(this.username, this.password).subscribe(
-      data => {
+    this.ontologyService.login(this.username, this.password).subscribe({
+      next: data => {
         if (data) {
           this.token = data;
           sessionStorage.setItem('token', data);
@@ -248,10 +248,10 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           this.error = 'Unable to login. Invalid credentials';
         }
       },
-      error => {
+      error: error => {
         this.error = error;
       }
-    );
+    });
   }
 
   register() {
@@ -260,8 +260,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       const request = JSON.parse(JSON.stringify(this.regForm.value));
       delete request['confirmPwd'];
       request['password'] = btoa(request['password']);
-      this.ontologyService.register(request).subscribe(
-        data => {
+      this.ontologyService.register(request).subscribe({
+        next: data => {
           this.error = '';
           this.registerUser = false;
           this.closeModal();
@@ -269,10 +269,10 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           this.password = this.regForm.value.password;
           this.login();
         },
-        error => {
+        error: error => {
           this.error = error;
         }
-      );
+      });
     }
   }
 
@@ -287,7 +287,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     this.ngOnInit();
   }
 
-  startOntologyValidation(data, status) {
+  startOntologyValidation(data: any, status: any) {
     this.dialogRef = this.dialog.open(this.selectProjectModalTemplate, {
       width: '50%',
       height: '40%',
@@ -299,7 +299,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     });
   }
 
-  validateOntology(data, project, status) {
+  validateOntology(data: any, project: any, status: string) {
     if (status === 'Verified') {
       this.submitFeedback(data, project, status, '');
     } else {
@@ -315,7 +315,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     }
   }
 
-  submitFeedback(data, project, status, userComments) {
+  submitFeedback(data: any, project: any, status: string, userComments: string) {
     this.dialogRef.close();
     this.openSnackbar('Saving feedback...', 'Dismiss');
     const requestBody = {
@@ -325,8 +325,8 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
       'status': status,
       'user_comments': userComments
     };
-    this.ontologyService.validateTerms(requestBody, this.username).subscribe(
-      data => {
+    this.ontologyService.validateTerms(requestBody, this.username).subscribe({
+      next: data => {
         this.showSpinner = false;
         this.openSnackbar('Feeback submitted!', 'Dismiss');
         this.ontology_update_status = '';
@@ -346,7 +346,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           this.usageStats = data;
         });
       },
-      error => {
+      error: error => {
         this.showSpinner = false;
         this.error = error;
         if (error.status === 409) {
@@ -357,24 +357,18 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           this.openSnackbar('Submission failed!', 'Dismiss');
         }
       }
-    );
+    });
     this.userComments = '';
   }
 
-  displayStatusActivity(data) {
+  displayStatusActivity(data: any) {
     this.dialogRef = this.dialog.open(this.activityModalTemplate, {
       width: '50%',
       data: data
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.filter_field['search'] = [filterValue];
-    this.filter_field = Object.assign({}, this.filter_field);
-  }
-
-  editOntology(data) {
+  editOntology(data: any) {
     // get current ontology data
     this.selectedOntologyData = JSON.parse(JSON.stringify(data));
     this.dialogRef = this.dialog.open(this.editModalTemplate, {
@@ -388,30 +382,30 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     });
   }
 
-  addNewTag(tag, prop) {
+  addNewTag(tag: any, prop: string | number) {
     if (tag.length) {
       let tagsList = this.selectedOntologyData[prop];
-      tagsList = tagsList.filter(n => n);
+      tagsList = tagsList.filter((n: any) => n);
       tagsList.push(tag);
       this.selectedOntologyData[prop] = tagsList;
       this.newTag[prop] = null;
     }
   }
 
-  editTag(data, tag, prop) {
+  editTag(data: { [x: string]: any[]; }, tag: any, prop: any) {
     this.newTag[prop] = tag;
-    data[prop] = data[prop].filter(function (e) {
+    data[prop] = data[prop].filter(function (e: any) {
       return e !== tag;
     });
   }
 
-  removeTag(data, tag, prop) {
-    data[prop] = data[prop].filter(function (e) {
+  removeTag(data: { [x: string]: any[]; }, tag: any, prop: string | number) {
+    data[prop] = data[prop].filter(function (e: any) {
       return e !== tag;
     });
   }
 
-  addTagToolTab(data, tag, prop) {
+  addTagToolTab(data: { [x: string]: any[]; }, tag: string | any[], prop: string | number) {
     if (tag.length) {
       if (data[prop]) {
         let tagsList = data[prop];
@@ -425,14 +419,14 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     }
   }
 
-  submitEditedOntology(editedData) {
+  submitEditedOntology(editedData: any) {
     const data = JSON.parse(JSON.stringify(editedData));
     const request = {};
     request['user'] = this.username;
     request['ontologies'] = [data];
     this.showSpinner = true;
-    this.ontologyService.createUpdateOntologies(request).subscribe(
-      data => {
+    this.ontologyService.createUpdateOntologies(request).subscribe({
+      next: data => {
         this.openSnackbar('Ontology updated!', 'Dismiss');
         this.showSpinner = false;
         this.closeModal();
@@ -452,19 +446,19 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           this.usageStats = data;
         });
       },
-      error => {
+      error: error => {
         this.showSpinner = false;
         this.openSnackbar('Submission Failed!', 'Dismiss');
       }
-    );
+    });
   }
 
   searchTerms() {
     const ontologyInput = this.ontologyTerms.split('\n').filter(n => n);
     if (ontologyInput.length) {
-      this.ontologyService.searchTerms(ontologyInput).subscribe(
-        data => {
-          this.searchResults['found'] = data.map(ontology => ontology['term']);
+      this.ontologyService.searchTerms(ontologyInput).subscribe({
+        next: data => {
+          this.searchResults['found'] = data.map((ontology: { [x: string]: any; }) => ontology['term']);
           this.searchResults['filter'] = {
             'term': ontologyInput
           };
@@ -478,17 +472,17 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
           });
           this.getOntologyMatches(not_found);
         },
-        error => {
+        error: error => {
           this.error = error;
         }
-      );
+      });
       this.mode = 'validate';
     }
   }
 
-  getOntologyMatches(terms) {
-    this.ontologyService.fetchZoomaMatches(terms).subscribe(
-      data => {
+  getOntologyMatches(terms: any) {
+    this.ontologyService.fetchZoomaMatches(terms).subscribe({
+      next: data => {
         this.ontologyMatches = data;
         for (const term in this.ontologyMatches) {
           if (this.ontologyMatches[term]) {
@@ -497,12 +491,12 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
               this.ontologyMatches[term][index]['selected'] = false;
               this.ontologyMatches[term][index]['term_type'] = this.ontologyMatches[term][index]['term_type'].split(', ');
               // fetch ontology details from OLS
-              this.ontologyService.getDetailsFromOls(this.ontologyMatches[term][index]).subscribe(
-                (res: any) => {
+              this.ontologyService.getDetailsFromOls(this.ontologyMatches[term][index]).subscribe({
+                next: (res: any) => {
                   this.disableOntologyCreation = false;
                   this.ontologyMatches[term][index] = res;
                 },
-                (err: any) => {
+                error: (err: any) => {
                   // handle OLS downtime here
                   if (err.status === 500) {
                     this.disableOntologyCreation = true;
@@ -510,19 +504,20 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
                       'New ontologies cannot be created at the moment. Please try again later.',
                       'Dismiss');
                   }
-                });
+                }
+              });
             }
           }
         }
       },
-      error => {
+      error: error => {
         this.error = error;
       }
-    );
+    });
   }
 
   addNewOntology(key: string, index: number) {
-    let data;
+    let data: any;
     this.selectedTerm.key = key;
     // check if no matches found
     if (index === -1) {
@@ -585,7 +580,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     });
   }
 
-  openModal(selectedOntology) {
+  openModal(selectedOntology: any) {
     this.dialogRef = this.dialog.open(this.modalTemplate, {
       width: '40%',
       data: JSON.parse(JSON.stringify(selectedOntology)) // copy without reference
@@ -599,7 +594,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  saveModalData(data) {
+  saveModalData(data: any) {
     // save validation on the ontology and refresh accordion
     // copying to another object and re-assigning is necessary to refresh the accordion on save
     const updatedOntologyMatches = JSON.parse(JSON.stringify(this.ontologyMatches));
@@ -658,14 +653,14 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
         const request = {};
         request['user'] = this.username;
         request['ontologies'] = validatedOntologies;
-        this.ontologyService.createUpdateOntologies(request).subscribe(
-          data => {
+        this.ontologyService.createUpdateOntologies(request).subscribe({
+          next: data => {
             this.openSnackbar('Ontologies submitted successfully', 'View ontology table');
           },
-          error => {
+          error: error => {
             this.openSnackbar('Submission Failed!', 'Dismiss');
           }
-        );
+        });
       } else {
         // if invalid request, show message
         this.openSnackbar('Please select ontology matches for all terms', 'Dismiss');
@@ -687,7 +682,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     });
   }
 
-  tabClick(tab) {
+  tabClick(tab: any) {
     if (tab.index === 1 && !this.token) {
       this.openLoginModal();
     }
@@ -699,7 +694,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
     };
-    this.socket.onmessage = (event) => {
+    this.socket.onmessage = (event: { data: string; }) => {
       const data = JSON.parse(event.data)['response'];
       if (data['ontology_update_status']) {
         this.ontology_update_status = data['ontology_update_status'];
@@ -710,7 +705,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     }
   }
 
-  generateStatusMsg(action) {
+  generateStatusMsg(action: any) {
     if (action.status === 'Awaiting Assessment') {
       return `${action.user} created the ontology`;
     } else if (action.status.toLowerCase() === 'verified') {
@@ -725,7 +720,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     return '';
   }
 
-  loadInitialPageState(params) {
+  loadInitialPageState(params: { [x: string]: any; }) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;
@@ -738,7 +733,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     }
   }
 
-  onBadgeClick(item, type) {
+  onBadgeClick(item: { [x: string]: any; }, type: string) {
     const project = item['row']['project'];
     if (type === 'all') {
       void this.router.navigate(['ontology'], {
@@ -771,21 +766,21 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   }
 
 
-  getArrLength(arr) {
+  getArrLength(arr: string | any[]) {
     if (Array.isArray(arr)) {
       return arr.length;
     }
     return null;
   }
 
-  getItemValueArray(item) {
+  getItemValueArray(item: { [x: string]: any; }) {
     if ('value' in item) {
       return item['value'];
     }
     return null;
   }
 
-  getItemKey(item) {
+  getItemKey(item: { [x: string]: any; }) {
     if ('key' in item) {
       return item['key'];
     }

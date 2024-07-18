@@ -1,12 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {barChartOptions, pieChartOptions, doughnutChartOptions} from '../shared/chart-options';
-import {Chart} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import {Router} from '@angular/router';
-import {ChartOptions} from 'chart.js';
 import {ChartConfiguration} from 'chart.js';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
@@ -68,15 +66,15 @@ export class OrganismsSummaryComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('FAANG summary|organisms');
     this.tabGroup.selectedIndex = 0;
-    this.dataService.getOrganismSummary('summary_organism').subscribe(
-      data => {
+    this.dataService.getOrganismSummary('summary_organism').subscribe({
+      next: data => {
         this.chartData = data['hits']['hits'][0]['_source'];
         this.assignChartData(this.chartData, this.excludeLegacyData);
       },
-      error => {
+      error: error => {
         this.error = error;
       }
-    );
+    });
   }
 
 
@@ -86,7 +84,7 @@ export class OrganismsSummaryComponent implements OnInit {
     let standard_summary_name = 'standardSummary';
     let organism_summary_name = 'organismSummary';
     let breed_summary_name = 'breedSummary';
-    if (excludeLegacy === true) {
+    if (excludeLegacy) {
       sexSummaryName = 'sexSummaryFAANGOnly';
       paperPublishedSummaryName = 'paperPublishedSummaryFAANGOnly';
       standard_summary_name = 'standardSummaryFAANGOnly';
@@ -254,28 +252,6 @@ export class OrganismsSummaryComponent implements OnInit {
       void this.router.navigate(['summary/datasets']);
     } else if (tab.index === 3) {
       void this.router.navigate(['summary/files']);
-    }
-  }
-
-
-  populateBarChart(chartData: {[index: string]: any}, data: { [x: string]: any; }) {
-    // labels array
-    if (typeof chartData === 'object' && Array.isArray(chartData['labels'])) {
-      chartData['labels'].push(data['name']);
-    } else {
-      chartData = {
-        labels: [data['name']],
-      };
-    }
-    // data array
-    if (Array.isArray(chartData['datasets']) && 'data' in chartData['datasets'][0]) {
-      chartData['datasets'][0]['data'].push(data['value']);
-    } else {
-      chartData = {
-        datasets: [
-          {data: [data['value']], label: ''},
-        ]
-      };
     }
   }
 }
