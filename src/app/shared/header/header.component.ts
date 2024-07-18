@@ -18,11 +18,6 @@ import { MatToolbar } from '@angular/material/toolbar';
 })
 export class HeaderComponent implements OnInit {
   collapsed = true;
-  records_dropdown_open = false;
-  projects_dropdown_open = false;
-  validation_dropdown_open = false;
-  help_dropdown_open = false;
-  show_banner = 'show';
 
   constructor(private router: Router) {}
 

@@ -2,15 +2,12 @@ import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/cor
 import {ApiDataService} from '../services/api-data.service';
 import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {ArticleTable} from '../shared/interfaces';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/internal/operators/finalize';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { NgClass } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -46,7 +43,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
   subscriptionDialogTitle = '';
   subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
-  dialogInfoRef: any;
   indexDetails: { [index: string]: any } = {};
 
   query: { [index: string]: any } = {
@@ -75,7 +71,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   defaultSort = ['pmcId', 'asc'];
   error = '';
-  subscriptionDialog!: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,

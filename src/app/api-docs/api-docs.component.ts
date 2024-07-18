@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SwaggerUIBundle } from 'swagger-ui-dist';
-import { HostSetting } from '../services/host-setting';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
@@ -11,8 +10,6 @@ import { HeaderComponent } from '../shared/header/header.component';
   imports: [HeaderComponent]
 })
 export class ApiDocsComponent implements OnInit {
-  hostSetting = new HostSetting;
-
   constructor() { }
 
   ngOnInit() {
