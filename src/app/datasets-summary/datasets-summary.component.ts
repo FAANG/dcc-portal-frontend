@@ -51,15 +51,15 @@ export class DatasetsSummaryComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('FAANG summary|datasets');
     this.tabGroup.selectedIndex = 2;
-    this.dataService.getDatasetSummary('summary_dataset').subscribe(
-      data => {
+    this.dataService.getDatasetSummary('summary_dataset').subscribe({
+      next: data => {
         this.chartData = data['hits']['hits'][0]['_source'];
         this.assignChartData(this.chartData, this.excludeLegacyData);
       },
-      error => {
+      error: error => {
         this.error = error;
       }
-    );
+  });
   }
 
   assignChartData(data: any, excludeLegacy: boolean) {
@@ -67,7 +67,7 @@ export class DatasetsSummaryComponent implements OnInit {
     let paperPublishedSummaryName = 'paperPublishedSummary';
     let specieSummaryName = 'specieSummary';
     let assayTypeSummaryName = 'assayTypeSummary';
-    if (excludeLegacy === true) {
+    if (excludeLegacy) {
       standardSummaryName = 'standardSummaryFAANGOnly';
       paperPublishedSummaryName = 'paperPublishedSummaryFAANGOnly';
       specieSummaryName = 'specieSummaryFAANGOnly';

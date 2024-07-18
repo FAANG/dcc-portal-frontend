@@ -56,8 +56,8 @@ export class DatasetDetailComponent implements OnInit {
       this.accession = params['id'];
       this.titleService.setTitle(`${this.accession} | FAANG dataset`);
     });
-    this.dataService.getDataset(this.accession, this.mode).subscribe(
-      (data: any) => {
+    this.dataService.getDataset(this.accession, this.mode).subscribe({
+      next: (data: any) => {
         if (data['hits']['hits'].length === 0) {
           this.spinner.hide();
           this.router.navigate(['404']);
@@ -71,11 +71,11 @@ export class DatasetDetailComponent implements OnInit {
         }
         this.spinner.hide();
       },
-      error => {
+      error: error => {
         this.error = error;
         this.spinner.hide();
       }
-    );
+    });
   }
 
   downloadTSV() {

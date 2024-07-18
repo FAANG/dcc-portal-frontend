@@ -2,15 +2,12 @@ import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/cor
 import {ApiDataService} from '../services/api-data.service';
 import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {DatasetTable} from '../shared/interfaces';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/internal/operators/finalize';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { NgClass } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -36,8 +33,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
   @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent!: TableServerSideComponent;
   @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   public loadTableDataFunction!: Function;
-  datasetListShort!: Observable<DatasetTable[]>;
-  datasetListLong!: Observable<DatasetTable[]>;
   displayFields: string[] = ['datasetAccession', 'title', 'species', 'archive', 'assayType', 'numberOfExperiments',
     'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished', 'subscribe'];
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive', 'Assay type', 'Number of Experiments',
@@ -51,7 +46,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
   subscriptionDialogTitle = '';
   subscriber = {email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
-  dialogInfoRef: any;
   indexDetails: {[index: string]: any} = {};
 
   query: {[index: string]: any} = {
@@ -93,7 +87,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   defaultSort = ['accession', 'desc'];
   error = '';
-  subscriptionDialog!: MatDialogRef<SubscriptionDialogComponent>;
 
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
@@ -166,18 +159,18 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'paper_published': 'paperPublished',
       'submitterEmail': 'submitterEmail'
     };
-    this.dataService.downloadRecords('dataset', mapping, this.downloadQuery).subscribe(
-      (res: Blob) => {
+    this.dataService.downloadRecords('dataset', mapping, this.downloadQuery).subscribe({
+      next: (res: Blob) => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(res);
         a.download = 'faang_data.' + format;
         a.click();
         this.downloading = false;
       },
-      (err) => {
+      error: (err) => {
         this.downloading = false;
       }
-    );
+    });
   }
 
   wasPublished(published: any) {

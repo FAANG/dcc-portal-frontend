@@ -135,18 +135,18 @@ export class ArticleComponent implements OnInit, OnDestroy {
       'datasetSource': 'datasetSource',
       'source': 'source',
     };
-    this.dataService.downloadRecords('article', mapping, this.downloadQuery).subscribe(
-      (res: Blob) => {
+    this.dataService.downloadRecords('article', mapping, this.downloadQuery).subscribe({
+      next: (res: Blob) => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(res);
         a.download = 'faang_data.' + format;
         a.click();
         this.downloading = false;
       },
-      (err) => {
+      error: (err) => {
         this.downloading = false;
       }
-    );
+    });
   }
 
   isPublished(source: any) {

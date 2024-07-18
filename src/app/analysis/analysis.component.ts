@@ -139,18 +139,20 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       'analysisType': 'analysisType',
       'standard': 'standardMet'
     };
-    this.dataService.downloadRecords('analysis', mapping, this.downloadQuery).subscribe(
-      (res: Blob) => {
+    this.dataService.downloadRecords('analysis', mapping, this.downloadQuery).subscribe({
+      next: (res: Blob) => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(res);
         a.download = 'faang_data.' + format;
         a.click();
         this.downloading = false;
       },
-      (err) => {
+      error: (err) => {
         this.downloading = false;
+      },
+      complete: () => {
       }
-    );
+    });
   }
 
   openSubscriptionDialog() {
