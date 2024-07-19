@@ -63,7 +63,8 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any[]>([]);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.dataService.getExperimentProtocol(this.protocolId).subscribe(data => {
+    this.dataService.getExperimentProtocol(this.protocolId).subscribe({
+      next: data => {
         if (data['hits']['hits'].length === 0) {
           void this.spinner.hide();
           void this.router.navigate(['404']);
@@ -78,27 +79,28 @@ export class ProtocolExperimentDetailsComponent implements OnInit {
           }
         }
       },
-      error => {
+      error: error => {
         void this.spinner.hide();
         this.error = error;
-      });
+      }
+    });
   }
 
-  getHumanName(data) {
+  getHumanName(data: string) {
     return protocolNames[data] ? protocolNames[data] : data;
   }
 
   onClick(id: string) {
     this.experiment = {};
     this.experimentId = id;
-    this.dataService.getExperimentByAccession(id).subscribe(
-      (data: any) => {
+    this.dataService.getExperimentByAccession(id).subscribe({
+      next: (data: any) => {
         this.experiment = this.expandObject(data['hits']['hits'][0]['_source'], this.experiment);
       },
-      error => {
+      error: error => {
         this.error = error;
       }
-    );
+    });
   }
 
   checkIsObject(value: any) {

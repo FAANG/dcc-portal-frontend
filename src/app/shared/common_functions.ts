@@ -38,14 +38,6 @@ export function allowMultiple(data: any) {
   return 'No';
 }
 
-export function allowMultipleOld(rule: any) {
-  if (rule && rule['allow_multiple'] === 1) {
-    return 'Yes';
-  } else {
-    return 'No';
-  }
-}
-
 // extract data from given object into a key-value mapping
 export function expandObject(data: any, result: any) {
   const type_value = typeof (data);
@@ -85,15 +77,6 @@ export function getValidItems(rule: any, section_name: string) {
   return '';
 }
 
-export function getValidItemsOld(rule: any, section_name: string) {
-  if (rule[section_name]) {
-    return rule[section_name].map(function (el: string) {
-      return '"' + el + '"';
-    }).join(', ');
-  }
-  return '';
-}
-
 export function getOntologyTermFromIRI(iri: string) {
   if (iri.indexOf('/') > -1) {
     return iri.split('/').slice(-1)[0];
@@ -105,17 +88,13 @@ export function getOntologyTermFromIRI(iri: string) {
 export const ols_prefix = 'https://www.ebi.ac.uk/ols/ontologies/';
 
 export function generateEbiOntologyLink(ontology_name: string, term_iri: string) {
-  let ontology_url;
+  let ontology_url: any;
   if (ontology_name === 'EFO') {
     ontology_url = 'http://www.ebi.ac.uk/efo/';
   } else {
     ontology_url = 'http://purl.obolibrary.org/obo/';
   }
   return ols_prefix + ontology_name + '/terms?iri=' + ontology_url + term_iri.replace(':', '_');
-}
-
-export function generateEbiOntologyLinkOld(ontology_name: string, term_iri: string) {
-  return ols_prefix + ontology_name + '/terms?iri=' + term_iri;
 }
 
 export function getMandatoryRulesOnly(data: any) {
@@ -129,30 +108,6 @@ export function getMandatoryRulesOnly(data: any) {
       data['properties'][key]['items']['properties']['mandatory']['const'] === 'mandatory') {
       data_to_return['properties'][key] = data['properties'][key];
     }
-  }
-  return data_to_return;
-}
-
-export function getMandatoryRulesOnlyOld(data: any) {
-  const data_to_return: {[index: string]: any} = {};
-  data_to_return['description'] = data['description'];
-  data_to_return['name'] = data['name'];
-  data_to_return['further_details_iri'] = data['further_details_iri'];
-  data_to_return['rule_groups'] = [];
-
-  for (const rule of data['rule_groups']) {
-    const tmp: {[index: string]: any} = {};
-    tmp['name'] = rule['name'];
-    tmp['consistency_check'] = rule['consistency_check'];
-    tmp['imports'] = rule['imports'];
-    tmp['condition'] = rule['condition'];
-    tmp['rules'] = [];
-    for (const el of rule['rules']) {
-      if (el['mandatory'] === 'mandatory') {
-        tmp['rules'].push(el);
-      }
-    }
-    data_to_return['rule_groups'].push(tmp);
   }
   return data_to_return;
 }
@@ -186,31 +141,5 @@ export function makeid(length: number) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
-}
-
-export function getIssues(issues_list: any, issue_type: string) {
-  issues_list = issues_list.length;
-  if (issues_list === 0) {
-    return 'pass';
-  } else {
-    if (issues_list === 1) {
-      return issues_list + ' ' + issue_type;
-    } else {
-      return issues_list + ' ' + issue_type + 's';
-    }
-  }
-}
-
-export function getCellClass(issues_list: any, issue_type: string) {
-  issues_list = issues_list.length;
-  if (issues_list === 0) {
-    return '';
-  } else {
-    if (issue_type === 'warning') {
-      return 'table-warning';
-    } else {
-      return 'table-danger';
-    }
-  }
 }
 

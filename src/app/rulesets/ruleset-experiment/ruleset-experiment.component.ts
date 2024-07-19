@@ -18,7 +18,8 @@ import {
   replaceUnderscoreWithSpace
 } from '../../shared/common_functions';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
-import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { MatButton } from '@angular/material/button';
 import { FlexModule } from '@angular/flex-layout/flex';
@@ -54,7 +55,8 @@ import { HeaderComponent } from '../../shared/header/header.component';
 export class RulesetExperimentComponent implements OnInit {
   @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
   dataSource!: MatTableDataSource<any>;
-  column_names = ['Name', 'Description', 'Type', 'Required?', 'Allow multiple?', 'Valid values', 'Valid units', 'Valid terms', 'Condition'];
+  column_names = ['Name', 'Description', 'Type', 'Required?', 'Allow multiple?', 'Valid values', 'Valid units', 'Valid terms',
+    'Condition'];
   error: any;
   data: any;
   all_data: any;
@@ -85,7 +87,7 @@ export class RulesetExperimentComponent implements OnInit {
   rule_groups: any[] = [];
   rules: any[] = [];
   active_rule = '';
-  length: number = 0;
+  length = 0;
   name = '';
   description = '';
   details = '';
@@ -171,7 +173,7 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   getType(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
@@ -207,44 +209,44 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   getValidValues(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
       field = data['items']['properties'];
     }
     if ('value' in field && 'enum' in field['value']) {
-      return field['value']['enum'].filter(term => missing_values.indexOf(term) === -1).join(', ');
+      return field['value']['enum'].filter((term: string) => missing_values.indexOf(term) === -1).join(', ');
     } else if ('value' in field && 'const' in field['value']) {
       return field['value']['const'];
     } else if ('text' in field && 'enum' in field['text']) {
-      return field['text']['enum'].filter(term => missing_values.indexOf(term) === -1).join(', ');
+      return field['text']['enum'].filter((term: string) => missing_values.indexOf(term) === -1).join(', ');
     }
   }
 
   getValidUnits(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
       field = data['items']['properties'];
     }
     if ('units' in field && 'enum' in field['units']) {
-      return field['units']['enum'].filter(term => missing_values.indexOf(term) === -1).join(', ');
+      return field['units']['enum'].filter((term: string) => missing_values.indexOf(term) === -1).join(', ');
     } else if ('units' in field && 'const' in field['units']) {
       return field['units']['const'];
     }
   }
 
   getValidTerms(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
       field = data['items']['properties'];
     }
     if ('term' in field && 'enum' in field['term']) {
-      return field['term']['enum'].filter(term => missing_values.indexOf(term) === -1);
+      return field['term']['enum'].filter((term: string) => missing_values.indexOf(term) === -1);
     } else if ('term' in field && 'oneOf' in field['term']) {
       const results = [];
       for (const item of field['term']['oneOf']) {
@@ -253,7 +255,7 @@ export class RulesetExperimentComponent implements OnInit {
         } else if ('const' in item && item['const'] !== 'restricted access') {
           return [item['const']];
         } else if ('enum' in item) {
-          results.push.apply(results, item['enum'].filter(function(item) { return item !== 'restricted access'; }));
+          results.push.apply(results, item['enum'].filter(function(item: string) { return item !== 'restricted access'; }));
         }
       }
       return results;
@@ -263,7 +265,7 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   getOntologyName(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
@@ -285,29 +287,32 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   clickOnRule(rule: string) {
-    this.apiDataService.getRulesetExperiment(convertToSnakeCase(rule.toLowerCase())).subscribe(data => {
-      this.data = data;
-      this.all_data = data;
-      this.name = data.title;
-      this.description = data.description;
-      this.details = data.properties.describedBy.const;
-      this.mandatory_data = this.getMandatoryData(data);
-      this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
-      this.rules = Object.keys(data.properties);
-      this.active_rule = rule;
-      this.error = '';
-      this.dataSource.data = this.getDataSource(data['properties'], this.rules);
-    }, error => {
-      if (error.status === 404) {
-        this.error = `${rule} is not a valid rule group. Please select a rule group from the following list: ${this.rule_groups}.`;
-      } else {
-        this.error = error.message;
+    this.apiDataService.getRulesetExperiment(convertToSnakeCase(rule.toLowerCase())).subscribe({
+      next: data => {
+        this.data = data;
+        this.all_data = data;
+        this.name = data.title;
+        this.description = data.description;
+        this.details = data.properties.describedBy.const;
+        this.mandatory_data = this.getMandatoryData(data);
+        this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
+        this.rules = Object.keys(data.properties);
+        this.active_rule = rule;
+        this.error = '';
+        this.dataSource.data = this.getDataSource(data['properties'], this.rules);
+      },
+      error: error => {
+        if (error.status === 404) {
+          this.error = `${rule} is not a valid rule group. Please select a rule group from the following list: ${this.rule_groups}.`;
+        } else {
+          this.error = error.message;
+        }
       }
     });
   }
 
   mandatoryOnlyToggle() {
-    if (this.mandatory_only === false) {
+    if (!this.mandatory_only) {
       this.data = this.mandatory_data;
       this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
       this.rules = Object.keys(this.data.properties);
@@ -322,12 +327,12 @@ export class RulesetExperimentComponent implements OnInit {
     }
   }
 
-  updateUrlFragment(category) {
+  updateUrlFragment(category: any) {
     const url = this.router.createUrlTree([], {relativeTo: this.route, fragment: category}).toString();
     this.location.go(url);
   }
 
-  getDataSource(data, rules) {
+  getDataSource(data: { [x: string]: any; }, rules: any[]) {
     const ds: any[] = [];
     for (const rule of rules) {
       if (rule !== 'describedBy' && rule !== 'schema_version' && rule !== 'experiments_core'
@@ -340,7 +345,7 @@ export class RulesetExperimentComponent implements OnInit {
     return ds;
   }
 
-  tabClick(tab) {
+  tabClick(tab: any) {
     if (tab.index === 0) {
       void this.router.navigate(['ruleset/samples'], {fragment: 'Standard'});
     } else if (tab.index === 1) {

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ApiDataService} from '../../services/api-data.service';
 import { MatButton } from '@angular/material/button';
@@ -16,7 +16,8 @@ export interface DialogData {
     templateUrl: './subscription-dialog.component.html',
     styleUrls: ['./subscription-dialog.component.css'],
     standalone: true,
-    imports: [CdkScrollable, MatDialogContent, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatHint, MatError, MatDialogActions, MatButton]
+    imports: [CdkScrollable, MatDialogContent, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatHint, MatError,
+      MatDialogActions, MatButton]
 })
 export class SubscriptionDialogComponent implements OnInit {
   email = '';
@@ -51,15 +52,17 @@ export class SubscriptionDialogComponent implements OnInit {
 
   onRegister() {
     if (this.subscriptionForm.valid && this.subscriptionForm.touched) {
-      this.dataService.subscribeFilteredData(this.inputData['indexName'], this.inputData['indexKey'], this.inputData['email']).subscribe(response => {
+      this.dataService.subscribeFilteredData(this.inputData['indexName'], this.inputData['indexKey'],
+        this.inputData['email']).subscribe({
+        next: response => {
           console.log('You have now been subscribed!');
           this.dialogRef.close();
         },
-        error => {
+        error: error => {
           console.log(error);
           this.dialogRef.close();
         }
-      );
+      });
     }
   }
 

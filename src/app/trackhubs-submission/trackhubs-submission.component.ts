@@ -157,21 +157,21 @@ export class TrackhubsSubmissionComponent implements OnInit {
         return res;
       }),
       catchError(this.handleRegError),
-    ).subscribe(
-      (data) => {
+    ).subscribe({
+      next: (data) => {
         this.token = data['token'];
         this.user['user'] = this.username;
         this.user['pwd'] = btoa(this.password);
         this.dialogRef.close();
       },
-      (error) => {
+      error: (error) => {
         this.error = error;
       }
-    );
+    });
   }
 
   private handleRegError(error: HttpErrorResponse) {
-    return throwError(error.error.reason);
+    return throwError(() => error.error.reason);
   }
 
   logout() {

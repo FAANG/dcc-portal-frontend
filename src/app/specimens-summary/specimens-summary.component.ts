@@ -72,15 +72,15 @@ export class SpecimensSummaryComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('FAANG summary|specimens');
     this.tabGroup.selectedIndex = 1;
-    this.dataService.getSpecimenSummary('summary_specimen').subscribe(
-      data => {
+    this.dataService.getSpecimenSummary('summary_specimen').subscribe({
+      next: data => {
         this.chartData = data['hits']['hits'][0]['_source'];
         this.assignChartData(this.chartData, this.excludeLegacyData);
       },
-      error => {
+      error: error => {
         this.error = error;
       }
-    );
+    });
   }
 
   assignChartData(data: any, excludeLegacy: boolean) {
@@ -91,7 +91,7 @@ export class SpecimensSummaryComponent implements OnInit {
     let organism_summary_name = 'organismSummary';
     let material_summary_name = 'materialSummary';
     let breed_summary_name = 'breedSummary';
-    if (excludeLegacy === true) {
+    if (excludeLegacy) {
       sexSummaryName = 'sexSummaryFAANGOnly';
       paperPublishedSummaryName = 'paperPublishedSummaryFAANGOnly';
       standard_summary_name = 'standardSummaryFAANGOnly';

@@ -107,8 +107,7 @@ export class EnsemblAnnotationComponent implements OnInit {
   ];
 
   constructor(
-    private dataService: ApiDataService,
-    private _userService: UserService) {
+    private dataService: ApiDataService) {
   }
 
   ngOnInit() {

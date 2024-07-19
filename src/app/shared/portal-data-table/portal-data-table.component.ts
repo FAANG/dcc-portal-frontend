@@ -8,7 +8,7 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
   MatRowDef, MatRow } from '@angular/material/table';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import {Observable, of as observableOf} from 'rxjs';
+import {of as observableOf} from 'rxjs';
 import { RobustLinkComponent } from '../robust-link/robust-link.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatInput } from '@angular/material/input';
@@ -163,13 +163,6 @@ export class PortalDataTableComponent implements OnInit {
     }
   }
 
-  checkSelectedProjects(selectedProjects: string[]) {
-    if (!selectedProjects.length) {
-      console.log('empty projects');
-    }
-
-  }
-
   getSort() {
     const defaults = {
       'organism': 'BioSamples ID',
@@ -223,7 +216,7 @@ export class PortalDataTableComponent implements OnInit {
 
   isEmptyData() {
     if (this.dataSource.data && this.dataSource.data.length !== 0) {
-      if (this.initialDataExists === false) {
+      if (!this.initialDataExists) {
         this.initialDataExists = true;
       }
       return false;
@@ -305,7 +298,7 @@ export class PortalDataTableComponent implements OnInit {
 
   // the behaviour of the checkbox in the table header
   mainCheckboxClicked() {
-    if (this.checked === true) {
+    if (this.checked) {
       this.urls = [];
     } else {
       for (const record of this.dataSource.data) {

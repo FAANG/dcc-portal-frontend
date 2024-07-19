@@ -19,7 +19,6 @@ export class FilterComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   isCollapsed = true;
   itemLimit = 0;
-  current_active_filters = this.aggregationService.current_active_filters;
 
   constructor(
     public aggregationService: AggregationService,

@@ -32,43 +32,33 @@ export class UserService {
 
   // Uses http.post() to get an auth token from djangorestframework-jwt endpoint
   public login(user: {[index: string]: any}) {
-    this.http.post('https://api.faang.org/api-token-auth/', JSON.stringify(user), this.httpOptions).subscribe(
-      (data: {[index: string]: any}) => {
+    this.http.post('https://api.faang.org/api-token-auth/', JSON.stringify(user), this.httpOptions).subscribe({
+      next: (data: {[index: string]: any}) => {
         console.log('login success', data);
         this.loginSuccess.next(true);
         this.updateData(data['token']);
       },
-      err => {
+      error: err => {
         console.error('login error', err);
         this.errors = err['error'];
       }
-    );
+  });
   }
 
   /**
    * Refreshes the JWT token, to extend the time the user is logged in
    */
   public refreshToken() {
-    this.http.post('https://api.faang.org/api-token-refresh/', JSON.stringify({token: this.token}), this.httpOptions).subscribe(
-      (data: {[index: string]: any}) => {
+    this.http.post('https://api.faang.org/api-token-refresh/', JSON.stringify({token: this.token}), this.httpOptions).subscribe({
+      next: (data: { [index: string]: any }) => {
         console.log('refresh success', data);
         this.updateData(data['token']);
       },
-      err => {
+      error: err => {
         console.error('refresh error', err);
         this.errors = err['error'];
       }
-    );
-  }
-
-  public testToken() {
-    this.http.get(
-      'https://api.faang.org/private_portal/organism/',
-      {headers: new HttpHeaders({'Authorization': `jwt ${this.token}`})}).subscribe(
-      data => {
-        console.log(data);
-      }
-    );
+    });
   }
 
   public logout() {

@@ -7,7 +7,7 @@ import {
   ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
   ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable, PipelineTable, ProtocolAnalysis
 } from '../shared/interfaces';
-import {ruleset_prefix_old, ruleset_prefix_new, validation_service_url} from '../shared/constants';
+import {ruleset_prefix_new, validation_service_url} from '../shared/constants';
 import {UserService} from './user.service';
 import {replaceUnderscoreWithSpace} from '../shared/common_functions';
 import {protocolNames} from '../shared/protocolnames';
@@ -113,7 +113,8 @@ export class ApiDataService {
   getEnsemblAnnotationData(projectArr: string[], sort: string, offset: number) {
     const res: {[index: string]: any} = {};
     const project_filter = JSON.stringify({'project.keyword': projectArr});
-    const url = `${this.hostSetting.host}data/ensembl_annotation/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}`;
+    const url = `${this.hostSetting.host}data/ensembl_annotation/_search/?size=10&filters=${project_filter}
+    &sort=${sort}&from_=${offset}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         res['data'] = data['hits']['hits'].map((ele: { [x: string]: any; }) => ele['_source']);
@@ -334,36 +335,6 @@ export class ApiDataService {
   getExperimentByAccession(experimentId: string) {
     const url = `${this.hostSetting.host}data/experiment/${experimentId}`;
     return this.http.get<any>(url).pipe(
-      retry(3),
-      catchError(this.handleError),
-    );
-  }
-
-  getAllOntologiesWorkshop(query: any, size: number) {
-    const url = `${this.hostSetting.host}data/ontologies_test/_search/?size=${size}`;
-    const aggs: {[index: string]: any} = {
-      'projects': 'projects',
-      'type': 'type'
-    };
-    const filters = query['filters'];
-    for (const prop of Object.keys(filters)) {
-      if (aggs[prop] && (prop !== aggs[prop])) {
-        filters[aggs[prop]] = filters[prop];
-        delete filters[prop];
-      }
-    }
-    const sortParams = query['sort'][0] + ':' + query['sort'][1];
-    const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
-      JSON.stringify(filters)).set('aggs', JSON.stringify(aggs)).set('from_', query['from_']).set('search', query['search']);
-    const res: {[index: string]: any} = {};
-    return this.http.get(url, {params: params}).pipe(
-      map((data: any) => {
-        res['data'] = data.hits.hits.map((entry: {[index: string]: any}) => entry['_source']
-        );
-        res['totalHits'] = data.hits.total.value;
-        res['aggregations'] = data.aggregations;
-        return res;
-      }),
       retry(3),
       catchError(this.handleError),
     );
@@ -1338,7 +1309,7 @@ export class ApiDataService {
   }
 
   getRulesetSample(category: string) {
-    let rule_type;
+    let rule_type: any;
     if (category === 'standard') {
       rule_type = 'core';
       category = 'core';
@@ -1363,7 +1334,7 @@ export class ApiDataService {
   }
 
   getRulesetExperiment(category: string) {
-    let rule_type;
+    let rule_type: any;
     if (category === 'standard') {
       rule_type = 'core';
       category = 'core';
@@ -1385,7 +1356,7 @@ export class ApiDataService {
   }
 
   getRulesetAnalysis(category: string) {
-    let rule_type;
+    let rule_type: any;
     if (category === 'eva') {
       rule_type = 'module';
     } else {
@@ -1420,13 +1391,15 @@ export class ApiDataService {
     return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
   }
 
-  submitDomain(username: string, password: string, mode: string, domain_name: string, domain_description: string, room_id: string, private_submission: boolean) {
+  submitDomain(username: string, password: string, mode: string, domain_name: string, domain_description: string, room_id: string,
+               private_submission: boolean) {
     const url = `${validation_service_url}/submission/samples/${room_id}/submit_domain`;
     return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
       domain_description: domain_description, private_submission: private_submission});
   }
 
-  submitRecords(action: string, username: string, password: string, mode: string, room_id: string, task_id: string, submission_type: string, private_submission: boolean, domain_name= '') {
+  submitRecords(action: string, username: string, password: string, mode: string, room_id: string, task_id: string, submission_type: string,
+                private_submission: boolean, domain_name= '') {
     const url = `${validation_service_url}/submission/${action}/${submission_type}/${task_id}/${room_id}/submit_records`;
     if (domain_name !== '') {
       return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
@@ -1484,7 +1457,6 @@ export class ApiDataService {
       console.error(error);
     }
     // return an observable with a user-facing errorSubject message
-    return throwError(
-      error);
+    return throwError(() => error);
   }
 }

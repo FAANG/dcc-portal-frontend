@@ -1,10 +1,11 @@
 import { Component, Input, Output, AfterViewInit, ViewChild, EventEmitter, TemplateRef, OnInit} from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
-import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
 import { Observable, merge, of as observableOf } from 'rxjs';
-import { map, startWith, switchMap, catchError, finalize, first } from 'rxjs/operators';
+import { map, startWith, switchMap, catchError, finalize } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import {female_values, male_values, published_article_source} from '../constants';
@@ -33,7 +34,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
   @Input() display_fields: Array<string> = []; // list of fields to be displayed in the table
   @Input() column_names: Array<string> = []; // list of column headers for the selected fields
   @Input() templates: {[index: string]: any} = {}; // column templates
-  @Input() filter_values: Observable<Object> | undefined; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ... }
+  @Input() filter_values: Observable<Object> | undefined; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ...}
   @Input() apiFunction!: Function; // function that queries the API endpoints
   @Input() query: {[index: string]: any} = {}; // query params ('sort', 'aggs', 'filters', '_source', 'from_')
   @Input() defaultSort: string[] = []; // default sort param e.g - ['id': 'desc'];
@@ -250,14 +251,16 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
   onRegister(data: { email: any; filters: any; }) {
     if (this.subscriptionForm?.valid && this.subscriptionForm?.touched) {
-      this.dataService.subscribeUser(this.indexDetails['index'], this.indexDetails['indexKey'], data.email, data.filters).subscribe(response => {
-          this.dialogRef.close();
-        },
-        error => {
-          console.log(error);
-          this.dialogRef.close();
-        }
-      );
+      this.dataService.subscribeUser(this.indexDetails['index'], this.indexDetails['indexKey'], data.email, data.filters)
+        .subscribe({
+          next: response => {
+            this.dialogRef.close();
+          },
+          error: error => {
+            console.log(error);
+            this.dialogRef.close();
+          }
+        });
     }
   }
 
@@ -322,7 +325,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit {
 
   getFilterCodeValue(paramName: string, displayVal: string) {
     if (paramName in this.specialFilters) {
-      const matchedFiltersArr = this.specialFilters[paramName].filter((obj: { [x: string]: string; }) => obj['displayValue'] == displayVal);
+      const matchedFiltersArr = this.specialFilters[paramName]
+        .filter((obj: { [x: string]: string; }) => obj['displayValue'] === displayVal);
       if (matchedFiltersArr.length > 0) {
         return matchedFiltersArr[0]['filterValue'];
       }

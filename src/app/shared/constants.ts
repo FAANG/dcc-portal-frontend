@@ -8,7 +8,6 @@ export const external_biosample_prefix = 'https://www.ebi.ac.uk/biosamples/sampl
 export const external_epmc_prefix = 'http://europepmc.org/search?query=';
 export const external_pubmed_prefix = 'https://www.ncbi.nlm.nih.gov/pubmed/';
 export const external_doi_prefix = 'https://doi.org/';
-export const ruleset_prefix_old = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/rulesets/';
 export const ruleset_prefix_new = 'https://raw.githubusercontent.com/FAANG/dcc-metadata/master/json_schema/';
 
 

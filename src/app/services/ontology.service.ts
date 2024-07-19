@@ -25,7 +25,7 @@ export class OntologyService {
     );
   }
 
-  register(userData) {
+  register(userData: any) {
     const url = validation_service_url + '/ontology_improver/register/';
     return this.http.post(url, userData).pipe(
       map((data: any) => {
@@ -36,7 +36,7 @@ export class OntologyService {
   }
 
   private handleRegError(error: HttpErrorResponse) {
-    return throwError(error.error.message);
+    return throwError(() => (error.error.message));
   }
 
   searchTerms(terms: any) {
@@ -46,7 +46,7 @@ export class OntologyService {
       .set('filters', JSON.stringify(filters)).set('from_', 0);
     return this.http.get(url, {params: params}).pipe(
       map((data: any) => {
-        const res = data.hits.hits.map(entry => entry['_source']);
+        const res = data.hits.hits.map((entry: { [x: string]: any; }) => entry['_source']);
         return res;
       }),
       catchError(this.handleError),
@@ -63,7 +63,7 @@ export class OntologyService {
     );
   }
 
-  validateTerms(body: any, username) {
+  validateTerms(body: any, username: string) {
     const url = validation_service_url + '/ontology_improver/validate/' + username;
     return this.http.post(url, body).pipe(
       map((data: any) => {
@@ -83,7 +83,7 @@ export class OntologyService {
     );
   }
 
-  getDetailsFromOls(ontology) {
+  getDetailsFromOls(ontology: { [x: string]: any; }) {
     const url = `https://www.ebi.ac.uk/ols4/api/terms?short_form=${ontology['ontology_id']}`;
     return this.http.get(url).pipe(
       map((data: any) => {
@@ -119,7 +119,7 @@ export class OntologyService {
           return ontology;
         },
         (err: any) => {
-          return throwError(err);
+          return throwError(() => err);
         })
     );
   }
@@ -128,7 +128,7 @@ export class OntologyService {
     const url = `${this.hostSetting.host}data/summary_ontologies/_search/?size=10`;
     return this.http.get(url).pipe(
       map((data: any) => {
-        const res = data.hits.hits.map(entry => entry['_source']);
+        const res = data.hits.hits.map((entry: { [x: string]: any; }) => entry['_source']);
         return res;
       }),
       catchError(this.handleError),
@@ -146,11 +146,11 @@ export class OntologyService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
       if (error.status === 409) {
-        return throwError(error);
+        return throwError(() => error);
       }
     }
     // return an observable with a user-facing errorSubject message
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError(() => 'Something bad happened; please try again later.');
   }
+
 }

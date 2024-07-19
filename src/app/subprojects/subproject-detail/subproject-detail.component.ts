@@ -70,15 +70,17 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
       'GEroNIMO': 'https://eurofaang.eu/projects/geronimo',
       'RUMIGEN': 'https://eurofaang.eu/projects/rumigen'
     };
-    this.route.params.subscribe((params: Params) => {
+    this.route.params.subscribe({
+      next: (params: Params) => {
         this.project = params['id'];
         this.titleService.setTitle(`${this.project} | FAANG project`);
         void this.spinner.hide();
       },
-      error => {
+      error: error => {
         this.error = error;
         void this.spinner.hide();
-      });
+      }
+    });
     if (setting.hasOwnProperty(this.project)) {
       this.setting = setting[this.project as keyof typeof setting];
 

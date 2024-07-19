@@ -47,7 +47,8 @@ export class ProtocolAnalysisDetailsComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any[]>([]);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.dataService.getAnalysisProtocol(this.fileId).subscribe(data => {
+    this.dataService.getAnalysisProtocol(this.fileId).subscribe({
+      next: (data) => {
         if (data['hits']['hits'].length === 0) {
           void this.spinner.hide();
           void this.router.navigate(['404']);
@@ -62,10 +63,11 @@ export class ProtocolAnalysisDetailsComponent implements OnInit {
           }
         }
       },
-      error => {
+      error: error => {
         void this.spinner.hide();
         this.error = error;
-      });
+      }
+    });
   }
 
 }

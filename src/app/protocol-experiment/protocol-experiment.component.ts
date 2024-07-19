@@ -2,15 +2,13 @@ import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/cor
 import {ApiDataService} from '../services/api-data.service';
 import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/internal/operators/finalize';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -46,7 +44,6 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   subscriptionDialogTitle = '';
   subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
-  dialogInfoRef: any;
   indexDetails: { [index: string]: any } = {};
 
   query: { [index: string]: any } = {
@@ -74,7 +71,6 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
 
   defaultSort = ['name', 'asc'];
   error = '';
-  subscriptionDialog!: MatDialogRef<SubscriptionDialogComponent>;
 
 
   constructor(private dataService: ApiDataService,
