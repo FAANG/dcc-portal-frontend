@@ -52,22 +52,21 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   annotation_status = '';
   submission_message = '';
   gcp_subscription_status = '';
-  socket;
-  validation_results;
+  socket: any;
+  validation_results: any;
   record_types: any[] = [];
   active_key = '';
-  active_issue;
-  active_table;
+  active_issue: any;
+  active_table: any;
   active_column = '';
-  active_issues;
+  active_issues: any;
   records_that_pass: any[] = [];
   records_with_issues: any[] = [];
-  records_to_show;
+  records_to_show: any;
   show_table = false;
   validation_started = false;
   conversion_task_id = '';
   validation_task_id = '';
-  download_data_task_id = '';
   metadata_template_with_examples = '';
   metadata_template_without_examples = '';
   errors: any[] = [];
@@ -208,10 +207,13 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   }
 
   getPubSubMessage() {
-    this.apiDataService.get_pubsub_messages().subscribe(data => {
-      this.gcp_subscription_status = data[0]['enaStatus'];
-    }, error => {
-      console.log(error);
+    this.apiDataService.get_pubsub_messages().subscribe({
+      next: data => {
+        this.gcp_subscription_status = data[0]['enaStatus'];
+      },
+      error: error => {
+        console.log(error);
+      }
     });
   }
 
@@ -221,7 +223,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
     };
-    this.socket.onmessage = (event) => {
+    this.socket.onmessage = (event: any) => {
       const data = JSON.parse(event.data)['response'];
       if (data['conversion_status']) {
         this.conversion_status = data['conversion_status'];
@@ -343,7 +345,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  remove_underscores(record) {
+  remove_underscores(record: string) {
     return record.replace(/[_]/g, ' ');
   }
 
@@ -366,23 +368,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  isButtonActive(button_record: string) {
-    if (button_record === this.active_key) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  isRecordsButtonActive(type: string) {
-    if (type === this.active_issue) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  onRecordButtonClick(tab) {
+  onRecordButtonClick(tab: any) {
     this.active_key = tab['tab']['textLabel'].replace(/[ ]/g, '_');
     this.active_table = this.validation_results[this.active_key];
     this.records_with_issues = [];
@@ -396,12 +382,12 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     this.onValidationResultsButtonClick('passed');
   }
 
-  onValidationResultsButtonClick(issues_type) {
+  onValidationResultsButtonClick(issues_type: string) {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
     const data: any[] = [];
-    this.records_to_show.forEach(record => {
+    this.records_to_show.forEach((record: { [x: string]: any; }) => {
       const rowObj = {};
       for (const index in this.column_names) {
         if (index) {
@@ -434,7 +420,7 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  statusClass(status) {
+  statusClass(status: string) {
     if (status === 'Undefined' || status === 'Finished') {
       return 'badge badge-pill badge-info';
     } else if (status === 'Waiting' || status === 'Preparing data') {
@@ -449,42 +435,29 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'experiments').subscribe(response => {
+    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'experiments').subscribe({
+      next: response => {
         this.validation_task_id = response['id'];
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
-  }
-
-  startConversion() {
-    this.apiDataService.startConversion(this.conversion_task_id, this.fileid, 'experiments').subscribe(response => {
-        console.log(response['id']);
-        this.download_data_task_id = response['id'];
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    });
   }
 
   getTemplateFile() {
-    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'experiments', this.action).subscribe(response => {
+    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'experiments', this.action).subscribe({
+      next: response => {
         console.log(response);
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
+    });
   }
 
-  isSubmissionDisabled(status) {
+  isSubmissionDisabled(status: string) {
     return status === 'Fix issues' || this.gcp_subscription_status === 'failure';
-  }
-
-  constructDownloadLink() {
-    return validation_service_url_download + '/submission/get_data/' + this.download_data_task_id;
   }
 
   constructDownloadTemplateLink() {
@@ -506,17 +479,17 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.disableAuthForm = true;
     this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, this.fileid,
-      this.conversion_task_id, 'experiments', this.private_submission, '').subscribe(
-      (response) => {
-          this.submission_task_id = response['id'];
+      this.conversion_task_id, 'experiments', this.private_submission, '').subscribe({
+      next: (response) => {
+        this.submission_task_id = response['id'];
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
       }
-    );
+    });
   }
 
-  onStartSubmissionClick(privateSubmission) {
+  onStartSubmissionClick(privateSubmission: any) {
     this.submissionStarted = !this.submissionStarted;
     if (privateSubmission) {
       this.onSubmit();
@@ -530,12 +503,6 @@ export class ValidationExperimentsComponent implements OnInit, OnDestroy {
   triggerFalseClick() {
     const el: HTMLElement = this.myButton.nativeElement;
     el.click();
-  }
-
-  goBack() {
-    this.disableAuthForm = false;
-    this.submission_message = 'Please login';
-    this.submissionResults = [];
   }
 
   tabClick(tab: any) {

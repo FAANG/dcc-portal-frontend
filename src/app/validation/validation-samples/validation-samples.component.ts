@@ -5,8 +5,7 @@ import { NgxSmartModalService, NgxSmartModalModule } from 'ngx-smart-modal';
 import { ApiDataService } from '../../services/api-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import {
-  issue_type,
-  record_type, sample_biosample_update_template,
+  sample_biosample_update_template,
   sample_metadata_template_with_examples, sample_metadata_template_without_examples,
   validation_service_url,
   validation_service_url_download,
@@ -20,7 +19,6 @@ import { Router, RouterLink } from '@angular/router';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
   MatRowDef, MatRow } from '@angular/material/table';
-import {consumerDestroy} from '@angular/core/primitives/signals';
 import { MatIcon } from '@angular/material/icon';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { NgClass, NgStyle, DatePipe } from '@angular/common';
@@ -63,17 +61,17 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   submission_message = '';
   gcp_subscription_status = '';
   domains = [];
-  socket;
-  validation_results;
+  socket: any;
+  validation_results: any;
   record_types: any[] = [];
   active_key = '';
-  active_issue;
-  active_table;
+  active_issue: any;
+  active_table: any;
   active_column = '';
-  active_issues;
+  active_issues: any;
   records_that_pass: any[] = [];
   records_with_issues: any[] = [];
-  records_to_show;
+  records_to_show: any;
   show_table = false;
   validation_started = false;
   conversion_task_id = '';
@@ -93,14 +91,11 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   submissionStarted = false;
   disableSubmitButton = false;
   submissionResults: any[] = [];
-  optionsCsv;
-  optionsTabular;
   downloadData = false;
   bovreg_submission = false;
   private_submission = false;
   col_index: any[] = [];
   action: 'update'|'submission' = 'submission';
-  custom_col_name: 'sample_name' | 'biosample_id' = 'sample_name';
   tooltipUpdate = '';
   tooltipSubmission = '';
   currentDate!: Date;
@@ -229,10 +224,13 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   getPubSubMessage() {
-    this.apiDataService.get_pubsub_messages().subscribe(data => {
-      this.gcp_subscription_status = data[0]['biosampleStatus'];
-    }, error => {
-      console.log(error);
+    this.apiDataService.get_pubsub_messages().subscribe({
+      next: data => {
+        this.gcp_subscription_status = data[0]['biosampleStatus'];
+      },
+      error: error => {
+        console.log(error);
+      }
     });
   }
 
@@ -242,7 +240,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
     };
-    this.socket.onmessage = (event) => {
+    this.socket.onmessage = (event: { data: string; }) => {
       const data = JSON.parse(event.data)['response'];
       console.log(data);
       if (data['conversion_status']) {
@@ -382,7 +380,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  remove_underscores(record) {
+  remove_underscores(record: string) {
     return record.replace(/[_]/g, ' ');
   }
 
@@ -405,23 +403,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  isButtonActive(button_record: string) {
-    if (button_record === this.active_key) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  isRecordsButtonActive(type: string) {
-    if (type === this.active_issue) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  onRecordButtonClick(tab) {
+  onRecordButtonClick(tab: any) {
     this.active_key = tab['tab']['textLabel'].replace(/[ ]/g, '_');
     this.active_table = this.validation_results[this.active_key];
     this.records_with_issues = [];
@@ -435,12 +417,12 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.onValidationResultsButtonClick('passed');
   }
 
-  onValidationResultsButtonClick(issues_type) {
+  onValidationResultsButtonClick(issues_type: string) {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
     const data: any[] = [];
-    this.records_to_show.forEach(record => {
+    this.records_to_show.forEach((record: { [x: string]: any; }) => {
       const rowObj: {[index: string]: any} = {};
       for (const index in this.column_names) {
         if (index) {
@@ -473,7 +455,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  statusClass(status) {
+  statusClass(status: string) {
     if (status === 'Undefined' || status === 'Finished') {
       return 'badge badge-pill badge-info';
     } else if (status === 'Waiting' || status === 'Preparing data') {
@@ -488,13 +470,14 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'samples').subscribe(response => {
+    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'samples').subscribe({
+      next: response => {
         this.validation_task_id = response['id'];
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
+    });
   }
 
   onStartSubmissionClick() {
@@ -502,16 +485,17 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   getTemplateFile() {
-    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'samples', this.action).subscribe(response => {
-      console.log(response);
-    },
-      error => {
-      console.log(error);
+    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'samples', this.action).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.log(error);
       }
-      );
+    });
   }
 
-  isSubmissionDisabled(status) {
+  isSubmissionDisabled(status: string) {
     return status === 'Fix issues' || this.submission_status === 'Preparing data'
       || this.gcp_subscription_status === 'failure';
   }
@@ -523,25 +507,28 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.disableAuthForm = true;
     this.apiDataService.chooseDomain(this.model.username, this.model.password, this.model.mode, this.fileid,
-      this.private_submission).subscribe(response => {
+      this.private_submission).subscribe({
+      next: response => {
         console.log(response);
       },
-      error => {
+      error: error => {
         console.log(error);
-      });
+      }
+    });
   }
 
   onDomainSubmit() {
     this.disableDomainForm = true;
     this.apiDataService.submitDomain(this.model.username,
       this.model.password, this.model.mode, this.domain.name, this.domain.description, this.fileid,
-      this.private_submission).subscribe(response => {
+      this.private_submission).subscribe({
+      next: response => {
         console.log(response);
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
+    });
   }
 
   onChooseDomainClick(name: string) {
@@ -553,11 +540,14 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.disableSubmitButton = true;
 
     this.apiDataService.submitRecords(this.action, this.model.username,
-      this.model.password,  this.model.mode, this.fileid, this.conversion_task_id,
-      'samples', this.private_submission, '').subscribe( response => {
-      this.submission_task_id = response['id'];
-    }, error => {
-      console.log(error);
+      this.model.password, this.model.mode, this.fileid, this.conversion_task_id,
+      'samples', this.private_submission, '').subscribe({
+      next: response => {
+        this.submission_task_id = response['id'];
+      },
+      error: error => {
+        console.log(error);
+      }
     });
   }
 
@@ -566,11 +556,14 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.disableSubmitButton = true;
 
     this.apiDataService.submitRecords(this.action, this.model.username,
-      this.model.password,  this.model.mode, this.fileid, this.conversion_task_id,
-      'samples', this.private_submission, this.domain.name).subscribe( response => {
+      this.model.password, this.model.mode, this.fileid, this.conversion_task_id,
+      'samples', this.private_submission, this.domain.name).subscribe({
+      next: response => {
         this.submission_task_id = response['id'];
-    }, error => {
+      },
+      error: error => {
         console.log(error);
+      }
     });
   }
 

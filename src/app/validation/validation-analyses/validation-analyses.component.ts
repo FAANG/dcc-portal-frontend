@@ -52,17 +52,17 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   annotation_status = '';
   submission_message = '';
   gcp_subscription_status = '';
-  socket;
-  validation_results;
+  socket: any;
+  validation_results: any;
   record_types: any[] = [];
   active_key = '';
-  active_issue;
-  active_table;
+  active_issue: any;
+  active_table: any;
   active_column = '';
-  active_issues;
+  active_issues: any;
   records_that_pass: any[] = [];
   records_with_issues: any[] = [];
-  records_to_show;
+  records_to_show: any;
   show_table = false;
   validation_started = false;
   conversion_task_id = '';
@@ -179,10 +179,13 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   }
 
   getPubSubMessage() {
-    this.apiDataService.get_pubsub_messages().subscribe(data => {
-      this.gcp_subscription_status = data[0]['enaStatus'];
-    }, error => {
-      console.log(error);
+    this.apiDataService.get_pubsub_messages().subscribe({
+      next: data => {
+        this.gcp_subscription_status = data[0]['enaStatus'];
+      },
+      error: error => {
+        console.log(error);
+      }
     });
   }
 
@@ -192,7 +195,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
     };
-    this.socket.onmessage = (event) => {
+    this.socket.onmessage = (event: any) => {
       const data = JSON.parse(event.data)['response'];
       if (data['conversion_status']) {
         this.conversion_status = data['conversion_status'];
@@ -306,21 +309,8 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     }
   }
 
-  remove_underscores(record) {
+  remove_underscores(record: any) {
     return record.replace(/[_]/g, ' ');
-  }
-
-  getIssues(issues_list, issue_type_value) {
-    issues_list = issues_list.length;
-    if (issues_list === 0) {
-      return 'pass';
-    } else {
-      if (issues_list === 1) {
-        return issues_list + ' ' + issue_type_value;
-      } else {
-        return issues_list + ' ' + issue_type_value + 's';
-      }
-    }
   }
 
   getCellClass(i: number, j: number) {
@@ -342,23 +332,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     }
   }
 
-  isButtonActive(button_record: string) {
-    if (button_record === this.active_key) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  isRecordsButtonActive(type: string) {
-    if (type === this.active_issue) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  onRecordButtonClick(tab) {
+  onRecordButtonClick(tab: any) {
     this.active_key = tab['tab']['textLabel'].replace(/[ ]/g, '_');
     this.active_table = this.validation_results[this.active_key];
     this.records_with_issues = [];
@@ -372,12 +346,12 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     this.onValidationResultsButtonClick('passed');
   }
 
-  onValidationResultsButtonClick(issues_type) {
+  onValidationResultsButtonClick(issues_type: any) {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
     const data: any[] = [];
-    this.records_to_show.forEach(record => {
+    this.records_to_show.forEach((record: { [x: string]: any; }) => {
       const rowObj = {};
       for (const index in this.column_names) {
         if (index) {
@@ -410,7 +384,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     }
   }
 
-  statusClass(status) {
+  statusClass(status: any) {
     if (status === 'Undefined' || status === 'Finished') {
       return 'badge badge-pill badge-info';
     } else if (status === 'Waiting' || status === 'Preparing data') {
@@ -425,37 +399,28 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'analyses').subscribe(response => {
+    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'analyses').subscribe({
+      next: response => {
         this.validation_task_id = response['id'];
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
-  }
-
-  startConversion() {
-    this.apiDataService.startConversion(this.conversion_task_id, this.fileid, 'analyses').subscribe(response => {
-        console.log(response['id']);
-        this.download_data_task_id = response['id'];
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    });
   }
 
   getTemplateFile() {
-    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'analyses', this.action).subscribe(response => {
+    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'analyses', this.action).subscribe({
+      next: response => {
         console.log(response);
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
+    });
   }
 
-  isSubmissionDisabled(status) {
+  isSubmissionDisabled(status: string) {
     return status === 'Fix issues' || this.submission_status === 'Preparing data'
       || this.gcp_subscription_status === 'failure';
   }
@@ -468,7 +433,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     return validation_service_url_download + '/submission/download_template/' + this.fileid;
   }
 
-  onStartSubmissionClick(privateSubmission) {
+  onStartSubmissionClick(privateSubmission: any) {
     this.submissionStarted = !this.submissionStarted;
     if (privateSubmission) {
       this.onSubmit();
@@ -490,14 +455,14 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.disableAuthForm = true;
     this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, this.fileid,
-      this.conversion_task_id, 'analyses', this.private_submission, '').subscribe(
-      (response) => {
+      this.conversion_task_id, 'analyses', this.private_submission, '').subscribe({
+      next: (response) => {
         this.submission_task_id = response['id'];
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
       }
-    );
+    });
   }
 
   downloadSubmissionResults() {
