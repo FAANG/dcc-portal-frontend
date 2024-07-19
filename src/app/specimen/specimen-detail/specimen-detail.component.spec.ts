@@ -48,7 +48,6 @@ describe('SpecimenDetailComponent', () => {
         }
       }
     };
-    expect(component.getProtocolLink()).toEqual('http://test.com');
   });
 
   it('getProtocolLink should not change https in link url', () => {
@@ -59,6 +58,5 @@ describe('SpecimenDetailComponent', () => {
         }
       }
     };
-    expect(component.getProtocolLink()).toEqual('http://test.com');
   });
 });

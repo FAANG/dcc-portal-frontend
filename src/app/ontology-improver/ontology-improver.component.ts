@@ -405,7 +405,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
     });
   }
 
-  addTagToolTab(data: { [x: string]: any[]; }, tag: string | any[], prop: string | number) {
+  addTagToolTab(data: { [x: string]: any[]; }, tag: any, prop: string | number) {
     if (tag.length) {
       if (data[prop]) {
         let tagsList = data[prop];
@@ -766,21 +766,21 @@ export class OntologyImproverComponent implements OnInit, OnDestroy {
   }
 
 
-  getArrLength(arr: string | any[]) {
+  getArrLength(arr: any) {
     if (Array.isArray(arr)) {
       return arr.length;
     }
     return null;
   }
 
-  getItemValueArray(item: { [x: string]: any; }) {
+  getItemValueArray(item: any) {
     if ('value' in item) {
       return item['value'];
     }
     return null;
   }
 
-  getItemKey(item: { [x: string]: any; }) {
+  getItemKey(item: any) {
     if ('key' in item) {
       return item['key'];
     }
