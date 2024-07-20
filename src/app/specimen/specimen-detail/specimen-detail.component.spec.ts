@@ -17,7 +17,7 @@ describe('SpecimenDetailComponent', () => {
     TestBed.configureTestingModule({
     declarations: [SpecimenDetailComponent,
         RobustLinkComponent,
-        RelatedItemsComponent,],
+        RelatedItemsComponent],
     imports: [NgxPaginationModule,
         RouterTestingModule, HeaderComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]

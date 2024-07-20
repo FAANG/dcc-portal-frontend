@@ -4,7 +4,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener, MatTree, MatTreeNodeDef, MatTr
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Title} from '@angular/platform-browser';
-import * as igv from 'igv'
+import * as igv from 'igv';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
@@ -29,7 +29,8 @@ interface FileNode {
   templateUrl: './local-genome-browser.component.html',
   styleUrls: ['./local-genome-browser.component.css'],
   standalone: true,
-  imports: [HeaderComponent, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatCheckbox, FormsModule, MatIconButton, MatTreeNodeToggle, MatIcon]
+  imports: [HeaderComponent, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatTree, MatTreeNodeDef,
+    MatTreeNode, MatTreeNodePadding, MatCheckbox, FormsModule, MatIconButton, MatTreeNodeToggle, MatIcon]
 })
 export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   @ViewChild('igvdiv') igvDiv!: ElementRef;
@@ -49,7 +50,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
       data: node.data,
       level: level
     };
-  };
+  }
 
   treeControl = new FlatTreeControl<FileNode>(
     node => node.level,
@@ -80,8 +81,8 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
 
   configureBrowser() {
     this.options = {
-      "genome": this.genome,
-      "genomeList": "https://api.faang.org/files/genomes/genomes.json"
+      'genome': this.genome,
+      'genomeList': 'https://api.faang.org/files/genomes/genomes.json'
     };
     this.createBrowser();
   }
@@ -89,7 +90,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   async createBrowser() {
     try {
         this.browser = await igv.createBrowser(this.igvDiv.nativeElement, this.options);
-    } catch(e) {
+    } catch (e) {
         console.log(e);
     }
   }
@@ -100,10 +101,8 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
       this.currentTracks[trackUrl] = false;
       this.tracksList = this.tracksList.filter(item => item !== trackUrl);
       this.browser.removeTrackByName(trackName);
-    }
-    // selecting tracks
-    else {
-      if (this.genome == genome) {
+    } else {
+      if (this.genome === genome) {
         this.currentTracks[trackUrl] = true;
         this.tracksList.push(trackUrl);
         this.browser.loadTrack({
@@ -112,8 +111,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
             type: trackType
         });
         this.browser.search(this.defaultChr);
-      }
-      else {
+      } else {
         this.genome = genome;
         this.resetTracks();
         this.currentTracks[trackUrl] = true;
@@ -127,7 +125,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
             name: trackName,
             url: trackUrl,
             type: trackType
-          })
+          });
           this.browser.search(this.defaultChr);
         }, 4000);
       }
@@ -136,15 +134,15 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
 
   getDefaultChr(genome: string) {
     this.http.get('https://api.faang.org/files/genomes/genomes.json').subscribe((data: {[index: string]: any}) => {
-      for (let index in data) {
-        if (data[index ]['id'] == genome) {
-          let headers = new HttpHeaders().set('Range', 'bytes=0-50')
+      for (const index in data) {
+        if (data[index ]['id'] === genome) {
+          const headers = new HttpHeaders().set('Range', 'bytes=0-50');
           this.http.get(data[index]['indexURL'], {headers: headers, responseType: 'text'}).subscribe(txt => {
             this.defaultChr = txt.split('\n')[0].split('\t')[0];
-          })
+          });
         }
       }
-    })
+    });
   }
 
   resetTracks() {
@@ -172,7 +170,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
       if (trackhub.hasOwnProperty('subdirectories')) {
         nodeData['children'] = [];
         trackhub['subdirectories'].forEach((subDir: { [x: string]: any[]; }) => {
-          let subDirData: {[index: string]: any} = {};
+          const subDirData: {[index: string]: any} = {};
           subDirData['name'] = subDir['name'];
           subDirData['children'] = subDir['tracks'].map(track => {
             this.currentTracks[track['bigDataUrl']] = false;
