@@ -50,47 +50,79 @@
 
   <app-ensembl-annotation [projectArr]="projects['value']" parentComponent="eurofaangMainPage"></app-ensembl-annotation>
 
-  @if (!projectSelectionErr) {
+
+  @defer (when !projectSelectionErr) {
     <app-portal-data-table data_type="publication"
                            [project]="projects['value']"></app-portal-data-table>
+  } @loading {
+    Loading Publication table...
+  } @error {
+    Failed to load Publication table!
   }
 
-  @if (!projectSelectionErr) {
+  @defer (when !projectSelectionErr) {
     <app-portal-data-table data_type="dataset"
                            [project]="projects['value']"></app-portal-data-table>
+  } @loading {
+    Loading Dataset table...
+  } @error {
+    Failed to load Dataset table!
   }
 
-  @if (!projectSelectionErr) {
+  @defer (when !projectSelectionErr) {
     <app-portal-data-table data_type="file" download_key="url"
                            [project]="projects['value']"></app-portal-data-table>
+  } @loading {
+    Loading File table...
+  } @error {
+    Failed to load File table!
   }
 
-  @if (!projectSelectionErr) {
+  @defer (when !projectSelectionErr) {
     <app-portal-data-table data_type="organism"
                            [project]="projects['value']"></app-portal-data-table>
+  } @loading {
+    Loading Organism table...
+  } @error {
+    Failed to load Organism table!
   }
 
-  @if (!projectSelectionErr) {
+  @defer (when !projectSelectionErr) {
     <app-portal-data-table data_type="specimen"
                            [project]="projects['value']"></app-portal-data-table>
+  } @loading {
+    Loading Specimen table...
+  } @error {
+    Failed to load Specimen table!
   }
 
   <!-- Related Protocols -->
-  @if (!projectSelectionErr) {
+  @defer (when !projectSelectionErr) {
     <app-portal-data-table data_type="protocolsamples"
                            [project]="projects['value']"></app-portal-data-table>
+  } @loading {
+    Loading Protocol Samples table...
+  } @error {
+    Failed to load Protocol Samples table!
   }
 
-  @if (!projectSelectionErr) {
+  @defer (when !projectSelectionErr) {
     <app-portal-data-table data_type="protocolfiles"
                            [project]="projects['value']"></app-portal-data-table>
+  } @loading {
+    Loading Protocol Files table...
+  } @error {
+    Failed to load Protocol Files table!
   }
 
-  @if (!projectSelectionErr) {
+  @defer (when !projectSelectionErr) {
     <app-portal-data-table data_type="protocolanalysis"
                            [project]="projects['value']"></app-portal-data-table>
+  } @loading {
+    Loading Protocol Analysis table...
+  } @error {
+    Failed to load Protocol Analysis table!
   }
-
 </div>
 
 

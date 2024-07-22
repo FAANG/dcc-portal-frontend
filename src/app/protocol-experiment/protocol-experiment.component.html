@@ -20,8 +20,13 @@
     <div fxFlex="83" class="table-responsive">
       @if (hasActiveFilters()) {
         <div>
-          @if (hasActiveFilters()) {
+          @defer (when hasActiveFilters()) {
             <app-active-filter></app-active-filter>
+          }
+          @loading {
+            Loading active filters...
+          } @error {
+            Failed to load active filters!
           }
           <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
           <button mat-raised-button

@@ -63,20 +63,58 @@
         <!--        {{project}} </a>-->
         <!--      </div>-->
       <div style="margin-bottom: 40px;"></div>
-      <app-ensembl-annotation [projectArr]="[project]"></app-ensembl-annotation>
+
+
+      @defer (on viewport){
+        <app-ensembl-annotation [projectArr]="[project]"></app-ensembl-annotation>
+      } @placeholder {
+        <div>Loading..</div>
+      }
+
       <!-- Related Tables -->
-      <app-related-items source_type="project" target_type="publication" download_key=""
-                         [record_id]="project"></app-related-items>
-      <app-related-items source_type="project" target_type="pipeline" download_key=""
-                         [record_id]="project"></app-related-items>
-      <app-related-items source_type="project" target_type="dataset" download_key=""
-                         [record_id]="project"></app-related-items>
-      <app-related-items source_type="project" target_type="file" download_key="url"
-                         [record_id]="project"></app-related-items>
-      <app-related-items source_type="project" target_type="organism" download_key=""
-                         [record_id]="project"></app-related-items>
-      <app-related-items source_type="project" target_type="specimen" download_key=""
-                         [record_id]="project"></app-related-items>
+      @defer (on viewport){
+        <app-related-items source_type="project" target_type="publication" download_key=""
+                           [record_id]="project"></app-related-items>
+      } @placeholder {
+        <div>Loading..</div>
+      }
+
+      @defer (on viewport){
+        <app-related-items source_type="project" target_type="pipeline" download_key=""
+                           [record_id]="project"></app-related-items>
+      } @placeholder {
+        <div>Loading..</div>
+      }
+
+      @defer (on viewport){
+        <app-related-items source_type="project" target_type="dataset" download_key=""
+                           [record_id]="project"></app-related-items>
+      } @placeholder {
+        <div>Loading..</div>
+      }
+
+      @defer (on viewport){
+        <app-related-items source_type="project" target_type="file" download_key="url"
+                           [record_id]="project"></app-related-items>
+      } @placeholder {
+        <div>Loading..</div>
+      }
+
+      @defer (on viewport){
+        <app-related-items source_type="project" target_type="organism" download_key=""
+                           [record_id]="project"></app-related-items>
+      } @placeholder {
+        <div>Loading..</div>
+      }
+
+      @defer (on viewport){
+        <app-related-items source_type="project" target_type="specimen" download_key=""
+                           [record_id]="project"></app-related-items>
+      } @placeholder {
+        <div>Loading..</div>
+      }
+
+
       <!-- Related Protocols -->
       @if (getTotalEnabledStatus()) {
         <h3
@@ -97,8 +135,6 @@
           </mat-tab>
         }
       </mat-tab-group>
-      <!--      <app-custom-table-builder *ngIf="project == 'GENE-SWitCH'" [project]="project">-->
-        <!--      </app-custom-table-builder>-->
     } @else {
       <app-eurofaang-info></app-eurofaang-info>
     }

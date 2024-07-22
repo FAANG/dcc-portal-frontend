@@ -6,8 +6,13 @@
       <h3 fxLayout="row" fxLayoutGap="2%">
         <div fxFlex="20"></div>
         <div fxFlex="80">
-          @if (hasActiveFilters()) {
+          @defer (when hasActiveFilters()) {
             <app-active-filter></app-active-filter>
+          }
+          @loading {
+            Loading active filters...
+          } @error {
+            Failed to load active filters!
           }
           <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
           <button mat-raised-button

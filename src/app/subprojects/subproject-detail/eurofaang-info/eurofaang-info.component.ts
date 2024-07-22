@@ -6,6 +6,7 @@ import { EnsemblAnnotationComponent } from '../../../shared/ensembl-annotation/e
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import {ActiveFilterComponent} from '../../../shared/active-filter/active-filter.component';
 
 @Component({
   selector: 'app-eurofaang-info',
@@ -13,7 +14,7 @@ import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
   styleUrls: ['./eurofaang-info.component.css'],
   standalone: true,
   imports: [MatFormField, MatLabel, MatSelect, FormsModule, ReactiveFormsModule, MatOption, MatError, EnsemblAnnotationComponent,
-    PortalDataTableComponent]
+    PortalDataTableComponent, ActiveFilterComponent]
 })
 export class EurofaangInfoComponent implements OnInit {
   imageHost: string = environment.relatedProjectsHost;
