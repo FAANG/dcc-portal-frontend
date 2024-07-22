@@ -16,7 +16,7 @@ export class ValidationPage{
     }
     cy.get('input[type=file]').selectFile(filepath)
     cy.get('button:contains("Upload")').should('not.be.disabled')
-    cy.get('button:contains("Upload")').click()
+    cy.get('button:contains("Upload")').eq(1).click()
     cy.get('h3').eq(1).should("contain", 'Conversion and Validation results')
     cy.get('h6:contains("Conversion Status")')
       .should('exist')
