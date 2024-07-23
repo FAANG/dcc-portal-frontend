@@ -462,7 +462,7 @@ Dialog box templates
     </mat-form-field>
     <mat-form-field appearance="fill" style="width: 100%;">
       <mat-label>Species</mat-label>
-      <mat-select [(ngModel)]="data.species" multiple>
+      <mat-select multiple>
         @for (spc of species; track spc) {
           <mat-option [value]="spc">
             {{ spc }}
@@ -606,7 +606,7 @@ Dialog box templates
     </mat-form-field>
     <mat-form-field appearance="fill" style="width: 100%;">
       <mat-label>Species</mat-label>
-      <mat-select [(ngModel)]="data.species" multiple>
+      <mat-select multiple>
         @for (spc of species; track spc) {
           <mat-option [value]="spc">
             {{ spc }}

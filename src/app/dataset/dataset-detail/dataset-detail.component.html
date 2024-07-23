@@ -68,7 +68,7 @@
           <div fxLayout="row" fxLayout.lt-md="column">
             <dt fxFlex="25">Species</dt>
             <dd fxFlex="75">
-              @for (organism of dataset?.species; track organism) {
+              @for (organism of dataset['species']; track organism) {
                 <div fxLayout="row" fxLayout.lt-md="column">
                   <app-robust-link [prefix]="ols_prefix" [link]="organism?.ontologyTerms"
                   [text]="organism?.text"></app-robust-link>

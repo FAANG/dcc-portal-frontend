@@ -15,11 +15,11 @@ describe('DatasetDetailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [DatasetDetailComponent,
-        RobustLinkComponent,
-        RelatedItemsComponent,],
     imports: [NgxPaginationModule,
-        RouterTestingModule, HeaderComponent],
+        RouterTestingModule, DatasetDetailComponent,
+        HeaderComponent,
+        RobustLinkComponent,
+        RelatedItemsComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();

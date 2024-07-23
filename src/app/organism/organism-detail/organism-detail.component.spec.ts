@@ -15,11 +15,11 @@ describe('OrganismDetailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [OrganismDetailComponent,
-        RobustLinkComponent,
-        RelatedItemsComponent,],
     imports: [NgxPaginationModule,
-        RouterTestingModule, HeaderComponent],
+        RouterTestingModule, OrganismDetailComponent,
+        HeaderComponent,
+        RobustLinkComponent,
+        RelatedItemsComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();

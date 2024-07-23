@@ -43,6 +43,10 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   defaultChr = '';
   genomeList: any;
   disableSelection = false;
+  treeControl: any;
+  treeFlattener: any;
+  dataSource: any;
+
   private _transformer = (node: DirNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -52,20 +56,6 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
     };
   }
 
-  treeControl = new FlatTreeControl<FileNode>(
-    node => node.level,
-    node => node.expandable,
-  );
-
-  treeFlattener = new MatTreeFlattener(
-    this._transformer,
-    node => node.level,
-    node => node.expandable,
-    node => node.children
-  );
-
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
   constructor(
     private dataService: ApiDataService,
     private http: HttpClient,
@@ -74,6 +64,20 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: FileNode) => node.expandable;
 
   ngOnInit(): void {
+    this.treeControl = new FlatTreeControl<FileNode>(
+      node => node.level,
+      node => node.expandable,
+    );
+
+    this.treeFlattener = new MatTreeFlattener(
+      this._transformer,
+      node => node.level,
+      node => node.expandable,
+      node => node.children
+    );
+
+    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
     this.titleService.setTitle('FAANG Genome Browser');
     this.currentTracks = {};
     this.fetchData();
