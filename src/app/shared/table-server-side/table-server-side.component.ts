@@ -18,6 +18,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 
 @Component({
@@ -27,7 +28,8 @@ import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/for
     standalone: true,
     imports: [MatFormField, MatLabel, MatInput, FormsModule, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell,
       MatSortHeader, MatCellDef, MatCell, NgTemplateOutlet, MatIconButton, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow,
-      MatPaginator, CdkScrollable, MatDialogContent, ReactiveFormsModule, MatHint, MatError, MatDialogActions, MatButton, NgClass]
+      MatPaginator, CdkScrollable, MatDialogContent, ReactiveFormsModule, MatHint, MatError, MatDialogActions, MatButton, NgClass,
+      FlexModule]
 })
 
 export class TableServerSideComponent implements OnInit, AfterViewInit {

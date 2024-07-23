@@ -23,11 +23,11 @@
           <dt fxFlex="25">Analysis accession:</dt>
           <dd fxFlex="75">
             @if (!_userService.token) {
-              <app-robust-link [prefix]="ena_prefix" [link]="analysis?.accession"
-                               [text]="analysis?.accession"></app-robust-link>
+              <app-robust-link [prefix]="ena_prefix" [link]="analysis['accession']"
+                               [text]="analysis['accession']"></app-robust-link>
             }
             @if (_userService.token) {
-              <div>{{analysis?.accession}}</div>
+              <div>{{analysis['accession']}}</div>
             }
           </dd>
         </div>
@@ -35,10 +35,10 @@
           <dt fxFlex="25">Title:</dt>
           <dd fxFlex="75">{{analysis?.title}}</dd>
         </div>
-        @if (analysis?.alias) {
+        @if (analysis['alias']) {
           <div fxLayout="row" fxLayout.lt-md="column">
             <dt fxFlex="25">Alias:</dt>
-            <dd fxFlex="75">{{analysis?.alias}}</dd>
+            <dd fxFlex="75">{{analysis['alias']}}</dd>
           </div>
         }
         @if (analysis?.type) {

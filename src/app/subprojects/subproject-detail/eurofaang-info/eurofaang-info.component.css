@@ -30,11 +30,6 @@ span.sm-para{
   margin-bottom: 20px;
 }
 
-.wrapper-logo {
-  width: 100%;
-  overflow: hidden;
-}
-
 .logo-col {
   width:25%;
   padding:10px 15px;
@@ -88,11 +83,6 @@ a:hover {
 .project-link {
   margin-top: 20px;
   margin-bottom: 20px;
-}
-
-.projectNamesTitle{
-  font-size: 60%;
-  color: #5199a8;
 }
 
 .projectSelection{
