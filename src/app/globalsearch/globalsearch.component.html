@@ -43,13 +43,15 @@
                 <ng-container *ngTemplateOutlet="commonTemplate; context: { hits: item.value?.totalHits, key: item.key }"></ng-container>
               }
               <ng-template #commonTemplate let-hits="hits" let-key="key">
-                <p [ngPlural]="hits" class="common-text">
-                  <ng-template ngPluralCase="one">
-                    {{ hits }} {{ changeKey(key) }}
-                  </ng-template>
-                  <ng-template ngPluralCase="other">
-                    {{ hits }} {{ key === 'analysis' ? 'analyses' : changeKey(key) + 's' }}
-                  </ng-template>
+                <p class="common-text">
+                  {{ hits }}
+                  @if (hits === 1) {
+                    {{ changeKey(key) }}
+                  } @else if (key === 'analysis') {
+                    {{ 'analyses' }}
+                  } @else {
+                    {{ changeKey(key) + 's' }}
+                  }
                 </p>
               </ng-template>
               @if (searchTermsBool(item)) {

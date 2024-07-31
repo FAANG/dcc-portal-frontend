@@ -64,12 +64,13 @@ export class GlobalSearchComponent implements OnInit {
         this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
           this.showSpinner = false;
           this.jsonData = json_data;
+          this.showResults = true;
         });
       }, time);
     } else {
       this.jsonData = {};
+      this.showResults = false;
     }
-    this.showResults = true;
     void this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { searchText: this.searchText },
