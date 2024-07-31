@@ -6,7 +6,8 @@ import {RelatedItemsComponent} from '../../shared/related-items/related-items.co
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SubprojectDetailComponent', () => {
   let component: SubprojectDetailComponent;
@@ -14,18 +15,16 @@ describe('SubprojectDetailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         SubprojectDetailComponent,
         HeaderComponent,
         RelatedItemsComponent,
         RobustLinkComponent
-      ],
-      imports: [
-        RouterTestingModule,
-        NgxPaginationModule,
-        HttpClientTestingModule
-      ]
-    })
+    ],
+    imports: [RouterTestingModule,
+        NgxPaginationModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

@@ -10,14 +10,12 @@ describe('HomeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    imports: [
+        RouterTestingModule,
         HomeComponent,
         HeaderComponent
-      ],
-      imports: [
-        RouterTestingModule
-      ]
-    })
+    ]
+})
     .compileComponents();
   }));
 

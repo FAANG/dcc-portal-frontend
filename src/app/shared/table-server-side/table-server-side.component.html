@@ -1,34 +1,37 @@
 <mat-form-field style="width: 100%; margin-top: 10px;">
-    <mat-label>Search</mat-label>
-    <input (keyup)="searchChanged($event)" matInput name="searchField" [(ngModel)]="currentSearchTerm"
-        placeholder="Search">
+  <mat-label>Search</mat-label>
+  <input (keyup)="searchChanged($event)" matInput name="searchField" [(ngModel)]="currentSearchTerm"
+    placeholder="Search">
 </mat-form-field>
 
 <table mat-table matSort [dataSource]="dataSource" table-striped style="width: 100%">
-    <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
-        <ng-container *ngIf="templates[col]">
-            <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
-            <td mat-cell *matCellDef="let item" class="table-cell-data" style="padding-right: 5px; max-width: 150px">
-                <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: item }">
-                </ng-template>
-            </td>
-        </ng-container>
-        <ng-container *ngIf="!templates[col]">
-            <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
-            <td mat-cell *matCellDef="let item" class="table-cell-data" style="padding-right: 5px; max-width: 150px">
-              <ng-container *ngIf="col === 'subscribe';else defaultDisplay">
-                <div>
-                  <button mat-icon-button (click)="openSubscriptionDialog(item[apiKey])">
-                    <mat-icon class="subscription-icon">email</mat-icon>
-                  </button>
-                </div>
-              </ng-container>
-              <ng-template #defaultDisplay> {{item[col]}} </ng-template>
-            </td>
-        </ng-container>
+  @for (col of display_fields; track col; let i = $index) {
+    <ng-container [matColumnDef]=col>
+      @if (templates[col]) {
+        <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
+        <td mat-cell *matCellDef="let item" class="table-cell-data" style="padding-right: 5px; max-width: 150px">
+          <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: item }">
+          </ng-template>
+        </td>
+      }
+      @if (!templates[col]) {
+        <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
+        <td mat-cell *matCellDef="let item" class="table-cell-data" style="padding-right: 5px; max-width: 150px">
+          @if (col === 'subscribe') {
+            <div>
+              <button mat-icon-button (click)="openSubscriptionDialog(item[apiKey])">
+                <mat-icon class="subscription-icon">email</mat-icon>
+              </button>
+            </div>
+          } @else {
+            {{item[col]}}
+          }
+        </td>
+      }
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
-    <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
+  }
+  <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
+  <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
 </table>
 <mat-paginator pageSize="25" [length]="totalHits" (page)="onPageChange($event)"></mat-paginator>
 
@@ -41,12 +44,16 @@
         <mat-form-field appearance="fill" [style.width.%]="100">
           <input matInput (input)="getEmail($event)" placeholder="Enter email" formControlName="subscriberEmail" id="subscriberEmail">
           <mat-hint align="end">Enter a valid email address.</mat-hint>
-          <mat-error *ngIf="displayError('subscriberEmail', 'required')">
-            Email is required
-          </mat-error>
-          <mat-error *ngIf="displayError('subscriberEmail', 'email')">
-            Please enter a valid email
-          </mat-error>
+          @if (displayError('subscriberEmail', 'required')) {
+            <mat-error>
+              Email is required
+            </mat-error>
+          }
+          @if (displayError('subscriberEmail', 'email')) {
+            <mat-error>
+              Please enter a valid email
+            </mat-error>
+          }
         </mat-form-field>
       </p>
     </form>

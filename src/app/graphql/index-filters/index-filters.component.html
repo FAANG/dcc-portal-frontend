@@ -1,60 +1,73 @@
-<div *ngIf="firstIndex && secondIndex">
-  <mat-toolbar color="primary">
-    <span> Add filters </span>
-  </mat-toolbar>
-
-  <form [formGroup]="filterForm">
-    <div class="user-info">
-      <span>* Select columns on which to add filters.</span>
-      <span class="indented-text">A filter value can be a string or comma-separated list of strings, e.g PRJEB19199, PRJEB35307, PRJEB25937</span>
-    </div>
-    <div formArrayName="filterFields" class="section">
-      <div fxLayout="row"
-           *ngFor="let filterField of filterForm.get('filterFields')['controls']; let i = index"
-           [formGroupName]="i">
-        <div fxLayoutGap="3vw" fxLayout="row">
-          <div>
-            <mat-form-field>
-              <mat-label>Filter</mat-label>
-              <mat-select formControlName="filterName">
-                <mat-option *ngFor="let filterName of indexFilters" [value]="filterName">
-                  {{filterName}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="!filterField.get('filterName').valid && filterField.get('filterName').touched">
-                <div *ngIf="filterField.get('filterName').errors && filterField.get('filterName').errors['required']">
-                  Please select a filter field!
-                </div>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field style="width:50vw">
-              <input matInput formControlName="filterValue" placeholder="Filter Values">
-              <mat-error *ngIf="!filterField.get('filterValue').valid && filterField.get('filterValue').touched">
-                <div *ngIf="filterField.get('filterValue').errors">
-                  <div *ngIf="filterField.get('filterValue').errors['required']">Enter a valid filter value</div>
-                </div>
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div fxLayout="row">
-          <div class="icon-style">
-            <button mat-icon-button color="primary" aria-label="Remove/clear"
-                    (click)="removeFilter(i)" matTooltip="Remove">
-              <mat-icon>highlight_off</mat-icon>
-            </button>
-          </div>
-          <div class="icon-style">
-            <button mat-icon-button color="primary" aria-label="Add"
-                    (click)="addFilterFormGroup(); getFormValues()" matTooltip="Add">
-              <mat-icon>add_circle_outline</mat-icon>
-            </button>
-          </div>
-        </div>
+@if (firstIndex && secondIndex) {
+  <div>
+    <mat-toolbar color="primary">
+      <span> Add filters </span>
+    </mat-toolbar>
+    <form [formGroup]="filterForm">
+      <div class="user-info">
+        <span>* Select columns on which to add filters.</span>
+        <span class="indented-text">A filter value can be a string or comma-separated list of strings, e.g PRJEB19199, PRJEB35307, PRJEB25937</span>
       </div>
-    </div>
-  </form>
-</div>
+      <div formArrayName="filterFields" class="section">
+        @for (filterField of getControls(); track filterField; let i = $index) {
+          <div fxLayout="row"
+               [formGroupName]="i">
+            <div fxLayoutGap="3vw" fxLayout="row">
+              <div>
+                <mat-form-field>
+                  <mat-label>Filter</mat-label>
+                  <mat-select formControlName="filterName">
+                    @for (filterName of indexFilters; track filterName) {
+                      <mat-option [value]="filterName">
+                        {{filterName}}
+                      </mat-option>
+                    }
+                  </mat-select>
+                  @if (!filterField.get('filterName').valid && filterField.get('filterName').touched) {
+                    <mat-error>
+                      @if (filterField.get('filterName').errors && filterField.get('filterName').errors['required']) {
+                        <div>
+                          Please select a filter field!
+                        </div>
+                      }
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field style="width:50vw">
+                  <input matInput formControlName="filterValue" placeholder="Filter Values">
+                  @if (!filterField.get('filterValue').valid && filterField.get('filterValue').touched) {
+                    <mat-error>
+                      @if (filterField.get('filterValue').errors) {
+                        <div>
+                          @if (filterField.get('filterValue').errors['required']) {
+                            <div>Enter a valid filter value</div>
+                          }
+                        </div>
+                      }
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div class="icon-style">
+                <button mat-icon-button color="primary" aria-label="Remove/clear"
+                        (click)="removeFilter(i)" matTooltip="Remove">
+                  <mat-icon>highlight_off</mat-icon>
+                </button>
+              </div>
+              <div class="icon-style">
+                <button mat-icon-button color="primary" aria-label="Add"
+                        (click)="addFilterFormGroup(); getFormValues()" matTooltip="Add">
+                  <mat-icon>add_circle_outline</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </form>
+  </div>
+}

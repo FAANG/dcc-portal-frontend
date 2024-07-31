@@ -1,50 +1,46 @@
 <div [ngStyle]="{'display': dataTable ? 'block' : 'none'}" style="width: 100%; overflow-x: scroll;">
   <mat-form-field style="width: 100%; margin-top: 10px;">
     <mat-label>Search</mat-label>
-    <input (keyup)="searchChanged($event)" matInput 
-        placeholder="Search">
+    <input (keyup)="searchChanged($event)" matInput
+           placeholder="Search">
   </mat-form-field>
   <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
-    <ng-container [matColumnDef]=col *ngFor="let col of displayedColumns; let i = index">
-      <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header>
-        {{col.split('.').slice(1).join(' ')|shortenTitle}}
-      </th>
-      <!-- mat-cell contents should be a link -->
-      <td mat-cell class="table-cell-data" *matCellDef="let element">
-        <ng-container *ngIf="colLinks[col]; else noColLink">
-          <a style="cursor: pointer" target="_blank"
-             [routerLink]="'/' + colLinks[col] + '/' + getUrlAccession(element[colPrimaryField])">
-            {{removeNumEntries(element[col])}}
-          </a>
-        </ng-container>
-
-        <ng-template #noColLink>
-          <ng-container *ngIf="isOntologyTerm(col, col.split('.')[0]); else plainText">
-            <ng-template
-              *ngTemplateOutlet="ontologyTermsLink; context: { $implicit: {
+    @for (col of displayedColumns; track col; let i = $index) {
+      <ng-container [matColumnDef]=col>
+        <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header>
+          {{col.split('.').slice(1).join(' ')|shortenTitle}}
+        </th>
+        <!-- mat-cell contents should be a link -->
+        <td mat-cell class="table-cell-data" *matCellDef="let element">
+          @if (colLinks[col]) {
+            <a style="cursor: pointer" target="_blank"
+               [routerLink]="'/' + colLinks[col] + '/' + getUrlAccession(element[colPrimaryField])">
+              {{removeNumEntries(element[col])}}
+            </a>
+          } @else {
+            @if (isOntologyTerm(col, col.split('.')[0])) {
+              <ng-template
+                *ngTemplateOutlet="ontologyTermsLink; context: { $implicit: {
               'value': element[col],
               'row': element,
               'col': col,
               'indexName': col.split('.')[0]} }">
-            </ng-template>
-          </ng-container>
-
-          <ng-template #plainText>
-            {{removeNumEntries(element[col])}}
-          </ng-template>
-        </ng-template>
-
-        <ng-container *ngIf="extractNumEntries(element[col]) > 10">
-          <span class="blueText">
-            <a style="cursor: pointer" target="_blank"
-               [routerLink]="'/' + colLinks[colPrimaryField] + '/' + getUrlAccession(element[colPrimaryField])">
-            [...{{extractNumEntries(element[col])}} entries]
-            </a>
-          </span>
-        </ng-container>
-      </td>
-
-    </ng-container>
+              </ng-template>
+            } @else {
+              {{removeNumEntries(element[col])}}
+            }
+          }
+          @if (numEntriesGreaterThan10(element[col])) {
+            <span class="blueText">
+              <a style="cursor: pointer" target="_blank"
+                 [routerLink]="'/' + colLinks[colPrimaryField] + '/' + getUrlAccession(element[colPrimaryField])">
+                [...{{extractNumEntries(element[col])}} entries]
+              </a>
+            </span>
+          }
+        </td>
+      </ng-container>
+    }
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

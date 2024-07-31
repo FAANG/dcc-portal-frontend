@@ -4,23 +4,36 @@ import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import setting from './subproject-detail.component.setting.json';
 import {UserService} from '../../services/user.service';
+import { EurofaangInfoComponent } from './eurofaang-info/eurofaang-info.component';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
+import { EnsemblAnnotationComponent } from '../../shared/ensembl-annotation/ensembl-annotation.component';
+import { MatCard } from '@angular/material/card';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { NgClass } from '@angular/common';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-subproject-detail',
   templateUrl: './subproject-detail.component.html',
   styleUrls: ['./subproject-detail.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [HeaderComponent, MatButton, FlexModule, NgClass, ExtendedModule, MatCard, EnsemblAnnotationComponent, RelatedItemsComponent,
+    MatTabGroup, MatTab, EurofaangInfoComponent]
 })
 export class SubprojectDetailComponent implements OnInit, OnDestroy {
   private twitter: any;
-  project: string;
-  setting: any;
+  project = '';
+  setting: {[index: string]: any} = {};
   eurofaang_keyproj: any = [];
   error: any;
-  right_logo_url: {};
-  project_links: {};
-  public tabs: string[];
-  public tabsConfig: {} = {
+  right_logo_url: {[index: string]: any} = {};
+  project_links: {[index: string]: any} = {};
+  public tabs: string[] = [];
+  public tabsConfig: {[index: string]: any} = {
     protocolsamples: {
       title: 'Samples',
       enabled: false,
@@ -45,7 +58,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.tabs = Object.keys(this.tabsConfig);
-    this.spinner.show();
+    void this.spinner.show();
     this.right_logo_url = {
       bovine: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovine/funding-logo-1.png',
       other: 'https://github.com/FAANG/comm-data-portal-projects/raw/master/projects/bovreg/funding-logo-1.png'
@@ -57,27 +70,30 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
       'GEroNIMO': 'https://eurofaang.eu/projects/geronimo',
       'RUMIGEN': 'https://eurofaang.eu/projects/rumigen'
     };
-    this.route.params.subscribe((params: Params) => {
+    this.route.params.subscribe({
+      next: (params: Params) => {
         this.project = params['id'];
         this.titleService.setTitle(`${this.project} | FAANG project`);
-        this.spinner.hide();
+        void this.spinner.hide();
       },
-      error => {
+      error: error => {
         this.error = error;
-        this.spinner.hide();
-      });
+        void this.spinner.hide();
+      }
+    });
     if (setting.hasOwnProperty(this.project)) {
-      this.setting = setting[this.project];
+      this.setting = setting[this.project as keyof typeof setting];
 
       if (this.project === 'EuroFAANG') {
-        for (const [key, value] of Object.entries(setting)) {
+        for (const [key, val] of Object.entries(setting)) {
+          const value: any = val;
           if (value['parent_project'] && value['parent_project'] === 'EuroFAANG') {
             this.eurofaang_keyproj.push(key);
           }
         }
       }
     } else {
-      this.router.navigate(['404']);
+      void this.router.navigate(['404']);
     }
   }
 
@@ -94,6 +110,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
           js = d.createElement(s);
           js.id = id;
           js.src = 'https://platform.twitter.com/widgets.js';
+          // @ts-ignore
           fjs.parentNode.insertBefore(js, fjs);
 
           t._e = [];
@@ -118,7 +135,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.router.navigate(['login']);
+    void this.router.navigate(['login']);
   }
 
   ngOnDestroy() {
@@ -147,10 +164,12 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
   getSelectedTab() {
     let i = 0;
     for (const key in this.tabsConfig) {
-      if (this.tabsConfig[key].enabled) {
-        return i;
+      if (this.tabsConfig.hasOwnProperty(key)) {
+        if (this.tabsConfig[key].enabled) {
+          return i;
+        }
+        i++;
       }
-      i++;
     }
     return 0;
   }

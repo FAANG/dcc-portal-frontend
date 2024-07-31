@@ -9,7 +9,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {FilterPipe} from '../pipes/filter.pipe';
 import {SortPipe} from '../pipes/sort.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ArticleComponent', () => {
   let component: ArticleComponent;
@@ -17,21 +18,16 @@ describe('ArticleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        ArticleComponent,
-        HeaderComponent,
+    declarations: [ArticleComponent],
+    imports: [NgxPaginationModule,
+        RouterTestingModule, HeaderComponent,
         ActiveFilterComponent,
         FilterComponent,
         ExportComponent,
         FilterPipe,
-        SortPipe
-      ],
-      imports: [
-        NgxPaginationModule,
-        RouterTestingModule,
-        HttpClientTestingModule
-      ]
-    })
+        SortPipe],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

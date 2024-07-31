@@ -5,7 +5,8 @@ import {HeaderComponent} from '../../shared/header/header.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FileUploadModule} from 'ng2-file-upload';
 import {NgxSmartModalModule, NgxSmartModalService} from 'ngx-smart-modal';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ValidationExperimentsComponent', () => {
   let component: ValidationExperimentsComponent;
@@ -13,20 +14,19 @@ describe('ValidationExperimentsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         ValidationExperimentsComponent,
         HeaderComponent
-      ],
-      imports: [
-        RouterTestingModule,
+    ],
+    imports: [RouterTestingModule,
         FileUploadModule,
-        NgxSmartModalModule,
-        HttpClientTestingModule
-      ],
-      providers: [
-        NgxSmartModalService
-      ]
-    })
+        NgxSmartModalModule],
+    providers: [
+        NgxSmartModalService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
     .compileComponents();
   }));
 

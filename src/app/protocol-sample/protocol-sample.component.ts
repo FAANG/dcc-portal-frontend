@@ -2,44 +2,52 @@ import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/cor
 import {ApiDataService} from '../services/api-data.service';
 import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
-import {MatTabGroup} from '@angular/material/tabs';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/internal/operators/finalize';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
+import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
+import { FilterComponent } from '../shared/filter/filter.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
   selector: 'app-protocol-sample',
   templateUrl: './protocol-sample.component.html',
-  styleUrls: ['./protocol-sample.component.css']
+  styleUrls: ['./protocol-sample.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatTabGroup, MatTab, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon,
+    MatProgressSpinner, TableServerSideComponent, RouterLink]
 })
 export class ProtocolSampleComponent implements OnInit, OnDestroy {
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
-  @ViewChild('nameTemplate', { static: true }) nameTemplate: TemplateRef<any>;
-  @ViewChild('uniTemplate', { static: true }) uniTemplate: TemplateRef<any>;
-  @ViewChild('dateTemplate', { static: true }) dateTemplate: TemplateRef<any>;
-  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
-  public loadTableDataFunction: Function;
+  @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
+  @ViewChild('nameTemplate', { static: true }) nameTemplate!: TemplateRef<any>;
+  @ViewChild('uniTemplate', { static: true }) uniTemplate!: TemplateRef<any>;
+  @ViewChild('dateTemplate', { static: true }) dateTemplate!: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
+  public loadTableDataFunction!: Function;
 
   columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol', 'Subscribe'];
   displayFields: string[] = ['protocol_name', 'university_name', 'protocol_date', 'subscribe'];
-  templates: Object;
+  templates: { [index: string]: any } = {};
   filter_field: any;
-  aggrSubscription: Subscription;
+  aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle: string;
+  subscriptionDialogTitle = '';
   subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
-  dialogInfoRef: any;
-  indexDetails: {};
+  indexDetails: { [index: string]: any } = {};
 
-  query = {
+  query: { [index: string]: any } = {
     'sort': ['protocolName', 'asc'],
     '_source': [
       'key',
@@ -63,8 +71,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   };
 
   defaultSort = ['protocolName', 'asc'];
-  error: string;
-  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
+  error = '';
 
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
@@ -75,7 +82,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.indexDetails = {index: 'protocol_samples', indexKey: 'key', apiKey: 'key'}
+    this.indexDetails = {index: 'protocol_samples', indexKey: 'key', apiKey: 'key'};
     this.tabGroup.selectedIndex = 0;
     this.templates = {
       'protocol_name': this.nameTemplate,
@@ -113,7 +120,7 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['protocol', 'samples'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    void this.router.navigate(['protocol', 'samples'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {
@@ -124,13 +131,13 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
-    let mapping = {
+    const mapping = {
       'protocol_name': 'protocolName',
       'university_name': 'universityName',
       'protocol_date': 'protocolDate',
-    }
-    this.dataService.downloadRecords('protocol_samples', mapping, this.downloadQuery).subscribe((res:Blob)=>{
-      var a = document.createElement("a");
+    };
+    this.dataService.downloadRecords('protocol_samples', mapping, this.downloadQuery).subscribe((res: Blob) => {
+      const a = document.createElement('a');
       a.href = URL.createObjectURL(res);
       a.download = 'faang_data.' + format;
       a.click();
@@ -139,24 +146,22 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   }
 
   onUploadProtocolClick() {
-    this.router.navigate(['upload_protocol']);
+    void this.router.navigate(['upload_protocol']);
   }
 
-  tabClick(tab) {
-    if (tab.index == 0) {
-      this.router.navigate(['protocol/samples']);
-    }
-    else if (tab.index == 1) {
-      this.router.navigate(['protocol/experiments']);
-    }
-    else if (tab.index == 2) {
-      this.router.navigate(['protocol/analysis']);
+  tabClick(tab: any) {
+    if (tab.index === 0) {
+      void this.router.navigate(['protocol/samples']);
+    } else if (tab.index === 1) {
+      void this.router.navigate(['protocol/experiments']);
+    } else if (tab.index === 2) {
+      void this.router.navigate(['protocol/analysis']);
     }
   }
 
   openSubscriptionDialog() {
     // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Protocol Samples entries'
+    this.subscriber.title = 'Subscribing to filtered Protocol Samples entries';
     this.subscriber.indexName = this.indexDetails['index'];
     this.subscriber.indexKey = this.indexDetails['indexKey'];
     const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
@@ -172,16 +177,16 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     this.aggrSubscription.unsubscribe();
   }
 
-  loadInitialPageState(params){
+  loadInitialPageState(params: any) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;
     this.downloadQuery['filters'] = filters;
     // load pre-search and pre-sorting
-    if (params['searchTerm']){
+    if (params['searchTerm']) {
       this.query['search'] = params['searchTerm'];
     }
-    if (params['sortTerm'] && params['sortDirection']){
+    if (params['sortTerm'] && params['sortDirection']) {
       this.query['sort'] = [params['sortTerm'], params['sortDirection']];
     }
   }

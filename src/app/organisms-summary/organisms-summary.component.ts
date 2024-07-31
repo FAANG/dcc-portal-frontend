@@ -1,18 +1,26 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {barChartOptions, pieChartOptions, doughnutChartOptions} from '../shared/chart-options';
-import {Chart} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
-import {MatTabGroup} from '@angular/material/tabs';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import {Router} from '@angular/router';
-import {ChartOptions} from 'chart.js';
 import {ChartConfiguration} from 'chart.js';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatButton } from '@angular/material/button';
+import { NgChartsModule } from 'ng2-charts';
+import { MatCard } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
   selector: 'app-organisms-summary',
   templateUrl: './organisms-summary.component.html',
-  styleUrls: ['./organisms-summary.component.css']
+  styleUrls: ['./organisms-summary.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, MatTabGroup, MatTab, MatCard, NgChartsModule, MatButton, MatMenuTrigger, MatIcon, MatMenu,
+    MatMenuItem]
 })
 export class OrganismsSummaryComponent implements OnInit {
 
@@ -25,12 +33,12 @@ export class OrganismsSummaryComponent implements OnInit {
   public barChartPlugins = [ChartDataLabels];
   public barChartOptions = barChartOptions;
 
-  @ViewChild('tabs', {static: true}) tabGroup: MatTabGroup;
-  name: string;
-  error: string;
-  chartData;
+  @ViewChild('tabs', {static: true}) tabGroup!: MatTabGroup;
+  name = '';
+  error = '';
+  chartData: any;
   excludeLegacyData = true;
-  breedsData = {};
+  breedsData: {[index: string]: any} = {};
   breedKeys: any;
 
   public sexChartLabels: any;
@@ -40,12 +48,12 @@ export class OrganismsSummaryComponent implements OnInit {
   public paperChartData: any;
 
   public standardChartLabels: any;
-  public standardChartData: ChartConfiguration<'doughnut'>['data']['datasets'];
+  public standardChartData!: ChartConfiguration<'doughnut'>['data']['datasets'];
 
-  public organismChartData: ChartConfiguration<'bar'>['data'];
+  public organismChartData!: ChartConfiguration<'bar'>['data'];
 
   public breedChartLabels = [];
-  public breedChartData: ChartConfiguration<'bar'>['data'];
+  public breedChartData!: ChartConfiguration<'bar'>['data'];
 
 
   constructor(
@@ -58,15 +66,15 @@ export class OrganismsSummaryComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('FAANG summary|organisms');
     this.tabGroup.selectedIndex = 0;
-    this.dataService.getOrganismSummary('summary_organism').subscribe(
-      data => {
+    this.dataService.getOrganismSummary('summary_organism').subscribe({
+      next: data => {
         this.chartData = data['hits']['hits'][0]['_source'];
         this.assignChartData(this.chartData, this.excludeLegacyData);
       },
-      error => {
+      error: error => {
         this.error = error;
       }
-    );
+    });
   }
 
 
@@ -76,7 +84,7 @@ export class OrganismsSummaryComponent implements OnInit {
     let standard_summary_name = 'standardSummary';
     let organism_summary_name = 'organismSummary';
     let breed_summary_name = 'breedSummary';
-    if (excludeLegacy === true) {
+    if (excludeLegacy) {
       sexSummaryName = 'sexSummaryFAANGOnly';
       paperPublishedSummaryName = 'paperPublishedSummaryFAANGOnly';
       standard_summary_name = 'standardSummaryFAANGOnly';
@@ -168,8 +176,8 @@ export class OrganismsSummaryComponent implements OnInit {
       } else {
         this.breedKeys = [item['speciesName']];
       }
-      const labels = [];
-      const breed_data = [];
+      const labels: any[] = [];
+      const breed_data: any[] = [];
       for (const tmp of item['speciesValue']) {
         labels.push(tmp['breedsName']);
         breed_data.push(tmp['breedsValue']);
@@ -235,37 +243,15 @@ export class OrganismsSummaryComponent implements OnInit {
     this.assignChartData(this.chartData, this.excludeLegacyData);
   }
 
-  tabClick(tab) {
-    if (tab.index == 0) {
-      this.router.navigate(['summary/organisms']);
-    } else if (tab.index == 1) {
-      this.router.navigate(['summary/specimens']);
-    } else if (tab.index == 2) {
-      this.router.navigate(['summary/datasets']);
-    } else if (tab.index == 3) {
-      this.router.navigate(['summary/files']);
-    }
-  }
-
-
-  populateBarChart(chartData, data) {
-    // labels array
-    if (typeof chartData === 'object' && Array.isArray(chartData['labels'])) {
-      chartData['labels'].push(data['name']);
-    } else {
-      chartData = {
-        labels: [data['name']],
-      };
-    }
-    // data array
-    if (Array.isArray(chartData['datasets']) && 'data' in chartData['datasets'][0]) {
-      chartData['datasets'][0]['data'].push(data['value']);
-    } else {
-      chartData = {
-        datasets: [
-          {data: [data['value']], label: ''},
-        ]
-      };
+  tabClick(tab: any) {
+    if (tab.index === 0) {
+      void this.router.navigate(['summary/organisms']);
+    } else if (tab.index === 1) {
+      void this.router.navigate(['summary/specimens']);
+    } else if (tab.index === 2) {
+      void this.router.navigate(['summary/datasets']);
+    } else if (tab.index === 3) {
+      void this.router.navigate(['summary/files']);
     }
   }
 }

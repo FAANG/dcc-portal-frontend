@@ -1,26 +1,30 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpRequest, HttpEvent,
-  HttpEventType, HttpResponse  } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import { makeid } from '../shared/common_functions';
 import { validation_ws_url } from '../shared/constants';
-import { tap } from 'rxjs/operators';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { NgClass } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 @Component({
   selector: 'app-bulk-files-uploader',
   templateUrl: './bulk-files-uploader.component.html',
-  styleUrls: ['./bulk-files-uploader.component.css']
+  styleUrls: ['./bulk-files-uploader.component.css'],
+  standalone: true,
+  imports: [FlexModule, MatButton, NgClass, ExtendedModule]
 })
 export class BulkFilesUploaderComponent implements OnInit {
-  @Input() uploadUrl: string; // upload endpoint url
-  @Input() mode: string; // upload mode: single or bulk
-  @Input() user: object; // user data
+  @Input() uploadUrl = ''; // upload endpoint url
+  @Input() mode = ''; // upload mode: single or bulk
+  @Input() user: {[index: string]: any} = {}; // user data
   @Output() messageUpdate = new EventEmitter<any>();
   selectedFiles?: FileList;
   fileNamesList: string[] = [];
   progressInfos: any[] = [];
   message: string[] = [];
-  socket;
+  socket: any;
   submission_message = {};
   errors = {};
   buttonDisabled = false;
@@ -30,7 +34,7 @@ export class BulkFilesUploaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  selectFiles(event): void {
+  selectFiles(event: any): void {
     this.message = [];
     this.progressInfos = [];
     this.selectedFiles = event.target.files;
@@ -50,13 +54,13 @@ export class BulkFilesUploaderComponent implements OnInit {
     }
   }
 
-  setSocket(fileid, filename) {
+  setSocket(fileid: any, filename: any) {
     const url = validation_ws_url + fileid + '/';
     this.socket = new WebSocket(url);
     this.socket.onopen = () => {
       console.log('WebSockets connection created.');
     };
-    this.socket.onmessage = (event) => {
+    this.socket.onmessage = (event: { data: string; }) => {
       this.errors[filename] = [];
       this.submission_message[filename] = null;
       const data = JSON.parse(event.data)['response'];
@@ -75,8 +79,8 @@ export class BulkFilesUploaderComponent implements OnInit {
 
   uploadService(files: FileList): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-    for(let i=0; i<files.length; i+=1) {
-      let fileid = makeid(20);
+    for (let i = 0; i < files.length; i += 1) {
+      const fileid = makeid(20);
       this.setSocket(fileid, files[i].name);
       formData.append(fileid, files[i]);
       this.fileNamesList.push(files[i].name);
@@ -95,7 +99,7 @@ export class BulkFilesUploaderComponent implements OnInit {
     return this.http.request(req);
   }
 
-  getAlertClass(submission_message) {
+  getAlertClass(submission_message: string | string[]) {
     if (submission_message) {
       if (submission_message.includes('Success')) {
         return 'alert alert-success';
@@ -106,6 +110,7 @@ export class BulkFilesUploaderComponent implements OnInit {
         return 'alert alert-info';
       }
     }
+    return '';
   }
 
 }

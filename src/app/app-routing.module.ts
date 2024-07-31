@@ -32,21 +32,16 @@ import {ValidationSamplesComponent} from './validation/validation-samples/valida
 import {ValidationExperimentsComponent} from './validation/validation-experiments/validation-experiments.component';
 import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
 
-// to delete
-import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
-import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
-
+// // to delete
+// import {UsdaBovineComponent} from './subprojects/usda-bovine/usda-bovine.component';
+// import {SheepatlasComponent} from './subprojects/sheepatlas/sheepatlas.component';
+//
 import {SubprojectComponent} from './subprojects/subproject.component';
 import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
-// import { OntologyImproverWorkshopComponent } from './ontology-improver-workshop/ontology-improver-workshop.component';
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
-// import { OntologyDetailWorkshopComponent } from './ontology-improver-workshop/ontology-detail-workshop/ontology-detail-workshop.component';
 import { ApiDocsComponent } from './api-docs/api-docs.component';
-
-// to delete
-import { QueryLanguageComponent } from './query-language/query-language.component';
 
 import { TrackhubsSubmissionComponent } from './trackhubs-submission/trackhubs-submission.component';
 import { NextflowSubmissionComponent } from './nextflow-submission/nextflow-submission.component';
@@ -88,22 +83,16 @@ const routes: Routes = [
   {path: 'validation/analyses', component: ValidationAnalysesComponent},
   {path: 'projects', component: SubprojectComponent},
 
-  //to delete
-  {path: 'projects/usda-bovine', component: UsdaBovineComponent},
-  {path: 'projects/sheepatlas', component: SheepatlasComponent},
-
+  // //to delete
+  // {path: 'projects/usda-bovine', component: UsdaBovineComponent},
+  // {path: 'projects/sheepatlas', component: SheepatlasComponent},
+  //
   {path: 'projects/:id', component: SubprojectDetailComponent},
   {path: 'login', component: LoginComponent},
   {path: 'upload_protocol', component: FilesUploadComponent},
   {path: 'ontology', component: OntologyImproverComponent},
-  // {path: 'ontology-workshop', component: OntologyImproverWorkshopComponent},
   {path: 'ontology/:id', component: OntologyDetailComponent},
-  // {path: 'ontology-workshop/:id', component: OntologyDetailWorkshopComponent},
   {path: 'api', component: ApiDocsComponent},
-
-  // to delete
-  {path: 'query', component: QueryLanguageComponent},
-
   {path: 'trackhubs', component: TrackhubsSubmissionComponent},
   {path: 'nextflowSubmission', component: NextflowSubmissionComponent},
   {path: 'genome_browser', component: LocalGenomeBrowserComponent},

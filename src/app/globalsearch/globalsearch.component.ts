@@ -2,14 +2,24 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ApiDataService } from '../services/api-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { NgTemplateOutlet, NgPlural, NgPluralCase, KeyValuePipe } from '@angular/common';
+import { MatList, MatListItem } from '@angular/material/list';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
   selector: 'app-globalsearch',
   templateUrl: './globalsearch.component.html',
-  styleUrls: ['./globalsearch.component.css']
+  styleUrls: ['./globalsearch.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FormsModule, MatButton, MatIcon, MatProgressSpinner, MatList, MatListItem, NgTemplateOutlet, NgPlural,
+    NgPluralCase, KeyValuePipe]
 })
 export class GlobalSearchComponent implements OnInit {
-  @Input() query: Object;
+  @Input() query: {[index: string]: any} = {};
   searchText = '';
   jsonData: { [key: string]: { totalHits: number, searchTerms: [] } } = {};
   showResults = false;
@@ -17,7 +27,7 @@ export class GlobalSearchComponent implements OnInit {
 
   queryParams: any = {};
 
-  timer = null;
+  timer = 0;
 
   constructor(
     private dataService: ApiDataService, private router: Router, private route: ActivatedRoute,
@@ -35,7 +45,7 @@ export class GlobalSearchComponent implements OnInit {
 
     window.addEventListener('popstate', (event) => {
       if (window.location.href !== `${window.location.origin}/globalsearch`) {
-        this.router.navigate(['/globalsearch'], {
+        void this.router.navigate(['/globalsearch'], {
           relativeTo: this.route,
           queryParamsHandling: 'merge',
           replaceUrl: true
@@ -46,19 +56,22 @@ export class GlobalSearchComponent implements OnInit {
 
   onSearch(time = 1000) {
     if (this.searchText) {
-      clearTimeout(this.timer);
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
       this.timer = setTimeout(() => {
         this.showSpinner = true;
         this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
           this.showSpinner = false;
           this.jsonData = json_data;
+          this.showResults = true;
         });
       }, time);
     } else {
-      this.jsonData = null;
+      this.jsonData = {};
+      this.showResults = false;
     }
-    this.showResults = true;
-    this.router.navigate([], {
+    void this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { searchText: this.searchText },
       queryParamsHandling: 'merge',
@@ -83,13 +96,18 @@ export class GlobalSearchComponent implements OnInit {
 
   navigateToItem(itemKey: string, searchTerm?: string | null): void {
     if (itemKey && this.searchText) {
-      this.router.navigate(
+      void this.router.navigate(
         [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm: this.searchText }});
     }
     if (itemKey && searchTerm) {
-      this.router.navigate(
+      void this.router.navigate(
         [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm: searchTerm }});
     }
+  }
+
+
+  searchTermsBool(item: any) {
+    return item.value?.searchTerms && item.value?.searchTerms.length > 0;
   }
 
 }

@@ -2,20 +2,23 @@ import {Component, OnDestroy, OnInit, Input, ChangeDetectorRef} from '@angular/c
 import {Subscription} from 'rxjs';
 import {AggregationService} from '../../services/aggregation.service';
 import {reverseProtocolNames} from '../protocolnames';
+import { NgClass } from '@angular/common';
+import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css']
+    selector: 'app-filter',
+    templateUrl: './filter.component.html',
+    styleUrls: ['./filter.component.css'],
+    standalone: true,
+    imports: [MatCard, NgClass]
 })
 export class FilterComponent implements OnInit, OnDestroy {
-  @Input() title: string;
-  @Input() filterSize: number;
-  aggregation = [];
-  subsription: Subscription;
+  @Input() title = '';
+  @Input() filterSize = 0;
+  aggregation: any[] = [];
+  subscription!: Subscription;
   isCollapsed = true;
-  itemLimit: number;
-  current_active_filters = this.aggregationService.current_active_filters;
+  itemLimit = 0;
 
   constructor(
     public aggregationService: AggregationService,
@@ -23,7 +26,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.itemLimit = this.filterSize;
-    this.subsription = this.aggregationService.data.subscribe(
+    this.subscription = this.aggregationService.data.subscribe(
       (data: any) => {
         // data is a map, keys are active_filters names defined in service/aggregatin_service.ts,
         // values are the corresponding aggregation e.g. { "FAANG":675,"Legacy": 9834}
@@ -84,7 +87,7 @@ export class FilterComponent implements OnInit, OnDestroy {
           this.aggregation = data['project'];
         } else if (this.title === 'Projects') {
           this.aggregation = data['projects'];
-        }else if (this.title === 'Term Status') {
+        } else if (this.title === 'Term Status') {
           this.aggregation = data['status_activity'];
         }
         this.cdRef.detectChanges();
@@ -93,7 +96,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   onButtonClick(key: string, title: string) {
-    let data_key: string;
+    let data_key: any;
     // the data_key refers to active_filters defined in service/aggregatin_service.ts
     switch (title) {
       case 'Standard': {
@@ -240,13 +243,13 @@ export class FilterComponent implements OnInit, OnDestroy {
     }
   }
 
-  getReverseHumanName(data) {
+  getReverseHumanName(data: string) {
     return reverseProtocolNames[data];
   }
 
-  revertReadableType(data) {
+  revertReadableType(data: any) {
     data = data.split(' ');
-    for(let i=1; i<data.length; i+=1) {
+    for (let i = 1; i < data.length; i += 1) {
       data[i] = data[i].charAt(0).toUpperCase() + data[i].slice(1);
     }
     data = data.join('');
@@ -255,6 +258,6 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subsription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

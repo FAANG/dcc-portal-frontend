@@ -12,7 +12,9 @@
         <mat-label>First Table</mat-label>
         <mat-select [attr.name]="'firstIndex'" [formControl]="firstIndexName"
                     (selectionChange)="onIndexChange('firstIndex', $event)">
-          <mat-option *ngFor="let firstIndex of firstIndices" [value]="firstIndex">{{firstIndex}}</mat-option>
+          @for (firstIndex of firstIndices; track firstIndex) {
+            <mat-option [value]="firstIndex">{{firstIndex}}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </div>
@@ -21,68 +23,87 @@
         <mat-label>Second Table</mat-label>
         <mat-select [attr.name]="'secondIndex'" [formControl]="secondIndexName"
                     (selectionChange)="onIndexChange('secondIndex', $event)">
-          <mat-option *ngFor="let secondIndex of secondIndices" [value]="secondIndex">{{secondIndex}}</mat-option>
+          @for (secondIndex of secondIndices; track secondIndex) {
+            <mat-option [value]="secondIndex">{{secondIndex}}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </div>
   </div>
 
-  <div *ngIf="indicesSelected" fxLayout="row" fxLayoutGap="3%">
-    <div *ngFor="let indexName of selectedIndicesArray">
-      <mat-form-field appearance="fill" style="width: 100%">
-        <mat-label>Select {{indexName|titlecase}} columns</mat-label>
-        <!--        <mat-select [(value)]="selectedColumns[indexName]"-->
-        <!--                    (selectionChange)="taskId ? fetchFilteredResult() : fetchJoinedResult(false)" multiple>-->
-        <mat-select [attr.name]="indexName" [(value)]="selectedColumns[indexName]" multiple>
-          <mat-option *ngFor="let col of indexData[indexName]['fields']" [value]="col">
-            {{col.split('.').join(' ')|shortenTitle}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="section" *ngIf="indicesSelected">
-    <app-index-filters
-      [firstIndex]="selectedIndicesArray[0]"
-      [secondIndex]="selectedIndicesArray[1]"
-      [indexFilters]="indexData[selectedIndicesArray[0]]['fields']"
-    >
-    </app-index-filters>
+  @if (indicesSelected) {
     <div fxLayout="row" fxLayoutGap="3%">
-      <div class="button-div">
-        <button mat-raised-button color="primary" (click)="fetchJoinedResult(true)">Display Joined Data</button>
-      </div>
-      <div class="button-div">
-        <button mat-raised-button color="primary" (click)="downloadFile()">Download Data (csv)</button>
+      @for (indexName of selectedIndicesArray; track indexName) {
+        <div>
+          <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Select {{indexName|titlecase}} columns</mat-label>
+            <!--        <mat-select [(value)]="selectedColumns[indexName]"-->
+            <!--                    (selectionChange)="taskId ? fetchFilteredResult() : fetchJoinedResult(false)" multiple>-->
+            <mat-select [attr.name]="indexName" [(value)]="selectedColumns[indexName]" multiple>
+              @for (col of indexData[indexName]['fields']; track col) {
+                <mat-option [value]="col">
+                  {{col.split('.').join(' ')|shortenTitle}}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      }
+    </div>
+  }
+
+  @if (indicesSelected) {
+    <div class="section">
+      <app-index-filters
+        [firstIndex]="selectedIndicesArray[0]"
+        [secondIndex]="selectedIndicesArray[1]"
+        [indexFilters]="indexData[selectedIndicesArray[0]]['fields']"
+      >
+      </app-index-filters>
+      <div fxLayout="row" fxLayoutGap="3%">
+        <div class="button-div">
+          <button mat-raised-button color="primary" (click)="fetchJoinedResult(true)">Display Joined Data</button>
+        </div>
+        <div class="button-div">
+          <button mat-raised-button color="primary" (click)="downloadFile()">Download Data (csv)</button>
+        </div>
       </div>
     </div>
-  </div>
+  }
 
-  <div *ngIf="showProgressBar" class="progress-bar">
-    <mat-progress-bar mode="query"></mat-progress-bar>
-  </div>
-
-  <div *ngIf="indicesSelected && searchSuccess" class="data-table">
-    <div *ngIf="dataTable?.length > 0; else noData">
-      <app-display-data
-        [dataTable]="dataTable"
-        [displayedColumns]="displayedColumns"
-        [colLinks]="indexData[selectedIndicesArray[0]]['links']"
-        [primaryField]="indexData[selectedIndicesArray[0]]['primary']"
-        [firstIndex]="this.selectedIndicesArray[0]"
-      ></app-display-data>
+  @if (showProgressBar) {
+    <div class="progress-bar">
+      <mat-progress-bar mode="query"></mat-progress-bar>
     </div>
-    <ng-template #noData>
-      <p>No records have been found matching your filters.</p>
-    </ng-template>
-  </div>
-  <div *ngIf="errors.length>0 && !searchSuccess">
-    <p>We have encountered the following errors. Please contact faang-dcc&#64;ebi.ac.uk for help.</p>
-    <p *ngFor="let err of errors">
-      {{err}}
-    </p>
-  </div>
+  }
+
+  @if (indicesSelected && searchSuccess) {
+    <div class="data-table">
+      @if (dataTable!.length > 0) {
+        <div>
+          <app-display-data
+            [dataTable]="dataTable"
+            [displayedColumns]="displayedColumns"
+            [colLinks]="indexData[selectedIndicesArray[0]]['links']"
+            [primaryField]="indexData[selectedIndicesArray[0]]['primary']"
+            [firstIndex]="this.selectedIndicesArray[0]"
+          ></app-display-data>
+        </div>
+      } @else {
+        <p>No records have been found matching your filters.</p>
+      }
+    </div>
+  }
+  @if (errors.length>0 && !searchSuccess) {
+    <div>
+      <p>We have encountered the following errors. Please contact faang-dcc&#64;ebi.ac.uk for help.</p>
+      @for (err of errors; track err) {
+        <p>
+          {{err}}
+        </p>
+      }
+    </div>
+  }
 
   <ng-template #filtersDialog>
     <h2 matDialogTitle>Adding Filters</h2>

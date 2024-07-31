@@ -9,9 +9,9 @@ describe('ActiveFilterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActiveFilterComponent ],
-      providers: [AggregationService]
-    })
+    imports: [ActiveFilterComponent],
+    providers: [AggregationService]
+})
     .compileComponents();
   }));
 
