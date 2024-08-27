@@ -4,35 +4,50 @@ import * as FileSaver from 'file-saver';
 import setting from './portal-data-table.setting.json';
 import {UserService} from '../../services/user.service';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {HttpClient, HttpEventType} from '@angular/common/http';
-import {Observable, of as observableOf} from 'rxjs';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import {of as observableOf} from 'rxjs';
+import { RobustLinkComponent } from '../robust-link/robust-link.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatInput } from '@angular/material/input';
+import { MatOption } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatButton } from '@angular/material/button';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 @Component({
   selector: 'app-portal-data-table',
   templateUrl: './portal-data-table.component.html',
-  styleUrl: './portal-data-table.component.css'
+  styleUrl: './portal-data-table.component.css',
+  standalone: true,
+  imports: [FlexModule, MatButton, MatFormField, MatLabel, MatSelect, FormsModule, MatOption, MatInput, MatTable, MatSort, MatColumnDef,
+    MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatProgressBar, MatSortHeader, RobustLinkComponent, MatHeaderRowDef, MatHeaderRow,
+    MatRowDef, MatRow, MatPaginator]
 })
 export class PortalDataTableComponent implements OnInit {
-  @Input() project: string[];
-  @Input() data_type: string;
-  @Input() download_key: string;
+  @Input() project: string[] = [];
+  @Input() data_type = '';
+  @Input() download_key = '';
   @Output() fetchedRecords = new EventEmitter<any>();
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  dataSource: MatTableDataSource<any>;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
+  dataSource!: MatTableDataSource<any>;
   display_fields: Array<string> = [];
-  progress: Observable<Object> = observableOf({});
+  progress: any = observableOf({});
   totalHits = 0;
   records: any;
   urls: string[] = [];
   checked = false;
-  mode: string;
+  mode = '';
   timer: any;
-  delaySearch: boolean = true;
+  delaySearch = true;
   search = '';
-  initialDataExists: boolean = false;
+  initialDataExists = false;
+  setting: {[index: string]: any} = {};
 
   constructor(
     private dataService: ApiDataService,
@@ -41,14 +56,15 @@ export class PortalDataTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource([]);
+    this.setting = setting;
+    this.dataSource = new MatTableDataSource<any[]>([]);
     // Read in the initial column display settings
     // set those selected to be displayed
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
-    for (const column of setting[this.data_type]['display']) {
+    for (const column of this.setting[this.data_type]['display']) {
       this.display_fields.push(column);
     }
-    if (this.download_key && this.download_key.length > 0 && this.mode == 'public') {
+    if (this.download_key && this.download_key.length > 0 && this.mode === 'public') {
       this.display_fields.push('Download');
     }
     // random delay for concurrent requests
@@ -147,13 +163,6 @@ export class PortalDataTableComponent implements OnInit {
     }
   }
 
-  checkSelectedProjects(selectedProjects: string[]) {
-    if (!selectedProjects.length) {
-      console.log("empty projects")
-    }
-
-  }
-
   getSort() {
     const defaults = {
       'organism': 'BioSamples ID',
@@ -168,18 +177,18 @@ export class PortalDataTableComponent implements OnInit {
       'analysis': 'Accession'
     };
     if (this.sort.active && this.sort.direction) {
-      return setting[this.data_type]['fields'][this.sort.active]['source'] + ':' + this.sort.direction;
+      return this.setting[this.data_type]['fields'][this.sort.active]['source'] + ':' + this.sort.direction;
     } else {
-      return setting[this.data_type]['fields'][defaults[this.data_type]]['source'] + ':asc';
+      return this.setting[this.data_type]['fields'][defaults[this.data_type as keyof typeof defaults]]['source'] + ':asc';
     }
   }
 
-  getDataSource(records) {
-    const tableData = [];
-    const fields = setting[this.data_type]['fields'];
+  getDataSource(records: {[index: string]: any}) {
+    const tableData: any[] = [];
+    const fields = this.setting[this.data_type]['fields'];
     if (records) {
       for (const index of Object.keys(records)) {
-        const rowObj = {};
+        const rowObj: {[index: string]: any} = {};
         for (const field of Object.keys(fields)) {
           const prop = fields[field]['value'].split('.');
           rowObj[field] = records[index];
@@ -207,7 +216,7 @@ export class PortalDataTableComponent implements OnInit {
 
   isEmptyData() {
     if (this.dataSource.data && this.dataSource.data.length !== 0) {
-      if (this.initialDataExists === false) {
+      if (!this.initialDataExists) {
         this.initialDataExists = true;
       }
       return false;
@@ -217,17 +226,17 @@ export class PortalDataTableComponent implements OnInit {
 
   // get table headers
   get_all_fields() {
-    return setting[this.data_type]['all'];
+    return this.setting[this.data_type]['all'];
   }
 
   // the attributes to render the link
   get_field_values_for_links(attr: string) {
-    return setting[this.data_type]['fields'][attr]['link'];
+    return this.setting[this.data_type]['fields'][attr]['link'];
   }
 
   downloadAllFiles() {
     this.urls.forEach(url => {
-      let file_url = url.split('://')[1];
+      const file_url = url.split('://')[1];
       this.progress[file_url] = 0;
       this.http.get(url,
         {
@@ -235,11 +244,12 @@ export class PortalDataTableComponent implements OnInit {
           reportProgress: true,
           observe: 'events',
         }).subscribe(result => {
-        let filename = file_url.split('/').pop();
+        const filename = file_url.split('/').pop();
         if (result.type === HttpEventType.DownloadProgress) {
-          this.progress[file_url] = Math.round(100 * result.loaded / result.total);
+          this.progress[file_url] = Math.round(100 * result.loaded / (result.total ? result.total : 1));
         }
         if (result.type === HttpEventType.Response) {
+          // @ts-ignore
           FileSaver.saveAs(result.body, filename);
         }
       });
@@ -288,7 +298,7 @@ export class PortalDataTableComponent implements OnInit {
 
   // the behaviour of the checkbox in the table header
   mainCheckboxClicked() {
-    if (this.checked === true) {
+    if (this.checked) {
       this.urls = [];
     } else {
       for (const record of this.dataSource.data) {
@@ -302,7 +312,7 @@ export class PortalDataTableComponent implements OnInit {
     this.checked = !this.checked;
   }
 
-  capitalizeFirstLetter(string) {
+  capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
@@ -332,20 +342,20 @@ export class PortalDataTableComponent implements OnInit {
       'protocolanalysis': 'Protocol Analysis'
     };
     if (titles.hasOwnProperty(targetType)) {
-      return titles[targetType];
+      return titles[targetType as keyof typeof titles];
     } else {
       return this.capitalizeFirstLetter(targetType) + 's';
     }
   }
 
   goToDownloader() {
-    (window as any).open("https://github.com/FAANG/dcc-bulk-data-downloader", "_blank");
+    (window as any).open('https://github.com/FAANG/dcc-bulk-data-downloader', '_blank');
   }
 
-  displayCellData(str) {
+  displayCellData(str: string) {
     if (str && str.charAt(0) === ',') {
       return str.replace(/^,/, '');
     }
-    return str
+    return str;
   }
 }

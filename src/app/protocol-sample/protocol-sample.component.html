@@ -17,56 +17,79 @@
     </div>
 
     <div fxFlex="83" class="table-responsive">
-      <div *ngIf="hasActiveFilters()">
-        <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
-        <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
-        <button mat-raised-button
-                matTooltip="Subscribe to selected Protocol Samples entries"
-                (click)="openSubscriptionDialog()">
-          <div class="subscription-icon">
-            <mat-icon>email</mat-icon>
-          </div>
-        </button>
-        <hr>
-      </div>
+      @if (hasActiveFilters()) {
+        <div>
+          @defer (when hasActiveFilters()) {
+            <app-active-filter></app-active-filter>
+          }
+          @loading {
+            Loading active filters...
+          } @error {
+            Failed to load active filters!
+          }
+          <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
+          <button mat-raised-button
+                  matTooltip="Subscribe to selected Protocol Samples entries"
+                  (click)="openSubscriptionDialog()">
+            <div class="subscription-icon">
+              <mat-icon>email</mat-icon>
+            </div>
+          </button>
+          <hr>
+        </div>
+      }
       <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
         Download data
       </button>
-      <button (click)="downloadFile('csv')" mat-raised-button *ngIf="downloadData">
-        Export as CSV file
-      </button>
-      <button (click)="downloadFile('txt')" mat-raised-button *ngIf="downloadData">
-        Export as Tabular file
-      </button>
+      @if (downloadData) {
+        <button (click)="downloadFile('csv')" mat-raised-button>
+          Export as CSV file
+        </button>
+      }
+      @if (downloadData) {
+        <button (click)="downloadFile('txt')" mat-raised-button>
+          Export as Tabular file
+        </button>
+      }
       <button mat-raised-button style="background-color: green; color: white;" (click)="onUploadProtocolClick()">Upload protocol</button>
 
-      <div *ngIf="downloading" style="padding: 15px">
-        <mat-spinner [diameter]="30"></mat-spinner>
-      </div>
+      @if (downloading) {
+        <div style="padding: 15px">
+          <mat-spinner [diameter]="30"></mat-spinner>
+        </div>
+      }
 
       <app-table-server-side  [display_fields]="displayFields"
-            [column_names]="columnNames"
-            [indexDetails]="indexDetails"
-            [templates]="templates"
-            [filter_values]="filter_field"
-            [apiFunction]="loadTableDataFunction"
-            [query]="query"
-            [defaultSort]="defaultSort">
+                              [column_names]="columnNames"
+                              [indexDetails]="indexDetails"
+                              [templates]="templates"
+                              [filter_values]="filter_field"
+                              [apiFunction]="loadTableDataFunction"
+                              [query]="query"
+                              [defaultSort]="defaultSort">
       </app-table-server-side>
     </div>
   </div>
 </div>
 
 <ng-template #nameTemplate let-item>
-  <a style="cursor: pointer" target="_blank" [routerLink]="item['key']">{{item['protocol_name']}}</a>
+  <a style="cursor: pointer" target="_blank" [routerLink]="encodeDot(item['key'])">{{item['protocol_name']}}</a>
 </ng-template>
 
 <ng-template #uniTemplate let-item>
-  <span *ngIf="item['university_name']">{{item['university_name']}}</span>
-  <span *ngIf="!item['university_name']">-</span>
+  @if (item['university_name']) {
+    <span>{{item['university_name']}}</span>
+  }
+  @if (!item['university_name']) {
+    <span>-</span>
+  }
 </ng-template>
 
 <ng-template #dateTemplate let-item>
-  <span *ngIf="item['protocol_date']">{{item['protocol_date']}}</span>
-  <span *ngIf="!item['protocol_date']">-</span>
+  @if (item['protocol_date']) {
+    <span>{{item['protocol_date']}}</span>
+  }
+  @if (!item['protocol_date']) {
+    <span>-</span>
+  }
 </ng-template>

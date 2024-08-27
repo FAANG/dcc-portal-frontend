@@ -10,35 +10,35 @@ export class FilterStateService {
 
 
   constructor(private aggregationService: AggregationService,
-              private router: Router,) { }
+              private router: Router, ) { }
 
-  updateUrlParams(queryObj, componentRoute) {
+  updateUrlParams(queryObj: {[index: string]: any}, componentRoute: any[]) {
     // setting urls params based on filters
-    const aggrSubscription: Subscription = this.aggregationService.field.subscribe((data) => {
-      const params = {};
+    const aggrSubscription: Subscription = this.aggregationService.field.subscribe((data: any) => {
+      const params: {[index: string]: any} = {};
       for (const key of Object.keys(data)) {
         if (data[key] && data[key].length !== 0) {
           params[key] = data[key];
         }
       }
-      //update url for search term and sorting
+      // update url for search term and sorting
       if (queryObj['search']) {
         params['searchTerm'] = queryObj['search'];
       }
       if (queryObj['sort']) {
-        params['sortTerm'] = queryObj['sort'][0]
-        params['sortDirection'] = queryObj['sort'][1]
+        params['sortTerm'] = queryObj['sort'][0];
+        params['sortDirection'] = queryObj['sort'][1];
       }
-      this.router.navigate(componentRoute, {queryParams: params, replaceUrl: true, skipLocationChange: false});
+      void this.router.navigate(componentRoute, {queryParams: params, replaceUrl: true, skipLocationChange: false});
     });
     return aggrSubscription;
   }
 
-  setUpAggregationFilters(params){
+  setUpAggregationFilters(params: {[index: string]: any}) {
     // set up filters on pageLoad based on queryParams
-    const filters = {};
+    const filters: {[index: string]: any} = {};
     for (const key in params) {
-      if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection' && key !== 'pageIndex'){
+      if (key !== 'searchTerm' && key !== 'sortTerm' && key !== 'sortDirection' && key !== 'pageIndex') {
         if (Array.isArray(params[key])) {
           filters[key] = params[key];
           for (const value of params[key]) {
@@ -53,7 +53,7 @@ export class FilterStateService {
       }
     }
     this.aggregationService.field.next(this.aggregationService.active_filters);
-    return filters
+    return filters;
   }
 
   resetFilter() {

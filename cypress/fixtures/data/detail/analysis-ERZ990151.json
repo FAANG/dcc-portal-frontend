@@ -26,7 +26,7 @@
           "releaseDate": "2020-01-03",
           "updateDate": "2019-06-19",
           "organism": {
-            "text": "Ovis aries",
+            "text": "Ovis aries Koosum",
             "ontologyTerms": "http://purl.obolibrary.org/obo/NCBITaxon_9940"
           },
           "datasetAccession": "PRJEB33111",

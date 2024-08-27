@@ -1,12 +1,10 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FileUploader} from 'ng2-file-upload';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
+import { FileUploader, FileUploadModule } from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
-import {NgxSmartModalService} from 'ngx-smart-modal';
 import { ApiDataService } from '../../services/api-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import {
-  issue_type,
-  record_type, sample_biosample_update_template,
+  sample_biosample_update_template,
   sample_metadata_template_with_examples, sample_metadata_template_without_examples,
   validation_service_url,
   validation_service_url_download,
@@ -16,88 +14,105 @@ import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/comm
 import {UserForm} from '../webin_aap_user';
 import {SubmissionDomain} from '../submission_domain';
 import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
-import {MatTabGroup} from '@angular/material/tabs';
-import { MatTableDataSource } from '@angular/material/table';
-import {consumerDestroy} from '@angular/core/primitives/signals';
+import { Router, RouterLink } from '@angular/router';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
+import { MatIcon } from '@angular/material/icon';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import {NgClass, NgStyle, DatePipe, isPlatformBrowser} from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { HeaderComponent } from '../../shared/header/header.component';
+import { NgxSmartModalService, NgxSmartModalModule } from 'ngx-smart-modal';
 
 const UploadURL = validation_service_url + '/conversion/samples';
 
 @Component({
   selector: 'app-validation-samples',
   templateUrl: './validation-samples.component.html',
-  styleUrls: ['./validation-samples.component.css']
+  styleUrls: ['./validation-samples.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatButton, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription,
+    MatTabGroup, MatTab, FlexModule, RouterLink, FileUploadModule, MatRadioGroup, FormsModule, MatRadioButton, MatTooltip, NgClass,
+    ExtendedModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgStyle, MatHeaderRowDef, MatHeaderRow,
+    MatRowDef, MatRow, MatPaginator, MatIconButton, MatIcon, DatePipe, NgxSmartModalModule],
 })
 export class ValidationSamplesComponent implements OnInit, OnDestroy {
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  dataSource: MatTableDataSource<any>;
-  subResults: MatTableDataSource<any>;
+  @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  dataSource!: MatTableDataSource<any>;
+  subResults!: MatTableDataSource<any>;
   p = 1;
   model = new UserForm('', '', 'test');
-  webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login'
+  webin_link = 'https://www.ebi.ac.uk/ena/submit/webin/login';
   aap_link = 'https://explore.aai.ebi.ac.uk/registerUser';
   domain = new SubmissionDomain('', '');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
-  conversion_status: string;
-  validation_status: string;
-  submission_status: string;
-  annotation_status: string;
-  submission_message: string;
-  gcp_subscription_status: string;
+  conversion_status = '';
+  validation_status = '';
+  submission_status = '';
+  annotation_status = '';
+  submission_message = '';
+  gcp_subscription_status = '';
   domains = [];
-  socket;
-  validation_results;
-  record_types = [];
-  active_key: string;
-  active_issue;
-  active_table;
-  active_column: string;
-  active_issues;
-  records_that_pass = [];
-  records_with_issues = [];
-  records_to_show;
+  socket: any;
+  validation_results: any;
+  record_types: any[] = [];
+  active_key = '';
+  active_issue: any;
+  active_table: any;
+  active_column = '';
+  active_issues: any;
+  records_that_pass: any[] = [];
+  records_with_issues: any[] = [];
+  records_to_show: any;
   show_table = false;
   validation_started = false;
-  conversion_task_id: string;
-  validation_task_id: string;
-  submission_task_id: string;
-  metadata_template_with_examples: string;
-  metadata_template_without_examples: string;
-  biosample_update_template: string;
-  errors = [];
-  column_names = [];
-  table_data = [];
-  table_errors = [];
-  table_warnings = [];
+  conversion_task_id = '';
+  validation_task_id = '';
+  submission_task_id = '';
+  metadata_template_with_examples = '';
+  metadata_template_without_examples = '';
+  biosample_update_template = '';
+  errors: any[] = [];
+  column_names: any[] = [];
+  table_data: any[] = [];
+  table_errors: any[] = [];
+  table_warnings: any[] = [];
   disableAuthForm = false;
   disableDomainForm = true;
   disableChooseDomainForm = true;
   submissionStarted = false;
   disableSubmitButton = false;
-  submissionResults = [];
-  optionsCsv;
-  optionsTabular;
+  submissionResults: any[] = [];
   downloadData = false;
   bovreg_submission = false;
   private_submission = false;
-  col_index = [];
+  col_index: any[] = [];
   action: 'update'|'submission' = 'submission';
-  custom_col_name: 'sample_name' | 'biosample_id';
-  tooltipUpdate: string;
-  tooltipSubmission: string;
-  currentDate: Date;
+  tooltipUpdate = '';
+  tooltipSubmission = '';
+  currentDate!: Date;
+  isBrowser = false;
 
-  @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
+  @ViewChild('myButton') myButton!: ElementRef<HTMLElement>;
 
   constructor(
     private titleService: Title,
-    public ngxSmartModalService: NgxSmartModalService,
     private apiDataService: ApiDataService,
     public _userService: UserService,
-    private router: Router
-  ) { }
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public ngxSmartModalService: NgxSmartModalService,
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit() {
     this.currentDate = new Date;
@@ -105,18 +120,18 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.getPubSubMessage();
 
     this.tabGroup.selectedIndex = 0;
-    this.dataSource = new MatTableDataSource([]);
-    this.subResults = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource<any[]>([]);
+    this.subResults = new MatTableDataSource<any[]>([]);
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Samples');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onBeforeUploadItem = (file) => {
       this.conversion_status = 'Waiting';
-    }
+    };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
-      if (this.conversion_status == 'Success') {
+      if (this.conversion_status === 'Success') {
         this.startValidation();
       }
     };
@@ -165,9 +180,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
       this.parseColumnNames(table['custom']);
     }
     for (const record of this.active_table) {
-      let tmp = [];
-      let tmp_errors = [];
-      let tmp_warnings = [];
+      let tmp: any[] = [];
+      let tmp_errors: any[] = [];
+      let tmp_warnings: any[] = [];
       const custom_col_name = this.action === 'update' ? 'biosample_id' : 'sample_name';
       tmp.push(record['custom'][custom_col_name]['value']);
       tmp_errors.push('valid');
@@ -213,76 +228,83 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   getPubSubMessage() {
-    this.apiDataService.get_pubsub_messages().subscribe(data => {
-      this.gcp_subscription_status = data[0]['biosampleStatus']
-    }, error => {
-      console.log(error);
+    this.apiDataService.get_pubsub_messages().subscribe({
+      next: data => {
+        this.gcp_subscription_status = data[0]['biosampleStatus'];
+      },
+      error: error => {
+        console.log(error);
+      }
     });
   }
 
   setSocket() {
-    const url = validation_ws_url + this.fileid + '/';
-    this.socket = new WebSocket(url);
-    this.socket.onopen = () => {
-      console.log('WebSockets connection created.');
-    };
-    this.socket.onmessage = (event) => {
-      const data = JSON.parse(event.data)['response'];
-      console.log(data);
-      if (data['conversion_status']) {
-        this.conversion_status = data['conversion_status'];
-      }
-      if (data['domains']) {
-        if (data['domains'].length !== 0) {
-          this.domains = data['domains'];
-          this.disableChooseDomainForm = false;
-          this.domain.name = this.domains[this.domains.length - 1];
-        } else {
-          this.disableDomainForm = false;
+    if (this.isBrowser) {
+      const url = validation_ws_url + this.fileid + '/';
+      this.socket = new WebSocket(url);
+      this.socket.onopen = () => {
+        console.log('WebSockets connection created.');
+      };
+      this.socket.onmessage = (event: { data: string; }) => {
+        const data = JSON.parse(event.data)['response'];
+        console.log(data);
+        if (data['conversion_status']) {
+          this.conversion_status = data['conversion_status'];
         }
-      }
-      if (data['submission_results']) {
-        this.submissionResults = Object.entries(data['submission_results']);
-        if (this.submissionResults.length !== 0) {
-          let data = [];
-          this.submissionResults.forEach(record => {
-            let rowObj = {};
-            let cols = ['Sample Name', 'BioSample ID'];
-            for (let index in cols) {
-              rowObj[cols[index]] = record[index];
-            }
-            data.push(rowObj);
-          });
-          this.subResults.data = data;
-          this.triggerFalseClick();
+        if (data['domains']) {
+          if (data['domains'].length !== 0) {
+            this.domains = data['domains'];
+            this.disableChooseDomainForm = false;
+            this.domain.name = this.domains[this.domains.length - 1];
+          } else {
+            this.disableDomainForm = false;
+          }
         }
-      }
-      if (data['submission_message']) {
-        this.submission_message = data['submission_message'];
-      }
-      if (data['validation_status']) {
-        this.validation_status = data['validation_status'];
-      }
-      if (data['submission_status']) {
-        this.submission_status = data['submission_status'];
-      }
-      if (data['errors']) {
-        this.errors.push(data['errors']);
-      }
-      if (data['annotation_status']) {
-        this.annotation_status = data['annotation_status'];
-      }
-      if (data['table_data']) {
-        this.validation_results = data['table_data'];
-        this.setValidationResults();
-      }
-      if (data['bovreg_submission']) {
-        this.bovreg_submission = true;
-      }
-    };
+        if (data['submission_results']) {
+          this.submissionResults = Object.entries(data['submission_results']);
+          if (this.submissionResults.length !== 0) {
+            const data: any[] = [];
+            this.submissionResults.forEach(record => {
+              const rowObj = {};
+              const cols = ['Sample Name', 'BioSample ID'];
+              for (const index in cols) {
+                if (cols[index]) {
+                  rowObj[cols[index]] = record[index];
+                }
+              }
+              data.push(rowObj);
+            });
+            this.subResults.data = data;
+            this.triggerFalseClick();
+          }
+        }
+        if (data['submission_message']) {
+          this.submission_message = data['submission_message'];
+        }
+        if (data['validation_status']) {
+          this.validation_status = data['validation_status'];
+        }
+        if (data['submission_status']) {
+          this.submission_status = data['submission_status'];
+        }
+        if (data['errors']) {
+          this.errors.push(data['errors']);
+        }
+        if (data['annotation_status']) {
+          this.annotation_status = data['annotation_status'];
+        }
+        if (data['table_data']) {
+          this.validation_results = data['table_data'];
+          this.setValidationResults();
+        }
+        if (data['bovreg_submission']) {
+          this.bovreg_submission = true;
+        }
+      };
 
-    if (this.socket.readyState === WebSocket.OPEN) {
-      this.socket.onopen(null);
+      if (this.socket.readyState === WebSocket.OPEN) {
+        this.socket.onopen(null);
+      }
     }
   }
 
@@ -311,9 +333,9 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   parseColumnData(data: any) {
-    let data_to_return = [];
-    let errors_to_return = [];
-    let warnings_to_return = [];
+    let data_to_return: any[] = [];
+    let errors_to_return: any[] = [];
+    let warnings_to_return: any[] = [];
     for (const name of Object.keys(data)) {
       if (Array.isArray(data[name])) {
         for (const record of data[name]) {
@@ -364,7 +386,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  remove_underscores(record) {
+  remove_underscores(record: string) {
     return record.replace(/[_]/g, ' ');
   }
 
@@ -374,6 +396,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     } else if (this.active_issue === 'issues' && this.table_warnings[i][j] !== 'valid') {
       return 'table-warning';
     }
+    return '';
   }
 
   getCellStyle(i: number, j: number) {
@@ -386,23 +409,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  isButtonActive(button_record: string) {
-    if (button_record === this.active_key) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  isRecordsButtonActive(type: string) {
-    if (type === this.active_issue) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  onRecordButtonClick(tab) {
+  onRecordButtonClick(tab: any) {
     this.active_key = tab['tab']['textLabel'].replace(/[ ]/g, '_');
     this.active_table = this.validation_results[this.active_key];
     this.records_with_issues = [];
@@ -416,15 +423,17 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.onValidationResultsButtonClick('passed');
   }
 
-  onValidationResultsButtonClick(issues_type) {
+  onValidationResultsButtonClick(issues_type: string) {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
-    let data = [];
-    this.records_to_show.forEach(record => {
-      let rowObj = {};
-      for (let index in this.column_names) {
-        rowObj[index] = record[index];
+    const data: any[] = [];
+    this.records_to_show.forEach((record: { [x: string]: any; }) => {
+      const rowObj: {[index: string]: any} = {};
+      for (const index in this.column_names) {
+        if (index) {
+          rowObj[index] = record[index];
+        }
       }
       data.push(rowObj);
     });
@@ -452,7 +461,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  statusClass(status) {
+  statusClass(status: string) {
     if (status === 'Undefined' || status === 'Finished') {
       return 'badge badge-pill badge-info';
     } else if (status === 'Waiting' || status === 'Preparing data') {
@@ -462,17 +471,19 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     } else if (status === 'Error' || status === 'Fix issues') {
       return 'badge badge-pill badge-danger';
     }
+    return '';
   }
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'samples').subscribe(response => {
+    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'samples').subscribe({
+      next: response => {
         this.validation_task_id = response['id'];
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
+    });
   }
 
   onStartSubmissionClick() {
@@ -480,16 +491,17 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   }
 
   getTemplateFile() {
-    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'samples', this.action).subscribe(response => {
-      console.log(response);
-    },
-      error => {
-      console.log(error);
+    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'samples', this.action).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.log(error);
       }
-      );
+    });
   }
 
-  isSubmissionDisabled(status) {
+  isSubmissionDisabled(status: string) {
     return status === 'Fix issues' || this.submission_status === 'Preparing data'
       || this.gcp_subscription_status === 'failure';
   }
@@ -501,25 +513,28 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.disableAuthForm = true;
     this.apiDataService.chooseDomain(this.model.username, this.model.password, this.model.mode, this.fileid,
-      this.private_submission).subscribe(response => {
+      this.private_submission).subscribe({
+      next: response => {
         console.log(response);
       },
-      error => {
+      error: error => {
         console.log(error);
-      });
+      }
+    });
   }
 
   onDomainSubmit() {
     this.disableDomainForm = true;
     this.apiDataService.submitDomain(this.model.username,
       this.model.password, this.model.mode, this.domain.name, this.domain.description, this.fileid,
-      this.private_submission).subscribe(response => {
+      this.private_submission).subscribe({
+      next: response => {
         console.log(response);
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
+    });
   }
 
   onChooseDomainClick(name: string) {
@@ -531,11 +546,14 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.disableSubmitButton = true;
 
     this.apiDataService.submitRecords(this.action, this.model.username,
-      this.model.password,  this.model.mode, this.fileid, this.conversion_task_id,
-      'samples', this.private_submission, '').subscribe( response => {
-      this.submission_task_id = response['id'];
-    }, error => {
-      console.log(error);
+      this.model.password, this.model.mode, this.fileid, this.conversion_task_id,
+      'samples', this.private_submission, '').subscribe({
+      next: response => {
+        this.submission_task_id = response['id'];
+      },
+      error: error => {
+        console.log(error);
+      }
     });
   }
 
@@ -544,11 +562,14 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.disableSubmitButton = true;
 
     this.apiDataService.submitRecords(this.action, this.model.username,
-      this.model.password,  this.model.mode, this.fileid, this.conversion_task_id,
-      'samples', this.private_submission, this.domain.name).subscribe( response => {
+      this.model.password, this.model.mode, this.fileid, this.conversion_task_id,
+      'samples', this.private_submission, this.domain.name).subscribe({
+      next: response => {
         this.submission_task_id = response['id'];
-    }, error => {
+      },
+      error: error => {
         console.log(error);
+      }
     });
   }
 
@@ -604,20 +625,21 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     this.submissionResults = [];
   }
 
-  tabClick(tab) {
-    if (tab.index == 0) {
-      this.router.navigate(['validation/samples']);
-    }
-    else if (tab.index == 1) {
-      this.router.navigate(['validation/experiments']);
-    }
-    else if (tab.index == 2) {
-      this.router.navigate(['validation/analyses']);
+  tabClick(tab: any) {
+    if (tab.index === 0) {
+      void this.router.navigate(['validation/samples']);
+    } else if (tab.index === 1) {
+      void this.router.navigate(['validation/experiments']);
+    } else if (tab.index === 2) {
+      void this.router.navigate(['validation/analyses']);
     }
   }
 
   ngOnDestroy(): void {
-    this.socket.close();
+    if (this.isBrowser && this.socket) {
+      this.socket.close();
+    }
   }
 
 }
+

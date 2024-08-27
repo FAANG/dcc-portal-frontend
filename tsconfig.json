@@ -2,18 +2,15 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "noPropertyAccessFromIndexSignature": false,
-    "resolveJsonModule": true,
-    "strictNullChecks":false,
-    "useUnknownInCatchVariables": false,
-    "strictPropertyInitialization": false,
     "noImplicitAny": false,
-    "noImplicitReturns": false,
+    "resolveJsonModule": true,
+
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./",
+    "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "sourceMap": true,

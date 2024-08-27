@@ -2,46 +2,53 @@ import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/cor
 import {ApiDataService} from '../services/api-data.service';
 import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {DatasetTable} from '../shared/interfaces';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/internal/operators/finalize';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { NgClass } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
+import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
+import { FilterComponent } from '../shared/filter/filter.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
   selector: 'app-dataset',
   templateUrl: './dataset.component.html',
-  styleUrls: ['./dataset.component.css']
+  styleUrls: ['./dataset.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
+    TableServerSideComponent, RouterLink, NgClass, ExtendedModule]
 })
 export class DatasetComponent implements OnInit, OnDestroy {
-  @ViewChild('datasetAccessionTemplate', {static: true}) datasetAccessionTemplate: TemplateRef<any>;
-  @ViewChild('paperPublishedTemplate', {static: true}) paperPublishedTemplate: TemplateRef<any>;
-  @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent: TableServerSideComponent;
+  @ViewChild('datasetAccessionTemplate', {static: true}) datasetAccessionTemplate!: TemplateRef<any>;
+  @ViewChild('paperPublishedTemplate', {static: true}) paperPublishedTemplate!: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent!: TableServerSideComponent;
   @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
-  public loadTableDataFunction: Function;
-  datasetListShort: Observable<DatasetTable[]>;
-  datasetListLong: Observable<DatasetTable[]>;
+  public loadTableDataFunction!: Function;
   displayFields: string[] = ['datasetAccession', 'title', 'species', 'archive', 'assayType', 'numberOfExperiments',
     'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished', 'subscribe'];
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive', 'Assay type', 'Number of Experiments',
     'Number of Specimens', 'Number of Files', 'Standard', 'Paper published', 'Subscribe'];
   filter_field: any;
-  templates: Object;
-  aggrSubscription: Subscription;
+  templates: {[index: string]: any} = {};
+  aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle: string;
+  subscriptionDialogTitle = '';
   subscriber = {email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
-  dialogInfoRef: any;
-  indexDetails: {};
+  indexDetails: {[index: string]: any} = {};
 
-  query = {
+  query: {[index: string]: any} = {
     'sort': ['accession', 'desc'],
     '_source': [
       'accession',
@@ -79,8 +86,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   };
 
   defaultSort = ['accession', 'desc'];
-  error: string;
-  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
+  error = '';
 
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
@@ -92,7 +98,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.indexDetails = {index: 'dataset', indexKey: 'accession', apiKey: 'datasetAccession'}
+    this.indexDetails = {index: 'dataset', indexKey: 'accession', apiKey: 'datasetAccession'};
     this.templates = {
       'datasetAccession': this.datasetAccessionTemplate,
       'paperPublished': this.paperPublishedTemplate
@@ -129,7 +135,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['dataset'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    void this.router.navigate(['dataset'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {
@@ -140,7 +146,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
-    let mapping = {
+    const mapping = {
       'datasetAccession': 'accession',
       'title': 'title',
       'species': 'species.text',
@@ -152,19 +158,19 @@ export class DatasetComponent implements OnInit, OnDestroy {
       'standard': 'standardMet',
       'paper_published': 'paperPublished',
       'submitterEmail': 'submitterEmail'
-    }
-    this.dataService.downloadRecords('dataset', mapping, this.downloadQuery).subscribe(
-      (res: Blob) => {
-        var a = document.createElement("a");
+    };
+    this.dataService.downloadRecords('dataset', mapping, this.downloadQuery).subscribe({
+      next: (res: Blob) => {
+        const a = document.createElement('a');
         a.href = URL.createObjectURL(res);
         a.download = 'faang_data.' + format;
         a.click();
         this.downloading = false;
       },
-      (err) => {
+      error: () => {
         this.downloading = false;
       }
-    );
+    });
   }
 
   wasPublished(published: any) {
@@ -177,7 +183,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   openSubscriptionDialog() {
     // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Dataset entries'
+    this.subscriber.title = 'Subscribing to filtered Dataset entries';
     this.subscriber.indexName = this.indexDetails['index'];
     this.subscriber.indexKey = this.indexDetails['indexKey'];
     const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
@@ -193,7 +199,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
     this.aggrSubscription.unsubscribe();
   }
 
-  loadInitialPageState(params) {
+  loadInitialPageState(params: any) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
     this.filter_field = filters;
     this.query['filters'] = filters;

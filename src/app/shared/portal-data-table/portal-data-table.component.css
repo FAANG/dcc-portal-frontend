@@ -33,10 +33,6 @@ a {
   height:auto;
 }
 
-.childproj-title {
-  color: #6f6f71;
-}
-
 ::ng-deep div.mat-select-arrow-wrapper {
   display: none;
 }

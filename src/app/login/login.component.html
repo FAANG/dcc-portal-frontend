@@ -2,36 +2,42 @@
 <div class="container-fluid">
   <h2 style="text-align: center;">Login</h2>
   <hr>
-  <div fxLayout="row" fxLayoutAlign="space-around" *ngIf="!_userService.token">
-    <div fxFlex="35" fxFlex.lt-md="50" fxFlex.lt-sm="100" >
-      <form (ngSubmit)="login()" #userForm="ngForm">
-        <div class="form-group">
-          <label for="Username">Username</label>
-          <input class="form-control" id="Username"
-                  placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
-                  #username="ngModel">
-          <div [hidden]="username.valid || username.pristine"
+    @if (!_userService.token) {
+      <div fxLayout="row" fxLayoutAlign="space-around">
+        <div fxFlex="35" fxFlex.lt-md="50" fxFlex.lt-sm="100" >
+          <form (ngSubmit)="login()" #userForm="ngForm">
+            <div class="form-group">
+              <label for="Username">Username</label>
+              <input class="form-control" id="Username"
+                placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
+                #username="ngModel">
+              <div [hidden]="username.valid || username.pristine"
                 class="alert alert-danger form-danger">
-            Username is required
-          </div>
-          <span *ngFor="let error of _userService.errors.username"><br />{{ error }}</span>
-        </div>
-
-        <div class="form-group">
-          <label for="aapPassword">Password</label>
-          <input type="password" class="form-control" id="aapPassword" placeholder="Password"
-                  required [(ngModel)]="model.password" name="password" #password="ngModel">
-          <div [hidden]="password.valid || password.pristine"
+                Username is required
+              </div>
+              @for (error of getErrors(); track error) {
+                <span><br />{{ error }}</span>
+              }
+            </div>
+            <div class="form-group">
+              <label for="aapPassword">Password</label>
+              <input type="password" class="form-control" id="aapPassword" placeholder="Password"
+                required [(ngModel)]="model.password" name="password" #password="ngModel">
+              <div [hidden]="password.valid || password.pristine"
                 class="alert alert-danger form-danger">
-            Password is required
-          </div>
+                Password is required
+              </div>
+            </div>
+            @for (error of _userService.errors.password; track error) {
+              <span><br />{{ error }}</span>
+            }
+            <button type="submit" mat-raised-button color="primary"
+            [disabled]="!userForm.form.valid">Submit</button>
+            @for (error of _userService.errors.non_field_errors; track error) {
+              <span>{{ error }}<br /></span>
+            }
+          </form>
         </div>
-        <span *ngFor="let error of _userService.errors.password"><br />{{ error }}</span>
-
-        <button type="submit" mat-raised-button color="primary"
-                [disabled]="!userForm.form.valid">Submit</button>
-        <span *ngFor="let error of _userService.errors.non_field_errors">{{ error }}<br /></span>
-      </form>
-    </div>
+      </div>
+    }
   </div>
-</div>

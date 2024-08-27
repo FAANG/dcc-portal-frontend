@@ -1,11 +1,3 @@
-.unsorted {
-  color: lightgrey;
-}
-
-.clickable {
-  cursor: pointer;
-}
-
 @media (max-width: 767px) {
   div.faang-filter {
     width: 300px;

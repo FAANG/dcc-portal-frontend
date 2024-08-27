@@ -1,31 +1,29 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import {RouterTestingModule} from '@angular/router/testing';
-import {NgxSpinnerModule} from 'ngx-spinner';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FooterComponent} from './shared/footer/footer.component';
+
 describe('AppComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        FooterComponent
-      ],
-      imports: [
-        RouterTestingModule,
-        NgxSpinnerModule,
-        BrowserAnimationsModule
-      ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
     }).compileComponents();
-  }));
-  it('should create the app', waitForAsync(() => {
+  });
+
+  it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'faang-portal-frontend-angular-version17'`, waitForAsync(() => {
+  });
+
+  it(`should have the 'dcc-portal-frontend-ssr' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('faang-portal-frontend-angular-version17');
-  }));
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('dcc-portal-frontend-ssr');
+  });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, dcc-portal-frontend-ssr');
+  });
 });

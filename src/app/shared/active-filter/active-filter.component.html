@@ -1,9 +1,8 @@
-<ng-container *ngFor="let field of aggs" >
+@for (field of aggs; track field) {
   <button mat-raised-button (click)="clearFilter(field)" class="filter-button">
     <div style="display: flex; align-items: center;">
       <div>{{field}}</div>
       <i class="material-icons">highlight_off</i>
     </div>
-
   </button>
-</ng-container>
+}

@@ -4,8 +4,9 @@ import { RelatedItemsComponent } from './related-items.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import setting from './related-items.component.setting.json';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('RelatedItemsComponent', () => {
   let component: RelatedItemsComponent;
@@ -13,16 +14,12 @@ describe('RelatedItemsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        RelatedItemsComponent,
-        RobustLinkComponent
-      ],
-      imports: [
-        NgxPaginationModule,
-        RouterTestingModule,
-        HttpClientTestingModule
-      ]
-    })
+    declarations: [RelatedItemsComponent,
+        RobustLinkComponent],
+    imports: [NgxPaginationModule,
+        RouterTestingModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

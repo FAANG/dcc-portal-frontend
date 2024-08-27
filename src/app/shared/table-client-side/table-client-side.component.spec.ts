@@ -8,8 +8,8 @@ describe('TableClientSideComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableClientSideComponent ]
-    })
+    declarations: [TableClientSideComponent]
+})
     .compileComponents();
   }));
 

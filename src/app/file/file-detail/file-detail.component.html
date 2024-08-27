@@ -1,219 +1,275 @@
 <app-header></app-header>
 <div class="container-fluid">
-  <div *ngIf="_userService.token">
-    <div class="alert alert-info" role="alert">
-      <p>
-        You are logged in as {{ _userService.username }}. <br>
-        Token Expires: {{ _userService.token_expires }}
-      </p>
-      <button mat-raised-button color="primary" (click)="_userService.refreshToken()">Refresh Token</button>&nbsp;
-      <button mat-raised-button color="primary" (click)="_userService.logout()">Log Out</button>
+  @if (_userService.token) {
+    <div>
+      <div class="alert alert-info" role="alert">
+        <p>
+          You are logged in as {{ _userService.username }}. <br>
+          Token Expires: {{ _userService.token_expires }}
+        </p>
+        <button mat-raised-button color="primary" (click)="_userService.refreshToken()">Refresh Token</button>&nbsp;
+        <button mat-raised-button color="primary" (click)="_userService.logout()">Log Out</button>
+      </div>
     </div>
-  </div>
-  <div *ngIf="file">
-    <h2>{{fileId}}</h2>
-    <hr>
-    <div fxLayout="column">
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">File name:</dt>
-        <dd fxFlex="75">{{ file?.name }}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.secondaryProject">
-        <dt fxFlex="25">Sub-project:</dt>
-        <dd fxFlex="75">{{file?.secondaryProject}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.releaseDate">
-        <dt fxFlex="25">Release date:</dt>
-        <dd fxFlex="75">{{file?.releaseDate}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">Update date:</dt>
-        <dd fxFlex="75">{{file?.updateDate}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">Organism:</dt>
-        <dd fxFlex="75">
-          <app-robust-link [prefix]="ols_prefix" [link]="file?.species?.ontologyTerms"
-                           [text]="file?.species?.text"></app-robust-link>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">Specimen:</dt>
-        <dd fxFlex="75">
-          <app-robust-link *ngIf="!_userService.token" [prefix]="specimen_prefix" [link]="file?.specimen" [text]="file?.specimen"></app-robust-link>
-          <a *ngIf="_userService.token" [routerLink]="['/specimen/' + file?.specimen ]">{{file?.specimen}}</a>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.organism">
-        <dt fxFlex="25">BioSample ID:</dt>
-        <dd fxFlex="75">
-          <app-robust-link *ngIf="!_userService.token" [prefix]="organism_prefix" [link]="file?.organism" [text]="file?.organism"></app-robust-link>
-          <a *ngIf="_userService.token" [routerLink]="['/organism/' + file?.organism ]">{{file?.organism}}</a>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">File size:</dt>
-        <dd fxFlex="75">{{file?.size}} ({{file?.readableSize}})</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <dt fxFlex="25">Archive:</dt>
-        <dd fxFlex="75">{{file?.archive}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.readCount">
-        <dt fxFlex="25">Read count:</dt>
-        <dd fxFlex="75">{{file?.readCount}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.baseCount">
-        <dt fxFlex="25">Base count:</dt>
-        <dd fxFlex="75">{{file?.baseCount}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.submission">
-        <dt fxFlex="25">Submission:</dt>
-        <dd fxFlex="75">
-          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="file?.submission"
-                           [text]="file?.submission"></app-robust-link>
-          <div *ngIf="_userService.token">{{file?.submission}}</div>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.experiment?.accession">
-        <dt fxFlex="25">Experiment:</dt>
-        <dd fxFlex="75" *ngIf="!_userService.token">
-          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="file?.experiment?.accession"
-                           [text]="file?.experiment?.accession"></app-robust-link>
-          <div *ngIf="_userService.token">{{file?.experiment?.accession}}</div>
-          <button class="btn btn-info btn-sm" id="exp_dropdown" (click)="toggleExperiment()">Experiment details</button>
-          <div *ngIf="showExperimentDetail">
-            <hr>
-            <div *ngIf="experiment && fieldNames">
-              <div fxLayout="row" fxLayout.lt-md="column" *ngFor="let key of objectKeys(fieldNames)">
-
-                <div *ngIf="experiment.hasOwnProperty(key) && checkIsObject(experiment[key])">
-                  <div *ngIf="experiment[key].hasOwnProperty('filename') && experiment[key]['filename']">
-                    <p>
-                      <b>{{fieldNames[key]}}:</b><br>
-                      <app-robust-link [link]="getProtocolLink(experiment[key]['url'])"
-                                       [text]="experiment[key]['filename'] | slice:0:62"></app-robust-link>
-                    </p>
-                  </div>
-                  <div *ngIf="experiment[key].hasOwnProperty('text') && experiment[key]['text']">
-                    <p>
-                      <b>{{fieldNames[key]}}: </b><br>
-                      {{experiment[key]['text']}} ({{experiment[key]['unit']}})
-                    </p>
-                  </div>
-                </div>
-
-                <div *ngIf="experiment.hasOwnProperty(key) && !checkIsObject(experiment[key])">
-                  <p>
-                    <b>{{fieldNames[key]}}:</b><br>
-                    {{experiment[key]}}
-                  </p>
-                </div>
-
-              </div>
-            </div>
-            <hr>
+  }
+  @if (file) {
+    <div>
+      <h2>{{fileId}}</h2>
+      <hr>
+      <div fxLayout="column">
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">File name:</dt>
+          <dd fxFlex="75">{{ file?.name }}</dd>
+        </div>
+        @if (file['secondaryProject']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Sub-project:</dt>
+            <dd fxFlex="75">{{file['secondaryProject']}}</dd>
           </div>
-        </dd>
-        <dd fxFlex="75" *ngIf="_userService.token">{{file?.experiment?.accession}}</dd>
+        }
+        @if (file['releaseDate']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Release date:</dt>
+            <dd fxFlex="75">{{file['releaseDate']}}</dd>
+          </div>
+        }
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">Update date:</dt>
+          <dd fxFlex="75">{{file['updateDate']}}</dd>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">Organism:</dt>
+          <dd fxFlex="75">
+            <app-robust-link [prefix]="ols_prefix" [link]="file?.species['ontologyTerms']"
+                             [text]="file?.species?.text"></app-robust-link>
+          </dd>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">Specimen:</dt>
+          <dd fxFlex="75">
+            @if (!_userService.token) {
+              <app-robust-link [prefix]="specimen_prefix" [link]="file['specimen']" [text]="file['specimen']"></app-robust-link>
+            }
+            @if (_userService.token) {
+              <a [routerLink]="['/specimen/' + file['specimen'] ]">{{file['specimen']}}</a>
+            }
+          </dd>
+        </div>
+        @if (file['organism']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">BioSample ID:</dt>
+            <dd fxFlex="75">
+              @if (!_userService.token) {
+                <app-robust-link [prefix]="organism_prefix" [link]="file['organism']" [text]="file['organism']"></app-robust-link>
+              }
+              @if (_userService.token) {
+                <a [routerLink]="['/organism/' + file['organism'] ]">{{file['organism']}}</a>
+              }
+            </dd>
+          </div>
+        }
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">File size:</dt>
+          <dd fxFlex="75">{{file?.size}} ({{file['readableSize']}})</dd>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="column">
+          <dt fxFlex="25">Archive:</dt>
+          <dd fxFlex="75">{{file['archive']}}</dd>
+        </div>
+        @if (file['readCount']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Read count:</dt>
+            <dd fxFlex="75">{{file['readCount']}}</dd>
+          </div>
+        }
+        @if (file['baseCount']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Base count:</dt>
+            <dd fxFlex="75">{{file['baseCount']}}</dd>
+          </div>
+        }
+        @if (file['submission']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Submission:</dt>
+            <dd fxFlex="75">
+              @if (!_userService.token) {
+                <app-robust-link [prefix]="ena_prefix" [link]="file['submission']"
+                                 [text]="file['submission']"></app-robust-link>
+              }
+              @if (_userService.token) {
+                <div>{{file['submission']}}</div>
+              }
+            </dd>
+          </div>
+        }
+        @if (file['experiment']['accession']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Experiment:</dt>
+            @if (!_userService.token) {
+              <dd fxFlex="75">
+                @if (!_userService.token) {
+                  <app-robust-link [prefix]="ena_prefix" [link]="file['experiment']['accession']"
+                                   [text]="file['experiment']['accession']"></app-robust-link>
+                }
+                @if (_userService.token) {
+                  <div>{{file['experiment']['accession']}}</div>
+                }
+                <button class="btn btn-info btn-sm" id="exp_dropdown" (click)="toggleExperiment()">Experiment details</button>
+                @if (showExperimentDetail) {
+                  <div>
+                    <hr>
+                    @if (experiment && fieldNames) {
+                      <div>
+                        @for (key of objectKeys(fieldNames); track key) {
+                          <div fxLayout="row" fxLayout.lt-md="column">
+                            @if (experiment.hasOwnProperty(key) && checkIsObject(experiment[key])) {
+                              <div>
+                                @if (experiment[key].hasOwnProperty('filename') && experiment[key]['filename']) {
+                                  <div>
+                                    <p>
+                                      <b>{{fieldNames[key]}}:</b><br>
+                                      <app-robust-link [link]="getProtocolLink(experiment[key]['url'])"
+                                                       [text]="experiment[key]['filename'] | slice:0:62"></app-robust-link>
+                                    </p>
+                                  </div>
+                                }
+                                @if (experiment[key].hasOwnProperty('text') && experiment[key]['text']) {
+                                  <div>
+                                    <p>
+                                      <b>{{fieldNames[key]}}: </b><br>
+                                      {{experiment[key]['text']}} ({{experiment[key]['unit']}})
+                                    </p>
+                                  </div>
+                                }
+                              </div>
+                            }
+                            @if (experiment.hasOwnProperty(key) && !checkIsObject(experiment[key])) {
+                              <div>
+                                <p>
+                                  <b>{{fieldNames[key]}}:</b><br>
+                                  {{experiment[key]}}
+                                </p>
+                              </div>
+                            }
+                          </div>
+                        }
+                      </div>
+                    }
+                    <hr>
+                  </div>
+                }
+              </dd>
+            }
+            @if (_userService.token) {
+              <dd fxFlex="75">{{file['experiment']['accession']}}</dd>
+            }
+          </div>
+        }
+        @if (file['study']['accession']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Study:</dt>
+            <dd fxFlex="75">
+              @if (!_userService.token) {
+                <app-robust-link [prefix]="dataset_prefix" [link]="file['study']['accession']"
+                                 [text]="file['study']['accession']"></app-robust-link>
+              }
+              @if (_userService.token) {
+                <a [routerLink]="['/dataset/' + file['study']['accession'] ]">{{file['study']['accession']}}</a>
+              }
+            </dd>
+          </div>
+        }
+        @if (file['study']?.title) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Study title:</dt>
+            <dd fxFlex="75">{{file['study']?.title}}</dd>
+          </div>
+        }
+        @if (file?.run['accession']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Run:</dt>
+            <dd fxFlex="75">
+              @if (!_userService.token) {
+                <app-robust-link [prefix]="ena_prefix" [link]="file?.run['accession']"
+                                 [text]="file?.run['accession']"></app-robust-link>
+              }
+              @if (_userService.token) {
+                <div>{{file?.run['accession']}}</div>
+              }
+            </dd>
+          </div>
+        }
+        @if (file?.run?.platform) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Platform:</dt>
+            <dd fxFlex="75">{{file?.run?.platform}}</dd>
+          </div>
+        }
+        @if (file?.run['instrument']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Instrument:</dt>
+            <dd fxFlex="75">{{file?.run['instrument']}}</dd>
+          </div>
+        }
+        @if (file?.run['centerName']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Center name:</dt>
+            <dd fxFlex="75">{{file?.run['centerName']}}</dd>
+          </div>
+        }
+        @if (file?.run['sequencingDate']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Sequencing date:</dt>
+            <dd fxFlex="75">{{file?.run['sequencingDate']}}</dd>
+          </div>
+        }
+        @if (file?.run['sequencingLocation']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Sequencing location:</dt>
+            <dd fxFlex="75">{{file?.run['sequencingLocation']}}</dd>
+          </div>
+        }
+        @if (file?.run['sequencingLatitude']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Sequencing latitude:</dt>
+            <dd fxFlex="75">{{file?.run['sequencingLatitude']}} (decimal degrees)</dd>
+          </div>
+        }
+        @if (file?.run['sequencingLongitude']) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Sequencing longitude:</dt>
+            <dd fxFlex="75">{{file?.run['sequencingLongitude']}} (decimal degrees)</dd>
+          </div>
+        }
+        @if (file && file.hasOwnProperty('experiment') && file['study'].hasOwnProperty('standardMet')) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Standard met:</dt>
+            <dd fxFlex="75">{{file['study']['standardMet']}}</dd>
+          </div>
+        }
+        @if (file && file.hasOwnProperty('submitterEmail')) {
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <dt fxFlex="25">Submitter Emails:</dt>
+            <dd fxFlex="75">{{file['submitterEmail']}}</dd>
+          </div>
+        }
       </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.study?.accession">
-        <dt fxFlex="25">Study:</dt>
-        <dd fxFlex="75">
-          <app-robust-link *ngIf="!_userService.token" [prefix]="dataset_prefix" [link]="file?.study?.accession"
-                           [text]="file?.study?.accession"></app-robust-link>
-          <a *ngIf="_userService.token" [routerLink]="['/dataset/' + file?.study?.accession ]">{{file?.study?.accession}}</a>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.study?.title">
-        <dt fxFlex="25">Study title:</dt>
-        <dd fxFlex="75">{{file?.study?.title}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.accession">
-        <dt fxFlex="25">Run:</dt>
-        <dd fxFlex="75">
-          <app-robust-link *ngIf="!_userService.token" [prefix]="ena_prefix" [link]="file?.run?.accession"
-                           [text]="file?.run?.accession"></app-robust-link>
-          <div *ngIf="_userService.token">{{file?.run?.accession}}</div>
-        </dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.platform">
-        <dt fxFlex="25">Platform:</dt>
-        <dd fxFlex="75">{{file?.run?.platform}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.instrument">
-        <dt fxFlex="25">Instrument:</dt>
-        <dd fxFlex="75">{{file?.run?.instrument}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.centerName">
-        <dt fxFlex="25">Center name:</dt>
-        <dd fxFlex="75">{{file?.run?.centerName}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.sequencingDate">
-        <dt fxFlex="25">Sequencing date:</dt>
-        <dd fxFlex="75">{{file?.run?.sequencingDate}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.sequencingLocation">
-        <dt fxFlex="25">Sequencing location:</dt>
-        <dd fxFlex="75">{{file?.run?.sequencingLocation}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.sequencingLatitude">
-        <dt fxFlex="25">Sequencing latitude:</dt>
-        <dd fxFlex="75">{{file?.run?.sequencingLatitude}} (decimal degrees)</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file?.run?.sequencingLongitude">
-        <dt fxFlex="25">Sequencing longitude:</dt>
-        <dd fxFlex="75">{{file?.run?.sequencingLongitude}} (decimal degrees)</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file && file.hasOwnProperty('experiment') && file.experiment.hasOwnProperty('standardMet')">
-        <dt fxFlex="25">Standard met:</dt>
-        <dd fxFlex="75">{{file.experiment.standardMet}}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-md="column" *ngIf="file && file.hasOwnProperty('submitterEmail')">
-        <dt fxFlex="25">Submitter Emails:</dt>
-        <dd fxFlex="75">{{file.submitterEmail}}</dd>
-      </div>
-    </div>
-
-    <app-related-items source_type="file" target_type="paper" download_key="" [data]="relatedArticles"
-                       [record_id]="fileId">
-    </app-related-items>
-
-    <ng-container *ngIf="!_userService.token">
-      <app-related-items source_type="file" target_type="download" download_key="_source.url"
-                         [record_id]="file.run.accession">
-      </app-related-items>
-    </ng-container>
-    <ng-container>
-      <app-related-items source_type="file" target_type="download" download_key="_source.url"
+      <app-related-items source_type="file" target_type="paper" download_key="" [data]="relatedArticles"
                          [record_id]="fileId">
       </app-related-items>
-    </ng-container>
-
-  </div>
-  <div class="alert alert-danger" *ngIf="error"><p>{{ error }}</p></div>
+      @if (!_userService.token) {
+        <app-related-items source_type="file" target_type="download" download_key="_source.url"
+                           [record_id]="file.run['accession']">
+        </app-related-items>
+      }
+      <ng-container>
+        <app-related-items source_type="file" target_type="download" download_key="_source.url"
+                           [record_id]="fileId">
+        </app-related-items>
+      </ng-container>
+    </div>
+  }
+  @if (error) {
+    <div class="alert alert-danger"><p>{{ error }}</p></div>
+  }
 </div>

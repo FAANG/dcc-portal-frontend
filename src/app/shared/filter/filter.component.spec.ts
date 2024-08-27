@@ -9,9 +9,9 @@ describe('FilterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilterComponent ],
-      providers: [AggregationService]
-    })
+    imports: [FilterComponent],
+    providers: [AggregationService]
+})
     .compileComponents();
   }));
 
@@ -46,7 +46,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Standard should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['standard']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Standard');
@@ -55,7 +55,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Standard should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Standard');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['standard']).toEqual([]);
     });
     component.onButtonClick('test', 'Standard');
@@ -63,7 +63,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Study should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['study']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Study');
@@ -72,7 +72,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Study should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Study');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['study']).toEqual([]);
     });
     component.onButtonClick('test', 'Study');
@@ -80,7 +80,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Species should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['species']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Species');
@@ -89,7 +89,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Species should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Species');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['species']).toEqual([]);
     });
     component.onButtonClick('test', 'Species');
@@ -97,7 +97,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Assay type should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['assayType']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Assay type');
@@ -106,7 +106,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Assay type should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Assay type');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['assayType']).toEqual([]);
     });
     component.onButtonClick('test', 'Assay type');
@@ -114,7 +114,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Target should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['target']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Target');
@@ -123,7 +123,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Target should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Target');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['target']).toEqual([]);
     });
     component.onButtonClick('test', 'Target');
@@ -131,7 +131,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Instrument should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['instrument']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Instrument');
@@ -140,7 +140,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Instrument should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Instrument');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['instrument']).toEqual([]);
     });
     component.onButtonClick('test', 'Instrument');
@@ -148,7 +148,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Sex should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['sex']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Sex');
@@ -157,7 +157,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Sex should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Sex');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['sex']).toEqual([]);
     });
     component.onButtonClick('test', 'Sex');
@@ -165,7 +165,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Organism should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['organism']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Organism');
@@ -174,7 +174,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Organism should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Organism');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['organism']).toEqual([]);
     });
     component.onButtonClick('test', 'Organism');
@@ -182,7 +182,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Breed should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['breed']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Breed');
@@ -191,7 +191,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Breed should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Breed');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['breed']).toEqual([]);
     });
     component.onButtonClick('test', 'Breed');
@@ -199,7 +199,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Material should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['material']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Material');
@@ -208,7 +208,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Material should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Material');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['material']).toEqual([]);
     });
     component.onButtonClick('test', 'Material');
@@ -216,7 +216,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Organism part/Cell type should emit standard data when upon single click',
     inject([AggregationService], (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['organismpart_celltype']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Organism part/Cell type');
@@ -225,7 +225,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Organism part/Cell type should emit standard data when upon double click',
     inject([AggregationService], (service: AggregationService) => {
     component.onButtonClick('test', 'Organism part/Cell type');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['organismpart_celltype']).toEqual([]);
     });
     component.onButtonClick('test', 'Organism part/Cell type');
@@ -233,7 +233,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Archive type should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['archive']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Archive');
@@ -242,7 +242,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Archive type should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Archive');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['archive']).toEqual([]);
     });
     component.onButtonClick('test', 'Archive');
@@ -250,7 +250,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Organisation type should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['university_name']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Organisation');
@@ -259,7 +259,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Organisation type should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Organisation');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['university_name']).toEqual([]);
     });
     component.onButtonClick('test', 'Organisation');
@@ -267,7 +267,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Protocol Year type should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['protocol_date']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Protocol Year');
@@ -276,7 +276,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Protocol Year type should emit standard data when upon double click',
     inject([AggregationService], (service: AggregationService) => {
     component.onButtonClick('test', 'Protocol Year');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['protocol_date']).toEqual([]);
     });
     component.onButtonClick('test', 'Protocol Year');
@@ -284,7 +284,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Protocol type type should emit standard data when upon single click',
     inject([AggregationService], (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['protocol_type']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Protocol type');
@@ -293,7 +293,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Protocol type type should emit standard data when upon double click',
     inject([AggregationService], (service: AggregationService) => {
     component.onButtonClick('test', 'Protocol type');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['protocol_type']).toEqual([]);
     });
     component.onButtonClick('test', 'Protocol type');
@@ -301,7 +301,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Protocol type should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['name']).toEqual(['experimentalProtocol']);
     });
     component.onButtonClick('Experimental protocol', 'Protocol');
@@ -310,7 +310,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Protocol type should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('Experimental protocol', 'Protocol');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['name']).toEqual([]);
     });
     component.onButtonClick('Experimental protocol', 'Protocol');
@@ -318,7 +318,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Experiment target type should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['experimentTarget']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Experiment target');
@@ -327,7 +327,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Experiment target type should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Experiment target');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['experimentTarget']).toEqual([]);
     });
     component.onButtonClick('test', 'Experiment target');
@@ -335,7 +335,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Paper published type should emit standard data when upon single click',
     inject([AggregationService], (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['paper_published']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Paper published');
@@ -344,7 +344,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Paper published type should emit standard data when upon double click',
     inject([AggregationService], (service: AggregationService) => {
     component.onButtonClick('test', 'Paper published');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['paper_published']).toEqual([]);
     });
     component.onButtonClick('test', 'Paper published');
@@ -352,7 +352,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Journal type should emit standard data when upon single click',
     inject([AggregationService], (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['journal']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Journal');
@@ -361,7 +361,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Journal type should emit standard data when upon double click',
     inject([AggregationService], (service: AggregationService) => {
     component.onButtonClick('test', 'Journal');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['journal']).toEqual([]);
     });
     component.onButtonClick('test', 'Journal');
@@ -369,7 +369,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Year type should emit standard data when upon single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['year']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Year');
@@ -378,7 +378,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Year type should emit standard data when upon double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Year');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['year']).toEqual([]);
     });
     component.onButtonClick('test', 'Year');
@@ -386,7 +386,7 @@ describe('FilterComponent', () => {
 
   it ('onButtonClick for Dataset source type single click', inject([AggregationService],
     (service: AggregationService) => {
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['datasetSource']).toEqual(['test']);
     });
     component.onButtonClick('test', 'Dataset source');
@@ -395,7 +395,7 @@ describe('FilterComponent', () => {
   it ('onButtonClick for Dataset source type double click', inject([AggregationService],
     (service: AggregationService) => {
     component.onButtonClick('test', 'Dataset source');
-    service.field.subscribe(data => {
+    service.field.subscribe((data:any) => {
       expect(data['datasetSource']).toEqual([]);
     });
     component.onButtonClick('test', 'Dataset source');

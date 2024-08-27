@@ -5,9 +5,10 @@ import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 import {NgxSmartModalModule, NgxSmartModalService} from 'ngx-smart-modal';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RelatedItemsComponent} from '../../shared/related-items/related-items.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('FileDetailComponent', () => {
   let component: FileDetailComponent;
@@ -15,22 +16,21 @@ describe('FileDetailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         FileDetailComponent,
         HeaderComponent,
         RobustLinkComponent,
         RelatedItemsComponent,
-      ],
-      imports: [
-        NgxSmartModalModule,
+    ],
+    imports: [NgxSmartModalModule,
         RouterTestingModule,
-        HttpClientTestingModule,
-        NgxPaginationModule,
-      ],
-      providers: [
-        NgxSmartModalService
-      ]
-    })
+        NgxPaginationModule],
+    providers: [
+        NgxSmartModalService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
     .compileComponents();
   }));
 

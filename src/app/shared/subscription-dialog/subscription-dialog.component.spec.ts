@@ -8,8 +8,8 @@ describe('SubscriptionDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SubscriptionDialogComponent ]
-    })
+    imports: [SubscriptionDialogComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(SubscriptionDialogComponent);

@@ -2,65 +2,73 @@
 
 <div class="container-fluid" style="min-height:87vh">
 
-<h2>FAANG Global Search</h2>
-<b>This page is designed for searching through all FAANG tables and data</b>
-<hr>
+  <h2>FAANG Global Search</h2>
+  <b>This page is designed for searching through all FAANG tables and data</b>
+  <hr>
 
-<div class="centered-container">
-  <div class="search-container">
-    <div class="input-group margin-bottom-none">
+  <div class="centered-container">
+    <div class="search-container">
+      <div class="input-group margin-bottom-none">
         <input type="text" name="text" id="local-searchbox" [(ngModel)]="searchText" placeholder="Search"
                class="input-group-field" value="" (input)="onSearch()">
         <button mat-button disabled style="position: absolute; right: 0; border: none;">
           <mat-icon>search</mat-icon>
         </button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="spinner-container" *ngIf="showSpinner">
-  <mat-spinner class="spinner-with-margin" mode="indeterminate" color="primary" diameter="50"></mat-spinner>
-</div>
+  @if (showSpinner) {
+    <div class="spinner-container">
+      <mat-spinner class="spinner-with-margin" mode="indeterminate" color="primary" diameter="50"></mat-spinner>
+    </div>
+  }
 
-<div id="search-results" *ngIf="!showSpinner && showResults">
-  <div *ngIf="jsonData && isJsonDataEmpty()">
-    <div class="not-found-container">Nothing was found</div>
-  </div>
-  <mat-list>
-    <mat-list-item *ngFor="let item of jsonData | keyvalue">
-
-      <div class="row-container">
-
-        <ng-container *ngIf="!(item.value?.searchTerms && item.value?.searchTerms.length > 0); else textOnly">
-        <a (click)="navigateToItem(item.key)" class="link-style">
-          <ng-container *ngTemplateOutlet="commonTemplate; context: { hits: item.value?.totalHits, key: item.key }"></ng-container>
-        </a>
-        </ng-container>
-        <ng-template #textOnly>
-          <ng-container *ngTemplateOutlet="commonTemplate; context: { hits: item.value?.totalHits, key: item.key }"></ng-container>
-        </ng-template>
-
-        <ng-template #commonTemplate let-hits="hits" let-key="key">
-          <p [ngPlural]="hits" class="common-text">
-            <ng-template ngPluralCase="one">
-              {{ hits }} {{ changeKey(key) }}
-            </ng-template>
-            <ng-template ngPluralCase="other">
-              {{ hits }} {{ key === 'analysis' ? 'analyses' : changeKey(key) + 's' }}
-            </ng-template>
-          </p>
-        </ng-template>
-
-        <div *ngIf="item.value?.searchTerms && item.value?.searchTerms.length > 0" class="search-terms-container">
-          <li *ngFor="let searchTerm of item.value?.searchTerms">
-            <a (click)="navigateToItem(item.key, searchTerm)" class="link-style">
-              {{ searchTerm }}
-            </a>
-          </li>
+  @if (!showSpinner && showResults) {
+    <div id="search-results">
+      @if (jsonData && isJsonDataEmpty()) {
+        <div>
+          <div class="not-found-container">Nothing was found</div>
         </div>
-
-      </div>
-
-    </mat-list-item>
-  </mat-list>
+      }
+      <mat-list>
+        @for (item of jsonData | keyvalue; track item) {
+          <mat-list-item>
+            <div class="row-container">
+              @if (!searchTermsBool(item)) {
+                <a (click)="navigateToItem(item.key)" class="link-style">
+                  <ng-container *ngTemplateOutlet="commonTemplate; context: { hits: item.value?.totalHits, key: item.key }"></ng-container>
+                </a>
+              } @else {
+                <ng-container *ngTemplateOutlet="commonTemplate; context: { hits: item.value?.totalHits, key: item.key }"></ng-container>
+              }
+              <ng-template #commonTemplate let-hits="hits" let-key="key">
+                <p class="common-text">
+                  {{ hits }}
+                  @if (hits === 1) {
+                    {{ changeKey(key) }}
+                  } @else if (key === 'analysis') {
+                    {{ 'analyses' }}
+                  } @else {
+                    {{ changeKey(key) + 's' }}
+                  }
+                </p>
+              </ng-template>
+              @if (searchTermsBool(item)) {
+                <div class="search-terms-container">
+                  @for (searchTerm of item.value!.searchTerms; track searchTerm) {
+                    <li>
+                      <a (click)="navigateToItem(item.key, searchTerm)" class="link-style">
+                        {{ searchTerm }}
+                      </a>
+                    </li>
+                  }
+                </div>
+              }
+            </div>
+          </mat-list-item>
+        }
+      </mat-list>
+    </div>
+  }
 </div>

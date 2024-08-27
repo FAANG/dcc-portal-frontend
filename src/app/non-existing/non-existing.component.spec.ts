@@ -10,14 +10,12 @@ describe('NonExistingComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        NonExistingComponent,
+    declarations: [NonExistingComponent],
+    imports: [
+        RouterTestingModule,
         HeaderComponent
-      ],
-      imports: [
-        RouterTestingModule
-      ]
-    })
+    ]
+})
     .compileComponents();
   }));
 

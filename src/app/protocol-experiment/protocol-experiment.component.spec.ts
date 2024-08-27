@@ -8,7 +8,8 @@ import {FilterComponent} from '../shared/filter/filter.component';
 import {ExportComponent} from '../shared/export/export.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {FilterPipe} from '../pipes/filter.pipe';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ProtocolExperimentComponent', () => {
   let component: ProtocolExperimentComponent;
@@ -16,20 +17,18 @@ describe('ProtocolExperimentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         ProtocolExperimentComponent,
         HeaderComponent,
         ActiveFilterComponent,
         FilterComponent,
         ExportComponent,
         FilterPipe
-      ],
-      imports: [
-        RouterTestingModule,
-        NgxPaginationModule,
-        HttpClientTestingModule
-      ]
-    })
+    ],
+    imports: [RouterTestingModule,
+        NgxPaginationModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

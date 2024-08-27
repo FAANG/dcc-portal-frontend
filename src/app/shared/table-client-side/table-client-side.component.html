@@ -1,25 +1,27 @@
 <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
-    <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
-        <ng-container *ngIf="templates[col+'-header']">
-            <th mat-header-cell class="table-header" *matHeaderCellDef="let header" mat-sort-header>
-                <ng-template *ngTemplateOutlet="templates[col+'-header']; context: { $implicit: column_names[i] }">
-                </ng-template>
-            </th>
-        </ng-container>
-        <ng-container *ngIf="!templates[col+'-header']">
-            <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
-        </ng-container>
-        <ng-container *ngIf="templates[col]">
-            <td mat-cell [ngStyle]="{'width': col_width[i]}" class="table-cell-data" *matCellDef="let item">
-                <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: { 'row': item, 'col': column_names[i] } }">
-                </ng-template>
-            </td>
-        </ng-container>
-        <ng-container *ngIf="!templates[col]">
-            <td mat-cell [ngStyle]="{'width': col_width[i]}" class="table-cell-data" *matCellDef="let item"> {{item[col]}} </td>
-        </ng-container>
+  @for (col of display_fields; track col; let i = $index) {
+    <ng-container [matColumnDef]=col>
+      @if (templates[col+'-header']) {
+        <th mat-header-cell class="table-header" *matHeaderCellDef="let header" mat-sort-header>
+          <ng-template *ngTemplateOutlet="templates[col+'-header']; context: { $implicit: column_names[i] }">
+          </ng-template>
+        </th>
+      }
+      @if (!templates[col+'-header']) {
+        <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
+      }
+      @if (templates[col]) {
+        <td mat-cell [ngStyle]="{'width': col_width[i]}" class="table-cell-data" *matCellDef="let item">
+          <ng-template *ngTemplateOutlet="templates[col]; context: { $implicit: { 'row': item, 'col': column_names[i] } }">
+          </ng-template>
+        </td>
+      }
+      @if (!templates[col]) {
+        <td mat-cell [ngStyle]="{'width': col_width[i]}" class="table-cell-data" *matCellDef="let item"> {{item[col]}} </td>
+      }
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
-    <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
+  }
+  <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
+  <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
 </table>
 <mat-paginator [pageSize]="pageSize"></mat-paginator>

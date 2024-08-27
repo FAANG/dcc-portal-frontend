@@ -11,7 +11,7 @@ describe('PortalDataTableComponent', () => {
       imports: [PortalDataTableComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(PortalDataTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

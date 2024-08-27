@@ -3,44 +3,59 @@
   <h2>FAANG Datasets</h2>
   <hr>
 
-  <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
-    <div fxFlex="17">
-      <app-filter title="Standard" [filterSize]=6></app-filter>
-      <app-filter title="Species" [filterSize]=3></app-filter>
-      <app-filter title="Assay type" [filterSize]=3></app-filter>
-      <app-filter title="Archive" [filterSize]=3></app-filter>
-      <app-filter title="Paper published" [filterSize]=2></app-filter>
-      <app-filter title="Project" [filterSize]=4></app-filter>
-    </div>
-
-    <div fxFlex="83" class="table-responsive">
-      <div *ngIf="hasActiveFilters()">
-        <app-active-filter *ngIf="hasActiveFilters()"></app-active-filter>
-        <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
-        <button mat-raised-button
-                matTooltip="Subscribe to selected Dataset entries"
-                (click)="openSubscriptionDialog()">
-          <div class="subscription-icon">
-            <mat-icon>email</mat-icon>
-          </div>
-        </button>
-        <hr>
-      </div>
-      <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
-        Download data
-      </button>
-      <button (click)="downloadFile('csv')" mat-raised-button *ngIf="downloadData">
-        Export as CSV file
-      </button>
-      <button (click)="downloadFile('txt')" mat-raised-button *ngIf="downloadData">
-        Export as Tabular file
-      </button>
-
-      <div *ngIf="downloading" style="padding: 15px">
-        <mat-spinner [diameter]="30"></mat-spinner>
+    <div fxLayoutGap="2%" fxLayout="row" fxLayout.lt-md="column">
+      <div fxFlex="17">
+        <app-filter title="Standard" [filterSize]=6></app-filter>
+        <app-filter title="Species" [filterSize]=3></app-filter>
+        <app-filter title="Assay type" [filterSize]=3></app-filter>
+        <app-filter title="Archive" [filterSize]=3></app-filter>
+        <app-filter title="Paper published" [filterSize]=2></app-filter>
+        <app-filter title="Project" [filterSize]=4></app-filter>
       </div>
 
-      <app-table-server-side  [display_fields]="displayFields"
+      <div fxFlex="83" class="table-responsive">
+        @if (hasActiveFilters()) {
+          <div>
+            @defer (when hasActiveFilters()) {
+              <app-active-filter></app-active-filter>
+            }
+            @loading {
+              Loading active filters...
+            } @error {
+              Failed to load active filters!
+            }
+            <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
+            <button mat-raised-button
+              matTooltip="Subscribe to selected Dataset entries"
+              (click)="openSubscriptionDialog()">
+              <div class="subscription-icon">
+                <mat-icon>email</mat-icon>
+              </div>
+            </button>
+            <hr>
+            </div>
+          }
+          <button mat-raised-button style="background-color: green; color: white;" (click)="onDownloadData()" [disabled]="downloading">
+            Download data
+          </button>
+          @if (downloadData) {
+            <button (click)="downloadFile('csv')" mat-raised-button>
+              Export as CSV file
+            </button>
+          }
+          @if (downloadData) {
+            <button (click)="downloadFile('txt')" mat-raised-button>
+              Export as Tabular file
+            </button>
+          }
+
+          @if (downloading) {
+            <div style="padding: 15px">
+              <mat-spinner [diameter]="30"></mat-spinner>
+            </div>
+          }
+
+          <app-table-server-side  [display_fields]="displayFields"
             [column_names]="columnNames"
             [indexDetails]="indexDetails"
             [templates]="templates"
@@ -48,20 +63,24 @@
             [apiFunction]="loadTableDataFunction"
             [query]="query"
             [defaultSort]="defaultSort">
-      </app-table-server-side>
+          </app-table-server-side>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<ng-template #datasetAccessionTemplate let-item>
-  <a style="cursor: pointer" target="_blank" [routerLink]="item['datasetAccession']">{{item['datasetAccession']}}</a>
-</ng-template>
+    <ng-template #datasetAccessionTemplate let-item>
+      <a style="cursor: pointer" target="_blank" [routerLink]="item['datasetAccession']">{{item['datasetAccession']}}</a>
+    </ng-template>
 
-<ng-template #paperPublishedTemplate let-item>
-  <td *ngIf="wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
-    <i class="material-icons">check_circle</i>
-  </td>
-  <td *ngIf="!wasPublished(item['paperPublished'])" [ngClass]="isGreen(item['paperPublished'])">
-    <i class="material-icons">highlight_off</i>
-  </td>
-</ng-template>
+    <ng-template #paperPublishedTemplate let-item>
+      @if (wasPublished(item['paperPublished'])) {
+        <div [ngClass]="isGreen(item['paperPublished'])">
+          <i class="material-icons">check_circle</i>
+        </div>
+      }
+      @if (!wasPublished(item['paperPublished'])) {
+        <div [ngClass]="isGreen(item['paperPublished'])">
+          <i class="material-icons">highlight_off</i>
+        </div>
+      }
+    </ng-template>
