@@ -1,6 +1,8 @@
 <app-header></app-header>
 <div class="container-fluid">
-  <h2 *ngIf="fileId">{{fileId.split("_").slice(2, -1).join(" ")}}</h2>
+  @if (fileId) {
+    <h2>{{fileId.split("_").slice(2, -1).join(" ")}}</h2>
+  }
   <hr>
   <div fxLayout="column">
     <div fxLayout="row" fxLayout.lt-md="column">
@@ -20,23 +22,27 @@
   </div>
   <hr>
 
-  <h3 *ngIf="file?.analyses && file?.analyses.length > 0" style="margin: 20px 0 20px 0;">Related Analyses</h3>
+  @if (file?.analyses && file?.analyses.length > 0) {
+    <h3 style="margin: 20px 0 20px 0;">Related Analyses</h3>
+  }
   <div class="table-responsive" [hidden]="!file?.analyses || file?.analyses.length == 0">
 
     <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
-      <ng-container [matColumnDef]=col *ngFor="let col of display_fields; let i = index">
-        <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
-          <ng-container *ngIf="col == 'accession'">
+      @for (col of display_fields; track col; let i = $index) {
+        <ng-container [matColumnDef]=col>
+          <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
+          @if (col == 'accession') {
             <td mat-cell class="table-cell-data" *matCellDef="let item">
               <a [routerLink]="['/analysis', item[col]]" target="_blank">{{item[col]}}</a>
             </td>
-          </ng-container>
-          <ng-container *ngIf="col != 'accession'">
-            <td mat-cell class="table-cell-data" *matCellDef="let item"> 
+          }
+          @if (col != 'accession') {
+            <td mat-cell class="table-cell-data" *matCellDef="let item">
               {{item[col]}}
             </td>
-          </ng-container>
-      </ng-container>
+          }
+        </ng-container>
+      }
       <tr mat-header-row *matHeaderRowDef="display_fields"></tr>
       <tr mat-row *matRowDef="let row; columns: display_fields;"></tr>
     </table>

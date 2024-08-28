@@ -1,45 +1,52 @@
 import {Component, OnDestroy, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {ApiDataService} from '../services/api-data.service';
 import {FilterStateService} from '../services/filter-state.service';
-import {OrganismTable} from '../shared/interfaces';
 import {AggregationService} from '../services/aggregation.service';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {TableServerSideComponent}  from '../shared/table-server-side/table-server-side.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/internal/operators/finalize';
-import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import {ActivatedRoute, Params, Router, RouterLink} from '@angular/router';
+import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
+import {SubscriptionDialogComponent} from '../shared/subscription-dialog/subscription-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {ExtendedModule} from '@angular/flex-layout/extended';
+import {NgClass} from '@angular/common';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatButton} from '@angular/material/button';
+import {ActiveFilterComponent} from '../shared/active-filter/active-filter.component';
+import {FilterComponent} from '../shared/filter/filter.component';
+import {FlexModule} from '@angular/flex-layout/flex';
+import {HeaderComponent} from '../shared/header/header.component';
 
 @Component({
   selector: 'app-organism',
   templateUrl: './organism.component.html',
-  styleUrls: ['./organism.component.css']
+  styleUrls: ['./organism.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon, MatProgressSpinner,
+    TableServerSideComponent, RouterLink, NgClass, ExtendedModule]
 })
 export class OrganismComponent implements OnInit, OnDestroy {
-  @ViewChild('bioSampleIdTemplate', { static: true }) bioSampleIdTemplate: TemplateRef<any>;
-  @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate: TemplateRef<any>;
-  @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent: TableServerSideComponent;
-  public loadTableDataFunction: Function;
-  organismListShort: Observable<OrganismTable[]>;
-  organismListLong: Observable<OrganismTable[]>;
+  @ViewChild('bioSampleIdTemplate', {static: true}) bioSampleIdTemplate!: TemplateRef<any>;
+  @ViewChild('paperPublishedTemplate', {static: true}) paperPublishedTemplate!: TemplateRef<any>;
+  @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent!: TableServerSideComponent;
+  public loadTableDataFunction!: Function;
 
   columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published', 'Subscribe'];
   displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished', 'subscribe'];
-  templates: Object;
+  templates: { [index: string]: any } = {};
   filter_field: any;
-  aggrSubscription: Subscription;
+  aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle: string;
-  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
+  subscriptionDialogTitle = '';
+  subscriber = {email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
-  dialogInfoRef: any;
-  indexDetails: {};
+  indexDetails: { [index: string]: any } = {};
 
-  query = {
+  query: { [index: string]: any } = {
     'sort': ['id_number', 'desc'],
     '_source': [
       'biosampleId',
@@ -69,8 +76,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   };
 
   defaultSort = ['id_number', 'desc'];
-  error: string;
-  subscriptionDialog: MatDialogRef<SubscriptionDialogComponent>;
+  error = '';
 
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
@@ -79,12 +85,15 @@ export class OrganismComponent implements OnInit, OnDestroy {
               public dialog: MatDialog,
               private dialogModel: MatDialog,
               private aggregationService: AggregationService,
-              private titleService: Title) { }
+              private titleService: Title) {
+  }
 
   ngOnInit() {
-    this.indexDetails = {index: 'organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'}
-    this.templates = {'bioSampleId': this.bioSampleIdTemplate,
-                      'paperPublished': this.paperPublishedTemplate };
+    this.indexDetails = {index: 'organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
+    this.templates = {
+      'bioSampleId': this.bioSampleIdTemplate,
+      'paperPublished': this.paperPublishedTemplate
+    };
     this.loadTableDataFunction = this.dataService.getAllOrganisms.bind(this.dataService);
     this.titleService.setTitle('FAANG organisms');
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -116,7 +125,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   removeFilter() {
     this.filterStateService.resetFilter();
     this.filter_field = {};
-    this.router.navigate(['organism'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
+    void this.router.navigate(['organism'], {queryParams: {}, replaceUrl: true, skipLocationChange: false});
   }
 
   onDownloadData() {
@@ -127,16 +136,16 @@ export class OrganismComponent implements OnInit, OnDestroy {
     this.downloadData = !this.downloadData;
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
-    let mapping = {
+    const mapping = {
       'bioSampleId': 'biosampleId',
       'sex': 'sex.text',
       'organism': 'organism.text',
       'breed': 'breed.text',
       'standard': 'standardMet',
       'paper_published': 'paperPublished',
-    }
-    this.dataService.downloadRecords('organism', mapping, this.downloadQuery).subscribe((res:Blob)=>{
-      var a = document.createElement("a");
+    };
+    this.dataService.downloadRecords('organism', mapping, this.downloadQuery).subscribe((res: Blob) => {
+      const a = document.createElement('a');
       a.href = URL.createObjectURL(res);
       a.download = 'faang_data.' + format;
       a.click();
@@ -161,7 +170,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
 
   openSubscriptionDialog() {
     // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Organism entries'
+    this.subscriber.title = 'Subscribing to filtered Organism entries';
     this.subscriber.indexName = this.indexDetails['index'];
     this.subscriber.indexKey = this.indexDetails['indexKey'];
     const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
@@ -170,17 +179,17 @@ export class OrganismComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadInitialPageState(params){
+  loadInitialPageState(params: any) {
     const filters = this.filterStateService.setUpAggregationFilters(params);
 
     this.filter_field = filters;
     this.query['filters'] = filters;
     this.downloadQuery['filters'] = filters;
     // load pre-search and pre-sorting
-    if (params['searchTerm']){
+    if (params['searchTerm']) {
       this.query['search'] = params['searchTerm'];
     }
-    if (params['sortTerm'] && params['sortDirection']){
+    if (params['sortTerm'] && params['sortDirection']) {
       this.query['sort'] = [params['sortTerm'], params['sortDirection']];
     }
   }

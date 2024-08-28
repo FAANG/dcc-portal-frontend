@@ -1,7 +1,7 @@
 describe('Analysis Detail Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/data/protocol_analysis/ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.pdf', {fixture: 'data/detail/analysis-ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.json'})
-    cy.visit('/protocol/analysis/ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.pdf')
+    cy.intercept('GET', '/data/protocol_analysis/%22ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.pdf%22', {fixture: 'data/detail/analysis-ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.json'})
+    cy.visit('/protocol/analysis/%22ROSLIN_SOP_ATAC-Seq_analysis_pipeline_20201113.pdf%22')
   })
 
   it('should display title and other information', () => {

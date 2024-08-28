@@ -1,44 +1,60 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ApiDataService } from '../../services/api-data.service';
-import * as FileSaver from 'file-saver';
+import FileSaver from 'file-saver';
 import setting from './related-items.component.setting.json';
 import { UserService } from '../../services/user.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { HttpClient, HttpEventType} from '@angular/common/http';
-import { Observable, of as observableOf } from 'rxjs';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import { of as observableOf } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { RobustLinkComponent } from '../robust-link/robust-link.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatInput } from '@angular/material/input';
+import { MatOption } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatButton } from '@angular/material/button';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 @Component({
   selector: 'app-related-items',
   templateUrl: './related-items.component.html',
-  styleUrls: ['./related-items.component.css']
+  styleUrls: ['./related-items.component.css'],
+  standalone: true,
+  imports: [FlexModule, MatButton, MatFormField, MatLabel, MatSelect, FormsModule, MatOption, MatInput, MatTable, MatSort, MatColumnDef,
+    MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatProgressBar, MatSortHeader, RobustLinkComponent, RouterLink, MatHeaderRowDef,
+    MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
 export class RelatedItemsComponent implements OnInit {
-  @Input() record_id: string; // the record id used to retrieve particular record
-  @Input() source_type: string; // equal to the type of detail page, e.g. to list files in the dataset detail page, set to be dataset
-  @Input() target_type: string; // the related entities, e.g. to list files in the dataset detail page, set to be file
-  @Input() download_key: string; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
+  @Input() record_id = ''; // the record id used to retrieve particular record
+  @Input() source_type = ''; // equal to the type of detail page, e.g. to list files in the dataset detail page, set to be dataset
+  @Input() target_type = ''; // the related entities, e.g. to list files in the dataset detail page, set to be file
+  @Input() download_key = ''; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
   @Input() isEuroFaangProj = false; // specifies if datasets table is for EuroFAANG - display project title next to table header
-  @Input() data: Array<any>; // Array data to be populated in the table
+  @Input() data: Array<any> = []; // Array data to be populated in the table
   @Output() fetchedRecords = new EventEmitter<any>();
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  dataSource: MatTableDataSource<any>;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  dataSource!: MatTableDataSource<any>;
   display_fields: Array<string> = [];
-  progress: Observable<Object> = observableOf({});
+  progress: any = observableOf({});
   totalHits = 0;
   client_side = ['project-pipeline', 'publication-dataset', 'analysis-file',
     'file-paper', 'dataset-specimen', 'dataset-file', 'dataset-paper', 'organism-paper', 'specimen-paper'];
-  relationship_type;
+  relationship_type = '';
   records: any;
   urls: string[] = [];
   checked = false;
-  mode: string;
+  mode = '';
   timer: any;
-  delaySearch: boolean = true;
+  delaySearch = true;
   search = '';
-  initialDataExists: boolean = false;
+  initialDataExists = false;
+  setting: {[index: string]: any} = {};
 
   p = 1; // page number for html template
   // to use this component, 4 steps:
@@ -54,14 +70,15 @@ export class RelatedItemsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource([]);
+    this.setting = setting;
+    this.dataSource = new MatTableDataSource<any[]>([]);
     // Read in the initial column display settings
     // set those selected to be displayed
     this._userService.token ? this.mode = 'private' : this.mode = 'public';
-    for (const column of setting[this.source_type][this.target_type]['display']) {
+    for (const column of this.setting[this.source_type][this.target_type]['display']) {
       this.display_fields.push(column);
     }
-    if (this.download_key.length > 0 && this.mode == 'public') {
+    if (this.download_key.length > 0 && this.mode === 'public') {
       this.display_fields.push('Download');
     }
     // random delay for concurrent requests
@@ -97,7 +114,7 @@ export class RelatedItemsComponent implements OnInit {
         [this.record_id], this.mode, this.getSort(), this.paginator.pageIndex * 10, this.search
       ).subscribe(
         (res: any) => {
-          console.log(res)
+          console.log(res);
           this.dataSource.data = this.getDataSource(res['data']);
           this.totalHits = res['totalHits'];
         }
@@ -221,9 +238,9 @@ export class RelatedItemsComponent implements OnInit {
         this.record_id, this.getSort(), this.paginator.pageIndex * 10, this.mode, this.search
       ).subscribe(
         (data: any) => {
-          this.records = data.hits.hits;
+          this.records = data['hits']['hits'];
           this.dataSource.data = this.getDataSource(this.records);
-          this.totalHits = data.hits.total.value;
+          this.totalHits = data['hits']['total']['value'];
         });
     } else if (relationship_type === 'specimen-paper') {
         this.dataSource.data = this.getDataSource(this.data);
@@ -265,35 +282,35 @@ export class RelatedItemsComponent implements OnInit {
       'analysis': 'Accession'
     };
     if (this.sort.active && this.sort.direction) {
-      return setting[this.source_type][this.target_type]['fields'][this.sort.active]['source'] + ':' + this.sort.direction;
+      return this.setting[this.source_type][this.target_type]['fields'][this.sort.active]['source'] + ':' + this.sort.direction;
     } else {
-      return setting[this.source_type][this.target_type]['fields'][defaults[this.target_type]]['source'] + ':asc';
+      return this.setting[this.source_type][this.target_type]['fields'][defaults[this.target_type as keyof typeof defaults]]['source'] + ':asc';
     }
   }
 
-  getDataSource(records) {
-    const tableData = [];
-    const fields = setting[this.source_type][this.target_type]['fields'];
+  getDataSource(records: any[]) {
+    const tableData: any[] = [];
+    const fields = this.setting[this.source_type][this.target_type]['fields'];
     if (records) {
       for (const index of Object.keys(records)) {
-        const rowObj = {};
+        const rowObj: {[index: string]: any} = {};
         for (const field of Object.keys(fields)) {
           const prop = fields[field]['value'].split('.');
-          rowObj[field] = records[index];
+          rowObj[field] = records[index as keyof typeof records];
           while (prop.length && rowObj[field] && rowObj[field].hasOwnProperty(prop[0])) {
             rowObj[field] = rowObj[field][prop[0]];
             prop.shift();
           }
           if (this.download_key.length > 0) {
             const dKey = this.download_key.split('.');
-            rowObj['Download'] = records[index];
+            rowObj['Download'] = records[index as keyof typeof records];
             while (dKey.length) {
               rowObj['Download'] = rowObj['Download'][dKey[0]];
               dKey.shift();
             }
           }
-          if (records[index]['private']) {
-            rowObj['private'] = records[index]['private'];
+          if (records[index as keyof typeof records]['private']) {
+            rowObj['private'] = records[index as keyof typeof records]['private'];
           }
         }
         tableData.push(rowObj);
@@ -304,7 +321,7 @@ export class RelatedItemsComponent implements OnInit {
 
   isEmptyData() {
     if (this.dataSource.data && this.dataSource.data.length !== 0) {
-      if (this.initialDataExists === false) {
+      if (!this.initialDataExists) {
         this.initialDataExists = true;
       }
       return false;
@@ -330,17 +347,17 @@ export class RelatedItemsComponent implements OnInit {
 
   // get table headers
   get_all_fields() {
-    return setting[this.source_type][this.target_type]['all'];
+    return this.setting[this.source_type ][this.target_type]['all'];
   }
 
   // the attributes to render the link
   get_field_values_for_links(attr: string) {
-    return setting[this.source_type][this.target_type]['fields'][attr]['link'];
+    return this.setting[this.source_type][this.target_type]['fields'][attr]['link'];
   }
 
   downloadAllFiles() {
     this.urls.forEach(url => {
-      const file_url = url.split('://')[1];
+      const file_url: string = url.split('://')[1];
       this.progress[file_url] = 0;
       this.http.get(url,
         {
@@ -350,9 +367,10 @@ export class RelatedItemsComponent implements OnInit {
         }).subscribe(result => {
         const filename = file_url.split('/').pop();
         if (result.type === HttpEventType.DownloadProgress) {
-          this.progress[file_url] = Math.round(100 * result.loaded / result.total);
+          this.progress[file_url] = Math.round(100 * result.loaded / (result.total ? result.total : 1));
         }
         if (result.type === HttpEventType.Response) {
+          // @ts-ignore
           FileSaver.saveAs(result.body, filename);
         }
       });
@@ -405,7 +423,7 @@ export class RelatedItemsComponent implements OnInit {
 
   // the behaviour of the checkbox in the table header
   mainCheckboxClicked() {
-    if (this.checked === true) {
+    if (this.checked) {
       this.urls = [];
     } else {
       for (const record of this.dataSource.data) {
@@ -419,14 +437,14 @@ export class RelatedItemsComponent implements OnInit {
     this.checked = !this.checked;
   }
 
-  capitalizeFirstLetter(string) {
+  capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  searchChanged(event: any){
+  searchChanged(event: any) {
     const searchFilterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    if (this.delaySearch){
-      if (this.timer){
+    if (this.delaySearch) {
+      if (this.timer) {
         clearTimeout(this.timer);
       }
       this.timer = setTimeout(this.applySearchFilter.bind(this), 500, searchFilterValue);
@@ -453,13 +471,13 @@ export class RelatedItemsComponent implements OnInit {
       'protocolanalysis' : 'Protocol Analysis'
     };
     if (titles.hasOwnProperty(targetType)) {
-      return titles[targetType];
+      return titles[targetType as keyof typeof titles];
     } else {
       return this.capitalizeFirstLetter(targetType) + 's';
     }
   }
 
-  goToDownloader(){
+  goToDownloader() {
     (window as any).open('https://github.com/FAANG/dcc-bulk-data-downloader', '_blank');
   }
 }

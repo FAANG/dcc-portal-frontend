@@ -3,133 +3,139 @@
   <h2>FAANG Rule sets</h2>
   <hr>
 
-  <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
-    <mat-tab label="Samples"></mat-tab>
-    <mat-tab label="Experiments"></mat-tab>
-    <mat-tab label="Analysis"></mat-tab>
-  </mat-tab-group>
+    <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+      <mat-tab label="Samples"></mat-tab>
+      <mat-tab label="Experiments"></mat-tab>
+      <mat-tab label="Analysis"></mat-tab>
+    </mat-tab-group>
 
-  <dl fxLayout="column">
-    <div fxLayout="row" fxLayout.lt-sm="column">
-      <dt fxFlex="25">Name:</dt>
-      <dd fxFlex="75">{{ name}}</dd>
-    </div>
-    <div fxLayout="row" fxLayout.lt-sm="column">
-      <dt fxFlex="25">Description:</dt>
-      <dd fxFlex="75">{{ description }}</dd>
-    </div>
-    <div fxLayout="row" fxLayout.lt-sm="column">
-      <dt fxFlex="25">Further details:</dt>
-      <dd fxFlex="75">
-        <a href="{{ details }}">{{ details }}</a>
-      </dd>
-    </div>
-  </dl>
-
-  <hr>
-
-  <div class="alert alert-danger" *ngIf="error">
-    {{ error }}
-  </div>
-
-  <ng-container *ngIf="(data | keyvalue)?.length">
-    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1%">
-      <div fxFlex="16"><h3>Rule groups</h3></div>
-      <div fxFlex="83" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="mandatoryOnlyToggle()">
-          <label class="form-check-label" for="defaultCheck1">
-            Show only mandatory fields
-          </label>
-        </div>
-        <div>
-          <button mat-raised-button color="primary">
-            <a href="{{metadata_template_with_examples}}">Download example template</a>
-          </button>
-          <button mat-raised-button color="primary">
-            <a href="{{metadata_template_without_examples}}">Download empty template</a>
-          </button>
-          <button mat-raised-button color="primary">
-            <a href="{{record_specific_templates[active_rule]}}">Download {{ active_rule }} template</a>
-          </button>
-        </div>
+    <dl fxLayout="column">
+      <div fxLayout="row" fxLayout.lt-sm="column">
+        <dt fxFlex="25">Name:</dt>
+        <dd fxFlex="75">{{ name}}</dd>
       </div>
-    </div>    
+      <div fxLayout="row" fxLayout.lt-sm="column">
+        <dt fxFlex="25">Description:</dt>
+        <dd fxFlex="75">{{ description }}</dd>
+      </div>
+      <div fxLayout="row" fxLayout.lt-sm="column">
+        <dt fxFlex="25">Further details:</dt>
+        <dd fxFlex="75">
+          <a href="{{ details }}">{{ details }}</a>
+        </dd>
+      </div>
+    </dl>
+
     <hr>
 
-    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1%">
-      <div fxFlex="16" class="left">
-        <ul *ngFor="let category of rule_groups" class="list-group list-group-flush">
-          <li class="list-group-item"
-              [ngClass]="{'active': checkIsActive(category)}">
-            <a style="cursor: pointer" (click)="clickOnRule(category); updateUrlFragment(category);">{{category}}</a></li>
-        </ul>
-      </div>
-      <div fxFlex="83" class="table-responsive center" style="padding: 15px;">
-        <h3>{{active_rule}} ({{length}} rules)</h3>
+      @if (error) {
+        <div class="alert alert-danger">
+          {{ error }}
+        </div>
+      }
+
+      @if ((data | keyvalue)?.length) {
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1%">
+          <div fxFlex="16"><h3>Rule groups</h3></div>
+          <div fxFlex="83" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="mandatoryOnlyToggle()">
+              <label class="form-check-label" for="defaultCheck1">
+                Show only mandatory fields
+              </label>
+            </div>
+            <div>
+              <button mat-raised-button color="primary">
+                <a href="{{metadata_template_with_examples}}">Download example template</a>
+              </button>
+              <button mat-raised-button color="primary">
+                <a href="{{metadata_template_without_examples}}">Download empty template</a>
+              </button>
+              <button mat-raised-button color="primary">
+                <a href="{{record_specific_templates[active_rule]}}">Download {{ active_rule }} template</a>
+              </button>
+            </div>
+          </div>
+        </div>
         <hr>
-        <p *ngIf="active_rule === 'FAANG'" class="rule-condition-header">FAANG-specific rule sets</p>
-        <p *ngIf="active_rule === 'ENA'" class="rule-condition-header">
-          The fields required by the ENA analysis xsd <a href="https://github.com/FAANG/faang-metadata/blob/master/rulesets/faang_analyses.metadata_rules.json">https://github.com/FAANG/faang-metadata/blob/master/rulesets/faang_analyses.metadata_rules.json</a>
-        </p>
-        <p class="rule-condition-header">Applied to all entities</p>
-        <table mat-table [dataSource]="dataSource" table-striped style="width: 100%; margin-top: 15px;">
-          <ng-container matColumnDef="Name">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>Name</th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item;">
-              {{item['name']}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Description">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>Description</th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item;">
-              {{item['description']}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Type">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>Type</th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item;">
-              {{getType(item)}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Required?">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>Required?</th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item;">
-              {{getMandatoryField(item)}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Allow multiple?">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>Allow multiple?</th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item;">
-              {{allowMultiple(item)}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Valid values">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>Valid values</th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item;">
-              {{getValidValues(item)}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Valid units">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>Valid units</th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item;">
-              {{getValidUnits(item)}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Valid terms">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>Valid terms</th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item;"></td>
-          </ng-container>
-          <ng-container matColumnDef="Condition">
-            <th mat-header-cell class="table-header" *matHeaderCellDef>Condition</th>
-            <td mat-cell class="table-cell-data" *matCellDef="let item;"></td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="column_names"></tr>
-          <tr mat-row *matRowDef="let row; columns: column_names;"></tr>
-        </table>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1%">
+            <div fxFlex="16" class="left">
+              @for (category of rule_groups; track category) {
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"
+                    [ngClass]="{'active': checkIsActive(category)}">
+                    <a style="cursor: pointer" (click)="clickOnRule(category); updateUrlFragment(category);">{{category}}</a></li>
+                  </ul>
+                }
+              </div>
+              <div fxFlex="83" class="table-responsive center" style="padding: 15px;">
+                <h3>{{active_rule}} ({{length}} rules)</h3>
+                <hr>
+                  @if (active_rule === 'FAANG') {
+                    <p class="rule-condition-header">FAANG-specific rule sets</p>
+                  }
+                  @if (active_rule === 'ENA') {
+                    <p class="rule-condition-header">
+                      The fields required by the ENA analysis xsd <a href="https://github.com/FAANG/faang-metadata/blob/master/rulesets/faang_analyses.metadata_rules.json">https://github.com/FAANG/faang-metadata/blob/master/rulesets/faang_analyses.metadata_rules.json</a>
+                    </p>
+                  }
+                  <p class="rule-condition-header">Applied to all entities</p>
+                  <table mat-table [dataSource]="dataSource" table-striped style="width: 100%; margin-top: 15px;">
+                    <ng-container matColumnDef="Name">
+                      <th mat-header-cell class="table-header" *matHeaderCellDef>Name</th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let item;">
+                        {{item['name']}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Description">
+                      <th mat-header-cell class="table-header" *matHeaderCellDef>Description</th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let item;">
+                        {{item['description']}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Type">
+                      <th mat-header-cell class="table-header" *matHeaderCellDef>Type</th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let item;">
+                        {{getType(item)}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Required?">
+                      <th mat-header-cell class="table-header" *matHeaderCellDef>Required?</th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let item;">
+                        {{getMandatoryField(item)}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Allow multiple?">
+                      <th mat-header-cell class="table-header" *matHeaderCellDef>Allow multiple?</th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let item;">
+                        {{allowMultiple(item)}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Valid values">
+                      <th mat-header-cell class="table-header" *matHeaderCellDef>Valid values</th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let item;">
+                        {{getValidValues(item)}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Valid units">
+                      <th mat-header-cell class="table-header" *matHeaderCellDef>Valid units</th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let item;">
+                        {{getValidUnits(item)}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Valid terms">
+                      <th mat-header-cell class="table-header" *matHeaderCellDef>Valid terms</th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let item;"></td>
+                    </ng-container>
+                    <ng-container matColumnDef="Condition">
+                      <th mat-header-cell class="table-header" *matHeaderCellDef>Condition</th>
+                      <td mat-cell class="table-cell-data" *matCellDef="let item;"></td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="column_names"></tr>
+                    <tr mat-row *matRowDef="let row; columns: column_names;"></tr>
+                  </table>
+                </div>
+              </div>
+            }
 
-      </div>
-    </div>
-  </ng-container>
-
-</div>
+          </div>

@@ -1,43 +1,60 @@
 import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {indexFieldsData} from './graphqlConstants';
 import {Apollo, gql} from 'apollo-angular';
 import {MatTableDataSource} from '@angular/material/table';
 import {Subscription} from 'rxjs';
 import {graphql_ws_url} from '../shared/constants';
 import {IndexFiltersComponent} from './index-filters/index-filters.component';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import {Title} from '@angular/platform-browser';
 import {ApiDataService} from '../services/api-data.service';
+import { ShortenTitlePipe } from './display-data/shorten-title.pipe';
+import { TitleCasePipe } from '@angular/common';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { DisplayDataComponent } from './display-data/display-data.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatToolbar } from '@angular/material/toolbar';
+import { HeaderComponent } from '../shared/header/header.component';
+import { GraphQLModule } from '../graphql.module';
 
 @Component({
   selector: 'app-graphql',
   templateUrl: './graphql.component.html',
-  styleUrls: ['./graphql.component.css']
+  styleUrls: ['./graphql.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatToolbar, FlexModule, MatFormField, MatLabel, MatSelect, FormsModule, ReactiveFormsModule, MatOption,
+    IndexFiltersComponent, MatButton, MatProgressBar, DisplayDataComponent, MatDialogTitle, CdkScrollable, MatDialogContent,
+    MatDialogActions, MatDialogClose, TitleCasePipe, ShortenTitlePipe, GraphQLModule]
 })
 export class GraphqlComponent implements OnInit, OnDestroy  {
-  @ViewChild(IndexFiltersComponent ) filtersComponent: IndexFiltersComponent ;
-  @ViewChild('filtersDialog') filtersDialog: TemplateRef<any>;
-  @ViewChild('columnsDialog') columnsDialog: TemplateRef<any>;
+  @ViewChild(IndexFiltersComponent ) filtersComponent!: IndexFiltersComponent ;
+  @ViewChild('filtersDialog') filtersDialog!: TemplateRef<any>;
+  @ViewChild('columnsDialog') columnsDialog!: TemplateRef<any>;
 
   firstIndexName = new FormControl('');
   secondIndexName = new FormControl('');
-  firstIndices = [];
+  firstIndices: string[] = [];
   secondIndices = [];
-  selectedIndicesArray = [];
+  selectedIndicesArray: any[] = [];
   selectedColumns = {};
   indicesSelected = false;
   showProgressBar = false;
   searchSuccess = false;
-  displayedColumns: string[];
-  dataSource: MatTableDataSource<any>;
-  indexData = {};
-  dataTable: any[];
-  socket;
+  displayedColumns: string[] = [];
+  dataSource!: MatTableDataSource<any>;
+  indexData: {[index: string]: any} = {};
+  dataTable: any[] = [];
+  socket: any;
   taskId = '';
-  errors = [];
+  errors: any[] = [];
   columnValuesCount = 0;
-  cursor: string;
+  cursor = '';
   private querySubscription: Subscription = Subscription.EMPTY;
 
   constructor(
@@ -56,13 +73,15 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     this.dataTable = [];
   }
 
-  onIndexChange(indexName, event) {
+  onIndexChange(indexName: string, event: { value: any; }) {
     if (indexName === 'firstIndex') {
       this.selectedIndicesArray = [];
       this.dataTable = [];
       this.selectedIndicesArray[0] = event.value;
-      this.secondIndices = this.indexData[this.firstIndexName.value]['joinIndices'];
-      this.secondIndexName.reset();
+      if (this.firstIndexName.value) {
+        this.secondIndices = this.indexData[this.firstIndexName.value]['joinIndices'];
+        this.secondIndexName.reset();
+      }
     } else if (indexName === 'secondIndex') {
       this.selectedIndicesArray[1] = event.value;
       this.dataTable = [];
@@ -106,9 +125,11 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
         `
       })
         .valueChanges
-        .subscribe(({ data, loading }) => {
-          this.taskId = data?.[this.indexData[this.firstIndexName.value].celeryQueryName]?.['id'];
-          this.setSocket(this.taskId);
+        .subscribe(({ data }) => {
+          if (this.firstIndexName.value) {
+            this.taskId = data?.[this.indexData[this.firstIndexName.value].celeryQueryName]?.['id'];
+            this.setSocket(this.taskId);
+          }
         });
     } else {
       this.dialog.open(this.columnsDialog);
@@ -117,7 +138,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     }
   }
 
-  includeOntologyTermsField(selectedIndexFields, indexName) {
+  includeOntologyTermsField(selectedIndexFields: any[], indexName: string) {
     for (const col of selectedIndexFields) {
       const colName = indexName + '.' + col;
       if (this.indexData[indexName]['ontologyTermsLink'] && colName in this.indexData[indexName]['ontologyTermsLink']) {
@@ -155,7 +176,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
         `
       })
         .valueChanges
-        .subscribe(({ data, loading }) => {
+        .subscribe(({ data }) => {
           this.generateDataTable(data);
           this.showProgressBar = false;
           this.searchSuccess = true;
@@ -168,7 +189,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  flatten(obj, path = '') {
+  flatten(obj: any, path = '') {
     if (!(obj instanceof Object)) {
       return {[path.replace(/\.$/g, '')] : obj};
     }
@@ -194,12 +215,25 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  setColumnValue(indexName, dictRecord, container) {
+  setColumnValue(indexName: any, dictRecord: any, container: any) {
     const flatRec = this.flatten(dictRecord);
     for (const [key, recValue] of Object.entries(flatRec)) {
       const pattern = /\.\[\d*\]/g;
+
       if (pattern.test(key)) {
-        const numEntries = key.match(pattern).at(-1).match(/\d+/g)[0];
+        let numEntries = '';
+
+        const matchArray: RegExpMatchArray | null = key.match(pattern);
+        if (matchArray) {
+          const lastItem = matchArray.at(-1);
+          if (lastItem) {
+            const match: RegExpMatchArray | null = lastItem.match(/\d+/g);
+            if (match) {
+              numEntries = match[0];
+            }
+          }
+        }
+
         const newKey = key.replace(pattern, '');
         if (`${indexName}.${newKey}` in container && container[`${indexName}.${newKey}`]) {
           // initialise a set with the existing entries associated with flatRec dict key
@@ -215,21 +249,21 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     }
   }
 
-  generateDataTable(data) {
+  generateDataTable(data: any) {
     this.dataTable = [];
     const leftIndex = this.selectedIndicesArray[0];
     const queryName = this.indexData[leftIndex].resultQueryName;
     const recordsList = data[queryName]['edges'];
-    const completeResultset = [];
-    let joinRecords = [];
+    const completeResultset: any[] = [];
+    let joinRecords: any[] = [];
     let joinIndex = '';
-    recordsList.forEach(record => {
+    recordsList.forEach((record: any) => {
       const {join: joinObj, ...leftIndexObj} = record['node'];
       if (joinObj) {
         joinIndex = Object.keys(joinObj)[0];
         joinRecords = joinObj[joinIndex]['edges'];
       }
-      let dataTable = [];
+      let dataTable: any[] = [];
       if (joinRecords && joinRecords.length > 0) {
         dataTable = joinRecords.map(rec => {
           const container = {};
@@ -250,7 +284,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  buildGraphqlJoinQuery(graphqlFiltersObj) {
+  buildGraphqlJoinQuery(graphqlFiltersObj: any) {
     const firstIndex = this.selectedIndicesArray[0];
     const secondIndex = this.selectedIndicesArray[1];
     const queryName = this.indexData[firstIndex].celeryQueryName;
@@ -265,7 +299,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  buildGraphqlQuery(leftIndexFields, joinIndexFields) {
+  buildGraphqlQuery(leftIndexFields: any, joinIndexFields: any) {
     const firstIndex = this.selectedIndicesArray[0];
     const secondIndex = this.selectedIndicesArray[1];
     if (!leftIndexFields.includes(this.indexData[firstIndex]['primary'])) {
@@ -323,8 +357,8 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  formatFields(indexFields) {
-    return indexFields.map(field => {
+  formatFields(indexFields: any) {
+    return indexFields.map((field: string) => {
       if (field.includes('.')) {
         const nestedFieldsArr = field.split('.');
         let fieldGraphqlString = '';
@@ -356,7 +390,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
         'task_id': task_id
       }));
     };
-    this.socket.onmessage = (event) => {
+    this.socket.onmessage = (event: any) => {
       const data = JSON.parse(event.data)['response'];
       if (data['graphql_status'] && data['graphql_status'] === 'Success') {
         this.fetchFilteredResult();
@@ -377,7 +411,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  generateGraphqlFilters(filterObj) {
+  generateGraphqlFilters(filterObj: any) {
     /*{
       "filterFields": [
       {
@@ -401,15 +435,15 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     for (let i = 0; i < filtersArr.length; i++) {
       const filterName = filtersArr[i].filterName;
       const filterValuesArr = filtersArr[i].filterValue.split(',')
-        .map(element => element.trim())
-        .filter(element => element !== '');
+        .map((element: string) => element.trim())
+        .filter((element: string) => element !== '');
 
-      const filterValuesArrGQL = `[${filterValuesArr.map(val => '"' + val + '"')}]`;
+      const filterValuesArrGQL = `[${filterValuesArr.map((val: string) => '"' + val + '"')}]`;
 
       if (filterName.includes('.')) {
         const graphqlObject = {};
         let container = graphqlObject;
-        filterName.split('.').map((k, idx, values) => {
+        filterName.split('.').map((k: string | number, idx: number, values: any) => {
           container = (container[k] = (idx === values.length - 1 ? filterValuesArrGQL : {}));
         });
         graphqlString += this.stringifyObject(graphqlObject).slice(1, -1);
@@ -422,7 +456,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  stringifyObject(graphqlObject) {
+  stringifyObject(graphqlObject: any) {
     if (typeof graphqlObject !== 'object' || Array.isArray(graphqlObject)) {
       return graphqlObject;
     }
@@ -467,7 +501,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
     }
   }
 
-  buildGraphqlDownloadQuery(leftIndexFields, joinIndexFields, graphqlFiltersObj) {
+  buildGraphqlDownloadQuery(leftIndexFields: any, joinIndexFields: any, graphqlFiltersObj: any) {
     const firstIndex = this.selectedIndicesArray[0];
     const secondIndex = this.selectedIndicesArray[1];
     const formattedLeftIndexFields = this.formatFields(leftIndexFields);

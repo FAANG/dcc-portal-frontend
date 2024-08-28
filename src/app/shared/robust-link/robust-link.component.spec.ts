@@ -8,8 +8,8 @@ describe('RobustLinkComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RobustLinkComponent ]
-    })
+    declarations: [RobustLinkComponent]
+})
     .compileComponents();
   }));
 

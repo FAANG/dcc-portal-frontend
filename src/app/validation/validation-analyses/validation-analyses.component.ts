@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FileUploader} from 'ng2-file-upload';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
+import { FileUploader, FileUploadModule } from 'ng2-file-upload';
 import {Title} from '@angular/platform-browser';
-import {NgxSmartModalService} from 'ngx-smart-modal';
+import { NgxSmartModalService, NgxSmartModalModule } from 'ngx-smart-modal';
 import {ApiDataService} from '../../services/api-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import {
@@ -13,74 +13,93 @@ import {
 import {makeid, replaceUnderscoreWithSpaceAndCapitalize} from '../../shared/common_functions';
 import {UserForm} from '../webin_aap_user';
 import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
-import {MatTabGroup} from '@angular/material/tabs';
-import { MatTableDataSource } from '@angular/material/table';
+import { Router, RouterLink } from '@angular/router';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import {NgClass, NgStyle, DatePipe, isPlatformBrowser} from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
+import { MatButton } from '@angular/material/button';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 const UploadURL = validation_service_url + '/conversion/analyses';
 
 @Component({
   selector: 'app-validation-analyses',
   templateUrl: './validation-analyses.component.html',
-  styleUrls: ['./validation-analyses.component.css']
+  styleUrls: ['./validation-analyses.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, MatButton, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription,
+    MatTabGroup, MatTab, FlexModule, RouterLink, FileUploadModule, MatRadioGroup, FormsModule, MatRadioButton, MatTooltip, NgClass,
+    ExtendedModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgStyle, MatHeaderRowDef, MatHeaderRow,
+    MatRowDef, MatRow, MatPaginator, NgxSmartModalModule, DatePipe]
 })
 export class ValidationAnalysesComponent implements OnInit, OnDestroy {
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  dataSource: MatTableDataSource<any>;
+  @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  dataSource!: MatTableDataSource<any>;
   model = new UserForm('', '', 'prod');
   fileid = makeid(20);
   public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: this.fileid});
-  conversion_status: string;
-  validation_status: string;
-  submission_status: string;
-  annotation_status: string;
-  submission_message: string;
-  gcp_subscription_status: string;
-  socket;
-  validation_results;
-  record_types = [];
-  active_key: string;
-  active_issue;
-  active_table;
-  active_column: string;
-  active_issues;
-  records_that_pass = [];
-  records_with_issues = [];
-  records_to_show;
+  conversion_status = '';
+  validation_status = '';
+  submission_status = '';
+  annotation_status = '';
+  submission_message = '';
+  gcp_subscription_status = '';
+  socket: any;
+  validation_results: any;
+  record_types: any[] = [];
+  active_key = '';
+  active_issue: any;
+  active_table: any;
+  active_column = '';
+  active_issues: any;
+  records_that_pass: any[] = [];
+  records_with_issues: any[] = [];
+  records_to_show: any;
   show_table = false;
   validation_started = false;
-  conversion_task_id: string;
-  validation_task_id: string;
-  download_data_task_id: string;
-  metadata_template_with_examples: string;
-  metadata_template_without_examples: string;
-  errors = [];
-  column_names = [];
-  table_data = [];
-  table_errors = [];
-  table_warnings = [];
+  conversion_task_id = '';
+  validation_task_id = '';
+  download_data_task_id = '';
+  metadata_template_with_examples = '';
+  metadata_template_without_examples = '';
+  errors: any[] = [];
+  column_names: any[] = [];
+  table_data: any[] = [];
+  table_errors: any[] = [];
+  table_warnings: any[] = [];
   submissionStarted = false;
   disableAuthForm = false;
-  submissionResults = [];
-  submission_task_id: string;
+  submissionResults: any[] = [];
+  submission_task_id = '';
   bovreg_submission = false;
   private_submission = false;
-  col_index = [];
+  col_index: any[] = [];
   action: 'update'|'submission' = 'submission';
-  tooltipUpdate: string;
-  tooltipSubmission: string;
-  currentDate: Date;
+  tooltipUpdate = '';
+  tooltipSubmission = '';
+  currentDate!: Date;
+  isBrowser = false;
 
-  @ViewChild('myButton') myButton: ElementRef<HTMLElement>;
+  @ViewChild('myButton') myButton!: ElementRef<HTMLElement>;
 
   constructor(
     private titleService: Title,
     public ngxSmartModalService: NgxSmartModalService,
     private apiDataService: ApiDataService,
     public _userService: UserService,
-    private router: Router
-  ) { }
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object,
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit() {
     this.currentDate = new Date;
@@ -88,14 +107,14 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     this.getPubSubMessage();
 
     this.tabGroup.selectedIndex = 2;
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource<any[]>([]);
     this.submission_message = 'Please login';
     this.titleService.setTitle('FAANG validation|Analyses');
     this.setSocket();
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onBeforeUploadItem = (file) => {
       this.conversion_status = 'Waiting';
-    }
+    };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.conversion_task_id = response;
       if (this.conversion_status === 'Success') {
@@ -135,9 +154,9 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
       this.parseColumnNames(table['custom']);
     }
     for (const record of this.active_table) {
-      let tmp = [];
-      let tmp_errors = [];
-      let tmp_warnings = [];
+      let tmp: any[] = [];
+      let tmp_errors: any[] = [];
+      let tmp_warnings: any[] = [];
       tmp.push(record['alias']['value']);
       tmp_errors.push('valid');
       tmp_warnings.push('valid');
@@ -164,56 +183,61 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   }
 
   getPubSubMessage() {
-    this.apiDataService.get_pubsub_messages().subscribe(data => {
-      this.gcp_subscription_status = data[0]['enaStatus']
-    }, error => {
-      console.log(error);
+    this.apiDataService.get_pubsub_messages().subscribe({
+      next: data => {
+        this.gcp_subscription_status = data[0]['enaStatus'];
+      },
+      error: error => {
+        console.log(error);
+      }
     });
   }
 
   setSocket() {
-    const url = validation_ws_url + this.fileid + '/';
-    this.socket = new WebSocket(url);
-    this.socket.onopen = () => {
-      console.log('WebSockets connection created.');
-    };
-    this.socket.onmessage = (event) => {
-      const data = JSON.parse(event.data)['response'];
-      if (data['conversion_status']) {
-        this.conversion_status = data['conversion_status'];
-      }
-      if (data['submission_results']) {
-        this.submissionResults = data['submission_results'];
-        if (this.submissionResults.length !== 0) {
-          this.triggerFalseClick();
+    if (this.isBrowser) {
+      const url = validation_ws_url + this.fileid + '/';
+      this.socket = new WebSocket(url);
+      this.socket.onopen = () => {
+        console.log('WebSockets connection created.');
+      };
+      this.socket.onmessage = (event: any) => {
+        const data = JSON.parse(event.data)['response'];
+        if (data['conversion_status']) {
+          this.conversion_status = data['conversion_status'];
         }
-      }
-      if (data['submission_message']) {
-        this.submission_message = data['submission_message'];
-      }
-      if (data['validation_status']) {
-        this.validation_status = data['validation_status'];
-      }
-      if (data['submission_status']) {
-        this.submission_status = data['submission_status'];
-      }
-      if (data['errors']) {
-        this.errors.push(data['errors']);
-      }
-      if (data['annotation_status']) {
-        this.annotation_status = data['annotation_status'];
-      }
-      if (data['table_data']) {
-        this.validation_results = data['table_data'];
-        this.setValidationResults();
-      }
-      if (data['bovreg_submission']) {
-        this.bovreg_submission = true;
-      }
-    };
+        if (data['submission_results']) {
+          this.submissionResults = data['submission_results'];
+          if (this.submissionResults.length !== 0) {
+            this.triggerFalseClick();
+          }
+        }
+        if (data['submission_message']) {
+          this.submission_message = data['submission_message'];
+        }
+        if (data['validation_status']) {
+          this.validation_status = data['validation_status'];
+        }
+        if (data['submission_status']) {
+          this.submission_status = data['submission_status'];
+        }
+        if (data['errors']) {
+          this.errors.push(data['errors']);
+        }
+        if (data['annotation_status']) {
+          this.annotation_status = data['annotation_status'];
+        }
+        if (data['table_data']) {
+          this.validation_results = data['table_data'];
+          this.setValidationResults();
+        }
+        if (data['bovreg_submission']) {
+          this.bovreg_submission = true;
+        }
+      };
 
-    if (this.socket.readyState === WebSocket.OPEN) {
-      this.socket.onopen(null);
+      if (this.socket.readyState === WebSocket.OPEN) {
+        this.socket.onopen(null);
+      }
     }
   }
 
@@ -240,9 +264,9 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   }
 
   parseColumnData(data: any) {
-    let data_to_return = [];
-    let errors_to_return = [];
-    let warnings_to_return = [];
+    let data_to_return: any[] = [];
+    let errors_to_return: any[] = [];
+    let warnings_to_return: any[] = [];
     for (const name of Object.keys(data)) {
       if (Array.isArray(data[name])) {
         for (const record of data[name]) {
@@ -291,21 +315,8 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     }
   }
 
-  remove_underscores(record) {
+  remove_underscores(record: any) {
     return record.replace(/[_]/g, ' ');
-  }
-
-  getIssues(issues_list, issue_type_value) {
-    issues_list = issues_list.length;
-    if (issues_list === 0) {
-      return 'pass';
-    } else {
-      if (issues_list === 1) {
-        return issues_list + ' ' + issue_type_value;
-      } else {
-        return issues_list + ' ' + issue_type_value + 's';
-      }
-    }
   }
 
   getCellClass(i: number, j: number) {
@@ -314,6 +325,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     } else if (this.active_issue === 'issues' && this.table_warnings[i][j] !== 'valid') {
       return 'table-warning';
     }
+    return '';
   }
 
   getCellStyle(i: number, j: number) {
@@ -326,23 +338,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     }
   }
 
-  isButtonActive(button_record: string) {
-    if (button_record === this.active_key) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  isRecordsButtonActive(type: string) {
-    if (type === this.active_issue) {
-      return 'active';
-    } else {
-      return 'inactive';
-    }
-  }
-
-  onRecordButtonClick(tab) {
+  onRecordButtonClick(tab: any) {
     this.active_key = tab['tab']['textLabel'].replace(/[ ]/g, '_');
     this.active_table = this.validation_results[this.active_key];
     this.records_with_issues = [];
@@ -356,15 +352,17 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     this.onValidationResultsButtonClick('passed');
   }
 
-  onValidationResultsButtonClick(issues_type) {
+  onValidationResultsButtonClick(issues_type: any) {
     this.show_table = true;
     this.active_issue = issues_type;
     issues_type === 'passed' ? this.records_to_show = this.records_that_pass : this.records_to_show = this.records_with_issues;
-    let data = [];
-    this.records_to_show.forEach(record => {
-      let rowObj = {};
-      for (let index in this.column_names) {
-        rowObj[index] = record[index];
+    const data: any[] = [];
+    this.records_to_show.forEach((record: { [x: string]: any; }) => {
+      const rowObj = {};
+      for (const index in this.column_names) {
+        if (index) {
+          rowObj[index] = record[index];
+        }
       }
       data.push(rowObj);
     });
@@ -392,7 +390,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     }
   }
 
-  statusClass(status) {
+  statusClass(status: any) {
     if (status === 'Undefined' || status === 'Finished') {
       return 'badge badge-pill badge-info';
     } else if (status === 'Waiting' || status === 'Preparing data') {
@@ -402,43 +400,35 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     } else if (status === 'Error' || status === 'Fix issues') {
       return 'badge badge-pill badge-danger';
     }
+    return '';
   }
 
   startValidation() {
     this.validation_started = true;
-    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'analyses').subscribe(response => {
+    this.apiDataService.startValidation(this.action, this.conversion_task_id, this.fileid, 'analyses').subscribe({
+      next: response => {
         this.validation_task_id = response['id'];
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
-  }
-
-  startConversion() {
-    this.apiDataService.startConversion(this.conversion_task_id, this.fileid, 'analyses').subscribe(response => {
-        console.log(response['id']);
-        this.download_data_task_id = response['id'];
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    });
   }
 
   getTemplateFile() {
-    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'analyses', this.action).subscribe(response => {
+    this.apiDataService.getTemplate(this.validation_task_id, this.fileid, 'analyses', this.action).subscribe({
+      next: response => {
         console.log(response);
       },
-      error => {
+      error: error => {
         console.log(error);
       }
-    );
+    });
   }
 
-  isSubmissionDisabled(status) {
+  isSubmissionDisabled(status: string) {
     return status === 'Fix issues' || this.submission_status === 'Preparing data'
-      || this.gcp_subscription_status == 'failure';
+      || this.gcp_subscription_status === 'failure';
   }
 
   constructDownloadLink() {
@@ -449,7 +439,7 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     return validation_service_url_download + '/submission/download_template/' + this.fileid;
   }
 
-  onStartSubmissionClick(privateSubmission) {
+  onStartSubmissionClick(privateSubmission: any) {
     this.submissionStarted = !this.submissionStarted;
     if (privateSubmission) {
       this.onSubmit();
@@ -471,14 +461,14 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.disableAuthForm = true;
     this.apiDataService.submitRecords(this.action, this.model.username, this.model.password, this.model.mode, this.fileid,
-      this.conversion_task_id, 'analyses', this.private_submission, '').subscribe(
-      (response) => {
+      this.conversion_task_id, 'analyses', this.private_submission, '').subscribe({
+      next: (response) => {
         this.submission_task_id = response['id'];
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
       }
-    );
+    });
   }
 
   downloadSubmissionResults() {
@@ -490,20 +480,20 @@ export class ValidationAnalysesComponent implements OnInit, OnDestroy {
     el.click();
   }
 
-  tabClick(tab) {
-    if (tab.index == 0) {
-      this.router.navigate(['validation/samples']);
-    }
-    else if (tab.index == 1) {
-      this.router.navigate(['validation/experiments']);
-    }
-    else if (tab.index == 2) {
-      this.router.navigate(['validation/analyses']);
+  tabClick(tab: any) {
+    if (tab.index === 0) {
+      void this.router.navigate(['validation/samples']);
+    } else if (tab.index === 1) {
+      void this.router.navigate(['validation/experiments']);
+    } else if (tab.index === 2) {
+      void this.router.navigate(['validation/analyses']);
     }
   }
 
   ngOnDestroy(): void {
-    this.socket.close();
+    if (this.isBrowser && this.socket) {
+      this.socket.close();
+    }
   }
 
 }

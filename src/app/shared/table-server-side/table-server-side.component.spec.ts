@@ -8,8 +8,8 @@ describe('TableServerSideComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableServerSideComponent ]
-    })
+    imports: [TableServerSideComponent]
+})
     .compileComponents();
   }));
 

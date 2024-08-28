@@ -9,8 +9,12 @@ export const pieChartOptions: ChartOptions = {
     },
     datalabels: {
       formatter: (value, ctx) => {
-        const label = ctx.chart.data.labels[ctx.dataIndex];
-        return label;
+        const chartLabels = ctx.chart.data.labels;
+        if (chartLabels) {
+          const label = chartLabels[ctx.dataIndex];
+          return label;
+        }
+        return null;
       },
     },
   }
@@ -45,7 +49,7 @@ export const doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
       font: {
         size: 12,
       },
-      color: "#000000"
+      color: '#000000'
     },
     tooltip: {
       enabled: true,

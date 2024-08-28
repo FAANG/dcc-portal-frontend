@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Subject} from 'rxjs/internal/Subject';
 
 @Injectable({
@@ -13,13 +13,13 @@ export class UserService {
   private httpOptions: any;
 
   // the actual JWT token
-  public token: string;
+  public token: any;
 
   // the token expiration date
-  public token_expires: Date;
+  public token_expires: any;
 
   // the username of the logged in user
-  public username: string;
+  public username: any = '';
 
   // error messages received from the login attempt
   public errors: any = [];
@@ -31,44 +31,34 @@ export class UserService {
   }
 
   // Uses http.post() to get an auth token from djangorestframework-jwt endpoint
-  public login(user) {
-    this.http.post('https://api.faang.org/api-token-auth/', JSON.stringify(user), this.httpOptions).subscribe(
-      data => {
+  public login(user: {[index: string]: any}) {
+    this.http.post('https://api.faang.org/api-token-auth/', JSON.stringify(user), this.httpOptions).subscribe({
+      next: (data: {[index: string]: any}) => {
         console.log('login success', data);
         this.loginSuccess.next(true);
         this.updateData(data['token']);
       },
-      err => {
+      error: err => {
         console.error('login error', err);
         this.errors = err['error'];
       }
-    );
+  });
   }
 
   /**
    * Refreshes the JWT token, to extend the time the user is logged in
    */
   public refreshToken() {
-    this.http.post('https://api.faang.org/api-token-refresh/', JSON.stringify({token: this.token}), this.httpOptions).subscribe(
-      data => {
+    this.http.post('https://api.faang.org/api-token-refresh/', JSON.stringify({token: this.token}), this.httpOptions).subscribe({
+      next: (data: { [index: string]: any }) => {
         console.log('refresh success', data);
         this.updateData(data['token']);
       },
-      err => {
+      error: err => {
         console.error('refresh error', err);
         this.errors = err['error'];
       }
-    );
-  }
-
-  public testToken() {
-    this.http.get(
-      'https://api.faang.org/private_portal/organism/',
-      {headers: new HttpHeaders({'Authorization': `jwt ${this.token}`})}).subscribe(
-      data => {
-        console.log(data);
-      }
-    );
+    });
   }
 
   public logout() {
@@ -77,7 +67,7 @@ export class UserService {
     this.username = null;
   }
 
-  private updateData(token) {
+  private updateData(token: string) {
     this.token = token;
     this.errors = [];
 

@@ -29,25 +29,26 @@ export class ProjectsPage{
     cy.visit('/projects/AQUA-FAANG')
 
     cy.contains("AQUA-FAANG aims to generate genome-wide functional annotation maps for the six commercially most important fish species within European aquaculture and exploit their contribution to variation in traits of commercial relevance, focusing on improved resistance to disease.");
+    cy.scrollTo('bottom')
 
-    cy.get('[target_type="dataset"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="dataset"] > :nth-child(1)').find('tbody').find('tr').should("have.length.least", 4)
+    cy.get('[ng-reflect-target_type="dataset"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="dataset"] > :nth-child(1)').find('tbody').find('tr').should("have.length.least", 4)
     cy.get('tbody > :nth-child(1) > .cdk-column-Study-name').should('contain', 'PRJEB47408')
 
-    cy.get('[target_type="file"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="file"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
+    cy.get('[ng-reflect-target_type="file"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="file"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get(':nth-child(1) > .cdk-column-File-name > app-robust-link.ng-star-inserted > .ng-star-inserted').should('contain', 'ERR6663862_1.fastq.gz')
 
-    cy.get('[target_type="organism"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive')
+    cy.get('[ng-reflect-target_type="organism"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
+    cy.get('[ng-reflect-target_type="organism"] > :nth-child(1) > .table-responsive')
       .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 
-    // cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive > div[_ngcontent-ng-c571785226=""] > .mat-mdc-table > .mdc-data-table__content > :nth-child(1) > '.cdk-column-BioSamples-ID')
-    cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
+
+    cy.get('[ng-reflect-target_type="specimen"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
+    cy.get('[ng-reflect-target_type="specimen"] > :nth-child(1) > .table-responsive')
       .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
   }
@@ -62,30 +63,31 @@ export class ProjectsPage{
     cy.visit('/projects/BovReg')
 
     cy.contains("The BovReg consortium will provide a comprehensive map of functionally active genomic features in cattle and how their (epi)genetic variation in beef and dairy breeds translates into phenotypes.");
+    cy.scrollTo('bottom')
 
-    cy.get('[target_type="publication"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="publication"] > :nth-child(1)').find('tbody').find('tr').should("have.length.least", 4)
+    cy.get('[ng-reflect-target_type="publication"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="publication"] > :nth-child(1)').find('tbody').find('tr').should("have.length.least", 4)
 
-    cy.get('[target_type="pipeline"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="pipeline"] > :nth-child(1)').find('tbody').find('tr').should("have.length.at.least", 1)
+    cy.get('[ng-reflect-target_type="pipeline"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="pipeline"] > :nth-child(1)').find('tbody').find('tr').should("have.length.at.least", 1)
 
-    cy.get('[target_type="dataset"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="dataset"] > :nth-child(1)').find('tbody').find('tr').should("have.length.at.least", 2)
+    cy.get('[ng-reflect-target_type="dataset"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="dataset"] > :nth-child(1)').find('tbody').find('tr').should("have.length.at.least", 2)
     cy.get('tbody > :nth-child(1) > .cdk-column-Study-name').should('contain', 'PRJEB34570')
 
-    cy.get('[target_type="file"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="file"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
+    cy.get('[ng-reflect-target_type="file"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="file"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get('tbody > :nth-child(1) > .cdk-column-File-name').should('contain', 'ERR3555852.fastq.gz')
 
-    cy.get('[target_type="organism"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive')
+    cy.get('[ng-reflect-target_type="organism"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
+    cy.get('[ng-reflect-target_type="organism"] > :nth-child(1) > .table-responsive')
       .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 
-    cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
+    cy.get('[ng-reflect-target_type="specimen"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
+    cy.get('[ng-reflect-target_type="specimen"] > :nth-child(1) > .table-responsive')
       .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
   }
@@ -101,27 +103,28 @@ export class ProjectsPage{
     cy.visit('/projects/GENE-SWitCH')
 
     cy.contains("GENE-SWitCH aims to deliver new underpinning knowledge on the functional genomes of two main monogastric farm species (pig and chicken) and to enable immediate translation to the pig and poultry sectors.");
+    cy.scrollTo('bottom')
 
     cy.get('Related Publications').should('not.exist')
 
 
-    cy.get('[target_type="dataset"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="dataset"] > :nth-child(1)').find('tbody').find('tr').should("have.length.at.least", 10)
+    cy.get('[ng-reflect-target_type="dataset"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="dataset"] > :nth-child(1)').find('tbody').find('tr').should("have.length.at.least", 10)
     cy.get('tbody > :nth-child(1) > .cdk-column-Study-name').should('contain', 'PRJEB41822')
 
-    cy.get('[target_type="file"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="file"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
+    cy.get('[ng-reflect-target_type="file"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="file"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
     cy.get('tbody > :nth-child(1) > .cdk-column-File-name').should('contain', 'ERR4970637.fastq.gz')
 
-    cy.get('[target_type="organism"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="organism"] > :nth-child(1) > .table-responsive')
+    cy.get('[ng-reflect-target_type="organism"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="organism"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
+    cy.get('[ng-reflect-target_type="organism"] > :nth-child(1) > .table-responsive')
       .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 
-    cy.get('[target_type="specimen"] > :nth-child(1)').should('be.visible')
-    cy.get('[target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
-    cy.get('[target_type="specimen"] > :nth-child(1) > .table-responsive')
+    cy.get('[ng-reflect-target_type="specimen"] > :nth-child(1)').should('be.visible')
+    cy.get('[ng-reflect-target_type="specimen"] > :nth-child(1)').find('tbody').find('tr').should("have.length", 10)
+    cy.get('[ng-reflect-target_type="specimen"] > :nth-child(1) > .table-responsive')
       .get('.mat-mdc-table > .mdc-data-table__content > :nth-child(1) > .cdk-column-BioSamples-ID')
       .should('contain', 'SAMEA')
 

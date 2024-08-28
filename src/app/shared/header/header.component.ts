@@ -1,26 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatButton } from '@angular/material/button';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: true,
+    imports: [MatToolbar, FlexModule, RouterLink, MatButton, ExtendedModule, MatMenuTrigger, MatIcon, RouterLinkActive, NgClass,
+      MatMenu, MatMenuItem]
 })
 export class HeaderComponent implements OnInit {
   collapsed = true;
-  records_dropdown_open = false;
-  projects_dropdown_open = false;
-  validation_dropdown_open = false;
-  help_dropdown_open = false;
-  show_banner = 'show';
 
   constructor(private router: Router) {}
 
   ngOnInit() {
   }
 
-  isActive(option) {
-    const menuItems = {
+  isActive(option: string) {
+    const menuItems: {[index: string]: any} = {
       'data': ['organism', 'specimen', 'dataset', 'file', 'analysis', 'protocol', 'article'],
       'submit': ['ruleset', 'validation', 'trackhubs', 'nextflowSubmission'],
       'help': ['api'],
@@ -28,7 +33,7 @@ export class HeaderComponent implements OnInit {
       'protocol': ['protocol'],
       'validation': ['validation'],
       'ruleset': ['ruleset']
-    }
+    };
     for (const item of menuItems[option]) {
       if (option === 'data') {
         if (this.router.url.includes(item) && !this.router.url.includes('summary') ) {
@@ -40,5 +45,6 @@ export class HeaderComponent implements OnInit {
         }
       }
     }
+    return null;
   }
 }

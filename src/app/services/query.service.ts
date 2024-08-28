@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +12,7 @@ export class QueryService {
 
   constructor(private http: HttpClient) { }
 
-  getAllColumns() {
-    const url = this.query_language_url + '/columns';
-    return this.http.get(url).pipe(
-      map((data: any) => {
-        return data;
-      }),
-      catchError(this.handleError),
-    );
-  }
-
-  getRecords(indices, fields, from, sort, project) {
+  getRecords(indices: any, fields: any, from: any, sort: any, project: string) {
     if (indices.length === 1) {
       let params = new HttpParams({
         fromObject: { 'indices': indices }
@@ -57,36 +47,10 @@ export class QueryService {
         catchError(this.handleError),
       );
     }
+    return null;
   }
 
-  downloadCsv(indices, fields, project, fileFormat) {
-    let params = new HttpParams({
-      fromObject: { 'indices': indices }
-    }).set('_source', fields)
-      .set('file_format', fileFormat);
-    if (project) {
-      params = params.set('q', ((indices === 'file-specimen') ? 'file.secondaryProject:' : 'secondaryProject:') + project);
-    }
-
-    const url = this.query_language_url + '/download';
-    this.downloading = true;
-    this.http.get(url, { params: params, responseType: 'blob' }).subscribe(
-      (response: any) => {
-        const dataType = response.type;
-        const binaryData = [];
-        binaryData.push(response);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-        downloadLink.setAttribute('download', `data.${fileFormat}`);
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        this.downloading = false;
-      }
-    );
-  }
-
-
-  downloadDatasetTSV(fileSpecimenFields, sort, fileFormat, accession) {
+  downloadDatasetTSV(fileSpecimenFields: any, sort: any, fileFormat: any, accession: any) {
     const params = new HttpParams()
       .set('_source', fileSpecimenFields)
       .set('sort', sort)
@@ -98,7 +62,7 @@ export class QueryService {
     this.http.get(url, { params: params, responseType: 'blob' }).subscribe(
       (response: any) => {
         const dataType = response.type;
-        const binaryData = [];
+        const binaryData: any[] = [];
         binaryData.push(response);
         const downloadLink = document.createElement('a');
         downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
@@ -122,7 +86,6 @@ export class QueryService {
         `body was: ${error.error}`);
     }
     // return an observable with a user-facing errorSubject message
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError(() => 'Something bad happened; please try again later.');
   }
 }

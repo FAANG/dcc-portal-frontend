@@ -13,7 +13,7 @@ textarea {
 }
 
 textarea:focus {
-    box-shadow: 0 0 8px 0px rgb(0 0 0 / 30%);
+    box-shadow: 0 0 8px 0 rgb(0 0 0 / 30%);
     outline: 0;
     border: 0;
 }
@@ -38,7 +38,6 @@ textarea:focus {
 
 .table-color-status {
     border-radius: 7px;
-    cursor: default;
     margin-top: 5px;
     margin-bottom: 5px;
     cursor: pointer;

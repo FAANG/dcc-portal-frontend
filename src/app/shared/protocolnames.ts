@@ -1,4 +1,4 @@
-export const protocolNames = {
+export const protocolNames: {[index: string]: any} = {
   experimentalProtocol: 'Experimental protocol',
   extractionProtocol: 'Extraction protocol',
   rnaPreparation3AdapterLigationProtocol: 'Rna preparation 3\' adapter ligation protocol',
@@ -15,7 +15,7 @@ export const protocolNames = {
   cageProtocol: 'CAGE protocol'
 };
 
-export const reverseProtocolNames = {
+export const reverseProtocolNames: {[index: string]: any} = {
   'Experimental protocol': 'experimentalProtocol',
   'Extraction protocol': 'extractionProtocol',
   'Rna preparation 3\' adapter ligation protocol': 'rnaPreparation3AdapterLigationProtocol',

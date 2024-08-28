@@ -6,7 +6,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {RelatedItemsComponent} from '../../shared/related-items/related-items.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SheepatlasComponent', () => {
   let component: SheepatlasComponent;
@@ -14,18 +15,16 @@ describe('SheepatlasComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         SheepatlasComponent,
         HeaderComponent,
         RelatedItemsComponent,
         RobustLinkComponent
-      ],
-      imports: [
-        RouterTestingModule,
-        NgxPaginationModule,
-        HttpClientTestingModule
-      ]
-    })
+    ],
+    imports: [RouterTestingModule,
+        NgxPaginationModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

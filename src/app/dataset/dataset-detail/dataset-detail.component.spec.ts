@@ -5,8 +5,9 @@ import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RelatedItemsComponent} from '../../shared/related-items/related-items.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('DatasetDetailComponent', () => {
   let component: DatasetDetailComponent;
@@ -14,18 +15,13 @@ describe('DatasetDetailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DatasetDetailComponent,
+    imports: [NgxPaginationModule,
+        RouterTestingModule, DatasetDetailComponent,
         HeaderComponent,
         RobustLinkComponent,
-        RelatedItemsComponent,
-      ],
-      imports: [
-        NgxPaginationModule,
-        RouterTestingModule,
-        HttpClientTestingModule
-      ]
-    })
+        RelatedItemsComponent],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

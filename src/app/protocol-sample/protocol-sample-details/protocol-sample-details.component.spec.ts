@@ -5,7 +5,8 @@ import {HeaderComponent} from '../../shared/header/header.component';
 import {RobustLinkComponent} from '../../shared/robust-link/robust-link.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ProtocolSampleDetailsComponent', () => {
   let component: ProtocolSampleDetailsComponent;
@@ -13,17 +14,15 @@ describe('ProtocolSampleDetailsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         ProtocolSampleDetailsComponent,
         HeaderComponent,
         RobustLinkComponent
-      ],
-      imports: [
-        NgxPaginationModule,
-        RouterTestingModule,
-        HttpClientTestingModule
-      ]
-    })
+    ],
+    imports: [NgxPaginationModule,
+        RouterTestingModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

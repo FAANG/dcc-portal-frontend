@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { Location, LocationStrategy, PathLocationStrategy, NgClass, KeyValuePipe } from '@angular/common';
 import {ApiDataService} from '../../services/api-data.service';
 import {
   experiment_metadata_template_with_examples,
@@ -17,19 +17,46 @@ import {
   getValidItems,
   replaceUnderscoreWithSpace
 } from '../../shared/common_functions';
-import {MatTabGroup} from '@angular/material/tabs';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
+  MatRowDef, MatRow } from '@angular/material/table';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatButton } from '@angular/material/button';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
-  selector: 'app-ruleset-experiment',
-  templateUrl: './ruleset-experiment.component.html',
-  styleUrls: ['../rulesets.css'],
-  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+    selector: 'app-ruleset-experiment',
+    templateUrl: './ruleset-experiment.component.html',
+    styleUrls: ['../rulesets.css'],
+    providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
+    standalone: true,
+    imports: [
+        HeaderComponent,
+        MatTabGroup,
+        MatTab,
+        FlexModule,
+        MatButton,
+        NgClass,
+        ExtendedModule,
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCellDef,
+        MatCell,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        KeyValuePipe,
+    ],
 })
 export class RulesetExperimentComponent implements OnInit {
-  @ViewChild('tabs', { static: true }) tabGroup: MatTabGroup;
-  dataSource: MatTableDataSource<any>;
-  column_names = ['Name', 'Description', 'Type', 'Required?', 'Allow multiple?', 'Valid values', 'Valid units', 'Valid terms', 'Condition'];
+  @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
+  dataSource!: MatTableDataSource<any>;
+  column_names = ['Name', 'Description', 'Type', 'Required?', 'Allow multiple?', 'Valid values', 'Valid units', 'Valid terms',
+    'Condition'];
   error: any;
   data: any;
   all_data: any;
@@ -42,8 +69,8 @@ export class RulesetExperimentComponent implements OnInit {
   getMandatoryData: any;
   generateEbiOntologyLink: any;
   replaceUnderscoreWithSpace: any;
-  metadata_template_with_examples: string;
-  metadata_template_without_examples: string;
+  metadata_template_with_examples = '';
+  metadata_template_without_examples = '';
   record_specific_templates = {
     'ATAC-seq': '../../../assets/atac-seq.xlsx',
     'BS-seq': '../../../assets/bs-seq.xlsx',
@@ -57,13 +84,13 @@ export class RulesetExperimentComponent implements OnInit {
     'CAGE-seq': '../../../assets/cage-seq.xlsx',
     'scRNA-seq': '../../../assets/scrna-seq.xlsx'
   };
-  rule_groups = [];
-  rules = [];
-  active_rule: string;
-  length: number;
-  name: string;
-  description: string;
-  details: string;
+  rule_groups: any[] = [];
+  rules: any[] = [];
+  active_rule = '';
+  length = 0;
+  name = '';
+  description = '';
+  details = '';
   location: Location;
 
   constructor(private titleService: Title,
@@ -76,7 +103,7 @@ export class RulesetExperimentComponent implements OnInit {
 
   ngOnInit() {
     this.tabGroup.selectedIndex = 1;
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource<any[]>([]);
     this.rule_groups = [
       'Standard',
       'ATAC-seq',
@@ -106,7 +133,7 @@ export class RulesetExperimentComponent implements OnInit {
 
     this.route.fragment
       .subscribe(
-        (fragment: string) => {
+        (fragment: string | null) => {
           if (fragment) {
             this.clickOnRule(fragment);
           } else {
@@ -142,10 +169,11 @@ export class RulesetExperimentComponent implements OnInit {
     } else if (this.active_rule === 'EM-seq' && rule === 'self') {
       return 'methylation profiling by high throughput sequencing';
     }
+    return '';
   }
 
   getType(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
@@ -181,44 +209,44 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   getValidValues(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
       field = data['items']['properties'];
     }
     if ('value' in field && 'enum' in field['value']) {
-      return field['value']['enum'].filter(term => missing_values.indexOf(term) === -1).join(', ');
+      return field['value']['enum'].filter((term: string) => missing_values.indexOf(term) === -1).join(', ');
     } else if ('value' in field && 'const' in field['value']) {
       return field['value']['const'];
     } else if ('text' in field && 'enum' in field['text']) {
-      return field['text']['enum'].filter(term => missing_values.indexOf(term) === -1).join(', ');
+      return field['text']['enum'].filter((term: string) => missing_values.indexOf(term) === -1).join(', ');
     }
   }
 
   getValidUnits(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
       field = data['items']['properties'];
     }
     if ('units' in field && 'enum' in field['units']) {
-      return field['units']['enum'].filter(term => missing_values.indexOf(term) === -1).join(', ');
+      return field['units']['enum'].filter((term: string) => missing_values.indexOf(term) === -1).join(', ');
     } else if ('units' in field && 'const' in field['units']) {
       return field['units']['const'];
     }
   }
 
   getValidTerms(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
       field = data['items']['properties'];
     }
     if ('term' in field && 'enum' in field['term']) {
-      return field['term']['enum'].filter(term => missing_values.indexOf(term) === -1);
+      return field['term']['enum'].filter((term: string) => missing_values.indexOf(term) === -1);
     } else if ('term' in field && 'oneOf' in field['term']) {
       const results = [];
       for (const item of field['term']['oneOf']) {
@@ -227,7 +255,7 @@ export class RulesetExperimentComponent implements OnInit {
         } else if ('const' in item && item['const'] !== 'restricted access') {
           return [item['const']];
         } else if ('enum' in item) {
-          results.push.apply(results, item['enum'].filter(function(item) { return item !== 'restricted access'; }));
+          results.push.apply(results, item['enum'].filter(function(item: string) { return item !== 'restricted access'; }));
         }
       }
       return results;
@@ -237,7 +265,7 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   getOntologyName(data: any) {
-    let field;
+    let field: any;
     if ('properties' in data) {
       field = data['properties'];
     } else {
@@ -259,29 +287,32 @@ export class RulesetExperimentComponent implements OnInit {
   }
 
   clickOnRule(rule: string) {
-    this.apiDataService.getRulesetExperiment(convertToSnakeCase(rule.toLowerCase())).subscribe(data => {
-      this.data = data;
-      this.all_data = data;
-      this.name = data.title;
-      this.description = data.description;
-      this.details = data.properties.describedBy.const;
-      this.mandatory_data = this.getMandatoryData(data);
-      this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
-      this.rules = Object.keys(data.properties);
-      this.active_rule = rule;
-      this.error = '';
-      this.dataSource.data = this.getDataSource(data['properties'], this.rules);
-    }, error => {
-      if (error.status === 404) {
-        this.error = `${rule} is not a valid rule group. Please select a rule group from the following list: ${this.rule_groups}.`;
-      } else {
-        this.error = error.message;
+    this.apiDataService.getRulesetExperiment(convertToSnakeCase(rule.toLowerCase())).subscribe({
+      next: data => {
+        this.data = data;
+        this.all_data = data;
+        this.name = data.title;
+        this.description = data.description;
+        this.details = data.properties['describedBy']['const'];
+        this.mandatory_data = this.getMandatoryData(data);
+        this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
+        this.rules = Object.keys(data.properties);
+        this.active_rule = rule;
+        this.error = '';
+        this.dataSource.data = this.getDataSource(data['properties'], this.rules);
+      },
+      error: error => {
+        if (error.status === 404) {
+          this.error = `${rule} is not a valid rule group. Please select a rule group from the following list: ${this.rule_groups}.`;
+        } else {
+          this.error = error.message;
+        }
       }
     });
   }
 
   mandatoryOnlyToggle() {
-    if (this.mandatory_only === false) {
+    if (!this.mandatory_only) {
       this.data = this.mandatory_data;
       this.length = Object.keys(this.data.properties).filter(term => special_sheets.indexOf(term) === -1).length;
       this.rules = Object.keys(this.data.properties);
@@ -296,17 +327,17 @@ export class RulesetExperimentComponent implements OnInit {
     }
   }
 
-  updateUrlFragment(category) {
+  updateUrlFragment(category: any) {
     const url = this.router.createUrlTree([], {relativeTo: this.route, fragment: category}).toString();
     this.location.go(url);
   }
 
-  getDataSource(data, rules){
-    let ds = [];
-    for (let rule of rules) {
+  getDataSource(data: { [x: string]: any; }, rules: any[]) {
+    const ds: any[] = [];
+    for (const rule of rules) {
       if (rule !== 'describedBy' && rule !== 'schema_version' && rule !== 'experiments_core'
           && rule !== 'input_dna' && rule !== 'dna-binding_proteins') {
-        let rowObj = data[rule];
+        const rowObj = data[rule];
         rowObj['rule'] = rule;
         ds.push(rowObj);
       }
@@ -314,15 +345,13 @@ export class RulesetExperimentComponent implements OnInit {
     return ds;
   }
 
-  tabClick(tab) {
+  tabClick(tab: any) {
     if (tab.index === 0) {
-      this.router.navigate(['ruleset/samples'], {fragment: 'Standard'});
-    }
-    else if (tab.index === 1) {
-      this.router.navigate(['ruleset/experiments'], {fragment: 'Standard'});
-    }
-    else if (tab.index === 2) {
-      this.router.navigate(['ruleset/analyses'], {fragment: 'FAANG'});
+      void this.router.navigate(['ruleset/samples'], {fragment: 'Standard'});
+    } else if (tab.index === 1) {
+      void this.router.navigate(['ruleset/experiments'], {fragment: 'Standard'});
+    } else if (tab.index === 2) {
+      void this.router.navigate(['ruleset/analyses'], {fragment: 'FAANG'});
     }
   }
 

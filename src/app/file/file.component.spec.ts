@@ -9,7 +9,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {FilterPipe} from '../pipes/filter.pipe';
 import {SortPipe} from '../pipes/sort.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('FileTableComponent', () => {
   let component: FileComponent;
@@ -17,7 +18,7 @@ describe('FileTableComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         FileComponent,
         HeaderComponent,
         ActiveFilterComponent,
@@ -25,13 +26,11 @@ describe('FileTableComponent', () => {
         ExportComponent,
         FilterPipe,
         SortPipe
-      ],
-      imports: [
-        NgxPaginationModule,
-        RouterTestingModule,
-        HttpClientTestingModule
-      ]
-    })
+    ],
+    imports: [NgxPaginationModule,
+        RouterTestingModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

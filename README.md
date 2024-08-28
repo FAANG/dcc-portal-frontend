@@ -24,7 +24,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `cypress run` to execute the end-to-end tests via [Cypress](https://docs.cypress.io/guides/overview/why-cypress).
 
 ## Design features
 App has 7 main routes (that you can find inside app-routing.module.ts):

@@ -4,19 +4,25 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {barChartOptions, pieChartOptions, doughnutChartOptions} from '../shared/chart-options';
 import {ApiDataService} from '../services/api-data.service';
 import {Title} from '@angular/platform-browser';
-import {MatTabGroup} from '@angular/material/tabs';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import {Router} from '@angular/router';
-import {ChartConfiguration} from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
+import { MatCard } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HeaderComponent } from '../shared/header/header.component';
+import {ActiveFilterComponent} from "../shared/active-filter/active-filter.component";
 
 @Component({
   selector: 'app-files-summary',
   templateUrl: './files-summary.component.html',
-  styleUrls: ['./files-summary.component.css']
+  styleUrls: ['./files-summary.component.css'],
+  standalone: true,
+  imports: [HeaderComponent, FlexModule, MatTabGroup, MatTab, MatCard, NgChartsModule, ActiveFilterComponent]
 })
 export class FilesSummaryComponent implements OnInit {
-  @ViewChild('tabs', {static: true}) tabGroup: MatTabGroup;
-  error: string;
-  chartData;
+  @ViewChild('tabs', {static: true}) tabGroup!: MatTabGroup;
+  error = '';
+  chartData: any;
   excludeLegacyData = true;
 
 
@@ -31,11 +37,11 @@ export class FilesSummaryComponent implements OnInit {
 
   public pieChartColors = ['#5bc0de', '#5cb85c'];
 
-  public standardChartLabels = [];
-  public standardChartData = [];
+  public standardChartLabels: any[] = [];
+  public standardChartData: any[] = [];
 
-  public paperChartLabels = [];
-  public paperChartData = [];
+  public paperChartLabels: any[] = [];
+  public paperChartData: any[] = [];
 
   public speciesChartData: any;
 
@@ -53,15 +59,15 @@ export class FilesSummaryComponent implements OnInit {
     Chart.register(ChartDataLabels);
     this.titleService.setTitle('FAANG summary|files');
     this.tabGroup.selectedIndex = 3;
-    this.dataService.getFileSummary('summary_file').subscribe(
-      data => {
+    this.dataService.getFileSummary('summary_file').subscribe({
+      next: data => {
         this.chartData = data['hits']['hits'][0]['_source'];
         this.assignChartData(this.chartData, this.excludeLegacyData);
       },
-      error => {
+      error: error => {
         this.error = error;
       }
-    );
+    });
   }
 
   assignChartData(data: any, excludeLegacy: boolean) {
@@ -69,7 +75,7 @@ export class FilesSummaryComponent implements OnInit {
     let paperPublishedSummaryName = 'paperPublishedSummary';
     let specieSummaryName = 'specieSummary';
     let assayTypeSummaryName = 'assayTypeSummary';
-    if (excludeLegacy === true) {
+    if (excludeLegacy) {
       standardSummaryName = 'standardSummaryFAANGOnly';
       paperPublishedSummaryName = 'paperPublishedSummaryFAANGOnly';
       specieSummaryName = 'specieSummaryFAANGOnly';
@@ -177,15 +183,15 @@ export class FilesSummaryComponent implements OnInit {
     this.assignChartData(this.chartData, this.excludeLegacyData);
   }
 
-  tabClick(tab) {
-    if (tab.index == 0) {
-      this.router.navigate(['summary/organisms']);
-    } else if (tab.index == 1) {
-      this.router.navigate(['summary/specimens']);
-    } else if (tab.index == 2) {
-      this.router.navigate(['summary/datasets']);
-    } else if (tab.index == 3) {
-      this.router.navigate(['summary/files']);
+  tabClick(tab: any) {
+    if (tab.index === 0) {
+      void this.router.navigate(['summary/organisms']);
+    } else if (tab.index === 1) {
+      void this.router.navigate(['summary/specimens']);
+    } else if (tab.index === 2) {
+      void this.router.navigate(['summary/datasets']);
+    } else if (tab.index === 3) {
+      void this.router.navigate(['summary/files']);
     }
   }
 
