@@ -11,13 +11,10 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
 
-    "build:browser": "ng build --configuration production",
-    "build:server": "ng run dcc-portal-frontend-ssr:serve:production",
-    "build:ssr": "npm run build:browser && npm run build:server",
+    "build:ssr": "ng build --configuration production",
+    "build-run:ssr": "ng build --configuration production && ng run dcc-portal-frontend-ssr:serve:production",
 
-    "serve:ssr": "node dist/dcc-portal-frontend-ssr/server/main.js",
-
-    "dev:ssr": "ng run dcc-portal-frontend-ssr:serve"
+    "serve:ssr": "node dist/dcc-portal-frontend-ssr/server/main.js"
   },
   "private": true,
   "dependencies": {
