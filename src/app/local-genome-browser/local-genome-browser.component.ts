@@ -92,12 +92,9 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy, AfterView
 
   ngAfterViewInit() {
     if (this.isBrowser) {
-      // import igv from '../node_modules/igv/dist/igv.esm.js';
-      import('../../../igv.js').then(igvModule => {
+      import('./igv.js').then(igvModule => {
         const igv = igvModule.default;
-        console.log("after view igv: ", igvModule);
         if (igv && typeof igv.createBrowser === 'function') {
-          console.log("after view: ", igv)
           this.igvModule = igv;
         } else {
           console.error('igv.createBrowser is not a function');
