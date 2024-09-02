@@ -9,7 +9,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+
+    "build:ssr": "ng build --configuration production",
+    "build-run:ssr": "ng build --configuration production && ng run dcc-portal-frontend-ssr:serve:production",
+
+    "serve:ssr": "node dist/dcc-portal-frontend-ssr/server/main.js"
   },
   "private": true,
   "dependencies": {
