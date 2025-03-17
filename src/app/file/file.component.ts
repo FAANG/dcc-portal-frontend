@@ -140,6 +140,7 @@ export class FileComponent implements OnInit, OnDestroy {
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
     const mapping = {
+      'fileName': 'name',
       'study': 'study.accession',
       'experiment': 'experiment.accession',
       'species': 'species.text',
