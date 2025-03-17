@@ -77,7 +77,7 @@ export class FileComponent implements OnInit, OnDestroy {
       '_source.paperPublished',
       '_source.submitterEmail'
     ],
-    'columns': this.columnNames.concat(['Submitter Email']),
+    'columns': [...this.columnNames.slice(0, -1), 'Submitter Email'], //remove 'Subscribe' from array and add 'Submitter Email'
     'filters': {},
     'file_format': 'csv',
   };

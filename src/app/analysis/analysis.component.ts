@@ -65,8 +65,9 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       '_source.organism.text',
       '_source.assayType',
       '_source.analysisType',
-      '_source.standardMet'],
-    'columns': this.columnNames,
+      '_source.standardMet',
+      '_source.submitterEmail'],
+    'columns': [...this.columnNames.slice(0, -1), 'Submitter Email'], //remove 'Subscribe' from array and add 'Submitter Email'
     'filters': {},
     'file_format': 'csv',
   };
