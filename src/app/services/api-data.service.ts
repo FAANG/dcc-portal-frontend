@@ -1445,7 +1445,7 @@ export class ApiDataService {
 
 
   private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
+    if (typeof ErrorEvent !== 'undefined' && error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.
       console.error('An errorSubject occurred:', error.error.message);
     } else {
