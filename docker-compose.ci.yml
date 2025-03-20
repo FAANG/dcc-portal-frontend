@@ -35,7 +35,7 @@ services:
       - "8080:8080"
     networks:
       - cloudbuild
-    healthcheck:   # Add a health check for Cypress to wait for readiness
+    healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 5s
       retries: 5
@@ -46,14 +46,14 @@ services:
       context: .
       dockerfile: faang-cypress.dockerfile
     depends_on:
-      faang-frontend:
-        condition: service_healthy  # Wait for frontend to be ready
+      - faang-frontend  # Just an array, no conditions
     networks:
       - cloudbuild
     environment:
-      - CYPRESS_baseUrl=http://faang-frontend:8080  # Correct frontend URL
+      - CYPRESS_baseUrl=http://faang-frontend:8080
     command: ["cypress", "run", "--browser", "chrome", "--no-sandbox"]
 
 networks:
   cloudbuild:
     driver: bridge
+
