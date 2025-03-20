@@ -13,8 +13,7 @@
 
     "build:ssr": "ng build --configuration production",
     "build-run:ssr": "ng build --configuration production && ng run dcc-portal-frontend-ssr:serve:production",
-
-    "serve:ssr": "node dist/dcc-portal-frontend-ssr/server/main.js"
+    "serve:ssr": "node dist/dcc-portal-frontend-ssr/server/server.mjs"
   },
   "private": true,
   "dependencies": {
