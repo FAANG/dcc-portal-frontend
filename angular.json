@@ -63,7 +63,8 @@
               "sourceMap": true,
               "namedChunks": true,
               "extractLicenses": true,
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "prerender": false
             },
             "development": {
               "optimization": false,

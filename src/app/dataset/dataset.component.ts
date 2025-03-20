@@ -70,17 +70,17 @@ export class DatasetComponent implements OnInit, OnDestroy {
     '_source': [
       '_source.accession',
       '_source.title',
-      '_source.species.text',
+      '_source.species',
       '_source.archive',
-      '_source.experiment.accession',
-      '_source.file.name',
-      '_source.specimen.biosampleId',
       '_source.assayType',
+      '_source.experiment',
+      '_source.specimen',
+      '_source.file',
       '_source.standardMet',
       '_source.paperPublished',
       '_source.submitterEmail'
     ],
-    'columns': this.columnNames.concat(['Submitter Email']),
+    'columns': [...this.columnNames.slice(0, -1), 'Submitter Email'], //remove 'Subscribe' from array and add 'Submitter Email'
     'filters': {},
     'file_format': 'csv',
   };

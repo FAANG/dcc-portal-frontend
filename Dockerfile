@@ -1,26 +1,35 @@
-FROM node:20.15.0 as build
+# Stage 1: Build the Angular SSR application
+FROM node:20-bullseye AS build
 
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+# Install Google Chrome for headless testing
+RUN apt-get update && apt-get install -y wget gnupg2
+RUN wget -qO - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/google-chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" \
+    > /etc/apt/sources.list.d/google-chrome.list
 RUN apt-get update && apt-get install -y google-chrome-stable
 
 WORKDIR /app
 
-# install packages
-COPY package.json /app/
-RUN npm cache clean --force
-RUN npm install --legacy-peer-deps
+# Copy package.json and install dependencies
+COPY package*.json ./
+RUN npm install
 
-# Copy the rest of the application code
-COPY ./ /app/
-ARG configuration=production
-RUN npm run build -- --output-path=./dist/out --configuration $configuration
+# Copy the rest of the application files
+COPY . .
 
-# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1.15
+# Build the Angular application with SSR
+RUN npm run build:ssr
 
-COPY --from=build /app/dist/out/browser /usr/share/nginx/html
-#Copy default nginx configuration
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+# Stage 2: Runtime - Serve the SSR app
+FROM node:20-bullseye AS runtime
 
-EXPOSE 8080
+WORKDIR /app
+
+# Copy built application from the build stage
+COPY --from=build /app/dist/dcc-portal-frontend-ssr ./dist
+
+# Expose port 4000 for SSR
+EXPOSE 4000
+
+# Start the SSR server
+CMD ["node", "dist/server/server.mjs"]

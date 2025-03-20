@@ -77,7 +77,7 @@ export class FileComponent implements OnInit, OnDestroy {
       '_source.paperPublished',
       '_source.submitterEmail'
     ],
-    'columns': this.columnNames.concat(['Submitter Email']),
+    'columns': [...this.columnNames.slice(0, -1), 'Submitter Email'], //remove 'Subscribe' from array and add 'Submitter Email'
     'filters': {},
     'file_format': 'csv',
   };
@@ -140,6 +140,7 @@ export class FileComponent implements OnInit, OnDestroy {
     this.downloading = true;
     this.downloadQuery['file_format'] = format;
     const mapping = {
+      'fileName': 'name',
       'study': 'study.accession',
       'experiment': 'experiment.accession',
       'species': 'species.text',

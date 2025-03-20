@@ -70,7 +70,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
     'sort': ['id_number', 'desc'],
     '_source': [
       '_source.biosampleId',
-      '_source.id_number',
       '_source.material.text',
       '_source.cellType.text',
       '_source.organism.sex.text',
@@ -78,9 +77,10 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       '_source.organism.breed.text',
       '_source.standardMet',
       '_source.paperPublished',
-      '_source.trackhubUrl'
+      '_source.trackhubUrl',
+      '_source.submitterEmail'
     ],
-    'columns': this.columnNames.concat(['Track Hub']),
+    'columns': [...this.columnNames.slice(0, -1), 'Submitter Email'], //remove 'Subscribe' from array and add 'Submitter Email'
     'filters': {},
     'file_format': 'csv',
   };

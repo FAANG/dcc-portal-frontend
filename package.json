@@ -13,8 +13,7 @@
 
     "build:ssr": "ng build --configuration production",
     "build-run:ssr": "ng build --configuration production && ng run dcc-portal-frontend-ssr:serve:production",
-
-    "serve:ssr": "node dist/dcc-portal-frontend-ssr/server/main.js"
+    "serve:ssr": "node dist/dcc-portal-frontend-ssr/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -59,7 +58,7 @@
     "karma-jasmine-html-reporter": "^2.1.0",
     "material-design-icons": "^3.0.1",
     "ng2-charts": "^5.0.3",
-    "ng2-file-upload": "^5.0.0",
+    "ng2-file-upload": "^7.0.1",
     "ngx-bootstrap": "^5.2.0",
     "ngx-cookieconsent": "^6.0.0",
     "ngx-pagination": "^3.3.1",
