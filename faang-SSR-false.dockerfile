@@ -1,37 +1,35 @@
-# Stage 1: Build Angular App
-FROM node:20-bullseye as build
+FROM node:18-alpine AS build
 
-# Install Chrome for Cypress
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-    && apt-get update && apt-get install -y google-chrome-stable
-
+# Set the working directory
 WORKDIR /app
 
-# Copy package files separately to leverage Docker caching
-COPY package.json package-lock.json /app/
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json ./
 
-# Clean npm cache and install dependencies
-RUN npm cache clean --force \
-    && npm install --legacy-peer-deps
+# Install dependencies
+RUN npm ci
 
-# Copy full source code after installing dependencies
-COPY ./ /app/
+# Copy the rest of the app source code
+COPY . .
 
-ARG configuration=cypress_development
+# Build the Angular app using cypress_development configuration
+RUN npm run build -- --configuration=cypress_development
 
-# Run Angular Build (ensure correct path)
-RUN npm run build --configuration=$configuration
+# Use nginx to serve the built Angular app
+FROM nginx:alpine
 
-# Stage 2: Serve with Nginx
-FROM nginx:1.15
+# Set the working directory
+WORKDIR /usr/share/nginx/html
 
-# Copy compiled Angular build to Nginx directory
-COPY --from=build /app/dist/dcc-portal-frontend-ssr /usr/share/nginx/html
+# Remove default nginx static files
+RUN rm -rf ./*
 
-# Copy custom Nginx config
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+# Copy the built Angular files from the previous stage
+COPY --from=build /app/dist/dcc-portal-frontend-ssr/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Expose port 80
 EXPOSE 8080
 
-
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

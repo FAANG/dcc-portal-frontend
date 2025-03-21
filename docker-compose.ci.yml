@@ -1,29 +1,3 @@
-#version: "3"
-#services:
-#  faang-frontend:
-#    image: "${GCR_HOSTNAME}/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${TAG}"
-#    build:
-#      context: .
-#      dockerfile: faang-SSR-false.dockerfile
-#    ports:
-#      - '80:8080'
-#  cypress:
-#    image: faang-cypress-tests
-#    build:
-#      context: .
-#      dockerfile: faang-cypress.dockerfile
-#    depends_on:
-#      - faang-frontend
-#    network_mode: 'host'
-#
-#networks:
-#  default:
-#    external:
-#      name: cloudbuild
-
-
-
-
 version: "3"
 services:
   faang-frontend:
@@ -32,28 +6,17 @@ services:
       context: .
       dockerfile: faang-SSR-false.dockerfile
     ports:
-      - "8080:8080"
-    networks:
-      - cloudbuild
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
-      interval: 5s
-      retries: 5
-
+      - '80:8080'
   cypress:
     image: faang-cypress-tests
     build:
       context: .
       dockerfile: faang-cypress.dockerfile
     depends_on:
-      - faang-frontend  # Just an array, no conditions
-    networks:
-      - cloudbuild
-    environment:
-      - CYPRESS_baseUrl=http://faang-frontend:8080
-    command: ["cypress", "run", "--browser", "chrome", "--no-sandbox"]
+      - faang-frontend
+    network_mode: 'host'
 
 networks:
-  cloudbuild:
-    driver: bridge
-
+  default:
+    external:
+      name: cloudbuild
