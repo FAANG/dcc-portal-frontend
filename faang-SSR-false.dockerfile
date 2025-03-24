@@ -7,11 +7,10 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install dependencies
-#RUN npm ci
 RUN npm cache clean --force
 RUN npm install
 
-# Copy the rest of the app source code
+# Copy the rest of the source code
 COPY . .
 
 # Build the Angular app using cypress_development configuration
