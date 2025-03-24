@@ -1,7 +1,7 @@
 version: "3"
 services:
   faang-frontend:
-    image: "${GCR_HOSTNAME}/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${TAG}"
+    image: "${ARTIFACT_REGISTRY_HOSTNAME}/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${TAG}"
     build:
       context: .
       dockerfile: faang-SSR-false.dockerfile
