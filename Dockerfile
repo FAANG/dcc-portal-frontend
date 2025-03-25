@@ -27,8 +27,12 @@ FROM nginx:latest AS server
 # Copy built Angular app to NGINX HTML directory
 COPY --from=build /app/dist/dcc-portal-frontend-ssr/browser /usr/share/nginx/html
 
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
+
 # Expose port 80 for the NGINX server
-EXPOSE 80
+EXPOSE 8080
 
 # Start NGINX
 CMD ["nginx", "-g", "daemon off;"]
