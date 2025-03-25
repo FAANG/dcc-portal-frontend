@@ -28,7 +28,7 @@ FROM nginx:latest AS server
 COPY --from=build /app/dist/dcc-portal-frontend-ssr/browser /usr/share/nginx/html
 
 # Copy custom Nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 
 # Expose port 80 for the NGINX server
