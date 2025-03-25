@@ -18,18 +18,17 @@ RUN npm install
 COPY . .
 
 # Build the Angular application with SSR
-RUN npm run build:ssr
+RUN npm run build:ssr && mv dist/dcc-portal-frontend-ssr/browser/index.csr.html dist/dcc-portal-frontend-ssr/browser/index.html
 
-# Stage 2: Runtime - Serve the SSR app
-FROM node:20-bullseye AS runtime
 
-WORKDIR /app
+# Stage 2: Serve with NGINX
+FROM nginx:latest AS server
 
-# Copy built application from the build stage
-COPY --from=build /app/dist/dcc-portal-frontend-ssr ./dist
+# Copy built Angular app to NGINX HTML directory
+COPY --from=build /app/dist/dcc-portal-frontend-ssr/browser /usr/share/nginx/html
 
-# Expose port 4000 for SSR
-EXPOSE 4000
+# Expose port 80 for the NGINX server
+EXPOSE 80
 
-# Start the SSR server
-CMD ["node", "dist/server/server.mjs"]
+# Start NGINX
+CMD ["nginx", "-g", "daemon off;"]
