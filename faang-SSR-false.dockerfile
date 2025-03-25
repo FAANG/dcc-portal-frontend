@@ -1,6 +1,6 @@
 FROM node:18-alpine AS build
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json files
