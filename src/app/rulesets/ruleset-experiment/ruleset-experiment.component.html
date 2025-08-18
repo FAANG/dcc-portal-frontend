@@ -3,187 +3,188 @@
   <h2>FAANG Rule sets</h2>
   <hr>
 
-    <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
-      <mat-tab label="Samples"></mat-tab>
-      <mat-tab label="Experiments"></mat-tab>
-      <mat-tab label="Analysis"></mat-tab>
-    </mat-tab-group>
+  <mat-tab-group #tabs (selectedTabChange)="tabClick($event)" style="margin-bottom: 20px;">
+    <mat-tab label="Samples"></mat-tab>
+    <mat-tab label="Experiments"></mat-tab>
+    <mat-tab label="Analysis"></mat-tab>
+  </mat-tab-group>
 
-    <dl fxLayout="column">
-      <div fxLayout="row" fxLayout.lt-sm="column">
-        <dt fxFlex="25">Name:</dt>
-        <dd fxFlex="75">{{ name }}</dd>
+  <dl fxLayout="column">
+    <div fxLayout="row" fxLayout.lt-sm="column">
+      <dt fxFlex="25">Name:</dt>
+      <dd fxFlex="75">{{ name }}</dd>
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column">
+      <dt fxFlex="25">Description:</dt>
+      <dd fxFlex="75">{{ description }}</dd>
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column">
+      <dt fxFlex="25">Further details:</dt>
+      <dd fxFlex="75">
+        <a href="{{ details }}">{{ details }}</a>
+      </dd>
+    </div>
+  </dl>
+
+  <hr>
+
+  @if (error) {
+    <div class="alert alert-danger">
+      {{ error }}
+    </div>
+  }
+
+  @if ((data | keyvalue)?.length) {
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1%">
+      <div fxFlex="16"><h3>Rule groups</h3></div>
+      <div fxFlex="83" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="mandatoryOnlyToggle()">
+          <label class="form-check-label" for="defaultCheck1">
+            Show only mandatory fields
+          </label>
+        </div>
+        <div>
+          <button mat-raised-button color="primary">
+            <a href="{{metadata_template_with_examples}}">Download example template</a>
+          </button>
+          <button mat-raised-button color="primary">
+            <a href="{{metadata_template_without_examples}}">Download empty template</a>
+          </button>
+          @if (active_rule !== 'Standard' && active_rule !== 'ChIP-seq_standard_rules') {
+            <button mat-raised-button color="primary">
+              <a href="{{record_specific_templates[active_rule]}}">Download {{ active_rule }} template</a>
+            </button>
+          }
+        </div>
       </div>
-
-      <div fxLayout="row" fxLayout.lt-sm="column">
-        <dt fxFlex="25">Description:</dt>
-        <dd fxFlex="75">{{ description }}</dd>
-      </div>
-
-      <div fxLayout="row" fxLayout.lt-sm="column">
-        <dt fxFlex="25">Further details:</dt>
-        <dd fxFlex="75">
-          <a href="{{ details }}">{{ details }}</a>
-        </dd>
-      </div>
-    </dl>
-
+    </div>
     <hr>
-
-      @if (error) {
-        <div class="alert alert-danger">
-          {{ error }}
-        </div>
-      }
-
-      @if ((data | keyvalue)?.length) {
-        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1%">
-          <div fxFlex="16"><h3>Rule groups</h3></div>
-          <div fxFlex="83" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="defaultCheck1" (click)="mandatoryOnlyToggle()">
-              <label class="form-check-label" for="defaultCheck1">
-                Show only mandatory fields
-              </label>
-            </div>
-            <div>
-              <button mat-raised-button color="primary">
-                <a href="{{metadata_template_with_examples}}">Download example template</a>
-              </button>
-              <button mat-raised-button color="primary">
-                <a href="{{metadata_template_without_examples}}">Download empty template</a>
-              </button>
-              @if (active_rule !== 'Standard' && active_rule !== 'ChIP-seq_standard_rules') {
-                <button mat-raised-button color="primary">
-                  <a href="{{record_specific_templates[active_rule]}}">Download {{active_rule}} template</a>
-                </button>
-              }
-            </div>
-          </div>
-        </div>
-        <hr>
-          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1%">
-            <div fxFlex="16" class="left">
-              @for (category of rule_groups; track category) {
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"
-                    [ngClass]="{'active': checkIsActive(category)}">
-                    <a style="cursor: pointer" (click)="clickOnRule(category); updateUrlFragment(category);">{{category}}</a>
-                  </li>
-                </ul>
-              }
-            </div>
-            <div fxFlex="83" class="table-responsive center" style="padding: 15px;">
-              <h3>{{active_rule}} ({{length}} rules)</h3>
-              <hr>
-                @if (active_rule === 'Standard') {
-                  <p class="rule-condition-header">Applied to all entities</p>
-                }
-                @if (active_rule !== 'Standard') {
-                  <p class="rule-condition-header">Applied under these conditions:</p>
-                  @if (active_rule !== 'RNA-seq') {
-                    <p class="rule-condition">
-                      Assay type is "{{getCondition('self')}}"
-                    </p>
-                  }
-                  @if (active_rule === 'ChIP-seq DNA-binding proteins') {
-                    <p class="rule-condition">
-                      Experiment target is lead node descendant of <a
-                      href="https://www.ebi.ac.uk/ols/ontologies/so/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSO_0001700">
-                      SO_0001700
-                    </a>
-                  </p>
-                }
-                @if (active_rule === 'ChIP-seq input DNA') {
-                  <p class="rule-condition">
-                    Experiment target is input DNA
-                  </p>
-                }
-                @if (active_rule === 'RNA-seq') {
-                  <p class="rule-condition">
-                    Assay type is one of:
-                  </p>
-                  <ul>
-                    <li class="rule-condition">MicroRNA profiling by high throughput sequencing</li>
-                    <li class="rule-condition">RNA-seq of total RNA</li>
-                    <li class="rule-condition">RNA-seq of coding RNA</li>
-                    <li class="rule-condition">RNA-seq of non coding RNA</li>
-                    <li class="rule-condition">Transcription profiling by high throughput sequencing</li>
-                    <li class="rule-condition">ISO-Seq</li>
-                  </ul>
-                }
-              }
-              <table mat-table [dataSource]="dataSource" table-striped style="width: 100%; margin-top: 15px;">
-                <ng-container matColumnDef="Name">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef>Name</th>
-                  <td mat-cell class="table-cell-data" *matCellDef="let item;">
-                    {{item['name']}}
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="Description">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef>Description</th>
-                  <td mat-cell class="table-cell-data" *matCellDef="let item;">
-                    {{item['description']}}
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="Type">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef>Type</th>
-                  <td mat-cell class="table-cell-data" *matCellDef="let item;">
-                    {{getType(item)}}
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="Required?">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef>Required?</th>
-                  <td mat-cell class="table-cell-data" *matCellDef="let item;">
-                    {{getMandatoryField(item)}}
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="Allow multiple?">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef>Allow multiple?</th>
-                  <td mat-cell class="table-cell-data" *matCellDef="let item;">
-                    {{allowMultiple(item)}}
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="Valid values">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef>Valid values</th>
-                  <td mat-cell class="table-cell-data" *matCellDef="let item;">
-                    {{getValidValues(item)}}
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="Valid units">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef>Valid units</th>
-                  <td mat-cell class="table-cell-data" *matCellDef="let item;">
-                    {{getValidUnits(item)}}
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="Valid terms">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef>Valid terms</th>
-                  <td mat-cell class="table-cell-data" *matCellDef="let item;">
-                    @for (term of getValidTerms(item); track term; let i = $index) {
-                      @if (getOntologyName(item).length === 1) {
-                        <a href="{{generateEbiOntologyLink(getOntologyName(item)[0], term)}}" target="_blank">
-                          {{term}}
-                        </a>
-                      }
-                      @if (getOntologyName(item).length !== 1) {
-                        <a href="{{generateEbiOntologyLink(getOntologyName(item)[i], term)}}" target="_blank">
-                          {{term}}
-                        </a>
-                      }
-                    }
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="Condition">
-                  <th mat-header-cell class="table-header" *matHeaderCellDef>Condition</th>
-                  <td mat-cell class="table-cell-data" *matCellDef="let item;">
-                    {{getCondition(item['rule'])}}
-                  </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="column_names"></tr>
-                <tr mat-row *matRowDef="let row; columns: column_names;"></tr>
-              </table>
-            </div>
-          </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1%">
+      <div fxFlex="16" class="left">
+        @for (category of rule_groups; track category) {
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"
+                [ngClass]="{'active': checkIsActive(category)}">
+              <a style="cursor: pointer"
+                 (click)="clickOnRule(category); updateUrlFragment(category);">{{ category }}</a>
+            </li>
+          </ul>
         }
-
       </div>
+      <div fxFlex="83" class="table-responsive center" style="padding: 15px;">
+        <h3>{{ active_rule }} ({{ length }} rules)</h3>
+        <hr>
+        @if (active_rule === 'Standard') {
+          <p class="rule-condition-header">Applied to all entities</p>
+        }
+        @if (active_rule !== 'Standard') {
+          <p class="rule-condition-header">Applied under these conditions:</p>
+          @if (active_rule !== 'RNA-seq') {
+            <p class="rule-condition">
+              Assay type is "{{ getCondition('self') }}"
+            </p>
+          }
+          @if (active_rule === 'ChIP-seq DNA-binding proteins') {
+            <p class="rule-condition">
+              Experiment target is lead node descendant of <a
+              href="https://www.ebi.ac.uk/ols/ontologies/so/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSO_0001700">
+              SO_0001700
+            </a>
+            </p>
+          }
+          @if (active_rule === 'ChIP-seq input DNA') {
+            <p class="rule-condition">
+              Experiment target is input DNA
+            </p>
+          }
+          @if (active_rule === 'RNA-seq') {
+            <p class="rule-condition">
+              Assay type is one of:
+            </p>
+            <ul>
+              <li class="rule-condition">MicroRNA profiling by high throughput sequencing</li>
+              <li class="rule-condition">RNA-seq of total RNA</li>
+              <li class="rule-condition">RNA-seq of coding RNA</li>
+              <li class="rule-condition">RNA-seq of non coding RNA</li>
+              <li class="rule-condition">Transcription profiling by high throughput sequencing</li>
+              <li class="rule-condition">ISO-Seq</li>
+            </ul>
+          }
+        }
+        <table mat-table [dataSource]="dataSource" table-striped style="width: 100%; margin-top: 15px;">
+          <ng-container matColumnDef="Name">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>Name</th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item;">
+              {{ item['name'] }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Description">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>Description</th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item;">
+              {{ item['description'] }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Type">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>Type</th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item;">
+              {{ getType(item) }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Required?">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>Required?</th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item;">
+              {{ getMandatoryField(item) }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Allow multiple?">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>Allow multiple?</th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item;">
+              {{ allowMultiple(item) }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Valid values">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>Valid values</th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item;">
+              {{ getValidValues(item) }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Valid units">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>Valid units</th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item;">
+              {{ getValidUnits(item) }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Valid terms">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>Valid terms</th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item;">
+              @for (term of getValidTerms(item); track term; let i = $index) {
+                @if (getOntologyName(item).length === 1) {
+                  <a href="{{generateEbiOntologyLink(getOntologyName(item)[0], term)}}" target="_blank">
+                    {{ term }}
+                  </a>
+                }
+                @if (getOntologyName(item).length !== 1) {
+                  <a href="{{generateEbiOntologyLink(getOntologyName(item)[i], term)}}" target="_blank">
+                    {{ term }}
+                  </a>
+                }
+              }
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Condition">
+            <th mat-header-cell class="table-header" *matHeaderCellDef>Condition</th>
+            <td mat-cell class="table-cell-data" *matCellDef="let item;">
+              {{ getCondition(item['rule']) }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="column_names"></tr>
+          <tr mat-row *matRowDef="let row; columns: column_names;"></tr>
+        </table>
+      </div>
+    </div>
+  }
+
+</div>
