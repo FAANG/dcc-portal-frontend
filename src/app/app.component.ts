@@ -30,7 +30,7 @@ export const cookieConfig: NgcCookieConsentConfig =   {
     'dismiss': 'Accept cookies',
     'deny': 'Refuse cookies',
     'link': 'Privacy Notice',
-    'href': '/assets/gdpr/privacy_notice_ FAANG.pdf',
+    'href': '/assets/gdpr/privacy_notice_FAANG.pdf',
     'policy': 'Cookie Policy'
   }
 };
