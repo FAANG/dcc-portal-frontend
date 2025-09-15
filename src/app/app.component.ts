@@ -30,7 +30,7 @@ export const cookieConfig: NgcCookieConsentConfig =   {
     'dismiss': 'Accept cookies',
     'deny': 'Refuse cookies',
     'link': 'Privacy Notice',
-    'href': 'https://www.ebi.ac.uk/data-protection/privacy-notice/faang-data-portal',
+    'href': '/assets/gdpr/privacy_notice_FAANG.pdf',
     'policy': 'Cookie Policy'
   }
 };
