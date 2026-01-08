@@ -92,6 +92,33 @@
 
   <hr>
 
+  <div fxLayout="row" style="margin-top: 15px;">
+    <div fxFlex="100" class="alert alert-info" role="alert">
+      <strong>New (Beta) Sample Submission System</strong>
+      <p style="margin-top: 8px;">
+        We are testing a new beta version of the FAANG sample submission system.
+        This new interface offers an improved submission experience and will eventually
+        replace the current workflow.
+      </p>
+      <p>
+        You can access the beta system here:
+        <a
+          href="https://faang-validator-frontend-964531885708.europe-west2.run.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link"
+        >
+          Open new submission system (Beta)
+        </a>
+      </p>
+      <small>
+        Please note: this is a beta service. Feedback and issues are expected.
+      </small>
+    </div>
+  </div>
+
+
+
   @if (bovreg_submission && !_userService.token) {
     <div fxLayout="row">
       <div fxFlex="100" class="alert alert-info" role="alert">
