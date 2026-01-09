@@ -83,7 +83,7 @@ export const routes: Routes = [
   {path: 'ontology', component: OntologyImproverComponent},
   {path: 'ontology/:id', component: OntologyDetailComponent},
 
-  {path: 'validation_beta', component: ValidationBetaComponent},
+  {path: 'new_validation_beta/samples', component: ValidationBetaComponent},
 
 
   {path: 'api', component: ApiDocsComponent},
