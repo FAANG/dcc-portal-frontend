@@ -30,7 +30,7 @@ import {ValidationExperimentsComponent} from './validation/validation-experiment
 import {ValidationAnalysesComponent} from './validation/validation-analyses/validation-analyses.component';
 import {SubprojectComponent} from './subprojects/subproject.component';
 import { SubprojectDetailComponent } from './subprojects/subproject-detail/subproject-detail.component';
-import {LoginComponent} from './login/login.component'; //doesn't used
+import {LoginComponent} from './login/login.component';
 import {FilesUploadComponent} from './files-upload/files-upload.component';
 import { OntologyImproverComponent } from './ontology-improver/ontology-improver.component';
 import { OntologyDetailComponent } from './ontology-improver/ontology-detail/ontology-detail.component';
@@ -41,6 +41,7 @@ import { LocalGenomeBrowserComponent } from './local-genome-browser/local-genome
 import { GraphqlComponent } from './graphql/graphql.component';
 import { GlobalSearchComponent } from './globalsearch/globalsearch.component';
 import {NonExistingComponent} from './non-existing/non-existing.component';
+import {ValidationBetaComponent} from './validation-beta/validation-beta.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -76,11 +77,14 @@ export const routes: Routes = [
   {path: 'validation/analyses', component: ValidationAnalysesComponent},
   {path: 'projects', component: SubprojectComponent},
   {path: 'projects/:id', component: SubprojectDetailComponent},
-  {path: 'login', component: LoginComponent}, //TO CHECK
+  {path: 'login', component: LoginComponent},
 
   {path: 'upload_protocol', component: FilesUploadComponent},
   {path: 'ontology', component: OntologyImproverComponent},
   {path: 'ontology/:id', component: OntologyDetailComponent},
+
+  {path: 'validation_beta', component: ValidationBetaComponent},
+
 
   {path: 'api', component: ApiDocsComponent},
   {path: 'trackhubs', component: TrackhubsSubmissionComponent},
