@@ -1,19 +1,13 @@
 <app-header></app-header>
 <div class="container-fluid" style="min-height:87vh">
 
-  <!-- Info Banner -->
-  <div class="alert alert-info" role="alert" style="margin: 20px 0; display: flex; justify-content: space-between; align-items: center;">
-    <div>
-      <strong>ℹ️ You're using our new validation system!</strong>
-      <br>
-      Experiencing issues? Switch to the legacy system:
-      <a [routerLink]="['/validation_legacy/samples']" class="alert-link" style="margin-left: 8px;">Samples</a> |
-      <a [routerLink]="['/validation_legacy/experiments']" class="alert-link" style="margin-left: 8px;">Experiments</a> |
-      <a [routerLink]="['/validation_legacy/analyses']" class="alert-link" style="margin-left: 8px;">Analysis</a>
-    </div>
-    <button type="button" class="close" (click)="dismissBanner()" style="margin-left: 20px; background: none; border: none; font-size: 24px; cursor: pointer;" *ngIf="showBanner">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <div class="alert alert-info" role="alert" style="margin: 20px 0;">
+    <strong>ℹ️ You're using our new validation system!</strong>
+    <br>
+    Experiencing issues? Switch to the legacy system:
+    <a [routerLink]="['/validation_legacy/samples']" class="alert-link" style="margin-left: 8px;">Samples</a> |
+    <a [routerLink]="['/validation_legacy/experiments']" class="alert-link" style="margin-left: 8px;">Experiments</a> |
+    <a [routerLink]="['/validation_legacy/analyses']" class="alert-link" style="margin-left: 8px;">Analysis</a>
   </div>
 
   <!-- Dash App iframe -->
