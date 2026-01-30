@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, afterNextRender } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HeaderComponent } from '../shared/header/header.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,58 +14,47 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ValidationBetaComponent implements OnInit, OnDestroy {
   betaUrl: SafeResourceUrl;
   private messageListener: any;
+  private isBrowser: boolean;
 
   constructor(
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    @Inject(PLATFORM_ID) platformId: Object
   ) {
     this.betaUrl = this.sanitizer.bypassSecurityTrustResourceUrl('');
-
-    // afterNextRender ONLY runs in browser, never on SSR
-    afterNextRender(() => {
-      console.log('[Angular] 🌐 afterNextRender - We are in the BROWSER!');
-      this.setupMessageListener();
-    });
+    this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit() {
-    console.log('[Angular] ngOnInit called');
-
+    // Get the tab from route data
     this.route.data.subscribe(data => {
       const tab = data['tab'] || 'samples';
-      console.log('[Angular] Route tab:', tab);
-
-      const dashUrl = `http://0.0.0.0:8050/?tab=${tab}`;
+      const dashUrl = `https://faang-validator-frontend-964531885708.europe-west2.run.app/?tab=${tab}`;
       this.betaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(dashUrl);
     });
-  }
 
-  private setupMessageListener() {
-    console.log('[Angular] ✅ Setting up message listener in BROWSER');
+    // Only add message listener in browser
+    if (this.isBrowser) {
+      this.messageListener = (event: MessageEvent) => {
+        if (event.origin !== 'https://faang-validator-frontend-964531885708.europe-west2.run.app') {
+          return;
+        }
 
-    this.messageListener = (event: MessageEvent) => {
-      console.log('[Angular] 📨 Message received:', event.data, 'from:', event.origin);
+        if (event.data && event.data.type === 'TAB_CHANGE') {
+          const newTab = event.data.tab;
+          this.updateAngularRoute(newTab);
+        }
+      };
 
-      if (event.origin !== 'http://0.0.0.0:8050') {
-        console.log('[Angular] ❌ Wrong origin');
-        return;
-      }
-
-      if (event.data?.type === 'TAB_CHANGE') {
-        console.log('[Angular] ✅ Tab change to:', event.data.tab);
-        this.updateAngularRoute(event.data.tab);
-      }
-    };
-
-    window.addEventListener('message', this.messageListener);
-    console.log('[Angular] ✅ Message listener added to window');
+      window.addEventListener('message', this.messageListener);
+    }
   }
 
   ngOnDestroy() {
-    if (this.messageListener && typeof window !== 'undefined') {
+    // Only remove listener in browser
+    if (this.isBrowser && this.messageListener) {
       window.removeEventListener('message', this.messageListener);
-      console.log('[Angular] Listener removed');
     }
   }
 
@@ -76,8 +66,6 @@ export class ValidationBetaComponent implements OnInit, OnDestroy {
     };
 
     const newRoute = routeMap[tab];
-    console.log('[Angular] 🚀 Navigating:', this.router.url, '→', newRoute);
-
     if (newRoute && this.router.url !== newRoute) {
       this.router.navigateByUrl(newRoute);
     }
