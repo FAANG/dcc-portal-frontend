@@ -72,9 +72,38 @@ export const routes: Routes = [
   {path: 'ruleset/samples', component: RulesetSampleComponent},
   {path: 'ruleset/experiments', component: RulesetExperimentComponent},
   {path: 'ruleset/analyses', component: RulesetAnalysisComponent},
-  {path: 'validation/samples', component: ValidationSamplesComponent},
-  {path: 'validation/experiments', component: ValidationExperimentsComponent},
-  {path: 'validation/analyses', component: ValidationAnalysesComponent},
+  // {path: 'validation/samples', component: ValidationSamplesComponent},
+  // {path: 'validation/experiments', component: ValidationExperimentsComponent},
+  // {path: 'validation/analyses', component: ValidationAnalysesComponent},
+  {path: 'validation_legacy/samples', component: ValidationSamplesComponent},
+  {path: 'validation_legacy/experiments', component: ValidationExperimentsComponent},
+  {path: 'validation_legacy/analyses', component: ValidationAnalysesComponent},
+
+  {
+    path: 'validation/samples',
+    component: ValidationBetaComponent,
+    data: {tab: 'samples'},
+    // @ts-ignore
+    ssr: false  // Disable server-side rendering for iframe route
+  },
+  {
+    path: 'validation/experiments',
+    component: ValidationBetaComponent,
+    data: {tab: 'experiments'},
+    // @ts-ignore
+    ssr: false
+  },
+  {
+    path: 'validation/analyses',
+    component: ValidationBetaComponent,
+    data: {tab: 'analysis'},
+    // @ts-ignore
+    ssr: false
+  },
+
+  {path: 'validation_beta', component: ValidationBetaComponent},
+
+
   {path: 'projects', component: SubprojectComponent},
   {path: 'projects/:id', component: SubprojectDetailComponent},
   {path: 'login', component: LoginComponent},
@@ -83,7 +112,7 @@ export const routes: Routes = [
   {path: 'ontology', component: OntologyImproverComponent},
   {path: 'ontology/:id', component: OntologyDetailComponent},
 
-  {path: 'validation_beta', component: ValidationBetaComponent},
+
 
 
   {path: 'api', component: ApiDocsComponent},
