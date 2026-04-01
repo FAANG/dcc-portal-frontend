@@ -7,7 +7,6 @@ import {
   EventEmitter,
   TemplateRef,
   OnInit,
-  PLATFORM_ID, Inject,
   ChangeDetectorRef, OnChanges
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,14 +15,13 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
   MatRowDef, MatRow } from '@angular/material/table';
 import { Observable, merge, of as observableOf } from 'rxjs';
-import { map, startWith, switchMap, catchError, finalize } from 'rxjs/operators';
+import { map, startWith, switchMap, catchError } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import {female_values, male_values, published_article_source} from '../constants';
 import {ApiDataService} from '../../services/api-data.service';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {subscription_ws_url} from '../constants';
-import {Location, NgTemplateOutlet, NgClass, isPlatformBrowser} from '@angular/common';
+import {Location, NgTemplateOutlet, NgClass} from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton, MatButton } from '@angular/material/button';
@@ -71,7 +69,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
   dialogRef: any;
   dialogSubscriptionInfoRef: any;
   public subscriptionForm!: FormGroup;
-  socket: any;
   submission_message = '';
   subscription_status = '';
   apiKey = '';
@@ -85,7 +82,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
     source: [{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}],
     assayType: [{filterValue: ['transcription profiling by high throughput sequencing'], displayValue: 'RNA-Seq'}]
   };
-  isBrowser = false;
 
   constructor(private spinner: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
@@ -93,10 +89,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
               public dialog: MatDialog,
               private dataService: ApiDataService,
               location: Location,
-              @Inject(PLATFORM_ID) private platformId: Object,
               private changeDetectorRef: ChangeDetectorRef) {
     this.location = location;
-    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit() {
@@ -124,7 +118,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
   ngAfterViewInit() {
     if (this.indexDetails) {
       this.apiKey = this.indexDetails['apiKey'];
-      this.setSocket();
     }
     // Reset back to the first page when sort order is changed
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -271,50 +264,25 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
     if (this.subscriptionForm?.valid && this.subscriptionForm?.touched) {
       this.dataService.subscribeUser(this.indexDetails['index'], this.indexDetails['indexKey'], data.email, data.filters)
         .subscribe({
-          next: () => {
+          next: (response: any) => {
             this.dialogRef.close();
+            this.submission_message = response?.['submission_message'] || 'Subscription registered successfully.';
+            this.subscription_status = response?.['subscription_status'] || 'success';
+            this.dialogSubscriptionInfoRef = this.dialog.open(this.subscriptionInfoTemplate,
+              { data: this.subscriber, height: '250px', width: '600px' });
           },
           error: (error: any) => {
             console.log(error);
             this.dialogRef.close();
+            this.submission_message = 'Failed to register subscription.';
+            this.subscription_status = 'warning';
+            this.dialogSubscriptionInfoRef = this.dialog.open(this.subscriptionInfoTemplate,
+              { data: this.subscriber, height: '250px', width: '600px' });
           }
         });
     }
   }
 
-  setSocket() {
-    if (this.isBrowser) {
-      // Connect to WebSockets here
-      const url = `${subscription_ws_url}submission/subscription_${this.indexDetails['index']}/`;
-      this.socket = new WebSocket(url);
-      this.socket.onopen = () => {
-        console.log('WebSockets connection created.');
-      };
-      this.socket.onmessage = (event: { data: string; }) => {
-        const data = JSON.parse(event.data)['response'];
-
-        if (data['submission_message']) {
-          if (this.dialogRef) {
-            this.dialogRef.close();
-            this.dialogRef.afterClosed().pipe(
-              finalize(() => this.dialogRef = undefined)
-            );
-          }
-          this.submission_message = data['submission_message'];
-          this.subscription_status = data['subscription_status'];
-          if (this.subscription_status) {
-            this.dialogSubscriptionInfoRef = this.dialog.open(this.subscriptionInfoTemplate,
-              { data: this.subscriber, height: '250px', width: '600px' });
-          }
-        }
-      };
-      if (this.socket.readyState === WebSocket.OPEN) {
-        this.socket.onopen(null);
-      }
-    }
-
-
-  }
 
   resetPagination(pageIndex: number) {
     if (pageIndex !== 0) {

@@ -94,7 +94,7 @@ export class FileComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.indexDetails = {index: 'file', indexKey: '_id', apiKey: 'fileName'};
+    this.indexDetails = {index: '2026_03_26_file', indexKey: '_id', apiKey: 'fileName'};
     this.templates = {'fileName': this.fileNameTemplate,
                       'paperPublished': this.paperPublishedTemplate };
     this.loadTableDataFunction = this.dataService.getAllFiles.bind(this.dataService);

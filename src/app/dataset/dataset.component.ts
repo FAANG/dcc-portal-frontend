@@ -98,7 +98,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.indexDetails = {index: 'dataset', indexKey: 'accession', apiKey: 'datasetAccession'};
+    this.indexDetails = {index: '2026_03_26_dataset', indexKey: 'accession', apiKey: 'datasetAccession'};
     this.templates = {
       'datasetAccession': this.datasetAccessionTemplate,
       'paperPublished': this.paperPublishedTemplate

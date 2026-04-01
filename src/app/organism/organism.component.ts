@@ -89,7 +89,7 @@ export class OrganismComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.indexDetails = {index: 'organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
+    this.indexDetails = {index: '2026_03_26_organism', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
     this.templates = {
       'bioSampleId': this.bioSampleIdTemplate,
       'paperPublished': this.paperPublishedTemplate

@@ -97,7 +97,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
               private titleService: Title) { }
 
   ngOnInit() {
-    this.indexDetails = {index: 'specimen', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
+    this.indexDetails = {index: '2026_03_26_specimen', indexKey: 'biosampleId', apiKey: 'bioSampleId'};
     this.templates = {'bioSampleId': this.biosampleIdTemplate,
                       'paperPublished': this.paperPublishedTemplate,
                       'trackhubUrl': this.trackhubUrlTemplate };
