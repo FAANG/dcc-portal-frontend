@@ -30,14 +30,14 @@ export class ValidationBetaComponent implements OnInit, OnDestroy {
     // Get the tab from route data
     this.route.data.subscribe(data => {
       const tab = data['tab'] || 'samples';
-      const dashUrl = `https://faang-validator-frontend-964531885708.europe-west2.run.app/?tab=${tab}`;
+      const dashUrl = `https://faang-validator-frontend-341387543760.europe-west2.run.app/?tab=${tab}`;
       this.betaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(dashUrl);
     });
 
     // Only add message listener in browser
     if (this.isBrowser) {
       this.messageListener = (event: MessageEvent) => {
-        if (event.origin !== 'https://faang-validator-frontend-964531885708.europe-west2.run.app') {
+        if (event.origin !== 'https://faang-validator-frontend-341387543760.europe-west2.run.app') {
           return;
         }
 
