@@ -63,7 +63,7 @@ export class LocalGenomeBrowserComponent implements OnInit, OnDestroy, AfterView
     private dataService: ApiDataService,
     private http: HttpClient,
     private titleService: Title,
-    @Inject(PLATFORM_ID) private platformId: Object) {
+    @Inject(PLATFORM_ID) private platformId: object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 

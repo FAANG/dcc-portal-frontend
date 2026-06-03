@@ -38,7 +38,7 @@
       <mat-radio-button value="true">Update existing trackhub</mat-radio-button>
     </mat-radio-group>
 
-    @if ((validation_results | json) != '{}') {
+    @if ((validation_results | json) !== '{}') {
       <div>
         <hr>
         <h3 style="margin: 20px 0;">Validation Results</h3>

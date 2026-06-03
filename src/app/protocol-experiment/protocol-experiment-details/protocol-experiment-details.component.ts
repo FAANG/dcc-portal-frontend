@@ -14,7 +14,7 @@ import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeader
 import { SlicePipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({

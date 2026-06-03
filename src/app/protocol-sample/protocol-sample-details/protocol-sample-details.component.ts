@@ -9,7 +9,7 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
   MatRowDef, MatRow } from '@angular/material/table';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({

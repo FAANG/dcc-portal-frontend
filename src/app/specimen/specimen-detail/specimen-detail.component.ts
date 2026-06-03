@@ -8,7 +8,7 @@ import {getProtocolLink} from '../../shared/common_functions';
 import {UserService} from '../../services/user.service';
 import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { MatButton } from '@angular/material/button';
 import { HeaderComponent } from '../../shared/header/header.component';
 
@@ -27,7 +27,7 @@ export class SpecimenDetailComponent implements OnInit {
   readonly organism_prefix = internal_organism;
   readonly specimen_prefix = internal_specimen;
   mode = '';
-  relatedArticles: Array<any> = [];
+  relatedArticles: any[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,

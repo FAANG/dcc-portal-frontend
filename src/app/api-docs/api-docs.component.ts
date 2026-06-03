@@ -12,7 +12,7 @@ import {isPlatformBrowser} from "@angular/common";
 })
 export class ApiDocsComponent implements OnInit {
   isBrowser = false;
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 

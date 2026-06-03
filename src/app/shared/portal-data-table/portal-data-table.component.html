@@ -16,7 +16,7 @@
             Go to bulk downloader utility
           </button>
         }
-        @if (download_key && download_key.length > 0 && mode == 'public') {
+        @if (download_key && download_key.length > 0 && mode === 'public') {
           <button mat-raised-button color="accent" (click)="downloadAllFiles()" [disabled]="urls.length === 0"
             >Download selected files ({{urls.length}})
           </button>
@@ -52,7 +52,7 @@
         <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
           @for (col of display_fields; track col; let i = $index) {
             <ng-container [matColumnDef]=col>
-              @if (col == 'Download') {
+              @if (col === 'Download') {
                 <th mat-header-cell class="table-header" *matHeaderCellDef>
                   <input id="downloadCheckBox" type="checkbox"
                     [checked]="mainCheckboxChecked() == 2"
@@ -71,8 +71,8 @@
                   }
                 </td>
               }
-              @if (col != 'Download') {
-                <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode == 'private'">
+              @if (col !== 'Download') {
+                <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode === 'private'">
                   {{display_fields[i]}}
                 </th>
                 <td mat-cell class="table-cell-data" *matCellDef="let item">

@@ -31,12 +31,12 @@
       @for (col of display_fields; track col; let i = $index) {
         <ng-container [matColumnDef]=col>
           <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
-          @if (col == 'id') {
+          @if (col === 'id') {
             <td mat-cell class="table-cell-data" *matCellDef="let item">
               <a [routerLink]="['/specimen', item[col]]" target="_blank">{{item[col]}}</a>
             </td>
           }
-          @if (col == 'derivedFrom') {
+          @if (col === 'derivedFrom') {
             <td mat-cell class="table-cell-data" *matCellDef="let item">
               @if (!checkIsArray(item[col])) {
                 <a [routerLink]="['/organism', item[col]]" target="_blank">{{item[col]}}</a>
@@ -52,7 +52,7 @@
               }
             </td>
           }
-          @if (col != 'id' && col != 'derivedFrom') {
+          @if (col !== 'id' && col !== 'derivedFrom') {
             <td mat-cell class="table-cell-data" *matCellDef="let item">
               {{item[col]}}
             </td>

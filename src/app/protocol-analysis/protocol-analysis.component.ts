@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnInit, ViewChild, TemplateRef, OnDestroy} from '@angular/core';
 import {ApiDataService} from '../services/api-data.service';
 import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
@@ -15,7 +15,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatButton } from '@angular/material/button';
 import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
 import { FilterComponent } from '../shared/filter/filter.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
@@ -26,7 +26,7 @@ import { HeaderComponent } from '../shared/header/header.component';
   imports: [HeaderComponent, MatTabGroup, MatTab, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon,
     MatProgressSpinner, TableServerSideComponent, RouterLink]
 })
-export class ProtocolAnalysisComponent implements OnInit {
+export class ProtocolAnalysisComponent implements OnInit, OnDestroy {
   @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
   @ViewChild('nameTemplate', { static: true }) nameTemplate!: TemplateRef<any>;
   @ViewChild('uniTemplate', { static: true }) uniTemplate!: TemplateRef<any>;

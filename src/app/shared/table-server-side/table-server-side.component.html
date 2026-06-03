@@ -67,7 +67,7 @@
 
 <ng-template let-data #subscriptionInfoTemplate>
   <div mat-dialog-content class="centerContents">
-    <div fxLayout="row" [ngClass]="subscription_status == 'success' ? 'alert alert-success' : 'alert alert-warning'">
+    <div fxLayout="row" [ngClass]="subscription_status === 'success' ? 'alert alert-success' : 'alert alert-warning'">
       <div fxFlex="100">
         {{submission_message}}
       </div>

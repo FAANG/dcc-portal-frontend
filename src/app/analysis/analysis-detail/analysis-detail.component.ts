@@ -15,7 +15,7 @@ import {
 import {UserService} from '../../services/user.service';
 import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
@@ -31,7 +31,7 @@ export class AnalysisDetailComponent implements OnInit {
   error: any;
   convertArrayToStr: any;
   getProtocolLink: any;
-  relatedFiles: Array<any> = [];
+  relatedFiles: any[] = [];
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly biosample_prefix = external_biosample_prefix;

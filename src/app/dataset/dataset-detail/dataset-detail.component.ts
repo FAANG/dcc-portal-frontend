@@ -9,7 +9,7 @@ import {QueryService} from '../../services/query.service';
 import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { MatButton } from '@angular/material/button';
 import { HeaderComponent } from '../../shared/header/header.component';
 
@@ -31,9 +31,9 @@ export class DatasetDetailComponent implements OnInit {
   readonly ols_prefix = external_ols_prefix;
   mode = '';
   downloadColumns: string[] = [];
-  relatedSpecimen: Array<any> = [];
-  relatedFiles: Array<any> = [];
-  relatedArticles: Array<any> = [];
+  relatedSpecimen: any[] = [];
+  relatedFiles: any[] = [];
+  relatedArticles: any[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,

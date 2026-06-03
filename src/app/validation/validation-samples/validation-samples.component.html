@@ -174,16 +174,16 @@
   @if (validation_results) {
     <div fxLayout="row">
       <button class="validation_button" mat-stroked-button color="primary"
-              [ngClass]="active_issue == 'passed' ? 'mat-stroked-button' : 'mat-raised-button'"
-              [style.font-weight]="active_issue == 'passed' ? 700 : 500"
+              [ngClass]="active_issue === 'passed' ? 'mat-stroked-button' : 'mat-raised-button'"
+              [style.font-weight]="active_issue === 'passed' ? 700 : 500"
               (click)="onValidationResultsButtonClick('passed')">
-        Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
+        Records passed validation <span class="badge text-bg-light">{{records_that_pass.length}}</span>
       </button>
       <button class="validation_button" mat-raised-button color="warn"
-              [ngClass]="active_issue == 'issues' ? 'mat-stroked-button' : 'mat-raised-button'"
-              [style.font-weight]="active_issue == 'issues' ? 700 : 500"
+              [ngClass]="active_issue === 'issues' ? 'mat-stroked-button' : 'mat-raised-button'"
+              [style.font-weight]="active_issue === 'issues' ? 700 : 500"
               (click)="onValidationResultsButtonClick('issues')">
-        Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
+        Records with issues <span class="badge text-bg-light">{{records_with_issues.length}}</span>
       </button>
       @if (annotation_status !== 'Download data') {
         <button mat-raised-button color="accent" class="validation_button"
@@ -273,7 +273,7 @@
         <form (ngSubmit)="model.username.startsWith('Webin') ? onSubmitWebinRecordsClick() : onSubmit()"
               #biosamplesForm="ngForm">
           @if (!_userService.token) {
-            <div class="form-group">
+            <div class="mb-3">
               <label for="Username">Username</label>
               <input class="form-control" id="Username"
                      placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
@@ -291,7 +291,7 @@
             </div>
           }
           @if (!_userService.token) {
-            <div class="form-group">
+            <div class="mb-3">
               <label for="UserPassword">Password</label>
               <input type="password" class="form-control" id="UserPassword" placeholder="Password"
                      required [(ngModel)]="model.password" name="password" #password="ngModel">
@@ -372,7 +372,7 @@
             <mat-icon>help</mat-icon>
           </button>
           <form (ngSubmit)="onDomainSubmit()" #domainForm="ngForm">
-            <div class="form-group">
+            <div class="mb-3">
               <label for="domainName">Domain name</label>
               <input class="form-control" id="domainName"
                      placeholder="Enter your domain name" required [(ngModel)]="domain.name" name="domain_name"
@@ -385,7 +385,7 @@
                 Domain name is required
               </div>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
               <label for="domainDescription">Domain description</label>
               <input class="form-control" id="domainDescription"
                      placeholder="Enter your domain description" required [(ngModel)]="domain.description"
@@ -419,12 +419,12 @@
               <ng-container [matColumnDef]=col>
                 <th mat-header-cell class="table-header" *matHeaderCellDef>{{col}}</th>
                 <td mat-cell class="table-cell-data" *matCellDef="let item; let i = index">
-                  @if (col == 'Sample Name') {
+                  @if (col === 'Sample Name') {
                     <span >
                               {{item[col]}}
                             </span>
                   }
-                  @if (col == 'BioSample ID') {
+                  @if (col === 'BioSample ID') {
                     <span >
                               <a href="{{generateBioSampleLink(item[col])}}" class="link" target="_blank">{{item[col]}}</a>
                             </span>

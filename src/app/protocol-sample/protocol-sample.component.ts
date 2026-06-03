@@ -15,7 +15,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatButton } from '@angular/material/button';
 import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
 import { FilterComponent } from '../shared/filter/filter.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({

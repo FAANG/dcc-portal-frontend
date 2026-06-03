@@ -7,7 +7,7 @@
       style="margin: 20px 0 20px 0;">
 
       <h3>
-        @if (target_type != 'protocolsamples' && target_type != 'protocolfiles' && target_type != 'protocolanalysis') {
+        @if (target_type !== 'protocolsamples' && target_type !== 'protocolfiles' && target_type !== 'protocolanalysis') {
           <span>
             Related {{displayTitle(target_type)}}
           </span>
@@ -29,7 +29,7 @@
             Go to bulk downloader utility
           </button>
         }
-        @if (download_key.length > 0 && mode == 'public') {
+        @if (download_key.length > 0 && mode === 'public') {
           <button mat-raised-button color="accent" (click)="downloadAllFiles()" [disabled]="urls.length === 0"
             >Download selected files ({{urls.length}})
           </button>
@@ -67,7 +67,7 @@
         <table mat-table matSort matSortDisableClear [dataSource]="dataSource" table-striped style="width: 100%">
           @for (col of display_fields; track col; let i = $index) {
             <ng-container [matColumnDef]=col>
-              @if (col == 'Download') {
+              @if (col === 'Download') {
                 <th mat-header-cell class="table-header" *matHeaderCellDef>
                   <input id="mainBox" type="checkbox" [checked]="mainCheckboxChecked() == 2"
                     [indeterminate]="mainCheckboxChecked() == 1" (click)="mainCheckboxClicked()">
@@ -82,8 +82,8 @@
                   }
                 </td>
               }
-              @if (col != 'Download') {
-                <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode == 'private'"> {{display_fields[i]}} </th>
+              @if (col !== 'Download') {
+                <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header [disabled]="mode === 'private'"> {{display_fields[i]}} </th>
                 <td mat-cell class="table-cell-data" *matCellDef="let item">
                   @if (get_field_values_for_links(col)) {
                     @if (!isRecordPrivate(item)) {

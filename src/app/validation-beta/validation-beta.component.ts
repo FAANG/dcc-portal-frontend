@@ -20,7 +20,7 @@ export class ValidationBetaComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
-    @Inject(PLATFORM_ID) platformId: Object
+    @Inject(PLATFORM_ID) platformId: object
   ) {
     this.betaUrl = this.sanitizer.bypassSecurityTrustResourceUrl('');
     this.isBrowser = isPlatformBrowser(platformId);

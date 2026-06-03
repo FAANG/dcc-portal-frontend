@@ -38,7 +38,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
 import { FilterComponent } from '../shared/filter/filter.component';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
@@ -139,7 +139,7 @@ export class OntologyImproverComponent implements OnInit, OnDestroy, AfterViewIn
     private titleService: Title,
     private aggregationService: AggregationService,
     private fb: FormBuilder,
-    @Inject(PLATFORM_ID) private platformId: Object) {
+    @Inject(PLATFORM_ID) private platformId: object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 

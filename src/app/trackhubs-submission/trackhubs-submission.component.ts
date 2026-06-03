@@ -15,7 +15,7 @@ import {MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {CdkScrollable} from '@angular/cdk/scrolling';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatIcon} from '@angular/material/icon';
-import {ExtendedModule} from '@angular/flex-layout/extended';
+import {ExtendedModule} from '@ngbracket/ngx-layout/extended';
 import {JsonPipe, NgClass, NgStyle} from '@angular/common';
 import {
   MatTable,
@@ -33,7 +33,7 @@ import {MatTabGroup, MatTab} from '@angular/material/tabs';
 import {FormsModule} from '@angular/forms';
 import {MatRadioGroup, MatRadioButton} from '@angular/material/radio';
 import {MatButton, MatIconButton} from '@angular/material/button';
-import {FlexModule} from '@angular/flex-layout/flex';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {HeaderComponent} from '../shared/header/header.component';
 
 @Component({
