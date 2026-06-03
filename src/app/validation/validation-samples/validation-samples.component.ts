@@ -19,12 +19,12 @@ import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
   MatRowDef, MatRow } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
-import { ExtendedModule } from '@angular/flex-layout/extended';
+import { ExtendedModule } from '@ngbracket/ngx-layout/extended';
 import {NgClass, NgStyle, DatePipe, isPlatformBrowser} from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
 import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { HeaderComponent } from '../../shared/header/header.component';
@@ -108,7 +108,7 @@ export class ValidationSamplesComponent implements OnInit, OnDestroy {
     private apiDataService: ApiDataService,
     public _userService: UserService,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     public ngxSmartModalService: NgxSmartModalService,
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);

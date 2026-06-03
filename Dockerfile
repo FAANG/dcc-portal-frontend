@@ -22,7 +22,8 @@ RUN npm run build:ssr && mv dist/dcc-portal-frontend-ssr/browser/index.csr.html 
 
 
 # Stage 2: Serve with NGINX
-FROM nginx:latest AS server
+# Pin the base image (avoid floating :latest) for reproducible, auditable builds.
+FROM nginx:1.27-alpine AS server
 
 # Copy built Angular app to NGINX HTML directory
 COPY --from=build /app/dist/dcc-portal-frontend-ssr/browser /usr/share/nginx/html

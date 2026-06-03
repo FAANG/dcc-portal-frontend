@@ -171,16 +171,16 @@
   @if (validation_results) {
     <div fxLayout="row">
       <button class="validation_button" mat-stroked-button color="primary"
-              [ngClass]="active_issue == 'passed' ? 'mat-stroked-button' : 'mat-raised-button'"
-              [style.font-weight]="active_issue == 'passed' ? 700 : 500"
+              [ngClass]="active_issue === 'passed' ? 'mat-stroked-button' : 'mat-raised-button'"
+              [style.font-weight]="active_issue === 'passed' ? 700 : 500"
               (click)="onValidationResultsButtonClick('passed')">
-        Records passed validation <span class="badge badge-light">{{records_that_pass.length}}</span>
+        Records passed validation <span class="badge text-bg-light">{{records_that_pass.length}}</span>
       </button>
       <button class="validation_button" mat-raised-button color="warn"
-              [ngClass]="active_issue == 'issues' ? 'mat-stroked-button' : 'mat-raised-button'"
-              [style.font-weight]="active_issue == 'issues' ? 700 : 500"
+              [ngClass]="active_issue === 'issues' ? 'mat-stroked-button' : 'mat-raised-button'"
+              [style.font-weight]="active_issue === 'issues' ? 700 : 500"
               (click)="onValidationResultsButtonClick('issues')">
-        Records with issues <span class="badge badge-light">{{records_with_issues.length}}</span>
+        Records with issues <span class="badge text-bg-light">{{records_with_issues.length}}</span>
       </button>
       @if (annotation_status !== 'Download data') {
         <button mat-raised-button color="accent" class="validation_button"
@@ -268,7 +268,7 @@
             <p class="alert alert-danger">{{error}}</p>
           }
           <form (ngSubmit)="onSubmit()" #enaForm="ngForm">
-            <div class="form-group">
+            <div class="mb-3">
               <label for="WebinUsername">Username</label>
               <input class="form-control" id="WebinUsername"
                      placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
@@ -282,7 +282,7 @@
                 Webin-username is required
               </div>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
               <label for="aapPassword">Password</label>
               <input type="password" class="form-control" id="aapPassword" placeholder="Password"
                      required [(ngModel)]="model.password" name="password" #password="ngModel">

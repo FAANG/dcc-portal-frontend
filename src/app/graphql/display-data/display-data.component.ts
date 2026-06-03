@@ -8,7 +8,7 @@ import { ShortenTitlePipe } from './shorten-title.pipe';
 import { RouterLink } from '@angular/router';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { ExtendedModule } from '@angular/flex-layout/extended';
+import { ExtendedModule } from '@ngbracket/ngx-layout/extended';
 import { NgStyle, NgTemplateOutlet } from '@angular/common';
 
 @Component({

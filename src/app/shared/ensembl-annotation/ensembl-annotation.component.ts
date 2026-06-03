@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, OnChanges} from '@angular/core';
 import {ApiDataService} from '../../services/api-data.service';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -13,7 +13,7 @@ import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeader
   imports: [MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatSortHeader, MatHeaderRowDef,
     MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
-export class EnsemblAnnotationComponent implements OnInit {
+export class EnsemblAnnotationComponent implements OnInit, OnChanges {
   @Input() projectArr: string[] = [];
   @Input() parentComponent = '';
 

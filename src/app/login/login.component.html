@@ -6,7 +6,7 @@
       <div fxLayout="row" fxLayoutAlign="space-around">
         <div fxFlex="35" fxFlex.lt-md="50" fxFlex.lt-sm="100" >
           <form (ngSubmit)="login()" #userForm="ngForm">
-            <div class="form-group">
+            <div class="mb-3">
               <label for="Username">Username</label>
               <input class="form-control" id="Username"
                 placeholder="Enter your username" required [(ngModel)]="model.username" name="username"
@@ -19,7 +19,7 @@
                 <span><br />{{ error }}</span>
               }
             </div>
-            <div class="form-group">
+            <div class="mb-3">
               <label for="aapPassword">Password</label>
               <input type="password" class="form-control" id="aapPassword" placeholder="Password"
                 required [(ngModel)]="model.password" name="password" #password="ngModel">

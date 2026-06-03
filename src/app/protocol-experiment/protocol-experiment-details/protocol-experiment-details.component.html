@@ -32,14 +32,14 @@
       @for (col of display_fields; track col; let i = $index) {
         <ng-container [matColumnDef]=col>
           <th mat-header-cell class="table-header" *matHeaderCellDef mat-sort-header> {{column_names[i]}} </th>
-          @if (col == 'accession') {
+          @if (col === 'accession') {
             <td mat-cell class="table-cell-data" *matCellDef="let item">
               <a href="#" (click)="onClick(item[col]); ngxSmartModalService.getModal('myModal').open()">
                 {{item[col]}}
               </a>
             </td>
           }
-          @if (col != 'accession') {
+          @if (col !== 'accession') {
             <td mat-cell class="table-cell-data" *matCellDef="let item">
               {{item[col]}}
             </td>

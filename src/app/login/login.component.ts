@@ -4,7 +4,7 @@ import {UserService} from '../services/user.service';
 import {Router} from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({

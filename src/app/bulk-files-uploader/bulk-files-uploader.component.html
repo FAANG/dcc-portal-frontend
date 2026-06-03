@@ -1,10 +1,10 @@
 <!-- View for Bulk upload mode -->
-@if (mode == 'bulk') {
+@if (mode === 'bulk') {
   <div>
     <div fxLayout="row" style="margin-bottom: 20px;">
       <div fxFlex="48">
         <label class="btn btn-default p-0">
-          @if (mode == 'bulk') {
+          @if (mode === 'bulk') {
             <input type="file" multiple (change)="selectFiles($event)" />
           }
         </label>
@@ -55,12 +55,12 @@
   }
 
   <!-- View for Single upload mode -->
-  @if (mode == 'single') {
+  @if (mode === 'single') {
     <div>
       <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%" style="margin-bottom: 20px;">
         <div fxFlex="48">
           <label class="btn btn-default p-0">
-            @if (mode == 'single') {
+            @if (mode === 'single') {
               <input type="file" (change)="selectFiles($event)" />
             }
           </label>

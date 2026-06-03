@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import setting from './subproject-detail/subproject-detail.component.setting.json';
-import { ExtendedModule } from '@angular/flex-layout/extended';
+import { ExtendedModule } from '@ngbracket/ngx-layout/extended';
 import { NgClass, KeyValuePipe } from '@angular/common';
 import { MatCard } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 import { NgOptimizedImage } from '@angular/common';
 

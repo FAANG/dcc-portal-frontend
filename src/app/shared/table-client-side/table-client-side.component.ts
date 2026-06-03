@@ -1,10 +1,10 @@
-import { Component, Input, Output, OnInit, ViewChild, EventEmitter} from '@angular/core';
+import { Component, Input, Output, OnInit, ViewChild, EventEmitter, OnChanges} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
   MatRowDef, MatRow } from '@angular/material/table';
 import {Observable} from 'rxjs';
-import { ExtendedModule } from '@angular/flex-layout/extended';
+import { ExtendedModule } from '@ngbracket/ngx-layout/extended';
 import { NgTemplateOutlet, NgStyle } from '@angular/common';
 
 @Component({
@@ -15,15 +15,15 @@ import { NgTemplateOutlet, NgStyle } from '@angular/common';
   imports: [MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, NgTemplateOutlet, MatCellDef, MatCell,
     NgStyle, ExtendedModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
-export class TableClientSideComponent implements OnInit {
-  @Input() display_fields: Array<string> = []; // list of fields to be displayed in the table
-  @Input() column_names: Array<string> = []; // list of column headers for the selected fields
+export class TableClientSideComponent implements OnInit, OnChanges {
+  @Input() display_fields: string[] = []; // list of fields to be displayed in the table
+  @Input() column_names: string[] = []; // list of column headers for the selected fields
   @Input() public templates: {[index: string]: any} = {}; // column templates
-  @Input() data: Array<any> = []; // Array data to be populated in the table
+  @Input() data: any[] = []; // Array data to be populated in the table
   @Input() page_size = 0; // number of records in a page
   // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ... }
   @Input() filter_values!: Observable<{[index: string]: any}>;
-  @Input() col_width: Array<any> = []; // list of column widths
+  @Input() col_width: any[] = []; // list of column widths
   @Output() dataUpdate = new EventEmitter<any>();
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;

@@ -9,9 +9,9 @@ import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
 import { EnsemblAnnotationComponent } from '../../shared/ensembl-annotation/ensembl-annotation.component';
 import { MatCard } from '@angular/material/card';
-import { ExtendedModule } from '@angular/flex-layout/extended';
+import { ExtendedModule } from '@ngbracket/ngx-layout/extended';
 import {isPlatformBrowser, NgClass} from '@angular/common';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { MatButton } from '@angular/material/button';
 import { HeaderComponent } from '../../shared/header/header.component';
 
@@ -56,7 +56,7 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
               private router: Router,
               private titleService: Title,
               protected _userService: UserService,
-              @Inject(PLATFORM_ID) private platformId: Object) {
+              @Inject(PLATFORM_ID) private platformId: object) {
     this.initTwitterWidget();
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -107,10 +107,10 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
     if (this.isBrowser) {
       this.twitter = this.router.events.subscribe(val => {
         if (val instanceof NavigationEnd) {
-          (<any>window).twttr = (function (d, s, id) {
+          (window as any).twttr = (function (d, s, id) {
             let js: any;
             const fjs = d.getElementsByTagName(s)[0],
-              t = (<any>window).twttr || {};
+              t = (window as any).twttr || {};
             if (d.getElementById(id)) {
               return t;
             }
@@ -128,8 +128,8 @@ export class SubprojectDetailComponent implements OnInit, OnDestroy {
             return t;
           }(document, 'script', 'twitter-wjs'));
 
-          if ((<any>window).twttr.ready()) {
-            (<any>window).twttr.widgets.load();
+          if ((window as any).twttr.ready()) {
+            (window as any).twttr.widgets.load();
           }
 
         }

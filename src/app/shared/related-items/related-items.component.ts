@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 
 @Component({
   selector: 'app-related-items',
@@ -35,12 +35,12 @@ export class RelatedItemsComponent implements OnInit {
   @Input() target_type = ''; // the related entities, e.g. to list files in the dataset detail page, set to be file
   @Input() download_key = ''; // if download not needed (normally not file), set to empty string, otherwise to the link attribute
   @Input() isEuroFaangProj = false; // specifies if datasets table is for EuroFAANG - display project title next to table header
-  @Input() data: Array<any> = []; // Array data to be populated in the table
+  @Input() data: any[] = []; // Array data to be populated in the table
   @Output() fetchedRecords = new EventEmitter<any>();
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   dataSource!: MatTableDataSource<any>;
-  display_fields: Array<string> = [];
+  display_fields: string[] = [];
   progress: any = observableOf({});
   totalHits = 0;
   client_side = ['project-pipeline', 'publication-dataset', 'analysis-file',

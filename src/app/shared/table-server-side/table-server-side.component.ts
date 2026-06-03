@@ -7,7 +7,7 @@ import {
   EventEmitter,
   TemplateRef,
   OnInit,
-  ChangeDetectorRef, OnChanges
+  ChangeDetectorRef, OnChanges, DoCheck
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -27,7 +27,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 
 
 @Component({
@@ -41,11 +41,11 @@ import { FlexModule } from '@angular/flex-layout/flex';
       FlexModule]
 })
 
-export class TableServerSideComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() display_fields: Array<string> = []; // list of fields to be displayed in the table
-  @Input() column_names: Array<string> = []; // list of column headers for the selected fields
+export class TableServerSideComponent implements OnInit, AfterViewInit, OnChanges, DoCheck {
+  @Input() display_fields: string[] = []; // list of fields to be displayed in the table
+  @Input() column_names: string[] = []; // list of column headers for the selected fields
   @Input() templates: {[index: string]: any} = {}; // column templates
-  @Input() filter_values: Observable<Object> | undefined; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ...}
+  @Input() filter_values: Observable<object> | undefined; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ...}
   @Input() apiFunction!: Function; // function that queries the API endpoints
   @Input() query: {[index: string]: any} = {}; // query params ('sort', 'aggs', 'filters', '_source', 'from_')
   @Input() defaultSort: string[] = []; // default sort param e.g - ['id': 'desc'];
@@ -54,8 +54,8 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
   @Output() dataUpdate = new EventEmitter<any>();
   @Output() sortUpdate = new EventEmitter<any>();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = <MatPaginator>{};
-  @ViewChild(MatSort, { static: true }) sort: MatSort = <MatSort>{};
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = {} as MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort = {} as MatSort;
 
   @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   @ViewChild('subscriptionInfoTemplate') subscriptionInfoTemplate = {} as TemplateRef<any>;
@@ -257,7 +257,7 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
   }
 
   getEmail(event: Event) {
-    this.subscriber['email'] = (<HTMLInputElement>event.target).value;
+    this.subscriber['email'] = (event.target as HTMLInputElement).value;
   }
 
   onRegister(data: { email: any; filters: any; }) {

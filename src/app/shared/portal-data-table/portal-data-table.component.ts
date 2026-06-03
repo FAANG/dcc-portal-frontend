@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, OnChanges} from '@angular/core';
 import {ApiDataService} from '../../services/api-data.service';
 import * as FileSaver from 'file-saver';
 import setting from './portal-data-table.setting.json';
@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 
 @Component({
   selector: 'app-portal-data-table',
@@ -28,7 +28,7 @@ import { FlexModule } from '@angular/flex-layout/flex';
     MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatProgressBar, MatSortHeader, RobustLinkComponent, MatHeaderRowDef, MatHeaderRow,
     MatRowDef, MatRow, MatPaginator]
 })
-export class PortalDataTableComponent implements OnInit {
+export class PortalDataTableComponent implements OnInit, OnChanges {
   @Input() project: string[] = [];
   @Input() data_type = '';
   @Input() download_key = '';
@@ -36,7 +36,7 @@ export class PortalDataTableComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   dataSource!: MatTableDataSource<any>;
-  display_fields: Array<string> = [];
+  display_fields: string[] = [];
   progress: any = observableOf({});
   totalHits = 0;
   records: any;

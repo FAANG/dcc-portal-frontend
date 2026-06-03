@@ -10,7 +10,7 @@ import {UserService} from '../../services/user.service';
 import { SlicePipe } from '@angular/common';
 import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { MatButton } from '@angular/material/button';
 import { HeaderComponent } from '../../shared/header/header.component';
 
@@ -30,7 +30,7 @@ export class FileDetailComponent implements OnInit {
   showExperimentDetail = false;
   expandObject: any;
   getProtocolLink: any;
-  relatedArticles: Array<any> = [];
+  relatedArticles: any[] = [];
   readonly ena_prefix = external_ena_prefix;
   readonly ols_prefix = external_ols_prefix;
   readonly organism_prefix = internal_organism;

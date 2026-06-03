@@ -6,7 +6,7 @@ import {Title} from '@angular/platform-browser';
 import {external_doi_prefix, external_epmc_prefix, external_pubmed_prefix} from '../../shared/constants';
 import { RelatedItemsComponent } from '../../shared/related-items/related-items.component';
 import { RobustLinkComponent } from '../../shared/robust-link/robust-link.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
@@ -21,7 +21,7 @@ export class ArticleDetailComponent implements OnInit {
   id = '';
   article: any;
   error: any;
-  relatedDatasets: Array<any> = [];
+  relatedDatasets: any[] = [];
   readonly doi_prefix = external_doi_prefix;
   readonly epmc_prefix = external_epmc_prefix;
   readonly pubmed_prefix = external_pubmed_prefix;
