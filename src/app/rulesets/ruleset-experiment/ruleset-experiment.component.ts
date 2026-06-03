@@ -82,7 +82,8 @@ export class RulesetExperimentComponent implements OnInit {
     'RNA-seq': '../../../assets/rna-seq.xlsx',
     'WGS': '../../../assets/wgs.xlsx',
     'CAGE-seq': '../../../assets/cage-seq.xlsx',
-    'scRNA-seq': '../../../assets/scrna-seq.xlsx'
+    'scRNA-seq': '../../../assets/scrna-seq.xlsx',
+    'scATAC-seq': '../../../assets/scatac-seq.xlsx'
   };
   rule_groups: any[] = [];
   rules: any[] = [];
