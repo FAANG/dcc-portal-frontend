@@ -6,8 +6,6 @@ import {AggregationService} from '../services/aggregation.service';
 import {Title} from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
-import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { ExtendedModule } from '@ngbracket/ngx-layout/extended';
 import { NgClass } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -31,21 +29,18 @@ export class SpecimenComponent implements OnInit, OnDestroy {
   @ViewChild('biosampleIdTemplate', { static: true }) biosampleIdTemplate!: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', { static: true }) paperPublishedTemplate!: TemplateRef<any>;
   @ViewChild('trackhubUrlTemplate', { static: true }) trackhubUrlTemplate!: TemplateRef<any>;
-  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
   public loadTableDataFunction!: Function;
   columnNames: string[] = ['BioSample ID', 'Material', 'Organism part/Cell type', 'Sex', 'Organism', 'Breed', 'Standard',
-    'Paper published', 'Track Hub', 'Subscribe'];
+    'Paper published', 'Track Hub'];
   displayFields: string[] = ['bioSampleId', 'material', 'organismpart_celltype', 'sex', 'organism', 'breed', 'standard',
-  'paperPublished', 'trackhubUrl', 'subscribe'];
+  'paperPublished', 'trackhubUrl'];
   filter_field: any;
   templates: {[index: string]: any} = {};
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle = '';
-  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   indexDetails: {[index: string]: any} = {};
 
@@ -80,7 +75,7 @@ export class SpecimenComponent implements OnInit, OnDestroy {
       '_source.trackhubUrl',
       '_source.submitterEmail'
     ],
-    'columns': [...this.columnNames.slice(0, -1), 'Submitter Email'], //remove 'Subscribe' from array and add 'Submitter Email'
+    'columns': [...this.columnNames, 'Submitter Email'], //add 'Submitter Email'
     'filters': {},
     'file_format': 'csv',
   };
@@ -92,7 +87,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
               private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private dialogModel: MatDialog,
               private aggregationService: AggregationService,
               private titleService: Title) { }
 
@@ -168,17 +162,6 @@ export class SpecimenComponent implements OnInit, OnDestroy {
 
   isGreen(published: any) {
     return published === 'true' ? 'green' : 'default';
-  }
-
-  openSubscriptionDialog() {
-    // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Specimen entries';
-    this.subscriber.indexName = this.indexDetails['index'];
-    this.subscriber.indexKey = this.indexDetails['indexKey'];
-    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
-      height: '300px', width: '400px',
-      data: this.subscriber
-    });
   }
 
   ngOnDestroy() {

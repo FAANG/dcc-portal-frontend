@@ -5,7 +5,6 @@ import {
   AfterViewInit,
   ViewChild,
   EventEmitter,
-  TemplateRef,
   OnInit,
   ChangeDetectorRef, OnChanges, DoCheck
 } from '@angular/core';
@@ -17,10 +16,10 @@ import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeader
 import { Observable, merge, of as observableOf } from 'rxjs';
 import { map, startWith, switchMap, catchError } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MatDialog, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import {female_values, male_values, published_article_source} from '../constants';
 import {ApiDataService} from '../../services/api-data.service';
-import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {Location, NgTemplateOutlet, NgClass} from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatIcon } from '@angular/material/icon';
@@ -57,20 +56,10 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = {} as MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort = {} as MatSort;
 
-  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
-  @ViewChild('subscriptionInfoTemplate') subscriptionInfoTemplate = {} as TemplateRef<any>;
-
   dataSource = new MatTableDataSource();
   totalHits = 0;
   timer: any;
   delaySearch = true;
-  subscriptionDialogTitle = '';
-  subscriber: {[index: string]: any} = { email: '', filters: {} };
-  dialogRef: any;
-  dialogSubscriptionInfoRef: any;
-  public subscriptionForm!: FormGroup;
-  submission_message = '';
-  subscription_status = '';
   apiKey = '';
   currentSearchTerm = '';
   queryParams: any = {};
@@ -86,7 +75,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
   constructor(private spinner: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              public dialog: MatDialog,
               private dataService: ApiDataService,
               location: Location,
               private changeDetectorRef: ChangeDetectorRef) {
@@ -94,9 +82,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
   }
 
   ngOnInit() {
-    this.subscriptionForm = new FormGroup({
-      subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
-    });
     // get search term
     this.currentSearchTerm = this.query['search'];
 
@@ -236,53 +221,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
         replaceUrl: true, skipLocationChange: false
       });
   }
-
-  openSubscriptionDialog(value: string) {
-    this.subscriptionDialogTitle = `Subscribing to record ${value}`;
-    this.subscriber['filters'][this.indexDetails['indexKey']] = [value];
-    this.dialogRef = this.dialog.open(this.subscriptionTemplate,
-      { data: this.subscriber, height: '260px', width: '400px' });
-  }
-
-  onCancelDialog(dialogType: string) {
-    if (dialogType === 'info') {
-      this.dialogSubscriptionInfoRef.close();
-    } else {
-      this.dialogRef.close();
-    }
-  }
-
-  public displayError = (controlName: string, errorName: string) => {
-    return this.subscriptionForm?.controls[controlName].hasError(errorName);
-  }
-
-  getEmail(event: Event) {
-    this.subscriber['email'] = (event.target as HTMLInputElement).value;
-  }
-
-  onRegister(data: { email: any; filters: any; }) {
-    if (this.subscriptionForm?.valid && this.subscriptionForm?.touched) {
-      this.dataService.subscribeUser(this.indexDetails['index'], this.indexDetails['indexKey'], data.email, data.filters)
-        .subscribe({
-          next: (response: any) => {
-            this.dialogRef.close();
-            this.submission_message = response?.['submission_message'] || 'Subscription registered successfully.';
-            this.subscription_status = response?.['subscription_status'] || 'success';
-            this.dialogSubscriptionInfoRef = this.dialog.open(this.subscriptionInfoTemplate,
-              { data: this.subscriber, height: '250px', width: '600px' });
-          },
-          error: (error: any) => {
-            console.log(error);
-            this.dialogRef.close();
-            this.submission_message = 'Failed to register subscription.';
-            this.subscription_status = 'warning';
-            this.dialogSubscriptionInfoRef = this.dialog.open(this.subscriptionInfoTemplate,
-              { data: this.subscriber, height: '250px', width: '600px' });
-          }
-        });
-    }
-  }
-
 
   resetPagination(pageIndex: number) {
     if (pageIndex !== 0) {
