@@ -1430,20 +1430,6 @@ export class ApiDataService {
     );
   }
 
-  subscribeUser(indexName: any, indexKey: any, subscriberEmail: any, filters: any) {
-    const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${encodeURIComponent(indexName)}/${encodeURIComponent(indexKey)}/${encodeURIComponent(subscriberEmail)}`;
-    const params = new HttpParams().set('filters', JSON.stringify(filters));
-    return this.http.get(url, {params: params});
-  }
-
-  subscribeFilteredData(indexName: any, indexKey: any, subscriberEmail: any) {
-    const filters = this.apiFiltersService.get_current_api_filters();
-    const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${encodeURIComponent(indexName)}/${encodeURIComponent(indexKey)}/${encodeURIComponent(subscriberEmail)}`;
-    const params = new HttpParams().set('filters', JSON.stringify(filters));
-    return this.http.get(url, {params: params});
-  }
-
-
   private handleError(error: HttpErrorResponse) {
     if (typeof ErrorEvent !== 'undefined' && error.error instanceof ErrorEvent) {
       // A client-side or network errorSubject occurred. Handle it accordingly.

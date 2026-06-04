@@ -6,8 +6,6 @@ import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
-import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { ExtendedModule } from '@ngbracket/ngx-layout/extended';
 import { NgClass } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -31,20 +29,17 @@ export class DatasetComponent implements OnInit, OnDestroy {
   @ViewChild('datasetAccessionTemplate', {static: true}) datasetAccessionTemplate!: TemplateRef<any>;
   @ViewChild('paperPublishedTemplate', {static: true}) paperPublishedTemplate!: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent!: TableServerSideComponent;
-  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
   public loadTableDataFunction!: Function;
   displayFields: string[] = ['datasetAccession', 'title', 'species', 'archive', 'assayType', 'numberOfExperiments',
-    'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished', 'subscribe'];
+    'numberOfSpecimens', 'numberOfFiles', 'standard', 'paperPublished'];
   columnNames: string[] = ['Dataset accession', 'Title', 'Species', 'Archive', 'Assay type', 'Number of Experiments',
-    'Number of Specimens', 'Number of Files', 'Standard', 'Paper published', 'Subscribe'];
+    'Number of Specimens', 'Number of Files', 'Standard', 'Paper published'];
   filter_field: any;
   templates: {[index: string]: any} = {};
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle = '';
-  subscriber = {email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   indexDetails: {[index: string]: any} = {};
 
@@ -80,7 +75,7 @@ export class DatasetComponent implements OnInit, OnDestroy {
       '_source.paperPublished',
       '_source.submitterEmail'
     ],
-    'columns': [...this.columnNames.slice(0, -1), 'Submitter Email'], //remove 'Subscribe' from array and add 'Submitter Email'
+    'columns': [...this.columnNames, 'Submitter Email'], //add 'Submitter Email'
     'filters': {},
     'file_format': 'csv',
   };
@@ -91,7 +86,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
-              private dialogModel: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) {
@@ -179,17 +173,6 @@ export class DatasetComponent implements OnInit, OnDestroy {
 
   isGreen(published: any) {
     return published === 'true' ? 'green' : 'default';
-  }
-
-  openSubscriptionDialog() {
-    // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Dataset entries';
-    this.subscriber.indexName = this.indexDetails['index'];
-    this.subscriber.indexKey = this.indexDetails['indexKey'];
-    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
-      height: '300px', width: '400px',
-      data: this.subscriber
-    });
   }
 
   ngOnDestroy() {

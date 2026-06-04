@@ -6,7 +6,6 @@ import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Params, Router, RouterLink} from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
-import {SubscriptionDialogComponent} from '../shared/subscription-dialog/subscription-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ExtendedModule} from '@ngbracket/ngx-layout/extended';
 import {NgClass} from '@angular/common';
@@ -33,16 +32,14 @@ export class OrganismComponent implements OnInit, OnDestroy {
   @ViewChild(TableServerSideComponent, {static: true}) tableServerComponent!: TableServerSideComponent;
   public loadTableDataFunction!: Function;
 
-  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published', 'Subscribe'];
-  displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished', 'subscribe'];
+  columnNames: string[] = ['BioSample ID', 'Sex', 'Organism', 'Breed', 'Standard', 'Paper published'];
+  displayFields: string[] = ['bioSampleId', 'sex', 'organism', 'breed', 'standard', 'paperPublished'];
   templates: { [index: string]: any } = {};
   filter_field: any;
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle = '';
-  subscriber = {email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   indexDetails: { [index: string]: any } = {};
 
@@ -83,7 +80,6 @@ export class OrganismComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               public dialog: MatDialog,
-              private dialogModel: MatDialog,
               private aggregationService: AggregationService,
               private titleService: Title) {
   }
@@ -166,17 +162,6 @@ export class OrganismComponent implements OnInit, OnDestroy {
       this.filterStateService.resetFilter();
     }
     this.aggrSubscription.unsubscribe();
-  }
-
-  openSubscriptionDialog() {
-    // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Organism entries';
-    this.subscriber.indexName = this.indexDetails['index'];
-    this.subscriber.indexKey = this.indexDetails['indexKey'];
-    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
-      height: '300px', width: '400px',
-      data: this.subscriber
-    });
   }
 
   loadInitialPageState(params: any) {
