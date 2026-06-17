@@ -4,7 +4,7 @@ import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
 import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -22,7 +22,7 @@ import { HeaderComponent } from '../shared/header/header.component';
   styleUrls: ['./protocol-analysis.component.css'],
   standalone: true,
   imports: [HeaderComponent, MatTabGroup, MatTab, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon,
-    MatProgressSpinner, TableServerSideComponent, RouterLink]
+    MatProgressSpinner, TableServerSideComponent]
 })
 export class ProtocolAnalysisComponent implements OnInit, OnDestroy {
   @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
@@ -175,8 +175,12 @@ export class ProtocolAnalysisComponent implements OnInit, OnDestroy {
     }
   }
 
-  encodeDot(filename: string) {
-    return `%22${filename}%22`;
+  // Protocol ids are filenames that often contain a dot (e.g. "...20200720.pdf"). A dotted final path
+  // segment is treated as a static-file request by the dev/SSR server, so the app route is never served
+  // (you get "Cannot GET ..."). Percent-encode the id and escape dots so the URL has no apparent extension;
+  // the detail component decodes it back via decodeURIComponent(params['id']).
+  detailUrl(key: string): string {
+    return `/protocol/analysis/${encodeURIComponent(key).replace(/\./g, '%2E')}`;
   }
 
 }
