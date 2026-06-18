@@ -128,6 +128,9 @@ export function getProtocolLink(url: string) {
         link = url;
       }
     }
+    // Some sample protocols are indexed with the ES index name as the directory
+    // (.../files/protocols/protocol_samples/...) which 404s; the served path is /samples/.
+    link = link.replace('/files/protocols/protocol_samples/', '/files/protocols/samples/');
     return link;
   }
   return '';
