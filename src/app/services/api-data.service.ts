@@ -7,7 +7,7 @@ import {
   ArticleTable, AnalysisTable, DatasetTable, FileTable, FileForProjectTable, OrganismTable, OrganismForProjectTable,
   ProtocolFile, ProtocolSample, SpecimenTable, SpecimenForProjectTable, PipelineTable, ProtocolAnalysis
 } from '../shared/interfaces';
-import {ruleset_prefix_new, validation_service_url} from '../shared/constants';
+import {ruleset_prefix_new} from '../shared/constants';
 import {UserService} from './user.service';
 import {replaceUnderscoreWithSpace} from '../shared/common_functions';
 import {protocolNames} from '../shared/protocolnames';
@@ -1371,43 +1371,16 @@ export class ApiDataService {
     );
   }
 
-  startValidation(submission_type: string, task_id: string, room_id: string, rules_type: string) {
-    const url =  validation_service_url + '/validation/' + submission_type + '/' + rules_type + '/' + task_id + '/' + room_id;
-    return this.http.get(url);
-  }
 
-  startConversion(task_id: string, room_id: string, rules_type: string) {
-    const url = validation_service_url + '/submission/' + rules_type + '/' + task_id + '/' + room_id;
-    return this.http.get(url);
-  }
 
-  getTemplate(task_id: string, room_id: string, data_type: string, action: string) {
-    const url = `${validation_service_url}/submission/get_template/${task_id}/${room_id}/${data_type}/${action}`;
-    return this.http.get(url);
-  }
 
-  chooseDomain(username: string, password: string, mode: string, room_id: string, private_submission: boolean) {
-    const url = `${validation_service_url}/submission/samples/${room_id}/choose_domain`;
-    return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
-  }
 
-  submitDomain(username: string, password: string, mode: string, domain_name: string, domain_description: string, room_id: string,
-               private_submission: boolean) {
-    const url = `${validation_service_url}/submission/samples/${room_id}/submit_domain`;
-    return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
-      domain_description: domain_description, private_submission: private_submission});
-  }
 
-  submitRecords(action: string, username: string, password: string, mode: string, room_id: string, task_id: string, submission_type: string,
-                private_submission: boolean, domain_name= '') {
-    const url = `${validation_service_url}/submission/${action}/${submission_type}/${task_id}/${room_id}/submit_records`;
-    if (domain_name !== '') {
-      return this.http.post(url, {username: username, password: password, mode: mode, domain_name: domain_name,
-        private_submission: private_submission});
-    } else {
-      return this.http.post(url, {username: username, password: password, mode: mode, private_submission: private_submission});
-    }
-  }
+
+
+
+
+
 
   get_pubsub_messages() {
     const url = `${this.hostSetting.host}data/submission_portal_status/_search/?size=1`;
