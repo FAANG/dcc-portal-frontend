@@ -2,7 +2,7 @@ import {PublicationPage} from "./publication.cy"
 
 describe('Publication Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/data/article/_search/*&sort=pmcId:asc&*', {fixture: 'data/publication.json'}).as("publicationList")
+    cy.intercept({method: 'GET', url: '/data/article/_search/*&sort=pmcId:asc*', times: 1}, {fixture: 'data/publication.json'}).as("publicationList")
     cy.visit('/article');
   })
 

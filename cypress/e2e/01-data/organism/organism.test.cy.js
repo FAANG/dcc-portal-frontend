@@ -2,7 +2,7 @@ import {OrganismPage} from "./organism.cy"
 
 describe('Organism Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/data/organism/_search/*&sort=id_number:desc*', {fixture: 'data/organism.json'}).as("organismList")
+    cy.intercept({method: 'GET', url: '/data/organism/_search/*&sort=id_number:desc*', times: 1}, {fixture: 'data/organism.json'}).as("organismList")
     cy.visit('/organism')
   })
 

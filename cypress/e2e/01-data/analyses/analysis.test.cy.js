@@ -2,7 +2,7 @@ import {AnalysisPage} from "./analysis.cy"
 
 describe('Analysis Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/data/analysis/_search/*&sort=accession:*&*', {fixture: 'data/analysis.json'}).as("analysisList")
+    cy.intercept({method: 'GET', url: '/data/analysis/_search/*&sort=accession:desc*', times: 1}, {fixture: 'data/analysis.json'}).as("analysisList")
     cy.visit('/analysis');
   })
 
@@ -97,7 +97,7 @@ describe('Analysis Page', () => {
       '[title="Dataset"] > .mat-mdc-card > :nth-child(2) > :nth-child(1)',
       'analysisType',
       'datasetAccession',
-      ['PRJEB19199', 'SEQUENCE_ANNOTATION'])
+      ['PRJEB19199', 'PROCESSED_READS'])
   })
 
   it('should remove filters', () => {

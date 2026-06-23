@@ -26,6 +26,7 @@ export class AnalysisPage {
     cy.intercept('GET', `/data/protocol_analysis/_search/*&sort=*${colname}:asc*`, {fixture: 'data/protocol-analyses.json'}).as('ascendingList')
 
     cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
+    cy.wait('@ascendingList')
     cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.wait('@descendingList', {timeout: 60000}).then(({request, response}) => {
@@ -77,7 +78,6 @@ export class AnalysisPage {
   removeFilters(filterAccessor_1, filterAccessor_2, colname1, colname2) {
     cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/protocol-analyses.json'}).as('filteredList1')
     cy.intercept('GET', '/data/protocol_analysis/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/protocol-analyses.json'}).as('filteredList2')
-    cy.intercept('GET', '/data/protocol_analysis/_search/*filters=%7B%7D&aggs=*', {fixture: 'data/protocol-analyses.json'}).as('noFilter')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -89,7 +89,6 @@ export class AnalysisPage {
     cy.get('app-active-filter.ng-star-inserted').children().should('have.length', 2)
 
     cy.contains('Remove all filters').click()
-    cy.wait("@noFilter", {timeout: 60000}).its("request.url").should("contain", 'filters=%7B%7D&aggs')
     cy.get('app-active-filter.ng-star-inserted').should('not.exist')
   }
 

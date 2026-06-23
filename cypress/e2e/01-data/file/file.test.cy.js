@@ -2,7 +2,7 @@ import {FilePage} from "./file.cy"
 
 describe('File Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/data/file/_search/*&sort=name:desc*', {fixture: 'data/file.json'}).as("fileList")
+    cy.intercept({method: 'GET', url: '/data/file/_search/*&sort=name:desc*', times: 1}, {fixture: 'data/file.json'}).as("fileList")
     cy.visit('/file');
   })
 
