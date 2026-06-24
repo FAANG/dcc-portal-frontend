@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UserForm} from '../validation/webin_aap_user';
+import {UserForm} from './login-user-form';
 import {UserService} from '../services/user.service';
 import {Router} from '@angular/router';
 import { MatButton } from '@angular/material/button';

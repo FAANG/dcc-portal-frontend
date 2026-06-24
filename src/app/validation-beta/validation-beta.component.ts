@@ -1,13 +1,15 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import {DatePipe, isPlatformBrowser} from '@angular/common';
 import { HeaderComponent } from '../shared/header/header.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import {ApiDataService} from '../services/api-data.service';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-validation-beta',
   standalone: true,
-  imports: [HeaderComponent, RouterLink],
+  imports: [HeaderComponent, MatExpansionPanel, MatExpansionPanelTitle, MatExpansionPanelDescription, MatExpansionPanelHeader, DatePipe],
   templateUrl: './validation-beta.component.html',
   styleUrl: './validation-beta.component.css'
 })
@@ -15,9 +17,12 @@ export class ValidationBetaComponent implements OnInit, OnDestroy {
   betaUrl: SafeResourceUrl;
   private messageListener: any;
   private isBrowser: boolean;
+  currentDate!: Date;
+  downServices: string[] = [];
 
   constructor(
     private sanitizer: DomSanitizer,
+    private apiDataService: ApiDataService,
     private route: ActivatedRoute,
     private router: Router,
     @Inject(PLATFORM_ID) platformId: object
@@ -27,6 +32,10 @@ export class ValidationBetaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.currentDate = new Date;
+    // check pubsub lite queue on GCP
+    this.getPubSubMessage();
+
     // Get the tab from route data
     this.route.data.subscribe(data => {
       const tab = data['tab'] || 'samples';
@@ -50,6 +59,26 @@ export class ValidationBetaComponent implements OnInit, OnDestroy {
       window.addEventListener('message', this.messageListener);
     }
   }
+
+  getPubSubMessage() {
+    this.apiDataService.get_pubsub_messages().subscribe({
+      next: data => {
+        const statuses = data[0];
+        this.downServices = [
+          { name: 'ENA', status: statuses['enaStatus'] },
+          { name: 'BioSample', status: statuses['biosampleStatus'] },
+        ]
+          .filter(s => s.status === 'failure')
+          .map(s => s.name);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+  // isSubmissionDisabled(status: string) {
+  //   return  this.gcp_subscription_status === 'failure';
+  // }
 
   ngOnDestroy() {
     // Only remove listener in browser

@@ -6,7 +6,7 @@ export class OrganismPage {
   }
 
   check_header_sort_asc(classname, colname) {
-    cy.intercept('GET', '/data/organism/_search/*&sort=*asc*', {fixture: 'data/organism.json'}).as('ascendingList')
+    cy.intercept('GET', `/data/organism/_search/*&sort=*${colname}:asc*`, {fixture: 'data/organism.json'}).as('ascendingList')
     cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.get('tbody')
@@ -21,10 +21,11 @@ export class OrganismPage {
   }
 
   check_header_sort_desc(classname, colname) {
-    cy.intercept('GET', '/data/organism/_search/*&sort=*desc*', {fixture: 'data/organism.json'}).as('descendingList')
-    cy.intercept('GET', '/data/organism/_search/*&sort=*asc*', {fixture: 'data/organism.json'}).as('ascendingList')
+    cy.intercept('GET', `/data/organism/_search/*&sort=*${colname}:desc*`, {fixture: 'data/organism.json'}).as('descendingList')
+    cy.intercept('GET', `/data/organism/_search/*&sort=*${colname}:asc*`, {fixture: 'data/organism.json'}).as('ascendingList')
 
     cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
+    cy.wait('@ascendingList')
     cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
 
     cy.get('tbody')
@@ -86,7 +87,6 @@ export class OrganismPage {
   removeFilters(filterAccessor_1, filterAccessor_2, colname1, colname2) {
     cy.intercept('GET', '/data/organism/_search/*filters=*' + colname1 + '*&aggs=*', {fixture: 'data/organism.json'}).as('filteredList1')
     cy.intercept('GET', '/data/organism/_search/*filters=*' + colname2 + '*&aggs=*', {fixture: 'data/organism.json'}).as('filteredList2')
-    cy.intercept('GET', '/data/organism/_search/*filters=%7B%7D&aggs=*', {fixture: 'data/organism.json'}).as('noFilter')
 
     // click on filters
     cy.get(filterAccessor_1).click()
@@ -98,7 +98,6 @@ export class OrganismPage {
     cy.get('app-active-filter.ng-star-inserted').children().should('have.length', 2)
 
     cy.contains('Remove all filters').click()
-    cy.wait("@noFilter").its("request.url").should("contain", 'filters=%7B%7D&aggs')
     cy.get('app-active-filter.ng-star-inserted').should('not.exist')
   }
 

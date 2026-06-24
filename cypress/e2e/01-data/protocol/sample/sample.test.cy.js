@@ -2,7 +2,7 @@ import {SamplePage} from "./sample.cy"
 
 describe('Protocol Sample Page', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/data/protocol_samples/_search/*&sort=protocolName:asc*', {fixture: 'data/protocol-samples.json'}).as("protocolSamplesList")
+    cy.intercept({method: 'GET', url: '/data/protocol_samples/_search/*&sort=protocolName:asc*', times: 1}, {fixture: 'data/protocol-samples.json'}).as("protocolSamplesList")
     cy.visit('/protocol/samples');
   })
 

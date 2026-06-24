@@ -30,13 +30,15 @@ export class GraphqlPage {
     cy.get('#mat-select-8 > .mat-mdc-select-trigger').click().get('mat-option')
       .contains(filterName).click();
     cy.get('#mat-input-0').type(filterValue)
-    cy.get('div > div.button-div:first').click()
 
+    // Register the result intercept BEFORE triggering the query, otherwise the
+    // POST fires before the stub exists and cy.wait('@graphql2') never resolves.
     cy.intercept('POST', '/graphql', (req) => {
       if (req.body.query.includes(queryResultName)) {
         req.reply({ fixture: `data/graphql/${fixtureResult}`});
       }
     }).as("graphql2");
+    cy.get('div > div.button-div:first').click()
     cy.wait('@graphql2').its("request.url").should("contain", 'graphql')
     cy.get('tbody')
       .find('tr')
@@ -54,6 +56,7 @@ export class GraphqlPage {
 
   check_header_sort_desc(classname, colname) {
     cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
+    cy.get(`.mat-mdc-header-row > ${classname}`).should('have.attr', 'aria-sort', 'ascending')
     cy.get(`.mat-mdc-header-row > ${classname}`).click({force: true})
     cy.get('tbody')
       .find('tr')
