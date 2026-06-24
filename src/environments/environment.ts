@@ -8,7 +8,7 @@ export const environment = {
   // host: 'http://localhost:8000/',
   // host: 'http://45.88.81.194:8001/',
   // host: 'http://localhost:57564/',
-  host: 'https://api.faang.org/',
+  host: 'http://127.0.0.1:8000/',
   relatedProjectsHost: 'https://raw.githubusercontent.com/FAANG/comm-data-portal-projects/master/projects/'
 };
 

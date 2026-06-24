@@ -4,18 +4,16 @@ import {FilterStateService} from '../services/filter-state.service';
 import {AggregationService} from '../services/aggregation.service';
 import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
-import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
-import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatButton } from '@angular/material/button';
 import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
 import { FilterComponent } from '../shared/filter/filter.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
@@ -24,7 +22,7 @@ import { HeaderComponent } from '../shared/header/header.component';
   styleUrls: ['./protocol-sample.component.css'],
   standalone: true,
   imports: [HeaderComponent, MatTabGroup, MatTab, FlexModule, FilterComponent, ActiveFilterComponent, MatButton, MatTooltip, MatIcon,
-    MatProgressSpinner, TableServerSideComponent, RouterLink]
+    MatProgressSpinner, TableServerSideComponent]
 })
 export class ProtocolSampleComponent implements OnInit, OnDestroy {
   @ViewChild('tabs', { static: true }) tabGroup!: MatTabGroup;
@@ -34,16 +32,14 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
   public loadTableDataFunction!: Function;
 
-  columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol', 'Subscribe'];
-  displayFields: string[] = ['protocol_name', 'university_name', 'protocol_date', 'subscribe'];
+  columnNames: string[] = ['Protocol name', 'Organisation', 'Year of protocol'];
+  displayFields: string[] = ['protocol_name', 'university_name', 'protocol_date'];
   templates: { [index: string]: any } = {};
   filter_field: any;
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle = '';
-  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   indexDetails: { [index: string]: any } = {};
 
@@ -76,7 +72,6 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
-              private dialogModel: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) { }
@@ -159,17 +154,6 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     }
   }
 
-  openSubscriptionDialog() {
-    // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Protocol Samples entries';
-    this.subscriber.indexName = this.indexDetails['index'];
-    this.subscriber.indexKey = this.indexDetails['indexKey'];
-    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
-      height: '300px', width: '400px',
-      data: this.subscriber
-    });
-  }
-
   ngOnDestroy() {
     if (typeof this.filter_field !== 'undefined') {
       this.filterStateService.resetFilter();
@@ -191,8 +175,12 @@ export class ProtocolSampleComponent implements OnInit, OnDestroy {
     }
   }
 
-  encodeDot(filename: string) {
-    return `%22${filename}%22`;
+  // Protocol ids are filenames that often contain a dot (e.g. "...20200720.pdf"). A dotted final path
+  // segment is treated as a static-file request by the dev/SSR server, so the app route is never served
+  // (you get "Cannot GET ..."). Percent-encode the id and escape dots so the URL has no apparent extension;
+  // the detail component decodes it back via decodeURIComponent(params['id']).
+  detailUrl(key: string): string {
+    return `/protocol/samples/${encodeURIComponent(key).replace(/\./g, '%2E')}`;
   }
 
 }

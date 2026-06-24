@@ -5,10 +5,8 @@ import {
   AfterViewInit,
   ViewChild,
   EventEmitter,
-  TemplateRef,
   OnInit,
-  PLATFORM_ID, Inject,
-  ChangeDetectorRef, OnChanges
+  ChangeDetectorRef, OnChanges, DoCheck
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,20 +14,19 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow,
   MatRowDef, MatRow } from '@angular/material/table';
 import { Observable, merge, of as observableOf } from 'rxjs';
-import { map, startWith, switchMap, catchError, finalize } from 'rxjs/operators';
+import { map, startWith, switchMap, catchError } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MatDialog, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import {female_values, male_values, published_article_source} from '../constants';
 import {ApiDataService} from '../../services/api-data.service';
-import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {subscription_ws_url} from '../constants';
-import {Location, NgTemplateOutlet, NgClass, isPlatformBrowser} from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {Location, NgTemplateOutlet, NgClass} from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 
 
 @Component({
@@ -43,11 +40,11 @@ import { FlexModule } from '@angular/flex-layout/flex';
       FlexModule]
 })
 
-export class TableServerSideComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() display_fields: Array<string> = []; // list of fields to be displayed in the table
-  @Input() column_names: Array<string> = []; // list of column headers for the selected fields
+export class TableServerSideComponent implements OnInit, AfterViewInit, OnChanges, DoCheck {
+  @Input() display_fields: string[] = []; // list of fields to be displayed in the table
+  @Input() column_names: string[] = []; // list of column headers for the selected fields
   @Input() templates: {[index: string]: any} = {}; // column templates
-  @Input() filter_values: Observable<Object> | undefined; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ...}
+  @Input() filter_values: Observable<object> | undefined; // filter values in the format { col1: [val1, val2..], col2: [val1, val2...], ...}
   @Input() apiFunction!: Function; // function that queries the API endpoints
   @Input() query: {[index: string]: any} = {}; // query params ('sort', 'aggs', 'filters', '_source', 'from_')
   @Input() defaultSort: string[] = []; // default sort param e.g - ['id': 'desc'];
@@ -56,24 +53,13 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
   @Output() dataUpdate = new EventEmitter<any>();
   @Output() sortUpdate = new EventEmitter<any>();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = <MatPaginator>{};
-  @ViewChild(MatSort, { static: true }) sort: MatSort = <MatSort>{};
-
-  @ViewChild('subscriptionTemplate') subscriptionTemplate = {} as TemplateRef<any>;
-  @ViewChild('subscriptionInfoTemplate') subscriptionInfoTemplate = {} as TemplateRef<any>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = {} as MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort = {} as MatSort;
 
   dataSource = new MatTableDataSource();
   totalHits = 0;
   timer: any;
   delaySearch = true;
-  subscriptionDialogTitle = '';
-  subscriber: {[index: string]: any} = { email: '', filters: {} };
-  dialogRef: any;
-  dialogSubscriptionInfoRef: any;
-  public subscriptionForm!: FormGroup;
-  socket: any;
-  submission_message = '';
-  subscription_status = '';
   apiKey = '';
   currentSearchTerm = '';
   queryParams: any = {};
@@ -85,24 +71,17 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
     source: [{filterValue: ['PPR'], displayValue: 'preprint'}, {filterValue: published_article_source, displayValue: 'published'}],
     assayType: [{filterValue: ['transcription profiling by high throughput sequencing'], displayValue: 'RNA-Seq'}]
   };
-  isBrowser = false;
 
   constructor(private spinner: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              public dialog: MatDialog,
               private dataService: ApiDataService,
               location: Location,
-              @Inject(PLATFORM_ID) private platformId: Object,
               private changeDetectorRef: ChangeDetectorRef) {
     this.location = location;
-    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit() {
-    this.subscriptionForm = new FormGroup({
-      subscriberEmail: new FormControl('', [Validators.required, Validators.email]),
-    });
     // get search term
     this.currentSearchTerm = this.query['search'];
 
@@ -124,7 +103,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
   ngAfterViewInit() {
     if (this.indexDetails) {
       this.apiKey = this.indexDetails['apiKey'];
-      this.setSocket();
     }
     // Reset back to the first page when sort order is changed
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -242,78 +220,6 @@ export class TableServerSideComponent implements OnInit, AfterViewInit, OnChange
         queryParams: this.queryParams,
         replaceUrl: true, skipLocationChange: false
       });
-  }
-
-  openSubscriptionDialog(value: string) {
-    this.subscriptionDialogTitle = `Subscribing to record ${value}`;
-    this.subscriber['filters'][this.indexDetails['indexKey']] = [value];
-    this.dialogRef = this.dialog.open(this.subscriptionTemplate,
-      { data: this.subscriber, height: '260px', width: '400px' });
-  }
-
-  onCancelDialog(dialogType: string) {
-    if (dialogType === 'info') {
-      this.dialogSubscriptionInfoRef.close();
-    } else {
-      this.dialogRef.close();
-    }
-  }
-
-  public displayError = (controlName: string, errorName: string) => {
-    return this.subscriptionForm?.controls[controlName].hasError(errorName);
-  }
-
-  getEmail(event: Event) {
-    this.subscriber['email'] = (<HTMLInputElement>event.target).value;
-  }
-
-  onRegister(data: { email: any; filters: any; }) {
-    if (this.subscriptionForm?.valid && this.subscriptionForm?.touched) {
-      this.dataService.subscribeUser(this.indexDetails['index'], this.indexDetails['indexKey'], data.email, data.filters)
-        .subscribe({
-          next: () => {
-            this.dialogRef.close();
-          },
-          error: (error: any) => {
-            console.log(error);
-            this.dialogRef.close();
-          }
-        });
-    }
-  }
-
-  setSocket() {
-    if (this.isBrowser) {
-      // Connect to WebSockets here
-      const url = `${subscription_ws_url}submission/subscription_${this.indexDetails['index']}/`;
-      this.socket = new WebSocket(url);
-      this.socket.onopen = () => {
-        console.log('WebSockets connection created.');
-      };
-      this.socket.onmessage = (event: { data: string; }) => {
-        const data = JSON.parse(event.data)['response'];
-
-        if (data['submission_message']) {
-          if (this.dialogRef) {
-            this.dialogRef.close();
-            this.dialogRef.afterClosed().pipe(
-              finalize(() => this.dialogRef = undefined)
-            );
-          }
-          this.submission_message = data['submission_message'];
-          this.subscription_status = data['subscription_status'];
-          if (this.subscription_status) {
-            this.dialogSubscriptionInfoRef = this.dialog.open(this.subscriptionInfoTemplate,
-              { data: this.subscriber, height: '250px', width: '600px' });
-          }
-        }
-      };
-      if (this.socket.readyState === WebSocket.OPEN) {
-        this.socket.onopen(null);
-      }
-    }
-
-
   }
 
   resetPagination(pageIndex: number) {

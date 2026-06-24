@@ -26,7 +26,7 @@ export class ApiDataService {
 
 
   getGSearchData(sterm: string) {
-    const url = `${this.hostSetting.host}data/_gsearch/?sterm=${sterm}`;
+    const url = `${this.hostSetting.host}data/_gsearch/?sterm=${encodeURIComponent(sterm)}`;
     const json_data: {[index: string]: any} = {};
     return this.http.get(url).pipe(
       map((data: any) => {
@@ -45,7 +45,7 @@ export class ApiDataService {
   }
 
   getAllFiles(query: any, size: number) {
-    const url = `${this.hostSetting.host}data/file/_search/?size=${size}`;
+    const url = `${this.hostSetting.host}data/2026_03_26_file/_search/?size=${size}`;
     const aggs: {[index: string]: any} = {
       'species': 'species.text',
       'assay_type': 'experiment.assayType',
@@ -154,7 +154,7 @@ export class ApiDataService {
     const params = new HttpParams().set('_source', query['_source'].toString()).set('sort', sortParams).set('filters',
       JSON.stringify(filters)).set('columns', JSON.stringify(query['columns'])).set('file_format', query['file_format']);
     const fullURL = `${url}?${params.toString()}`;
-    return this.http.get(fullURL, {responseType: 'blob' as 'blob'}).pipe(
+    return this.http.get(fullURL, {responseType: 'blob' as const}).pipe(
       map((data: any) => {
         return data;
       }),
@@ -170,7 +170,7 @@ export class ApiDataService {
       .set('query', JSON.stringify(query))
       .set('query_name', JSON.stringify(queryName));
     const fullURL = `${url}?${params.toString()}`;
-    return this.http.get(fullURL, {responseType: 'blob' as 'blob'}).pipe(
+    return this.http.get(fullURL, {responseType: 'blob' as const}).pipe(
       map((data: any) => {
         return data;
       }),
@@ -181,7 +181,7 @@ export class ApiDataService {
   getAllFilesForProject(projectArr: string[], mode: string, sort: string, offset: number, search: string) {
     const res: {[index: string]: any} = {};
     if (mode === 'private') {
-      const url = `${this.hostSetting.host}private_portal/file/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/2026_03_26_file/?size=10&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data['hits']['hits'].map( (entry: {[index: string]: any}) => ({
@@ -207,7 +207,7 @@ export class ApiDataService {
       );
     } else {
       const project_filter = JSON.stringify({secondaryProject: projectArr});
-      const url = `${this.hostSetting.host}data/file/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/2026_03_26_file/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data['hits']['hits'].map((entry: {[index: string]: any}) => ({
@@ -237,7 +237,7 @@ export class ApiDataService {
   getAllDatasetsForProject(projectArr: string[], mode: string, sort: string, offset: number, search: string) {
     const res: {[index: string]: any} = {};
     if (mode === 'private') {
-      const url = `${this.hostSetting.host}private_portal/dataset/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/2026_03_26_dataset/?size=10&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data['hits']['hits'].map((entry: {[index: string]: any}) => ({
@@ -261,7 +261,7 @@ export class ApiDataService {
       );
     } else {
       const project_filter = JSON.stringify({secondaryProject: projectArr});
-      let url = `${this.hostSetting.host}data/dataset/_search/?size=10&filters=${project_filter}&from_=${offset}&search=${search}`;
+      let url = `${this.hostSetting.host}data/2026_03_26_dataset/_search/?size=10&filters=${project_filter}&from_=${offset}&search=${encodeURIComponent(search)}`;
       const sort_field = sort.split(':')[0];
       if ( sort_field === 'experiment' || sort_field === 'specimen' || sort_field === 'file') {
         url = url + '&sort_by_count=' + sort;
@@ -294,9 +294,9 @@ export class ApiDataService {
   }
 
   getFile(fileId: string, mode: string) {
-    let url = `${this.hostSetting.host}data/file/${fileId}`;
+    let url = `${this.hostSetting.host}data/2026_03_26_file/${encodeURIComponent(fileId)}`;
     if (mode === 'private') {
-      url = 'https://api.faang.org/private_portal/file/' + fileId;
+      url = 'https://api.faang.org/private_portal/2026_03_26_file/' + fileId;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -312,9 +312,9 @@ export class ApiDataService {
     const run_filter = JSON.stringify({
       'run.accession': [runId]
     });
-    let url = `${this.hostSetting.host}data/file/_search/?filters=${run_filter}&size=10&sort=${sort}&from_=${offset}&search=${search}`;
+    let url = `${this.hostSetting.host}data/2026_03_26_file/_search/?filters=${run_filter}&size=10&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
     if (mode === 'private') {
-      url = `https://api.faang.org/private_portal/file/${runId}`;
+      url = `https://api.faang.org/private_portal/2026_03_26_file/${runId}`;
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -333,7 +333,7 @@ export class ApiDataService {
   }
 
   getExperimentByAccession(experimentId: string) {
-    const url = `${this.hostSetting.host}data/experiment/${experimentId}`;
+    const url = `${this.hostSetting.host}data/2026_03_26_experiment/${encodeURIComponent(experimentId)}`;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -379,7 +379,7 @@ export class ApiDataService {
   }
 
   getOntologyById(ontologyId: any, ontologies_type: any) {
-    const url = `${this.hostSetting.host}data/${ontologies_type}/${ontologyId}`;
+    const url = `${this.hostSetting.host}data/${ontologies_type}/${encodeURIComponent(ontologyId)}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data['hits']['hits'][0]['_source'];
@@ -390,7 +390,7 @@ export class ApiDataService {
   }
 
   getAllOrganisms(query: any, size: number) {
-    const url = `${this.hostSetting.host}data/organism/_search/?size=${size}`;
+    const url = `${this.hostSetting.host}data/2026_03_26_organism/_search/?size=${size}`;
     const aggs: {[index: string]: any} = {
       'sex': 'sex.text',
       'organism': 'organism.text',
@@ -428,9 +428,9 @@ export class ApiDataService {
       map((data: any) => {
         res['data'] = data['hits']['hits'].map((entry: {[index: string]: any}) => ({
           bioSampleId: entry['_source']['biosampleId'],
-          sex: entry['_source']['sex']['text'],
-          organism: entry['_source']['organism']['text'],
-          breed: entry['_source']['breed']['text'],
+          sex: entry['_source']['sex']?.['text'] ?? entry['_source']['sex'],
+          organism: entry['_source']['organism']?.['text'] ?? entry['_source']['organism'],
+          breed: entry['_source']['breed']?.['text'] ?? entry['_source']['breed'],
           standard: entry['_source']['standardMet'],
           idNumber: entry['_source']['id_number'],
           paperPublished: entry['_source']['paperPublished'],
@@ -448,7 +448,7 @@ export class ApiDataService {
   getAllOrganismsFromProject(projectArr: string[], mode: string, sort: string, offset: number, search: string) {
     const res: {[index: string]: any} = {};
     if (mode === 'private') {
-      const url = `${this.hostSetting.host}private_portal/organism/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/2026_03_26_organism/?size=10&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data['hits']['hits'].map((entry: {[index: string]: any}) => ({
@@ -466,7 +466,7 @@ export class ApiDataService {
       );
     } else {
       const project_filter = JSON.stringify({secondaryProject: projectArr});
-      const url = `${this.hostSetting.host}data/organism/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/2026_03_26_organism/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data['hits']['hits'].map((entry: {[index: string]: any}) => ({
@@ -497,9 +497,9 @@ export class ApiDataService {
   }
 
   getOrganism(biosampleId: string, mode: string) {
-    let url = `${this.hostSetting.host}data/organism/${biosampleId}`;
+    let url = `${this.hostSetting.host}data/2026_03_26_organism/${encodeURIComponent(biosampleId)}`;
     if (mode === 'private') {
-      url = `https://api.faang.org/private_portal/organism/${biosampleId}/`;
+      url = `https://api.faang.org/private_portal/2026_03_26_organism/${encodeURIComponent(biosampleId)}/`;
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -513,7 +513,7 @@ export class ApiDataService {
 
   getOrganismsSpecimens(biosampleId: any, sort: string, offset: number, mode: string, search: string) {
     if (mode === 'private') {
-      const url = `${this.hostSetting.host}private_portal/specimen/?q=organism.biosampleId:${biosampleId}&size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/2026_03_26_specimen/?q=organism.biosampleId:${encodeURIComponent(biosampleId)}&size=10&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -522,7 +522,7 @@ export class ApiDataService {
       const organism_filter = JSON.stringify({
         'organism.biosampleId': [biosampleId]
       });
-      const url = `${this.hostSetting.host}data/specimen/_search/?filters=${organism_filter}&sort=${sort}&size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/2026_03_26_specimen/_search/?filters=${organism_filter}&sort=${sort}&size=10&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get<any>(url).pipe(
         retry(3),
         catchError(this.handleError),
@@ -533,7 +533,7 @@ export class ApiDataService {
   getAllSpecimensForProject(projectArr: string[], mode: string, sort: string, offset: number, search: string) {
     const res: {[index: string]: any} = {};
     if (mode === 'private') {
-      const url = `${this.hostSetting.host}private_portal/specimen/?size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/2026_03_26_specimen/?size=10&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data['hits']['hits'].map((entry: {[index: string]: any}) => ({
@@ -553,7 +553,7 @@ export class ApiDataService {
       );
     } else {
       const project_filter = JSON.stringify({secondaryProject: projectArr});
-      const url = `${this.hostSetting.host}data/specimen/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/2026_03_26_specimen/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get(url).pipe(
         map((data: any) => {
           res['data'] = data['hits']['hits'].map((entry: {[index: string]: any}) => ({
@@ -579,7 +579,7 @@ export class ApiDataService {
   getAllProtocolSamplesForProject(projectArr: string[], mode: string, sort: string, offset: number, search: string) {
     const res: {[index: string]: any} = {};
     const project_filter = JSON.stringify({secondaryProject: projectArr});
-    const url = `${this.hostSetting.host}data/protocol_samples/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+    const url = `${this.hostSetting.host}data/protocol_samples/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
 
     return this.http.get(url).pipe(
       map((data: any) => {
@@ -602,7 +602,7 @@ export class ApiDataService {
   getAllProtocolFilesForProject(projectArr: string[], mode: string, sort: string, offset: number, search: string) {
     const res: {[index: string]: any} = {};
     const project_filter = JSON.stringify({secondaryProject: projectArr});
-    const url = `${this.hostSetting.host}data/protocol_files/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+    const url = `${this.hostSetting.host}data/protocol_files/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         res['data'] = data['hits']['hits'].map((entry: {[index: string]: any}) => ({
@@ -624,7 +624,7 @@ export class ApiDataService {
   getAllProtocolAnalysisForProject(projectArr: string[], mode: string, sort: string, offset: number, search: string) {
     const res: {[index: string]: any} = {};
     const project_filter = JSON.stringify({secondaryProject: projectArr});
-    const url = `${this.hostSetting.host}data/protocol_analysis/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+    const url = `${this.hostSetting.host}data/protocol_analysis/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         res['data'] = data['hits']['hits'].map((entry: {[index: string]: any}) => ({
@@ -644,7 +644,7 @@ export class ApiDataService {
   }
 
   getAllSpecimens(query: any, size: number) {
-    const url = `${this.hostSetting.host}data/specimen/_search/?size=${size}`;
+    const url = `${this.hostSetting.host}data/2026_03_26_specimen/_search/?size=${size}`;
     const aggs: {[index: string]: any} = {
       'standard': 'standardMet',
       'sex': 'organism.sex.text',
@@ -688,9 +688,9 @@ export class ApiDataService {
           bioSampleId: entry['_source']['biosampleId'],
           material: this.checkField(entry['_source']['material']),
           organismpart_celltype: this.checkField(entry['_source']['cellType']),
-          sex: this.checkField(entry['_source']['organism']['sex']),
-          organism: this.checkField(entry['_source']['organism']['organism']),
-          breed: this.checkField(entry['_source']['organism']['breed']),
+          sex: this.checkField(entry['_source']['organism']?.['sex']),
+          organism: this.checkField(entry['_source']['organism']?.['organism']),
+          breed: this.checkField(entry['_source']['organism']?.['breed']),
           standard: entry['_source']['standardMet'],
           idNumber: entry['_source']['id_number'],
           paperPublished: entry['_source']['paperPublished'],
@@ -716,9 +716,9 @@ export class ApiDataService {
   }
 
   getSpecimen(biosampleId: string, mode: string) {
-    let url = `${this.hostSetting.host}data/specimen/${biosampleId}`;
+    let url = `${this.hostSetting.host}data/2026_03_26_specimen/${encodeURIComponent(biosampleId)}`;
     if (mode === 'private') {
-      url = `https://api.faang.org/private_portal/specimen/${biosampleId}`;
+      url = `https://api.faang.org/private_portal/2026_03_26_specimen/${encodeURIComponent(biosampleId)}`;
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -734,7 +734,7 @@ export class ApiDataService {
     const specimen_filter = JSON.stringify({
       specimen: [biosampleId]
     });
-    const url = `${this.hostSetting.host}data/file/_search/?filters=${specimen_filter}&size=10&sort=${sort}&from_=${offset}&search=${search}`;
+    const url = `${this.hostSetting.host}data/2026_03_26_file/_search/?filters=${specimen_filter}&size=10&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
     const res: {[index: string]: any} = {};
     return this.http.get<any>(url).pipe(
       map((data: any) => {
@@ -751,7 +751,7 @@ export class ApiDataService {
     const specimen_filter = JSON.stringify({
       allDeriveFromSpecimens: [biosampleId]
     });
-    const url = `${this.hostSetting.host}data/specimen/_search/?filters=${specimen_filter}&size=10&sort=${sort}&from_=${offset}&search=${search}`;
+    const url = `${this.hostSetting.host}data/2026_03_26_specimen/_search/?filters=${specimen_filter}&size=10&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
     const res: {[index: string]: any} = {};
     return this.http.get<any>(url).pipe(
       map((data: any) => {
@@ -765,7 +765,7 @@ export class ApiDataService {
   }
 
   getAllDatasets(query: any, size: number) {
-    const url = `${this.hostSetting.host}data/dataset/_search/?size=${size}`;
+    const url = `${this.hostSetting.host}data/2026_03_26_dataset/_search/?size=${size}`;
     const aggs: {[index: string]: any} = {
       'archive': 'archive',
       'species': 'species.text',
@@ -842,9 +842,9 @@ export class ApiDataService {
   }
 
   getDataset(accession: string, mode: string) {
-    let url = `${this.hostSetting.host}data/dataset/${accession}`;
+    let url = `${this.hostSetting.host}data/2026_03_26_dataset/${encodeURIComponent(accession)}`;
     if (mode === 'private') {
-      url = `https://api.faang.org/private_portal/dataset/${accession}`;
+      url = `https://api.faang.org/private_portal/2026_03_26_dataset/${encodeURIComponent(accession)}`;
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -916,7 +916,7 @@ export class ApiDataService {
     const specimen_filter = JSON.stringify({
       sampleAccessions: [sampleId]
     });
-    const url = `${this.hostSetting.host}data/analysis/_search/?filters=${specimen_filter}&size=10&sort=${sort}&from_=${offset}&search=${search}`;
+    const url = `${this.hostSetting.host}data/analysis/_search/?filters=${specimen_filter}&size=10&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
     const res: {[index: string]: any} = {};
     return this.http.get<any>(url).pipe(
       map((data: any) => {
@@ -933,7 +933,7 @@ export class ApiDataService {
   getAnalysesByDataset(accession: any, sort: string, offset: number, mode: string, search: string) {
     const res: {[index: string]: any} = {};
     if (mode === 'private') {
-      const url = `${this.hostSetting.host}private_portal/analysis/?q=datasetAccession:${accession}&size=10&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}private_portal/analysis/?q=datasetAccession:${encodeURIComponent(accession)}&size=10&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         map((data: any) => {
           res['data'] = data['hits']['hits'];
@@ -947,7 +947,7 @@ export class ApiDataService {
       const dataset_filter = JSON.stringify({
         datasetAccession: [accession]
       });
-      const url = `${this.hostSetting.host}data/analysis/_search/?filters=${dataset_filter}&size=10&sort=${sort}&from_=${offset}&search=${search}`;
+      const url = `${this.hostSetting.host}data/analysis/_search/?filters=${dataset_filter}&size=10&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
       return this.http.get<any>(url).pipe(
         map((data: any) => {
           res['data'] = data['hits']['hits'];
@@ -961,9 +961,9 @@ export class ApiDataService {
   }
 
   getAnalysis(accession: string, mode: string) {
-    let url = `${this.hostSetting.host}data/analysis/${accession}`;
+    let url = `${this.hostSetting.host}data/analysis/${encodeURIComponent(accession)}`;
     if (mode === 'private') {
-      url = `https://api.faang.org/private_portal/analysis/${accession}`;
+      url = `https://api.faang.org/private_portal/analysis/${encodeURIComponent(accession)}`;
       return this.http.get<any>(url, {headers: new HttpHeaders({'Authorization': `jwt ${this._userService.token}`})}).pipe(
         retry(3),
         catchError(this.handleError),
@@ -977,7 +977,7 @@ export class ApiDataService {
 
   getAllArticlesForProject(projectArr: string[], sort: string, offset: number, search: string) {
     const project_filter = JSON.stringify({secondaryProject: projectArr});
-    const url = `${this.hostSetting.host}data/article/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${search}`;
+    const url = `${this.hostSetting.host}data/article/_search/?size=10&filters=${project_filter}&sort=${sort}&from_=${offset}&search=${encodeURIComponent(search)}`;
     const res: {[index: string]: any} = {};
     return this.http.get(url).pipe(
       map((data: any) => {
@@ -1082,7 +1082,7 @@ export class ApiDataService {
   }
 
   getArticle(id: string) {
-    const url = `${this.hostSetting.host}data/article/${id}`;
+    const url = `${this.hostSetting.host}data/article/${encodeURIComponent(id)}`;
     return this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError),
@@ -1265,7 +1265,7 @@ export class ApiDataService {
   }
 
   getOrganismSummary(id: string) {
-    const url = `${this.hostSetting.host}data/summary_organism/${id}`;
+    const url = `${this.hostSetting.host}data/summary_organism/${encodeURIComponent(id)}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -1276,7 +1276,7 @@ export class ApiDataService {
   }
 
   getSpecimenSummary(id: string) {
-    const url = `${this.hostSetting.host}data/summary_specimen/${id}`;
+    const url = `${this.hostSetting.host}data/summary_specimen/${encodeURIComponent(id)}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -1287,7 +1287,7 @@ export class ApiDataService {
   }
 
   getDatasetSummary(id: string) {
-    const url = `${this.hostSetting.host}data/summary_dataset/${id}`;
+    const url = `${this.hostSetting.host}data/summary_dataset/${encodeURIComponent(id)}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -1298,7 +1298,7 @@ export class ApiDataService {
   }
 
   getFileSummary(id: string) {
-    const url = `${this.hostSetting.host}data/summary_file/${id}`;
+    const url = `${this.hostSetting.host}data/summary_file/${encodeURIComponent(id)}`;
     return this.http.get(url).pipe(
       map((data: any) => {
         return data;
@@ -1402,20 +1402,6 @@ export class ApiDataService {
       catchError(this.handleError),
     );
   }
-
-  subscribeUser(indexName: any, indexKey: any, subscriberEmail: any, filters: any) {
-    const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
-    const params = new HttpParams().set('filters', JSON.stringify(filters));
-    return this.http.get(url, {params: params});
-  }
-
-  subscribeFilteredData(indexName: any, indexKey: any, subscriberEmail: any) {
-    const filters = this.apiFiltersService.get_current_api_filters();
-    const url = `${this.hostSetting.host}submission/submission_subscribe_faang/${indexName}/${indexKey}/${subscriberEmail}`;
-    const params = new HttpParams().set('filters', JSON.stringify(filters));
-    return this.http.get(url, {params: params});
-  }
-
 
   private handleError(error: HttpErrorResponse) {
     if (typeof ErrorEvent !== 'undefined' && error.error instanceof ErrorEvent) {

@@ -28,13 +28,6 @@
             Failed to load active filters!
           }
           <button mat-raised-button (click)="removeFilter()">Remove all filters</button>
-          <button mat-raised-button
-                  matTooltip="Subscribe to selected Protocol Analysis entries"
-                  (click)="openSubscriptionDialog()">
-            <div class="subscription-icon">
-              <mat-icon>email</mat-icon>
-            </div>
-          </button>
           <hr>
         </div>
       }
@@ -73,7 +66,7 @@
 </div>
 
 <ng-template #nameTemplate let-item>
-  <a style="cursor: pointer" target="_blank" [routerLink]="encodeDot(item['key'])">{{item['protocol_name']}}</a>
+  <a style="cursor: pointer" target="_blank" [href]="detailUrl(item['key'])">{{item['protocol_name']}}</a>
 
 </ng-template>
 

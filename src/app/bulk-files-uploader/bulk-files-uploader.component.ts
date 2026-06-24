@@ -3,10 +3,10 @@ import {firstValueFrom, Observable} from 'rxjs';
 import { HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import { makeid } from '../shared/common_functions';
 import { validation_ws_url } from '../shared/constants';
-import { ExtendedModule } from '@angular/flex-layout/extended';
+import { ExtendedModule } from '@ngbracket/ngx-layout/extended';
 import { NgClass } from '@angular/common';
 import { MatButton } from '@angular/material/button';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 
 @Component({
   selector: 'app-bulk-files-uploader',

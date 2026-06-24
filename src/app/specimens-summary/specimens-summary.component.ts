@@ -11,7 +11,7 @@ import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatButton } from '@angular/material/button';
 import { NgChartsModule } from 'ng2-charts';
 import { MatCard } from '@angular/material/card';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 import {ActiveFilterComponent} from "../shared/active-filter/active-filter.component";
 

@@ -57,7 +57,7 @@
       <!-- Validate ontologies (Only for Authenticated Users) -->
       @if (token) {
         <!--Page 2.1 - Input terms-->
-        @if (mode == 'input' || mode == 'validate') {
+        @if (mode === 'input' || mode === 'validate') {
           <div style="margin-bottom: 40px;">
             <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 30px; margin-bottom: 20px;">
               <h2>Check/Add missing terms</h2>
@@ -69,7 +69,7 @@
           </div>
         }
         <!--Page 2.2 - Display existing terms-->
-        @if ((searchResults | json) != '{}' && mode == 'validate') {
+        @if ((searchResults | json) !== '{}' && mode === 'validate') {
           <div style="margin-bottom: 40px;">
             <h4>Existing terms</h4>
             @if (searchResults.found?.length) {
@@ -89,7 +89,7 @@
           </div>
         }
         <!--Page 2.3 - Display Ontology Matches for new terms-->
-        @if ((ontologyMatches | json) != '{}' && mode == 'validate') {
+        @if ((ontologyMatches | json) !== '{}' && mode === 'validate') {
           <div style="margin-bottom: 40px;">
             <h4>Ontology Matches for new terms</h4>
             <p>Select the best match for each your ontology terms</p>
@@ -108,7 +108,7 @@
                   @if (getArrLength(item['value'])) {
                     <table mat-table [dataSource]="getItemValueArray(item)" table-striped style="width: 100%">
                       @for (col of ontologyMatchColsToDisplay; track col; let i = $index) {
-                        @if (col == 'source') {
+                        @if (col === 'source') {
                           <ng-container [matColumnDef]=col>
                             <th mat-header-cell class="table-header"
                                 *matHeaderCellDef> {{ ontologyMatchTableHeaders[i] }}
@@ -130,7 +130,7 @@
                             </td>
                           </ng-container>
                         }
-                        @if (col != 'source') {
+                        @if (col !== 'source') {
                           <ng-container [matColumnDef]=col>
                             <th mat-header-cell class="table-header"
                                 *matHeaderCellDef> {{ ontologyMatchTableHeaders[i] }}
@@ -193,7 +193,7 @@ Dialog box templates
       <h3><p>Login</p></h3>
       <mat-form-field appearance="fill" style="width: 100%">
         <mat-label>Enter your username</mat-label>
-        <input matInput [(ngModel)]="username" autofocus>
+        <input matInput [(ngModel)]="username">
       </mat-form-field>
       <br>
       <mat-form-field appearance="fill" style="width: 100%">
@@ -227,7 +227,7 @@ Dialog box templates
       <form [formGroup]="regForm" novalidate>
         <!-- Username -->
         <div fxLayout="row">
-          <div fxFlex="100" class="form-group">
+          <div fxFlex="100" class="mb-3">
             <label>Username</label>
             <input class="form-control" formControlName="username" type="text" required>
           </div>
@@ -245,12 +245,12 @@ Dialog box templates
         <!-- Name -->
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%" fxLayoutAlign="space-between">
           <!-- First Name -->
-          <div fxFlex="48" class="form-group">
+          <div fxFlex="48" class="mb-3">
             <label>First Name</label>
             <input class="form-control" formControlName="first_name" type="text" required>
           </div>
           <!-- Last Name -->
-          <div fxFlex="48" class="form-group">
+          <div fxFlex="48" class="mb-3">
             <label>Last Name</label>
             <input class="form-control" formControlName="last_name" type="text">
           </div>
@@ -267,7 +267,7 @@ Dialog box templates
         }
         <!-- Email -->
         <div fxLayout="row">
-          <div fxFlex="100" class="form-group">
+          <div fxFlex="100" class="mb-3">
             <label>Email</label>
             <input class="form-control" formControlName="email" type="email" required>
           </div>
@@ -289,11 +289,11 @@ Dialog box templates
         }
         <!-- Passwords -->
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%" fxLayoutAlign="space-between">
-          <div fxFlex="48" class="form-group">
+          <div fxFlex="48" class="mb-3">
             <label>Password</label>
             <input class="form-control" formControlName="password" type="password" required>
           </div>
-          <div fxFlex="48" class="form-group">
+          <div fxFlex="48" class="mb-3">
             <label>Confirm Password</label>
             <input class="form-control" formControlName="confirmPwd" type="password" required>
           </div>
@@ -325,7 +325,7 @@ Dialog box templates
         }
         <!-- Organisation -->
         <div fxLayout="row">
-          <div fxFlex="100" class="form-group">
+          <div fxFlex="100" class="mb-3">
             <label>Organisation</label>
             <input class="form-control" formControlName="organisation" type="text" required>
           </div>
@@ -381,13 +381,13 @@ Dialog box templates
         <button mat-raised-button color="warn" (click)="closeModal()"
                 style="float:right; margin: 10px;">Cancel
         </button>
-        @if (data.status == 'Verified') {
+        @if (data.status === 'Verified') {
           <button mat-raised-button color="primary"
                   (click)="validateOntology(data.ontology, data.project, data.status)"
                   style="float:right; margin: 10px;" cdkFocusInitial>Submit
           </button>
         }
-        @if (data.status == 'Needs Improvement') {
+        @if (data.status === 'Needs Improvement') {
           <button mat-raised-button color="primary"
                   (click)="validateOntology(data.ontology, data.project, data.status)"
                   style="float:right; margin: 10px;" cdkFocusInitial>Next

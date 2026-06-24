@@ -7,15 +7,13 @@ import {Title} from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
-import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatButton } from '@angular/material/button';
 import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
 import { FilterComponent } from '../shared/filter/filter.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
@@ -33,16 +31,14 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   @ViewChild('assayTemplate', { static: true }) assayTemplate!: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
   public loadTableDataFunction!: Function;
-  columnNames: string[] = ['Protocol type', 'Experiment target', 'Assay type', 'Subscribe'];
-  displayFields: string[] = ['protocol_type', 'experiment_target', 'assay_type', 'subscribe'];
+  columnNames: string[] = ['Protocol type', 'Experiment target', 'Assay type'];
+  displayFields: string[] = ['protocol_type', 'experiment_target', 'assay_type'];
   templates: { [index: string]: any } = {};
   filter_field: any;
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle = '';
-  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   indexDetails: { [index: string]: any } = {};
 
@@ -76,7 +72,6 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
-              private dialogModel: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) { }
@@ -157,17 +152,6 @@ export class ProtocolExperimentComponent implements OnInit, OnDestroy {
     } else if (tab.index === 2) {
       void this.router.navigate(['protocol/analysis']);
     }
-  }
-
-  openSubscriptionDialog() {
-    // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Protocol Experiment entries';
-    this.subscriber.indexName = this.indexDetails['index'];
-    this.subscriber.indexKey = this.indexDetails['indexKey'];
-    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
-      height: '300px', width: '400px',
-      data: this.subscriber
-    });
   }
 
   ngOnDestroy() {

@@ -8,7 +8,7 @@ import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import {Router} from '@angular/router';
 import { NgChartsModule } from 'ng2-charts';
 import { MatCard } from '@angular/material/card';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 import {ActiveFilterComponent} from "../shared/active-filter/active-filter.component";
 

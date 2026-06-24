@@ -3,7 +3,7 @@ import { validation_service_url } from '../shared/constants';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BulkFilesUploaderComponent } from '../bulk-files-uploader/bulk-files-uploader.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({

@@ -13,7 +13,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "allowedCommonJsDependencies": ["igv", "file-saver"],
+            "allowedCommonJsDependencies": [
+              "igv",
+              "file-saver"
+            ],
             "outputPath": "dist/dcc-portal-frontend-ssr",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -69,7 +72,9 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "ssr": false,
+              "prerender": false
             },
             "cypress_development": {
               "optimization": false,
@@ -95,7 +100,7 @@
               "port": 4201
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -121,8 +126,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false,
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

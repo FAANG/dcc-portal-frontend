@@ -3,9 +3,9 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { ExtendedModule } from '@angular/flex-layout/extended';
+import { ExtendedModule } from '@ngbracket/ngx-layout/extended';
 import { MatButton } from '@angular/material/button';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({

@@ -3,22 +3,22 @@
     <h6 class="filter-header item">
       {{title}}
       @if (aggregation.length > filterSize && isCollapsed) {
-        <i class="material-icons float-right" (click)="toggleCollapse()">add</i>
+        <i class="material-icons float-end" (click)="toggleCollapse()">add</i>
       }
       @if (aggregation.length > filterSize && !isCollapsed) {
-        <i class="material-icons float-right" (click)="toggleCollapse()">remove</i>
+        <i class="material-icons float-end" (click)="toggleCollapse()">remove</i>
       }
     </h6>
     @if (title !== 'Protocol' && title !== 'Experiment target' && title !== 'Analysis type') {
       <div [ngClass]="{'long-list': itemLimit > filterSize}"
         >
         @for (aggr of aggregation; track aggr; let i = $index) {
-          @if (i<itemLimit && aggr[0] != '') {
+          @if (i<itemLimit && aggr[0] !== '') {
             <div class="d-flex justify-content-between align-items-center item"
               [ngClass]="{'active': aggregationService.current_active_filters && aggregationService.current_active_filters.indexOf(aggr[0])>-1}"
               (click)="onButtonClick(aggr[0], title)">
               {{aggr[0]}}
-              <span class="badge badge-secondary badge-pill">{{aggr[1]}}</span>
+              <span class="badge badge-secondary rounded-pill">{{aggr[1]}}</span>
             </div>
           }
         }
@@ -27,12 +27,12 @@
     @if (title === 'Protocol') {
       <div [ngClass]="{'long-list': itemLimit > filterSize}">
         @for (aggr of aggregation; track aggr; let i = $index) {
-          @if (i<itemLimit && aggr[0] != '') {
+          @if (i<itemLimit && aggr[0] !== '') {
             <div class="d-flex justify-content-between align-items-center item"
               [ngClass]="{'active': aggregationService.current_active_filters && aggregationService.current_active_filters.indexOf(getReverseHumanName(aggr[0]))>-1}"
               (click)="onButtonClick(aggr[0], title)">
               {{aggr[0]}}
-              <span class="badge badge-secondary badge-pill">{{aggr[1]}}</span>
+              <span class="badge badge-secondary rounded-pill">{{aggr[1]}}</span>
             </div>
           }
         }
@@ -41,12 +41,12 @@
     @if (title === 'Experiment target' || title === 'Analysis type') {
       <div [ngClass]="{'long-list': itemLimit > filterSize}">
         @for (aggr of aggregation; track aggr; let i = $index) {
-          @if (i<itemLimit && aggr[0] != '') {
+          @if (i<itemLimit && aggr[0] !== '') {
             <div class="d-flex justify-content-between align-items-center item"
               [ngClass]="{'active': aggregationService.current_active_filters && aggregationService.current_active_filters.indexOf(aggr[0].split(' ').join('_'))>-1}"
               (click)="onButtonClick(aggr[0], title)">
               {{aggr[0]}}
-              <span class="badge badge-secondary badge-pill">{{aggr[1]}}</span>
+              <span class="badge badge-secondary rounded-pill">{{aggr[1]}}</span>
             </div>
           }
         }

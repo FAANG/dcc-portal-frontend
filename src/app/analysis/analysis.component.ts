@@ -6,15 +6,13 @@ import {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import {TableServerSideComponent} from '../shared/table-server-side/table-server-side.component';
-import { SubscriptionDialogComponent } from '../shared/subscription-dialog/subscription-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatButton } from '@angular/material/button';
 import { ActiveFilterComponent } from '../shared/active-filter/active-filter.component';
 import { FilterComponent } from '../shared/filter/filter.component';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
@@ -30,16 +28,14 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   @ViewChild('assayTypeTemplate', { static: true }) assayTypeTemplate!: TemplateRef<any>;
   @ViewChild(TableServerSideComponent, { static: true }) tableServerComponent!: TableServerSideComponent;
   public loadTableDataFunction!: Function;
-  columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard', 'Subscribe'];
-  displayFields: string[] = ['accession', 'datasetAccession', 'title', 'species', 'assayType', 'analysisType', 'standard', 'subscribe'];
+  columnNames: string[] = ['Analysis accession', 'Dataset', 'Title', 'Species', 'Assay type', 'Analysis type', 'Standard'];
+  displayFields: string[] = ['accession', 'datasetAccession', 'title', 'species', 'assayType', 'analysisType', 'standard'];
   filter_field: any;
   templates: { [index: string]: any } = {};
   aggrSubscription!: Subscription;
   downloadData = false;
   downloading = false;
   data = {};
-  subscriptionDialogTitle = '';
-  subscriber = { email: '', title: '', indexName: '', indexKey: ''};
   dialogRef: any;
   indexDetails: { [index: string]: any } = {};
 
@@ -67,7 +63,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       '_source.analysisType',
       '_source.standardMet',
       '_source.submitterEmail'],
-    'columns': [...this.columnNames.slice(0, -1), 'Submitter Email'], //remove 'Subscribe' from array and add 'Submitter Email'
+    'columns': [...this.columnNames, 'Submitter Email'], //add 'Submitter Email' column for download
     'filters': {},
     'file_format': 'csv',
   };
@@ -79,7 +75,6 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   constructor(private dataService: ApiDataService,
               private filterStateService: FilterStateService,
               private activatedRoute: ActivatedRoute,
-              private dialogModel: MatDialog,
               private router: Router,
               private aggregationService: AggregationService,
               private titleService: Title) { }
@@ -153,17 +148,6 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       },
       complete: () => {
       }
-    });
-  }
-
-  openSubscriptionDialog() {
-    // Opening the dialog component
-    this.subscriber.title = 'Subscribing to filtered Analysis entries';
-    this.subscriber.indexName = this.indexDetails['index'];
-    this.subscriber.indexKey = this.indexDetails['indexKey'];
-    const subscriptionDialog = this.dialogModel.open(SubscriptionDialogComponent, {
-      height: '300px', width: '400px',
-      data: this.subscriber
     });
   }
 

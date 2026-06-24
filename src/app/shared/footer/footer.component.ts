@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-footer',

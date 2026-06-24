@@ -32,7 +32,7 @@ export class GlobalSearchComponent implements OnInit {
   constructor(
     private dataService: ApiDataService, private router: Router, private route: ActivatedRoute,
     private titleService: Title,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }

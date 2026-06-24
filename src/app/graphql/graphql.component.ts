@@ -18,7 +18,7 @@ import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { FlexModule } from '@ngbracket/ngx-layout/flex';
 import { MatToolbar } from '@angular/material/toolbar';
 import { HeaderComponent } from '../shared/header/header.component';
 import { GraphQLModule } from '../graphql.module';
@@ -99,7 +99,7 @@ export class GraphqlComponent implements OnInit, OnDestroy  {
   }
 
 
-  fetchJoinedResult(mainButtonClick: Boolean) {
+  fetchJoinedResult(mainButtonClick: boolean) {
     this.searchSuccess = false;
     // get filters
     const filtersObj = this.filtersComponent.getFormValues();
