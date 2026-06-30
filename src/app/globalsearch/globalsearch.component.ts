@@ -19,6 +19,18 @@ import { HeaderComponent } from '../shared/header/header.component';
     NgPluralCase, KeyValuePipe]
 })
 export class GlobalSearchComponent implements OnInit {
+  // Elasticsearch index names returned by the _gsearch endpoint can be timestamped, e.g. `2026_03_26_organism`.
+  private static readonly INDEX_DATE_PREFIX = /^\d{4}_\d{2}_\d{2}_/;
+  // Default sort applied by each entity list page — mirrored here so global search links land already sorted.
+  private static readonly DEFAULT_SORTS: {[index: string]: [string, string]} = {
+    organism: ['id_number', 'desc'],
+    specimen: ['id_number', 'desc'],
+    dataset: ['accession', 'desc'],
+    file: ['fileName', 'desc'],
+    analysis: ['accession', 'desc'],
+    article: ['pmcId', 'asc'],
+  };
+
   @Input() query: {[index: string]: any} = {};
   searchText = '';
   jsonData: { [key: string]: { totalHits: number, searchTerms: [] } } = {};
@@ -68,7 +80,7 @@ export class GlobalSearchComponent implements OnInit {
         this.showSpinner = true;
         this.dataService.getGSearchData(this.searchText).subscribe(json_data => {
           this.showSpinner = false;
-          this.jsonData = json_data;
+          this.jsonData = this.normalizeResultKeys(json_data);
           this.showResults = true;
         });
       }, time);
@@ -81,6 +93,18 @@ export class GlobalSearchComponent implements OnInit {
       queryParams: { searchText: this.searchText },
       queryParamsHandling: 'merge',
     });
+  }
+
+  static normalizeIndexKey(key: string): string {
+    return key.replace(GlobalSearchComponent.INDEX_DATE_PREFIX, '');
+  }
+
+  private normalizeResultKeys(json_data: { [key: string]: { totalHits: number, searchTerms: [] } }) {
+    const normalized: { [key: string]: { totalHits: number, searchTerms: [] } } = {};
+    for (const [key, value] of Object.entries(json_data)) {
+      normalized[GlobalSearchComponent.normalizeIndexKey(key)] = value;
+    }
+    return normalized;
   }
 
   isJsonDataEmpty(): boolean {
@@ -100,14 +124,18 @@ export class GlobalSearchComponent implements OnInit {
   }
 
   navigateToItem(itemKey: string, searchTerm?: string | null): void {
-    if (itemKey && this.searchText) {
-      void this.router.navigate(
-        [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm: this.searchText }});
+    const term = searchTerm || this.searchText;
+    if (!itemKey || !term) {
+      return;
     }
-    if (itemKey && searchTerm) {
-      void this.router.navigate(
-        [`/${itemKey}`], { relativeTo: this.route, queryParams: { searchTerm: searchTerm }});
+    const route = GlobalSearchComponent.normalizeIndexKey(itemKey);
+    const queryParams: {[index: string]: string} = { searchTerm: term };
+    const sort = GlobalSearchComponent.DEFAULT_SORTS[route];
+    if (sort) {
+      queryParams['sortTerm'] = sort[0];
+      queryParams['sortDirection'] = sort[1];
     }
+    void this.router.navigate([`/${route}`], { relativeTo: this.route, queryParams });
   }
 
 
