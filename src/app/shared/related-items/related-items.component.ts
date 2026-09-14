@@ -301,6 +301,8 @@ export class RelatedItemsComponent implements OnInit {
             rowObj[field] = rowObj[field][prop[0]];
             prop.shift();
           }
+          if (rowObj[field]?.constructor === Object && Object.keys(rowObj[field]).length === 0) rowObj[field] = '';
+
           if (this.download_key.length > 0) {
             const dKey = this.download_key.split('.');
             rowObj['Download'] = records[index as keyof typeof records];
