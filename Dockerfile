@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular SSR application
-FROM node:20-bullseye AS build
+FROM node:20-bookworm AS build
 
 # Install Google Chrome for headless testing
 RUN apt-get update && apt-get install -y wget gnupg2
